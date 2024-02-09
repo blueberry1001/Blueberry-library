@@ -1,3 +1,5 @@
+//参考
+//https://qiita.com/gandalfr-KY/items/b0eed6727e873a313455
 #include<bits/stdc++.h>
 __int128_t __gcd(__int128_t a, __int128_t b) {
   if (a % b == 0)
