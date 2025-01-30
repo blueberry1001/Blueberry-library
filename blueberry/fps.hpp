@@ -1,5 +1,6 @@
 #include<atcoder/all>
 using namespace atcoder;
+using namespace std;
 #define drep2(i, m, n) for (int i = (m)-1; i >= (n); --i)
 #define drep(i, n) drep2(i, n, 0)
 template<class T>

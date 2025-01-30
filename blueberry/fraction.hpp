@@ -16,7 +16,7 @@ inline void simplify(__int128_t &num, __int128_t &den) {
   num /= (den >= 0 ? d : -d);
   den /= (den >= 0 ? d : -d);
 }
-
+using ll = long long;
 class fraction{
 	public:
 	ll num,den;
