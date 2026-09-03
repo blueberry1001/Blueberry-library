@@ -48,5 +48,4 @@ struct RollbackUnionFind {
 
 /**
  * @brief RollbackつきUnion Find
- * @docs docs/data-structure/rollback-union-find.md
  */
