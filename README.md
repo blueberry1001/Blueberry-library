@@ -31,6 +31,7 @@ dsu.merge(u, v);
 | String | Z Algorithm |
 
 詳細な説明・計算量・検証コードは[ドキュメント](https://blueberry1001.github.io/Blueberry-library/)に掲載します。
+ACLとの役割分担や実装・採用基準は[実装方針](IMPLEMENTATION_POLICY.md)にまとめています。
 
 ## ローカルでの検証
 
@@ -43,9 +44,15 @@ make docs
 ```
 
 `make verify` は `verify/**/*.test.cpp` を検出し、指定されたLibrary Checkerの
-公式テストケースをダウンロードしてローカル実行します。これは
-`judge.yosupo.jp` へコードを実際に提出する方式ではありませんが、同じテストデータと
-checkerを用いてACかどうかを判定します。
+公式テストケースをダウンロードしてローカル実行します。verification-helperの標準仕様は
+Yosupoへ自動提出する方式ではなく、同じテストデータとcheckerを使ってACかどうかを判定する方式です。
+
+## Yosupoへの提出
+
+`online-judge-tools` のLibrary Checker向けアダプタは、現在テストケースの取得とローカル検証を
+提供している一方、提出APIには対応していません。そのためGitHub Actionsからの自動提出は行わず、
+必要な場合は `oj-bundle` で生成した単一ファイルを [Library Checker](https://judge.yosupo.jp/) の
+提出画面から提出してください。
 
 ## ライブラリを追加する流れ
 

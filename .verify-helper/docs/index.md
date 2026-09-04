@@ -1,6 +1,9 @@
-# Blueberry Library
-
-C++20向けの競技プログラミングライブラリです。
+<div class="site-hero">
+  <p class="site-hero__eyebrow">Verified C++ competitive programming library</p>
+  <h1>Blueberry Library</h1>
+  <p>C++20向けの競技プログラミング用ライブラリです。</p>
+  <a class="site-hero__link" href="https://github.com/blueberry1001/Blueberry-library">View the project on GitHub ↗</a>
+</div>
 
 各実装はヘッダ単体で利用でき、✅が付いた項目は
 [Library Checker](https://judge.yosupo.jp/) の公式テストデータで検証されています。
@@ -18,5 +21,3 @@ C++20向けの競技プログラミングライブラリです。
 - 半開区間 `[l, r)` と0-indexedを基本とするAPI
 - 実問題による検証コードと計算量の明記
 - `oj-bundle` で提出用の単一ファイルへ展開可能
-
-リポジトリ: [blueberry1001/Blueberry-library](https://github.com/blueberry1001/Blueberry-library)
