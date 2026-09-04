@@ -18,19 +18,61 @@ body {
 }
 
 header {
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  box-shadow: 0 12px 40px rgba(38, 58, 118, 0.08);
-  padding: 24px;
+  display: none;
 }
 
 section {
+  width: 100%;
+  float: none;
   background: rgba(255, 255, 255, 0.9);
   border: 1px solid var(--line);
   border-radius: 18px;
   box-shadow: 0 12px 40px rgba(38, 58, 118, 0.07);
   padding: 34px 42px;
+}
+
+.site-hero {
+  background: linear-gradient(135deg, #eef3ff 0%, #ffffff 72%);
+  border: 1px solid #dbe4ff;
+  border-radius: 18px;
+  box-shadow: 0 14px 38px rgba(38, 58, 118, 0.1);
+  margin: 0 0 30px;
+  padding: 28px 30px;
+}
+
+.site-hero__eyebrow {
+  color: var(--blueberry);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.site-hero h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin: 0 0 10px;
+}
+
+.site-hero > p:not(.site-hero__eyebrow) {
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+
+.site-hero__link {
+  background: var(--blueberry);
+  border-radius: 999px;
+  color: #fff;
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 10px 16px;
+  text-decoration: none;
+}
+
+.site-hero__link:hover {
+  background: var(--blueberry-dark);
+  color: #fff;
 }
 
 h1, h2, h3 {
@@ -95,12 +137,9 @@ th {
 }
 
 @media print, screen and (min-width: 961px) {
-  header {
-    width: 240px;
-  }
-
   section {
-    width: calc(100% - 330px);
+    width: 100%;
+    float: none;
   }
 }
 
