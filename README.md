@@ -31,6 +31,7 @@ dsu.merge(u, v);
 | String | Z Algorithm |
 
 詳細な説明・計算量・検証コードは[ドキュメント](https://blueberry1001.github.io/Blueberry-library/)に掲載します。
+ACLとの役割分担や実装・採用基準は[実装方針](IMPLEMENTATION_POLICY.md)にまとめています。
 
 ## ローカルでの検証
 
