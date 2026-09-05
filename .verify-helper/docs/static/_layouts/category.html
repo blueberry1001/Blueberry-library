@@ -1,0 +1,17 @@
+---
+layout: page
+---
+<h1>{{ page.title }}</h1>
+{{ content }}
+<h2>収録ライブラリ</h2>
+{% assign entries = site.data.libraries | where: 'category', page.category %}
+<table>
+  <thead><tr><th>ライブラリ</th><th>用途</th><th>位置づけ</th></tr></thead>
+  <tbody>
+  {% for item in entries %}
+  {% assign link = '/' | append: item.path | append: '.html' %}
+  <tr><td><a href="{{ link | relative_url }}">{{ item.name }}</a></td><td>{{ item.description }}</td><td>{{ item.role }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+<p>各リンク先の「操作一覧」では呼び出し方と計算量を確認できます。操作の詳細を開くと使用例・返り値・注意点が表示されます。</p>

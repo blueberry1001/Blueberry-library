@@ -1,0 +1,18 @@
+<h1>{{ page.data._verificationStatusIcon }} {{ page.title | escape }}
+{% if page.title != page.data.path %}<br><small>{{ page.data.path | escape }}</small>{% endif %}</h1>
+<ul>
+  <li><a href="{{ site.github.repository_url }}/blob/{{ site.github.default_branch | default: 'main' }}/{{ page.data.path }}">GitHubでソースを開く</a></li>
+  <li>最終更新: {{ page.data.timestamp | escape }}</li>
+  {% if page.data.attributes.PROBLEM %}
+  <li>検証問題: <a href="{{ page.data.attributes.PROBLEM }}">{{ page.data.attributes.PROBLEM | escape }}</a></li>
+  {% endif %}
+  {% if page.data._pathExtension == 'hpp' %}
+  <li>Include: <code>#include "{{ page.data.path | escape }}"</code></li>
+  {% endif %}
+  {% if page.data._isVerificationFailed %}
+  <li><a href="{{ site.github.repository_url }}/actions">検証エラーのログ</a></li>
+  {% endif %}
+  {% for link in page.data.attributes.links %}
+  {% if link != page.data.attributes.PROBLEM %}<li><a href="{{ link }}">{{ link | escape }}</a></li>{% endif %}
+  {% endfor %}
+</ul>

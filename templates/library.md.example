@@ -1,0 +1,50 @@
+---
+title: Library Name
+documentation_of: //blueberry/category/name.hpp
+---
+
+[カテゴリへ戻る]({{ '/categories/category.html' | relative_url }})
+
+## 概要・前提
+
+用途、ACLとの役割分担、Nなどの変数の定義、メモリ計算量、
+代数的性質、整数型・更新可否・空入力の扱いを書く。
+
+## 最小使用例
+
+このブロックはmake testでコンパイル・実行される。assertで期待値を確認する。
+
+```cpp
+#include <cassert>
+#include "blueberry/category/name.hpp"
+int main() {
+  // 構築・代表的操作・assertによる期待値
+}
+```
+
+## 操作一覧
+
+公開コンストラクタ、オーバーロード、公開フィールドも漏らさない。
+
+| 呼び出し方 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `ReturnType object.operation(args)` | O(...) | [開く](#operation) |
+
+<details class="api-operation" id="operation" markdown="1">
+<summary><code>ReturnType object.operation(args)</code> — O(...)</summary>
+
+引数の型・意味・範囲、返り値、状態変化を書く。
+
+```cpp
+// 有効な引数を使う。断片なら前提となる変数を書く。
+```
+
+注意点: 空・境界・不正入力、オーバーフロー、参照の寿命、
+未構築での呼び出し禁止、償却と最悪計算量の違いなど。
+
+</details>
+
+## 出典・検証
+
+参照した論文・提出・ライブラリ、ライセンス、検証問題、測定条件と判断理由。
+
