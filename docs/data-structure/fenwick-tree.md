@@ -11,6 +11,7 @@ documentation_of: //blueberry/data-structure/fenwick-tree.hpp
 
 ## 最小使用例
 
+{% raw %}
 ```cpp
 #include <cassert>
 #include <vector>
@@ -24,6 +25,7 @@ int main() {
   assert(bit.lower_bound(3) == 2);
 }
 ```
+{% endraw %}
 
 ## 操作一覧
 
@@ -44,9 +46,11 @@ int main() {
 
 零列またはvectorのコピーから構築します。
 
+{% raw %}
 ```cpp
 blueberry::FenwickTree<long long> bit(5);
 ```
+{% endraw %}
 
 注意点: n>=0。累積和がオーバーフローしない型を選んでください。
 
@@ -57,9 +61,11 @@ blueberry::FenwickTree<long long> bit(5);
 
 a[i] += deltaを行います。
 
+{% raw %}
 ```cpp
 bit.add(2, 5LL);
 ```
+{% endraw %}
 
 注意点: 代入ではありません。0<=i<N。負の更新は可能ですがlower_boundの前提に注意してください。
 
@@ -70,9 +76,11 @@ bit.add(2, 5LL);
 
 半開区間 [0,r) の和を返します。
 
+{% raw %}
 ```cpp
 auto sum = bit.prefix_sum(3);
 ```
+{% endraw %}
 
 注意点: 0<=r<=N。r=0なら零元です。
 
@@ -83,9 +91,11 @@ auto sum = bit.prefix_sum(3);
 
 半開区間 [l,r) の和を返します。
 
+{% raw %}
 ```cpp
 auto sum = bit.sum(1, 3);
 ```
+{% endraw %}
 
 注意点: 0<=l<=r<=N。空区間は零元です。
 
@@ -96,9 +106,11 @@ auto sum = bit.sum(1, 3);
 
 a[i]を値として返します。
 
+{% raw %}
 ```cpp
 auto value = bit.get(2);
 ```
+{% endraw %}
 
 注意点: 0<=i<N。単なる配列アクセスのように O(1) ではありません。
 
@@ -109,10 +121,12 @@ auto value = bit.get(2);
 
 prefix_sum(r)>=targetを満たす最小のrを返します。target<=0は0、未到達はNです。
 
+{% raw %}
 ```cpp
 int r = bit.lower_bound(3LL);
 bool found = bit.prefix_sum(bit.size()) >= 3LL;
 ```
+{% endraw %}
 
 注意点: 各要素は非負でなければなりません。返り値は要素番号ではなく区間右端です。Nで到達した場合と未到達の場合を区別するには全体和も確認します。
 
@@ -123,9 +137,11 @@ bool found = bit.prefix_sum(bit.size()) >= 3LL;
 
 配列長を返します。
 
+{% raw %}
 ```cpp
 int n = bit.size();
 ```
+{% endraw %}
 
 注意点: 構築後に長さは変更できません。
 

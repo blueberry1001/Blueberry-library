@@ -13,6 +13,8 @@ For every new or changed public API:
   (including <summary>signature — complexity</summary>, example and caveats).
 - State bounds, return values, empty cases, type/algebra assumptions, overflow,
   lifetime/invalidation and amortized complexity when relevant.
+- Wrap fenced code examples with Liquid raw/endraw tags outside the fences, so
+  C++ nested initialization braces are not interpreted as Liquid templates.
 - Register the library in .verify-helper/docs/static/_data/libraries.yml.
 - Add official verify coverage and boundary/randomized tests as appropriate.
 - Run make test, make verify and make docs. Do not claim unrun tests passed.
@@ -22,4 +24,3 @@ For every new or changed public API:
 Keep GitHub Pages/verification-helper as the publishing system. Do not restore
 the upstream minimal-theme fixed sidebar or its inline theme_fix width rules.
 Never auto-merge a new PR without explicit user authorization for that PR.
-

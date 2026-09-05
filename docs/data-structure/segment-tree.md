@@ -11,6 +11,7 @@ documentation_of: //blueberry/data-structure/segment-tree.hpp
 
 ## 最小使用例
 
+{% raw %}
 ```cpp
 #include <cassert>
 #include <functional>
@@ -25,6 +26,7 @@ int main() {
   assert(seg.product(1, 1) == 0);
 }
 ```
+{% endraw %}
 
 ## 操作一覧
 
@@ -44,10 +46,12 @@ int main() {
 
 長さnの単位元の列、またはvectorから構築します。
 
+{% raw %}
 ```cpp
 auto op = [](long long a, long long b) { return a + b; };
 blueberry::SegmentTree<long long, decltype(op)> seg(5, op, 0LL);
 ```
+{% endraw %}
 
 注意点: n>=0。opは結合的、eは左右の単位元が必要です。可換性は不要です。
 
@@ -58,9 +62,11 @@ blueberry::SegmentTree<long long, decltype(op)> seg(5, op, 0LL);
 
 a[i]=xと代入します。
 
+{% raw %}
 ```cpp
 seg.set(2, 9LL);
 ```
+{% endraw %}
 
 注意点: 0<=i<N。加算する場合はgetで取得してからsetします。
 
@@ -71,11 +77,13 @@ seg.set(2, 9LL);
 
 要素iのconst参照を返します。
 
+{% raw %}
 ```cpp
 auto value = seg.get(2);
 ```
+{% endraw %}
 
-注意点: 0<=i<N。更新前の値を保存したい場合は参照ではなくコピーしてください。
+注意点: 0<=i<N。更新前の値を保存したい場合は参照ではなくコピーしてください。参照は元オブジェクトの破棄・代入後に使用しないでください。
 
 </details>
 
@@ -84,9 +92,11 @@ auto value = seg.get(2);
 
 [l,r) を添字の昇順で畳み込みます。空区間は単位元です。
 
+{% raw %}
 ```cpp
 auto value = seg.product(1, 3);
 ```
+{% endraw %}
 
 注意点: 0<=l<=r<=N。非可換演算ではopの順番に注意してください。ACLの対応名はprodです。
 
@@ -97,11 +107,13 @@ auto value = seg.product(1, 3);
 
 全体の区間積をconst参照で返します。N=0なら単位元です。
 
+{% raw %}
 ```cpp
 auto total = seg.all_product();
 ```
+{% endraw %}
 
-注意点: ACLの対応名はall_prod。更新前の結果を保存する場合はコピーしてください。
+注意点: ACLの対応名はall_prod。更新前の結果を保存する場合はコピーしてください。参照は元オブジェクトの破棄・代入後に使用しないでください。
 
 </details>
 
@@ -110,9 +122,11 @@ auto total = seg.all_product();
 
 元の配列長を返します。
 
+{% raw %}
 ```cpp
 int n = seg.size();
 ```
+{% endraw %}
 
 注意点: 内部で2冪に切り上げた長さではありません。
 

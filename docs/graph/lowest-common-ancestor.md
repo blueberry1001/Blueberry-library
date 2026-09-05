@@ -11,6 +11,7 @@ documentation_of: //blueberry/graph/lowest-common-ancestor.hpp
 
 ## 最小使用例
 
+{% raw %}
 ```cpp
 #include <cassert>
 #include <vector>
@@ -24,6 +25,7 @@ int main() {
   assert(lca.kth_ancestor(3, 1) == 1);
 }
 ```
+{% endraw %}
 
 ## 操作一覧
 
@@ -42,9 +44,11 @@ int main() {
 
 根からの深さと2冪個先の祖先を前計算します。
 
+{% raw %}
 ```cpp
 blueberry::LowestCommonAncestor lca(tree, 0);
 ```
+{% endraw %}
 
 注意点: 空・非連結・サイクルのあるグラフは対象外。端点は[0,N)。構築後の元の木の変更は反映されません。
 
@@ -55,9 +59,11 @@ blueberry::LowestCommonAncestor lca(tree, 0);
 
 最も深い共通祖先を返します。
 
+{% raw %}
 ```cpp
 int ancestor = lca.lca(2, 3);
 ```
+{% endraw %}
 
 注意点: 根の選び方に依存します。u==vならuです。
 
@@ -68,9 +74,11 @@ int ancestor = lca.lca(2, 3);
 
 vから親方向へk本進んだ頂点を返します。
 
+{% raw %}
 ```cpp
 int parent = lca.kth_ancestor(3, 1);
 ```
+{% endraw %}
 
 注意点: 0<=k<=depth(v)。根より上は指定不可。k=0ならvです。
 
@@ -81,9 +89,11 @@ int parent = lca.kth_ancestor(3, 1);
 
 u-v間の単純パスの辺数を返します。
 
+{% raw %}
 ```cpp
 int edges = lca.distance(2, 3);
 ```
+{% endraw %}
 
 注意点: 重み付き距離ではありません。重み付きは別に根からの距離を用意してください。
 
@@ -94,9 +104,11 @@ int edges = lca.distance(2, 3);
 
 根からvへの辺数を返します。
 
+{% raw %}
 ```cpp
 int d = lca.depth(3);
 ```
+{% endraw %}
 
 注意点: 根の深さは0。頂点番号は[0,N)です。
 

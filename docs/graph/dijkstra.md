@@ -11,6 +11,7 @@ documentation_of: //blueberry/graph/dijkstra.hpp
 
 ## 最小使用例
 
+{% raw %}
 ```cpp
 #include <cassert>
 #include <vector>
@@ -26,6 +27,7 @@ int main() {
   assert(result.path_to(3).empty());
 }
 ```
+{% endraw %}
 
 ## 操作一覧
 
@@ -43,11 +45,13 @@ int main() {
 
 二重vectorの隣接リストです。辺型WeightedEdgeの公開フィールドはtoとcost。
 
+{% raw %}
 ```cpp
 blueberry::WeightedGraph<long long> g(3);
 g[0].push_back({1, 4});
 g[1].push_back({0, 4});
 ```
+{% endraw %}
 
 注意点: 有向辺を1本追加します。無向辺は逆向きも追加します。端点は[0,V)、重みは非負。
 
@@ -58,9 +62,11 @@ g[1].push_back({0, 4});
 
 距離・親・infinityを持つShortestPathResultを返します。infinity省略時はCostの最大値です。
 
+{% raw %}
 ```cpp
 auto result = blueberry::dijkstra(g, 0, 1LL << 60);
 ```
+{% endraw %}
 
 注意点: 有効な始点が必要です。到達距離はinfinity未満。current_distance+costがオーバーフローしない型と入力を使ってください。負辺・NaNは不可。
 
@@ -71,9 +77,11 @@ auto result = blueberry::dijkstra(g, 0, 1LL << 60);
 
 distanceは最短距離、parentは直前頂点。始点と到達不能頂点のparentは-1です。
 
+{% raw %}
 ```cpp
 bool reachable = result.distance[2] != result.infinity;
 ```
+{% endraw %}
 
 注意点: 到達不能判定はdistance[v]==infinityです。公開vectorを変更するとpath_toの前提を壊す場合があります。
 
@@ -84,9 +92,11 @@ bool reachable = result.distance[2] != result.infinity;
 
 始点からtargetまでの頂点列を返します。到達不能は空、始点自身は1要素です。
 
+{% raw %}
 ```cpp
 auto path = result.path_to(2);
 ```
+{% endraw %}
 
 注意点: targetは有効な頂点。最短路が複数あるときの選択順は保証しません。平行辺の辺IDは返しません。
 

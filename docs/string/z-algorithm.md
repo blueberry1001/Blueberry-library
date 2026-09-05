@@ -11,6 +11,7 @@ documentation_of: //blueberry/string/z-algorithm.hpp
 
 ## 最小使用例
 
+{% raw %}
 ```cpp
 #include <cassert>
 #include <string>
@@ -24,6 +25,7 @@ int main() {
   assert((numbers == std::vector<int>{3, 2, 1}));
 }
 ```
+{% endraw %}
 
 ## 操作一覧
 
@@ -38,10 +40,12 @@ int main() {
 
 z[i]は全体とiからの接尾辞の一致長です。空列には空vector、非空ならz[0]=Nです。
 
+{% raw %}
 ```cpp
 auto z = blueberry::z_algorithm(std::string("aaaa"));
 // {4, 3, 2, 1}
 ```
+{% endraw %}
 
 注意点: size()・添字アクセス・等値比較が必要です。文字列リテラルはstd::stringにしてください。UTF-8のstringは文字ではなくバイト単位。検索用の区切りは入力中にない値を選びます。
 

@@ -46,6 +46,18 @@ jobs:
       - name: Test measurement code and documentation examples
         run: make test
 
+      - name: Generate documentation for preflight
+        run: make docs
+
+      - name: Build documentation before full verification
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./.verify-helper/markdown
+          destination: ./_site
+
+      - name: Check documentation structure
+        run: python scripts/check_site.py --without-metrics
+
       - name: Restore last successful main benchmark
         id: benchmark-baseline
         uses: actions/cache/restore@v4

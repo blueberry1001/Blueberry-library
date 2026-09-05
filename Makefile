@@ -17,7 +17,7 @@ test:
 	python3 scripts/check_docs.py
 
 docs:
-	oj-verify docs -j $(OJ_VERIFY_JOBS)
+	python3 scripts/generate_docs.py -j $(OJ_VERIFY_JOBS)
 	python3 scripts/publish_metrics.py
 
 bundle:

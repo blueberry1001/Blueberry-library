@@ -3,6 +3,7 @@
 import json
 from pathlib import Path
 import re
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / "_site"
@@ -27,6 +28,10 @@ for header in headers:
         assert "<summary>" in body and "注意点:" in body, header
         assert "<pre" in body and "<code" in body, (header, "Markdown inside details was not rendered")
         assert "```cpp" not in body, header
+
+if "--without-metrics" in sys.argv[1:]:
+    print(f"PASS: 4 categories, {len(headers)} API pages, footer and navigation (before verification).")
+    sys.exit(0)
 
 metrics = json.loads((SITE / "assets/verification-metrics.json").read_text())
 assert metrics["succeeded"], "Do not publish failed measurements"

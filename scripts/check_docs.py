@@ -26,6 +26,8 @@ for header in headers:
         assert "<summary>" in body and "O(" in body and "注意点:" in body, (document, identifier)
         assert "```cpp" in body, (document, identifier)
     blocks = re.findall(r"```cpp\n(.*?)\n```", text, re.S)
+    protected = re.findall(r"{% raw %}\s*```cpp\n(.*?)\n```\s*{% endraw %}", text, re.S)
+    assert len(blocks) == len(protected), (document, "Protect C++ braces from Liquid using raw/endraw")
     assert blocks and "int main()" in blocks[0] and "assert(" in blocks[0], document
     examples.append((document.relative_to(ROOT), blocks[0]))
 

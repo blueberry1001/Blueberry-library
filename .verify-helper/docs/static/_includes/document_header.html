@@ -7,7 +7,8 @@
   <li>検証問題: <a href="{{ page.data.attributes.PROBLEM }}">{{ page.data.attributes.PROBLEM | escape }}</a></li>
   {% endif %}
   {% if page.data._pathExtension == 'hpp' %}
-  <li>Include: <code>#include "{{ page.data.path | escape }}"</code></li>
+  <li>Include: <code id="include-directive-code">#include "{{ page.data.path | escape }}"</code>
+    <button type="button" id="copy-include">コピー</button><span id="copy-include-status" role="status"></span></li>
   {% endif %}
   {% if page.data._isVerificationFailed %}
   <li><a href="{{ site.github.repository_url }}/actions">検証エラーのログ</a></li>

@@ -17,11 +17,14 @@ Blueberryではrollbackなどの非標準操作や、ACLにない構造を中心
 
 ## 導入・コンパイル
 
+{% raw %}
 ```console
 git clone https://github.com/blueberry1001/Blueberry-library.git
 g++ -std=gnu++20 -O2 -Wall -Wextra -I ./Blueberry-library main.cpp -o main
 ```
+{% endraw %}
 
+{% raw %}
 ```cpp
 #include <cassert>
 #include "blueberry/data-structure/rollback-union-find.hpp"
@@ -35,16 +38,19 @@ int main() {
   assert(!uf.same(0, 1));
 }
 ```
+{% endraw %}
 
 必要なヘッダだけをincludeします。全体を読み込むなら `blueberry/all.hpp` です。
 ACLも使う場合は別途用意し、そのルートも `-I` に追加します。ACL本体は同梱していません。
 
 提出先で外部ヘッダを使えないときは、検証環境の導入後に単一ファイルにします。
 
+{% raw %}
 ```console
 oj-bundle main.cpp -I ./Blueberry-library > submission.cpp
 g++ -std=gnu++20 -O2 submission.cpp -o submission
 ```
+{% endraw %}
 
 ACLも展開するときはACLのルートも `-I` で指定します。生成後のコードもコンパイルしてください。
 
@@ -69,12 +75,14 @@ DSUの経路圧縮のように、問い合わせでも内部状態が変わる�
 
 リポジトリのルートで、Python 3.9以上とC++20対応GCCを用意します（CIはPython 3.12）。
 
+{% raw %}
 ```console
 python3 -m pip install -r requirements-dev.txt
 make test
 make verify
 make docs
 ```
+{% endraw %}
 
 - `make test`: 計測の単体テストと、最小使用例のコンパイル・実行。
 - `make verify`: 公式テストとcheckerで検証。各verifyの実行時間と基準との差を記録。
@@ -101,4 +109,3 @@ Yosupoへの自動提出ではなく、公式データとcheckerによるロー�
 
 操作別の仕様整理は[Nyaan's Library](https://nyaannyaan.github.io/library/)を参考にしています。
 説明・使用例はこのリポジトリの実装に合わせたものです。
-

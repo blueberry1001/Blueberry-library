@@ -11,6 +11,7 @@ documentation_of: //blueberry/data-structure/sparse-table.hpp
 
 ## 最小使用例
 
+{% raw %}
 ```cpp
 #include <algorithm>
 #include <cassert>
@@ -24,6 +25,7 @@ int main() {
   assert(table.product(2, 4) == 1);
 }
 ```
+{% endraw %}
 
 ## 操作一覧
 
@@ -40,10 +42,12 @@ int main() {
 
 valuesのコピーから2冪長の区間積を前計算します。
 
+{% raw %}
 ```cpp
 auto minimum = [](int a, int b) { return std::min(a, b); };
 blueberry::SparseTable<int, decltype(minimum)> table(std::vector<int>{3, 1, 4}, minimum);
 ```
+{% endraw %}
 
 注意点: 空配列は不可です。和やxorは冪等でないため使用できません。
 
@@ -54,9 +58,11 @@ blueberry::SparseTable<int, decltype(minimum)> table(std::vector<int>{3, 1, 4}, 
 
 非空の半開区間 [l,r) の区間積を返します。
 
+{% raw %}
 ```cpp
 int minimum = table.product(0, 2);
 ```
+{% endraw %}
 
 注意点: 0<=l<r<=N。空区間は不可。元配列の変更は反映されません。
 
@@ -67,9 +73,11 @@ int minimum = table.product(0, 2);
 
 元の配列長を返します。
 
+{% raw %}
 ```cpp
 int n = table.size();
 ```
+{% endraw %}
 
 注意点: 更新が必要な場合は再構築または別のデータ構造を選んでください。
 

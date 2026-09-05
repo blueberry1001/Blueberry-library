@@ -11,6 +11,7 @@ documentation_of: //blueberry/data-structure/disjoint-set-union.hpp
 
 ## 最小使用例
 
+{% raw %}
 ```cpp
 #include <cassert>
 #include "blueberry/data-structure/disjoint-set-union.hpp"
@@ -23,6 +24,7 @@ int main() {
   assert(dsu.groups().size() == 3);
 }
 ```
+{% endraw %}
 
 ## 操作一覧
 
@@ -43,9 +45,11 @@ int main() {
 
 n個の独立した集合を構築します。
 
+{% raw %}
 ```cpp
 blueberry::DisjointSetUnion dsu(4);
 ```
+{% endraw %}
 
 注意点: n>=0。n=0では要素を指定する操作は不可です。
 
@@ -56,9 +60,11 @@ blueberry::DisjointSetUnion dsu(4);
 
 異なる集合を併合した場合true、すでに同じならfalseを返します。
 
+{% raw %}
 ```cpp
 bool changed = dsu.merge(0, 1);
 ```
+{% endraw %}
 
 注意点: ACLと異なり返り値は代表元ではなくboolです。代表元は変化し得ます。
 
@@ -69,9 +75,11 @@ bool changed = dsu.merge(0, 1);
 
 vの集合の代表元を返します。
 
+{% raw %}
 ```cpp
 int root = dsu.leader(0);
 ```
+{% endraw %}
 
 注意点: 最小頂点とは限りません。経路圧縮で内部状態を変更するためconstメソッドではありません。
 
@@ -82,9 +90,11 @@ int root = dsu.leader(0);
 
 同一連結成分かを返します。
 
+{% raw %}
 ```cpp
 bool connected = dsu.same(0, 1);
 ```
+{% endraw %}
 
 注意点: u,vは有効な添字でなければなりません。
 
@@ -95,9 +105,11 @@ bool connected = dsu.same(0, 1);
 
 vの集合の要素数を返します。
 
+{% raw %}
 ```cpp
 int count = dsu.component_size(0);
 ```
+{% endraw %}
 
 注意点: 全要素数のsize()と区別してください。
 
@@ -108,9 +120,11 @@ int count = dsu.component_size(0);
 
 全要素数Nを返します。
 
+{% raw %}
 ```cpp
 int n = dsu.size();
 ```
+{% endraw %}
 
 注意点: 連結成分数ではなく、mergeしても変わりません。
 
@@ -121,9 +135,11 @@ int n = dsu.size();
 
 各連結成分の頂点列を返します。各グループ内は昇順です。
 
+{% raw %}
 ```cpp
 auto groups = dsu.groups();
 ```
+{% endraw %}
 
 注意点: 呼び出しごとに O(N) の追加メモリが必要です。グループ間の順番は代表元に依存します。
 

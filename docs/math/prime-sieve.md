@@ -11,6 +11,7 @@ Eratosthenesの篩で上限L以下の素数を前計算します。判定表 O(L
 
 ## 最小使用例
 
+{% raw %}
 ```cpp
 #include <cassert>
 #include <vector>
@@ -23,6 +24,7 @@ int main() {
   assert(sieve.limit() == 10);
 }
 ```
+{% endraw %}
 
 ## 操作一覧
 
@@ -40,9 +42,11 @@ int main() {
 
 limit以下の整数を前計算します。0と1は素数ではありません。
 
+{% raw %}
 ```cpp
 blueberry::PrimeSieve sieve(100);
 ```
+{% endraw %}
 
 注意点: 0<=limit<INT_MAX、かつ確保可能なメモリ量が必要です。limit+1のオーバーフローを避けます。非常に小さいLは定数時間です。
 
@@ -53,9 +57,11 @@ blueberry::PrimeSieve sieve(100);
 
 xが素数かを返します。
 
+{% raw %}
 ```cpp
 bool prime = sieve.is_prime(7);
 ```
+{% endraw %}
 
 注意点: 0<=x<=limit()。上限を超える整数は判定できません。
 
@@ -66,9 +72,11 @@ bool prime = sieve.is_prime(7);
 
 昇順の素数列をconst参照で返します。
 
+{% raw %}
 ```cpp
 const auto& primes = sieve.primes();
 ```
+{% endraw %}
 
 注意点: autoでコピーすると O(π(L)) です。参照は元オブジェクトより長く保持しないでください。
 
@@ -79,9 +87,11 @@ const auto& primes = sieve.primes();
 
 指定した上限を返します。
 
+{% raw %}
 ```cpp
 int upper = sieve.limit();
 ```
+{% endraw %}
 
 注意点: 配列長ではなく、判定可能な最大値です。端点を含みます。
 
