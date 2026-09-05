@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run verification-helper's normal checker flow, with serial/repeated timing.
 
-Integration is tested against verification-helper 5.6.0 and oj 12.0.0.
+Integration targets verification-helper 5.6.0 and the PyPI release oj 11.5.1.
 No submission API, checker replacement, or timestamp deletion is involved.
 """
 import argparse
