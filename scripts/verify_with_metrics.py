@@ -249,18 +249,22 @@ class Recorder:
         row["status"] = "passed"
 
 
+def discover_verification_files(root=Path("verify")):
+    """Never discover Jekyll redirects or copied sources in generated output."""
+    return sorted(path for path in root.rglob("*.test.cpp") if path.is_file())
+
+
 def run_with_helper(args, report):
     # These imports stay lazy so report/aggregation unit tests need only stdlib.
     import onlinejudge_verify.config as config
     import onlinejudge_verify.languages.cplusplus as cpp
     import onlinejudge_verify.marker as marker_module
-    import onlinejudge_verify.utils as utils
     import onlinejudge_verify.verify as verify
     from logging import INFO, basicConfig
 
     basicConfig(level=INFO)
     config.set_config_path(Path(".verify-helper/config.toml"))
-    paths = [Path(p) for p in args.paths] or sorted(utils.iterate_verification_files())
+    paths = [Path(p) for p in args.paths] or discover_verification_files()
     paths = sorted(set(p.resolve().relative_to(Path.cwd()) for p in paths))
     if not paths:
         raise RuntimeError("no verification files found")

@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from unittest.mock import Mock, patch
 
-from scripts.verify_with_metrics import Recorder, compare, digest_files, read_samples, summarize, write_report
+from scripts.verify_with_metrics import Recorder, compare, digest_files, discover_verification_files, read_samples, summarize, write_report
 
 
 def case(name="example_00", elapsed=0.1, status="AC"):
@@ -13,6 +13,16 @@ def case(name="example_00", elapsed=0.1, status="AC"):
 
 
 class MetricsTests(unittest.TestCase):
+    def test_discovery_ignores_generated_copies(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            actual = root / "verify/graph/example.test.cpp"
+            generated = root / "_site/verify/verify/graph/example.test.cpp"
+            for path in (actual, generated):
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("// fixture\n")
+            self.assertEqual(discover_verification_files(root / "verify"), [actual])
+
     def test_structured_log(self):
         samples = read_samples([case()], ["example_00"])
         self.assertEqual(samples[0]["elapsed"], 0.1)

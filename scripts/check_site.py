@@ -6,7 +6,7 @@ import re
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-SITE = ROOT / "_site"
+SITE = ROOT / ".build/site"
 home = (SITE / "index.html").read_text()
 assert 'class="site-hero"' in home
 assert 'class="site-nav"' in home
