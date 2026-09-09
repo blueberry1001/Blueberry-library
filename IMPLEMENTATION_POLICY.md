@@ -23,6 +23,14 @@ Blueberry Libraryは、AtCoder Library（ACL）と競合することを目的と
 ただし、ACLのAPIでは扱いにくい拡張や、異なる設計上の利点がある場合は、理由をドキュメントに
 明記したうえで別実装を追加する。
 
+### 形式的冪級数（FPS）の方針
+
+FPSの係数型・NTT・一般的な多項式積はACLの `static_modint` と `convolution` を利用する。
+ACLが提供しない級数演算（逆元、形式微分・積分、log、exp、sqrt、powなど）だけを
+`blueberry::FormalPowerSeries` として実装し、旧 `blueberry/fps.hpp` は互換用の薄い入口にする。
+NTT反復ではACL内部の `butterfly` を再利用して変換を使い回すが、これはACLの公開APIを
+置き換えるものではなく、NTT対応modulus・変換長の前提をドキュメントで明示する。
+
 ## Blueberry Libraryで優先する対象
 
 - ACLに収録されていないデータ構造（例: Wavelet Matrix、Li Chao Tree、永続データ構造）
