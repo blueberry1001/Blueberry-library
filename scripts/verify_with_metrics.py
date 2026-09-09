@@ -289,8 +289,8 @@ def main():
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--tle", type=float, default=60)
     parser.add_argument("--timeout", type=float, default=1500)
-    parser.add_argument("--output", type=Path, default=Path(".build/verification"))
-    parser.add_argument("--baseline", type=Path, default=Path(".build/verification/baseline.json"))
+    parser.add_argument("--output", type=Path, default=Path(".verification"))
+    parser.add_argument("--baseline", type=Path, default=Path(".verification/baseline.json"))
     parser.add_argument("--save-baseline", action="store_true", help="replace baseline only after a successful run")
     args = parser.parse_args()
     if args.repeats < 1 or args.tle <= 0 or args.timeout <= 0:

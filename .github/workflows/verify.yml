@@ -62,7 +62,7 @@ jobs:
         id: benchmark-baseline
         uses: actions/cache/restore@v4
         with:
-          path: .build/verification/baseline.json
+          path: .verification/baseline.json
           key: benchmark-v1-${{ runner.os }}-${{ hashFiles('requirements-dev.txt', '.verify-helper/config.toml', 'scripts/verify_with_metrics.py') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: benchmark-v1-${{ runner.os }}-${{ hashFiles('requirements-dev.txt', '.verify-helper/config.toml', 'scripts/verify_with_metrics.py') }}-
 
@@ -75,9 +75,9 @@ jobs:
         with:
           name: verification-metrics
           path: |
-            .build/verification/current.json
-            .build/verification/report.md
-            .build/verification/run-*/
+            .verification/current.json
+            .verification/report.md
+            .verification/run-*/
           include-hidden-files: true
           if-no-files-found: warn
           retention-days: 90
@@ -100,13 +100,13 @@ jobs:
 
       - name: Prepare main benchmark baseline
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: cp .build/verification/current.json .build/verification/baseline.json
+        run: cp .verification/current.json .verification/baseline.json
 
       - name: Save main benchmark baseline
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/cache/save@v4
         with:
-          path: .build/verification/baseline.json
+          path: .verification/baseline.json
           key: ${{ steps.benchmark-baseline.outputs.cache-primary-key }}
 
       - name: Upload GitHub Pages artifact

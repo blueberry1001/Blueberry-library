@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 import shutil
 
-source = Path(".build/verification/current.json")
+source = Path(".verification/current.json")
 if source.exists():
     report = json.loads(source.read_text())
     if report.get("schema") != 1:

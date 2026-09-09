@@ -50,7 +50,7 @@ Yosupoへ自動提出する方式ではなく、同じテストデータとcheck
 
 計測はコンパイル時間と解答の実行時間を分け、直列3回の実行合計の中央値を記録します。
 毎回全verifyを再実行し、同じ測定条件の基準があれば増減率を表示します。
-結果は `.build/verification/report.md`、ActionsのSummary・artifact、
+結果は `.verification/report.md`、ActionsのSummary・artifact、
 公開サイトの[実行時間](https://blueberry1001.github.io/Blueberry-library/benchmarks.html)に掲載します。
 ローカルの基準は `make benchmark-baseline` で保存・置換できます。
 詳細な導入方法や注意点は[使い方ガイド](https://blueberry1001.github.io/Blueberry-library/guide.html)を参照してください。
