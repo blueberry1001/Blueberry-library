@@ -1,0 +1,59 @@
+---
+layout: page
+title: Verifyの実行時間
+---
+<h1>Verifyの実行時間</h1>
+<p>Library Checkerの公式データとcheckerを使った<strong>ローカル実行</strong>の記録です。
+Yosupoの提出画面に表示される時間ではありません。</p>
+<ul>
+  <li>毎回、キャッシュ済みのACも含めて再コンパイル・再実行します。テストデータのキャッシュは利用します。</li>
+  <li>標準では直列で3回実行し、各回のケース別elapsedの合計の中央値と、最大ケース時間の中央値を表示します。</li>
+  <li>実行合計にコンパイル・ダウンロード・checker実行は含めません。解答プロセスの起動・I/Oは含みます。</li>
+  <li>基準は保存された直近のmainの成功結果です。PRの結果でmainの基準は上書きしません。</li>
+  <li>CPU・OS・ツール・コンパイラ・オプション・テストデータ・verifyコード・反復数が異なる場合は比較不可です。</li>
+  <li>共有runnerの負荷やCPU周波数の一致は保証できません。小さな差で高速化を断定せず、同じPCで再計測してください。</li>
+</ul>
+{% assign metrics = site.data.verification_metrics %}
+{% if metrics %}
+<p>計測: {{ metrics.generated_at | escape }} /
+  commit <code>{{ metrics.revision | slice: 0, 7 }}</code> /
+  比較元 <code>{{ metrics.baseline_revision | slice: 0, 7 | default: 'なし（初回）' }}</code></p>
+<table>
+  <thead><tr><th>Verify / 環境番号</th><th>状態</th><th>コンパイル (s)</th><th>実行合計 (s)</th><th>最大ケース (s)</th><th>基準との差</th></tr></thead>
+  <tbody>
+  {% for row in metrics.results %}
+    <tr>
+      <td><a href="{{ '/' | append: row.path | append: '.html' | relative_url }}">{{ row.path | escape }}</a> / {{ row.environment_index }}</td>
+      <td>{{ row.status | escape }}</td>
+      <td>{% if row.compile_seconds != nil %}{{ row.compile_seconds | round: 6 }}{% else %}—{% endif %}</td>
+      <td>{% if row.solution_seconds != nil %}{{ row.solution_seconds | round: 6 }}{% else %}—{% endif %}</td>
+      <td>{% if row.worst_case_seconds != nil %}{{ row.worst_case_seconds | round: 6 }}{% else %}—{% endif %}</td>
+      <td>{{ row.comparison | escape }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<details>
+  <summary>実行環境・生データ</summary>
+  <pre>{{ metrics.environment | jsonify | escape }}</pre>
+  <p><a href="{{ '/assets/verification-metrics.json' | relative_url }}">JSONを開く</a>。
+  各反復の時間・最小/最大の合計値・環境・比較条件を含みます。
+  ケース別ログはActionsのverification-metrics artifactに保存します（90日間）。</p>
+</details>
+{% else %}
+<p>まだ結果がありません。最初の計測付きverifyの公開後に表示されます。
+初回やキャッシュ期限切れは「基準なし」となり、改善率は表示しません。</p>
+{% endif %}
+<h2>手元で比較する</h2>
+<pre><code>make benchmark-baseline
+# ライブラリを変更する
+make verify
+# .verification/report.md で比較</code></pre>
+<p>特定のverifyだけなら <code>python3 scripts/verify_with_metrics.py verify/graph/shortest-path.test.cpp</code>。
+<code>--repeats 5</code> など反復数を変える場合は、同じ反復数で基準も取り直してください。
+<code>--baseline PATH</code> で別の基準を指定できます。
+<code>make benchmark-baseline</code> は成功時に基準を置き換えます。</p>
+<p><a href="{{ site.github.repository_url }}/actions/workflows/verify.yml">Actionsの各実行</a>のSummaryとartifactにもPRごとの結果が残ります。
+差が負なら短縮、正なら増加です。失敗・未実行・IGNOREは成功の計測値として扱いません。</p>
+<p>実装は <a href="https://github.com/online-judge-tools/oj/blob/master/onlinejudge_command/subcommand/test.py">ojのJSONログ</a>と
+<a href="https://github.com/online-judge-tools/verification-helper/blob/master/onlinejudge_verify/verify.py">verification-helperの標準verify</a>を利用しています。</p>

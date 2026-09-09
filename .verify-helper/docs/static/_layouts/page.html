@@ -1,0 +1,13 @@
+---
+layout: default
+---
+{% include mathjax.html %}
+{% include theme_fix.html %}
+<nav class="site-nav" aria-label="サイト内ナビゲーション">
+  <a href="{{ '/' | relative_url }}">Blueberry Library</a>
+  <a href="{{ '/guide.html' | relative_url }}">使い方</a>
+  <a href="{{ '/benchmarks.html' | relative_url }}">verify実行時間</a>
+  <a href="https://github.com/blueberry1001/Blueberry-library">GitHub</a>
+</nav>
+{{ content }}
+{% if page.data.isVerificationFile %}{% include verification_metrics.html path=page.data.path %}{% endif %}

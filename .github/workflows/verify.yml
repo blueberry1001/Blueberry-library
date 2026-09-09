@@ -43,28 +43,77 @@ jobs:
       - name: Install verification-helper
         run: python -m pip install --requirement requirements-dev.txt
 
+      - name: Test measurement code and documentation examples
+        run: make test
+
+      - name: Generate documentation for preflight
+        run: make docs
+
+      - name: Build documentation before full verification
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./.verify-helper/markdown
+          destination: ./.build/site
+
+      - name: Check documentation structure
+        run: python scripts/check_site.py --without-metrics
+
+      - name: Restore last successful main benchmark
+        id: benchmark-baseline
+        uses: actions/cache/restore@v4
+        with:
+          path: .verification/baseline.json
+          key: benchmark-v1-${{ runner.os }}-${{ hashFiles('requirements-dev.txt', '.verify-helper/config.toml', 'scripts/verify_with_metrics.py') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: benchmark-v1-${{ runner.os }}-${{ hashFiles('requirements-dev.txt', '.verify-helper/config.toml', 'scripts/verify_with_metrics.py') }}-
+
       - name: Verify libraries
-        run: oj-verify run -j 2
+        run: make verify
+
+      - name: Upload verification measurements (including failures)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-metrics
+          path: |
+            .verification/current.json
+            .verification/report.md
+            .verification/run-*/
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 90
 
       - name: Generate documentation
-        run: oj-verify docs -j 2
+        run: make docs
 
       - name: Configure GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/configure-pages@v5
 
       - name: Build GitHub Pages
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./.verify-helper/markdown
-          destination: ./_site
+          destination: ./.build/site
+
+      - name: Check generated documentation
+        run: python scripts/check_site.py
+
+      - name: Prepare main benchmark baseline
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: cp .verification/current.json .verification/baseline.json
+
+      - name: Save main benchmark baseline
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/cache/save@v4
+        with:
+          path: .verification/baseline.json
+          key: ${{ steps.benchmark-baseline.outputs.cache-primary-key }}
 
       - name: Upload GitHub Pages artifact
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./_site
+          path: ./.build/site
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
