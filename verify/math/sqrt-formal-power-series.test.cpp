@@ -22,6 +22,10 @@ int main() {
     value = coefficient;
   }
   const fps answer = f.sqrt(n);
+  if (answer.empty()) {
+    std::cout << "-1\n";
+    return 0;
+  }
   for (int i = 0; i < n; ++i) {
     if (i) std::cout << ' ';
     std::cout << answer[i].val();

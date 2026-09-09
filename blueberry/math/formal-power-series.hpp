@@ -412,15 +412,15 @@ struct FormalPowerSeries : std::vector<Mint> {
     assert(degree < Mint::mod());
     if (degree == 1) return FPS{Mint(1)};
 
-    std::vector<Mint> inverse_numbers(degree + 1, Mint(0));
-    inverse_numbers[1] = Mint(1);
+    std::vector<Mint> inverse_numbers{Mint(0), Mint(1)};
     const std::int64_t mod = Mint::mod();
-    for (int i = 2; i <= degree; ++i) {
-      inverse_numbers[i] = -inverse_numbers[mod % i] * Mint(mod / i);
-    }
 
     auto integral_in_place = [&](FPS& series) {
       const int old_size = static_cast<int>(series.size());
+      while (static_cast<int>(inverse_numbers.size()) <= old_size) {
+        const int i = static_cast<int>(inverse_numbers.size());
+        inverse_numbers.push_back(-inverse_numbers[mod % i] * Mint(mod / i));
+      }
       series.insert(series.begin(), Mint(0));
       for (int i = 1; i <= old_size; ++i) series[i] *= inverse_numbers[i];
     };
