@@ -54,6 +54,10 @@ make docs
 公式テストケースをダウンロードしてローカル実行します。verification-helperの標準仕様は
 Yosupoへ自動提出する方式ではなく、同じテストデータとcheckerを使ってACかどうかを判定する方式です。
 
+性能調査は`make benchmark`で決定的なmicrobenchmarkを反復実行できます。Library Checkerの
+Fastest収集、compiler option matrix、計測条件と現在のStatic RMQ調査結果は
+[`benchmark/README.md`](benchmark/README.md)と[`benchmark/REPORT.md`](benchmark/REPORT.md)を参照してください。
+
 ## Yosupoへの提出
 
 `online-judge-tools` のLibrary Checker向けアダプタは、現在テストケースの取得とローカル検証を
