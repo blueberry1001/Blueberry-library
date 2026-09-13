@@ -40,7 +40,8 @@ class FenwickTree {
   // existing submissions.
   T pref(int right) const { return prefix_sum(right); }
 
-  T sum(int left, int right) const {    assert(0 <= left && left <= right && right <= n_);
+  T sum(int left, int right) const {
+    assert(0 <= left && left <= right && right <= n_);
     return prefix_sum(right) - prefix_sum(left);
   }
 
