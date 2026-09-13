@@ -65,7 +65,7 @@ class SegmentTree {
 
   int n_;
   int size_ = 1;
-  Op op_;
+  [[no_unique_address]] Op op_;
   S identity_;
   std::vector<S> data_;
 };

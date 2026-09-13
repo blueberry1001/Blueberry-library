@@ -1,5 +1,6 @@
 #pragma once
 
+#include <bit>
 #include <cassert>
 #include <vector>
 
@@ -43,7 +44,11 @@ class FenwickTree {
 
   T get(int index) const {
     assert(0 <= index && index < n_);
-    return sum(index, index + 1);
+    int right = index + 1;
+    T result = data_[right - 1];
+    const int left = right - (right & -right);
+    for (--right; right != left; right -= right & -right) result -= data_[right - 1];
+    return result;
   }
 
   int size() const { return n_; }
@@ -54,8 +59,7 @@ class FenwickTree {
     if (!(T{} < target)) return 0;
     int index = 0;
     T current{};
-    int step = 1;
-    while (step < n_) step <<= 1;
+    int step = static_cast<int>(std::bit_floor(static_cast<unsigned>(n_)));
     for (; step > 0; step >>= 1) {
       const int next = index + step;
       if (next <= n_ && current + data_[next - 1] < target) {

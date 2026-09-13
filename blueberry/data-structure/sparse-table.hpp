@@ -1,6 +1,9 @@
 #pragma once
 
+#include <algorithm>
+#include <bit>
 #include <cassert>
+#include <cstddef>
 #include <utility>
 #include <vector>
 
@@ -15,24 +18,28 @@ class SparseTable {
   SparseTable(const std::vector<T>& values, Op op)
       : n_(static_cast<int>(values.size())), op_(std::move(op)) {
     assert(!values.empty());
-    log_.assign(n_ + 1, 0);
-    for (int i = 2; i <= n_; ++i) log_[i] = log_[i / 2] + 1;
-    table_.resize(log_[n_] + 1);
-    table_[0] = values;
-    for (int level = 1; level < static_cast<int>(table_.size()); ++level) {
+    const int levels = std::bit_width(static_cast<unsigned>(n_));
+    offsets_.resize(levels + 1);
+    for (int level = 0; level < levels; ++level) {
+      offsets_[level + 1] = offsets_[level] + n_ - (1 << level) + 1;
+    }
+    table_.resize(offsets_.back());
+    std::copy(values.begin(), values.end(), table_.begin());
+    for (int level = 1; level < levels; ++level) {
       const int length = 1 << level;
-      table_[level].resize(n_ - length + 1);
       for (int left = 0; left + length <= n_; ++left) {
-        table_[level][left] =
-            op_(table_[level - 1][left], table_[level - 1][left + length / 2]);
+        table_[offsets_[level] + left] =
+            op_(table_[offsets_[level - 1] + left],
+                table_[offsets_[level - 1] + left + length / 2]);
       }
     }
   }
 
   T product(int left, int right) const {
     assert(0 <= left && left < right && right <= n_);
-    const int level = log_[right - left];
-    return op_(table_[level][left], table_[level][right - (1 << level)]);
+    const int level = std::bit_width(static_cast<unsigned>(right - left)) - 1;
+    return op_(table_[offsets_[level] + left],
+               table_[offsets_[level] + right - (1 << level)]);
   }
 
   int size() const { return n_; }
@@ -40,8 +47,8 @@ class SparseTable {
  private:
   int n_;
   Op op_;
-  std::vector<int> log_;
-  std::vector<std::vector<T>> table_;
+  std::vector<std::size_t> offsets_;
+  std::vector<T> table_;
 };
 
 }  // namespace blueberry

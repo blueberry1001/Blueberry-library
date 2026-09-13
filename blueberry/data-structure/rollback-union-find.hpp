@@ -26,7 +26,7 @@ class RollbackUnionFind {
     u = leader(u);
     v = leader(v);
     if (-parent_or_size_[u] < -parent_or_size_[v]) std::swap(u, v);
-    history_.push_back({u, parent_or_size_[u], v, parent_or_size_[v], u != v});
+    history_.push_back({u, parent_or_size_[u], v, parent_or_size_[v]});
     if (u == v) return false;
     parent_or_size_[u] += parent_or_size_[v];
     parent_or_size_[v] = u;
@@ -52,7 +52,7 @@ class RollbackUnionFind {
     history_.pop_back();
     parent_or_size_[change.u] = change.parent_u;
     parent_or_size_[change.v] = change.parent_v;
-    if (change.merged) ++components_;
+    if (change.u != change.v) ++components_;
   }
 
   void rollback(int target_state) {
@@ -68,7 +68,6 @@ class RollbackUnionFind {
     int parent_u;
     int v;
     int parent_v;
-    bool merged;
   };
 
   std::vector<int> parent_or_size_;
