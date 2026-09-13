@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Check catalog/API documentation and compile/run every minimal C++ example."""
+import os
 from pathlib import Path
 import re
+import shlex
 import subprocess
 import tempfile
 
@@ -33,12 +35,28 @@ for header in headers:
 
 guide = ROOT / ".verify-helper/docs/static/guide.md"
 examples.append((guide.relative_to(ROOT), re.findall(r"```cpp\n(.*?)\n```", guide.read_text(), re.S)[0]))
+compiler = os.environ.get("CXX", "g++")
+standard = os.environ.get("CXX_STANDARD", "gnu++20")
+compile_command = [
+    compiler,
+    *shlex.split(os.environ.get("CPPFLAGS", "")),
+    f"-std={standard}",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    *shlex.split(os.environ.get("CXXFLAGS", "")),
+    "-I",
+    str(ROOT),
+    "-x",
+    "c++",
+    "-",
+]
 with tempfile.TemporaryDirectory(prefix="blueberry-docs-") as temporary:
     for index, (document, source) in enumerate(examples):
         executable = Path(temporary) / str(index)
         subprocess.run(
-            ["g++", "-std=gnu++20", "-O2", "-Wall", "-Wextra", "-Werror", "-I", str(ROOT),
-             "-x", "c++", "-", "-o", str(executable)],
+            [*compile_command, "-o", str(executable)],
             input=source, text=True, check=True, timeout=60,
         )
         subprocess.run([str(executable)], check=True, timeout=10)

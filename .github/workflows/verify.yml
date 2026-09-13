@@ -11,7 +11,48 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  compile:
+    name: compile (${{ matrix.compiler }}, ${{ matrix.standard }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - compiler: GCC
+            cxx: g++
+            standard: gnu++20
+          - compiler: GCC
+            cxx: g++
+            standard: gnu++23
+          - compiler: Clang
+            cxx: clang++
+            standard: gnu++20
+          - compiler: Clang
+            cxx: clang++
+            standard: gnu++23
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install AtCoder Library headers
+        run: git clone --depth 1 https://github.com/atcoder/ac-library.git "$RUNNER_TEMP/ac-library"
+
+      - name: Compile headers and verify programs
+        env:
+          CPPFLAGS: -I${{ runner.temp }}/ac-library
+        run: make compile-test CXX=${{ matrix.cxx }} CXX_STANDARD=${{ matrix.standard }}
+
+      - name: Run randomized tests
+        env:
+          CPPFLAGS: -I${{ runner.temp }}/ac-library
+        run: make random-test CXX=${{ matrix.cxx }} CXX_STANDARD=${{ matrix.standard }}
+
   verify:
+    needs: compile
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
