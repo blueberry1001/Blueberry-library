@@ -7,5 +7,6 @@
 #include "blueberry/data-structure/sparse-table.hpp"
 #include "blueberry/graph/dijkstra.hpp"
 #include "blueberry/graph/lowest-common-ancestor.hpp"
+#include "blueberry/math/formal-power-series.hpp"
 #include "blueberry/math/prime-sieve.hpp"
 #include "blueberry/string/z-algorithm.hpp"
