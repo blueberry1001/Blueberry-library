@@ -1,0 +1,1734 @@
+{
+  "schema": 1,
+  "generated_at": "2026-09-13T07:50:24.974331+00:00",
+  "revision": "e9b8851fc4f4c656c069937cbcf22476a3eaee4f",
+  "manifest_sha256": "78896678a5e07f2ec9fc9e8444cf4397bf08052eca83c592c2db5861a8d577d2",
+  "environment": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "os": "Linux-6.18.35-x86_64-with-glibc2.39",
+    "python": "3.12.14",
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "cpu_affinity": 0,
+    "repeats": 11,
+    "warmups": 2,
+    "interleaved": true
+  },
+  "results": [
+    {
+      "target": "static-rmq-random-blueberry",
+      "group": "static-rmq-random",
+      "baseline": true,
+      "flag_set": "judge",
+      "flags": [
+        "-std=c++23",
+        "-O2",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "random"
+      ],
+      "compile_seconds": 1.029037498999969,
+      "binary_bytes": 22208,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 15843798916821819657,
+      "samples": [
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0150728,
+          "query_seconds": 0.14136,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.16804973899706965
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0139245,
+          "query_seconds": 0.128421,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.15349199799675262
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0149886,
+          "query_seconds": 0.192285,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.21867862999351928
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0169064,
+          "query_seconds": 0.302124,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.33125021199521143
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0145628,
+          "query_seconds": 0.155418,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.18265693299326813
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0146937,
+          "query_seconds": 0.147649,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.17373817900079302
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0152915,
+          "query_seconds": 0.14858,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.17627709900261834
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0200344,
+          "query_seconds": 0.143761,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1753278379983385
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0154595,
+          "query_seconds": 0.14808,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.17694016599853057
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0147812,
+          "query_seconds": 0.126976,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1530956540009356
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0151838,
+          "query_seconds": 0.127502,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.15560828899469925
+        }
+      ],
+      "median_build_seconds": 0.0150728,
+      "min_build_seconds": 0.0139245,
+      "max_build_seconds": 0.0200344,
+      "mad_build_seconds": 0.00037910000000000027,
+      "median_estimated_structure_bytes": 37902932.0,
+      "min_estimated_structure_bytes": 37902932.0,
+      "max_estimated_structure_bytes": 37902932.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.147649,
+      "min_query_seconds": 0.126976,
+      "max_query_seconds": 0.302124,
+      "mad_query_seconds": 0.007768999999999998,
+      "median_wall_seconds": 0.1753278379983385,
+      "min_wall_seconds": 0.1530956540009356,
+      "max_wall_seconds": 0.33125021199521143,
+      "mad_wall_seconds": 0.007329094994929619,
+      "query_ratio_to_baseline": 1.0
+    },
+    {
+      "target": "static-rmq-random-blueberry",
+      "group": "static-rmq-random",
+      "baseline": true,
+      "flag_set": "judge-o3",
+      "flags": [
+        "-std=c++23",
+        "-O3",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "random"
+      ],
+      "compile_seconds": 1.0829390090002562,
+      "binary_bytes": 21952,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 15843798916821819657,
+      "samples": [
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0127092,
+          "query_seconds": 0.13598,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1597874589933781
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0139795,
+          "query_seconds": 0.133566,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1580808889993932
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0150333,
+          "query_seconds": 0.155942,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1861656059991219
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0130479,
+          "query_seconds": 0.171023,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.19472844600386452
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0135964,
+          "query_seconds": 0.173363,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.19933686299918918
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0138389,
+          "query_seconds": 0.179385,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.20448973000020487
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0135181,
+          "query_seconds": 0.157721,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.18189379700197605
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0133153,
+          "query_seconds": 0.136038,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.16059990900248522
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0173501,
+          "query_seconds": 0.191534,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.22125458899972728
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0713921,
+          "query_seconds": 0.152036,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.2387120969942771
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0157076,
+          "query_seconds": 0.153434,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1803260489978129
+        }
+      ],
+      "median_build_seconds": 0.0138389,
+      "min_build_seconds": 0.0127092,
+      "max_build_seconds": 0.0713921,
+      "mad_build_seconds": 0.000791,
+      "median_estimated_structure_bytes": 37902932.0,
+      "min_estimated_structure_bytes": 37902932.0,
+      "max_estimated_structure_bytes": 37902932.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.155942,
+      "min_query_seconds": 0.133566,
+      "max_query_seconds": 0.191534,
+      "mad_query_seconds": 0.017420999999999992,
+      "median_wall_seconds": 0.1861656059991219,
+      "min_wall_seconds": 0.1580808889993932,
+      "max_wall_seconds": 0.2387120969942771,
+      "mad_wall_seconds": 0.018324124001082964,
+      "query_ratio_to_baseline": 1.0
+    },
+    {
+      "target": "static-rmq-random-flat",
+      "group": "static-rmq-random",
+      "baseline": false,
+      "flag_set": "judge",
+      "flags": [
+        "-std=c++23",
+        "-O2",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "random"
+      ],
+      "compile_seconds": 0.8833445389973349,
+      "binary_bytes": 17840,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 15843798916821819657,
+      "samples": [
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0166605,
+          "query_seconds": 0.0735633,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.10324356199998874
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0148466,
+          "query_seconds": 0.0737144,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.10000440099975094
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0153525,
+          "query_seconds": 0.0743326,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.1004841399990255
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.016331,
+          "query_seconds": 0.122312,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.15187370499916142
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0182421,
+          "query_seconds": 0.0778663,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.10870631300349487
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0157385,
+          "query_seconds": 0.0868714,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11493699800485047
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0155636,
+          "query_seconds": 0.0762432,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.10292944200045895
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0152278,
+          "query_seconds": 0.0878565,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11547949100349797
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0177081,
+          "query_seconds": 0.0861651,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11546624099719338
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0172769,
+          "query_seconds": 0.11004,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.14380432500183815
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0161315,
+          "query_seconds": 0.0867758,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11541847199987387
+        }
+      ],
+      "median_build_seconds": 0.0161315,
+      "min_build_seconds": 0.0148466,
+      "max_build_seconds": 0.0182421,
+      "mad_build_seconds": 0.0007790000000000002,
+      "median_estimated_structure_bytes": 38000000.0,
+      "min_estimated_structure_bytes": 38000000.0,
+      "max_estimated_structure_bytes": 38000000.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.0861651,
+      "min_query_seconds": 0.0735633,
+      "max_query_seconds": 0.122312,
+      "mad_query_seconds": 0.009921899999999997,
+      "median_wall_seconds": 0.11493699800485047,
+      "min_wall_seconds": 0.10000440099975094,
+      "max_wall_seconds": 0.15187370499916142,
+      "mad_wall_seconds": 0.011693436004861724,
+      "query_ratio_to_baseline": 0.58358065411889
+    },
+    {
+      "target": "static-rmq-random-flat",
+      "group": "static-rmq-random",
+      "baseline": false,
+      "flag_set": "judge-o3",
+      "flags": [
+        "-std=c++23",
+        "-O3",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "random"
+      ],
+      "compile_seconds": 1.1735639120015549,
+      "binary_bytes": 21656,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 15843798916821819657,
+      "samples": [
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0131782,
+          "query_seconds": 0.0998599,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.1233609670016449
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0134323,
+          "query_seconds": 0.0745648,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.09864017999643693
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0134157,
+          "query_seconds": 0.0803262,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.10405134000029648
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0192802,
+          "query_seconds": 0.121096,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.15337884800101165
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.017116,
+          "query_seconds": 0.0848947,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11566478799795732
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0145272,
+          "query_seconds": 0.0794428,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.10496131599938963
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0138181,
+          "query_seconds": 0.0722183,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.09677086200099438
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.036684,
+          "query_seconds": 0.0755805,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.15887038000073517
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0142901,
+          "query_seconds": 0.0883478,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11401966599805746
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0146016,
+          "query_seconds": 0.0908504,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11708847899717512
+        },
+        {
+          "implementation": "flat",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0140669,
+          "query_seconds": 0.0950067,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.12081650099571561
+        }
+      ],
+      "median_build_seconds": 0.0142901,
+      "min_build_seconds": 0.0131782,
+      "max_build_seconds": 0.036684,
+      "mad_build_seconds": 0.0008578000000000006,
+      "median_estimated_structure_bytes": 38000000.0,
+      "min_estimated_structure_bytes": 38000000.0,
+      "max_estimated_structure_bytes": 38000000.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.0848947,
+      "min_query_seconds": 0.0722183,
+      "max_query_seconds": 0.121096,
+      "mad_query_seconds": 0.009314200000000009,
+      "median_wall_seconds": 0.11566478799795732,
+      "min_wall_seconds": 0.09677086200099438,
+      "max_wall_seconds": 0.15887038000073517,
+      "mad_wall_seconds": 0.010703471998567693,
+      "query_ratio_to_baseline": 0.5443991997024535
+    },
+    {
+      "target": "static-rmq-random-blocked",
+      "group": "static-rmq-random",
+      "baseline": false,
+      "flag_set": "judge",
+      "flags": [
+        "-std=c++23",
+        "-O2",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "random"
+      ],
+      "compile_seconds": 1.2702529000016511,
+      "binary_bytes": 22080,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 15843798916821819657,
+      "samples": [
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00525775,
+          "query_seconds": 0.226204,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.24196242100151721
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00564999,
+          "query_seconds": 0.225608,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.24147984199953498
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0053483,
+          "query_seconds": 0.179064,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.19475772400619462
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00597394,
+          "query_seconds": 0.187276,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.20433873499860056
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00560516,
+          "query_seconds": 0.20265,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.21907548799936194
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00545858,
+          "query_seconds": 0.183992,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.1998059550023754
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00552397,
+          "query_seconds": 0.177169,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.19342632299958495
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00585842,
+          "query_seconds": 0.180253,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.20102153200423345
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00557668,
+          "query_seconds": 0.212193,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.2284355419978965
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00539852,
+          "query_seconds": 0.18646,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.2031313190018409
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00565435,
+          "query_seconds": 0.242744,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.26779804499528836
+        }
+      ],
+      "median_build_seconds": 0.00557668,
+      "min_build_seconds": 0.00525775,
+      "max_build_seconds": 0.00597394,
+      "mad_build_seconds": 0.00011809999999999946,
+      "median_estimated_structure_bytes": 6406276.0,
+      "min_estimated_structure_bytes": 6406276.0,
+      "max_estimated_structure_bytes": 6406276.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.187276,
+      "min_query_seconds": 0.177169,
+      "max_query_seconds": 0.242744,
+      "mad_query_seconds": 0.010107000000000005,
+      "median_wall_seconds": 0.20433873499860056,
+      "min_wall_seconds": 0.19342632299958495,
+      "max_wall_seconds": 0.26779804499528836,
+      "mad_wall_seconds": 0.010912411999015603,
+      "query_ratio_to_baseline": 1.2683865112530393
+    },
+    {
+      "target": "static-rmq-random-blocked",
+      "group": "static-rmq-random",
+      "baseline": false,
+      "flag_set": "judge-o3",
+      "flags": [
+        "-std=c++23",
+        "-O3",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "random"
+      ],
+      "compile_seconds": 1.3237965250009438,
+      "binary_bytes": 25872,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 15843798916821819657,
+      "samples": [
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00515364,
+          "query_seconds": 0.194652,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.2095944300017436
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00564068,
+          "query_seconds": 0.184837,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.20133718800207134
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00510256,
+          "query_seconds": 0.189591,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.20483837999927346
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00537764,
+          "query_seconds": 0.203587,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.2193708259947016
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00507874,
+          "query_seconds": 0.215657,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.23216090799542144
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0052114,
+          "query_seconds": 0.19916,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.21518209400528576
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00523373,
+          "query_seconds": 0.176872,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.1928344960033428
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00541134,
+          "query_seconds": 0.190393,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.2060501009982545
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00523507,
+          "query_seconds": 0.184757,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.2003955699983635
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.0053856,
+          "query_seconds": 0.179392,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.19616001699614571
+        },
+        {
+          "implementation": "blocked",
+          "workload": "random",
+          "checksum": 15843798916821819657,
+          "build_seconds": 0.00580848,
+          "query_seconds": 0.218646,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.2403779360029148
+        }
+      ],
+      "median_build_seconds": 0.00523507,
+      "min_build_seconds": 0.00507874,
+      "max_build_seconds": 0.00580848,
+      "mad_build_seconds": 0.00014257000000000072,
+      "median_estimated_structure_bytes": 6406276.0,
+      "min_estimated_structure_bytes": 6406276.0,
+      "max_estimated_structure_bytes": 6406276.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.190393,
+      "min_query_seconds": 0.176872,
+      "max_query_seconds": 0.218646,
+      "mad_query_seconds": 0.008766999999999997,
+      "median_wall_seconds": 0.2060501009982545,
+      "min_wall_seconds": 0.1928344960033428,
+      "max_wall_seconds": 0.2403779360029148,
+      "mad_wall_seconds": 0.00913199300703127,
+      "query_ratio_to_baseline": 1.2209218812122455
+    },
+    {
+      "target": "static-rmq-small-blueberry",
+      "group": "static-rmq-small",
+      "baseline": true,
+      "flag_set": "judge",
+      "flags": [
+        "-std=c++23",
+        "-O2",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "small"
+      ],
+      "compile_seconds": 1.0559562349953922,
+      "binary_bytes": 22208,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 17241295574507356784,
+      "samples": [
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0181337,
+          "query_seconds": 0.0712755,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09904227899824036
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0140842,
+          "query_seconds": 0.0645393,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.08699101899401285
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0156658,
+          "query_seconds": 0.0677046,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09131496599729871
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0147375,
+          "query_seconds": 0.100701,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.12370744399959221
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0149969,
+          "query_seconds": 0.119786,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1465993809979409
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0146145,
+          "query_seconds": 0.104875,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1284215170016978
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0144906,
+          "query_seconds": 0.070492,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09316552199743455
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0151681,
+          "query_seconds": 0.0813659,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.10631948800437385
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0148422,
+          "query_seconds": 0.0666633,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.08925847199861892
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0141756,
+          "query_seconds": 0.0709975,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09314207300485577
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0205417,
+          "query_seconds": 0.0856716,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1141749090020312
+        }
+      ],
+      "median_build_seconds": 0.0148422,
+      "min_build_seconds": 0.0140842,
+      "max_build_seconds": 0.0205417,
+      "mad_build_seconds": 0.0003516000000000005,
+      "median_estimated_structure_bytes": 37902932.0,
+      "min_estimated_structure_bytes": 37902932.0,
+      "max_estimated_structure_bytes": 37902932.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.0712755,
+      "min_query_seconds": 0.0645393,
+      "max_query_seconds": 0.119786,
+      "mad_query_seconds": 0.006736200000000012,
+      "median_wall_seconds": 0.09904227899824036,
+      "min_wall_seconds": 0.08699101899401285,
+      "max_wall_seconds": 0.1465993809979409,
+      "mad_wall_seconds": 0.009783806999621447,
+      "query_ratio_to_baseline": 1.0
+    },
+    {
+      "target": "static-rmq-small-blueberry",
+      "group": "static-rmq-small",
+      "baseline": true,
+      "flag_set": "judge-o3",
+      "flags": [
+        "-std=c++23",
+        "-O3",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "small"
+      ],
+      "compile_seconds": 1.3042420209967531,
+      "binary_bytes": 21952,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 17241295574507356784,
+      "samples": [
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0131529,
+          "query_seconds": 0.0684095,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09000994900270598
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0134598,
+          "query_seconds": 0.0692086,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.0909805079936632
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0131335,
+          "query_seconds": 0.0768943,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09859310399770038
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0134819,
+          "query_seconds": 0.0768683,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.0989479339987156
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0213571,
+          "query_seconds": 0.0801006,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.1135959380044369
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.013541,
+          "query_seconds": 0.0690946,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09160098100255709
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0134307,
+          "query_seconds": 0.0753508,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09822443700250005
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0134053,
+          "query_seconds": 0.0701422,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09245915799692739
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0131823,
+          "query_seconds": 0.114721,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.13632985400181497
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0139299,
+          "query_seconds": 0.0684722,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.09165114400093444
+        },
+        {
+          "implementation": "blueberry",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0136885,
+          "query_seconds": 0.086859,
+          "estimated_structure_bytes": 37902932,
+          "wall_seconds": 0.10896286200295435
+        }
+      ],
+      "median_build_seconds": 0.0134598,
+      "min_build_seconds": 0.0131335,
+      "max_build_seconds": 0.0213571,
+      "mad_build_seconds": 0.00022870000000000008,
+      "median_estimated_structure_bytes": 37902932.0,
+      "min_estimated_structure_bytes": 37902932.0,
+      "max_estimated_structure_bytes": 37902932.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.0753508,
+      "min_query_seconds": 0.0684095,
+      "max_query_seconds": 0.114721,
+      "mad_query_seconds": 0.0061422000000000004,
+      "median_wall_seconds": 0.09822443700250005,
+      "min_wall_seconds": 0.09000994900270598,
+      "max_wall_seconds": 0.13632985400181497,
+      "mad_wall_seconds": 0.006623455999942962,
+      "query_ratio_to_baseline": 1.0
+    },
+    {
+      "target": "static-rmq-small-flat",
+      "group": "static-rmq-small",
+      "baseline": false,
+      "flag_set": "judge",
+      "flags": [
+        "-std=c++23",
+        "-O2",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "small"
+      ],
+      "compile_seconds": 1.0162166529989918,
+      "binary_bytes": 17840,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 17241295574507356784,
+      "samples": [
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0154745,
+          "query_seconds": 0.0764396,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.10000653399765724
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0155902,
+          "query_seconds": 0.0734312,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.09704798600432696
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0160257,
+          "query_seconds": 0.082641,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.10958732400467852
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0156714,
+          "query_seconds": 0.0710266,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.09476991900010034
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0176333,
+          "query_seconds": 0.092822,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11995767700136639
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0159763,
+          "query_seconds": 0.0734163,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.0972046059978311
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0159119,
+          "query_seconds": 0.0654053,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.08915898700070102
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0153901,
+          "query_seconds": 0.0676708,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.09128998700180091
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0160526,
+          "query_seconds": 0.0705328,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.0951143830025103
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0160416,
+          "query_seconds": 0.0752086,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.09944150900264503
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0164551,
+          "query_seconds": 0.120634,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.1450193550044787
+        }
+      ],
+      "median_build_seconds": 0.0159763,
+      "min_build_seconds": 0.0153901,
+      "max_build_seconds": 0.0176333,
+      "mad_build_seconds": 0.0003049000000000003,
+      "median_estimated_structure_bytes": 38000000.0,
+      "min_estimated_structure_bytes": 38000000.0,
+      "max_estimated_structure_bytes": 38000000.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.0734312,
+      "min_query_seconds": 0.0654053,
+      "max_query_seconds": 0.120634,
+      "mad_query_seconds": 0.0030083999999999944,
+      "median_wall_seconds": 0.0972046059978311,
+      "min_wall_seconds": 0.08915898700070102,
+      "max_wall_seconds": 0.1450193550044787,
+      "mad_wall_seconds": 0.002801927999826148,
+      "query_ratio_to_baseline": 1.0302446142082482
+    },
+    {
+      "target": "static-rmq-small-flat",
+      "group": "static-rmq-small",
+      "baseline": false,
+      "flag_set": "judge-o3",
+      "flags": [
+        "-std=c++23",
+        "-O3",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "small"
+      ],
+      "compile_seconds": 1.2076244389972999,
+      "binary_bytes": 21656,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 17241295574507356784,
+      "samples": [
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0133809,
+          "query_seconds": 0.0965013,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11907626999891363
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.014795,
+          "query_seconds": 0.0654896,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.08924867900350364
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0146583,
+          "query_seconds": 0.150332,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.1745424019973143
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0141658,
+          "query_seconds": 0.165229,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.1899619999967399
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.013939,
+          "query_seconds": 0.071252,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.09386314800212858
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0142147,
+          "query_seconds": 0.0909895,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.11494443500123452
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0144978,
+          "query_seconds": 0.0658145,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.08987320600135718
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0144715,
+          "query_seconds": 0.0684331,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.09203149799577659
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0142904,
+          "query_seconds": 0.10627,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.12937269900430692
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0174127,
+          "query_seconds": 0.0722298,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.10168446999887237
+        },
+        {
+          "implementation": "flat",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0173197,
+          "query_seconds": 0.119357,
+          "estimated_structure_bytes": 38000000,
+          "wall_seconds": 0.14669267299905187
+        }
+      ],
+      "median_build_seconds": 0.0144715,
+      "min_build_seconds": 0.0133809,
+      "max_build_seconds": 0.0174127,
+      "mad_build_seconds": 0.00030570000000000076,
+      "median_estimated_structure_bytes": 38000000.0,
+      "min_estimated_structure_bytes": 38000000.0,
+      "max_estimated_structure_bytes": 38000000.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.0909895,
+      "min_query_seconds": 0.0654896,
+      "max_query_seconds": 0.165229,
+      "mad_query_seconds": 0.022556400000000004,
+      "median_wall_seconds": 0.11494443500123452,
+      "min_wall_seconds": 0.08924867900350364,
+      "max_wall_seconds": 0.1899619999967399,
+      "mad_wall_seconds": 0.022912937005457934,
+      "query_ratio_to_baseline": 1.2075452417227157
+    },
+    {
+      "target": "static-rmq-small-blocked",
+      "group": "static-rmq-small",
+      "baseline": false,
+      "flag_set": "judge",
+      "flags": [
+        "-std=c++23",
+        "-O2",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "small"
+      ],
+      "compile_seconds": 1.0051704830038943,
+      "binary_bytes": 22080,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 17241295574507356784,
+      "samples": [
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.0052879,
+          "query_seconds": 0.135017,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.14725523400556995
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00547347,
+          "query_seconds": 0.120529,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.13305763600510545
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00807125,
+          "query_seconds": 0.147359,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.1667819150025025
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00688577,
+          "query_seconds": 0.214471,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.23176345499814488
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00541927,
+          "query_seconds": 0.127594,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.14057043800130486
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00586258,
+          "query_seconds": 0.142504,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.1568394450005144
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00526432,
+          "query_seconds": 0.12554,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.13784257000224898
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00549062,
+          "query_seconds": 0.122503,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.13557072800176684
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00643461,
+          "query_seconds": 0.135149,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.1502705950042582
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00530933,
+          "query_seconds": 0.130119,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.14250876299774973
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00576419,
+          "query_seconds": 0.143985,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.15705086100206245
+        }
+      ],
+      "median_build_seconds": 0.00549062,
+      "min_build_seconds": 0.00526432,
+      "max_build_seconds": 0.00807125,
+      "mad_build_seconds": 0.0002262999999999996,
+      "median_estimated_structure_bytes": 6406276.0,
+      "min_estimated_structure_bytes": 6406276.0,
+      "max_estimated_structure_bytes": 6406276.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.135017,
+      "min_query_seconds": 0.120529,
+      "max_query_seconds": 0.214471,
+      "mad_query_seconds": 0.008968000000000004,
+      "median_wall_seconds": 0.14725523400556995,
+      "min_wall_seconds": 0.13305763600510545,
+      "max_wall_seconds": 0.23176345499814488,
+      "mad_wall_seconds": 0.009584210994944442,
+      "query_ratio_to_baseline": 1.8942974794985652
+    },
+    {
+      "target": "static-rmq-small-blocked",
+      "group": "static-rmq-small",
+      "baseline": false,
+      "flag_set": "judge-o3",
+      "flags": [
+        "-std=c++23",
+        "-O3",
+        "-DNDEBUG",
+        "-DEVAL",
+        "-DONLINE_JUDGE",
+        "-march=native"
+      ],
+      "args": [
+        "500000",
+        "500000",
+        "30",
+        "20260913",
+        "small"
+      ],
+      "compile_seconds": 1.2734195649973117,
+      "binary_bytes": 25872,
+      "source_sha256": "4431274ffe062b535b9627ee8e8625e99f18e7bb19cf97a6bc1a2fdd87b0022c",
+      "checksum": 17241295574507356784,
+      "samples": [
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00543796,
+          "query_seconds": 0.137875,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.15207501999975648
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00522562,
+          "query_seconds": 0.122597,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.13610522799717728
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00519729,
+          "query_seconds": 0.13959,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.1530603310020524
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00925795,
+          "query_seconds": 0.191891,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.21427610300452216
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00605492,
+          "query_seconds": 0.140011,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.1549133750013425
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00519276,
+          "query_seconds": 0.13666,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.15003693400649354
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00536445,
+          "query_seconds": 0.123687,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.13835046000167495
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00511451,
+          "query_seconds": 0.123011,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.1362114389994531
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00529403,
+          "query_seconds": 0.136958,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.15207199199358
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00622519,
+          "query_seconds": 0.129379,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.14567211100074928
+        },
+        {
+          "implementation": "blocked",
+          "workload": "small",
+          "checksum": 17241295574507356784,
+          "build_seconds": 0.00523497,
+          "query_seconds": 0.135474,
+          "estimated_structure_bytes": 6406276,
+          "wall_seconds": 0.15039484700537287
+        }
+      ],
+      "median_build_seconds": 0.00529403,
+      "min_build_seconds": 0.00511451,
+      "max_build_seconds": 0.00925795,
+      "mad_build_seconds": 0.00010126999999999966,
+      "median_estimated_structure_bytes": 6406276.0,
+      "min_estimated_structure_bytes": 6406276.0,
+      "max_estimated_structure_bytes": 6406276.0,
+      "mad_estimated_structure_bytes": 0.0,
+      "median_query_seconds": 0.13666,
+      "min_query_seconds": 0.122597,
+      "max_query_seconds": 0.191891,
+      "mad_query_seconds": 0.003350999999999993,
+      "median_wall_seconds": 0.15039484700537287,
+      "min_wall_seconds": 0.13610522799717728,
+      "max_wall_seconds": 0.21427610300452216,
+      "mad_wall_seconds": 0.0045185279959696345,
+      "query_ratio_to_baseline": 1.8136502863937742
+    }
+  ]
+}

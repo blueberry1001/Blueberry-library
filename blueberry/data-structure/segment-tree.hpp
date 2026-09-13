@@ -50,7 +50,13 @@ class SegmentTree {
     return op_(left_result, right_result);
   }
 
+  // ACL-style short spelling.  Keep `product` for existing submissions.
+  S prod(int left, int right) const { return product(left, right); }
+
   const S& all_product() const { return data_[1]; }
+
+  // ACL-style short spelling.  Keep `all_product` for existing submissions.
+  const S& all_prod() const { return all_product(); }
 
   int size() const { return n_; }
 
@@ -65,7 +71,7 @@ class SegmentTree {
 
   int n_;
   int size_ = 1;
-  Op op_;
+  [[no_unique_address]] Op op_;
   S identity_;
   std::vector<S> data_;
 };

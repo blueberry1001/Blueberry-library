@@ -417,6 +417,28 @@ Blueberry側で再実装しています。コードをそのままコピーせ�
 - [Sqrt of Formal Power Series](https://judge.yosupo.jp/problem/sqrt_of_formal_power_series)
 - [Pow of Formal Power Series](https://judge.yosupo.jp/problem/pow_of_formal_power_series)
 
+### Fastest 提出との比較
+
+Library Checker の「Fastest」は、同じ問題の AC 提出を Yosupo 側の実行環境で最大ケース時間順に
+並べた値です。`make verify` の集計（複数ケース・複数回・CI runner）とは測定対象が異なるため、
+数値をそのまま倍率比較しません。比較するときは、問題・入力・コンパイラ・最適化フラグ・CPUを揃え、
+solution 実行時間とコンパイル時間を分けます。
+
+公開実装の構成を調べるには、読み取り専用の次のスクリプトを使えます。REST API の `+time` 順を
+取得し、各提出のケース最大時間と NTT/SIMD/ACL 畳み込みなどの特徴を `report.md` にまとめます。
+
+{% raw %}
+```bash
+python3 scripts/fetch_lc_fastest.py exp_of_formal_power_series \
+  --limit 10 --out-dir .verification/lc/exp --save-source
+```
+{% endraw %}
+
+このスクリプトは提出・ソースの取得だけを行い、自動提出やアカウント操作はしません。Fastest 上位には
+AVX2 の手書き Montgomery 算術や専用 NTT が含まれることがあり、ACL `static_modint` と公開 API を
+使う本ライブラリとの速度差はアルゴリズムだけでなく係数演算・SIMD・I/O・測定環境にも由来します。
+そのため、まず同一条件のローカルベンチマークで候補を比較し、可読性・移植性を損なう最適化は採用しません。
+
 公式問題の最大入力（`N=500000`、modulus `998244353`）を対象に、CIではコンパイル時間と
 solution実行時間を分離して直列3回計測します。測定値は同じrunner・compiler・verifyコードの
 基準がある場合だけ比較し、Yosupo提出画面の時間とは区別します。
