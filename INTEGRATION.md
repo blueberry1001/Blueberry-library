@@ -75,10 +75,27 @@ until comparable measurements justify them. The integration makes no speculative
 
 ## Validation
 
-Validation is ongoing; final results will replace this section before review readiness.
+The authoritative final full-verification/CI outcome is recorded in
+[PR #11](https://github.com/blueberry1001/Blueberry-library/pull/11) and its Checks tab.
+The PR is made ready only after checking those results. The standard gate includes all
+20 Library Checker targets with three repetitions, generated docs/Jekyll, and site checks.
+
+Confirmed during integration:
+
+| Check | Result |
+| --- | --- |
+| make check | PASS: 23 Python tests, 11 library docs / 12 executable examples, 13 supported headers, 20 verify sources, 20 runner smoke seeds |
+| GCC 13.3 C++23 compile | PASS: 13 headers and 20 verify sources |
+| GitHub GCC/Clang C++20/23 matrix | PASS on code tree 6e937b3: include/verify compile and Tree/DS differential tests in all four jobs |
+| Tree / DS ASan + UBSan + _GLIBCXX_ASSERTIONS | PASS; LeakSanitizer disabled because this container's /proc isolation prevents its process inspection |
+| make docs | PASS locally; Jekyll and site checks run in CI |
+| make benchmark-smoke | PASS: all three implementations have matching checksums; one-run timings are not optimization evidence |
+| git diff --check | PASS |
+
 Initial preflight identified and fixed duplicate catalog entries. The first official verify
 attempt failed before execution because the local user scripts directory was absent from PATH;
-rerun uses PATH=/root/.local/bin:$PATH. This is not an algorithm failure.
+rerun uses PATH=/root/.local/bin:$PATH. No failed/missing measurement is treated as zero or
+as a successful check. All six source PRs had no inline review threads when inspected.
 
 ## Remaining roadmap
 

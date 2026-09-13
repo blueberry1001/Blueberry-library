@@ -98,6 +98,9 @@ jobs:
       - name: Test measurement code and documentation examples
         run: make test
 
+      - name: Smoke-test benchmark runner
+        run: make benchmark-smoke
+
       - name: Generate documentation for preflight
         run: make docs
 
