@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "defaults": {
+    "compiler": "g++",
+    "repeats": 7,
+    "warmups": 1,
+    "timeout_seconds": 30,
+    "flag_sets": ["judge", "judge-o3"]
+  },
+  "flag_sets": {
+    "portable": ["-std=c++20", "-O2", "-DNDEBUG"],
+    "judge": ["-std=c++23", "-O2", "-DNDEBUG", "-DEVAL", "-DONLINE_JUDGE", "-march=native"],
+    "judge-o3": ["-std=c++23", "-O3", "-DNDEBUG", "-DEVAL", "-DONLINE_JUDGE", "-march=native"]
+  },
+  "targets": [
+    {
+      "name": "static-rmq-random-blueberry",
+      "group": "static-rmq-random",
+      "baseline": true,
+      "source": "benchmark/static_rmq_benchmark.cpp",
+      "defines": ["BENCH_IMPL=0"],
+      "args": ["500000", "500000", "30", "20260913", "random"]
+    },
+    {
+      "name": "static-rmq-random-flat",
+      "group": "static-rmq-random",
+      "source": "benchmark/static_rmq_benchmark.cpp",
+      "defines": ["BENCH_IMPL=1"],
+      "args": ["500000", "500000", "30", "20260913", "random"]
+    },
+    {
+      "name": "static-rmq-random-blocked",
+      "group": "static-rmq-random",
+      "source": "benchmark/static_rmq_benchmark.cpp",
+      "defines": ["BENCH_IMPL=2"],
+      "args": ["500000", "500000", "30", "20260913", "random"]
+    },
+    {
+      "name": "static-rmq-small-blueberry",
+      "group": "static-rmq-small",
+      "baseline": true,
+      "source": "benchmark/static_rmq_benchmark.cpp",
+      "defines": ["BENCH_IMPL=0"],
+      "args": ["500000", "500000", "30", "20260913", "small"]
+    },
+    {
+      "name": "static-rmq-small-flat",
+      "group": "static-rmq-small",
+      "source": "benchmark/static_rmq_benchmark.cpp",
+      "defines": ["BENCH_IMPL=1"],
+      "args": ["500000", "500000", "30", "20260913", "small"]
+    },
+    {
+      "name": "static-rmq-small-blocked",
+      "group": "static-rmq-small",
+      "source": "benchmark/static_rmq_benchmark.cpp",
+      "defines": ["BENCH_IMPL=2"],
+      "args": ["500000", "500000", "30", "20260913", "small"]
+    }
+  ]
+}

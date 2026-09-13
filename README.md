@@ -26,7 +26,7 @@ dsu.merge(u, v);
 | 分類 | ライブラリ |
 | --- | --- |
 | Data Structure | Disjoint Set Union, Fenwick Tree, Segment Tree, Sparse Table, Rollback Union Find |
-| Graph | Dijkstra, Lowest Common Ancestor |
+| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition |
 | Math | Formal Power Series, Prime Sieve |
 | String | Z Algorithm |
 
@@ -40,19 +40,68 @@ FPS固有のNewton反復だけをBlueberry側で提供します。
 FPSを使う場合は、ACLの `atcoder/` ヘッダをインクルードパスに配置してください。
 GitHub Actionsでは公式ACLを取得してから検証します。
 
+LCA が大量に必要な場合は `LowestCommonAncestorRMQ`（Euler tour + Sparse Table、クエリ O(1)）を、
+部分木・パスクエリには `HeavyLightDecomposition` を利用できます。後者は ACL の `segtree` / `lazy_segtree`
+を分解配列の区間に適用する設計です。
+
+区間積の新しい呼び出しは `SparseTable::prod` / `SegmentTree::prod`（全体は `all_prod`）を推奨します。
+既存の `product` / `all_product` も互換性のため残しています。Fenwick Tree のprefix取得には短い
+`pref`、Union Find の成分サイズには `comp_size` も使えます。
+
 ## ローカルでの検証
 
-Python 3.8以上とC++20対応のGCCが必要です。
+Python 3.8以上とC++20対応のGCCまたはClangが必要です。初回だけ `make setup` を実行すると、
+verification-helperとACLを準備します。
 
 ```console
-python3 -m pip install -r requirements-dev.txt
+make setup
+make check
 make verify
 make docs
 ```
 
-`make verify` は `verify/**/*.test.cpp` を検出し、指定されたLibrary Checkerの
-公式テストケースをダウンロードしてローカル実行します。verification-helperの標準仕様は
-Yosupoへ自動提出する方式ではなく、同じテストデータとcheckerを使ってACかどうかを判定する方式です。
+Fastest 提出の調査には `scripts/fetch_lc_submissions.py` を推奨します（下記benchmark節）。
+先行PRの `scripts/fetch_lc_fastest.py` は既存CLI・出力形式の互換用として残しています。
+
+```console
+python3 scripts/fetch_lc_fastest.py exp_of_formal_power_series --limit 10 \
+  --out-dir .verification/lc/exp --save-source
+```
+
+各コマンドの役割は次の通りです。
+
+| コマンド | 内容 |
+| --- | --- |
+| `make check` | Pythonテスト、ドキュメント例、compile test、random testをまとめて実行 |
+| `make include-test` | 公開カタログの全ヘッダと互換入口を、1個ずつ単独includeしてコンパイル |
+| `make verify-compile` | `verify/**/*.test.cpp` を公式ケースの取得なしで全件コンパイル |
+| `make random-test` | `tests/random/**/*.cpp` をコンパイルし、既定でseed 1から20回実行 |
+| `make verify` | Library Checker公式ケースをchecker付きで実行し、3回の中央値を記録 |
+
+コンパイラと標準は、例えば
+`make compile-test CXX=clang++ CXX_STANDARD=gnu++23` のように切り替えられます。
+ACLを別の場所に置く場合は `ACL_ROOT=/path/to/ac-library` を指定してください。
+
+random testはseedを `argv[1]` と `BLUEBERRY_RANDOM_SEED` の両方で受け取れます。
+失敗時に表示されたseedは
+`RANDOM_SEED=123 RANDOM_RUNS=1 make random-test` で再現できます。配置規約と最小例は
+[`tests/random/README.md`](tests/random/README.md)にあります。
+
+`make verify` は `verify/**/*.test.cpp` を検出し、指定されたLibrary Checkerの公式テストケースを
+ダウンロードしてローカル実行します。verification-helperの標準仕様はYosupoへ自動提出する方式ではなく、
+同じテストデータとcheckerを使ってACかどうかを判定する方式です。
+
+## CIで行う検証
+
+pushとpull requestでは、GCC/Clang × GNU C++20/23の4環境で、全公開ヘッダの単体include、
+全verifyコードのコンパイル、共通random testを実行します。これにすべて通った後、GCC・GNU C++20で
+Pythonテスト、ドキュメント例、Library Checker公式ケース、生成サイトを検証します。
+各compile jobの結果はGitHub ActionsのSummaryに件数付きで表示され、Library Checkerの詳細な
+実行結果と計測ログは `verification-metrics` artifactに保存されます。
+
+性能調査は`make benchmark`で決定的なmicrobenchmarkを反復実行できます。Library Checkerの
+Fastest収集、compiler option matrix、計測条件と現在のStatic RMQ調査結果は
+[`benchmark/README.md`](benchmark/README.md)と[`benchmark/REPORT.md`](benchmark/REPORT.md)を参照してください。
 
 ## Yosupoへの提出
 

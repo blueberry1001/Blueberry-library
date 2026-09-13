@@ -22,6 +22,6 @@ int main() {
   while (q--) {
     int left, right;
     std::cin >> left >> right;
-    std::cout << sparse_table.product(left, right) << '\n';
+    std::cout << sparse_table.prod(left, right) << '\n';
   }
 }

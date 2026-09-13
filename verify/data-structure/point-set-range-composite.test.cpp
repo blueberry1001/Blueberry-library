@@ -43,7 +43,7 @@ int main() {
       int left, right;
       long long x;
       std::cin >> left >> right >> x;
-      const auto function = segment_tree.product(left, right);
+      const auto function = segment_tree.prod(left, right);
       std::cout << (function.a * x + function.b) % kMod << '\n';
     }
   }

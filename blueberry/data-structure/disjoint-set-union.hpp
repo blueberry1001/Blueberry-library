@@ -36,6 +36,9 @@ class DisjointSetUnion {
 
   int component_size(int v) { return -parent_or_size_[leader(v)]; }
 
+  // Short spelling for use in tight contest code.
+  int comp_size(int v) { return component_size(v); }
+
   int size() const { return static_cast<int>(parent_or_size_.size()); }
 
   std::vector<std::vector<int>> groups() {
