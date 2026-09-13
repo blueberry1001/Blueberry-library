@@ -26,7 +26,7 @@ dsu.merge(u, v);
 | 分類 | ライブラリ |
 | --- | --- |
 | Data Structure | Disjoint Set Union, Fenwick Tree, Segment Tree, Sparse Table, Rollback Union Find |
-| Graph | Dijkstra, Lowest Common Ancestor |
+| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition |
 | Math | Formal Power Series, Prime Sieve |
 | String | Z Algorithm |
 
@@ -40,6 +40,14 @@ FPS固有のNewton反復だけをBlueberry側で提供します。
 FPSを使う場合は、ACLの `atcoder/` ヘッダをインクルードパスに配置してください。
 GitHub Actionsでは公式ACLを取得してから検証します。
 
+LCA が大量に必要な場合は `LowestCommonAncestorRMQ`（Euler tour + Sparse Table、クエリ O(1)）を、
+部分木・パスクエリには `HeavyLightDecomposition` を利用できます。後者は ACL の `segtree` / `lazy_segtree`
+を分解配列の区間に適用する設計です。
+
+区間積の新しい呼び出しは `SparseTable::prod` / `SegmentTree::prod`（全体は `all_prod`）を推奨します。
+既存の `product` / `all_product` も互換性のため残しています。Fenwick Tree のprefix取得には短い
+`pref`、Union Find の成分サイズには `comp_size` も使えます。
+
 ## ローカルでの検証
 
 Python 3.8以上とC++20対応のGCCが必要です。
@@ -48,6 +56,13 @@ Python 3.8以上とC++20対応のGCCが必要です。
 python3 -m pip install -r requirements-dev.txt
 make verify
 make docs
+```
+
+Fastest 提出との比較を行うときは、公開 REST API を読み取るスクリプトも利用できます。
+
+```console
+python3 scripts/fetch_lc_fastest.py exp_of_formal_power_series --limit 10 \
+  --out-dir .verification/lc/exp --save-source
 ```
 
 `make verify` は `verify/**/*.test.cpp` を検出し、指定されたLibrary Checkerの

@@ -7,7 +7,9 @@ documentation_of: //blueberry/string/z-algorithm.hpp
 
 ## 概要・前提
 
-列全体と各接尾辞の最長共通接頭辞長を求めます。通常はACLのz_algorithmを優先してください。Nは列長。添字アクセス・比較 O(1) の前提で時間・追加メモリ O(N)。
+列 `s` の各位置から始まる接尾辞と `s` 全体の最長共通接頭辞長を求めます。長さを $N$ とすると
+時間・メモリは $O(N)$ です。`Sequence` は `size()` と添字アクセス、要素の等値比較を提供する
+必要があります。空列にも対応します。
 
 ## 最小使用例
 
@@ -15,14 +17,11 @@ documentation_of: //blueberry/string/z-algorithm.hpp
 ```cpp
 #include <cassert>
 #include <string>
-#include <vector>
 #include "blueberry/string/z-algorithm.hpp"
 int main() {
-  auto z = blueberry::z_algorithm(std::string("ababa"));
-  assert((z == std::vector<int>{5, 0, 3, 0, 1}));
-  assert(blueberry::z_algorithm(std::string{}).empty());
-  auto numbers = blueberry::z_algorithm(std::vector<int>{1, 1, 1});
-  assert((numbers == std::vector<int>{3, 2, 1}));
+  const std::string s = "ababa";
+  auto z = blueberry::z_algorithm(s);
+  assert(z == std::vector<int>({5, 0, 3, 0, 1}));
 }
 ```
 {% endraw %}
@@ -31,22 +30,20 @@ int main() {
 
 | 呼び出し方 | 計算量 | 詳細 |
 | --- | --- | --- |
-| `vector<int> blueberry::z_algorithm(sequence)` | O(N) | [開く](#z-algorithm) |
-
-以下の操作を開くと返り値・使用例・注意点を確認できます。断片の使用例は、必要なヘッダと有効な引数・オブジェクトがある前提です。
+| `vector<int> z_algorithm(sequence)` | O(N) | [開く](#z-algorithm) |
 
 <details class="api-operation" id="z-algorithm" markdown="1">
-<summary><code>vector&lt;int&gt; blueberry::z_algorithm(sequence)</code> — O(N)</summary>
+<summary><code>vector&lt;int&gt; z_algorithm(sequence)</code> — O(N)</summary>
 
-z[i]は全体とiからの接尾辞の一致長です。空列には空vector、非空ならz[0]=Nです。
+`result[i]` は `sequence[i..]` と `sequence[0..]` の最長共通接頭辞長です。`result[0]` は列全体の長さです。
 
 {% raw %}
 ```cpp
-auto z = blueberry::z_algorithm(std::string("aaaa"));
-// {4, 3, 2, 1}
+auto z = blueberry::z_algorithm(std::string("aabaaab"));
+int match = z[3];
 ```
 {% endraw %}
 
-注意点: size()・添字アクセス・等値比較が必要です。文字列リテラルはstd::stringにしてください。UTF-8のstringは文字ではなくバイト単位。検索用の区切りは入力中にない値を選びます。
+注意点: 空列の返り値は空vectorです。要素比較が副作用を持たず、列が計算中に変更されないようにしてください。
 
 </details>

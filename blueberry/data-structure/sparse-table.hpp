@@ -29,11 +29,16 @@ class SparseTable {
     }
   }
 
-  T product(int left, int right) const {
+  // Query a non-empty half-open interval [left, right).
+  // `prod` is the short spelling used in new code.  Keep `product` below as
+  // a source-compatible spelling for existing submissions.
+  T prod(int left, int right) const {
     assert(0 <= left && left < right && right <= n_);
     const int level = log_[right - left];
     return op_(table_[level][left], table_[level][right - (1 << level)]);
   }
+
+  T product(int left, int right) const { return prod(left, right); }
 
   int size() const { return n_; }
 

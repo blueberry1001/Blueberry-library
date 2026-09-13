@@ -7,24 +7,23 @@ documentation_of: //blueberry/graph/dijkstra.hpp
 
 ## 概要・前提
 
-非負重みグラフの単一始点最短路です。Vは頂点数、Eは格納した有向辺数。古い候補もキューに保持する実装で時間 O(V + E log(E+2))、追加メモリ O(V+E)。Costの演算は O(1) とします。
+非負辺重みのグラフに対する単一始点最短路です。頂点数を $V$、辺数を $E$ とすると、
+二分ヒープを使って計算量は $O((V+E)\log V)$、メモリは $O(V+E)$ です。辺コストは
+`Cost{}` 以上で、距離の加算が `Cost` の範囲を超えないことを前提とします。
 
 ## 最小使用例
 
 {% raw %}
 ```cpp
 #include <cassert>
-#include <vector>
 #include "blueberry/graph/dijkstra.hpp"
 int main() {
-  blueberry::WeightedGraph<long long> g(4);
-  g[0].push_back({1, 2});
-  g[1].push_back({2, 3});
-  g[0].push_back({2, 9});
-  auto result = blueberry::dijkstra(g, 0, 1LL << 60);
+  blueberry::WeightedGraph<int> graph(3);
+  graph[0].push_back({1, 2});
+  graph[1].push_back({2, 3});
+  auto result = blueberry::dijkstra(graph, 0);
   assert(result.distance[2] == 5);
-  assert((result.path_to(2) == std::vector<int>{0, 1, 2}));
-  assert(result.path_to(3).empty());
+  assert(result.path_to(2) == std::vector<int>({0, 1, 2}));
 }
 ```
 {% endraw %}
@@ -33,64 +32,77 @@ int main() {
 
 | 呼び出し方 | 計算量 | 詳細 |
 | --- | --- | --- |
-| `WeightedGraph<Cost> g(n); g[u].push_back({v, w})` | 構築 O(V) / 辺追加 償却 O(1) | [開く](#graph) |
-| `auto result = blueberry::dijkstra(g, source, infinity)` | O(V + E log(E+2)) | [開く](#dijkstra) |
-| `result.distance[v]; result.parent[v]; result.infinity` | O(1) | [開く](#distance) |
-| `vector<int> result.path_to(target) const` | O(経路頂点数) / 到達不能 O(1) | [開く](#path-to) |
+| `WeightedEdge<Cost>{to, cost}` | O(1) | [開く](#edge) |
+| `ShortestPathResult<Cost>::distance` | O(1) access | [開く](#distance) |
+| `ShortestPathResult<Cost>::parent` | O(1) access | [開く](#parent) |
+| `ShortestPathResult<Cost>::infinity` | O(1) access | [開く](#infinity) |
+| `vector<int> result.path_to(target)` | O(V) | [開く](#path-to) |
+| `dijkstra(graph, source, infinity)` | O((V+E) log V) | [開く](#dijkstra) |
 
-以下の操作を開くと返り値・使用例・注意点を確認できます。断片の使用例は、必要なヘッダと有効な引数・オブジェクトがある前提です。
+<details class="api-operation" id="edge" markdown="1">
+<summary><code>WeightedEdge&lt;Cost&gt;{to, cost}</code> — O(1)</summary>
 
-<details class="api-operation" id="graph" markdown="1">
-<summary><code>WeightedGraph&lt;Cost&gt; g(n); g[u].push_back({v, w})</code> — 構築 O(V) / 辺追加 償却 O(1)</summary>
-
-二重vectorの隣接リストです。辺型WeightedEdgeの公開フィールドはtoとcost。
-
-{% raw %}
-```cpp
-blueberry::WeightedGraph<long long> g(3);
-g[0].push_back({1, 4});
-g[1].push_back({0, 4});
-```
-{% endraw %}
-
-注意点: 有向辺を1本追加します。無向辺は逆向きも追加します。端点は[0,V)、重みは非負。
-
-</details>
-
-<details class="api-operation" id="dijkstra" markdown="1">
-<summary><code>auto result = blueberry::dijkstra(g, source, infinity)</code> — O(V + E log(E+2))</summary>
-
-距離・親・infinityを持つShortestPathResultを返します。infinity省略時はCostの最大値です。
+隣接リストの一辺を表し、`to` が終点、`cost` が重みです。
 
 {% raw %}
 ```cpp
-auto result = blueberry::dijkstra(g, 0, 1LL << 60);
+blueberry::WeightedEdge<int> edge{2, 7};
 ```
 {% endraw %}
 
-注意点: 有効な始点が必要です。到達距離はinfinity未満。current_distance+costがオーバーフローしない型と入力を使ってください。負辺・NaNは不可。
+注意点: `to` はグラフの頂点範囲内、`cost` は非負でなければなりません。
 
 </details>
 
 <details class="api-operation" id="distance" markdown="1">
-<summary><code>result.distance[v]; result.parent[v]; result.infinity</code> — O(1)</summary>
+<summary><code>result.distance[v]</code> — O(1) access</summary>
 
-distanceは最短距離、parentは直前頂点。始点と到達不能頂点のparentは-1です。
+始点から各頂点への最短距離を格納する公開vectorです。
 
 {% raw %}
 ```cpp
-bool reachable = result.distance[2] != result.infinity;
+int distance = result.distance[2];
 ```
 {% endraw %}
 
-注意点: 到達不能判定はdistance[v]==infinityです。公開vectorを変更するとpath_toの前提を壊す場合があります。
+注意点: 到達不能な頂点は `result.infinity` です。添字は `[0,V)` です。
+
+</details>
+
+<details class="api-operation" id="parent" markdown="1">
+<summary><code>result.parent[v]</code> — O(1) access</summary>
+
+最短路木での直前の頂点を格納します。始点や到達不能頂点は `-1` です。
+
+{% raw %}
+```cpp
+int previous = result.parent[2];
+```
+{% endraw %}
+
+注意点: 同じ最短距離を持つ経路の選択は入力順などに依存します。
+
+</details>
+
+<details class="api-operation" id="infinity" markdown="1">
+<summary><code>result.infinity</code> — O(1) access</summary>
+
+到達不能を表す値を返します。既定値は `numeric_limits&lt;Cost&gt;::max()` です。
+
+{% raw %}
+```cpp
+if (result.distance[v] == result.infinity) { /* unreachable */ }
+```
+{% endraw %}
+
+注意点: 実際の距離がこの値にならないようにしてください。必要なら十分大きく安全な値を指定します。
 
 </details>
 
 <details class="api-operation" id="path-to" markdown="1">
-<summary><code>vector&lt;int&gt; result.path_to(target) const</code> — O(経路頂点数) / 到達不能 O(1)</summary>
+<summary><code>vector&lt;int&gt; result.path_to(target)</code> — O(V)</summary>
 
-始点からtargetまでの頂点列を返します。到達不能は空、始点自身は1要素です。
+`parent` を辿り、始点から `target` までの頂点列を返します。未到達なら空vectorです。
 
 {% raw %}
 ```cpp
@@ -98,6 +110,21 @@ auto path = result.path_to(2);
 ```
 {% endraw %}
 
-注意点: targetは有効な頂点。最短路が複数あるときの選択順は保証しません。平行辺の辺IDは返しません。
+注意点: パス長が $V$ に比例するため、全頂点で呼ぶ場合は合計計算量に注意してください。
+
+</details>
+
+<details class="api-operation" id="dijkstra" markdown="1">
+<summary><code>dijkstra(graph, source, infinity)</code> — O((V+E) log V)</summary>
+
+始点からの距離・最短路木・未到達値を `ShortestPathResult` として返します。
+
+{% raw %}
+```cpp
+auto result = blueberry::dijkstra(graph, 0, 1'000'000'000);
+```
+{% endraw %}
+
+注意点: 負辺には使えません。`source` は `[0,V)`、辺の終点も有効な頂点である必要があります。
 
 </details>
