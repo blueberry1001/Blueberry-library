@@ -25,10 +25,10 @@ dsu.merge(u, v);
 
 | 分類 | ライブラリ |
 | --- | --- |
-| Data Structure | Disjoint Set Union, Fenwick Tree, Segment Tree, Sparse Table, Rollback Union Find |
+| Data Structure | Disjoint Set Union, Fenwick Tree, Segment Tree, Sparse Table, Rollback Union Find, Li Chao Tree, Wavelet Matrix |
 | Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition |
 | Math | Formal Power Series, Prime Sieve |
-| String | Z Algorithm |
+| String | Z Algorithm, Manacher |
 
 詳細な説明・計算量・検証コードは[ドキュメント](https://blueberry1001.github.io/Blueberry-library/)に掲載します。
 ACLとの役割分担や実装・採用基準は[実装方針](IMPLEMENTATION_POLICY.md)にまとめています。
@@ -49,6 +49,10 @@ LCA が大量に必要な場合は `LowestCommonAncestorRMQ`（Euler tour + Spar
 `pref`、Union Find の成分サイズには `comp_size` も使えます。
 
 ## ローカルでの検証
+
+WindowsではWSL2のUbuntuから同じ検証手順を実行できます。
+GCC/ClangとPython仮想環境の準備・実行方法は
+[`docs/development/windows.md`](docs/development/windows.md)を参照してください。
 
 Python 3.8以上とC++20対応のGCCまたはClangが必要です。初回だけ `make setup` を実行すると、
 verification-helperとACLを準備します。
