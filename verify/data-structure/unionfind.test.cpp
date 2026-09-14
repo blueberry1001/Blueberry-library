@@ -4,20 +4,24 @@
 
 #include "blueberry/data-structure/disjoint-set-union.hpp"
 
+using namespace std;
+
+// type=0で併合し、type=1で同じ連結成分に属するかを判定する。
+
 int main() {
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(nullptr);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
 
   int n, q;
-  std::cin >> n >> q;
+  cin >> n >> q;
   blueberry::DisjointSetUnion dsu(n);
   while (q--) {
     int type, u, v;
-    std::cin >> type >> u >> v;
+    cin >> type >> u >> v;
     if (type == 0) {
       dsu.merge(u, v);
     } else {
-      std::cout << dsu.same(u, v) << '\n';
+      cout << dsu.same(u, v) << '\n';
     }
   }
 }
