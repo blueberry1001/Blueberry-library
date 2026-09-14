@@ -32,7 +32,7 @@ random-test:
 	CPPFLAGS="$(CPPFLAGS)" python3 scripts/check_cpp.py random --compiler "$(CXX)" --standard "$(CXX_STANDARD)" --jobs "$(COMPILE_JOBS)" --random-runs "$(RANDOM_RUNS)" --random-seed "$(RANDOM_SEED)" --random-timeout "$(RANDOM_TIMEOUT)"
 
 verify:
-	CPLUS_INCLUDE_PATH="$(abspath $(ACL_ROOT)):$(CPLUS_INCLUDE_PATH)" python3 scripts/verify_with_metrics.py --repeats $(VERIFY_REPEATS)
+	CPLUS_INCLUDE_PATH="$(abspath $(ACL_ROOT))$(if $(CPLUS_INCLUDE_PATH),:$(CPLUS_INCLUDE_PATH))" python3 scripts/verify_with_metrics.py --repeats $(VERIFY_REPEATS)
 
 benchmark:
 	python3 scripts/run_benchmarks.py
@@ -42,7 +42,7 @@ benchmark-smoke:
 		--target 'static-rmq-random-*' --output .benchmark/results/smoke
 
 benchmark-baseline:
-	CPLUS_INCLUDE_PATH="$(abspath $(ACL_ROOT)):$(CPLUS_INCLUDE_PATH)" python3 scripts/verify_with_metrics.py --repeats $(VERIFY_REPEATS) --save-baseline
+	CPLUS_INCLUDE_PATH="$(abspath $(ACL_ROOT))$(if $(CPLUS_INCLUDE_PATH),:$(CPLUS_INCLUDE_PATH))" python3 scripts/verify_with_metrics.py --repeats $(VERIFY_REPEATS) --save-baseline
 
 research-static-rmq:
 	python3 scripts/fetch_lc_submissions.py --problem staticrmq --user blueberry1001 \
@@ -53,7 +53,7 @@ test:
 	CXX="$(CXX)" CXX_STANDARD="$(CXX_STANDARD)" CPPFLAGS="$(CPPFLAGS)" python3 scripts/check_docs.py
 
 docs:
-	CPLUS_INCLUDE_PATH="$(abspath $(ACL_ROOT)):$(CPLUS_INCLUDE_PATH)" python3 scripts/generate_docs.py -j $(OJ_VERIFY_JOBS)
+	CPLUS_INCLUDE_PATH="$(abspath $(ACL_ROOT))$(if $(CPLUS_INCLUDE_PATH),:$(CPLUS_INCLUDE_PATH))" python3 scripts/generate_docs.py -j $(OJ_VERIFY_JOBS)
 	python3 scripts/publish_metrics.py
 
 bundle:
