@@ -6,29 +6,33 @@
 
 #include "blueberry/math/formal-power-series.hpp"
 
+using namespace std;
+
+// 級数の平方根をx^N未満まで求め、存在しない場合は-1を出力する。
+
 using mint = atcoder::modint998244353;
 using fps = blueberry::FormalPowerSeries<mint>;
 
 int main() {
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(nullptr);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
 
   int n;
-  std::cin >> n;
+  cin >> n;
   fps f(n);
   for (mint& value : f) {
     int coefficient;
-    std::cin >> coefficient;
+    cin >> coefficient;
     value = coefficient;
   }
   const fps answer = f.sqrt(n);
   if (answer.empty()) {
-    std::cout << "-1\n";
+    cout << "-1\n";
     return 0;
   }
   for (int i = 0; i < n; ++i) {
-    if (i) std::cout << ' ';
-    std::cout << answer[i].val();
+    if (i) cout << ' ';
+    cout << answer[i].val();
   }
-  std::cout << '\n';
+  cout << '\n';
 }

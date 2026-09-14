@@ -1,0 +1,18 @@
+{% unless page.data.isVerificationFile %}
+{% if page.data.verifiedWith.size > 0 %}
+<section class="verification-examples" aria-label="検証コード">
+<h2 id="verification-examples">検証コード</h2>
+<p>ソースを開くと、このライブラリを使った問題の解き方を確認できます。</p>
+{% for item in page.data._extendedVerifiedWith %}
+  {% if item.path == 'verify/utility/all-headers.test.cpp' and page.data.path != 'blueberry/all.hpp' %}{% continue %}{% endif %}
+  {% assign example = site.pages | where: 'data.path', item.path | first %}
+  <details class="verification-example" data-verify="{{ item.path | escape }}">
+    <summary>{{ item.icon }} {{ item.path | escape }}</summary>
+    <p><a href="{{ item.path | append: '.html' | relative_url }}">検証結果・実行時間</a>
+    {% if example.data.attributes.PROBLEM %} · <a href="{{ example.data.attributes.PROBLEM | escape }}">問題文</a>{% endif %}</p>
+    {% include highlight.html extension='cpp' content=example.data.code %}
+  </details>
+{% endfor %}
+</section>
+{% endif %}
+{% endunless %}

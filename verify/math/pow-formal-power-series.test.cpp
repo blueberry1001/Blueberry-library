@@ -7,26 +7,30 @@
 
 #include "blueberry/math/formal-power-series.hpp"
 
+using namespace std;
+
+// 非負整数exponent乗をx^N未満まで求める。
+
 using mint = atcoder::modint998244353;
 using fps = blueberry::FormalPowerSeries<mint>;
 
 int main() {
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(nullptr);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
 
   int n;
-  std::int64_t exponent;
-  std::cin >> n >> exponent;
+  int64_t exponent;
+  cin >> n >> exponent;
   fps f(n);
   for (mint& value : f) {
     int coefficient;
-    std::cin >> coefficient;
+    cin >> coefficient;
     value = coefficient;
   }
   const fps answer = f.pow(exponent, n);
   for (int i = 0; i < n; ++i) {
-    if (i) std::cout << ' ';
-    std::cout << answer[i].val();
+    if (i) cout << ' ';
+    cout << answer[i].val();
   }
-  std::cout << '\n';
+  cout << '\n';
 }

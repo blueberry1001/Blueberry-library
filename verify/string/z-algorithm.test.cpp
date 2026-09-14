@@ -5,16 +5,20 @@
 
 #include "blueberry/string/z-algorithm.hpp"
 
-int main() {
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(nullptr);
+using namespace std;
 
-  std::string text;
-  std::cin >> text;
+// 各接尾辞と文字列全体の最長共通接頭辞長をZ配列として出力する。
+
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+
+  string text;
+  cin >> text;
   const auto z = blueberry::z_algorithm(text);
   for (int i = 0; i < static_cast<int>(z.size()); ++i) {
-    if (i > 0) std::cout << ' ';
-    std::cout << z[i];
+    if (i > 0) cout << ' ';
+    cout << z[i];
   }
-  std::cout << '\n';
+  cout << '\n';
 }

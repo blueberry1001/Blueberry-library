@@ -5,22 +5,26 @@
 
 #include "blueberry/graph/lowest-common-ancestor.hpp"
 
+using namespace std;
+
+// Euler TourとSparseTableで前計算し、各頂点対のLCAをO(1)で求める。
+
 int main() {
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(nullptr);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
 
   int n, q;
-  std::cin >> n >> q;
-  std::vector<std::vector<int>> tree(n);
+  cin >> n >> q;
+  vector<vector<int>> tree(n);
   for (int v = 1; v < n; ++v) {
     int parent;
-    std::cin >> parent;
+    cin >> parent;
     tree[parent].push_back(v);
   }
   const blueberry::LowestCommonAncestorRMQ lca(tree);
   while (q--) {
     int u, v;
-    std::cin >> u >> v;
-    std::cout << lca.lca(u, v) << '\n';
+    cin >> u >> v;
+    cout << lca.lca(u, v) << '\n';
   }
 }

@@ -4,15 +4,19 @@
 
 #include "blueberry/all.hpp"
 
+using namespace std;
+
+// all.hppを単独includeできることを確認する。実行内容はmany_aplusbの入出力のみ。
+
 int main() {
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(nullptr);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
 
   int cases;
-  std::cin >> cases;
+  cin >> cases;
   while (cases--) {
     long long a, b;
-    std::cin >> a >> b;
-    std::cout << a + b << '\n';
+    cin >> a >> b;
+    cout << a + b << '\n';
   }
 }

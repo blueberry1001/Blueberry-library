@@ -4,23 +4,27 @@
 
 #include "blueberry/math/prime-sieve.hpp"
 
+using namespace std;
+
+// N以下の素数を列挙し、問題の指定に従いoffset番目からstep個おきに出力する。
+
 int main() {
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(nullptr);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
 
   int n, step, offset;
-  std::cin >> n >> step >> offset;
+  cin >> n >> step >> offset;
   const blueberry::PrimeSieve sieve(n);
   const auto& primes = sieve.primes();
   int selected = 0;
   for (int i = offset; i < static_cast<int>(primes.size()); i += step) ++selected;
 
-  std::cout << primes.size() << ' ' << selected << '\n';
+  cout << primes.size() << ' ' << selected << '\n';
   bool first = true;
   for (int i = offset; i < static_cast<int>(primes.size()); i += step) {
-    if (!first) std::cout << ' ';
+    if (!first) cout << ' ';
     first = false;
-    std::cout << primes[i];
+    cout << primes[i];
   }
-  std::cout << '\n';
+  cout << '\n';
 }

@@ -1,0 +1,13 @@
+<h2>Library Files</h2>
+<p>検証コードは、各ライブラリページの「検証コード」に掲載しています。</p>
+{% for category in page.data.libraryCategories %}
+  {% assign root = category.name | split: '/' | first %}
+  {% if root == 'blueberry' %}
+  <h3>{{ category.name | escape }}</h3>
+  <ul>
+    {% for item in category.pages %}
+    <li><a href="{{ item.path | append: '.html' | relative_url }}">{{ item.icon }} {{ item.title | escape }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+{% endfor %}
