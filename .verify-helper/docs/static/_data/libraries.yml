@@ -1,70 +1,102 @@
 - name: Li Chao Tree
+  aliases: 李超木 cht convex hull trick 直線 線分 最小値
   category: data-structure
   path: blueberry/data-structure/li-chao-tree.hpp
   description: 直線・線分を追加して登録座標上の最小値を取得
   role: ACLにない機能
 - name: Wavelet Matrix
+  aliases: ウェーブレット行列 kth k番目 順位 頻度 rank quantile predecessor successor
   category: data-structure
   path: blueberry/data-structure/wavelet-matrix.hpp
   description: 静的配列の区間k番目・頻度・前後要素を取得
   role: ACLにない機能
 - name: Manacher
+  aliases: マナカー 回文 palindrome palindromes
   category: string
   path: blueberry/string/manacher.hpp
   description: 奇数長・偶数長の全中心の最長回文を線形時間で列挙
   role: ACLにない機能
 - name: Rollback Union Find
+  aliases: 巻き戻し rollback dsu undo 永続 unionfind
   category: data-structure
   path: blueberry/data-structure/rollback-union-find.hpp
   description: 連結成分を管理し、過去のmergeを巻き戻す
   role: ACLにない機能
 - name: Sparse Table
+  aliases: スパーステーブル rmq static min max gcd 区間最小値
   category: data-structure
   path: blueberry/data-structure/sparse-table.hpp
   description: 更新のない配列の区間min・max・gcd
   role: ACLにない機能
 - name: Disjoint Set Union
+  aliases: dsu unionfind union find 素集合 連結成分
   category: data-structure
   path: blueberry/data-structure/disjoint-set-union.hpp
   description: 要素の併合・同一連結成分の判定
   role: 互換用（通常はACLのdsu）
 - name: Fenwick Tree
+  aliases: bit binary indexed tree 累積和 二分探索
   category: data-structure
   path: blueberry/data-structure/fenwick-tree.hpp
   description: 一点加算・区間和・非負配列上の累積和探索
   role: 互換用（標準操作はACL）
 - name: Segment Tree
+  aliases: segtree セグ木 セグメント木 区間積
   category: data-structure
   path: blueberry/data-structure/segment-tree.hpp
   description: 結合的な演算の一点更新・区間積
   role: 互換用（通常はACLのsegtree）
 - name: Dijkstra
+  aliases: ダイクストラ 最短経路 shortest path
   category: graph
   path: blueberry/graph/dijkstra.hpp
   description: 非負重みグラフの最短距離と経路復元
   role: ACLにない機能
 - name: Lowest Common Ancestor
+  aliases: lca rmq 最近共通祖先 最小共通祖先 doubling ダブリング
   category: graph
   path: blueberry/graph/lowest-common-ancestor.hpp
   description: ダブリング・Euler Tour RMQによる共通祖先と距離
   role: ACLにない機能
 - name: Heavy Light Decomposition
+  aliases: hld hl分解 重軽分解 木 パス 部分木 jump
   category: graph
   path: blueberry/graph/heavy-light-decomposition.hpp
   description: 木の頂点・辺パスと部分木を半開区間へ分解
   role: ACLにない機能
 - name: Formal Power Series
+  aliases: fps 形式的べき級数 多項式 polynomial inv exp log sqrt pow
   category: math
   path: blueberry/math/formal-power-series.hpp
   description: ACLの畳み込みを基盤にした高速な形式的冪級数演算
   role: ACLにないFPS拡張
 - name: Prime Sieve
+  aliases: エラトステネス 篩 素数 sieve prime
   category: math
   path: blueberry/math/prime-sieve.hpp
   description: 上限以下の素数を前計算して判定・列挙
   role: ACLにない機能
 - name: Z Algorithm
+  aliases: z配列 z-algorithm 文字列 lcp 接頭辞
   category: string
   path: blueberry/string/z-algorithm.hpp
   description: 各接尾辞と全体の最長共通接頭辞長
   role: 互換用（通常はACLのz_algorithm）
+- name: Offline Fenwick Tree 2D
+  aliases: 2d bit fenwick 二次元 2次元 矩形和 長方形 rectangle sum 座標圧縮
+  category: data-structure
+  path: blueberry/data-structure/offline-fenwick-tree-2d.hpp
+  description: 更新座標を事前登録して点加算・半開矩形和を処理
+  role: ACLにない機能
+- name: Low Link
+  aliases: lowlink low-link 橋 関節点 二重辺連結 bridge articulation biconnected
+  category: graph
+  path: blueberry/graph/low-link.hpp
+  description: 無向多重グラフの橋・関節点・二重辺連結成分を線形時間で計算
+  role: ACLにない機能
+- name: Rerooting DP
+  aliases: 全方位木dp 全方位dp rerooting 木dp tree dp
+  category: graph
+  path: blueberry/graph/rerooting.hpp
+  description: 頂点・辺の変換と結合を指定して全頂点を根にした木DPを計算
+  role: ACLにない機能
