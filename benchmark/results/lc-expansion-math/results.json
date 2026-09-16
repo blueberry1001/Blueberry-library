@@ -1,0 +1,121 @@
+{
+  "generated_at": "2026-09-16T22:31:43.617376+00:00",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": [
+    "-std=gnu++20",
+    "-O2",
+    "-DNDEBUG",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I.",
+    "-isystem",
+    ".deps/ac-library"
+  ],
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        39 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               24\nOn-line CPU(s) list:                  0-23\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Core(TM) i7-14650HX\nCPU family:                           6\nModel:                                183\nThread(s) per core:                   2\nCore(s) per socket:                   12\nSocket(s):                            1\nStepping:                             1\nBogoMIPS:                             4838.40\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            576 KiB (12 instances)\nL1i cache:                            384 KiB (12 instances)\nL2 cache:                             24 MiB (12 instances)\nL3 cache:                             30 MiB (1 instance)\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Not affected\nVulnerability Reg file data sampling: Mitigation; Clear Register File\nVulnerability Retbleed:               Mitigation; Enhanced IBRS\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl and seccomp\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Not affected\n",
+  "seed": 20260917,
+  "warmups": 1,
+  "repeats": 5,
+  "returncode": 0,
+  "sha256": {
+    "benchmark/math-expansion.cpp": "ca720bfaf399d8e041591df60e9fd14399a6be69ed8b1b52698972a92bf9eea4",
+    "blueberry/math/factorize.hpp": "3ebcd5f9e60718ec3804196c9118a79a639affa8de6067d28a59797e381b9acc",
+    "blueberry/math/mod-sqrt.hpp": "101141bf29b7a4b6f1cae9fafd6f5cda3181053c4517f2c78caf67031184f6ca",
+    "blueberry/math/linear-recurrence.hpp": "b23322bcf24a41a72bac5497c9a34c0ab1d834662e0151bb60f410fe280ace66"
+  },
+  "summary": [
+    {
+      "name": "bm-random-n10000",
+      "variant": "quadratic",
+      "median_ns": 152251583,
+      "min_ns": 144755958,
+      "samples": [
+        145464975,
+        178350230,
+        173010656,
+        152251583,
+        144755958
+      ]
+    },
+    {
+      "name": "factor-semiprime-60",
+      "variant": "brent",
+      "median_ns": 2503818,
+      "min_ns": 2419397,
+      "samples": [
+        2852845,
+        2503818,
+        3345505,
+        2482630,
+        2419397
+      ]
+    },
+    {
+      "name": "factor-semiprime-60",
+      "variant": "floyd",
+      "median_ns": 19164729,
+      "min_ns": 16400797,
+      "samples": [
+        17107645,
+        19164729,
+        19532549,
+        21571138,
+        16400797
+      ]
+    },
+    {
+      "name": "recurrence-d128-k1e18",
+      "variant": "bostan-mori",
+      "median_ns": 2350530,
+      "min_ns": 1793237,
+      "samples": [
+        1980677,
+        3731836,
+        5308945,
+        2350530,
+        1793237
+      ]
+    },
+    {
+      "name": "recurrence-d128-k1e18",
+      "variant": "kitamasa",
+      "median_ns": 11130913,
+      "min_ns": 6225959,
+      "samples": [
+        8889971,
+        11130913,
+        14587230,
+        12846797,
+        6225959
+      ]
+    },
+    {
+      "name": "sqrt-mixed-4000",
+      "variant": "cipolla",
+      "median_ns": 3947484,
+      "min_ns": 3528127,
+      "samples": [
+        3528127,
+        4321578,
+        3754532,
+        4044215,
+        3947484
+      ]
+    },
+    {
+      "name": "sqrt-mixed-4000",
+      "variant": "tonelli",
+      "median_ns": 3832438,
+      "min_ns": 3511231,
+      "samples": [
+        3779296,
+        3832438,
+        6178052,
+        9195605,
+        3511231
+      ]
+    }
+  ],
+  "load_note": "Shared workstation; official verification may run concurrently. Interpret only large differences, not tiny percentage changes."
+}
