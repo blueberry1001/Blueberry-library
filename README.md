@@ -27,10 +27,10 @@ uf.rollback(saved);
 
 | 分類 | ライブラリ |
 | --- | --- |
-| Data Structure | Sparse Table, Rollback Union Find, Li Chao Tree, Wavelet Matrix, Offline Fenwick Tree 2D |
-| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP |
-| Math | Formal Power Series, Prime Sieve |
-| String | Manacher |
+| Data Structure | Sparse Table, Rollback Union Find, Li Chao Tree, Wavelet Matrix, Offline Fenwick Tree 2D, Potential Union Find, Ordered Set, Persistent Segment Tree |
+| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail |
+| Math | Formal Power Series, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence |
+| String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization |
 
 標準のDSU・Fenwick Tree・Segment Tree・Z AlgorithmはACLを第一候補とし、既存のBlueberry版は互換用に保持します。
 ドキュメントの検索欄では日本語の用途や `LCA`, `HLD`, `FPS`, `BIT` でも検索できます（`/` で検索へ移動）。
@@ -51,6 +51,18 @@ uf.rollback(saved);
 | すべての頂点を根にした木DP | [Rerooting DP](docs/graph/rerooting.md): `rerooting` |
 | 形式的冪級数の逆元・log・exp・sqrt | [FPS](docs/math/formal-power-series.md) + ACL modint |
 | 全中心の最長回文 | [Manacher](docs/string/manacher.md): `manacher` |
+| 差分制約・群のポテンシャルと矛盾判定 | [Potential UF](docs/data-structure/potential-union-find.md): `merge`, `diff` |
+| 集合のオンライン更新と順位 | [Ordered Set](docs/data-structure/ordered-set.md): `insert`, `erase`, `rank`, `kth` |
+| 過去の配列を残して一点更新 | [Persistent Segment Tree](docs/data-structure/persistent-segment-tree.md): `set(version,p,x)`, `prod(version,l,r)` |
+| 最大二部マッチング・最小頂点被覆 | [Hopcroft–Karp](docs/graph/hopcroft-karp.md): `pairs`, `min_vertex_cover` |
+| 二重頂点連結成分・block-cut forest | [Biconnected Components](docs/graph/biconnected-components.md): `groups`, `block_cut_tree` |
+| 全辺を一度ずつ通る経路 | [Eulerian Trail](docs/graph/eulerian-trail.md): `exists`, `vertices`, `edges` |
+| 64bit素数判定・素因数分解 | [Factorize](docs/math/factorize.md): `is_prime`, `factorize` |
+| 素数modの平方根 | [Mod Sqrt](docs/math/mod-sqrt.md): `mod_sqrt` |
+| 漸化式の推定と遠い項 | [Linear Recurrence](docs/math/linear-recurrence.md): `berlekamp_massey`, `linear_recurrence_kth` |
+| 複数パターンの出現数 | [Aho–Corasick](docs/string/aho-corasick.md): `add` → `build` → `count` |
+| 異なる回文とその出現数 | [Eertree](docs/string/eertree.md): `add`, `suffix`, `count` |
+| 辞書順の非増加Lyndon分解 | [Lyndon Factorization](docs/string/lyndon-factorization.md): `lyndon_factorization` |
 | SCC・2-SAT・最大流・最小費用流・畳み込み・suffix array | ACL: [公式リファレンス](https://atcoder.github.io/ac-library/production/document_ja/) |
 
 ## サポート範囲
@@ -58,7 +70,7 @@ uf.rollback(saved);
 カタログにある `blueberry/<category>/*.hpp` と互換入口 `fps.hpp` が検証対象です。
 各ページには実行可能な最小例、全公開操作の説明、型や境界条件を載せています。
 
-次のルート直下ファイルは**未検証の歴史的スニペット**で、新規利用を推奨しません。
+次の `blueberry/` 直下ファイルは**未検証の歴史的スニペット**で、新規利用を推奨しません。
 削除やAPI変更はせずに残します。`all.hpp` にも含めません。
 
 | 旧ファイル | 新規利用での選択肢・制限 |
@@ -67,7 +79,7 @@ uf.rollback(saved);
 | `DynamicFenwickTree2D.hpp` | [Offline Fenwick 2D](docs/data-structure/offline-fenwick-tree-2d.md)（更新座標の事前登録が必要） |
 | `RollbackUnionFind.hpp` | [Rollback Union Find](docs/data-structure/rollback-union-find.md) |
 | `Graph.hpp` | 最短路は[Dijkstra](docs/graph/dijkstra.md)、SCC等はACL。全APIを置換するものではありません |
-| `implicit_treap.hpp` | 名前と異なり値をキーにする木。空操作・存在しない値の処理に問題があり、検証済み代替は未収録 |
+| `implicit_treap.hpp` | 名前と異なり値をキーにする木。集合用途は[Ordered Set](docs/data-structure/ordered-set.md)。列のreverse/lazy操作や多重集合の代替ではありません |
 | `fraction.hpp` | 型範囲外の演算を保証しません。検証済み代替は未収録 |
 
 詳細な説明・計算量・検証コードは[ドキュメント](https://blueberry1001.github.io/Blueberry-library/)に掲載します。

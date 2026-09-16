@@ -1,6 +1,21 @@
 # Blueberry Library audit and roadmap
 
-## 現在の状態（2026-09-16）
+## Library Checker対応の拡充（2026-09-17）
+
+Library Checkerの問題を起点に、以下の12ヘッダを追加しました。
+カタログ29ライブラリ、公開・互換入口31ヘッダ、公式verifyソース46本になりました。
+検証・測定結果は `docs/development/library-checker-expansion-2026-09-17.md` に集約しています。
+
+- Data Structure: Potential Union Find、Ordered Set、Persistent Segment Tree。
+- Graph: Hopcroft–Karp、Biconnected Components、Eulerian Trail。
+- Math: Factorize、Modular Square Root、Linear Recurrence。
+- String: Aho–Corasick、Eertree、Lyndon Factorization。
+
+Ordered Setは旧ordered treapの集合用途の代替、永続Segment Treeは一点更新・区間積を担当します。
+旧API自体の修復、implicit sequence treap、永続lazy区間コピー、動的木、幾何は今回の対象外です。
+Fastest提出のI/O・値域・計算量・layoutを調査し、採否と同条件の自作候補比較を記録しました。
+
+## 前回の状態（2026-09-16、履歴）
 
 以下の2026-09-13監査は履歴です。現在の利用判断にはREADMEと各ライブラリページを使ってください。
 
