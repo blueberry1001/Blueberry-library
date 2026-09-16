@@ -40,15 +40,20 @@ make docs
 公式テストの初回取得と`make setup`にはネットワーク接続が必要です。
 `make verify`は全公式ケースを既定3回ずつ計測するため、compile/random testより時間がかかります。
 
-初回のケース生成を含む実行が既定の25分上限に達する場合は、既存CLIで上限を延長できます。
+初回のケース生成を含む実行が既定の60分上限に達する場合は、Makefile変数で上限を延長できます。
 未実行の結果を成功として扱わず、ログ内の全verifyの状態を確認してください。
 
 ```bash
-CPLUS_INCLUDE_PATH="$PWD/.deps/ac-library" python3 scripts/verify_with_metrics.py --timeout 3600
+make verify VERIFY_TIMEOUT=7200
 ```
 
-再開時に対象を限定する場合は、同CLIに未実行の`verify/...test.cpp`を列挙できます。
-`--output .verification/remaining`で既存の実測ログと分けて保存してください。
+再開時に対象を限定する場合は、Python CLIに未実行の`verify/...test.cpp`を列挙できます。
+`--output`で既存の実測ログと分けて保存してください。例えば最短路だけを検証する場合:
+
+```bash
+CPLUS_INCLUDE_PATH="$PWD/.deps/ac-library" python3 scripts/verify_with_metrics.py \
+  verify/graph/shortest-path.test.cpp --timeout 3600 --output .verification/remaining
+```
 
 単独のC++プログラムは、リポジトリをinclude pathへ追加して実行できます。
 
