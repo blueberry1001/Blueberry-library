@@ -100,3 +100,75 @@
   path: blueberry/graph/rerooting.hpp
   description: 頂点・辺の変換と結合を指定して全頂点を根にした木DPを計算
   role: ACLにない機能
+- name: Potential Union Find
+  aliases: weighted unionfind dsu 重み付き ポテンシャル 差分制約 群 非可換 行列
+  category: data-structure
+  path: blueberry/data-structure/potential-union-find.hpp
+  description: 群のポテンシャル制約を併合し、差分取得と矛盾判定
+  role: ACLにない機能
+- name: Ordered Set
+  aliases: ordered set treap 平衡二分木 順序集合 順序統計 rank kth 前駆 後継
+  category: data-structure
+  path: blueberry/data-structure/ordered-set.hpp
+  description: オンライン集合の挿入・削除・順位・k番目・前後要素
+  role: ACLにない機能
+- name: Persistent Segment Tree
+  aliases: persistent segtree 永続 セグ木 バージョン 履歴 分岐 区間積
+  category: data-structure
+  path: blueberry/data-structure/persistent-segment-tree.hpp
+  description: 任意の過去版から一点更新し、各バージョンの区間積を取得
+  role: ACLにない機能
+- name: Hopcroft–Karp
+  aliases: hopcroft karp matching マッチング 二部マッチング 最小頂点被覆 vertex cover
+  category: graph
+  path: blueberry/graph/hopcroft-karp.hpp
+  description: 最大二部マッチングと最小頂点被覆を求める
+  role: ACLにない専用アルゴリズム
+- name: Biconnected Components
+  aliases: biconnected block cut tree 二重頂点連結 点双連結 関節点 block-cut
+  category: graph
+  path: blueberry/graph/biconnected-components.hpp
+  description: 二重頂点連結成分とblock-cut forestを線形時間で構築
+  role: ACLにない機能
+- name: Eulerian Trail
+  aliases: eulerian trail path circuit オイラー路 一筆書き 有向 無向 辺復元
+  category: graph
+  path: blueberry/graph/eulerian-trail.hpp
+  description: 有向・無向グラフの全辺を一度ずつ通る経路を復元
+  role: ACLにない機能
+- name: Factorize
+  aliases: factorize factorization primality miller rabin pollard rho brent 素数判定 素因数分解 64bit
+  category: math
+  path: blueberry/math/factorize.hpp
+  description: uint64全域の素数判定と大きい整数の素因数分解
+  role: ACLにない機能
+- name: Modular Square Root
+  aliases: mod sqrt tonelli shanks 平方剰余 平方根 素数mod
+  category: math
+  path: blueberry/math/mod-sqrt.hpp
+  description: 素数を法とする平方根を求め、根がない場合も判定
+  role: ACLにない機能
+- name: Linear Recurrence
+  aliases: berlekamp massey bostan mori 線形漸化式 最小多項式 数列 kth
+  category: math
+  path: blueberry/math/linear-recurrence.hpp
+  description: 数列から線形漸化式を求め、大きな添字の項を高速計算
+  role: ACLにない機能
+- name: Aho–Corasick
+  aliases: aho corasick ac automaton aho-corasick trie 複数パターン 文字列検索 出現数
+  category: string
+  path: blueberry/string/aho-corasick.hpp
+  description: Trieとfailure linkで複数パターンの出現を一括集計
+  role: ACLにない機能
+- name: Eertree
+  aliases: eertree palindromic tree 回文木 回文 出現数 オンライン
+  category: string
+  path: blueberry/string/eertree.hpp
+  description: 文字追加に合わせて異なる回文・suffix link・出現数を管理
+  role: ACLにない機能
+- name: Lyndon Factorization
+  aliases: lyndon duval リンドン分解 辞書順 周期 文字列分解
+  category: string
+  path: blueberry/string/lyndon-factorization.hpp
+  description: 文字列や整数列をLyndon語へ線形時間で分解
+  role: ACLにない機能
