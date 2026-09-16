@@ -128,7 +128,9 @@ struct FormalPowerSeries : std::vector<Mint> {
   }
 
   FPS& operator*=(const Mint& value) {
-    for (Mint& coefficient : *this) coefficient *= value;
+    // The argument may refer to one of our coefficients (e.g. f *= f[0]).
+    const Mint scalar = value;
+    for (Mint& coefficient : *this) coefficient *= scalar;
     return *this;
   }
 
@@ -199,12 +201,21 @@ struct FormalPowerSeries : std::vector<Mint> {
   FPS& operator/=(const Sparse& sparse) {
     assert(!sparse.empty());
     Sparse terms = sparse;
-    std::sort(terms.begin(), terms.end());
-    assert(terms.front().first == 0 && terms.front().second != Mint(0));
-    const Mint inverse_constant = terms.front().second.inv();
+    std::sort(terms.begin(), terms.end(), [](const auto& a, const auto& b) {
+      return a.first < b.first;
+    });
+    assert(terms.front().first >= 0);
+    int first_nonconstant = 0;
+    Mint constant = 0;
+    while (first_nonconstant < static_cast<int>(terms.size()) &&
+           terms[first_nonconstant].first == 0) {
+      constant += terms[first_nonconstant++].second;
+    }
+    assert(constant != Mint(0));
+    const Mint inverse_constant = constant.inv();
     for (int i = 0; i < static_cast<int>(this->size()); ++i) {
       Mint value = (*this)[i];
-      for (int j = 1; j < static_cast<int>(terms.size()) && terms[j].first <= i; ++j) {
+      for (int j = first_nonconstant; j < static_cast<int>(terms.size()) && terms[j].first <= i; ++j) {
         value -= (*this)[i - terms[j].first] * terms[j].second;
       }
       (*this)[i] = value * inverse_constant;
@@ -353,14 +364,14 @@ struct FormalPowerSeries : std::vector<Mint> {
   }
 
   FPS sqrt(int degree = -1) const {
-    assert(degree != 0);
     if (degree < 0) degree = static_cast<int>(this->size());
     if (degree <= 0) return {};
     if (this->empty()) return FPS(degree, Mint(0));
 
     int shift = 0;
-    while (shift < static_cast<int>(this->size()) && (*this)[shift] == Mint(0)) ++shift;
-    if (shift == static_cast<int>(this->size())) return FPS(degree, Mint(0));
+    const int source_degree = std::min<int>(this->size(), degree);
+    while (shift < source_degree && (*this)[shift] == Mint(0)) ++shift;
+    if (shift == source_degree) return FPS(degree, Mint(0));
     if (shift & 1) return {};
     const int half_shift = shift / 2;
     if (half_shift >= degree) return FPS(degree, Mint(0));
@@ -382,13 +393,13 @@ struct FormalPowerSeries : std::vector<Mint> {
 
   template <class RootFunction>
   FPS sqrt_with(RootFunction get_root, int degree = -1) const {
-    assert(degree != 0);
     if (degree < 0) degree = static_cast<int>(this->size());
     if (degree <= 0) return {};
     if (this->empty()) return FPS(degree, Mint(0));
     int shift = 0;
-    while (shift < static_cast<int>(this->size()) && (*this)[shift] == Mint(0)) ++shift;
-    if (shift == static_cast<int>(this->size())) return FPS(degree, Mint(0));
+    const int source_degree = std::min<int>(this->size(), degree);
+    while (shift < source_degree && (*this)[shift] == Mint(0)) ++shift;
+    if (shift == source_degree) return FPS(degree, Mint(0));
     if (shift & 1) return {};
     const int half_shift = shift / 2;
     if (half_shift >= degree) return FPS(degree, Mint(0));
@@ -517,7 +528,7 @@ struct FormalPowerSeries : std::vector<Mint> {
   FPS mod_pow(std::int64_t exponent, const FPS& modulus) const {
     assert(exponent >= 0 && !modulus.empty());
     FPS base = *this % modulus;
-    FPS result{Mint(1)};
+    FPS result = FPS{Mint(1)} % modulus;
     while (exponent > 0) {
       if (exponent & 1) result = (result * base) % modulus;
       exponent >>= 1;

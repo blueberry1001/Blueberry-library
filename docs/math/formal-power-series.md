@@ -8,8 +8,10 @@ documentation_of: //blueberry/math/formal-power-series.hpp
 ## 概要・前提
 
 係数を次数の昇順に保持する形式的冪級数（FPS）です。`Mint` は ACL の
-`static_modint`（素数 modulus）を想定し、NTTを使う操作では要求次数 `N` に対して
-`2^ceil(log2(N))` が `mod-1` の2進因子以下である必要があります。標準設定は
+`static_modint`（素数 modulus）を想定します。積分・級数演算の要求項数は modulus 未満、
+平方根の modulus は奇素数が前提です。NTTを使う操作では、各内部畳み込みの出力長 `L` に対して
+`2^ceil(log2(L))` が `mod-1` の2進因子以下である必要があります。`inv(n)` と `exp(n)` の
+変換長は `2^ceil(log2(n))`、積・log・sqrt・多項式除算では中間の積の長さも考慮してください。標準設定は
 `atcoder::modint998244353` です。`M(N)` を ACL の畳み込みの計算量
 （998244353 では $O(N\log N)$）とすると、メモリ使用量は $O(N)$ です。
 
@@ -40,6 +42,11 @@ int main() {
   assert(e[0] == 1);
   assert(e[1] == 1);
   assert(e[2] == mint(2).inv());
+
+  fps::Sparse sparse{{2, 3}, {0, 1}};
+  assert(((f * sparse) / sparse) == f);
+  assert((fps{0, 1}.sqrt(1) == fps{0}));
+  assert(f.mod_pow(0, fps{2}).empty());
 }
 ```
 {% endraw %}
@@ -54,22 +61,24 @@ int main() {
 | `FormalPowerSeries<Mint> f(n) / f(values)` | O(N) | [開く](#construct) |
 | `f.pre(n)`, `f.rev(n)` | O(N) | [開く](#pre-rev) |
 | `f.shrink()` | 償却 O(N) | [開く](#shrink) |
-| `f +=/-= g`, `f + g`, `f - g` | O(max(N, M)) | [開く](#add-sub) |
+| `f +=/-= g`, `f + g`, `f - g`, `-f` | O(max(N, M)) | [開く](#add-sub) |
+| `f +=/-= scalar`, `f + scalar`, `f - scalar` | O(1) / O(N) | [開く](#scalar-add-sub) |
 | `f *= scalar`, `f /= scalar`, `f * scalar`, `f / scalar` | O(N) | [開く](#scalar) |
 | `f *= g`, `f * g` | O(M(N+M)) | [開く](#multiply) |
-| `f /= g`, `f / g`, `f %= g`, `div_mod(g)` | O(M(N)) | [開く](#divide) |
-| `f *= sparse`, `f /= sparse` | O(NS) | [開く](#sparse) |
+| `f /= g`, `f / g`, `f %= g`, `f % g`, `f.div_mod(g)` | O(M(N+M)) | [開く](#divide) |
+| `f *= sparse`, `f * sparse` | O(NS) | [開く](#sparse) |
+| `f /= sparse`, `f / sparse` | O(NS + S log S) | [開く](#sparse) |
 | `f <<= d`, `f >>= d`, `f << d`, `f >> d` | O(N+d) | [開く](#shift) |
 | `f.dot(g)` | O(min(N, M)) | [開く](#dot) |
 | `f.eval(x)`, `f(x)` | O(N) | [開く](#eval) |
 | `f.multiply(d, c)`, `f.divide(d, c)` | O(N) | [開く](#factor) |
-| `f.diff()`, `f.integral()` | O(N) | [開く](#calculus) |
+| `f.diff()`, `f.integral()` | O(N) / O(N log mod) | [開く](#calculus) |
 | `f.inv(n)` | O(M(N)) | [開く](#inv) |
 | `f.log(n)` | O(M(N)) | [開く](#log) |
 | `f.sqrt(n)`, `f.sqrt_with(root, n)` | O(M(N) log N) | [開く](#sqrt) |
 | `f.exp(n)` | O(M(N) log N) | [開く](#exp) |
 | `f.pow(k, n)` | O(M(N) log N) | [開く](#pow) |
-| `f.mod_pow(k, modulus)` | O(M(N) log k) | [開く](#mod-pow) |
+| `f.mod_pow(k, modulus)` | O(M(N+D) + M(D) log(k+1)) | [開く](#mod-pow) |
 | `f[i]`, `f.size()`, range-for/iterators | O(1) | [開く](#vector-interface) |
 
 以下の詳細では、返り値、使用例、境界条件をまとめています。例は必要なヘッダと有効な
@@ -125,7 +134,7 @@ f.shrink();             // {1, 2}
 </details>
 
 <details class="api-operation" id="add-sub" markdown="1">
-<summary><code>f +=/-= g; f + g; f - g</code> — O(max(N, M))</summary>
+<summary><code>f +=/-= g; f + g; f - g; -f</code> — O(max(N, M))</summary>
 
 加減算は短い側に合わせて0を補い、長い側まで長さを拡張します。単項マイナスも利用できます。
 
@@ -138,6 +147,24 @@ fps negated = -f;
 {% endraw %}
 
 注意点: 係数型の加減算が定義されている必要があります。結果の末尾0は自動では削除しません。
+
+</details>
+
+<details class="api-operation" id="scalar-add-sub" markdown="1">
+<summary><code>f += c; f -= c; f + c; f - c</code> — 更新 O(1)、コピーを返す版 O(N)</summary>
+
+`Mint` の値を定数項だけに加減算します。空級数には定数項を作り、長さ1にします。
+
+{% raw %}
+```cpp
+fps f{1, 2};
+f += mint(3);                 // {4, 2}
+assert((f - mint(4) == fps{0, 2}));
+```
+{% endraw %}
+
+注意点: `+=` / `-=` は自身への参照、二項演算子は独立したFPSを返します。
+空級数への更新では再確保が起こりえます。
 
 </details>
 
@@ -154,6 +181,7 @@ fps scaled = f / mint(2);
 {% endraw %}
 
 注意点: 割り算では `c!=0` が必要です。空級数へのスカラー倍は空のままです。
+`f *= f[i]` のように係数を引数にしても、更新前の値で全項を掛けます。保持長・参照の寿命は変えません。
 
 </details>
 
@@ -175,7 +203,7 @@ f *= g;
 </details>
 
 <details class="api-operation" id="divide" markdown="1">
-<summary><code>f /= g; f / g; f %= g; f.div_mod(g)</code> — O(M(N))</summary>
+<summary><code>f /= g; f / g; f %= g; f % g; f.div_mod(g)</code> — O(M(N+M))</summary>
 
 `g` の最高次係数を使った反転多項式の除算で商を求めます。`div_mod` は `{商, 余り}` を返します。
 `f %= g` は余りだけを残します。
@@ -187,15 +215,19 @@ fps q = f / g;
 ```
 {% endraw %}
 
-注意点: `g` はゼロ多項式でなく、商を求める場合は `g` の先頭（最高次）係数が0でない必要があります。余りの次数は `g` の次数未満です。
+注意点: `g` はゼロ多項式でない必要があります。`g` の末尾0は内部で除去します。
+商の保持長は `max(0, f.size()-trimmed_g.size()+1)`、余りの末尾0は除去され、
+ゼロの余りは空級数です。空の被除数からは空の商・余りを返します。定数で割った余りも空です。
+余りの次数は `g` の次数未満です。更新演算で再確保・要素の削除が起こりえます。
 
 </details>
 
 <details class="api-operation" id="sparse" markdown="1">
-<summary><code>f *= vector&lt;pair&lt;int, Mint&gt;&gt; s`, `f /= s</code> — O(NS)</summary>
+<summary><code>f *= s; f * s; f /= s; f / s</code> — 積 O(NS)、商 O(NS + S log S)</summary>
 
 疎な係数列 `s={(次数,係数)}` との積・商を、畳み込みを使わずに計算します。
-商では次数0の項を定数項として逐次的に解きます。
+商では次数0の項を定数項として逐次的に解きます。積・商とも保持長 `N` までで打ち切ります。
+各二項演算子はコピー、代入演算子は自身への参照を返します。追加メモリは積 O(N)、商 O(S) です。
 
 {% raw %}
 ```cpp
@@ -205,7 +237,10 @@ f /= s;
 ```
 {% endraw %}
 
-注意点: `s` の次数は非負。除算は次数0の係数が0でなく、積の順序を問わず正しい結果になるよう内部で次数順に並べ替えます。
+注意点: `s` の次数は非負で、並び順は任意です。同じ次数の項は加算して扱います。
+除算では次数0の係数の合計が非零でなければなりません。係数型への大小比較は不要です。
+商だけが内部で次数順に並べ替えます。空の `s` を掛けると空級数になり、空の `s` で割ることはできません。
+空の `f` と有効な `s` の積・商は空級数です。積の代入は格納領域を置き換えるため参照を無効化します。
 
 </details>
 
@@ -273,7 +308,7 @@ f.divide(3, mint(-1));
 </details>
 
 <details class="api-operation" id="calculus" markdown="1">
-<summary><code>f.diff() / f.integral()</code> — O(N)</summary>
+<summary><code>f.diff() / f.integral()</code> — O(N) / O(N log mod)</summary>
 
 形式微分と形式積分を計算します。`integral` の定数項は0です。
 
@@ -284,7 +319,8 @@ fps antiderivative = derivative.integral();
 ```
 {% endraw %}
 
-注意点: `integral` は `1,2,...,N` の逆元を必要とするため、保持次数はmodulus未満でなければなりません。微分は空または定数級数から空級数を返します。
+注意点: `integral` は `1,2,...,N` の逆元を個別に求めるため O(N log mod)、
+保持項数はmodulus未満でなければなりません。微分は空または定数級数から空級数、空級数の積分は `{0}` を返します。
 
 </details>
 
@@ -323,17 +359,25 @@ fps logarithm = f.log(100);  // f[0] == 1
 <summary><code>fps f.sqrt(n = f.size()) / f.sqrt_with(root, n)</code> — O(M(N) log N)</summary>
 
 平方根の定数項をTonelli--Shanks法で求め、Newton反復で `g^2 = f (mod x^n)` を解きます。
-先頭の0の個数が奇数、または定数項に平方根がない場合は空級数を返します。
+`x^n` 未満にある最初の非零項の次数が奇数、またはその係数に平方根がない場合は空級数を返します。
+`x^n` 以上の項は存在判定に影響しません。成功時はちょうど `n` 項を返します。
 `sqrt_with` は定数項の平方根を返す関数を利用する版です。
 
 {% raw %}
 ```cpp
 fps root = f.sqrt(100);
-fps root_with_callback = f.sqrt_with([](mint a) { return a.pow((mint::mod() + 1) / 4); }, 100);
+fps square{4, 4, 1};
+fps root_with_callback = square.sqrt_with([](mint a) {
+  assert(a == mint(4));
+  return mint(2);             // この例の非零定数項の平方根
+}, 3);
+assert(((root_with_callback * root_with_callback).pre(3) == square));
 ```
 {% endraw %}
 
-注意点: 素数modulusを前提とします。`sqrt_with` のコールバックは正しい平方根を返す責任があり、非平方剰余に対する検査は行いません。平方根は符号が2通りあり、返る定数項は正規化された一方です。
+注意点: 奇素数modulusを前提とします。`n=0` は空級数です。入力が空、または `x^n` 未満がすべて0なら
+長さ `n` のゼロ級数を返し、コールバックは呼びません。`sqrt_with` のコールバックは正しい平方根を返す責任があり、
+非平方剰余に対する検査は行いません。非零の平方根は符号が2通りあり、どちらを返すかに依存しないでください。
 
 </details>
 
@@ -370,7 +414,7 @@ fps power = f.pow(5, 100);
 </details>
 
 <details class="api-operation" id="mod-pow" markdown="1">
-<summary><code>fps f.mod_pow(k, modulus)</code> — O(M(N) log k)</summary>
+<summary><code>fps f.mod_pow(k, modulus)</code> — O(M(N+D) + M(D) log(k+1))</summary>
 
 多項式を `modulus` で割った余りの環で二分累乗します。
 
@@ -381,7 +425,10 @@ fps result = f.mod_pow(1'000'000'000LL, relation);
 ```
 {% endraw %}
 
-注意点: `modulus` は空でない必要があります。各積の後に余りを取るため、modulusの次数を `D` とすると一時的な積の長さは高々 `2D-1` です。指数は非負です。
+注意点: `modulus` はゼロ多項式でなく、指数は非負です。初期の被除数の長さを `N`、
+modulusの次数を `D` とします。最初に `f` を剰余化した後、`D>=1` では積の長さは高々 `2D-1` です。
+返り値の末尾0は除去されます。`k=0` は `1 % modulus`、非零定数を法とすると指数によらず空級数を返します。
+入力の末尾0は許されます。計算中の長さがmodulusとNTTの制約に収まる必要があります。
 
 </details>
 
@@ -416,6 +463,11 @@ Blueberry側で再実装しています。コードをそのままコピーせ�
 - [Exp of Formal Power Series](https://judge.yosupo.jp/problem/exp_of_formal_power_series)
 - [Sqrt of Formal Power Series](https://judge.yosupo.jp/problem/sqrt_of_formal_power_series)
 - [Pow of Formal Power Series](https://judge.yosupo.jp/problem/pow_of_formal_power_series)
+- [Division of Polynomials](https://judge.yosupo.jp/problem/division_of_polynomials)
+
+`tests/random/formal-power-series.cpp` は二次時間の独立した実装と、逆元・積・商・余り・exp・log・
+pow・sqrt・mod_powを固定seedで比較します。疎係数の並び替え・重複、係数自身を引数にするスカラー倍、
+空級数・次数0・NTTへの切替境界も検証します。
 
 ### Fastest 提出との比較
 
