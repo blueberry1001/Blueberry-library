@@ -9,11 +9,15 @@
 [Library Checker](https://judge.yosupo.jp/) の公式テストデータで検証されています。
 
 <div class="library-summary">
-  <a href="{{ '/categories/data-structure.html' | relative_url }}"><strong>Data Structure</strong><span>Rollback Union Find / Sparse Table ほか</span><span>用途と操作を確認する →</span></a>
-  <a href="{{ '/categories/graph.html' | relative_url }}"><strong>Graph</strong><span>Dijkstra / LCA</span><span>最短路・木のクエリを確認する →</span></a>
-  <a href="{{ '/categories/math.html' | relative_url }}"><strong>Math</strong><span>Prime Sieve</span><span>素数判定・列挙を確認する →</span></a>
-  <a href="{{ '/categories/string.html' | relative_url }}"><strong>String</strong><span>Z Algorithm</span><span>文字列の一致を確認する →</span></a>
+{% assign category_ids = 'data-structure,graph,math,string' | split: ',' %}
+{% assign category_titles = 'Data Structure,Graph,Math,String' | split: ',' %}
+{% for category in category_ids %}
+  {% assign entries = site.data.libraries | where: 'category', category %}
+  <a href="{{ '/categories/' | append: category | append: '.html' | relative_url }}"><strong>{{ category_titles[forloop.index0] }} · {{ entries.size }}</strong><span>{{ entries | map: 'name' | join: ' / ' | escape }}</span><span>用途と操作を確認する →</span></a>
+{% endfor %}
 </div>
+
+[名前・用途から検索](#library-catalog) · [全ファイルと検証状態](#library-files)
 
 ## 方針
 

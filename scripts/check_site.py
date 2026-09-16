@@ -14,18 +14,33 @@ assert not any('/atcoder/' in href or '/verify/' in href for href in home_links)
 assert "Verification Files" not in home
 assert 'class="site-hero"' in home
 assert 'class="site-nav"' in home
+assert 'data-catalog-search' in home and 'data-catalog-controls hidden' in home
+assert 'data-catalog-empty hidden' in home and 'id="library-catalog"' in home
 assert "calc(100% - 300px)" not in home, "Upstream inline sidebar CSS returned"
 assert home.index("</section>") < home.index("<footer>"), "Footer must follow the content"
 for category in ("data-structure", "graph", "math", "string"):
     assert f"/Blueberry-library/categories/{category}.html" in home
     content = (SITE / "categories" / f"{category}.html").read_text()
     assert "収録ライブラリ" in content and f"/blueberry/{category}/" in content
+    assert 'data-catalog-search' in content, (category, "missing catalog search")
 for page in ("guide.html", "benchmarks.html", "assets/js/docs.js", "assets/css/custom.css"):
     assert (SITE / page).exists(), page
 
 headers = re.findall(r"^  path: (.+)$", (ROOT / ".verify-helper/docs/static/_data/libraries.yml").read_text(), re.M)
+catalog_rows = re.findall(r'<tr data-library\b[^>]*>.*?</tr>', home, re.S)
+assert len(catalog_rows) == len(headers), "Search catalog must contain every modern header exactly once"
+for header in headers:
+    assert sum(f'/{header}.html' in row for row in catalog_rows) == 1, (header, "missing or duplicate search result")
+assert not re.search(r'<tr data-library\b[^>]*\bhidden\b', home), "Catalog must work without JavaScript"
 for header in headers:
     content = (SITE / f"{header}.html").read_text()
+    assert 'assets/js/copy-button.js' not in content, (header, "upstream controls duplicate copy buttons and bundle unrelated examples")
+    assert 'id="bundled-source"' in content, (header, "missing expandable bundled source")
+    relations = re.search(r'<div class="source-relations">(.*?)</div>', content, re.S)
+    assert relations, (header, "missing source relationships")
+    for link in re.findall(r'href="([^"]+)"', relations[1]):
+        assert link.startswith('/Blueberry-library/') and link.endswith('.html'), (header, link)
+        assert (SITE / link.removeprefix('/Blueberry-library/')).exists(), (header, link, "broken dependency/verify link")
     operations = re.findall(r'<details\b[^>]*class="api-operation"[^>]*>(.*?)</details>', content, re.S)
     assert operations, (header, "missing expandable API docs")
     for body in operations:

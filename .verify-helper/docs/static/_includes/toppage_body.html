@@ -1,5 +1,8 @@
-<h2>Library Files</h2>
+<h2 id="library-catalog">用途から探す</h2>
+{% include library_catalog.html %}
+<h2 id="library-files">Library Files</h2>
 <p>検証コードは、各ライブラリページの「検証コード」に掲載しています。</p>
+<p>以下は互換ヘッダも含む全ファイルと検証状態です。新しく使う場合は上のカタログを入口にし、標準機能はACLを優先してください。検証済みの表示がないファイルは、公式ケースでの動作確認を保証しません。</p>
 {% for category in page.data.libraryCategories %}
   {% assign root = category.name | split: '/' | first %}
   {% if root == 'blueberry' %}
