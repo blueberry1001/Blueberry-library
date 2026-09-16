@@ -5,6 +5,7 @@
 #include <functional>
 #include <limits>
 #include <queue>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -44,6 +45,7 @@ ShortestPathResult<Cost> dijkstra(
     Cost infinity = std::numeric_limits<Cost>::max()) {
   const int n = static_cast<int>(graph.size());
   assert(0 <= source && source < n);
+  assert(Cost{} < infinity);
   std::vector<Cost> distance(n, infinity);
   std::vector<int> parent(n, -1);
   using QueueElement = std::pair<Cost, int>;
@@ -60,8 +62,14 @@ ShortestPathResult<Cost> dijkstra(
     for (const auto& edge : graph[v]) {
       assert(0 <= edge.to && edge.to < n);
       assert(!(edge.cost < Cost{}));
-      if (distance[edge.to] > current_distance + edge.cost) {
-        distance[edge.to] = current_distance + edge.cost;
+      // Integral distances are clipped at infinity before adding, including
+      // unsigned types. Keep the original addition-only contract for custom Cost.
+      if constexpr (std::is_integral_v<Cost>) {
+        if (edge.cost >= infinity - current_distance) continue;
+      }
+      const Cost candidate = current_distance + edge.cost;
+      if (distance[edge.to] > candidate) {
+        distance[edge.to] = candidate;
         parent[edge.to] = v;
         queue.emplace(distance[edge.to], edge.to);
       }
