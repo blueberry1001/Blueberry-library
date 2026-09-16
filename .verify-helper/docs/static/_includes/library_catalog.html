@@ -1,0 +1,28 @@
+{% assign entries = site.data.libraries %}
+{% if include.category %}{% assign entries = entries | where: 'category', include.category %}{% endif %}
+<div class="library-catalog" data-catalog>
+  <div class="catalog-controls" data-catalog-controls hidden>
+    <label for="library-search">名前・用途から探す <small>（<kbd>/</kbd> で検索へ）</small></label>
+    <input id="library-search" data-catalog-search type="search" placeholder="例: LCA、区間 頻度、回文" autocomplete="off" aria-controls="library-results">
+    <label for="library-category">カテゴリ</label>
+    <select id="library-category" data-catalog-category aria-controls="library-results">
+      <option value="">すべて</option>
+      {% assign categories = entries | map: 'category' | uniq %}
+      {% for category in categories %}<option value="{{ category | escape }}">{{ category | escape }}</option>{% endfor %}
+    </select>
+    <button type="button" data-catalog-reset>条件をクリア</button>
+    <span data-catalog-count role="status" aria-live="polite"></span>
+  </div>
+  <p data-catalog-empty hidden>一致するライブラリがありません。キーワードを短くするか、条件をクリアしてください。</p>
+  <table id="library-results">
+    <thead><tr><th scope="col">ライブラリ</th><th scope="col">用途</th><th scope="col">位置づけ</th></tr></thead>
+    <tbody>
+    {% for item in entries %}
+      <tr data-library data-category="{{ item.category | escape }}" data-keywords="{{ item.path | escape }} {{ item.aliases | join: ' ' | escape }}">
+        <td><a href="{{ item.path | append: '.html' | relative_url }}">{{ item.name | escape }}</a></td>
+        <td>{{ item.description | escape }}</td><td>{{ item.role | escape }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>

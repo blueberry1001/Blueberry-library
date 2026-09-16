@@ -36,7 +36,7 @@ class LowestCommonAncestor {
         stack.push_back(to);
       }
     }
-    for (const int depth : depth_) assert(depth != -1);
+    for ([[maybe_unused]] const int depth : depth_) assert(depth != -1);
     for (int level = 1; level < levels; ++level) {
       for (int v = 0; v < n_; ++v) {
         parent_[level][v] = parent_[level - 1][parent_[level - 1][v]];
@@ -132,7 +132,7 @@ class LowestCommonAncestorRMQ {
       depth_[to] = depth_[v] + 1;
       stack.push_back(to);
     }
-    for (const int first : first_) assert(first != -1);
+    for ([[maybe_unused]] const int first : first_) assert(first != -1);
 
     std::vector<Item> values;
     values.reserve(euler.size());
@@ -162,7 +162,7 @@ class LowestCommonAncestorRMQ {
   int size() const { return n_; }
 
  private:
-  void check_vertex(int v) const { assert(0 <= v && v < n_); }
+  void check_vertex([[maybe_unused]] int v) const { assert(0 <= v && v < n_); }
 
   int n_;
   std::vector<int> depth_;

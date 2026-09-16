@@ -1,0 +1,27 @@
+{% assign groups = '_extendedDependsOn,_extendedRequiredBy,_extendedVerifiedWith' | split: ',' %}
+{% assign headings = 'Depends on,Required by,Verified with' | split: ',' %}
+<div class="source-relations">
+{% for group in groups %}
+  {% assign entries = page.data[group] %}
+  {% if entries.size > 0 %}
+  <h2>{{ headings[forloop.index0] }}</h2>
+  <ul>
+    {% for item in entries %}
+    <li><a href="{{ item.path | append: '.html' | relative_url }}">{{ item.icon }} {{ item.title | escape }}{% if item.title != item.path %} <small>({{ item.path | escape }})</small>{% endif %}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+{% endfor %}
+</div>
+
+<h2 id="source-code">Code</h2>
+<span id="unbundled"></span>
+{% include highlight.html extension=page.data._pathExtension content=page.data.code %}
+
+{% if page.data.bundledCode %}
+<details class="bundled-source" id="bundled-source">
+  <summary id="bundled">依存ヘッダを展開したコードを開く</summary>
+  <p>提出先のコンパイル条件に合わせ、使用するmain関数とともにコンパイルしてください。</p>
+  {% include highlight.html extension=page.data._pathExtension content=page.data.bundledCode %}
+</details>
+{% endif %}

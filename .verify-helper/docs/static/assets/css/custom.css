@@ -132,12 +132,12 @@ a:hover, a:focus {
   text-decoration: underline;
 }
 
-a:focus-visible, summary:focus-visible {
+a:focus-visible, summary:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
   outline: 3px solid var(--blueberry);
   outline-offset: 4px;
 }
 
-#copy-include {
+button {
   border: 1px solid var(--line);
   border-radius: 6px;
   color: var(--blueberry-dark);
@@ -145,6 +145,39 @@ a:focus-visible, summary:focus-visible {
   font: inherit;
   padding: 2px 10px;
   cursor: pointer;
+}
+
+[hidden] { display: none !important; }
+
+.catalog-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 18px;
+  margin: 16px 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #f4f7ff;
+}
+
+.catalog-controls > label:first-child { flex-basis: 100%; }
+.catalog-controls input, .catalog-controls select {
+  min-width: 0;
+  max-width: 100%;
+  border: 1px solid #9baad0;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font: inherit;
+  color: var(--ink);
+  background: white;
+}
+.catalog-controls input { flex: 1 1 18rem; }
+.catalog-controls small, [data-catalog-count] { color: var(--muted); }
+.code-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0; font-size: 0.85rem; }
+.code-actions span { color: var(--muted); }
+@media print {
+  .catalog-controls, .code-actions, #copy-include { display: none; }
 }
 
 #copy-include:focus-visible {
@@ -292,9 +325,25 @@ th {
   .library-summary {
     grid-template-columns: 1fr;
   }
+
+  .library-catalog table,
+  .library-catalog tbody,
+  .library-catalog tr,
+  .library-catalog td {
+    display: block;
+    width: 100%;
+  }
+
+  .library-catalog thead { display: none; }
+  .library-catalog tr { padding: 12px 4px; border-bottom: 1px solid var(--line); }
+  .library-catalog td { padding: 3px 0; border: 0; }
+  .library-catalog td:first-child { font-weight: 600; }
+  .library-catalog td:last-child { color: var(--muted); font-size: 0.85rem; }
 }
 
 
 .verification-example { margin: 12px 0; }
 .verification-example > summary { cursor: pointer; overflow-wrap: anywhere; }
 .verification-example pre { max-height: 36rem; overflow: auto; }
+.bundled-source > summary { cursor: pointer; padding: 12px 0; font-weight: 600; }
+.bundled-source pre { max-height: 36rem; overflow: auto; }

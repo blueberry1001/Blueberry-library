@@ -1,5 +1,34 @@
 # Blueberry Library audit and roadmap
 
+## 現在の状態（2026-09-16）
+
+以下の2026-09-13監査は履歴です。現在の利用判断にはREADMEと各ライブラリページを使ってください。
+
+- カタログ17ライブラリ、公開・互換入口19ヘッダ、公式verifyソース29本。
+- Li Chao Tree、Wavelet Matrix、Manacherは既に導入済み。
+- 今回追加: Offline Fenwick Tree 2D、Low Link、順序を保つRerooting DP。
+- 今回修正: FPSの疎除算コンパイル、係数を参照したスカラー乗算、打ち切り平方根、
+  定数多項式を法にした累乗。Dijkstraは標準整数型の加算を距離上限で安全に打ち切る。
+- 利用導線: 用途・別名検索、カテゴリ別の選び方、コード例コピー、API内リンクの展開。
+- supportedと歴史的スニペットをREADME・サイトで区別。旧ファイルは互換保持のため削除しない。
+
+### 未収録・未解消の範囲
+
+「あらゆる問題を網羅した」「旧ファイルも安全になった」という意味ではありません。
+次の拡張・移行は、対応問題とAPIの必要性を確認してから別単位で進めます。
+
+| 優先度 | 項目 | 現在の判断 |
+| --- | --- | --- |
+| 高 | 旧ordered treap | 存在しない値のcount/eraseや空状態に問題。新規利用対象外、検証済み代替は未収録 |
+| 高 | 旧Graph/rollback/2D Fenwick | 現行の用途別ヘッダへ誘導。全旧APIの安全な移行を保証していない |
+| 中 | Offline Dynamic Connectivity | Rollback UFを基盤に追加候補。今回のLow Linkとは別用途 |
+| 中 | 永続Segment Tree・列のreverse/lazy treap | ACLにないがAPIとメモリ所有権の設計が必要 |
+| 中 | 幾何の凸包・交差判定 | 整数範囲と幾何の退化ケースを先に定義する |
+| 中 | Aho–Corasick / suffix automaton | 文字種と遷移メモリの方針を含め、公式問題単位で追加する |
+| 低 | fraction / 完全オンライン2D更新 | 型範囲・性能・使用例を確認してから検証済み実装へ移行する |
+
+最終的な検証結果・計測条件は `docs/development/contest-readiness-2026-09-16.md` に記録します。
+
 監査日: 2026-09-13  
 基準: `main` (`4448ce540b75dddc34ff40effd9d0c013808d079`)  
 open PR: [#5 Add short APIs, RMQ LCA, HLD, and Fastest analysis](https://github.com/blueberry1001/Blueberry-library/pull/5) (`f1efae1ac2225aeeec379e2ee3981f0d2611ff50`)

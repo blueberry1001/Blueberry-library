@@ -5,6 +5,7 @@
 #include <functional>
 #include <limits>
 #include <queue>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -44,6 +45,7 @@ ShortestPathResult<Cost> dijkstra(
     Cost infinity = std::numeric_limits<Cost>::max()) {
   const int n = static_cast<int>(graph.size());
   assert(0 <= source && source < n);
+  assert(Cost{} < infinity);
   std::vector<Cost> distance(n, infinity);
   std::vector<int> parent(n, -1);
   using QueueElement = std::pair<Cost, int>;
@@ -60,11 +62,22 @@ ShortestPathResult<Cost> dijkstra(
     for (const auto& edge : graph[v]) {
       assert(0 <= edge.to && edge.to < n);
       assert(!(edge.cost < Cost{}));
-      if (distance[edge.to] > current_distance + edge.cost) {
-        distance[edge.to] = current_distance + edge.cost;
-        parent[edge.to] = v;
-        queue.emplace(distance[edge.to], edge.to);
+      // Integral distances are clipped at infinity before adding, including
+      // unsigned types. Keep the original addition-only contract for custom Cost.
+      Cost candidate{};
+      if constexpr (std::is_integral_v<Cost>) {
+        // Only a strict improvement can enter the queue. Using the destination's
+        // current bound also rejects already-shorter paths without adding.
+        if (distance[edge.to] <= current_distance ||
+            edge.cost >= distance[edge.to] - current_distance) continue;
+        candidate = current_distance + edge.cost;
+      } else {
+        candidate = current_distance + edge.cost;
+        if (!(distance[edge.to] > candidate)) continue;
       }
+      distance[edge.to] = candidate;
+      parent[edge.to] = v;
+      queue.emplace(candidate, edge.to);
     }
   }
   return {std::move(distance), std::move(parent), infinity};

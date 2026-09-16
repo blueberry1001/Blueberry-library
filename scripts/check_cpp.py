@@ -90,7 +90,7 @@ def compile_one(
     source = None
     if kind == "header":
         command.extend(["-x", "c++", "-"])
-        source = f'#include "{name}"\nint main() {{}}\n'
+        source = f'#include "{name}"\n#include "{name}"\nint main() {{}}\n'
     else:
         command.append(str(path))
     started = time.perf_counter()

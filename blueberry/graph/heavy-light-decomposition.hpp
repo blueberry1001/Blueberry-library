@@ -242,7 +242,7 @@ class HeavyLightDecomposition {
     }
   }
 
-  void check_vertex(int v) const { assert(0 <= v && v < n_); }
+  void check_vertex([[maybe_unused]] int v) const { assert(0 <= v && v < n_); }
 
   int n_;
   int root_;

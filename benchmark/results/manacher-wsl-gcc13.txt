@@ -1,0 +1,45 @@
+Linux BlueberryPC 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+Architecture:                         x86_64
+CPU op-mode(s):                       32-bit, 64-bit
+Address sizes:                        39 bits physical, 48 bits virtual
+Byte Order:                           Little Endian
+CPU(s):                               24
+On-line CPU(s) list:                  0-23
+Vendor ID:                            GenuineIntel
+Model name:                           Intel(R) Core(TM) i7-14650HX
+CPU family:                           6
+Model:                                183
+Thread(s) per core:                   2
+Core(s) per socket:                   12
+Socket(s):                            1
+Stepping:                             1
+BogoMIPS:                             4838.39
+Flags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities
+Virtualization:                       VT-x
+Hypervisor vendor:                    Microsoft
+Virtualization type:                  full
+L1d cache:                            576 KiB (12 instances)
+L1i cache:                            384 KiB (12 instances)
+L2 cache:                             24 MiB (12 instances)
+L3 cache:                             30 MiB (1 instance)
+Vulnerability Gather data sampling:   Not affected
+Vulnerability Itlb multihit:          Not affected
+compiler=13.3.0
+flags=-std=c++20 -O2 -DNDEBUG -I.
+seed=20260914 runs=7 warmups=1 unit=ms
+candidate,shape,n,checksum,run1,run2,run3,run4,run5,run6,run7,median,min
+two-pass,random26,6000,48776,0.019380,0.018878,0.018875,0.018682,0.018726,0.018686,0.018565,0.018726,0.018565
+transformed,random26,6000,48776,0.032976,0.032776,0.032768,0.032442,0.032575,0.032350,0.032278,0.032575,0.032278
+naive,random26,6000,48776,0.016730,0.016295,0.016251,0.016347,0.016208,0.016074,0.015893,0.016251,0.015893
+two-pass,equal,6000,252000000,0.021739,0.021810,0.021814,0.021913,0.021769,0.021741,0.021859,0.021810,0.021739
+transformed,equal,6000,252000000,0.029305,0.029224,0.029281,0.029475,0.029267,0.029324,0.029262,0.029281,0.029224
+naive,equal,6000,252000000,8.239955,8.447815,8.740624,8.264311,8.312783,8.453933,8.746340,8.447815,8.239955
+two-pass,alternating,6000,126000000,0.019948,0.023027,0.023131,0.023366,0.023022,0.023058,0.022661,0.023027,0.019948
+transformed,alternating,6000,126000000,0.043263,0.043332,0.044794,0.042594,0.041464,0.038920,0.038947,0.042594,0.038920
+naive,alternating,6000,126000000,4.267735,4.276341,4.420120,4.373024,4.435880,4.121495,3.836306,4.276341,3.836306
+two-pass,random26,1000000,8115674,4.552155,3.296230,3.504998,3.417805,3.646426,3.259538,3.460932,3.460932,3.259538
+transformed,random26,1000000,8115674,8.207389,8.061075,8.538244,8.044323,8.404468,8.028706,8.275467,8.207389,8.028706
+two-pass,equal,1000000,7000000000000,4.142984,3.925735,3.840101,3.897571,3.901702,3.762450,3.910316,3.901702,3.762450
+transformed,equal,1000000,7000000000000,7.787262,7.553405,7.425817,7.757479,8.322430,8.183406,7.574963,7.757479,7.425817
+two-pass,alternating,1000000,3500000000000,3.382241,3.200302,3.277689,3.266627,3.609093,3.519450,3.481477,3.382241,3.200302
+transformed,alternating,1000000,3500000000000,9.160558,9.498104,8.785668,8.872738,8.824555,9.128324,9.263432,9.128324,8.785668
