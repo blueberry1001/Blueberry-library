@@ -64,15 +64,20 @@ ShortestPathResult<Cost> dijkstra(
       assert(!(edge.cost < Cost{}));
       // Integral distances are clipped at infinity before adding, including
       // unsigned types. Keep the original addition-only contract for custom Cost.
+      Cost candidate{};
       if constexpr (std::is_integral_v<Cost>) {
-        if (edge.cost >= infinity - current_distance) continue;
+        // Only a strict improvement can enter the queue. Using the destination's
+        // current bound also rejects already-shorter paths without adding.
+        if (distance[edge.to] <= current_distance ||
+            edge.cost >= distance[edge.to] - current_distance) continue;
+        candidate = current_distance + edge.cost;
+      } else {
+        candidate = current_distance + edge.cost;
+        if (!(distance[edge.to] > candidate)) continue;
       }
-      const Cost candidate = current_distance + edge.cost;
-      if (distance[edge.to] > candidate) {
-        distance[edge.to] = candidate;
-        parent[edge.to] = v;
-        queue.emplace(distance[edge.to], edge.to);
-      }
+      distance[edge.to] = candidate;
+      parent[edge.to] = v;
+      queue.emplace(candidate, edge.to);
     }
   }
   return {std::move(distance), std::move(parent), infinity};
