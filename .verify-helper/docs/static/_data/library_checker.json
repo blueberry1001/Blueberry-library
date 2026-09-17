@@ -23,10 +23,10 @@
   ],
   "total": 253,
   "counts": {
-    "missing": 182,
+    "missing": 171,
     "driver": 1,
-    "verify": 58,
-    "implemented": 3,
+    "verify": 70,
+    "implemented": 2,
     "acl": 9
   },
   "statuses": [
@@ -743,17 +743,23 @@
       "title": "Static Range Sum",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/static_range_sum",
-      "status": "implemented",
-      "label": "実装あり・専用verifyなし",
+      "status": "verify",
+      "label": "実装＋verifyあり",
       "headers": [
+        {
+          "path": "blueberry/data-structure/disjoint-sparse-table.hpp",
+          "name": "Disjoint Sparse Table"
+        },
         {
           "path": "blueberry/data-structure/fenwick-tree.hpp",
           "name": "Fenwick Tree"
         }
       ],
-      "verifies": [],
+      "verifies": [
+        "verify/data-structure/disjoint-sparse-table.test.cpp"
+      ],
       "ignored_verifies": [],
-      "note": "sum(l,r)で対応可能。更新がない場合は通常の累積和でO(1)問い合わせにできる。専用verify未追加。",
+      "note": "Disjoint Sparse Tableの非冪等な区間積を専用verifyで検証。静的な和だけなら通常の累積和でもO(N)構築・O(1)問い合わせにできる。",
       "external_url": ""
     },
     {
@@ -1024,10 +1030,17 @@
       "title": "Cycle Detection (Directed)",
       "category": "Graph",
       "url": "https://judge.yosupo.jp/problem/cycle_detection",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/cycle-detection.hpp",
+          "name": "Cycle Detection"
+        }
+      ],
+      "verifies": [
+        "verify/graph/cycle-detection-directed.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1037,10 +1050,17 @@
       "title": "Cycle Detection (Undirected)",
       "category": "Graph",
       "url": "https://judge.yosupo.jp/problem/cycle_detection_undirected",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/cycle-detection.hpp",
+          "name": "Cycle Detection"
+        }
+      ],
+      "verifies": [
+        "verify/graph/cycle-detection-undirected.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1102,10 +1122,17 @@
       "title": "Enumerate Triangles",
       "category": "Graph",
       "url": "https://judge.yosupo.jp/problem/enumerate_triangles",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/triangle-enumeration.hpp",
+          "name": "Triangle Enumeration"
+        }
+      ],
+      "verifies": [
+        "verify/graph/triangle-enumeration.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1364,10 +1391,17 @@
       "title": "Cartesian Tree",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/cartesian_tree",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/cartesian-tree.hpp",
+          "name": "Cartesian Tree"
+        }
+      ],
+      "verifies": [
+        "verify/graph/cartesian-tree.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1552,10 +1586,17 @@
       "title": "Tree Diameter",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/tree_diameter",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/tree-diameter.hpp",
+          "name": "Tree Diameter"
+        }
+      ],
+      "verifies": [
+        "verify/graph/tree-diameter.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1764,10 +1805,17 @@
       "title": "Gcd Convolution",
       "category": "Convolution",
       "url": "https://judge.yosupo.jp/problem/gcd_convolution",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/divisor-convolution.hpp",
+          "name": "Divisor Convolution"
+        }
+      ],
+      "verifies": [
+        "verify/math/gcd-convolution.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1777,10 +1825,17 @@
       "title": "Lcm Convolution",
       "category": "Convolution",
       "url": "https://judge.yosupo.jp/problem/lcm_convolution",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/divisor-convolution.hpp",
+          "name": "Divisor Convolution"
+        }
+      ],
+      "verifies": [
+        "verify/math/lcm-convolution.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1920,10 +1975,17 @@
       "title": "Discrete Logarithm",
       "category": "Number Theory",
       "url": "https://judge.yosupo.jp/problem/discrete_logarithm_mod",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/discrete-log.hpp",
+          "name": "Discrete Logarithm"
+        }
+      ],
+      "verifies": [
+        "verify/math/discrete-log.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1953,10 +2015,17 @@
       "title": "Enumerate Quotients",
       "category": "Number Theory",
       "url": "https://judge.yosupo.jp/problem/enumerate_quotients",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/enumerate-quotients.hpp",
+          "name": "Enumerate Quotients"
+        }
+      ],
+      "verifies": [
+        "verify/math/enumerate-quotients.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1999,10 +2068,17 @@
       "title": "Kth Root (Integer)",
       "category": "Number Theory",
       "url": "https://judge.yosupo.jp/problem/kth_root_integer",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/kth-root-integer.hpp",
+          "name": "Kth Root Integer"
+        }
+      ],
+      "verifies": [
+        "verify/math/kth-root-integer.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -3517,10 +3593,17 @@
       "title": "Longest Increasing Subsequence",
       "category": "Other",
       "url": "https://judge.yosupo.jp/problem/longest_increasing_subsequence",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/longest-increasing-subsequence.hpp",
+          "name": "Longest Increasing Subsequence"
+        }
+      ],
+      "verifies": [
+        "verify/math/longest-increasing-subsequence.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""

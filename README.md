@@ -27,10 +27,10 @@ uf.rollback(saved);
 
 | 分類 | ライブラリ |
 | --- | --- |
-| Data Structure | Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie, Aggregate Queue / Deque |
-| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail |
-| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix |
-| String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization |
+| Data Structure | Sparse Table / Disjoint Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie, Aggregate Queue / Deque |
+| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration |
+| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence |
+| String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP |
 
 標準のDSU・Fenwick Tree・Segment Tree・Z AlgorithmはACLを第一候補とし、既存のBlueberry版は互換用に保持します。
 ドキュメントの検索欄では日本語の用途や `LCA`, `HLD`, `FPS`, `BIT` でも検索できます（`/` で検索へ移動）。
@@ -73,6 +73,18 @@ uf.rollback(saved);
 | 複数パターンの出現数 | [Aho–Corasick](docs/string/aho-corasick.md): `add` → `build` → `count` |
 | 異なる回文とその出現数 | [Eertree](docs/string/eertree.md): `add`, `suffix`, `count` |
 | 辞書順の非増加Lyndon分解 | [Lyndon Factorization](docs/string/lyndon-factorization.md): `lyndon_factorization` |
+| 更新のない列の非可換な区間積 | [Disjoint Sparse Table](docs/data-structure/disjoint-sparse-table.md): `prod(l,r)` |
+| 配列から最小ヒープ順の木を構築 | [Cartesian Tree](docs/graph/cartesian-tree.md): `cartesian_tree` |
+| 有向・無向グラフの閉路復元 | [Cycle Detection](docs/graph/cycle-detection.md): `find_cycle<Directed>` |
+| DAGの処理順と閉路の有無 | [Topological Sort](docs/graph/topological-sort.md): `topological_sort` |
+| 非負重みの木の最長経路 | [Tree Diameter](docs/graph/tree-diameter.md): `tree_diameter` |
+| 単純無向グラフの三角形 | [Triangle Enumeration](docs/graph/triangle-enumeration.md): `enumerate_triangles` |
+| 添字のgcd・lcmによる畳み込み | [Divisor Convolution](docs/math/divisor-convolution.md): `gcd_convolution`, `lcm_convolution` |
+| 整数除算の異なる商 | [Enumerate Quotients](docs/math/enumerate-quotients.md): `enumerate_quotients` |
+| 整数のk乗根の切り捨て | [Kth Root Integer](docs/math/kth-root-integer.md): `kth_root_integer` |
+| 累乗の合同式から指数を求める | [Discrete Logarithm](docs/math/discrete-log.md): `discrete_log` |
+| 最長増加部分列の復元 | [LIS](docs/math/longest-increasing-subsequence.md): `longest_increasing_subsequence` |
+| 接頭辞関数・パターンの全出現位置 | [Prefix Function / KMP](docs/string/prefix-function.md): `prefix_function`, `kmp_search` |
 | SCC・2-SAT・最大流・最小費用流・畳み込み・suffix array | ACL: [公式リファレンス](https://atcoder.github.io/ac-library/production/document_ja/) |
 
 ## サポート範囲
