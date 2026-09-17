@@ -41,6 +41,9 @@ jobs:
       - name: Install AtCoder Library headers
         run: git clone --depth 1 https://github.com/atcoder/ac-library.git "$RUNNER_TEMP/ac-library"
 
+      - name: Install arbitrary-precision test dependency
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libboost-dev
+
       - name: Compile headers and verify programs
         env:
           CPPFLAGS: -I${{ runner.temp }}/ac-library
