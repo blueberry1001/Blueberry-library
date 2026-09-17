@@ -27,13 +27,17 @@ uf.rollback(saved);
 
 | 分類 | ライブラリ |
 | --- | --- |
-| Data Structure | Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree |
+| Data Structure | Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie, Aggregate Queue / Deque |
 | Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail |
-| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence |
+| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix |
 | String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization |
 
 標準のDSU・Fenwick Tree・Segment Tree・Z AlgorithmはACLを第一候補とし、既存のBlueberry版は互換用に保持します。
 ドキュメントの検索欄では日本語の用途や `LCA`, `HLD`, `FPS`, `BIT` でも検索できます（`/` で検索へ移動）。
+
+[操作から探す](https://blueberry1001.github.io/Blueberry-library/operations.html)では、知りたい値・更新方法・入力条件を選び、候補のAPI・計算量・前提を比較できます。
+[Library Checker対応表](https://blueberry1001.github.io/Blueberry-library/library-checker.html)は全公開問題のスナップショットを掲載し、
+実装とverifyあり／専用verifyなし／ACL推奨／未対応を区別します。リポジトリ内の[チェックリスト](docs/library-checker-checklist.md)も同じデータから生成します。
 
 ## 問題から探す
 
@@ -110,12 +114,21 @@ Python 3.9以上とC++20対応のGCCまたはClangが必要です。Fraction の
 Boost ヘッダ（Ubuntu: `libboost-dev`）も使います。本体は Boost に依存しません。初回だけ `make setup` を実行すると、
 verification-helperとACLを準備します。
 
+操作フィルターと問題一覧フィルターのJavaScript単体テストにはNode.jsを使います。
+未導入なら当該テストはskipと表示されます（C++ライブラリの利用には不要）。
+
 ```console
 make setup
 make check
 make verify
 make docs
 ```
+
+ライブラリやverifyの追加後は `python3 scripts/library_checker_coverage.py` で対応表を再生成してください。
+`make test` 内の `--check` が登録・更新漏れを検出します。新しい公開問題を取り込む場合のみ、公式問題リポジトリを更新して
+`python3 scripts/library_checker_coverage.py --refresh --upstream /path/to/library-checker-problems` を実行します。
+専用verifyがまだない実装やACL案内は `data/library-checker-mappings.json` にAPIと前提を確認して登録します。
+verifyの `PROBLEM` / `IGNORE` は無条件のトップレベル定義を使ってください。対応表はC++プリプロセッサの一般的な条件評価を行いません。
 
 Fastest 提出の調査には `scripts/fetch_lc_submissions.py` を推奨します（下記benchmark節）。
 先行PRの `scripts/fetch_lc_fastest.py` は既存CLI・出力形式の互換用として残しています。

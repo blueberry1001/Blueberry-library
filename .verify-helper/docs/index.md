@@ -19,6 +19,8 @@
 
 [名前・用途から検索](#library-catalog) · [全ファイルと検証状態](#library-files)
 
+[したい操作から候補を絞る]({{ '/operations.html' | relative_url }}) · [Library Checker 全問題の対応表]({{ '/library-checker.html' | relative_url }})
+
 ## 方針
 
 - 必要な標準ヘッダを含む自己完結した実装
