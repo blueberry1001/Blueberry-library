@@ -27,6 +27,28 @@ for category in ("data-structure", "graph", "math", "string"):
 for page in ("guide.html", "migration.html", "benchmarks.html", "assets/js/docs.js", "assets/css/custom.css"):
     assert (SITE / page).exists(), page
 
+# Discovery pages must remain usable without JavaScript and have live targets.
+operations = (SITE / "operations.html").read_text()
+coverage = (SITE / "library-checker.html").read_text()
+inventory = json.loads((ROOT / ".verify-helper/docs/static/_data/library_checker.json").read_text())
+for content, prefix in ((operations, "operation"), (coverage, "coverage")):
+    # Kramdown serializes valueless HTML attributes as attr="".
+    for suffix in ("controls", "empty"):
+        assert re.search(r'<[^>]+\bdata-' + prefix + '-' + suffix +
+                         r'\b[^>]*\bhidden(?:\s|=|>)', content), (prefix, suffix)
+    assert f'data-{prefix}-count' in content
+assert not re.search(r'<article\b[^>]*data-operation-entry[^>]*\bhidden\b', operations)
+assert not re.search(r'<tr\b[^>]*data-coverage-row[^>]*\bhidden\b', coverage)
+assert len(re.findall(r'<tr\b[^>]*data-coverage-row\b', coverage)) == inventory["total"]
+for problem in inventory["problems"]:
+    assert coverage.count('href="' + problem["url"] + '"') == 1, problem["id"]
+for content in (operations, coverage):
+    assert 'aria-live="polite"' in content
+    for href in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', content):
+        assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("discovery page", href)
+for page in ("operations.html", "library-checker.html"):
+    assert f'/Blueberry-library/{page}' in home, (page, "missing home navigation")
+
 migration = (SITE / "migration.html").read_text()
 for link in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', migration):
     assert (SITE / link.removeprefix('/Blueberry-library/')).is_file(), ("migration", link)

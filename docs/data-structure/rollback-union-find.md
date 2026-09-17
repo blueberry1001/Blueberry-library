@@ -8,7 +8,8 @@ documentation_of: //blueberry/data-structure/rollback-union-find.hpp
 ## 概要・前提
 
 変更履歴を保存し、過去の状態へ戻せる Union Find です。経路圧縮は行わず union by size
-を使うため、`merge`・`leader`・`same`・`component_size` は $O(\log N)$ です。
+を使うため、`leader`・`same`・`component_size` は $O(\log(N+1))$ です。
+`merge` は履歴vectorへの追加を含むため償却 $O(\log(N+1))$、保存中の履歴数をHとすると再確保時は $O(H+\log(N+1))$ です。
 `undo` は $O(1)$、`rollback` は取り消す履歴数に比例します。要素番号は `[0,N)` です。
 
 ## 最小使用例
@@ -36,7 +37,7 @@ int main() {
 | --- | --- | --- |
 | `RollbackUnionFind uf(n)` | O(N) | [開く](#construct) |
 | `int uf.leader(v) const` | O(log N) | [開く](#leader) |
-| `bool uf.merge(u, v)` | O(log N) | [開く](#merge) |
+| `bool uf.merge(u, v)` | 償却 O(log(N+1)) | [開く](#merge) |
 | `bool uf.same(u, v) const` | O(log N) | [開く](#same) |
 | `int uf.component_size(v) const` | O(log N) | [開く](#component-size) |
 | `int uf.comp_size(v) const` | O(log N) | [開く](#comp-size) |
@@ -79,7 +80,7 @@ int root = uf.leader(1);
 </details>
 
 <details class="api-operation" id="merge" markdown="1">
-<summary><code>bool uf.merge(u, v)</code> — O(log N)</summary>
+<summary><code>bool uf.merge(u, v)</code> — 償却 O(log(N+1))</summary>
 
 二つの集合を併合し、履歴を1件追加します。実際に併合したときだけ `true` です。
 

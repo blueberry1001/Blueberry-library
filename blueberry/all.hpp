@@ -1,5 +1,13 @@
 #pragma once
 
+#include "blueberry/data-structure/aggregate-deque.hpp"
+#include "blueberry/data-structure/aggregate-queue.hpp"
+#include "blueberry/data-structure/binary-trie.hpp"
+#include "blueberry/data-structure/segment-tree-beats.hpp"
+#include "blueberry/math/bitwise-convolution.hpp"
+#include "blueberry/math/subset-convolution.hpp"
+#include "blueberry/math/matrix.hpp"
+
 #include "blueberry/data-structure/disjoint-set-union.hpp"
 #include "blueberry/data-structure/dynamic-fenwick-tree.hpp"
 #include "blueberry/data-structure/dynamic-fenwick-tree-2d.hpp"

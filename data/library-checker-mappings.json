@@ -1,0 +1,62 @@
+{
+  "static_range_sum": {
+    "status": "implemented",
+    "headers": ["blueberry/data-structure/fenwick-tree.hpp"],
+    "note": "sum(l,r)で対応可能。更新がない場合は通常の累積和でO(1)問い合わせにできる。専用verify未追加。"
+  },
+  "predecessor_problem": {
+    "status": "implemented",
+    "headers": ["blueberry/data-structure/ordered-set.hpp"],
+    "note": "insert/erase/contains/lower_bound/floorで対応可能。専用verify未追加。"
+  },
+  "point_set_range_composite_large_array": {
+    "status": "implemented",
+    "headers": ["blueberry/data-structure/ordered-multiset.hpp"],
+    "note": "64bit座標をキーに更新済みの関数のみ保存する。更新は同座標をeraseしてinsert、問い合わせはprod(rank(l),rank(r))。未更新点の恒等関数を省略できる。専用verify未追加。"
+  },
+  "convolution_mod": {
+    "status": "acl",
+    "url": "https://atcoder.github.io/ac-library/production/document_en/convolution.html",
+    "note": "atcoder::convolutionを利用する。Blueberry自作NTTは追加しない。"
+  },
+  "scc": {
+    "status": "acl",
+    "url": "https://atcoder.github.io/ac-library/production/document_en/scc.html",
+    "note": "atcoder::scc_graphを利用する。"
+  },
+  "two_sat": {
+    "status": "acl",
+    "url": "https://atcoder.github.io/ac-library/production/document_en/twosat.html",
+    "note": "atcoder::two_satを利用する。"
+  },
+  "suffixarray": {
+    "status": "acl",
+    "url": "https://atcoder.github.io/ac-library/production/document_en/string.html",
+    "note": "atcoder::suffix_arrayを利用する。"
+  },
+  "range_affine_range_sum": {
+    "status": "acl",
+    "url": "https://atcoder.github.io/ac-library/production/document_en/lazysegtree.html",
+    "note": "区間長をSに含めるACL lazy_segtreeで対応する。固定長配列では動的列Treapよりこちらを第一候補にする。"
+  },
+  "range_affine_point_get": {
+    "status": "acl",
+    "url": "https://atcoder.github.io/ac-library/production/document_en/lazysegtree.html",
+    "note": "ACL lazy_segtreeのapply(l,r,f)とget(p)で対応する。"
+  },
+  "range_add_range_min": {
+    "status": "acl",
+    "url": "https://atcoder.github.io/ac-library/production/document_en/lazysegtree.html",
+    "note": "ACL lazy_segtreeの区間加算・最小値モノイドで対応する。"
+  },
+  "range_set_range_composite": {
+    "status": "acl",
+    "url": "https://atcoder.github.io/ac-library/production/document_en/lazysegtree.html",
+    "note": "ACL lazy_segtreeに区間長と同一関数の反復合成を持つ作用を定義する。二分累乗で反復合成する実装はmappingがO(log N)、更新がO(log² N)。a=1も二分累乗なら安全に扱える。専用verify未追加。"
+  },
+  "sum_of_floor_of_linear": {
+    "status": "acl",
+    "url": "https://atcoder.github.io/ac-library/production/document_en/math.html",
+    "note": "atcoder::floor_sumを利用する。引数の整数範囲を満たすこと。"
+  }
+}

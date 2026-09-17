@@ -51,6 +51,7 @@ research-static-rmq:
 
 test:
 	python3 -m unittest discover -s tests -v
+	python3 scripts/library_checker_coverage.py --check
 	CXX="$(CXX)" CXX_STANDARD="$(CXX_STANDARD)" CPPFLAGS="$(CPPFLAGS)" python3 scripts/check_docs.py
 
 docs:
