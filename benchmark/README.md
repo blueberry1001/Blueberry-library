@@ -52,3 +52,10 @@ python3 scripts/fetch_lc_submissions.py \
 
 Library Checker leaderboard time is a maximum testcase time, not the sum used by
 `scripts/verify_with_metrics.py`. Leaderboard ratios and local ratios must therefore remain separate.
+
+## Legacy library migration comparisons
+
+- [Dynamic Li Chao Tree](dynamic-li-chao-tree.md): online allocation/layout and midpoint/iteration variants, plus the compressed version.
+- [Dynamic Fenwick Tree](dynamic-fenwick-tree.md): owned online AVL, legacy hash implementation and offline registration.
+- [Fraction](fraction.md): exact rational arithmetic versus Boost and a rejected gcd fast-path experiment.
+- Treap comparisons and Library Checker Fastest research: `legacy-treap.py`, `legacy-treap-fastest.py`, and `results/legacy-treap/`.

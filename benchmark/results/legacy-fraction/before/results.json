@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-09-17T00:34:16.251801+00:00",
+  "revision": "03ee56684d0448db62b72a5b542861cc6fc35c28",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": [
+    "-std=gnu++20",
+    "-O2",
+    "-DNDEBUG",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I."
+  ],
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        39 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               24\nOn-line CPU(s) list:                  0-23\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Core(TM) i7-14650HX\nCPU family:                           6\nModel:                                183\nThread(s) per core:                   2\nCore(s) per socket:                   12\nSocket(s):                            1\nStepping:                             1\nBogoMIPS:                             4838.40\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            576 KiB (12 instances)\nL1i cache:                            384 KiB (12 instances)\nL2 cache:                             24 MiB (12 instances)\nL3 cache:                             30 MiB (1 instance)\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Not affected\nVulnerability Reg file data sampling: Mitigation; Clear Register File\nVulnerability Retbleed:               Mitigation; Enhanced IBRS\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl and seccomp\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Not affected\n",
+  "seed": 20260917,
+  "size": 300000,
+  "warmups": 1,
+  "repeats": 5,
+  "sha256": {
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/benchmark/fraction.cpp": "1a3ef7e02c95a06a84a0d327224a6c5ff8f22073b7b39a605a5a276337ac84ea",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/blueberry/math/fraction.hpp": "b431424b319201a63d99cb03ece50ecf278ebd08005c1430504cf615c7037ab7",
+    "/usr/include/boost/rational.hpp": "8f31f4aa238c5337894b9f4bec472eda63f8eb271f2381cab9fe796d45061625",
+    "/usr/include/boost/version.hpp": "a547ee7eddf1b96695027922345b471feba8bcba79a8572399d282247c02e4ab"
+  },
+  "summary": [
+    {
+      "operation": "construct-compare",
+      "variant": "blueberry",
+      "median_ns": 50027495,
+      "min_ns": 48639727,
+      "samples_ns": [
+        48639727,
+        50027495,
+        50210720,
+        48815590,
+        51183140
+      ]
+    },
+    {
+      "operation": "construct-compare",
+      "variant": "boost",
+      "median_ns": 42365173,
+      "min_ns": 41489319,
+      "samples_ns": [
+        46907374,
+        44058169,
+        42281180,
+        41489319,
+        42365173
+      ]
+    },
+    {
+      "operation": "arithmetic",
+      "variant": "blueberry",
+      "median_ns": 203797218,
+      "min_ns": 196362350,
+      "samples_ns": [
+        214423447,
+        201869431,
+        203797218,
+        216390958,
+        196362350
+      ]
+    },
+    {
+      "operation": "arithmetic",
+      "variant": "boost",
+      "median_ns": 144299787,
+      "min_ns": 140128440,
+      "samples_ns": [
+        140128440,
+        143067891,
+        150485110,
+        144299787,
+        146579475
+      ]
+    }
+  ],
+  "note": "Bounds deliberately keep both implementations in their contracts. Input generation excluded; constructors included. Fixed-width cpp_int oracle testing is separate."
+}

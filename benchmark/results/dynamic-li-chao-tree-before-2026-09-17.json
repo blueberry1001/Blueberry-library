@@ -1,0 +1,924 @@
+{
+  "generated_at_utc": "2026-09-17T00:32:51Z",
+  "revision": "03ee56684d0448db62b72a5b542861cc6fc35c28",
+  "source_sha256": {
+    "benchmark/li-chao-tree.cpp": "633186570784118bba3c2e96e6b512587ec104a5e48899427358ed8fab624434",
+    "benchmark/run_dynamic_li_chao.py": "82874d0bc6f231185e542fa2e39c798c4b2a6b7db0afc304804e72610a926c2f",
+    "blueberry/data-structure/li-chao-tree.hpp": "0cc6e6ecad5e2d7a6e78f2fcf486dc5c8e01eec5577825b1520f502b48c5e842",
+    "blueberry/data-structure/dynamic-li-chao-tree.hpp": "0e87d3e0223b0160a6a74dc2e614d5694ddc7344aed8abc972163999d2584d6f"
+  },
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "flags": [
+    "-std=gnu++20",
+    "-O2",
+    "-DNDEBUG",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I."
+  ],
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "n": 100000,
+  "operations": 200000,
+  "seed": 1729,
+  "repeats": 5,
+  "warmups": 1,
+  "results": [
+    {
+      "candidate": "compressed",
+      "workload": "line",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "compressed",
+        "line",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=49.0283 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=19700\n",
+          "milliseconds": 49.0283,
+          "peak_rss_kib": 19700,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=43.858 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=19004\n",
+          "milliseconds": 43.858,
+          "peak_rss_kib": 19004,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=44.5108 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=18876\n",
+          "milliseconds": 44.5108,
+          "peak_rss_kib": 18876,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=44.0064 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=18872\n",
+          "milliseconds": 44.0064,
+          "peak_rss_kib": 18872,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=43.5065 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=19964\n",
+          "milliseconds": 43.5065,
+          "peak_rss_kib": 19964,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=41.9984 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=18876\n",
+          "milliseconds": 41.9984,
+          "peak_rss_kib": 18876,
+          "checksum": "12605648188693810237"
+        }
+      ],
+      "median_ms": 43.858,
+      "min_ms": 41.9984,
+      "median_peak_rss_kib": 18876
+    },
+    {
+      "candidate": "dynamic",
+      "workload": "line",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "dynamic",
+        "line",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=31.2038 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=12548\n",
+          "milliseconds": 31.2038,
+          "peak_rss_kib": 12548,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=30.4203 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=13348\n",
+          "milliseconds": 30.4203,
+          "peak_rss_kib": 13348,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=30.3121 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=13364\n",
+          "milliseconds": 30.3121,
+          "peak_rss_kib": 13364,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=27.1612 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=12540\n",
+          "milliseconds": 27.1612,
+          "peak_rss_kib": 12540,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=29.2576 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=12476\n",
+          "milliseconds": 29.2576,
+          "peak_rss_kib": 12476,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=27.4853 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=13356\n",
+          "milliseconds": 27.4853,
+          "peak_rss_kib": 13356,
+          "checksum": "12605648188693810237"
+        }
+      ],
+      "median_ms": 29.2576,
+      "min_ms": 27.1612,
+      "median_peak_rss_kib": 13348
+    },
+    {
+      "candidate": "arena",
+      "workload": "line",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "arena",
+        "line",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=42.7819 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=15508\n",
+          "milliseconds": 42.7819,
+          "peak_rss_kib": 15508,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=42.9478 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=16032\n",
+          "milliseconds": 42.9478,
+          "peak_rss_kib": 16032,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=41.3736 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=16484\n",
+          "milliseconds": 41.3736,
+          "peak_rss_kib": 16484,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=41.3795 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=15056\n",
+          "milliseconds": 41.3795,
+          "peak_rss_kib": 15056,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=41.9281 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=16208\n",
+          "milliseconds": 41.9281,
+          "peak_rss_kib": 16208,
+          "checksum": "12605648188693810237"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=42.3182 checksum=12605648188693810237\n",
+          "stderr": "peak_rss_kib=16088\n",
+          "milliseconds": 42.3182,
+          "peak_rss_kib": 16088,
+          "checksum": "12605648188693810237"
+        }
+      ],
+      "median_ms": 41.9281,
+      "min_ms": 41.3736,
+      "median_peak_rss_kib": 16088
+    },
+    {
+      "candidate": "compressed",
+      "workload": "segment",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "compressed",
+        "segment",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=76.6312 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=18824\n",
+          "milliseconds": 76.6312,
+          "peak_rss_kib": 18824,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=78.507 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=19248\n",
+          "milliseconds": 78.507,
+          "peak_rss_kib": 19248,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=89.0237 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=19252\n",
+          "milliseconds": 89.0237,
+          "peak_rss_kib": 19252,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=80.9479 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=18788\n",
+          "milliseconds": 80.9479,
+          "peak_rss_kib": 18788,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=75.4225 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=19064\n",
+          "milliseconds": 75.4225,
+          "peak_rss_kib": 19064,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=74.6023 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=19100\n",
+          "milliseconds": 74.6023,
+          "peak_rss_kib": 19100,
+          "checksum": "9442694854802857355"
+        }
+      ],
+      "median_ms": 78.507,
+      "min_ms": 74.6023,
+      "median_peak_rss_kib": 19100
+    },
+    {
+      "candidate": "dynamic",
+      "workload": "segment",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "dynamic",
+        "segment",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=127.499 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=48968\n",
+          "milliseconds": 127.499,
+          "peak_rss_kib": 48968,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=124.414 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=48880\n",
+          "milliseconds": 124.414,
+          "peak_rss_kib": 48880,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=130.179 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=49108\n",
+          "milliseconds": 130.179,
+          "peak_rss_kib": 49108,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=127.331 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=49840\n",
+          "milliseconds": 127.331,
+          "peak_rss_kib": 49840,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=114.517 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=48968\n",
+          "milliseconds": 114.517,
+          "peak_rss_kib": 48968,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=125.676 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=49592\n",
+          "milliseconds": 125.676,
+          "peak_rss_kib": 49592,
+          "checksum": "9442694854802857355"
+        }
+      ],
+      "median_ms": 125.676,
+      "min_ms": 114.517,
+      "median_peak_rss_kib": 49108
+    },
+    {
+      "candidate": "arena",
+      "workload": "segment",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "arena",
+        "segment",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=121.503 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=45680\n",
+          "milliseconds": 121.503,
+          "peak_rss_kib": 45680,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=115.49 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=45180\n",
+          "milliseconds": 115.49,
+          "peak_rss_kib": 45180,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=107.156 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=46476\n",
+          "milliseconds": 107.156,
+          "peak_rss_kib": 46476,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=108.86 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=46140\n",
+          "milliseconds": 108.86,
+          "peak_rss_kib": 46140,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=109.404 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=45844\n",
+          "milliseconds": 109.404,
+          "peak_rss_kib": 45844,
+          "checksum": "9442694854802857355"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=108.57 checksum=9442694854802857355\n",
+          "stderr": "peak_rss_kib=46752\n",
+          "milliseconds": 108.57,
+          "peak_rss_kib": 46752,
+          "checksum": "9442694854802857355"
+        }
+      ],
+      "median_ms": 108.86,
+      "min_ms": 107.156,
+      "median_peak_rss_kib": 46140
+    },
+    {
+      "candidate": "compressed",
+      "workload": "sparse-line",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "compressed",
+        "sparse-line",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=33.7951 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=20040\n",
+          "milliseconds": 33.7951,
+          "peak_rss_kib": 20040,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=34.0311 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=20164\n",
+          "milliseconds": 34.0311,
+          "peak_rss_kib": 20164,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=34.3839 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=19048\n",
+          "milliseconds": 34.3839,
+          "peak_rss_kib": 19048,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=34.9033 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=19208\n",
+          "milliseconds": 34.9033,
+          "peak_rss_kib": 19208,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=34.525 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=20212\n",
+          "milliseconds": 34.525,
+          "peak_rss_kib": 20212,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=36.1125 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=19100\n",
+          "milliseconds": 36.1125,
+          "peak_rss_kib": 19100,
+          "checksum": "16563236055438205911"
+        }
+      ],
+      "median_ms": 34.525,
+      "min_ms": 34.0311,
+      "median_peak_rss_kib": 19208
+    },
+    {
+      "candidate": "dynamic",
+      "workload": "sparse-line",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "dynamic",
+        "sparse-line",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=24.3281 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=12460\n",
+          "milliseconds": 24.3281,
+          "peak_rss_kib": 12460,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=23.6637 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=12704\n",
+          "milliseconds": 23.6637,
+          "peak_rss_kib": 12704,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=24.4828 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=12812\n",
+          "milliseconds": 24.4828,
+          "peak_rss_kib": 12812,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=23.684 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=12600\n",
+          "milliseconds": 23.684,
+          "peak_rss_kib": 12600,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=25.0665 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=13544\n",
+          "milliseconds": 25.0665,
+          "peak_rss_kib": 13544,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=24.1048 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=13436\n",
+          "milliseconds": 24.1048,
+          "peak_rss_kib": 13436,
+          "checksum": "16563236055438205911"
+        }
+      ],
+      "median_ms": 24.1048,
+      "min_ms": 23.6637,
+      "median_peak_rss_kib": 12812
+    },
+    {
+      "candidate": "arena",
+      "workload": "sparse-line",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "arena",
+        "sparse-line",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=69.3117 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=15600\n",
+          "milliseconds": 69.3117,
+          "peak_rss_kib": 15600,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=67.4855 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=16132\n",
+          "milliseconds": 67.4855,
+          "peak_rss_kib": 16132,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=69.9415 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=15784\n",
+          "milliseconds": 69.9415,
+          "peak_rss_kib": 15784,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=69.2438 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=15456\n",
+          "milliseconds": 69.2438,
+          "peak_rss_kib": 15456,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=66.9037 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=15604\n",
+          "milliseconds": 66.9037,
+          "peak_rss_kib": 15604,
+          "checksum": "16563236055438205911"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=66.179 checksum=16563236055438205911\n",
+          "stderr": "peak_rss_kib=16632\n",
+          "milliseconds": 66.179,
+          "peak_rss_kib": 16632,
+          "checksum": "16563236055438205911"
+        }
+      ],
+      "median_ms": 67.4855,
+      "min_ms": 66.179,
+      "median_peak_rss_kib": 15784
+    },
+    {
+      "candidate": "compressed",
+      "workload": "narrow-segment",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "compressed",
+        "narrow-segment",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=42.4047 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=19792\n",
+          "milliseconds": 42.4047,
+          "peak_rss_kib": 19792,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=44.1546 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=19396\n",
+          "milliseconds": 44.1546,
+          "peak_rss_kib": 19396,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=45.2486 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=18804\n",
+          "milliseconds": 45.2486,
+          "peak_rss_kib": 18804,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=44.1576 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=19752\n",
+          "milliseconds": 44.1576,
+          "peak_rss_kib": 19752,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=45.0728 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=19888\n",
+          "milliseconds": 45.0728,
+          "peak_rss_kib": 19888,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=42.6639 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=18848\n",
+          "milliseconds": 42.6639,
+          "peak_rss_kib": 18848,
+          "checksum": "9015688051031363591"
+        }
+      ],
+      "median_ms": 44.1576,
+      "min_ms": 42.6639,
+      "median_peak_rss_kib": 19396
+    },
+    {
+      "candidate": "dynamic",
+      "workload": "narrow-segment",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "dynamic",
+        "narrow-segment",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=74.3114 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=44628\n",
+          "milliseconds": 74.3114,
+          "peak_rss_kib": 44628,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=72.8772 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=44120\n",
+          "milliseconds": 72.8772,
+          "peak_rss_kib": 44120,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=71.1017 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=44904\n",
+          "milliseconds": 71.1017,
+          "peak_rss_kib": 44904,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=75.5037 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=44140\n",
+          "milliseconds": 75.5037,
+          "peak_rss_kib": 44140,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=74.9829 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=43696\n",
+          "milliseconds": 74.9829,
+          "peak_rss_kib": 43696,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=70.2465 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=44888\n",
+          "milliseconds": 70.2465,
+          "peak_rss_kib": 44888,
+          "checksum": "9015688051031363591"
+        }
+      ],
+      "median_ms": 72.8772,
+      "min_ms": 70.2465,
+      "median_peak_rss_kib": 44140
+    },
+    {
+      "candidate": "arena",
+      "workload": "narrow-segment",
+      "command": [
+        "/usr/bin/time",
+        "-f",
+        "peak_rss_kib=%M",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao",
+        "arena",
+        "narrow-segment",
+        "100000",
+        "1729"
+      ],
+      "runs": [
+        {
+          "warmup": true,
+          "returncode": 0,
+          "stdout": "milliseconds=63.9104 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=46668\n",
+          "milliseconds": 63.9104,
+          "peak_rss_kib": 46668,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=68.1845 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=45856\n",
+          "milliseconds": 68.1845,
+          "peak_rss_kib": 45856,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=59.2046 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=46468\n",
+          "milliseconds": 59.2046,
+          "peak_rss_kib": 46468,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=64.9565 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=46712\n",
+          "milliseconds": 64.9565,
+          "peak_rss_kib": 46712,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=63.6861 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=45628\n",
+          "milliseconds": 63.6861,
+          "peak_rss_kib": 45628,
+          "checksum": "9015688051031363591"
+        },
+        {
+          "warmup": false,
+          "returncode": 0,
+          "stdout": "milliseconds=64.6537 checksum=9015688051031363591\n",
+          "stderr": "peak_rss_kib=46428\n",
+          "milliseconds": 64.6537,
+          "peak_rss_kib": 46428,
+          "checksum": "9015688051031363591"
+        }
+      ],
+      "median_ms": 64.6537,
+      "min_ms": 59.2046,
+      "median_peak_rss_kib": 46428
+    }
+  ],
+  "succeeded": true,
+  "compile": {
+    "command": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-I.",
+      "benchmark/li-chao-tree.cpp",
+      "-o",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-li-chao/benchmark/li-chao"
+    ],
+    "returncode": 0,
+    "stdout": "",
+    "stderr": ""
+  }
+}

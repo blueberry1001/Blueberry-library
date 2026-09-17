@@ -1,5 +1,6 @@
 // Independent comparison of compressed and dynamically allocated Li Chao trees.
 #include "blueberry/data-structure/li-chao-tree.hpp"
+#include "blueberry/data-structure/dynamic-li-chao-tree.hpp"
 
 #include <chrono>
 #include <cstdint>
@@ -10,6 +11,7 @@
 #include <string>
 
 using Integer = long long;
+Integer domain_low = -1000000, domain_high = 1000001;
 
 class DynamicCandidate {
   struct Line {
@@ -56,13 +58,13 @@ class DynamicCandidate {
 
  public:
   explicit DynamicCandidate(const std::vector<Integer>&) {}
-  void add_line(Integer a, Integer b) { insert(root_, -1000000, 1000001, {a, b}); }
+  void add_line(Integer a, Integer b) { insert(root_, domain_low, domain_high, {a, b}); }
   void add_segment(Integer l, Integer r, Integer a, Integer b) {
-    segment(root_, -1000000, 1000001, l, r, {a, b});
+    segment(root_, domain_low, domain_high, l, r, {a, b});
   }
   std::optional<Integer> query(Integer x) const {
     auto* node = root_.get();
-    Integer l = -1000000, r = 1000001;
+    Integer l = domain_low, r = domain_high;
     std::optional<Integer> answer;
     while (node) {
       if (node->line) {
@@ -76,6 +78,12 @@ class DynamicCandidate {
     }
     return answer;
   }
+};
+
+class ArenaCandidate : public blueberry::DynamicLiChaoTree<Integer> {
+ public:
+  explicit ArenaCandidate(const std::vector<Integer>&)
+      : blueberry::DynamicLiChaoTree<Integer>(domain_low, domain_high) {}
 };
 
 struct Operation { Integer l, r, a, b, x; };
@@ -101,8 +109,13 @@ int main(int argc, char** argv) {
   if (argc != 5) return 2;
   const std::string candidate = argv[1], workload = argv[2];
   const int n = std::stoi(argv[3]);
-  if (n <= 0 || (candidate != "compressed" && candidate != "dynamic") ||
-      (workload != "line" && workload != "segment")) return 2;
+  if (n <= 0 || (candidate != "compressed" && candidate != "dynamic" && candidate != "arena") ||
+      (workload != "line" && workload != "segment" && workload != "sparse-line" &&
+       workload != "narrow-segment")) return 2;
+  if (workload == "sparse-line") {
+    domain_low = -1000000000000LL;
+    domain_high = 1000000000001LL;
+  }
   std::mt19937_64 random(std::strtoull(argv[4], nullptr, 10));
   std::vector<Integer> xs;
   std::vector<Operation> operations;
@@ -111,10 +124,13 @@ int main(int argc, char** argv) {
     Integer l = static_cast<Integer>(random() % 2000002) - 1000000;
     Integer r = static_cast<Integer>(random() % 2000002) - 1000000;
     if (l > r) std::swap(l, r);
-    const Integer x = static_cast<Integer>(random() % 2000001) - 1000000;
+    if (workload == "narrow-segment") r = std::min(l + static_cast<Integer>(random() % 32), domain_high);
+    const Integer x = static_cast<Integer>(random() % (domain_high - domain_low)) + domain_low;
     xs.push_back(x);
     operations.push_back({l, r, -2 * center, center * center, x});
   }
-  if (candidate == "compressed") measure<blueberry::LiChaoTree<>>(xs, operations, workload == "segment");
-  else measure<DynamicCandidate>(xs, operations, workload == "segment");
+  const bool segments = workload == "segment" || workload == "narrow-segment";
+  if (candidate == "compressed") measure<blueberry::LiChaoTree<>>(xs, operations, segments);
+  else if (candidate == "arena") measure<ArenaCandidate>(xs, operations, segments);
+  else measure<DynamicCandidate>(xs, operations, segments);
 }
