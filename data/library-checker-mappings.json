@@ -1,8 +1,8 @@
 {
   "static_range_sum": {
     "status": "implemented",
-    "headers": ["blueberry/data-structure/fenwick-tree.hpp"],
-    "note": "sum(l,r)で対応可能。更新がない場合は通常の累積和でO(1)問い合わせにできる。専用verify未追加。"
+    "headers": ["blueberry/data-structure/fenwick-tree.hpp", "blueberry/data-structure/disjoint-sparse-table.hpp"],
+    "note": "Disjoint Sparse Tableの非冪等な区間積を専用verifyで検証。静的な和だけなら通常の累積和でもO(N)構築・O(1)問い合わせにできる。"
   },
   "predecessor_problem": {
     "status": "implemented",

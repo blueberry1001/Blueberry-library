@@ -9,7 +9,7 @@
 実行結果は各verifyページと[測定一覧](https://blueberry1001.github.io/Blueberry-library/benchmarks.html)で確認してください。
 ACL推奨は外部ライブラリです。Blueberryの実装数・チェック済み数には含めません。
 
-実装＋verifyあり: 58 / 実装あり・専用verifyなし: 3 / ACL推奨: 9 / 補助verifyのみ: 1 / 未対応: 182
+実装＋verifyあり: 70 / 実装あり・専用verifyなし: 2 / ACL推奨: 9 / 補助verifyのみ: 1 / 未対応: 171
 
 ## Sample
 
@@ -56,7 +56,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Static Range Inversions Query](https://judge.yosupo.jp/problem/static_range_inversions_query) (`static_range_inversions_query`): 未対応
 - [ ] [Static Range LIS Query](https://judge.yosupo.jp/problem/static_range_lis_query) (`static_range_lis_query`): 未対応
 - [ ] [Static Range Mode Query](https://judge.yosupo.jp/problem/static_range_mode_query) (`static_range_mode_query`): 未対応
-- [x] [Static Range Sum](https://judge.yosupo.jp/problem/static_range_sum) (`static_range_sum`): 実装あり・専用verifyなし — [Fenwick Tree](../blueberry/data-structure/fenwick-tree.hpp) — sum(l,r)で対応可能。更新がない場合は通常の累積和でO(1)問い合わせにできる。専用verify未追加。
+- [x] [Static Range Sum](https://judge.yosupo.jp/problem/static_range_sum) (`static_range_sum`): 実装＋verifyあり — [Disjoint Sparse Table](../blueberry/data-structure/disjoint-sparse-table.hpp), [Fenwick Tree](../blueberry/data-structure/fenwick-tree.hpp), [verify](../verify/data-structure/disjoint-sparse-table.test.cpp) — Disjoint Sparse Tableの非冪等な区間積を専用verifyで検証。静的な和だけなら通常の累積和でもO(N)構築・O(1)問い合わせにできる。
 - [ ] [Static Rectangle Add Rectangle Sum](https://judge.yosupo.jp/problem/static_rectangle_add_rectangle_sum) (`static_rectangle_add_rectangle_sum`): 未対応
 - [x] [Static RMQ](https://judge.yosupo.jp/problem/staticrmq) (`staticrmq`): 実装＋verifyあり — [Sparse Table](../blueberry/data-structure/sparse-table.hpp), [verify](../verify/data-structure/static-rmq.test.cpp)
 - [x] [Unionfind](https://judge.yosupo.jp/problem/unionfind) (`unionfind`): 実装＋verifyあり — [Disjoint Set Union](../blueberry/data-structure/disjoint-set-union.hpp), [verify](../verify/data-structure/unionfind.test.cpp)
@@ -77,13 +77,13 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Counting Eulerian Circuits](https://judge.yosupo.jp/problem/counting_eulerian_circuits) (`counting_eulerian_circuits`): 未対応
 - [ ] [Counting Spanning Trees (Directed)](https://judge.yosupo.jp/problem/counting_spanning_tree_directed) (`counting_spanning_tree_directed`): 未対応
 - [ ] [Counting Spanning Trees (Undirected)](https://judge.yosupo.jp/problem/counting_spanning_tree_undirected) (`counting_spanning_tree_undirected`): 未対応
-- [ ] [Cycle Detection (Directed)](https://judge.yosupo.jp/problem/cycle_detection) (`cycle_detection`): 未対応
-- [ ] [Cycle Detection (Undirected)](https://judge.yosupo.jp/problem/cycle_detection_undirected) (`cycle_detection_undirected`): 未対応
+- [x] [Cycle Detection (Directed)](https://judge.yosupo.jp/problem/cycle_detection) (`cycle_detection`): 実装＋verifyあり — [Cycle Detection](../blueberry/graph/cycle-detection.hpp), [verify](../verify/graph/cycle-detection-directed.test.cpp)
+- [x] [Cycle Detection (Undirected)](https://judge.yosupo.jp/problem/cycle_detection_undirected) (`cycle_detection_undirected`): 実装＋verifyあり — [Cycle Detection](../blueberry/graph/cycle-detection.hpp), [verify](../verify/graph/cycle-detection-undirected.test.cpp)
 - [ ] [Directed MST](https://judge.yosupo.jp/problem/directedmst) (`directedmst`): 未対応
 - [ ] [Dominator Tree](https://judge.yosupo.jp/problem/dominatortree) (`dominatortree`): 未対応
 - [ ] [Dynamic Graph Vertex Add Component Sum](https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum) (`dynamic_graph_vertex_add_component_sum`): 未対応
 - [ ] [Enumerate Cliques](https://judge.yosupo.jp/problem/enumerate_cliques) (`enumerate_cliques`): 未対応
-- [ ] [Enumerate Triangles](https://judge.yosupo.jp/problem/enumerate_triangles) (`enumerate_triangles`): 未対応
+- [x] [Enumerate Triangles](https://judge.yosupo.jp/problem/enumerate_triangles) (`enumerate_triangles`): 実装＋verifyあり — [Triangle Enumeration](../blueberry/graph/triangle-enumeration.hpp), [verify](../verify/graph/triangle-enumeration.test.cpp)
 - [x] [Eulerian Trail (Directed)](https://judge.yosupo.jp/problem/eulerian_trail_directed) (`eulerian_trail_directed`): 実装＋verifyあり — [Eulerian Trail](../blueberry/graph/eulerian-trail.hpp), [verify](../verify/graph/eulerian-trail-directed.test.cpp)
 - [x] [Eulerian Trail (Undirected)](https://judge.yosupo.jp/problem/eulerian_trail_undirected) (`eulerian_trail_undirected`): 実装＋verifyあり — [Eulerian Trail](../blueberry/graph/eulerian-trail.hpp), [verify](../verify/graph/eulerian-trail-undirected.test.cpp)
 - [ ] [Matching on General Graph](https://judge.yosupo.jp/problem/general_matching) (`general_matching`): 未対応
@@ -104,7 +104,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 
 ## Tree
 
-- [ ] [Cartesian Tree](https://judge.yosupo.jp/problem/cartesian_tree) (`cartesian_tree`): 未対応
+- [x] [Cartesian Tree](https://judge.yosupo.jp/problem/cartesian_tree) (`cartesian_tree`): 実装＋verifyあり — [Cartesian Tree](../blueberry/graph/cartesian-tree.hpp), [verify](../verify/graph/cartesian-tree.test.cpp)
 - [ ] [Common Interval Decomposition Tree](https://judge.yosupo.jp/problem/common_interval_decomposition_tree) (`common_interval_decomposition_tree`): 未対応
 - [ ] [Dynamic Tree Subtree Add Subtree Sum](https://judge.yosupo.jp/problem/dynamic_tree_subtree_add_subtree_sum) (`dynamic_tree_subtree_add_subtree_sum`): 未対応
 - [ ] [Dynamic Tree Vertex Add Path Sum](https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum) (`dynamic_tree_vertex_add_path_sum`): 未対応
@@ -117,7 +117,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Point Set Tree Path Composite Sum (Fixed Root)](https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum_fixed_root) (`point_set_tree_path_composite_sum_fixed_root`): 未対応
 - [ ] [Rooted Tree Isomorphism Classification](https://judge.yosupo.jp/problem/rooted_tree_isomorphism_classification) (`rooted_tree_isomorphism_classification`): 未対応
 - [ ] [Rooted Tree Topological Order with Minimum Inversions](https://judge.yosupo.jp/problem/rooted_tree_topological_order_with_minimum_inversions) (`rooted_tree_topological_order_with_minimum_inversions`): 未対応
-- [ ] [Tree Diameter](https://judge.yosupo.jp/problem/tree_diameter) (`tree_diameter`): 未対応
+- [x] [Tree Diameter](https://judge.yosupo.jp/problem/tree_diameter) (`tree_diameter`): 実装＋verifyあり — [Tree Diameter](../blueberry/graph/tree-diameter.hpp), [verify](../verify/graph/tree-diameter.test.cpp)
 - [x] [Tree Path Composite Sum](https://judge.yosupo.jp/problem/tree_path_composite_sum) (`tree_path_composite_sum`): 実装＋verifyあり — [Rerooting DP](../blueberry/graph/rerooting.hpp), [verify](../verify/graph/tree-path-composite-sum.test.cpp)
 - [x] [Vertex Add Path Sum](https://judge.yosupo.jp/problem/vertex_add_path_sum) (`vertex_add_path_sum`): 実装＋verifyあり — [Heavy Light Decomposition](../blueberry/graph/heavy-light-decomposition.hpp), [verify](../verify/graph/heavy-light-decomposition-path.test.cpp)
 - [ ] [Vertex Add Range Contour Sum on Tree](https://judge.yosupo.jp/problem/vertex_add_range_contour_sum_on_tree) (`vertex_add_range_contour_sum_on_tree`): 未対応
@@ -133,8 +133,8 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Convolution (Mod 1,000,000,007)](https://judge.yosupo.jp/problem/convolution_mod_1000000007) (`convolution_mod_1000000007`): 未対応
 - [ ] [Convolution (Mod 2^64)](https://judge.yosupo.jp/problem/convolution_mod_2_64) (`convolution_mod_2_64`): 未対応
 - [ ] [Convolution (Large)](https://judge.yosupo.jp/problem/convolution_mod_large) (`convolution_mod_large`): 未対応
-- [ ] [Gcd Convolution](https://judge.yosupo.jp/problem/gcd_convolution) (`gcd_convolution`): 未対応
-- [ ] [Lcm Convolution](https://judge.yosupo.jp/problem/lcm_convolution) (`lcm_convolution`): 未対応
+- [x] [Gcd Convolution](https://judge.yosupo.jp/problem/gcd_convolution) (`gcd_convolution`): 実装＋verifyあり — [Divisor Convolution](../blueberry/math/divisor-convolution.hpp), [verify](../verify/math/gcd-convolution.test.cpp)
+- [x] [Lcm Convolution](https://judge.yosupo.jp/problem/lcm_convolution) (`lcm_convolution`): 実装＋verifyあり — [Divisor Convolution](../blueberry/math/divisor-convolution.hpp), [verify](../verify/math/lcm-convolution.test.cpp)
 - [ ] [Min Plus Convolution (Concave and Arbitrary)](https://judge.yosupo.jp/problem/min_plus_convolution_concave_arbitrary) (`min_plus_convolution_concave_arbitrary`): 未対応
 - [ ] [Min Plus Convolution (Convex and Arbitrary)](https://judge.yosupo.jp/problem/min_plus_convolution_convex_arbitrary) (`min_plus_convolution_convex_arbitrary`): 未対応
 - [ ] [Min Plus Convolution (Convex and Convex)](https://judge.yosupo.jp/problem/min_plus_convolution_convex_convex) (`min_plus_convolution_convex_convex`): 未対応
@@ -148,12 +148,12 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Bernoulli Number](https://judge.yosupo.jp/problem/bernoulli_number) (`bernoulli_number`): 未対応
 - [ ] [Counting Primes](https://judge.yosupo.jp/problem/counting_primes) (`counting_primes`): 未対応
 - [ ] [Counting Square-free Integers](https://judge.yosupo.jp/problem/counting_squarefrees) (`counting_squarefrees`): 未対応
-- [ ] [Discrete Logarithm](https://judge.yosupo.jp/problem/discrete_logarithm_mod) (`discrete_logarithm_mod`): 未対応
+- [x] [Discrete Logarithm](https://judge.yosupo.jp/problem/discrete_logarithm_mod) (`discrete_logarithm_mod`): 実装＋verifyあり — [Discrete Logarithm](../blueberry/math/discrete-log.hpp), [verify](../verify/math/discrete-log.test.cpp)
 - [x] [Enumerate Primes](https://judge.yosupo.jp/problem/enumerate_primes) (`enumerate_primes`): 実装＋verifyあり — [Prime Sieve](../blueberry/math/prime-sieve.hpp), [verify](../verify/math/enumerate-primes.test.cpp)
-- [ ] [Enumerate Quotients](https://judge.yosupo.jp/problem/enumerate_quotients) (`enumerate_quotients`): 未対応
+- [x] [Enumerate Quotients](https://judge.yosupo.jp/problem/enumerate_quotients) (`enumerate_quotients`): 実装＋verifyあり — [Enumerate Quotients](../blueberry/math/enumerate-quotients.hpp), [verify](../verify/math/enumerate-quotients.test.cpp)
 - [x] [Factorize](https://judge.yosupo.jp/problem/factorize) (`factorize`): 実装＋verifyあり — [Factorize](../blueberry/math/factorize.hpp), [verify](../verify/math/factorize.test.cpp)
 - [ ] [Gcd of Gaussian Integers](https://judge.yosupo.jp/problem/gcd_of_gaussian_integers) (`gcd_of_gaussian_integers`): 未対応
-- [ ] [Kth Root (Integer)](https://judge.yosupo.jp/problem/kth_root_integer) (`kth_root_integer`): 未対応
+- [x] [Kth Root (Integer)](https://judge.yosupo.jp/problem/kth_root_integer) (`kth_root_integer`): 実装＋verifyあり — [Kth Root Integer](../blueberry/math/kth-root-integer.hpp), [verify](../verify/math/kth-root-integer.test.cpp)
 - [ ] [Kth Root (Mod)](https://judge.yosupo.jp/problem/kth_root_mod) (`kth_root_mod`): 未対応
 - [ ] [Min of Mod of Linear](https://judge.yosupo.jp/problem/min_of_mod_of_linear) (`min_of_mod_of_linear`): 未対応
 - [ ] [Nim Product ($\\mathbb{F}_{2^{64}}$)](https://judge.yosupo.jp/problem/nim_product_64) (`nim_product_64`): 未対応
@@ -283,7 +283,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Consecutive Terms of Linear Recurrent Sequence](https://judge.yosupo.jp/problem/consecutive_terms_of_linear_recurrent_sequence) (`consecutive_terms_of_linear_recurrent_sequence`): 未対応
 - [x] [Find Linear Recurrence](https://judge.yosupo.jp/problem/find_linear_recurrence) (`find_linear_recurrence`): 実装＋verifyあり — [Linear Recurrence](../blueberry/math/linear-recurrence.hpp), [verify](../verify/math/find-linear-recurrence.test.cpp)
 - [x] [Kth term of Linearly Recurrent Sequence](https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence) (`kth_term_of_linearly_recurrent_sequence`): 実装＋verifyあり — [Linear Recurrence](../blueberry/math/linear-recurrence.hpp), [verify](../verify/math/kth-term-of-linearly-recurrent-sequence.test.cpp)
-- [ ] [Longest Increasing Subsequence](https://judge.yosupo.jp/problem/longest_increasing_subsequence) (`longest_increasing_subsequence`): 未対応
+- [x] [Longest Increasing Subsequence](https://judge.yosupo.jp/problem/longest_increasing_subsequence) (`longest_increasing_subsequence`): 実装＋verifyあり — [Longest Increasing Subsequence](../blueberry/math/longest-increasing-subsequence.hpp), [verify](../verify/math/longest-increasing-subsequence.test.cpp)
 - [ ] [$\\sum_{i=0}^{n-1} r^i i^d$](https://judge.yosupo.jp/problem/sum_of_exponential_times_polynomial) (`sum_of_exponential_times_polynomial`): 未対応
 - [ ] [$\\sum_{i=0}^{\\infty} r^i i^d$](https://judge.yosupo.jp/problem/sum_of_exponential_times_polynomial_limit) (`sum_of_exponential_times_polynomial_limit`): 未対応
 - [ ] [2 Sat](https://judge.yosupo.jp/problem/two_sat) (`two_sat`): ACL推奨 — [ACL](https://atcoder.github.io/ac-library/production/document_en/twosat.html) — atcoder::two_satを利用する。

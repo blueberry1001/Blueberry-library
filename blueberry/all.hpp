@@ -1,5 +1,18 @@
 #pragma once
 
+#include "blueberry/data-structure/disjoint-sparse-table.hpp"
+#include "blueberry/graph/cartesian-tree.hpp"
+#include "blueberry/graph/cycle-detection.hpp"
+#include "blueberry/graph/topological-sort.hpp"
+#include "blueberry/graph/tree-diameter.hpp"
+#include "blueberry/graph/triangle-enumeration.hpp"
+#include "blueberry/math/discrete-log.hpp"
+#include "blueberry/math/divisor-convolution.hpp"
+#include "blueberry/math/enumerate-quotients.hpp"
+#include "blueberry/math/kth-root-integer.hpp"
+#include "blueberry/math/longest-increasing-subsequence.hpp"
+#include "blueberry/string/prefix-function.hpp"
+
 #include "blueberry/data-structure/aggregate-deque.hpp"
 #include "blueberry/data-structure/aggregate-queue.hpp"
 #include "blueberry/data-structure/binary-trie.hpp"
