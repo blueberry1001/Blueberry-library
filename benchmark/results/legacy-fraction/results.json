@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-09-17T09:42:56.847369+09:00",
+  "revision": "03ee56684d0448db62b72a5b542861cc6fc35c28",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": [
+    "-std=gnu++20",
+    "-O2",
+    "-DNDEBUG",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-I."
+  ],
+  "generated_variant_flag": "-DBLUEBERRY_FRACTION_BEFORE_HEADER=\"/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/legacy-fraction/before-namespaced.hpp\"",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "before_source": "#pragma once\n\n#include <cassert>\n#include <cstdint>\n#include <limits>\n#include <ostream>\n\nnamespace blueberry {\n\n// Reduced int64 rational. Every result must fit after normalization.\n// Signed 128-bit intermediates cover every product/sum of two valid values.\nclass Fraction {\n public:\n  constexpr Fraction(std::int64_t numerator = 0, std::int64_t denominator = 1) {\n    assign(numerator, denominator);\n  }\n\n  constexpr Fraction(const Fraction&) = default;\n  constexpr Fraction(Fraction&&) = default;\n  constexpr Fraction& operator=(const Fraction&) = default;\n  constexpr Fraction& operator=(Fraction&&) = default;\n\n  constexpr std::int64_t num() const { return num_; }\n  constexpr std::int64_t den() const { return den_; }\n\n  constexpr Fraction operator+() const { return *this; }\n  constexpr Fraction operator-() const {\n    assert(num_ != std::numeric_limits<std::int64_t>::min());\n    Fraction result = *this;\n    result.num_ = -num_;\n    return result;\n  }\n\n  friend constexpr Fraction operator+(const Fraction& a, const Fraction& b) {\n    return from_wide(Wide(a.num_) * b.den_ + Wide(b.num_) * a.den_,\n                     Wide(a.den_) * b.den_);\n  }\n  friend constexpr Fraction operator-(const Fraction& a, const Fraction& b) {\n    return from_wide(Wide(a.num_) * b.den_ - Wide(b.num_) * a.den_,\n                     Wide(a.den_) * b.den_);\n  }\n  friend constexpr Fraction operator*(const Fraction& a, const Fraction& b) {\n    return from_wide(Wide(a.num_) * b.num_, Wide(a.den_) * b.den_);\n  }\n  friend constexpr Fraction operator/(const Fraction& a, const Fraction& b) {\n    assert(b.num_ != 0);\n    return from_wide(Wide(a.num_) * b.den_, Wide(a.den_) * b.num_);\n  }\n\n  constexpr Fraction& operator+=(const Fraction& b) { return *this = *this + b; }\n  constexpr Fraction& operator-=(const Fraction& b) { return *this = *this - b; }\n  constexpr Fraction& operator*=(const Fraction& b) { return *this = *this * b; }\n  constexpr Fraction& operator/=(const Fraction& b) { return *this = *this / b; }\n\n  friend constexpr bool operator==(const Fraction& a, const Fraction& b) {\n    return a.num_ == b.num_ && a.den_ == b.den_;\n  }\n  friend constexpr bool operator!=(const Fraction& a, const Fraction& b) { return !(a == b); }\n  friend constexpr bool operator<(const Fraction& a, const Fraction& b) {\n    return Wide(a.num_) * b.den_ < Wide(b.num_) * a.den_;\n  }\n  friend constexpr bool operator>(const Fraction& a, const Fraction& b) { return b < a; }\n  friend constexpr bool operator<=(const Fraction& a, const Fraction& b) { return !(b < a); }\n  friend constexpr bool operator>=(const Fraction& a, const Fraction& b) { return !(a < b); }\n\n  friend std::ostream& operator<<(std::ostream& out, const Fraction& x) {\n    out << x.num_;\n    if (x.den_ != 1) out << '/' << x.den_;\n    return out;\n  }\n\n private:\n  using Wide = __int128_t;\n  using UWide = __uint128_t;\n  std::int64_t num_ = 0, den_ = 1;\n\n  constexpr void assign(Wide n, Wide d) {\n    assert(d != 0);\n    if (d < 0) n = -n, d = -d;\n    UWide a = n < 0 ? UWide(-n) : UWide(n), b = UWide(d);\n    while (b) {\n      const UWide r = a % b;\n      a = b;\n      b = r;\n    }\n    n /= Wide(a);\n    d /= Wide(a);\n    assert(n >= std::numeric_limits<std::int64_t>::min());\n    assert(n <= std::numeric_limits<std::int64_t>::max());\n    assert(d <= std::numeric_limits<std::int64_t>::max());\n    num_ = static_cast<std::int64_t>(n);\n    den_ = static_cast<std::int64_t>(d);\n  }\n\n  static constexpr Fraction from_wide(Wide n, Wide d) {\n    Fraction result;\n    result.assign(n, d);\n    return result;\n  }\n};\n\n}  // namespace blueberry\n",
+  "before_sha256": "b431424b319201a63d99cb03ece50ecf278ebd08005c1430504cf615c7037ab7",
+  "cpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        39 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               24\nOn-line CPU(s) list:                  0-23\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Core(TM) i7-14650HX\nCPU family:                           6\nModel:                                183\nThread(s) per core:                   2\nCore(s) per socket:                   12\nSocket(s):                            1\nStepping:                             1\nBogoMIPS:                             4838.40\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            576 KiB (12 instances)\nL1i cache:                            384 KiB (12 instances)\nL2 cache:                             24 MiB (12 instances)\nL3 cache:                             30 MiB (1 instance)\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Not affected\nVulnerability Reg file data sampling: Mitigation; Clear Register File\nVulnerability Retbleed:               Mitigation; Enhanced IBRS\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl and seccomp\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Not affected\n",
+  "seed": 20260917,
+  "size": 300000,
+  "warmups": 1,
+  "repeats": 5,
+  "sha256": {
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/benchmark/fraction.cpp": "c361052cca41f7d6e186c445c91eeb79828e121b9a45e0951fbb761054ccc4f6",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/blueberry/math/fraction.hpp": "3baac7642670829604c1ad350876e692490374c74e6d090015b1e6d50ca590ba",
+    "/usr/include/boost/rational.hpp": "8f31f4aa238c5337894b9f4bec472eda63f8eb271f2381cab9fe796d45061625",
+    "/usr/include/boost/version.hpp": "a547ee7eddf1b96695027922345b471feba8bcba79a8572399d282247c02e4ab"
+  },
+  "summary": [
+    {
+      "operation": "construct-compare",
+      "variant": "before",
+      "median_ns": 38626518,
+      "min_ns": 38244512,
+      "samples_ns": [
+        38626518,
+        38244512,
+        38459980,
+        40297706,
+        39225973
+      ]
+    },
+    {
+      "operation": "construct-compare",
+      "variant": "blueberry",
+      "median_ns": 37956266,
+      "min_ns": 37110876,
+      "samples_ns": [
+        37956266,
+        37110876,
+        37489688,
+        38017725,
+        38078295
+      ]
+    },
+    {
+      "operation": "construct-compare",
+      "variant": "boost",
+      "median_ns": 32067077,
+      "min_ns": 31912794,
+      "samples_ns": [
+        32067077,
+        31912794,
+        31948251,
+        32798357,
+        33015321
+      ]
+    },
+    {
+      "operation": "arithmetic",
+      "variant": "before",
+      "median_ns": 165433777,
+      "min_ns": 161239273,
+      "samples_ns": [
+        166239204,
+        165433777,
+        161239273,
+        166563767,
+        161370062
+      ]
+    },
+    {
+      "operation": "arithmetic",
+      "variant": "blueberry",
+      "median_ns": 165878188,
+      "min_ns": 163511274,
+      "samples_ns": [
+        168056966,
+        165878188,
+        165119289,
+        166139660,
+        163511274
+      ]
+    },
+    {
+      "operation": "arithmetic",
+      "variant": "boost",
+      "median_ns": 115462185,
+      "min_ns": 113315716,
+      "samples_ns": [
+        118496982,
+        114742660,
+        115462185,
+        117687418,
+        113315716
+      ]
+    }
+  ],
+  "note": "Bounds deliberately keep both implementations in their contracts. Input generation excluded; constructors included. Unbounded cpp_int oracle testing is separate.",
+  "experimental_source": "#pragma once\n\n#include <cassert>\n#include <cstdint>\n#include <limits>\n#include <ostream>\n\nnamespace blueberry {\n\n// Reduced int64 rational. Every result must fit after normalization.\n// Signed 128-bit intermediates cover every product/sum of two valid values.\nclass Fraction {\n public:\n  constexpr Fraction(std::int64_t numerator = 0, std::int64_t denominator = 1) {\n    assign(numerator, denominator);\n  }\n\n  constexpr Fraction(const Fraction&) = default;\n  constexpr Fraction(Fraction&&) = default;\n  constexpr Fraction& operator=(const Fraction&) = default;\n  constexpr Fraction& operator=(Fraction&&) = default;\n\n  constexpr std::int64_t num() const { return num_; }\n  constexpr std::int64_t den() const { return den_; }\n\n  constexpr Fraction operator+() const { return *this; }\n  constexpr Fraction operator-() const {\n    assert(num_ != std::numeric_limits<std::int64_t>::min());\n    Fraction result = *this;\n    result.num_ = -num_;\n    return result;\n  }\n\n  friend constexpr Fraction operator+(const Fraction& a, const Fraction& b) {\n    return from_wide(Wide(a.num_) * b.den_ + Wide(b.num_) * a.den_,\n                     Wide(a.den_) * b.den_);\n  }\n  friend constexpr Fraction operator-(const Fraction& a, const Fraction& b) {\n    return from_wide(Wide(a.num_) * b.den_ - Wide(b.num_) * a.den_,\n                     Wide(a.den_) * b.den_);\n  }\n  friend constexpr Fraction operator*(const Fraction& a, const Fraction& b) {\n    return from_wide(Wide(a.num_) * b.num_, Wide(a.den_) * b.den_);\n  }\n  friend constexpr Fraction operator/(const Fraction& a, const Fraction& b) {\n    assert(b.num_ != 0);\n    return from_wide(Wide(a.num_) * b.den_, Wide(a.den_) * b.num_);\n  }\n\n  constexpr Fraction& operator+=(const Fraction& b) { return *this = *this + b; }\n  constexpr Fraction& operator-=(const Fraction& b) { return *this = *this - b; }\n  constexpr Fraction& operator*=(const Fraction& b) { return *this = *this * b; }\n  constexpr Fraction& operator/=(const Fraction& b) { return *this = *this / b; }\n\n  friend constexpr bool operator==(const Fraction& a, const Fraction& b) {\n    return a.num_ == b.num_ && a.den_ == b.den_;\n  }\n  friend constexpr bool operator!=(const Fraction& a, const Fraction& b) { return !(a == b); }\n  friend constexpr bool operator<(const Fraction& a, const Fraction& b) {\n    return Wide(a.num_) * b.den_ < Wide(b.num_) * a.den_;\n  }\n  friend constexpr bool operator>(const Fraction& a, const Fraction& b) { return b < a; }\n  friend constexpr bool operator<=(const Fraction& a, const Fraction& b) { return !(b < a); }\n  friend constexpr bool operator>=(const Fraction& a, const Fraction& b) { return !(a < b); }\n\n  friend std::ostream& operator<<(std::ostream& out, const Fraction& x) {\n    out << x.num_;\n    if (x.den_ != 1) out << '/' << x.den_;\n    return out;\n  }\n\n private:\n  using Wide = __int128_t;\n  using UWide = __uint128_t;\n  std::int64_t num_ = 0, den_ = 1;\n\n  constexpr void assign(Wide n, Wide d) {\n    assert(d != 0);\n    if (d < 0) n = -n, d = -d;\n    UWide a = n < 0 ? UWide(-n) : UWide(n), b = UWide(d);\n    // Most contest fractions fit a machine word even before reduction. Avoid\n    // compiler runtime calls for 128-bit remainder on that common path.\n    if ((a | b) <= std::numeric_limits<std::uint64_t>::max()) {\n      auto x = static_cast<std::uint64_t>(a), y = static_cast<std::uint64_t>(b);\n      while (y) {\n        const std::uint64_t r = x % y;\n        x = y;\n        y = r;\n      }\n      a = x;\n    } else {\n      while (b) {\n        const UWide r = a % b;\n        a = b;\n        b = r;\n      }\n    }\n    n /= Wide(a);\n    d /= Wide(a);\n    assert(n >= std::numeric_limits<std::int64_t>::min());\n    assert(n <= std::numeric_limits<std::int64_t>::max());\n    assert(d <= std::numeric_limits<std::int64_t>::max());\n    num_ = static_cast<std::int64_t>(n);\n    den_ = static_cast<std::int64_t>(d);\n  }\n\n  static constexpr Fraction from_wide(Wide n, Wide d) {\n    Fraction result;\n    result.assign(n, d);\n    return result;\n  }\n};\n\n}  // namespace blueberry\n",
+  "adopted_variant": "before",
+  "decision": "The extra 64-bit gcd branch gave no meaningful arithmetic improvement and was reverted; the before variant is the final implementation."
+}

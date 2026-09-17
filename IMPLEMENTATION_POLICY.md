@@ -27,7 +27,8 @@ Blueberry Libraryは、AtCoder Library（ACL）と競合することを目的と
 
 FPSの係数型・NTT・一般的な多項式積はACLの `static_modint` と `convolution` を利用する。
 ACLが提供しない級数演算（逆元、形式微分・積分、log、exp、sqrt、powなど）だけを
-`blueberry::FormalPowerSeries` として実装し、旧 `blueberry/fps.hpp` は互換用の薄い入口にする。
+`blueberry::FormalPowerSeries` として実装する。入口は `blueberry/math/formal-power-series.hpp`、
+短い別名は `blueberry::FPS<Mint>` とし、廃止した旧 `blueberry/fps.hpp` は復活させない。
 NTT反復ではACL内部の `butterfly` を再利用して変換を使い回すが、これはACLの公開APIを
 置き換えるものではなく、NTT対応modulus・変換長の前提をドキュメントで明示する。
 

@@ -18,7 +18,7 @@ wsl -d Ubuntu
 
 ```bash
 sudo apt-get update
-sudo apt-get install -y build-essential clang python3-venv git
+sudo apt-get install -y build-essential clang libboost-dev python3-venv git
 cd /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library
 python3 -m venv ~/.venvs/blueberry-library
 source ~/.venvs/blueberry-library/bin/activate

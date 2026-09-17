@@ -245,4 +245,4 @@ assert(!wm.next_value(0, 4, 8));
 - `tests/random/wavelet-matrix.cpp`: 整列した部分配列との全公開クエリ比較。
   空・全要素同値・昇順・降順・重複・符号付き/符号なし極値・64 bit 境界を含みます。
 - 同一入力で整数 prefix 配列版と比較する測定コード・生ログ・判断は
-  [追加ライブラリの測定記録](../../benchmark/ADDITIONS.md)にあります。
+  [追加ライブラリの測定記録](https://github.com/blueberry1001/Blueberry-library/blob/main/benchmark/ADDITIONS.md)にあります。

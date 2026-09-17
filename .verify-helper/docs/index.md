@@ -29,4 +29,4 @@
 ACLの標準機能はACLを優先し、Blueberry LibraryではACLにない機能を補います。
 既存の重複実装は互換性のため残しています。
 
-[使い方ガイド]({{ '/guide.html' | relative_url }}) · [verify実行時間]({{ '/benchmarks.html' | relative_url }})
+[使い方ガイド]({{ '/guide.html' | relative_url }}) · [旧版からの移行]({{ '/migration.html' | relative_url }}) · [verify実行時間]({{ '/benchmarks.html' | relative_url }})

@@ -8,7 +8,7 @@ documentation_of: //blueberry/data-structure/li-chao-tree.hpp
 ## 概要・前提
 
 `blueberry::LiChaoTree<T = long long>` は直線 `y = ax + b` と、半開区間にだけ有効な線分を追加し、指定座標での最小値を求めます。ACLに対応する機能はありません。
-クエリ座標を先に収集する座標圧縮方式です。挿入順・傾きの順序は自由ですが、登録後の座標追加や直線の削除はできません。旧 `blueberry/ConvexHulltrick.hpp` は変更せず、従来の動的・オンライン用途と共存します。
+クエリ座標を先に収集する座標圧縮方式です。挿入順・傾きの順序は自由ですが、登録後の座標追加や直線の削除はできません。未知の座標をオンラインで問い合わせる場合は [Dynamic Li Chao Tree]({{ '/blueberry/data-structure/dynamic-li-chao-tree.hpp.html' | relative_url }}) を使います。
 
 入力座標数を M、重複除去後を N とします。メモリは O(N)、構築中の入力を含めたピークは O(M + N) です。内部に最大 4N 個の `optional<Line>` を確保し、更新による追加確保はありません。N は `INT_MAX / 4` 以下で、確保可能なメモリに収まる必要があります。以下の対数は空入力を含め `log(N + 1)` と表記し、計算量は償却ではなく最悪です。
 

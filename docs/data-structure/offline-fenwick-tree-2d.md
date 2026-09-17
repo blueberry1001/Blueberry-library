@@ -10,7 +10,7 @@ documentation_of: //blueberry/data-structure/offline-fenwick-tree-2d.hpp
 更新する座標を先に列挙できる場合の、点加算・矩形和です。ACLの1次元Fenwick Treeを
 そのまま使えない疎な2次元座標に対応します。構築後は、更新と問い合わせを任意の順で処理できます。
 **座標の追加はできません。** 未知の更新座標が逐次到着する用途には使えません。
-旧 `DynamicFenwickTree2D.hpp` とは独立した、検証済みの新しい入口です。
+更新座標を事前に列挙できない場合は [Dynamic Fenwick Tree 2D]({{ '/blueberry/data-structure/dynamic-fenwick-tree-2d.hpp.html' | relative_url }}) を使います。座標が分かる場合は、このオフライン版を第一候補にしてください。
 
 `OfflineFenwickTree2D<T, Coord = long long>` の `T` は加法可換群（`T{}` が零、
 `+=`, `+`, `-` とコピーを使用）、`Coord` は一貫した大小・等値比較ができる型です。
