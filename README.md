@@ -27,9 +27,9 @@ uf.rollback(saved);
 
 | 分類 | ライブラリ |
 | --- | --- |
-| Data Structure | Sparse Table, Rollback Union Find, Li Chao Tree, Wavelet Matrix, Offline Fenwick Tree 2D, Potential Union Find, Ordered Set, Persistent Segment Tree |
+| Data Structure | Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree |
 | Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail |
-| Math | Formal Power Series, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence |
+| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence |
 | String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization |
 
 標準のDSU・Fenwick Tree・Segment Tree・Z AlgorithmはACLを第一候補とし、既存のBlueberry版は互換用に保持します。
@@ -42,8 +42,11 @@ uf.rollback(saved);
 | 更新のない区間min/max/gcd | [Sparse Table](docs/data-structure/sparse-table.md): `prod(l,r)` |
 | 併合を巻き戻す | [Rollback UF](docs/data-structure/rollback-union-find.md): `state()`, `rollback(state)` |
 | 直線・線分の最小値 | [Li Chao Tree](docs/data-structure/li-chao-tree.md): `add_line`, `add_segment`, `query` |
+| 未知の座標で直線・線分の最小値 | [Dynamic Li Chao Tree](docs/data-structure/dynamic-li-chao-tree.md): 領域指定 → `add_line`, `query` |
 | 区間k番目・値の頻度 | [Wavelet Matrix](docs/data-structure/wavelet-matrix.md): `kth_smallest`, `range_freq` |
 | 点加算・長方形内の重みの和 | [Offline Fenwick 2D](docs/data-structure/offline-fenwick-tree-2d.md): 座標登録 → `add`, `sum` |
+| 未知の更新点に対する点加算・長方形和 | [Dynamic Fenwick 2D](docs/data-structure/dynamic-fenwick-tree-2d.md): `add`, `pref`, `sum` |
+| 巨大な添字の疎な配列 | [Dynamic Fenwick](docs/data-structure/dynamic-fenwick-tree.md): `add`, `sum`, `lower_bound` |
 | 非負重みの最短路・経路復元 | [Dijkstra](docs/graph/dijkstra.md): `dijkstra`, `path_to` |
 | 共通祖先・木の距離 | [LCA](docs/graph/lowest-common-ancestor.md): doubling / RMQ版を選択 |
 | 木のパス・部分木クエリ | [HLD](docs/graph/heavy-light-decomposition.md) + ACL segtree |
@@ -53,6 +56,8 @@ uf.rollback(saved);
 | 全中心の最長回文 | [Manacher](docs/string/manacher.md): `manacher` |
 | 差分制約・群のポテンシャルと矛盾判定 | [Potential UF](docs/data-structure/potential-union-find.md): `merge`, `diff` |
 | 集合のオンライン更新と順位 | [Ordered Set](docs/data-structure/ordered-set.md): `insert`, `erase`, `rank`, `kth` |
+| 重複を含む集合の順位・区間集約 | [Ordered Multiset](docs/data-structure/ordered-multiset.md): `count`, `kth`, `prod` |
+| 動的な列の挿入・削除・反転・区間作用 | [Implicit Treap](docs/data-structure/implicit-treap.md): `insert`, `erase`, `reverse`, `apply` |
 | 過去の配列を残して一点更新 | [Persistent Segment Tree](docs/data-structure/persistent-segment-tree.md): `set(version,p,x)`, `prod(version,l,r)` |
 | 最大二部マッチング・最小頂点被覆 | [Hopcroft–Karp](docs/graph/hopcroft-karp.md): `pairs`, `min_vertex_cover` |
 | 二重頂点連結成分・block-cut forest | [Biconnected Components](docs/graph/biconnected-components.md): `groups`, `block_cut_tree` |
@@ -60,6 +65,7 @@ uf.rollback(saved);
 | 64bit素数判定・素因数分解 | [Factorize](docs/math/factorize.md): `is_prime`, `factorize` |
 | 素数modの平方根 | [Mod Sqrt](docs/math/mod-sqrt.md): `mod_sqrt` |
 | 漸化式の推定と遠い項 | [Linear Recurrence](docs/math/linear-recurrence.md): `berlekamp_massey`, `linear_recurrence_kth` |
+| 分数の厳密な比較・四則演算 | [Fraction](docs/math/fraction.md): `num`, `den`, `+`, `-`, `*`, `/` |
 | 複数パターンの出現数 | [Aho–Corasick](docs/string/aho-corasick.md): `add` → `build` → `count` |
 | 異なる回文とその出現数 | [Eertree](docs/string/eertree.md): `add`, `suffix`, `count` |
 | 辞書順の非増加Lyndon分解 | [Lyndon Factorization](docs/string/lyndon-factorization.md): `lyndon_factorization` |
@@ -67,20 +73,14 @@ uf.rollback(saved);
 
 ## サポート範囲
 
-カタログにある `blueberry/<category>/*.hpp` と互換入口 `fps.hpp` が検証対象です。
+カタログにある `blueberry/<category>/*.hpp` と一括入口 `all.hpp` が検証対象です。
 各ページには実行可能な最小例、全公開操作の説明、型や境界条件を載せています。
 
-次の `blueberry/` 直下ファイルは**未検証の歴史的スニペット**で、新規利用を推奨しません。
-削除やAPI変更はせずに残します。`all.hpp` にも含めません。
-
-| 旧ファイル | 新規利用での選択肢・制限 |
-| --- | --- |
-| `ConvexHulltrick.hpp` | [Li Chao Tree](docs/data-structure/li-chao-tree.md)（問い合わせるx座標を事前登録） |
-| `DynamicFenwickTree2D.hpp` | [Offline Fenwick 2D](docs/data-structure/offline-fenwick-tree-2d.md)（更新座標の事前登録が必要） |
-| `RollbackUnionFind.hpp` | [Rollback Union Find](docs/data-structure/rollback-union-find.md) |
-| `Graph.hpp` | 最短路は[Dijkstra](docs/graph/dijkstra.md)、SCC等はACL。全APIを置換するものではありません |
-| `implicit_treap.hpp` | 名前と異なり値をキーにする木。集合用途は[Ordered Set](docs/data-structure/ordered-set.md)。列のreverse/lazy操作や多重集合の代替ではありません |
-| `fraction.hpp` | 型範囲外の演算を保証しません。検証済み代替は未収録 |
+未検証だった旧ルート直下ヘッダ6個と `fps.hpp` は、2026-09-17 の整備で削除しました。
+オンライン版・多重集合・分数には検証付きの新しい実装があります。
+旧ファイル名、include、APIの対応は[旧版からの移行](https://blueberry1001.github.io/Blueberry-library/migration.html)を参照してください。
+特に旧 `implicit_treap.hpp` はキー順多重集合なので、新しい `OrderedMultiset` が移行先です。
+新 `ImplicitTreap` は位置で扱う動的列です。
 
 詳細な説明・計算量・検証コードは[ドキュメント](https://blueberry1001.github.io/Blueberry-library/)に掲載します。
 ACLとの役割分担や実装・採用基準は[実装方針](IMPLEMENTATION_POLICY.md)にまとめています。
@@ -106,7 +106,8 @@ WindowsではWSL2のUbuntuから同じ検証手順を実行できます。
 GCC/ClangとPython仮想環境の準備・実行方法は
 [`docs/development/windows.md`](docs/development/windows.md)を参照してください。
 
-Python 3.8以上とC++20対応のGCCまたはClangが必要です。初回だけ `make setup` を実行すると、
+Python 3.9以上とC++20対応のGCCまたはClangが必要です。Fraction の独立参照テスト・比較 benchmark には
+Boost ヘッダ（Ubuntu: `libboost-dev`）も使います。本体は Boost に依存しません。初回だけ `make setup` を実行すると、
 verification-helperとACLを準備します。
 
 ```console
@@ -129,7 +130,7 @@ python3 scripts/fetch_lc_fastest.py exp_of_formal_power_series --limit 10 \
 | コマンド | 内容 |
 | --- | --- |
 | `make check` | Pythonテスト、ドキュメント例、compile test、random testをまとめて実行 |
-| `make include-test` | 公開カタログの全ヘッダと互換入口を、1個ずつ単独includeしてコンパイル |
+| `make include-test` | 公開カタログの全ヘッダと `all.hpp` を、1個ずつ単独includeしてコンパイル |
 | `make verify-compile` | `verify/**/*.test.cpp` を公式ケースの取得なしで全件コンパイル |
 | `make random-test` | `tests/random/**/*.cpp` をコンパイルし、既定でseed 1から20回実行 |
 | `make verify` | Library Checker公式ケースをchecker付きで実行し、3回の中央値を記録 |
@@ -177,5 +178,4 @@ Fastest収集、compiler option matrix、計測条件と現在のStatic RMQ調�
 4. `make verify` と `make docs` を実行する。
 5. pushするとGitHub Actionsが再検証し、`main` ならGitHub Pagesも更新する。
 
-既存のルート直下ヘッダは旧構成との互換性のため残しており、順次、新構成への移行と
-検証コードの追加を進めます。
+新しい実装はカテゴリ別ヘッダへ追加し、カタログ・API文書・公式verify・境界テストを揃えます。

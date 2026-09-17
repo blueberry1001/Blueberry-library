@@ -17,7 +17,7 @@ documentation_of: //blueberry/math/formal-power-series.hpp
 
 積の一般的な処理はACLの `convolution` を利用し、FPS固有の逆元・log・expなどの
 Newton反復だけをこのヘッダで提供します。ライブラリ本体は `blueberry` 名前空間に
-あり、旧パス `blueberry/fps.hpp` からも互換名 `FPS` を利用できます。
+あります。`blueberry::FPS<Mint>` は短い別名です。旧パスとグローバル別名は廃止したため、[移行ガイド]({{ '/migration.html' | relative_url }}) を参照してください。
 
 ## 最小使用例
 

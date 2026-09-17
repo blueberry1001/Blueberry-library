@@ -37,13 +37,10 @@ class CompileResult:
 
 
 def discover_headers() -> list[Path]:
-    """Return documented headers plus supported compatibility entry points."""
+    """Return documented headers and the supported umbrella entry point."""
     catalog_paths = re.findall(r"^  path: (.+)$", CATALOG.read_text(), re.MULTILINE)
     paths = {ROOT / path for path in catalog_paths}
-    for compatibility_header in ("blueberry/all.hpp", "blueberry/fps.hpp"):
-        path = ROOT / compatibility_header
-        if path.exists():
-            paths.add(path)
+    paths.add(ROOT / "blueberry/all.hpp")
     missing = sorted(path for path in paths if not path.is_file())
     if missing:
         raise RuntimeError("catalog references missing headers: " + ", ".join(map(str, missing)))

@@ -7,7 +7,7 @@ documentation_of: //blueberry/data-structure/ordered-set.hpp
 
 ## 概要・前提
 
-オンラインで未知のキーを追加・削除できる順序集合。ACL にない順位・k 番目・前後検索を提供する。`OrderedSet<Key,Compare=std::less<Key>>`。重複は保持しない。旧 implicit_treap とは独立した API。
+オンラインで未知のキーを追加・削除できる順序集合。ACL にない順位・k 番目・前後検索を提供する。`OrderedSet<Key,Compare=std::less<Key>>`。重複は保持しない。重複キーや順位区間の集約には [Ordered Multiset]({{ '/blueberry/data-structure/ordered-multiset.hpp.html' | relative_url }})、並び順を変える列には [Implicit Treap]({{ '/blueberry/data-structure/implicit-treap.hpp.html' | relative_url }}) を使う。
 
 Compare は strict weak ordering。等価は `!comp(a,b) && !comp(b,a)`。Key に算術演算・既定コンストラクタ・operator== は不要で、コピー構築とコピー/ムーブ代入が可能であること。Compare もコピー可能で、検索中に順序が変化しないこと。
 

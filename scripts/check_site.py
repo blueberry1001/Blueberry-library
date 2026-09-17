@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import re
 import sys
+from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / ".build/site"
@@ -23,8 +24,17 @@ for category in ("data-structure", "graph", "math", "string"):
     content = (SITE / "categories" / f"{category}.html").read_text()
     assert "収録ライブラリ" in content and f"/blueberry/{category}/" in content
     assert 'data-catalog-search' in content, (category, "missing catalog search")
-for page in ("guide.html", "benchmarks.html", "assets/js/docs.js", "assets/css/custom.css"):
+for page in ("guide.html", "migration.html", "benchmarks.html", "assets/js/docs.js", "assets/css/custom.css"):
     assert (SITE / page).exists(), page
+
+migration = (SITE / "migration.html").read_text()
+for link in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', migration):
+    assert (SITE / link.removeprefix('/Blueberry-library/')).is_file(), ("migration", link)
+for obsolete in ("ConvexHulltrick.hpp", "DynamicFenwickTree2D.hpp", "implicit_treap.hpp",
+                 "fraction.hpp", "Graph.hpp", "RollbackUnionFind.hpp", "fps.hpp"):
+    assert not (ROOT / "blueberry" / obsolete).exists(), (obsolete, "obsolete source restored")
+    assert not (SITE / "blueberry" / f"{obsolete}.html").exists(), (obsolete, "stale generated page")
+    assert not any(f'/blueberry/{obsolete}.html' in href for href in home_links), obsolete
 
 headers = re.findall(r"^  path: (.+)$", (ROOT / ".verify-helper/docs/static/_data/libraries.yml").read_text(), re.M)
 catalog_rows = re.findall(r'<tr data-library\b[^>]*>.*?</tr>', home, re.S)
@@ -34,6 +44,20 @@ for header in headers:
 assert not re.search(r'<tr data-library\b[^>]*\bhidden\b', home), "Catalog must work without JavaScript"
 for header in headers:
     content = (SITE / f"{header}.html").read_text()
+    # Hand-written API prose is rendered under the header URL, not docs/*.md.
+    # Validate its cross-links as well as helper-generated dependency links.
+    for href in re.findall(r'href="([^"]+)"', content):
+        url = urlsplit(href)
+        path = unquote(url.path)
+        if url.scheme or url.netloc or not path.endswith((".html", ".md")):
+            continue
+        if path.startswith('/Blueberry-library/'):
+            target = SITE / path.removeprefix('/Blueberry-library/')
+        elif not path.startswith('/'):
+            target = (SITE / f"{header}.html").parent / path
+        else:
+            continue
+        assert target.is_file(), (header, href, "broken API documentation link")
     assert 'assets/js/copy-button.js' not in content, (header, "upstream controls duplicate copy buttons and bundle unrelated examples")
     assert 'id="bundled-source"' in content, (header, "missing expandable bundled source")
     relations = re.search(r'<div class="source-relations">(.*?)</div>', content, re.S)

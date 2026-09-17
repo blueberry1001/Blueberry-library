@@ -33,8 +33,12 @@ for header in headers:
     assert blocks and "int main()" in blocks[0] and "assert(" in blocks[0], document
     examples.append((document.relative_to(ROOT), blocks[0]))
 
-guide = ROOT / ".verify-helper/docs/static/guide.md"
-examples.append((guide.relative_to(ROOT), re.findall(r"```cpp\n(.*?)\n```", guide.read_text(), re.S)[0]))
+for name in ("guide", "migration"):
+    guide = ROOT / f".verify-helper/docs/static/{name}.md"
+    blocks = re.findall(r"```cpp\n(.*?)\n```", guide.read_text(), re.S)
+    for index, block in enumerate(blocks):
+        assert "int main()" in block and "assert(" in block, (guide, index)
+        examples.append((f"{guide.relative_to(ROOT)} example {index + 1}", block))
 compiler = os.environ.get("CXX", "g++")
 standard = os.environ.get("CXX_STANDARD", "gnu++20")
 compile_command = [
