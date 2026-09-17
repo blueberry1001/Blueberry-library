@@ -31,9 +31,12 @@ for page in ("guide.html", "migration.html", "benchmarks.html", "assets/js/docs.
 operations = (SITE / "operations.html").read_text()
 coverage = (SITE / "library-checker.html").read_text()
 inventory = json.loads((ROOT / ".verify-helper/docs/static/_data/library_checker.json").read_text())
-assert 'data-operation-controls hidden' in operations and 'data-operation-count' in operations
-assert 'data-coverage-controls hidden' in coverage and 'data-coverage-count' in coverage
-assert 'data-operation-empty hidden' in operations and 'data-coverage-empty hidden' in coverage
+for content, prefix in ((operations, "operation"), (coverage, "coverage")):
+    # Kramdown serializes valueless HTML attributes as attr="".
+    for suffix in ("controls", "empty"):
+        assert re.search(r'<[^>]+\bdata-' + prefix + '-' + suffix +
+                         r'\b[^>]*\bhidden(?:\s|=|>)', content), (prefix, suffix)
+    assert f'data-{prefix}-count' in content
 assert not re.search(r'<article\b[^>]*data-operation-entry[^>]*\bhidden\b', operations)
 assert not re.search(r'<tr\b[^>]*data-coverage-row[^>]*\bhidden\b', coverage)
 assert len(re.findall(r'<tr\b[^>]*data-coverage-row\b', coverage)) == inventory["total"]

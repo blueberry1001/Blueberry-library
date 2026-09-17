@@ -21,47 +21,54 @@
 
 Files: blueberry/data-structure/{segment-tree-beats,binary-trie,aggregate-queue,aggregate-deque}.hpp, matching docs and verify drivers, tests/random/operation-structures.cpp.
 
-- [ ] Write brute-force tests for empty/singleton, duplicates, noncommutative matrix composition, mixed range clamps/adds and extreme documented values; show missing-header failure.
-- [ ] Implement concise APIs: Beats prod/chmin/chmax/add; Trie insert/erase/xor_min/kth/rank; Queue/Deque push/pop/prod/size/empty. Final signatures and assumptions are recorded in each header's docs.
-- [ ] Add official range_chmin_chmax_add_range_sum, set_xor_min, queue_operate_all_composite, deque_operate_all_composite drivers.
-- [ ] Compile and run fixed-seed tests with GCC/Clang, verify official cases, inspect Fastest approaches and record comparisons.
-- [ ] Review memory ownership, copy/move invariants, overflow and amortized bounds.
+- [x] Write brute-force tests for empty/singleton, duplicates, noncommutative matrix composition, mixed range clamps/adds and extreme documented values; show missing-header failure.
+- [x] Implement concise APIs: Beats prod/chmin/chmax/add; Trie insert/erase/xor_min/kth/rank; Queue/Deque push/pop/prod/size/empty. Final signatures and assumptions are recorded in each header's docs.
+- [x] Add official range_chmin_chmax_add_range_sum, set_xor_min, queue_operate_all_composite, deque_operate_all_composite drivers.
+- [x] Compile and run fixed-seed tests with GCC/Clang, verify official cases, inspect Fastest approaches and record comparisons.
+- [x] Review memory ownership, copy/move invariants, overflow and amortized bounds.
 
 ### Task 2: Math
 
 Files: blueberry/math/{bitwise-convolution,subset-convolution,matrix}.hpp, matching docs/verify, tests/random/algebra-expansion.cpp.
 
-- [ ] Write small O(N²) convolution and exhaustive small-field matrix oracle tests, including zero dimensions, singular matrices and inconsistent systems; show missing-header failure.
-- [ ] Implement bitwise transforms and convolution, ranked subset convolution, and field elimination returning explicit singular/inconsistent results.
-- [ ] Add official bitwise/subset convolution, determinant/inverse/rank/system_of_linear_equations drivers as supported by the official inventory.
-- [ ] Test all APIs and bounds; research primary/Fastest implementations, compare equivalent algorithms using the same environment.
-- [ ] Review field/invertibility assumptions, empty results, memory and true asymptotic complexity.
+- [x] Write small O(N²) convolution and exhaustive small-field matrix oracle tests, including zero dimensions, singular matrices and inconsistent systems; show missing-header failure.
+- [x] Implement bitwise transforms and convolution, ranked subset convolution, and field elimination returning explicit singular/inconsistent results.
+- [x] Add official bitwise/subset convolution, determinant/inverse/rank/system_of_linear_equations drivers as supported by the official inventory.
+- [x] Test all APIs and bounds; research primary/Fastest implementations, compare equivalent algorithms using the same environment.
+- [x] Review field/invertibility assumptions, empty results, memory and true asymptotic complexity.
 
 ### Task 3: Operation finder
 
 Files: .verify-helper/docs/static/{operations.md,_data/operations.yml,assets/js/operations.js,assets/css/operations.css}, tests/test_operations.py.
 
-- [ ] Define metadata records with library path, desired query/update/conditions, displayed operation and complexity. Include existing structures and explicit ACL choices.
-- [ ] Test metadata validity and filtering combinations, including no matches and reset, before implementing behavior.
-- [ ] Build an accessible static page, with filters ANDed across dimensions and clear prerequisites. No unsupported capability claims or hidden unimplemented entries.
-- [ ] Verify keyboard use, state reset, direct links, mobile width and no console errors in the browser.
+- [x] Define metadata records with library path, desired query/update/conditions, displayed operation and complexity. Include existing structures and explicit ACL choices.
+- [x] Test metadata validity and filtering combinations, including no matches and reset, before implementing behavior.
+- [x] Build an accessible static page, with filters ANDed across dimensions and clear prerequisites. No unsupported capability claims or hidden unimplemented entries.
+- [x] Verify keyboard use, state reset, direct links, mobile width and no console errors in the browser.
 
 ### Task 4: Official inventory and checklist
 
-Files: scripts/library_checker_coverage.py, data/library-checker-problems.json, data/library-checker-mappings.yml, .verify-helper/docs/static/library-checker.md, tests/test_library_checker_coverage.py.
+Files: scripts/library_checker_coverage.py, data/library-checker-problems.json, data/library-checker-mappings.json, .verify-helper/docs/static/library-checker.md, tests/test_library_checker_coverage.py.
 
-- [ ] Snapshot official published problems and categories with upstream revision/date and unique IDs; exclude generator test fixtures.
-- [ ] Unit-test duplicate/unknown IDs, multiple verify drivers per problem, indirect includes, ignored drivers, mappings and missing evidence.
-- [ ] Generate coverage rows from PROBLEM URLs and documented mappings; distinguish implementation, driver and successful run evidence.
-- [ ] Provide refresh and --check commands, a searchable/filterable static checklist, and links to problem/implementation/verify.
+- [x] Snapshot official published problems and categories with upstream revision/date and unique IDs; exclude generator test fixtures.
+- [x] Unit-test duplicate/unknown IDs, multiple verify drivers per problem, indirect includes, ignored drivers, mappings and missing evidence.
+- [x] Generate coverage rows from PROBLEM URLs and documented mappings; distinguish implementation, driver and successful run evidence.
+- [x] Provide refresh and --check commands, a searchable/filterable static checklist, and links to problem/implementation/verify.
 
 ### Task 5: Integration and release
 
-- [ ] Register headers and finder entries, wire navigation and checks, run make test, all compiler matrices, standalone headers, official cases and docs.
-- [ ] Review each domain independently and address findings. Run final whole-branch review.
+- [x] Register headers and finder entries, wire navigation and checks, run make test, all compiler matrices, standalone headers, official cases and docs.
+- [x] Review each domain independently and address findings. Run final whole-branch review.
 - [ ] Commit logical units, create PR, require green CI, merge, verify public Pages and clean Git state.
 
 ## Execution ledger
 
 - Ruling: execute autonomously using existing user authorization; no routine design approval pause.
 - Ruling: independent worktree under ignored .build/worktrees protects the ongoing legacy verification and PR.
+- Ruling: store reviewed problem mappings as JSON so the offline checklist generator uses only the standard library; Python 3.9/3.10 reuse verification-helper's toml dependency for explicit refresh.
+- Review: new data structures passed independent sanitizer/random checks; math passed an independent exhaustive GF2 oracle over 5,054 systems. Shared checklist/filter review corrected the legacy UF amortized-complexity wording.
+- Validation: all 12 new official drivers passed 244 cases. Both domain benchmark runs preserve failed/overlapped attempts separately; only quiet comparable runs support performance statements.
+
+- Integration: GCC/Clang C++20/23 compile/random/release-header matrix passed; make docs and Jekyll succeeded. Static structure check passed for all 42 APIs after accepting Kramdown empty-attribute serialization.
+- Browser: desktop and 390px operation filtering (Beats, Deque, Dynamic Li Chao), empty/reset, coverage missing=182, subset search and implementation link passed. No console errors or horizontal overflow observed.
+- Release: PR #17 created; whole-suite repeat verification and CI remain pending.
