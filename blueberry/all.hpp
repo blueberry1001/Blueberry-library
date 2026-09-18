@@ -1,5 +1,18 @@
 #pragma once
 
+#include "blueberry/data-structure/persistent-queue.hpp"
+#include "blueberry/data-structure/static-range-distinct.hpp"
+#include "blueberry/data-structure/rectangle-union.hpp"
+#include "blueberry/graph/assignment.hpp"
+#include "blueberry/graph/complement-components.hpp"
+#include "blueberry/graph/count-spanning-trees.hpp"
+#include "blueberry/graph/minimum-spanning-forest.hpp"
+#include "blueberry/math/taylor-shift.hpp"
+#include "blueberry/math/polynomial-product.hpp"
+#include "blueberry/math/stirling-second.hpp"
+#include "blueberry/math/montmort.hpp"
+#include "blueberry/string/count-subsequences.hpp"
+
 #include "blueberry/data-structure/disjoint-sparse-table.hpp"
 #include "blueberry/graph/cartesian-tree.hpp"
 #include "blueberry/graph/cycle-detection.hpp"

@@ -2,14 +2,14 @@
 
 このファイルは `python3 scripts/library_checker_coverage.py` で生成します。直接編集しません。
 
-公式公開問題一覧: 2026-09-17T06:38:31.326567+00:00 / **253 問題**。
+公式公開問題一覧: 2026-09-18T02:28:49.842610+00:00 / **253 問題**。
 [公式一覧API](https://v3.api.judge.yosupo.jp/problems) / [カテゴリの固定リビジョン](https://github.com/yosupo06/library-checker-problems/blob/1814c4e5205517e368bb57a8d1127eb961cfeaae/categories.toml)
 
 チェック済みは対応するローカル実装があることを示します。verifyありはドライバの存在であり、ACや現在の実装での成功を意味しません。
 実行結果は各verifyページと[測定一覧](https://blueberry1001.github.io/Blueberry-library/benchmarks.html)で確認してください。
 ACL推奨は外部ライブラリです。Blueberryの実装数・チェック済み数には含めません。
 
-実装＋verifyあり: 70 / 実装あり・専用verifyなし: 2 / ACL推奨: 9 / 補助verifyのみ: 1 / 未対応: 171
+実装＋verifyあり: 85 / 実装あり・専用verifyなし: 0 / ACL推奨: 9 / 補助verifyのみ: 1 / 未対応: 158
 
 ## Sample
 
@@ -19,7 +19,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 
 ## Data Structure
 
-- [ ] [Area of Union of Rectangles](https://judge.yosupo.jp/problem/area_of_union_of_rectangles) (`area_of_union_of_rectangles`): 未対応
+- [x] [Area of Union of Rectangles](https://judge.yosupo.jp/problem/area_of_union_of_rectangles) (`area_of_union_of_rectangles`): 実装＋verifyあり — [Rectangle Union Area](../blueberry/data-structure/rectangle-union.hpp), [verify](../verify/data-structure/rectangle-union.test.cpp)
 - [ ] [Associative Array](https://judge.yosupo.jp/problem/associative_array) (`associative_array`): 未対応
 - [x] [Deque Operate All Composite](https://judge.yosupo.jp/problem/deque_operate_all_composite) (`deque_operate_all_composite`): 実装＋verifyあり — [Aggregate Deque](../blueberry/data-structure/aggregate-deque.hpp), [verify](../verify/data-structure/aggregate-deque.test.cpp)
 - [x] [Double-Ended Priority Queue](https://judge.yosupo.jp/problem/double_ended_priority_queue) (`double_ended_priority_queue`): 実装＋verifyあり — [Ordered Multiset](../blueberry/data-structure/ordered-multiset.hpp), [verify](../verify/data-structure/ordered-multiset-priority-queue.test.cpp)
@@ -27,16 +27,16 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [x] [Dynamic Sequence Range Affine Range Sum](https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum) (`dynamic_sequence_range_affine_range_sum`): 実装＋verifyあり — [Implicit Treap](../blueberry/data-structure/implicit-treap.hpp), [verify](../verify/data-structure/implicit-treap-affine.test.cpp)
 - [x] [Line Add Get Min](https://judge.yosupo.jp/problem/line_add_get_min) (`line_add_get_min`): 実装＋verifyあり — [Dynamic Li Chao Tree](../blueberry/data-structure/dynamic-li-chao-tree.hpp), [Li Chao Tree](../blueberry/data-structure/li-chao-tree.hpp), [verify](../verify/data-structure/dynamic-line-add-get-min.test.cpp), [verify](../verify/data-structure/line-add-get-min.test.cpp)
 - [x] [Ordered Set](https://judge.yosupo.jp/problem/ordered_set) (`ordered_set`): 実装＋verifyあり — [Ordered Set](../blueberry/data-structure/ordered-set.hpp), [verify](../verify/data-structure/ordered-set.test.cpp)
-- [ ] [Persistent Queue](https://judge.yosupo.jp/problem/persistent_queue) (`persistent_queue`): 未対応
+- [x] [Persistent Queue](https://judge.yosupo.jp/problem/persistent_queue) (`persistent_queue`): 実装＋verifyあり — [Persistent Queue](../blueberry/data-structure/persistent-queue.hpp), [verify](../verify/data-structure/persistent-queue.test.cpp)
 - [ ] [Persistent Range Affine Range Sum](https://judge.yosupo.jp/problem/persistent_range_affine_range_sum) (`persistent_range_affine_range_sum`): 未対応
 - [x] [Persistent Unionfind](https://judge.yosupo.jp/problem/persistent_unionfind) (`persistent_unionfind`): 実装＋verifyあり — [Rollback Union Find](../blueberry/data-structure/rollback-union-find.hpp), [verify](../verify/data-structure/persistent-unionfind.test.cpp)
 - [x] [Point Add Range Sum](https://judge.yosupo.jp/problem/point_add_range_sum) (`point_add_range_sum`): 実装＋verifyあり — [Dynamic Fenwick Tree](../blueberry/data-structure/dynamic-fenwick-tree.hpp), [Fenwick Tree](../blueberry/data-structure/fenwick-tree.hpp), [verify](../verify/data-structure/dynamic-point-add-range-sum.test.cpp), [verify](../verify/data-structure/point-add-range-sum.test.cpp)
 - [x] [Point Add Rectangle Sum](https://judge.yosupo.jp/problem/point_add_rectangle_sum) (`point_add_rectangle_sum`): 実装＋verifyあり — [Dynamic Fenwick Tree 2D](../blueberry/data-structure/dynamic-fenwick-tree-2d.hpp), [Offline Fenwick Tree 2D](../blueberry/data-structure/offline-fenwick-tree-2d.hpp), [verify](../verify/data-structure/dynamic-point-add-rectangle-sum.test.cpp), [verify](../verify/data-structure/point-add-rectangle-sum.test.cpp)
 - [x] [Point Set Range Composite](https://judge.yosupo.jp/problem/point_set_range_composite) (`point_set_range_composite`): 実装＋verifyあり — [Ordered Multiset](../blueberry/data-structure/ordered-multiset.hpp), [Persistent Segment Tree](../blueberry/data-structure/persistent-segment-tree.hpp), [Segment Tree](../blueberry/data-structure/segment-tree.hpp), [verify](../verify/data-structure/ordered-multiset-composite.test.cpp), [verify](../verify/data-structure/persistent-point-set-range-composite.test.cpp), [verify](../verify/data-structure/point-set-range-composite.test.cpp)
-- [x] [Point Set Range Composite (Large Array)](https://judge.yosupo.jp/problem/point_set_range_composite_large_array) (`point_set_range_composite_large_array`): 実装あり・専用verifyなし — [Ordered Multiset](../blueberry/data-structure/ordered-multiset.hpp) — 64bit座標をキーに更新済みの関数のみ保存する。更新は同座標をeraseしてinsert、問い合わせはprod(rank(l),rank(r))。未更新点の恒等関数を省略できる。専用verify未追加。
+- [x] [Point Set Range Composite (Large Array)](https://judge.yosupo.jp/problem/point_set_range_composite_large_array) (`point_set_range_composite_large_array`): 実装＋verifyあり — [Ordered Multiset](../blueberry/data-structure/ordered-multiset.hpp), [verify](../verify/data-structure/ordered-multiset-large-composite.test.cpp) — 64bit座標をキーに更新済みの関数のみ保存する。更新は同座標をeraseしてinsert、問い合わせはprod(rank(l),rank(r))。未更新点の恒等関数を省略する専用verifyを追加。
 - [ ] [Point Set Range Frequency](https://judge.yosupo.jp/problem/point_set_range_frequency) (`point_set_range_frequency`): 未対応
 - [ ] [Point Set Range Sort Range Composite](https://judge.yosupo.jp/problem/point_set_range_sort_range_composite) (`point_set_range_sort_range_composite`): 未対応
-- [x] [Predecessor Problem](https://judge.yosupo.jp/problem/predecessor_problem) (`predecessor_problem`): 実装あり・専用verifyなし — [Ordered Set](../blueberry/data-structure/ordered-set.hpp) — insert/erase/contains/lower_bound/floorで対応可能。専用verify未追加。
+- [x] [Predecessor Problem](https://judge.yosupo.jp/problem/predecessor_problem) (`predecessor_problem`): 実装＋verifyあり — [Ordered Set](../blueberry/data-structure/ordered-set.hpp), [verify](../verify/data-structure/predecessor.test.cpp) — insert/erase/contains/lower_bound/floorを専用verifyで検証。
 - [x] [Queue Operate All Composite](https://judge.yosupo.jp/problem/queue_operate_all_composite) (`queue_operate_all_composite`): 実装＋verifyあり — [Aggregate Queue](../blueberry/data-structure/aggregate-queue.hpp), [verify](../verify/data-structure/aggregate-queue.test.cpp)
 - [ ] [Range Affine Point Get](https://judge.yosupo.jp/problem/range_affine_point_get) (`range_affine_point_get`): ACL推奨 — [ACL](https://atcoder.github.io/ac-library/production/document_en/lazysegtree.html) — ACL lazy_segtreeのapply(l,r,f)とget(p)で対応する。
 - [ ] [Range Affine Range Sum](https://judge.yosupo.jp/problem/range_affine_range_sum) (`range_affine_range_sum`): ACL推奨 — [ACL](https://atcoder.github.io/ac-library/production/document_en/lazysegtree.html) — 区間長をSに含めるACL lazy_segtreeで対応する。固定長配列では動的列Treapよりこちらを第一候補にする。
@@ -51,7 +51,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [x] [Rectangle Sum](https://judge.yosupo.jp/problem/rectangle_sum) (`rectangle_sum`): 実装＋verifyあり — [Dynamic Fenwick Tree 2D](../blueberry/data-structure/dynamic-fenwick-tree-2d.hpp), [Persistent Segment Tree](../blueberry/data-structure/persistent-segment-tree.hpp), [verify](../verify/data-structure/dynamic-rectangle-sum.test.cpp), [verify](../verify/data-structure/persistent-rectangle-sum.test.cpp)
 - [x] [Segment Add Get Min](https://judge.yosupo.jp/problem/segment_add_get_min) (`segment_add_get_min`): 実装＋verifyあり — [Dynamic Li Chao Tree](../blueberry/data-structure/dynamic-li-chao-tree.hpp), [Li Chao Tree](../blueberry/data-structure/li-chao-tree.hpp), [verify](../verify/data-structure/dynamic-segment-add-get-min.test.cpp), [verify](../verify/data-structure/segment-add-get-min.test.cpp)
 - [x] [Set Xor-Min](https://judge.yosupo.jp/problem/set_xor_min) (`set_xor_min`): 実装＋verifyあり — [Binary Trie](../blueberry/data-structure/binary-trie.hpp), [verify](../verify/data-structure/binary-trie.test.cpp)
-- [ ] [Static Range Count Distinct](https://judge.yosupo.jp/problem/static_range_count_distinct) (`static_range_count_distinct`): 未対応
+- [x] [Static Range Count Distinct](https://judge.yosupo.jp/problem/static_range_count_distinct) (`static_range_count_distinct`): 実装＋verifyあり — [Static Range Distinct](../blueberry/data-structure/static-range-distinct.hpp), [Wavelet Matrix](../blueberry/data-structure/wavelet-matrix.hpp), [verify](../verify/data-structure/static-range-distinct.test.cpp)
 - [x] [Static Range Frequency](https://judge.yosupo.jp/problem/static_range_frequency) (`static_range_frequency`): 実装＋verifyあり — [Wavelet Matrix](../blueberry/data-structure/wavelet-matrix.hpp), [verify](../verify/data-structure/static-range-frequency.test.cpp)
 - [ ] [Static Range Inversions Query](https://judge.yosupo.jp/problem/static_range_inversions_query) (`static_range_inversions_query`): 未対応
 - [ ] [Static Range LIS Query](https://judge.yosupo.jp/problem/static_range_lis_query) (`static_range_lis_query`): 未対応
@@ -65,18 +65,18 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 
 ## Graph
 
-- [ ] [Assignment Problem](https://judge.yosupo.jp/problem/assignment) (`assignment`): 未対応
+- [x] [Assignment Problem](https://judge.yosupo.jp/problem/assignment) (`assignment`): 実装＋verifyあり — [Assignment](../blueberry/graph/assignment.hpp), [verify](../verify/graph/assignment.test.cpp)
 - [x] [Biconnected Components](https://judge.yosupo.jp/problem/biconnected_components) (`biconnected_components`): 実装＋verifyあり — [Biconnected Components](../blueberry/graph/biconnected-components.hpp), [verify](../verify/graph/biconnected-components.test.cpp)
 - [ ] [Edge Coloring of Bipartite Graph](https://judge.yosupo.jp/problem/bipartite_edge_coloring) (`bipartite_edge_coloring`): 未対応
 - [x] [Matching on Bipartite Graph](https://judge.yosupo.jp/problem/bipartitematching) (`bipartitematching`): 実装＋verifyあり — [Hopcroft–Karp](../blueberry/graph/hopcroft-karp.hpp), [verify](../verify/graph/bipartite-matching.test.cpp)
 - [ ] [Chordal Graph Recognition](https://judge.yosupo.jp/problem/chordal_graph_recognition) (`chordal_graph_recognition`): 未対応
 - [ ] [Chromatic Number](https://judge.yosupo.jp/problem/chromatic_number) (`chromatic_number`): 未対応
 - [ ] [Chromatic Polynomial](https://judge.yosupo.jp/problem/chromatic_polynomial) (`chromatic_polynomial`): 未対応
-- [ ] [Connected Components of Complement Graph](https://judge.yosupo.jp/problem/connected_components_of_complement_graph) (`connected_components_of_complement_graph`): 未対応
+- [x] [Connected Components of Complement Graph](https://judge.yosupo.jp/problem/connected_components_of_complement_graph) (`connected_components_of_complement_graph`): 実装＋verifyあり — [Complement Components](../blueberry/graph/complement-components.hpp), [verify](../verify/graph/complement-components.test.cpp)
 - [ ] [Counting $C _ 4$'s](https://judge.yosupo.jp/problem/counting_c4) (`counting_c4`): 未対応
 - [ ] [Counting Eulerian Circuits](https://judge.yosupo.jp/problem/counting_eulerian_circuits) (`counting_eulerian_circuits`): 未対応
-- [ ] [Counting Spanning Trees (Directed)](https://judge.yosupo.jp/problem/counting_spanning_tree_directed) (`counting_spanning_tree_directed`): 未対応
-- [ ] [Counting Spanning Trees (Undirected)](https://judge.yosupo.jp/problem/counting_spanning_tree_undirected) (`counting_spanning_tree_undirected`): 未対応
+- [x] [Counting Spanning Trees (Directed)](https://judge.yosupo.jp/problem/counting_spanning_tree_directed) (`counting_spanning_tree_directed`): 実装＋verifyあり — [Count Spanning Trees](../blueberry/graph/count-spanning-trees.hpp), [Matrix](../blueberry/math/matrix.hpp), [verify](../verify/graph/count-directed-spanning-trees.test.cpp)
+- [x] [Counting Spanning Trees (Undirected)](https://judge.yosupo.jp/problem/counting_spanning_tree_undirected) (`counting_spanning_tree_undirected`): 実装＋verifyあり — [Count Spanning Trees](../blueberry/graph/count-spanning-trees.hpp), [Matrix](../blueberry/math/matrix.hpp), [verify](../verify/graph/count-spanning-trees.test.cpp)
 - [x] [Cycle Detection (Directed)](https://judge.yosupo.jp/problem/cycle_detection) (`cycle_detection`): 実装＋verifyあり — [Cycle Detection](../blueberry/graph/cycle-detection.hpp), [verify](../verify/graph/cycle-detection-directed.test.cpp)
 - [x] [Cycle Detection (Undirected)](https://judge.yosupo.jp/problem/cycle_detection_undirected) (`cycle_detection_undirected`): 実装＋verifyあり — [Cycle Detection](../blueberry/graph/cycle-detection.hpp), [verify](../verify/graph/cycle-detection-undirected.test.cpp)
 - [ ] [Directed MST](https://judge.yosupo.jp/problem/directedmst) (`directedmst`): 未対応
@@ -94,7 +94,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Maximum Independent Set](https://judge.yosupo.jp/problem/maximum_independent_set) (`maximum_independent_set`): 未対応
 - [ ] [Minimum Cost b-flow](https://judge.yosupo.jp/problem/min_cost_b_flow) (`min_cost_b_flow`): 未対応
 - [ ] [Minimum Diameter Spanning Tree](https://judge.yosupo.jp/problem/minimum_diameter_spanning_tree) (`minimum_diameter_spanning_tree`): 未対応
-- [ ] [Minimum Spanning Tree](https://judge.yosupo.jp/problem/minimum_spanning_tree) (`minimum_spanning_tree`): 未対応
+- [x] [Minimum Spanning Tree](https://judge.yosupo.jp/problem/minimum_spanning_tree) (`minimum_spanning_tree`): 実装＋verifyあり — [Minimum Spanning Forest](../blueberry/graph/minimum-spanning-forest.hpp), [verify](../verify/graph/minimum-spanning-forest.test.cpp)
 - [ ] [Strongly Connected Components](https://judge.yosupo.jp/problem/scc) (`scc`): ACL推奨 — [ACL](https://atcoder.github.io/ac-library/production/document_en/scc.html) — atcoder::scc_graphを利用する。
 - [x] [Shortest Path](https://judge.yosupo.jp/problem/shortest_path) (`shortest_path`): 実装＋verifyあり — [Dijkstra](../blueberry/graph/dijkstra.hpp), [verify](../verify/graph/shortest-path.test.cpp)
 - [ ] [st-Numbering](https://judge.yosupo.jp/problem/st_numbering) (`st_numbering`): 未対応
@@ -189,10 +189,10 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Polynomial Interpolation](https://judge.yosupo.jp/problem/polynomial_interpolation) (`polynomial_interpolation`): 未対応
 - [ ] [Polynomial Interpolation (Geometric Sequence)](https://judge.yosupo.jp/problem/polynomial_interpolation_on_geometric_sequence) (`polynomial_interpolation_on_geometric_sequence`): 未対応
 - [ ] [Polynomial Root Finding (Mod 998244353)](https://judge.yosupo.jp/problem/polynomial_root_finding) (`polynomial_root_finding`): 未対応
-- [ ] [Polynomial Taylor Shift](https://judge.yosupo.jp/problem/polynomial_taylor_shift) (`polynomial_taylor_shift`): 未対応
+- [x] [Polynomial Taylor Shift](https://judge.yosupo.jp/problem/polynomial_taylor_shift) (`polynomial_taylor_shift`): 実装＋verifyあり — [Polynomial Taylor Shift](../blueberry/math/taylor-shift.hpp), [verify](../verify/math/taylor-shift.test.cpp)
 - [x] [Pow of Formal Power Series](https://judge.yosupo.jp/problem/pow_of_formal_power_series) (`pow_of_formal_power_series`): 実装＋verifyあり — [Formal Power Series](../blueberry/math/formal-power-series.hpp), [verify](../verify/math/pow-formal-power-series.test.cpp)
 - [ ] [Pow of Formal Power Series (Sparse)](https://judge.yosupo.jp/problem/pow_of_formal_power_series_sparse) (`pow_of_formal_power_series_sparse`): 未対応
-- [ ] [Product of Polynomial Sequence](https://judge.yosupo.jp/problem/product_of_polynomial_sequence) (`product_of_polynomial_sequence`): 未対応
+- [x] [Product of Polynomial Sequence](https://judge.yosupo.jp/problem/product_of_polynomial_sequence) (`product_of_polynomial_sequence`): 実装＋verifyあり — [Polynomial Product](../blueberry/math/polynomial-product.hpp), [verify](../verify/math/polynomial-product.test.cpp)
 - [ ] [Shift of Sampling Points of Polynomial](https://judge.yosupo.jp/problem/shift_of_sampling_points_of_polynomial) (`shift_of_sampling_points_of_polynomial`): 未対応
 - [x] [Sqrt of Formal Power Series](https://judge.yosupo.jp/problem/sqrt_of_formal_power_series) (`sqrt_of_formal_power_series`): 実装＋verifyあり — [Formal Power Series](../blueberry/math/formal-power-series.hpp), [verify](../verify/math/sqrt-formal-power-series.test.cpp)
 - [ ] [Sqrt of Formal Power Series (Sparse)](https://judge.yosupo.jp/problem/sqrt_of_formal_power_series_sparse) (`sqrt_of_formal_power_series_sparse`): 未対応
@@ -211,16 +211,16 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Binomial Coefficient (Prime Mod)](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod) (`binomial_coefficient_prime_mod`): 未対応
 - [ ] [Factorial](https://judge.yosupo.jp/problem/factorial) (`factorial`): 未対応
 - [ ] [Many Factorials](https://judge.yosupo.jp/problem/many_factorials) (`many_factorials`): 未対応
-- [ ] [Montmort Number](https://judge.yosupo.jp/problem/montmort_number_mod) (`montmort_number_mod`): 未対応
+- [x] [Montmort Number](https://judge.yosupo.jp/problem/montmort_number_mod) (`montmort_number_mod`): 実装＋verifyあり — [Montmort Numbers](../blueberry/math/montmort.hpp), [verify](../verify/math/montmort.test.cpp)
 - [ ] [Number of Increasing Sequences Between Two Sequences](https://judge.yosupo.jp/problem/number_of_increasing_sequences_between_two_sequences) (`number_of_increasing_sequences_between_two_sequences`): 未対応
-- [ ] [Number of Subsequences ](https://judge.yosupo.jp/problem/number_of_subsequences) (`number_of_subsequences`): 未対応
+- [x] [Number of Subsequences ](https://judge.yosupo.jp/problem/number_of_subsequences) (`number_of_subsequences`): 実装＋verifyあり — [Count Subsequences](../blueberry/string/count-subsequences.hpp), [verify](../verify/string/count-subsequences.test.cpp)
 - [ ] [Partition Function](https://judge.yosupo.jp/problem/partition_function) (`partition_function`): 未対応
 - [ ] [$q$-Binomial Coefficient (Prime Mod)](https://judge.yosupo.jp/problem/q_binomial_coefficient_prime_mod) (`q_binomial_coefficient_prime_mod`): 未対応
 - [ ] [$\\#_p$ Subset Sum](https://judge.yosupo.jp/problem/sharp_p_subset_sum) (`sharp_p_subset_sum`): 未対応
 - [ ] [Stirling Number of the First Kind](https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind) (`stirling_number_of_the_first_kind`): 未対応
 - [ ] [Stirling Number of the First Kind (Fixed K)](https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind_fixed_k) (`stirling_number_of_the_first_kind_fixed_k`): 未対応
 - [ ] [Stirling Number of the First Kind (Small p, Large n)](https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind_small_p_large_n) (`stirling_number_of_the_first_kind_small_p_large_n`): 未対応
-- [ ] [Stirling Number of the Second Kind](https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind) (`stirling_number_of_the_second_kind`): 未対応
+- [x] [Stirling Number of the Second Kind](https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind) (`stirling_number_of_the_second_kind`): 実装＋verifyあり — [Stirling Numbers Second Kind](../blueberry/math/stirling-second.hpp), [verify](../verify/math/stirling-second.test.cpp)
 - [ ] [Stirling Number of the Second Kind (Fixed K)](https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind_fixed_k) (`stirling_number_of_the_second_kind_fixed_k`): 未対応
 - [ ] [Stirling Number of the Second Kind (Small p, Large n)](https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind_small_p_large_n) (`stirling_number_of_the_second_kind_small_p_large_n`): 未対応
 

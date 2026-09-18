@@ -252,6 +252,8 @@ s.insert(4);
 
 ## 出典・検証
 
+[Predecessor Problem](https://judge.yosupo.jp/problem/predecessor_problem) の専用verifyも追加し、初期集合・重複挿入・未存在削除・前後の要素がない場合を公式ケースで検証します。
+
 [公式 Ordered Set](https://judge.yosupo.jp/problem/ordered_set) と std::set による固定 seed の独立比較で検証。昇順・降順、重複、削除、整数端点、文字列、コピー・ムーブを確認する。
 
 treap の考え方を [KACTL](https://github.com/kth-competitive-programming/kactl/blob/main/content/data-structures/Treap.h)、ノードプールを [suisen](https://github.com/suisen-cp/cp-library-cpp/blob/main/library/datastructure/bbst/implicit_treap.hpp) と比較し、順序集合として独立実装した。

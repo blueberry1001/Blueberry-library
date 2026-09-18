@@ -389,6 +389,8 @@ auto total = tree.all_prod();
 
 ## 出典・検証
 
+[Point Set Range Composite (Large Array)](https://judge.yosupo.jp/problem/point_set_range_composite_large_array) の専用verifyでは、64bit座標をキーとして更新済みの関数だけ保存し、`prod(rank(l),rank(r))` で合成します。未更新位置は恒等関数なので格納不要です。
+
 公式問題: [Double Ended Priority Queue](https://judge.yosupo.jp/problem/double_ended_priority_queue)で重複の挿入・端点削除、[Point Set Range Composite](https://judge.yosupo.jp/problem/point_set_range_composite)で非可換な順位区間集約を検証します。固定seedのstable sorted-vector oracleで全bound/count/rank、同値でも異なる値の順序、copy/move、削除slot再利用を補います。
 
 標準的なtreapの回転・優先度mergeを独立実装しています。旧実装にあった未存在erase/空root参照や、op/eを無視した加算、ノードの解放漏れを引き継ぎません。[CP-Algorithms](https://github.com/cp-algorithms/cp-algorithms/blob/main/src/data_structures/treap.md)と公開LC提出のAPI/データ配置を調査しました。公開ソースは転記していません。公開上位の専用min-max queue、逆写像を使う多分木、固定長segment treeは提供機能が異なるので、順位集約付き多重集合との同一機能の速度差とは扱いません。
