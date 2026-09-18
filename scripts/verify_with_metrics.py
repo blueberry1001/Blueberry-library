@@ -70,6 +70,8 @@ def summarize(repeats):
 
 
 def compare(current, previous, environment, baseline):
+    if current["status"] == "not_selected":
+        return None, "今回未実行（変更の影響範囲外）"
     if current["status"] != "passed":
         return None, "未完了 / 失敗"
     if not previous or not baseline:
@@ -136,6 +138,13 @@ def write_report(report, baseline, destination):
         "| Verify / 環境番号 | 状態 | コンパイル | 実行合計（中央値） | 最大ケース（中央値） | 基準との差 |",
         "| --- | --- | ---: | ---: | ---: | --- |",
     ]
+    if report.get("selection") is not None:
+        plan = report["selection"]
+        lines[5:5] = [
+            f"Selection: {plan['mode']} / {len(plan['selected_verify'])} of {len(plan['all_verify'])} verifies",
+            f"Base: {plan.get('base_sha') or 'none'} / Reason: {plan['reason']}",
+            "未選択のverifyは今回未実行です。過去の時間・成功結果は引き継ぎません。", "",
+        ]
     for row in report["results"]:
         lines.append(f"| {row['path']} / {row['environment_index']} | {row['status']} | "
                      f"{seconds(row.get('compile_seconds'))} | {seconds(row.get('solution_seconds'))} | "
@@ -254,7 +263,98 @@ def discover_verification_files(root=Path("verify")):
     return sorted(path for path in root.rglob("*.test.cpp") if path.is_file())
 
 
+def validate_selection(plan, expected, revision):
+    """Validate the auditable inventory before allowing intentionally unrun rows."""
+    if not isinstance(plan, dict) or plan.get("schema_version") != 1:
+        raise ValueError("unsupported verification selection plan")
+    if plan.get("mode") not in ("full", "affected") or plan.get("head_sha") != revision:
+        raise ValueError("selection plan mode/revision mismatch")
+    for key in ("all_verify", "selected_verify"):
+        values = plan.get(key)
+        if not isinstance(values, list) or any(not isinstance(p, str) for p in values):
+            raise ValueError(f"invalid selection {key}")
+        if values != sorted(set(values)):
+            raise ValueError(f"selection {key} must be sorted and unique")
+    if set(plan["all_verify"]) != set(expected):
+        raise ValueError("selection inventory differs from current verification files")
+    selected = set(plan["selected_verify"])
+    if not selected <= set(expected):
+        raise ValueError("selection contains unknown verification files")
+    if plan["mode"] == "full" and selected != set(expected):
+        raise ValueError("full selection omits verification files")
+    if not isinstance(plan.get("reason"), str) or not plan["reason"].strip():
+        raise ValueError("selection needs an audit reason")
+    return selected
+
+
+def validate_plan_against_repository(plan, root=Path.cwd()):
+    """Recompute the dependency plan rather than trusting an arbitrary skip list."""
+    if __package__:
+        from .plan_verification import validate_plan
+    else:
+        from plan_verification import validate_plan
+    validate_plan(plan, repo=root)
+
+
+def validate_publication_report(report, expected, revision=None):
+    """Reject failed/missing selected measurements, never confuse skips with AC."""
+    if report.get("schema") != 1 or report.get("succeeded") is not True:
+        raise ValueError("do not publish unsupported or failed measurements")
+    if revision is not None and report.get("revision") != revision:
+        raise ValueError("measurement revision differs from current HEAD")
+    scope = report.get("selection")
+    selected = (validate_selection(scope, expected, report.get("revision"))
+                if scope is not None else set(expected))
+    rows = report.get("results", [])
+    if {row.get("path") for row in rows} != set(expected):
+        raise ValueError("every verify needs a measured or explicitly unselected row")
+    seen = set()
+    for row in rows:
+        identity = (row["path"], row.get("environment_index"))
+        if identity in seen:
+            raise ValueError("duplicate verification environment row")
+        seen.add(identity)
+        if row["path"] not in selected:
+            if row.get("status") != "not_selected" or row.get("environment_index") != 0:
+                raise ValueError("unselected verify must be explicitly unmeasured")
+            allowed = {"path", "environment_index", "status", "comparison", "delta_percent"}
+            if set(row) - allowed or row.get("delta_percent") is not None:
+                raise ValueError("unselected verify must not carry stale measurements")
+            continue
+        if row.get("status") != "passed":
+            raise ValueError("selected verification did not pass")
+        repeats = row.get("repeat_count")
+        if (isinstance(repeats, bool) or not isinstance(repeats, int) or repeats < 1
+                or len(row.get("runs", [])) != repeats):
+            raise ValueError("selected verification is missing repeated measurements")
+        if scope is not None and repeats != scope.get("repeats"):
+            raise ValueError("measurement repeat count differs from selection plan")
+        for key in ("solution_seconds", "compile_seconds"):
+            value = row.get(key)
+            if (isinstance(value, bool) or not isinstance(value, (int, float))
+                    or not math.isfinite(value) or value <= 0):
+                raise ValueError(f"selected verification is missing valid {key}")
+    return selected
+
+
 def run_with_helper(args, report):
+    # An explicit empty plan means zero work; it must never expand to all files.
+    plan = getattr(args, "selection", None)
+    if plan is not None:
+        paths = [Path(p) for p in plan["selected_verify"]]
+        selected = set(plan["selected_verify"])
+        report["results"] = [
+            {"path": p, "environment_index": 0,
+             "status": "not_run" if p in selected else "not_selected"}
+            for p in plan["all_verify"]]
+        if not paths:
+            return True
+    else:
+        paths = [Path(p) for p in args.paths] or discover_verification_files()
+        paths = sorted(set(p.resolve().relative_to(Path.cwd()) for p in paths))
+        if not paths:
+            raise RuntimeError("no verification files found")
+        report["results"] = [{"path": p.as_posix(), "environment_index": 0, "status": "not_run"} for p in paths]
     # These imports stay lazy so report/aggregation unit tests need only stdlib.
     import onlinejudge_verify.config as config
     import onlinejudge_verify.languages.cplusplus as cpp
@@ -264,11 +364,6 @@ def run_with_helper(args, report):
 
     basicConfig(level=INFO)
     config.set_config_path(Path(".verify-helper/config.toml"))
-    paths = [Path(p) for p in args.paths] or discover_verification_files()
-    paths = sorted(set(p.resolve().relative_to(Path.cwd()) for p in paths))
-    if not paths:
-        raise RuntimeError("no verification files found")
-    report["results"] = [{"path": p.as_posix(), "environment_index": 0, "status": "not_run"} for p in paths]
     recorder = Recorder(report, args.output, args.repeats)
     original_verify, original_compile, original_exec = verify.verify_file, cpp.CPlusPlusLanguageEnvironment.compile, verify.exec_command
     with patch.object(verify, "verify_file", lambda path, **kw: recorder.verify(original_verify, path, **kw)), \
@@ -280,12 +375,14 @@ def run_with_helper(args, report):
         with marker_module.get_verification_marker(jobs=1) as marker:
             summary = verify.main(paths, marker=marker, jobs=1, tle=args.tle, timeout=args.timeout)
             summary.show()
-    return summary.succeeded() and all(row["status"] in ("passed", "ignored") for row in report["results"])
+    allowed = ("passed", "not_selected") if plan is not None else ("passed", "ignored")
+    return summary.succeeded() and all(row["status"] in allowed for row in report["results"])
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("paths", nargs="*", help="verify files; omitted means all")
+    parser.add_argument("--plan", type=Path, help="validated CI selection plan; an empty selection runs nothing")
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--tle", type=float, default=60)
     parser.add_argument("--timeout", type=float, default=1500)
@@ -293,6 +390,8 @@ def main():
     parser.add_argument("--baseline", type=Path, default=Path(".verification/baseline.json"))
     parser.add_argument("--save-baseline", action="store_true", help="replace baseline only after a successful run")
     args = parser.parse_args()
+    if args.plan is not None and args.paths:
+        parser.error("--plan and positional verify paths cannot be combined")
     if args.repeats < 1 or args.tle <= 0 or args.timeout <= 0:
         parser.error("repeats, tle and timeout must be positive")
     args.output.mkdir(parents=True, exist_ok=True)
@@ -312,6 +411,16 @@ def main():
         "succeeded": False,
     }
     report["environment"]["tle_seconds"] = args.tle
+    args.selection = None
+    if args.plan is not None:
+        args.selection = json.loads(args.plan.read_text())
+        validate_selection(args.selection, [p.as_posix() for p in discover_verification_files()], report["revision"])
+        validate_plan_against_repository(args.selection)
+        if args.selection.get("repeats") != args.repeats:
+            parser.error("--repeats differs from the audited selection plan")
+        if args.save_baseline and args.selection["mode"] != "full":
+            parser.error("only a full run can replace the benchmark baseline")
+        report["selection"] = args.selection
     try:
         report["succeeded"] = run_with_helper(args, report)
     finally:
