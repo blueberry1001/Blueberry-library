@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <random>
+#include <utility>
 #include <vector>
 constexpr long long mod = 998244353;
 struct Affine {
