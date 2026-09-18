@@ -1,0 +1,32 @@
+Already up to date.
+[ERROR] the problem range_mode_query not found or broken
+[ERROR]
+Traceback (most recent call last):
+  File "/home/blueberry/.venvs/blueberry-library/lib/python3.12/site-packages/onlinejudge_command/main.py", line 101, in main
+    sys.exit(run_program(parsed, parser=parser))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/blueberry/.venvs/blueberry-library/lib/python3.12/site-packages/onlinejudge_command/main.py", line 61, in run_program
+    if not subcommand_download.run(args):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/blueberry/.venvs/blueberry-library/lib/python3.12/site-packages/onlinejudge_command/subcommand/download.py", line 118, in run
+    samples = problem.download_system_cases(session=sess)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/blueberry/.venvs/blueberry-library/lib/python3.12/site-packages/onlinejudge/service/library_checker.py", line 86, in download_system_cases
+    self._generate_test_cases_in_cloned_repository()
+  File "/home/blueberry/.venvs/blueberry-library/lib/python3.12/site-packages/onlinejudge/service/library_checker.py", line 102, in _generate_test_cases_in_cloned_repository
+    problem_spec = str(self._get_problem_directory_path() / 'info.toml')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/blueberry/.venvs/blueberry-library/lib/python3.12/site-packages/onlinejudge/service/library_checker.py", line 118, in _get_problem_directory_path
+    raise RuntimeError()
+RuntimeError
+Traceback (most recent call last):
+  File "/home/blueberry/.venvs/blueberry-library/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 87, in verify_file
+    exec_command(command)
+  File "/home/blueberry/.venvs/blueberry-library/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 42, in exec_command
+    subprocess.check_call(command)
+  File "/usr/lib/python3.12/subprocess.py", line 413, in check_call
+    raise CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command '['oj', 'download', '--system', '-d', '.verify-helper/cache/cafe0389f94c5a8d4dba779c2c1b166f/test', '--silent', 'https://judge.yosupo.jp/problem/range_mode_query']' returned non-zero exit status 1.
+[31mERROR[0m:onlinejudge_verify.verify:1 tests failed[0m
+[31mERROR[0m:onlinejudge_verify.verify:failed: verify/data-structure/static-range-mode.test.cpp[0m
+::error file=verify/data-structure/static-range-mode.test.cpp::failed to verify
