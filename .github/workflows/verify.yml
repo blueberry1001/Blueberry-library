@@ -11,8 +11,41 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      actions: read
+    outputs:
+      compile_required: ${{ steps.plan.outputs.compile_required }}
+      mode: ${{ steps.plan.outputs.mode }}
+      repeats: ${{ steps.plan.outputs.repeats }}
+    steps:
+      - name: Checkout dependency snapshots
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Select affected verification targets
+        id: plan
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/plan_verification.py
+      - name: Upload auditable selection
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-plan
+          path: |
+            .verification/ci-plan.json
+            .verification/ci-doc-examples.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 90
+
   compile:
     name: compile (${{ matrix.compiler }}, ${{ matrix.standard }})
+    needs: plan
+    if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -35,39 +68,59 @@ jobs:
             standard: gnu++23
 
     steps:
+      - name: Require successful selection planning
+        run: test '${{ needs.plan.result }}' = success
+
       - name: Checkout
+        if: needs.plan.outputs.compile_required == 'true'
         uses: actions/checkout@v7
 
       - name: Install AtCoder Library headers
-        run: git clone --depth 1 https://github.com/atcoder/ac-library.git "$RUNNER_TEMP/ac-library"
+        if: needs.plan.outputs.compile_required == 'true'
+        uses: actions/checkout@v7
+        with:
+          repository: atcoder/ac-library
+          ref: 864245a00b00dd008d1abfdc239618fdb7d139da
+          path: .deps/ac-library
+          persist-credentials: false
 
       - name: Install arbitrary-precision test dependency
+        if: needs.plan.outputs.compile_required == 'true'
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libboost-dev
 
       - name: Compile headers and verify programs
+        if: needs.plan.outputs.compile_required == 'true'
         env:
-          CPPFLAGS: -I${{ runner.temp }}/ac-library
+          CPPFLAGS: -I.deps/ac-library
         run: make compile-test CXX=${{ matrix.cxx }} CXX_STANDARD=${{ matrix.standard }}
 
       - name: Compile release headers
+        if: needs.plan.outputs.compile_required == 'true'
         env:
           CXXFLAGS: -DNDEBUG
-          CPPFLAGS: -isystem ${{ runner.temp }}/ac-library
+          CPPFLAGS: -isystem .deps/ac-library
         run: make include-test CXX=${{ matrix.cxx }} CXX_STANDARD=${{ matrix.standard }}
 
       - name: Run randomized tests
+        if: needs.plan.outputs.compile_required == 'true'
         env:
-          CPPFLAGS: -I${{ runner.temp }}/ac-library
+          CPPFLAGS: -I.deps/ac-library
         run: make random-test CXX=${{ matrix.cxx }} CXX_STANDARD=${{ matrix.standard }}
 
       - name: Run Tree and Data Structure differential tests
+        if: needs.plan.outputs.compile_required == 'true'
         env:
           CXX: ${{ matrix.cxx }}
           CXX_STANDARD: ${{ matrix.standard }}
         run: python3 -m unittest discover -s tests -p "test_*random.py" -v && python3 -m unittest discover -s tests -p test_data_structures.py -v
 
+      - name: No C++ changes
+        if: needs.plan.outputs.compile_required != 'true'
+        run: echo 'C++ compile/random suites intentionally not selected; required job remains present.'
+
   verify:
-    needs: compile
+    needs: [plan, compile]
+    if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 75
     permissions:
@@ -75,10 +128,27 @@ jobs:
       pages: write
 
     steps:
+      - name: Require successful planning and compile gates
+        run: test '${{ needs.plan.result }}' = success && test '${{ needs.compile.result }}' = success
+
       - name: Checkout
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+
+      - name: Download verification selection
+        uses: actions/download-artifact@v4
+        with:
+          name: ci-plan
+          path: .verification
+
+      - name: Revalidate selection against checked-out sources
+        run: |
+          python3 - <<'PY'
+          import json
+          from scripts.plan_verification import validate_plan
+          validate_plan(json.load(open('.verification/ci-plan.json')))
+          PY
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -100,14 +170,31 @@ jobs:
         run: python -m pip install --requirement requirements-dev.txt
 
       - name: Install AtCoder Library headers
+        uses: actions/checkout@v7
+        with:
+          repository: atcoder/ac-library
+          ref: 864245a00b00dd008d1abfdc239618fdb7d139da
+          path: .deps/ac-library
+          persist-credentials: false
+
+      - name: Expose pinned ACL to verification-helper
         run: |
-          git clone --depth 1 https://github.com/atcoder/ac-library.git "$RUNNER_TEMP/ac-library"
-          cp -R "$RUNNER_TEMP/ac-library/atcoder" .
+          cp -R .deps/ac-library/atcoder .
 
       - name: Test measurement code and documentation examples
-        run: make test
+        env:
+          CPPFLAGS: -I.deps/ac-library
+        run: |
+          if [ '${{ needs.plan.outputs.compile_required }}' = true ]; then
+            make test
+          else
+            python3 scripts/run_ci_unit_tests.py --without-cpp
+            python3 scripts/library_checker_coverage.py --check
+            python3 scripts/check_docs.py --paths-file .verification/ci-doc-examples.json
+          fi
 
       - name: Smoke-test benchmark runner
+        if: needs.plan.outputs.compile_required == 'true'
         run: make benchmark-smoke
 
       - name: Generate documentation for preflight
@@ -131,7 +218,9 @@ jobs:
           restore-keys: benchmark-v1-${{ runner.os }}-${{ hashFiles('requirements-dev.txt', '.verify-helper/config.toml', 'scripts/verify_with_metrics.py') }}-
 
       - name: Verify libraries
-        run: make verify
+        env:
+          CPLUS_INCLUDE_PATH: ${{ github.workspace }}/.deps/ac-library
+        run: python3 scripts/verify_with_metrics.py --plan .verification/ci-plan.json --repeats ${{ needs.plan.outputs.repeats }} --timeout 3600
 
       - name: Upload verification measurements (including failures)
         if: always()
@@ -139,6 +228,8 @@ jobs:
         with:
           name: verification-metrics
           path: |
+            .verification/ci-plan.json
+            .verification/ci-doc-examples.json
             .verification/current.json
             .verification/report.md
             .verification/run-*/
@@ -163,11 +254,11 @@ jobs:
         run: python scripts/check_site.py
 
       - name: Prepare main benchmark baseline
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && needs.plan.outputs.mode == 'full' && needs.plan.outputs.repeats == '3'
         run: cp .verification/current.json .verification/baseline.json
 
       - name: Save main benchmark baseline
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/main' && needs.plan.outputs.mode == 'full' && needs.plan.outputs.repeats == '3'
         uses: actions/cache/save@v4
         with:
           path: .verification/baseline.json

@@ -192,11 +192,17 @@ random testはseedを `argv[1]` と `BLUEBERRY_RANDOM_SEED` の両方で受け�
 
 ## CIで行う検証
 
-pushとpull requestでは、GCC/Clang × GNU C++20/23の4環境で、全公開ヘッダの単体include、
-全verifyコードのコンパイル、共通random testを実行します。これにすべて通った後、GCC・GNU C++20で
-Pythonテスト、ドキュメント例、Library Checker公式ケース、生成サイトを検証します。
-各compile jobの結果はGitHub ActionsのSummaryに件数付きで表示され、Library Checkerの詳細な
-実行結果と計測ログは `verification-metrics` artifactに保存されます。
+pushとpull requestでは、成功済みmainからの変更と、変更前後の推移的なinclude依存を調べ、
+影響するLibrary Checker公式ケースだけを1回実行します。C++の変更時は従来どおり
+GCC/Clang × GNU C++20/23の4環境で全ヘッダ・全verifyのコンパイルとrandom testを行います。
+文書/UIだけの変更では重いC++検証を省き、Python/UIテスト、文書形式、変更文書のC++例、
+生成サイトを検査します。基準や依存解析が不明な場合、検証harness・未知のファイル変更は全件へ戻します。
+直前のmain CIが失敗・キャンセルされていても、その未検証の変更を次の検証へ引き継ぎます。
+
+手動の `workflow_dispatch` は全件3回です。ローカル `make verify` も全件・既定3回のままです。
+既存のrequired check名と公開条件を維持し、対象外を成功済みとは表示しません。
+選択理由は `ci-plan`、結果と計測ログは `verification-metrics` artifactに保存します。
+詳細は [変更範囲に応じたCI](docs/development/change-aware-ci.md) を参照してください。
 
 性能調査は`make benchmark`で決定的なmicrobenchmarkを反復実行できます。Library Checkerの
 Fastest収集、compiler option matrix、計測条件と現在のStatic RMQ調査結果は

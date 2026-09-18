@@ -6,25 +6,32 @@ title: Verifyの実行時間
 <p>Library Checkerの公式データとcheckerを使った<strong>ローカル実行</strong>の記録です。
 Yosupoの提出画面に表示される時間ではありません。</p>
 <ul>
-  <li>毎回、キャッシュ済みのACも含めて再コンパイル・再実行します。テストデータのキャッシュは利用します。</li>
-  <li>標準では直列で3回実行し、各回のケース別elapsedの合計の中央値と、最大ケース時間の中央値を表示します。</li>
+  <li>通常のCIは変更の影響を受けるverifyだけを1回実行します。対象はキャッシュ済みのACも再コンパイル・再実行します。テストデータのキャッシュは利用します。</li>
+  <li>手動の全件CIとローカルの標準設定は直列3回です。各回のケース別elapsed合計の中央値と、最大ケース時間の中央値を表示します。1回実行ではその1回の値です。</li>
+  <li>影響範囲外は「今回未実行」と表示し、過去の計測値や成功判定を今回の結果として使いません。</li>
   <li>実行合計にコンパイル・ダウンロード・checker実行は含めません。解答プロセスの起動・I/Oは含みます。</li>
-  <li>基準は保存された直近のmainの成功結果です。PRの結果でmainの基準は上書きしません。</li>
+  <li>基準は保存された直近のmainの全件・3回の成功結果です。部分検証やPRの結果では基準を上書きしません。</li>
   <li>CPU・OS・ツール・コンパイラ・オプション・テストデータ・verifyコード・反復数が異なる場合は比較不可です。</li>
   <li>共有runnerの負荷やCPU周波数の一致は保証できません。小さな差で高速化を断定せず、同じPCで再計測してください。</li>
 </ul>
 {% assign metrics = site.data.verification_metrics %}
 {% if metrics %}
-<p>計測: {{ metrics.generated_at | escape }} /
+<p>レポート生成: {{ metrics.generated_at | escape }} /
   commit <code>{{ metrics.revision | slice: 0, 7 }}</code> /
   比較元 <code>{{ metrics.baseline_revision | slice: 0, 7 | default: 'なし（初回）' }}</code></p>
+{% if metrics.selection %}
+<p>実行対象: {{ metrics.selection.selected_verify.size }} / {{ metrics.selection.all_verify.size }} 件。
+選定方法: {{ metrics.selection.mode | escape }}。{{ metrics.selection.reason | escape }}。
+変更元: <code>{{ metrics.selection.base_sha | default: 'なし（全件検証）' | escape }}</code>。
+対象一覧・変更ファイル・選定理由は下記JSONに記録しています。</p>
+{% endif %}
 <table>
   <thead><tr><th>Verify / 環境番号</th><th>状態</th><th>コンパイル (s)</th><th>実行合計 (s)</th><th>最大ケース (s)</th><th>基準との差</th></tr></thead>
   <tbody>
   {% for row in metrics.results %}
     <tr>
       <td><a href="{{ '/' | append: row.path | append: '.html' | relative_url }}">{{ row.path | escape }}</a> / {{ row.environment_index }}</td>
-      <td>{{ row.status | escape }}</td>
+      <td>{% if row.status == 'not_selected' %}今回未実行{% else %}{{ row.status | escape }}{% endif %}</td>
       <td>{% if row.compile_seconds != nil %}{{ row.compile_seconds | round: 6 }}{% else %}—{% endif %}</td>
       <td>{% if row.solution_seconds != nil %}{{ row.solution_seconds | round: 6 }}{% else %}—{% endif %}</td>
       <td>{% if row.worst_case_seconds != nil %}{{ row.worst_case_seconds | round: 6 }}{% else %}—{% endif %}</td>

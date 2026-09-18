@@ -3,14 +3,18 @@
 <aside class="verification-metrics">
   <h2>このverifyの実行時間</h2>
   {% if timings.size > 0 %}
-  <p>計測: {{ metrics.generated_at | escape }} · commit {{ metrics.revision | slice: 0, 7 }}</p>
+  <p>検証レポート: {{ metrics.generated_at | escape }} · commit {{ metrics.revision | slice: 0, 7 }}</p>
   {% for row in timings %}
+  {% if row.status == 'not_selected' %}
+  <p>今回未実行（変更の影響範囲外）。この実行での計測値・成功判定はありません。</p>
+  {% else %}
   <p>環境 {{ row.environment_index }} / {{ row.status | escape }}<br>
     コンパイル: {% if row.compile_seconds != nil %}{{ row.compile_seconds | round: 6 }} 秒{% else %}—{% endif %} /
     実行合計（中央値）: {% if row.solution_seconds != nil %}{{ row.solution_seconds | round: 6 }} 秒{% else %}—{% endif %} /
     最大ケース（中央値）: {% if row.worst_case_seconds != nil %}{{ row.worst_case_seconds | round: 6 }} 秒{% else %}—{% endif %}<br>
     基準との差: {{ row.comparison | escape }}
   </p>
+  {% endif %}
   {% endfor %}
   {% else %}
   <p>まだ計測結果がありません。計測付きverify実行後に表示されます。</p>

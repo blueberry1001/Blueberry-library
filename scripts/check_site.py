@@ -3,8 +3,11 @@
 import json
 from pathlib import Path
 import re
+import subprocess
 import sys
 from urllib.parse import unquote, urlsplit
+
+from verify_with_metrics import validate_plan_against_repository, validate_publication_report
 
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / ".build/site"
@@ -110,15 +113,17 @@ if "--without-metrics" in sys.argv[1:]:
     sys.exit(0)
 
 metrics = json.loads((SITE / "assets/verification-metrics.json").read_text())
-assert metrics["succeeded"], "Do not publish failed measurements"
 paths = {r["path"] for r in metrics["results"]}
 expected = {p.relative_to(ROOT).as_posix() for p in (ROOT / "verify").rglob("*.test.cpp")}
-assert paths == expected, "Every verify must have a measurement"
+revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+selected = validate_publication_report(metrics, expected, revision)
+if metrics.get("selection") is not None:
+    validate_plan_against_repository(metrics["selection"], ROOT)
 for row in metrics["results"]:
     content = (SITE / f"{row['path']}.html").read_text()
     assert "このverifyの実行時間" in content
     assert metrics["generated_at"] in content, "Missing measured data on verify page"
-    assert row["status"] == "passed"
-    assert len(row["runs"]) == row["repeat_count"]
-    assert row["solution_seconds"] > 0 and row["compile_seconds"] > 0
-print(f"PASS: 4 categories, {len(headers)} API pages, {len(paths)} measured verifies, footer and navigation.")
+    if row["status"] == "not_selected":
+        assert "今回未実行" in content, "Unselected verify must not look measured"
+print(f"PASS: 4 categories, {len(headers)} API pages, {len(selected)} measured verifies, "
+      f"{len(paths) - len(selected)} intentionally unselected, footer and navigation.")
