@@ -27,10 +27,10 @@ uf.rollback(saved);
 
 | 分類 | ライブラリ |
 | --- | --- |
-| Data Structure | Sparse Table / Disjoint Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie, Aggregate Queue / Deque |
-| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration |
-| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence |
-| String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP |
+| Data Structure | Sparse Table / Disjoint Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie, Aggregate Queue / Deque, Persistent Queue, Static Range Distinct, Rectangle Union Area |
+| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest |
+| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers |
+| String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP, Count Subsequences |
 
 標準のDSU・Fenwick Tree・Segment Tree・Z AlgorithmはACLを第一候補とし、既存のBlueberry版は互換用に保持します。
 ドキュメントの検索欄では日本語の用途や `LCA`, `HLD`, `FPS`, `BIT` でも検索できます（`/` で検索へ移動）。

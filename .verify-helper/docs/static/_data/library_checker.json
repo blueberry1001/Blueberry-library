@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "fetched_at": "2026-09-17T06:38:31.326567+00:00",
+  "fetched_at": "2026-09-18T02:28:49.842610+00:00",
   "api_url": "https://v3.api.judge.yosupo.jp/problems",
   "upstream_url": "https://github.com/yosupo06/library-checker-problems",
   "upstream_revision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
@@ -23,10 +23,9 @@
   ],
   "total": 253,
   "counts": {
-    "missing": 171,
+    "missing": 158,
     "driver": 1,
-    "verify": 70,
-    "implemented": 2,
+    "verify": 85,
     "acl": 9
   },
   "statuses": [
@@ -98,10 +97,17 @@
       "title": "Area of Union of Rectangles",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/area_of_union_of_rectangles",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/data-structure/rectangle-union.hpp",
+          "name": "Rectangle Union Area"
+        }
+      ],
+      "verifies": [
+        "verify/data-structure/rectangle-union.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -242,10 +248,17 @@
       "title": "Persistent Queue",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/persistent_queue",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/data-structure/persistent-queue.hpp",
+          "name": "Persistent Queue"
+        }
+      ],
+      "verifies": [
+        "verify/data-structure/persistent-queue.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -368,17 +381,19 @@
       "title": "Point Set Range Composite (Large Array)",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/point_set_range_composite_large_array",
-      "status": "implemented",
-      "label": "実装あり・専用verifyなし",
+      "status": "verify",
+      "label": "実装＋verifyあり",
       "headers": [
         {
           "path": "blueberry/data-structure/ordered-multiset.hpp",
           "name": "Ordered Multiset"
         }
       ],
-      "verifies": [],
+      "verifies": [
+        "verify/data-structure/ordered-multiset-large-composite.test.cpp"
+      ],
       "ignored_verifies": [],
-      "note": "64bit座標をキーに更新済みの関数のみ保存する。更新は同座標をeraseしてinsert、問い合わせはprod(rank(l),rank(r))。未更新点の恒等関数を省略できる。専用verify未追加。",
+      "note": "64bit座標をキーに更新済みの関数のみ保存する。更新は同座標をeraseしてinsert、問い合わせはprod(rank(l),rank(r))。未更新点の恒等関数を省略する専用verifyを追加。",
       "external_url": ""
     },
     {
@@ -412,17 +427,19 @@
       "title": "Predecessor Problem",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/predecessor_problem",
-      "status": "implemented",
-      "label": "実装あり・専用verifyなし",
+      "status": "verify",
+      "label": "実装＋verifyあり",
       "headers": [
         {
           "path": "blueberry/data-structure/ordered-set.hpp",
           "name": "Ordered Set"
         }
       ],
-      "verifies": [],
+      "verifies": [
+        "verify/data-structure/predecessor.test.cpp"
+      ],
       "ignored_verifies": [],
-      "note": "insert/erase/contains/lower_bound/floorで対応可能。専用verify未追加。",
+      "note": "insert/erase/contains/lower_bound/floorを専用verifyで検証。",
       "external_url": ""
     },
     {
@@ -671,10 +688,21 @@
       "title": "Static Range Count Distinct",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/static_range_count_distinct",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/data-structure/static-range-distinct.hpp",
+          "name": "Static Range Distinct"
+        },
+        {
+          "path": "blueberry/data-structure/wavelet-matrix.hpp",
+          "name": "Wavelet Matrix"
+        }
+      ],
+      "verifies": [
+        "verify/data-structure/static-range-distinct.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -860,10 +888,17 @@
       "title": "Assignment Problem",
       "category": "Graph",
       "url": "https://judge.yosupo.jp/problem/assignment",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/assignment.hpp",
+          "name": "Assignment"
+        }
+      ],
+      "verifies": [
+        "verify/graph/assignment.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -965,10 +1000,17 @@
       "title": "Connected Components of Complement Graph",
       "category": "Graph",
       "url": "https://judge.yosupo.jp/problem/connected_components_of_complement_graph",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/complement-components.hpp",
+          "name": "Complement Components"
+        }
+      ],
+      "verifies": [
+        "verify/graph/complement-components.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1004,10 +1046,21 @@
       "title": "Counting Spanning Trees (Directed)",
       "category": "Graph",
       "url": "https://judge.yosupo.jp/problem/counting_spanning_tree_directed",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/count-spanning-trees.hpp",
+          "name": "Count Spanning Trees"
+        },
+        {
+          "path": "blueberry/math/matrix.hpp",
+          "name": "Matrix"
+        }
+      ],
+      "verifies": [
+        "verify/graph/count-directed-spanning-trees.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1017,10 +1070,21 @@
       "title": "Counting Spanning Trees (Undirected)",
       "category": "Graph",
       "url": "https://judge.yosupo.jp/problem/counting_spanning_tree_undirected",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/count-spanning-trees.hpp",
+          "name": "Count Spanning Trees"
+        },
+        {
+          "path": "blueberry/math/matrix.hpp",
+          "name": "Matrix"
+        }
+      ],
+      "verifies": [
+        "verify/graph/count-spanning-trees.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1286,10 +1350,17 @@
       "title": "Minimum Spanning Tree",
       "category": "Graph",
       "url": "https://judge.yosupo.jp/problem/minimum_spanning_tree",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/minimum-spanning-forest.hpp",
+          "name": "Minimum Spanning Forest"
+        }
+      ],
+      "verifies": [
+        "verify/graph/minimum-spanning-forest.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -2546,10 +2617,17 @@
       "title": "Polynomial Taylor Shift",
       "category": "Polynomial",
       "url": "https://judge.yosupo.jp/problem/polynomial_taylor_shift",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/taylor-shift.hpp",
+          "name": "Polynomial Taylor Shift"
+        }
+      ],
+      "verifies": [
+        "verify/math/taylor-shift.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -2592,10 +2670,17 @@
       "title": "Product of Polynomial Sequence",
       "category": "Polynomial",
       "url": "https://judge.yosupo.jp/problem/product_of_polynomial_sequence",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/polynomial-product.hpp",
+          "name": "Polynomial Product"
+        }
+      ],
+      "verifies": [
+        "verify/math/polynomial-product.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -2775,10 +2860,17 @@
       "title": "Montmort Number",
       "category": "Enumerative Combinatorics",
       "url": "https://judge.yosupo.jp/problem/montmort_number_mod",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/montmort.hpp",
+          "name": "Montmort Numbers"
+        }
+      ],
+      "verifies": [
+        "verify/math/montmort.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -2801,10 +2893,17 @@
       "title": "Number of Subsequences ",
       "category": "Enumerative Combinatorics",
       "url": "https://judge.yosupo.jp/problem/number_of_subsequences",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/string/count-subsequences.hpp",
+          "name": "Count Subsequences"
+        }
+      ],
+      "verifies": [
+        "verify/string/count-subsequences.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -2892,10 +2991,17 @@
       "title": "Stirling Number of the Second Kind",
       "category": "Enumerative Combinatorics",
       "url": "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/stirling-second.hpp",
+          "name": "Stirling Numbers Second Kind"
+        }
+      ],
+      "verifies": [
+        "verify/math/stirling-second.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
