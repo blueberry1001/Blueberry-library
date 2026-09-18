@@ -1,6 +1,33 @@
 version: 1
 facets:
+  targets:
+    - id: "array"
+      label: "配列・列（位置で区間を指定）"
+    - id: "tree"
+      label: "木（パス・部分木・祖先）"
+    - id: "grid"
+      label: "二次元配列・平面上の点"
+    - id: "multiset"
+      label: "集合・多重集合（キー順）"
+    - id: "graph"
+      label: "グラフ・連結成分"
+    - id: "lines"
+      label: "直線・線分の集合"
   queries:
+    - id: "boundary-search"
+      label: "条件を満たす最大区間（max_right / min_left）"
+    - id: "first-position"
+      label: "条件を満たす最初の位置"
+    - id: "range-distinct"
+      label: "区間の異なる値の個数"
+    - id: "range-mode"
+      label: "区間の最頻値"
+    - id: "range-inversions"
+      label: "区間の転倒数"
+    - id: "kth-ancestor"
+      label: "k番目の祖先・パス上の頂点"
+    - id: "value-sum"
+      label: "添字区間 × 値域の重みの和"
     -
       id: "range-sum"
       label: "区間の和"
@@ -53,6 +80,14 @@ facets:
       id: "subtree-aggregate"
       label: "部分木の集約"
   updates:
+    - id: "range-assign"
+      label: "区間を同じ値に代入"
+    - id: "range-affine"
+      label: "区間を affine 変換（a*x+b）"
+    - id: "range-chmin"
+      label: "区間を上限で制限（chmin）"
+    - id: "range-chmax"
+      label: "区間を下限で制限（chmax）"
     -
       id: "static"
       label: "値を更新しない"
@@ -99,6 +134,10 @@ facets:
       id: "rollback"
       label: "追加を巻き戻す"
   conditions:
+    - id: "offline-queries"
+      label: "全クエリを先に集められる"
+    - id: "online-queries"
+      label: "クエリを逐次処理したい"
     -
       id: "unregistered"
       label: "座標の事前登録なし"
@@ -126,14 +165,15 @@ facets:
 entries:
   -
     id: "segment-tree-beats"
+    targets: ["array"]
     title: "Segment Tree Beats"
     source: "blueberry"
     headers:
       - "blueberry/data-structure/segment-tree-beats.hpp"
     url: "/blueberry/data-structure/segment-tree-beats.hpp.html"
     queries: ["range-sum", "range-minmax"]
-    updates: ["point-set", "point-add", "range-add", "range-clamp"]
-    conditions: ["unregistered"]
+    updates: ["point-set", "point-add", "range-add", "range-clamp", "range-chmin", "range-chmax"]
+    conditions: ["unregistered", "online-queries"]
     calls:
       - signature: "tree.chmin(l, r, x) / tree.chmax(l, r, x)"
         complexity: "償却 O(log²(N+1))、単発最悪 O(N)"
@@ -145,6 +185,7 @@ entries:
     notes: "1点の加算はadd(p,p+1,x)。chmin/chmaxを含む混合更新列はO((N+Q)log²(N+1))。通常のaffine作用を受け取るAPIではない。"
   -
     id: "binary-trie"
+    targets: ["multiset"]
     title: "Binary Trie"
     source: "blueberry"
     headers:
@@ -152,7 +193,7 @@ entries:
     url: "/blueberry/data-structure/binary-trie.hpp.html"
     queries: ["xor-min", "range-kth", "frequency"]
     updates: ["insert-erase"]
-    conditions: ["unregistered", "duplicates", "sparse-domain"]
+    conditions: ["unregistered", "duplicates", "sparse-domain", "online-queries"]
     calls:
       - signature: "trie.insert(x) / trie.erase(x)"
         complexity: "償却 O(B)"
@@ -162,6 +203,7 @@ entries:
     notes: "xor_min(x)は選ばれたキーではなく最小XOR値を返す。erase(x)は1個削除、kthは重複込み。挿入・削除はpool/free-list再確保時に線形時間となりうる。"
   -
     id: "aggregate-queue"
+    targets: ["array"]
     title: "Aggregate Queue"
     source: "blueberry"
     headers:
@@ -169,7 +211,7 @@ entries:
     url: "/blueberry/data-structure/aggregate-queue.hpp.html"
     queries: ["whole-aggregate"]
     updates: ["queue-edit"]
-    conditions: ["noncommutative"]
+    conditions: ["noncommutative", "online-queries"]
     calls:
       - signature: "queue.push(x) / queue.pop()"
         complexity: "償却 O(1)、単発最悪 O(N)"
@@ -179,6 +221,7 @@ entries:
     notes: "先頭から末尾の順で列全体を集約する。逆元不要、空のprod()はe()。任意の部分区間を直接問い合わせるAPIはない。"
   -
     id: "aggregate-deque"
+    targets: ["array"]
     title: "Aggregate Deque"
     source: "blueberry"
     headers:
@@ -186,7 +229,7 @@ entries:
     url: "/blueberry/data-structure/aggregate-deque.hpp.html"
     queries: ["whole-aggregate"]
     updates: ["queue-edit", "deque-edit"]
-    conditions: ["noncommutative"]
+    conditions: ["noncommutative", "online-queries"]
     calls:
       - signature: "deque.push_front(x) / deque.push_back(x) / deque.pop_front() / deque.pop_back()"
         complexity: "償却 O(1)、単発最悪 O(N)"
@@ -196,6 +239,7 @@ entries:
     notes: "両端の追加削除に対応し、先頭から末尾の順で全体を集約する。空のprod()はe()。任意の部分区間を直接問い合わせるAPIはない。"
   -
     id: "acl-fenwick"
+    targets: ["array"]
     title: "ACL Fenwick Tree"
     source: "acl"
     headers: []
@@ -206,6 +250,7 @@ entries:
       - "point-add"
     conditions:
       - "unregistered"
+      - "online-queries"
     calls:
       -
         signature: "bit.add(p, x)"
@@ -216,6 +261,7 @@ entries:
     prerequisites: "固定長配列。Nは配列長。ACL対応の整数型またはmodintを使う。標準の点加算・区間和はまずACLを検討。"
   -
     id: "acl-segtree"
+    targets: ["array"]
     title: "ACL Segment Tree"
     source: "acl"
     headers: []
@@ -224,21 +270,29 @@ entries:
       - "range-sum"
       - "range-minmax"
       - "aggregate"
+      - "whole-aggregate"
+      - "range-gcd"
     updates:
       - "point-set"
+      - "point-add"
     conditions:
       - "unregistered"
       - "noncommutative"
+      - "online-queries"
     calls:
+      - signature: "seg.all_prod()"
+        complexity: "O(1)"
       -
         signature: "seg.set(p, x)"
         complexity: "O(log N)"
       -
         signature: "seg.prod(l, r)"
         complexity: "O(log N)"
+    notes: "一点加算は seg.set(p, seg.get(p) + x)。構築O(N)、メモリO(N)。空のprodはe()。"
     prerequisites: "固定長N、結合則と単位元を持つモノイド。opとeの演算時間をO(1)とする。非可換演算も左から右へ集約する。"
   -
     id: "acl-lazy-segtree"
+    targets: ["array"]
     title: "ACL Lazy Segment Tree"
     source: "acl"
     headers: []
@@ -250,10 +304,11 @@ entries:
     updates:
       - "point-set"
       - "range-action"
-      - "range-add"
+
     conditions:
       - "unregistered"
       - "noncommutative"
+      - "online-queries"
     calls:
       -
         signature: "seg.apply(l, r, f)"
@@ -261,9 +316,11 @@ entries:
       -
         signature: "seg.prod(l, r)"
         complexity: "O(log N)"
+    notes: "区間加算・代入・affineは専用の候補も参照。任意の集約と任意の作用を自由に組み合わせられるわけではない。構築O(N)、メモリO(N)。"
     prerequisites: "固定長N。モノイドと、集約へ分配できる作用・合成・恒等作用を指定。和への区間加算では長さもSに持たせるなど、作用に合う集約設計が必要。"
   -
     id: "acl-dsu"
+    targets: ["graph"]
     title: "ACL DSU"
     source: "acl"
     headers: []
@@ -274,6 +331,7 @@ entries:
       - "merge"
     conditions:
       - "unregistered"
+      - "online-queries"
     calls:
       -
         signature: "uf.merge(a, b) / uf.same(a, b) / uf.size(a)"
@@ -281,6 +339,7 @@ entries:
     prerequisites: "頂点数Nを指定。辺の追加による連結を管理し、削除・巻き戻しは扱わない。"
   -
     id: "sparse-table"
+    targets: ["array"]
     title: "Sparse Table"
     source: "blueberry"
     headers:
@@ -294,6 +353,7 @@ entries:
     conditions:
       - "unregistered"
       - "noncommutative"
+      - "online-queries"
     calls:
       -
         signature: "table.prod(l, r)"
@@ -301,6 +361,7 @@ entries:
     prerequisites: "N要素の静的配列。結合的かつ冪等な演算（min/max/gcdなど）が必要。一般の和や関数合成には使わない。前処理O(N log N)、空区間は不可。"
   -
     id: "compressed-li-chao"
+    targets: ["lines"]
     title: "Li Chao Tree（座標圧縮）"
     source: "blueberry"
     headers:
@@ -313,6 +374,7 @@ entries:
       - "segment-add"
     conditions:
       - "known-queries"
+      - "online-queries"
     calls:
       -
         signature: "tree.add_line(a, b) / tree.query(x)"
@@ -324,6 +386,7 @@ entries:
     notes: "空の答えはoptional。queryの座標は構築時に登録する。"
   -
     id: "dynamic-li-chao"
+    targets: ["lines"]
     title: "Dynamic Li Chao Tree"
     source: "blueberry"
     headers:
@@ -337,6 +400,7 @@ entries:
     conditions:
       - "unregistered"
       - "sparse-domain"
+      - "online-queries"
     calls:
       -
         signature: "tree.add_line(a, b)"
@@ -351,6 +415,7 @@ entries:
     notes: "query座標の先読み不要。空の答えはoptional。追加時にarena再確保がありうる。"
   -
     id: "wavelet-matrix"
+    targets: ["array"]
     title: "Wavelet Matrix"
     source: "blueberry"
     headers:
@@ -365,6 +430,7 @@ entries:
     conditions:
       - "unregistered"
       - "duplicates"
+      - "online-queries"
     calls:
       -
         signature: "wm.kth_smallest(l, r, k) / wm.count(l, r, x)"
@@ -378,6 +444,7 @@ entries:
     prerequisites: "静的配列。異なる値数σに対しL=max(1,ceil(log₂(max(1,σ))))。構築O(N log(N+1))。値の更新はできない。"
   -
     id: "offline-fenwick-2d"
+    targets: ["grid"]
     title: "Offline Fenwick Tree 2D"
     source: "blueberry"
     headers:
@@ -390,6 +457,7 @@ entries:
     conditions:
       - "known-updates"
       - "sparse-domain"
+      - "online-queries"
     calls:
       -
         signature: "bit.add(x, y, value) / bit.pref(x, y)"
@@ -400,6 +468,7 @@ entries:
     prerequisites: "Nは登録した異なる更新点数。更新する全座標を先に登録。加法可換群を使い、長方形の問い合わせ境界は登録不要。"
   -
     id: "dynamic-fenwick"
+    targets: ["array"]
     title: "Dynamic Fenwick Tree"
     source: "blueberry"
     headers:
@@ -412,6 +481,7 @@ entries:
     conditions:
       - "unregistered"
       - "sparse-domain"
+      - "online-queries"
     calls:
       -
         signature: "bit.add(p, value)"
@@ -422,6 +492,7 @@ entries:
     prerequisites: "巨大な整数領域[0,N)。加法可換群と中間演算が型の範囲に収まること。ハッシュ衝突時の最悪時間は文書参照。"
   -
     id: "dynamic-fenwick-search"
+    targets: ["array"]
     title: "Dynamic Fenwick Tree（累積和探索）"
     source: "blueberry"
     headers:
@@ -434,6 +505,7 @@ entries:
     conditions:
       - "unregistered"
       - "sparse-domain"
+      - "online-queries"
     calls:
       -
         signature: "bit.add(p, value)"
@@ -445,6 +517,7 @@ entries:
     notes: "weight<=0は0、届かなければN。順序のないmodintには使わない。"
   -
     id: "dynamic-fenwick-2d"
+    targets: ["grid"]
     title: "Dynamic Fenwick Tree 2D"
     source: "blueberry"
     headers:
@@ -457,6 +530,7 @@ entries:
     conditions:
       - "unregistered"
       - "sparse-domain"
+      - "online-queries"
     calls:
       -
         signature: "bit.add(x, y, value)"
@@ -468,6 +542,7 @@ entries:
     notes: "未知の更新点を登録なしで追加。ハッシュ最悪計算量・arena再確保は文書参照。"
   -
     id: "ordered-set"
+    targets: ["multiset"]
     title: "Ordered Set"
     source: "blueberry"
     headers:
@@ -480,6 +555,7 @@ entries:
       - "insert-erase"
     conditions:
       - "unregistered"
+      - "online-queries"
     calls:
       -
         signature: "set.insert(x) / set.erase(x)"
@@ -490,6 +566,7 @@ entries:
     prerequisites: "Nは現在のキー数。strict weak orderingを満たす比較。重複キーは1個だけ保持する。乱択treapの期待計算量。"
   -
     id: "ordered-multiset"
+    targets: ["multiset"]
     title: "Ordered Multiset"
     source: "blueberry"
     headers:
@@ -507,6 +584,7 @@ entries:
       - "unregistered"
       - "duplicates"
       - "noncommutative"
+      - "online-queries"
     calls:
       -
         signature: "tree.insert(x) / tree.erase(x)"
@@ -518,6 +596,7 @@ entries:
     notes: "erase(x)は同値キーを1個削除。prod(l,r)は順位の半開区間。"
   -
     id: "implicit-treap"
+    targets: ["array"]
     title: "Implicit Treap"
     source: "blueberry"
     headers:
@@ -532,11 +611,12 @@ entries:
       - "point-set"
       - "reverse"
       - "range-action"
-      - "range-add"
+
     conditions:
       - "unregistered"
       - "duplicates"
       - "noncommutative"
+      - "online-queries"
     calls:
       -
         signature: "tree.insert(p, x) / tree.erase(p) / tree.set(p, x)"
@@ -548,6 +628,7 @@ entries:
     notes: "非可換集約の順序を維持する。lazy作用は順序を反転しても各要素へ同じように作用する必要がある。"
   -
     id: "persistent-segment-tree"
+    targets: ["array"]
     title: "Persistent Segment Tree"
     source: "blueberry"
     headers:
@@ -557,12 +638,14 @@ entries:
       - "range-sum"
       - "range-minmax"
       - "aggregate"
+      - "range-gcd"
     updates:
       - "point-set"
     conditions:
       - "unregistered"
       - "history"
       - "noncommutative"
+      - "online-queries"
     calls:
       -
         signature: "tree.set(version, p, value)"
@@ -574,6 +657,7 @@ entries:
     notes: "過去のどの版からも分岐できる。ノードの追加分だけメモリを使う。"
   -
     id: "rollback-union-find"
+    targets: ["graph"]
     title: "Rollback Union Find"
     source: "blueberry"
     headers:
@@ -587,6 +671,7 @@ entries:
     conditions:
       - "unregistered"
       - "history"
+      - "online-queries"
     calls:
       -
         signature: "uf.merge(u, v)"
@@ -603,6 +688,7 @@ entries:
     prerequisites: "頂点数N、保存中の履歴数H。履歴をstack順に巻き戻す。任意の辺1本だけを削除するAPIではない。"
   -
     id: "potential-union-find"
+    targets: ["graph"]
     title: "Potential Union Find"
     source: "blueberry"
     headers:
@@ -616,6 +702,7 @@ entries:
     conditions:
       - "unregistered"
       - "noncommutative"
+      - "online-queries"
     calls:
       -
         signature: "uf.merge(u, v, w) / uf.diff(u, v) / uf.same(u, v)"
@@ -624,6 +711,7 @@ entries:
     notes: "diffはop(inv(P[v]),P[u])。非連結ならoptionalが空。"
   -
     id: "doubling-lca"
+    targets: ["tree"]
     title: "Lowest Common Ancestor（doubling）"
     source: "blueberry"
     headers:
@@ -631,11 +719,13 @@ entries:
     url: "/blueberry/graph/lowest-common-ancestor.hpp.html"
     queries:
       - "ancestor"
+      - "kth-ancestor"
     updates:
       - "static"
     conditions:
       - "static-tree"
       - "unregistered"
+      - "online-queries"
     calls:
       -
         signature: "lca.lca(u, v) / lca.kth_ancestor(v, k) / lca.distance(u, v)"
@@ -643,6 +733,7 @@ entries:
     prerequisites: "根を指定したN>=1の連結な木。構築O(N log N)。木の形は更新しない。"
   -
     id: "rmq-lca"
+    targets: ["tree"]
     title: "Lowest Common Ancestor（RMQ）"
     source: "blueberry"
     headers:
@@ -655,6 +746,7 @@ entries:
     conditions:
       - "static-tree"
       - "unregistered"
+      - "online-queries"
     calls:
       -
         signature: "lca.lca(u, v) / lca.distance(u, v)"
@@ -662,6 +754,7 @@ entries:
     prerequisites: "LowestCommonAncestorRMQを構築する。N>=1の連結な木、構築O(N log N)。k番目の祖先APIはない。"
   -
     id: "hld-point-update"
+    targets: ["tree"]
     title: "HLD + ACL segtree（点更新）"
     source: "combination"
     headers:
@@ -672,9 +765,11 @@ entries:
       - "subtree-aggregate"
     updates:
       - "point-set"
+      - "point-add"
     conditions:
       - "static-tree"
       - "unregistered"
+      - "online-queries"
     calls:
       -
         signature: "seg.set(hld.in(v), value)"
@@ -685,10 +780,12 @@ entries:
       -
         signature: "hld.subtree_range(v) + seg.prod(l, r)"
         complexity: "O(log N)（部分木）"
+    notes: "一点加算はseg.set(hld.in(v), seg.get(hld.in(v))+x)。HLD構築・メモリO(N)、segtree構築・メモリO(N)。"
     prerequisites: "N>=1の静的な木。HLDは区間へ分解するだけで、値はsegtreeへ保持する。ここでは和/min/maxなど可換な集約を使う。"
     external_url: "https://atcoder.github.io/ac-library/master/document_en/segtree.html"
   -
     id: "hld-range-update"
+    targets: ["tree"]
     title: "HLD + ACL lazy_segtree（パス更新）"
     source: "combination"
     headers:
@@ -699,9 +796,14 @@ entries:
       - "subtree-aggregate"
     updates:
       - "range-action"
+      - "point-set"
+      - "point-add"
+      - "range-add"
+      - "range-assign"
     conditions:
       - "static-tree"
       - "unregistered"
+      - "online-queries"
     calls:
       -
         signature: "hld.vertex_query(u, v, callback) + seg.apply(l, r, f)"
@@ -709,5 +811,188 @@ entries:
       -
         signature: "hld.vertex_query(u, v, callback) + seg.prod(l, r)"
         complexity: "O(log² N)（パス取得）"
+    notes: "和はS={sum,len}で加算・代入、min/maxは空集約を保つ加算・代入作用を用意。部分木更新はsubtree_range(v)の1区間へapplyしO(log N)。HLD・segtree構築とメモリO(N)。"
     prerequisites: "N>=1の静的な木。値・作用は別のACL lazy_segtreeへ保持。可換な集約と、集約に適合したlazy作用を指定。"
     external_url: "https://atcoder.github.io/ac-library/master/document_en/lazysegtree.html"
+  -
+    id: "disjoint-sparse-table"
+    targets: ["array"]
+    title: "Disjoint Sparse Table"
+    source: "blueberry"
+    headers: ["blueberry/data-structure/disjoint-sparse-table.hpp"]
+    url: "/blueberry/data-structure/disjoint-sparse-table.hpp.html"
+    queries: ["range-sum", "range-minmax", "range-gcd", "aggregate"]
+    updates: ["static"]
+    conditions: ["unregistered", "noncommutative", "online-queries"]
+    calls: [{"signature": "table.prod(l, r)", "complexity": "O(1)"}]
+    prerequisites: "N要素の静的配列。結合則のみ必要で、単位元・可換性・冪等性は不要。構築・メモリO(N log(N+1))。"
+    notes: "空区間は不可。Sparse Tableと異なり和や関数合成も扱える。"
+  -
+    id: "static-range-distinct"
+    targets: ["array"]
+    title: "Static Range Distinct"
+    source: "blueberry"
+    headers: ["blueberry/data-structure/static-range-distinct.hpp"]
+    url: "/blueberry/data-structure/static-range-distinct.hpp.html"
+    queries: ["range-distinct"]
+    updates: ["static"]
+    conditions: ["unregistered", "duplicates", "online-queries"]
+    calls: [{"signature": "d.count(l, r)", "complexity": "O(log(N+1))"}]
+    prerequisites: "構築O(N log(N+1))、メモリO(N log(N+1)) bits + O(N) words。比較で同値性を定める。"
+    notes: "空区間は0。値の更新不可。"
+  -
+    id: "static-range-mode"
+    targets: ["array"]
+    title: "Static Range Mode（オフライン）"
+    source: "blueberry"
+    headers: ["blueberry/data-structure/static-range-mode.hpp"]
+    url: "/blueberry/data-structure/static-range-mode.hpp.html"
+    queries: ["range-mode"]
+    updates: ["static"]
+    conditions: ["offline-queries", "duplicates"]
+    calls: [{"signature": "static_range_mode(a, queries)", "complexity": "全Q件で O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1))"}]
+    prerequisites: "N要素と全Q区間を事前に渡す。追加メモリO(N+Q)。逐次queryは不可。"
+    notes: "返すのは{代表添字,頻度}。代表添字は区間外の場合あり。空区間は{-1,0}。"
+  -
+    id: "static-range-inversions"
+    targets: ["array"]
+    title: "Static Range Inversions（オフライン）"
+    source: "blueberry"
+    headers: ["blueberry/data-structure/static-range-inversions.hpp"]
+    url: "/blueberry/data-structure/static-range-inversions.hpp.html"
+    queries: ["range-inversions"]
+    updates: ["static"]
+    conditions: ["offline-queries", "duplicates"]
+    calls: [{"signature": "static_range_inversions(a, queries)", "complexity": "全Q件で O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1) log(N+1))"}]
+    prerequisites: "N要素と全Q区間を事前に渡す。追加メモリO(N+Q)。逐次queryは不可。"
+    notes: "同値は転倒に数えない。空区間は0。"
+  -
+    id: "acl-boundary-search"
+    targets: ["array"]
+    title: "ACL Segment Tree（境界探索）"
+    source: "acl"
+    headers: []
+    url: "https://atcoder.github.io/ac-library/production/document_ja/segtree.html"
+    queries: ["boundary-search"]
+    updates: ["point-add", "point-set"]
+    conditions: ["unregistered", "noncommutative", "online-queries"]
+    calls: [{"signature": "seg.max_right(l, pred) / seg.min_left(r, pred)", "complexity": "O(log(N+1))"}]
+    prerequisites: "モノイド、pred(e())=true。同じ値で同じ結果を返し、区間を伸ばす方向で判定が単調であること。構築O(N)、メモリO(N)。"
+    notes: "max_rightは右端、min_leftは左端。非可換でも集約の左右の順序を保つ。"
+  -
+    id: "acl-first-position"
+    targets: ["array"]
+    title: "ACL Segment Tree（最初の該当位置）"
+    source: "acl"
+    headers: []
+    url: "https://atcoder.github.io/ac-library/production/document_ja/segtree.html"
+    queries: ["first-position", "prefix-search"]
+    updates: ["point-add", "point-set"]
+    conditions: ["unregistered", "online-queries"]
+    calls: [{"signature": "seg.max_right(l, pred)", "complexity": "O(log(N+1))"}]
+    prerequisites: "例: 最大値モノイドでpred(mx)=(mx<x)ならa[p]>=xの最初の位置。pred(e())=trueが必須。構築O(N)、メモリO(N)。"
+    notes: "累積和探索は非負要素と正の閾値kでpred(sum)=(sum<k)。見つからなければN。負数を含む和は不可。"
+  -
+    id: "acl-lazy-boundary-search"
+    targets: ["array"]
+    title: "ACL Lazy Segment Tree（境界探索）"
+    source: "acl"
+    headers: []
+    url: "https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html"
+    queries: ["boundary-search"]
+    updates: ["point-add", "point-set", "range-action"]
+    conditions: ["unregistered", "noncommutative", "online-queries"]
+    calls: [{"signature": "seg.max_right(l, pred) / seg.min_left(r, pred)", "complexity": "O(log(N+1))"}]
+    prerequisites: "モノイド、pred(e())=true。同じ値で同じ結果を返し、区間を伸ばす方向で判定が単調であること。構築O(N)、メモリO(N)。"
+    notes: "max_rightは右端、min_leftは左端。非可換でも集約の左右の順序を保つ。lazy作用は集約へ分配できること。"
+  -
+    id: "acl-lazy-first-position"
+    targets: ["array"]
+    title: "ACL Lazy Segment Tree（最初の該当位置）"
+    source: "acl"
+    headers: []
+    url: "https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html"
+    queries: ["first-position", "prefix-search"]
+    updates: ["point-add", "point-set", "range-add", "range-assign"]
+    conditions: ["unregistered", "online-queries"]
+    calls: [{"signature": "seg.max_right(l, pred)", "complexity": "O(log(N+1))"}]
+    prerequisites: "例: 最大値モノイドでpred(mx)=(mx<x)ならa[p]>=xの最初の位置。pred(e())=trueが必須。構築O(N)、メモリO(N)。"
+    notes: "累積和探索は非負要素と正の閾値kでpred(sum)=(sum<k)。見つからなければN。負数を含む和は不可。更新後も単調性を維持すること。"
+  -
+    id: "acl-lazy-sum"
+    targets: ["array"]
+    title: "ACL Lazy Segment Tree（和・affine更新）"
+    source: "acl"
+    headers: []
+    url: "https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html"
+    queries: ["range-sum", "whole-aggregate"]
+    updates: ["point-set", "point-add", "range-add", "range-assign", "range-affine"]
+    conditions: ["unregistered", "online-queries"]
+    calls: [{"signature": "seg.apply(l, r, F{a,b}) / seg.prod(l, r)", "complexity": "O(log(N+1))"}, {"signature": "seg.all_prod()", "complexity": "O(1)"}]
+    prerequisites: "S={sum,len}、mappingは{a*sum+b*len,len}。Fはx→a*x+b、composition(f,g)=f∘g。構築O(N)、メモリO(N)。"
+    notes: "加算は{1,b}、代入は{0,b}。整数は中間値を含めoverflowを避ける。modintでも利用可。"
+  -
+    id: "acl-lazy-minmax"
+    targets: ["array"]
+    title: "ACL Lazy Segment Tree（最小・最大と加算・代入）"
+    source: "acl"
+    headers: []
+    url: "https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html"
+    queries: ["range-minmax"]
+    updates: ["point-set", "point-add", "range-add", "range-assign"]
+    conditions: ["unregistered", "online-queries"]
+    calls: [{"signature": "seg.apply(l, r, f) / seg.prod(l, r)", "complexity": "O(log(N+1))"}]
+    prerequisites: "min/maxの集約と加算・代入作用を設計する。空区間の単位元を保つフラグなどをSに持つ。構築O(N)、メモリO(N)。"
+    notes: "代入なしの状態と代入する値を区別する。chmin/chmaxと和を併用する場合はBeatsを選ぶ。"
+  -
+    id: "hld-navigation"
+    targets: ["tree"]
+    title: "Heavy-Light Decomposition（祖先・パス上の頂点）"
+    source: "blueberry"
+    headers: ["blueberry/graph/heavy-light-decomposition.hpp"]
+    url: "/blueberry/graph/heavy-light-decomposition.hpp.html"
+    queries: ["ancestor", "kth-ancestor"]
+    updates: ["static"]
+    conditions: ["static-tree", "unregistered", "online-queries"]
+    calls: [{"signature": "hld.lca(u, v) / hld.kth_ancestor(v, k) / hld.jump(u, v, k)", "complexity": "O(log(N+1))"}]
+    prerequisites: "N>=1の連結な木。構築・メモリO(N)。"
+    notes: "jumpはuからvへのパス上のk番目。範囲外は-1。"
+  -
+    id: "sqrt-tree"
+    title: "Sqrt Tree"
+    source: "blueberry"
+    headers: ["blueberry/data-structure/sqrt-tree.hpp"]
+    url: "/blueberry/data-structure/sqrt-tree.hpp.html"
+    targets: ["array"]
+    queries: ["range-sum", "range-minmax", "range-gcd", "aggregate", "whole-aggregate"]
+    updates: ["static"]
+    conditions: ["unregistered", "noncommutative", "online-queries"]
+    calls: [{"signature": "tree.prod(l, r) / tree.all_prod()", "complexity": "O(1)"}]
+    prerequisites: "N要素、モノイド。構築・メモリO(N log log(N+2))、演算・コピーO(1)を仮定。"
+    notes: "空区間はe()。更新なし。DSTより漸近メモリは小さいが、パディングと定数倍も比較する。"
+  -
+    id: "persistent-binary-trie"
+    title: "Persistent Binary Trie"
+    source: "blueberry"
+    headers: ["blueberry/data-structure/persistent-binary-trie.hpp"]
+    url: "/blueberry/data-structure/persistent-binary-trie.hpp.html"
+    targets: ["multiset"]
+    queries: ["xor-min", "range-kth", "frequency"]
+    updates: ["insert-erase"]
+    conditions: ["unregistered", "duplicates", "sparse-domain", "history", "online-queries"]
+    calls: [{"signature": "trie.insert(v, x) / trie.erase(v, x)", "complexity": "償却 O(B)"}, {"signature": "trie.xor_min(v, x) / trie.rank(v, x) / trie.kth(v, k) / trie.count(v, x)", "complexity": "O(B)"}]
+    prerequisites: "符号なしB-bit整数、版0は空集合。Q回の成功更新でメモリO(1+QB)。poolと版数はint範囲。"
+    notes: "任意の版から分岐。eraseは1個削除し、不在なら元の版を返す。xor_minはキーではなくXOR値。"
+  -
+    id: "weighted-wavelet-matrix"
+    title: "Weighted Wavelet Matrix"
+    source: "blueberry"
+    headers: ["blueberry/data-structure/weighted-wavelet-matrix.hpp"]
+    url: "/blueberry/data-structure/weighted-wavelet-matrix.hpp.html"
+    targets: ["array", "grid"]
+    queries: ["range-sum", "value-sum", "rectangle-sum"]
+    updates: ["point-add"]
+    conditions: ["known-updates", "duplicates", "online-queries"]
+    calls: [{"signature": "wm.add(p, delta)", "complexity": "O(log(σ+1) log(N+1))"}, {"signature": "wm.sum(l, r, low, upper)", "complexity": "O(log(σ+1) log(N+1))"}, {"signature": "wm.sum(l, r)", "complexity": "O(log(N+1))"}]
+    prerequisites: "N個の値・座標を固定し、重みだけ更新。σは異なる値数。構築O(N log(N+1))、メモリO(N log(σ+1))。重みは加法可換群。"
+    notes: "配列は添字[l,r)×値域[low,upper)。平面上の点はx順に並べyを値にし、x境界をlower_boundで添字化。将来の更新点も構築時に含める。値そのものの変更・新規座標の追加は不可。"

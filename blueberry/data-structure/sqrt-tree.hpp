@@ -1,0 +1,83 @@
+#pragma once
+#include <array>
+#include <bit>
+#include <cassert>
+#include <cstddef>
+#include <limits>
+#include <vector>
+
+namespace blueberry {
+
+// Static monoid products. Square-root layers preserve left-to-right order.
+template <class S, auto op, auto e>
+class SqrtTree {
+  struct Layer {
+    int bits, child_bits;
+    std::vector<S> prefix, suffix, between;
+  };
+  std::vector<S> values_;
+  std::vector<Layer> layers_;
+  std::array<int, std::numeric_limits<unsigned>::digits> layer_for_bit_{};
+
+ public:
+  SqrtTree() = default;
+  explicit SqrtTree(const std::vector<S>& values) : values_(values) {
+    assert(values.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
+    if (values.size() <= 2) return;
+    const int height = std::bit_width(values.size() - 1);
+    const std::size_t padded = std::size_t{1} << height;
+    std::vector<S> data(values);
+    data.resize(padded, e());
+    for (int bits = height; bits > 1; bits = (bits + 1) / 2) {
+      const int child_bits = (bits + 1) / 2;
+      for (int bit = child_bits; bit < bits; ++bit)
+        layer_for_bit_[bit] = static_cast<int>(layers_.size());
+      layers_.push_back({bits, child_bits, data, data, std::vector<S>(padded, e())});
+      auto& layer = layers_.back();
+      const std::size_t span = std::size_t{1} << bits;
+      const std::size_t block = std::size_t{1} << child_bits;
+      const std::size_t count = span / block;
+      for (std::size_t start = 0; start < padded; start += block) {
+        for (std::size_t i = start + 1; i < start + block; ++i)
+          layer.prefix[i] = op(layer.prefix[i - 1], data[i]);
+        for (std::size_t i = start + block - 1; i > start; --i)
+          layer.suffix[i - 1] = op(data[i - 1], layer.suffix[i]);
+      }
+      // count^2 <= span, so each parent fits in its own span slots.
+      for (std::size_t start = 0; start < padded; start += span)
+        for (std::size_t left = 0; left < count; ++left) {
+          S product = e();
+          for (std::size_t right = left; right < count; ++right) {
+            product = op(product, layer.suffix[start + right * block]);
+            layer.between[start + left * count + right] = product;
+          }
+        }
+    }
+  }
+
+  int size() const { return static_cast<int>(values_.size()); }
+  S get(int p) const {
+    assert(0 <= p && p < size());
+    return values_[p];
+  }
+  S prod(int l, int r) const {
+    assert(0 <= l && l <= r && r <= size());
+    if (l == r) return e();
+    if (r - l == 1) return values_[l];
+    const int bit = std::bit_width(static_cast<unsigned>(l ^ (r - 1))) - 1;
+    if (bit == 0) return op(values_[l], values_[r - 1]);
+    const auto& layer = layers_[layer_for_bit_[bit]];
+    const std::size_t start = (static_cast<std::size_t>(l) >> layer.bits) << layer.bits;
+    const std::size_t left = (l - start) >> layer.child_bits;
+    const std::size_t right = (r - 1 - start) >> layer.child_bits;
+    S product = layer.suffix[l];
+    if (left + 1 < right) {
+      const std::size_t count = std::size_t{1} << (layer.bits - layer.child_bits);
+      product = op(product, layer.between[start + (left + 1) * count + right - 1]);
+    }
+    return op(product, layer.prefix[r - 1]);
+  }
+  S all_prod() const { return prod(0, size()); }
+};
+
+}  // namespace blueberry

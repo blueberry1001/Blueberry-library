@@ -27,7 +27,7 @@ uf.rollback(saved);
 
 | 分類 | ライブラリ |
 | --- | --- |
-| Data Structure | Sparse Table / Disjoint Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie, Aggregate Queue / Deque, Persistent Queue, Static Range Distinct, Rectangle Union Area, Static Range Inversions, Static Range Mode |
+| Data Structure | Sparse Table / Disjoint Sparse Table / Sqrt Tree, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix / Weighted Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie / Persistent Binary Trie, Aggregate Queue / Deque, Persistent Queue, Static Range Distinct, Rectangle Union Area, Static Range Inversions, Static Range Mode |
 | Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest, Rooted Tree Isomorphism, Clique Enumeration, Maximum Independent Set |
 | Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers, Multipoint Evaluation, Polynomial Interpolation, Sample Point Shift |
 | String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP, Count Subsequences, Longest Common Substring |
@@ -35,7 +35,9 @@ uf.rollback(saved);
 標準のDSU・Fenwick Tree・Segment Tree・Z AlgorithmはACLを第一候補とし、既存のBlueberry版は互換用に保持します。
 ドキュメントの検索欄では日本語の用途や `LCA`, `HLD`, `FPS`, `BIT` でも検索できます（`/` で検索へ移動）。
 
-[操作から探す](https://blueberry1001.github.io/Blueberry-library/operations.html)では、知りたい値・更新方法・入力条件を選び、候補のAPI・計算量・前提を比較できます。
+[操作から探す](https://blueberry1001.github.io/Blueberry-library/operations.html)では、配列・木・二次元・集合などの対象から、知りたい値・更新方法・入力条件を絞り込みます。
+更新なしでも動的構造を候補に含め、SegTreeの境界探索・最初の該当位置・区間affine/代入・chmin/chmaxも探せます。
+静的な問い合わせの到着順と、値の更新の有無は別の条件として扱います。
 [Library Checker対応表](https://blueberry1001.github.io/Blueberry-library/library-checker.html)は全公開問題のスナップショットを掲載し、
 実装とverifyあり／専用verifyなし／ACL推奨／未対応を区別します。リポジトリ内の[チェックリスト](docs/library-checker-checklist.md)も同じデータから生成します。
 
@@ -74,6 +76,9 @@ uf.rollback(saved);
 | 異なる回文とその出現数 | [Eertree](docs/string/eertree.md): `add`, `suffix`, `count` |
 | 辞書順の非増加Lyndon分解 | [Lyndon Factorization](docs/string/lyndon-factorization.md): `lyndon_factorization` |
 | 更新のない列の非可換な区間積 | [Disjoint Sparse Table](docs/data-structure/disjoint-sparse-table.md): `prod(l,r)` |
+| 静的モノイド区間積をO(1)で取得 | [Sqrt Tree](docs/data-structure/sqrt-tree.md): `prod(l,r)`、構築O(N log log N) |
+| 過去の集合へ分岐してXOR最小値・順位 | [Persistent Binary Trie](docs/data-structure/persistent-binary-trie.md): `insert(v,x)`, `xor_min(v,x)`, `kth(v,k)` |
+| 固定値列の重みを更新し、添字区間×値域の和 | [Weighted Wavelet Matrix](docs/data-structure/weighted-wavelet-matrix.md): `add(p,w)`, `sum(l,r,low,upper)` |
 | 配列から最小ヒープ順の木を構築 | [Cartesian Tree](docs/graph/cartesian-tree.md): `cartesian_tree` |
 | 有向・無向グラフの閉路復元 | [Cycle Detection](docs/graph/cycle-detection.md): `find_cycle<Directed>` |
 | DAGの処理順と閉路の有無 | [Topological Sort](docs/graph/topological-sort.md): `topological_sort` |
