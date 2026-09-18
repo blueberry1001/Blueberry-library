@@ -27,10 +27,10 @@ uf.rollback(saved);
 
 | 分類 | ライブラリ |
 | --- | --- |
-| Data Structure | Sparse Table / Disjoint Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie, Aggregate Queue / Deque, Persistent Queue, Static Range Distinct, Rectangle Union Area |
-| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest |
-| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers |
-| String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP, Count Subsequences |
+| Data Structure | Sparse Table / Disjoint Sparse Table, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie, Aggregate Queue / Deque, Persistent Queue, Static Range Distinct, Rectangle Union Area, Static Range Inversions, Static Range Mode |
+| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest, Rooted Tree Isomorphism, Clique Enumeration, Maximum Independent Set |
+| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers, Multipoint Evaluation, Polynomial Interpolation, Sample Point Shift |
+| String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP, Count Subsequences, Longest Common Substring |
 
 標準のDSU・Fenwick Tree・Segment Tree・Z AlgorithmはACLを第一候補とし、既存のBlueberry版は互換用に保持します。
 ドキュメントの検索欄では日本語の用途や `LCA`, `HLD`, `FPS`, `BIT` でも検索できます（`/` で検索へ移動）。
@@ -85,6 +85,15 @@ uf.rollback(saved);
 | 累乗の合同式から指数を求める | [Discrete Logarithm](docs/math/discrete-log.md): `discrete_log` |
 | 最長増加部分列の復元 | [LIS](docs/math/longest-increasing-subsequence.md): `longest_increasing_subsequence` |
 | 接頭辞関数・パターンの全出現位置 | [Prefix Function / KMP](docs/string/prefix-function.md): `prefix_function`, `kmp_search` |
+| 静的配列の区間転倒数 | [Static Range Inversions](docs/data-structure/static-range-inversions.md): `static_range_inversions` |
+| 静的配列の区間最頻値 | [Static Range Mode](docs/data-structure/static-range-mode.md): `static_range_mode` |
+| 根付き部分木の同型分類 | [Rooted Tree Isomorphism](docs/graph/rooted-tree-isomorphism.md): `rooted_tree_isomorphism` |
+| すべての非空クリーク | [Clique Enumeration](docs/graph/clique-enumeration.md): `enumerate_cliques` |
+| 40頂点以下の最大独立集合 | [Maximum Independent Set](docs/graph/maximum-independent-set.md): `maximum_independent_set` |
+| 多項式の多点評価 | [Multipoint Evaluation](docs/math/multipoint-evaluation.md): `multipoint_evaluation` |
+| 点の値から多項式を復元 | [Polynomial Interpolation](docs/math/polynomial-interpolation.md): `polynomial_interpolation` |
+| 連続する標本点のシフト | [Sample Point Shift](docs/math/sample-point-shift.md): `sample_point_shift` |
+| 2文字列の最長共通部分文字列 | [Longest Common Substring](docs/string/longest-common-substring.md): `longest_common_substring` |
 | SCC・2-SAT・最大流・最小費用流・畳み込み・suffix array | ACL: [公式リファレンス](https://atcoder.github.io/ac-library/production/document_ja/) |
 
 ## サポート範囲
