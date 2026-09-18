@@ -34,6 +34,23 @@
       conditions: card.dataset.conditions.split(" "),
       searchText: card.textContent + " " + (card.dataset.keywords || "")
     }));
+    const dependent = ["queries", "updates", "conditions"];
+    const originalOptions = Object.fromEntries(dependent.map(name => [name, Array.from(controls[name].options)]));
+    let notice = "";
+    function refreshOptions() {
+      let cleared = false;
+      for (const name of dependent) {
+        const selected = controls[name].value;
+        const options = originalOptions[name].filter(option => !option.value || !controls.targets.value ||
+          entries.some(entry => matches(entry, {targets: controls.targets.value, [name]: option.value})));
+        // Detach unavailable options instead of relying on hidden <option>,
+        // which native select popups do not consistently respect.
+        controls[name].replaceChildren(...options);
+        controls[name].value = options.some(option => option.value === selected) ? selected : "";
+        cleared ||= Boolean(selected && !controls[name].value);
+      }
+      notice = cleared ? "。対象外の条件を解除しました" : "";
+    }
     function apply() {
       const filters = Object.fromEntries(Object.entries(controls).map(([name, control]) => [name, control.value]));
       let count = 0;
@@ -46,17 +63,20 @@
       const priority = index => filters.updates === "static" && entries[index].updates.includes("static") ? 0 : 1;
       cards.map((_, index) => index).sort((a, b) => priority(a) - priority(b) || a - b)
         .forEach(index => root.querySelector(".operation-results").appendChild(cards[index]));
-      root.querySelector("[data-operation-count]").textContent = count + " / " + cards.length + " 候補";
+      root.querySelector("[data-operation-count]").textContent = count + " / " + cards.length + " 候補" + notice;
       root.querySelector("[data-operation-empty]").hidden = count !== 0;
     }
-    for (const name of dimensions) controls[name].addEventListener("change", apply);
-    controls.search.addEventListener("input", apply);
+    controls.targets.addEventListener("change", () => { refreshOptions(); apply(); });
+    for (const name of dependent) controls[name].addEventListener("change", () => { notice = ""; apply(); });
+    controls.search.addEventListener("input", () => { notice = ""; apply(); });
     root.querySelector("[data-operation-reset]").addEventListener("click", () => {
       Object.values(controls).forEach(control => { control.value = ""; });
+      refreshOptions();
       apply();
       controls.targets.focus();
     });
     root.querySelector("[data-operation-controls]").hidden = false;
+    refreshOptions();
     apply();
   }
 

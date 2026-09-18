@@ -180,7 +180,8 @@ console.log(JSON.stringify(entries.filter(entry => matches(entry, {queries:'aggr
         script = """
 const { setupFinder } = require('./.verify-helper/docs/static/assets/js/operations.js');
 function control(value='') {
-  return {value, handlers:{}, addEventListener(type, f){this.handlers[type]=f;},
+  return {value, options:[{value:''}], replaceChildren(...options){this.options=options;},
+    handlers:{}, addEventListener(type, f){this.handlers[type]=f;},
     focus(){this.focused=true;}};
 }
 const controls = {targets:control(), queries:control(), updates:control(), conditions:control(), search:control()};
@@ -210,6 +211,55 @@ console.log(JSON.stringify({unmatched, prioritized, originalOrder:order[0]===car
         self.assertEqual(self.run_node(script), {
             "unmatched": True, "prioritized": True, "originalOrder": True, "visible": 2, "reset": True, "focus": True,
             "emptyHidden": True, "enhanced": True})
+
+    def test_target_changes_remove_irrelevant_options_and_clear_stale_choices(self):
+        script = """
+const fs = require('node:fs');
+const {setupFinder} = require('./.verify-helper/docs/static/assets/js/operations.js');
+const data = JSON.parse(fs.readFileSync(0,'utf8'));
+function control(options=[]) {
+  return {value:'', options:options.map(value=>({value})), handlers:{},
+    replaceChildren(...options){this.options=options;this.value=options[0]?.value||'';},
+    addEventListener(type,fn){this.handlers[type]=fn;}, focus(){}};
+}
+const controls={search:control()};
+for(const [key,options] of Object.entries(data.facets)) controls[key]=control(['',...options.map(o=>o.id)]);
+const cards=data.entries.map(e=>({dataset:{targets:e.targets.join(' '),queries:e.queries.join(' '),
+  updates:e.updates.join(' '),conditions:e.conditions.join(' ')},textContent:e.title}));
+const status={textContent:''},reset=control();
+const nodes={'.operation-results':{appendChild(){}},'[data-operation-count]':status,
+  '[data-operation-reset]':reset,'[data-operation-controls]':{},'[data-operation-empty]':{}};
+for(const [key,c] of Object.entries(controls)) nodes['[data-operation-filter="'+key+'"]']=c;
+setupFinder({querySelector:s=>nodes[s],querySelectorAll:()=>cards});
+const values=key=>controls[key].options.map(o=>o.value);
+const chooseTarget=value=>{controls.targets.value=value;controls.targets.handlers.change();};
+chooseTarget('tree');
+const tree=values('queries');
+controls.queries.value='kth-ancestor';controls.updates.value='static';controls.conditions.value='static-tree';
+chooseTarget('array');
+const array={queries:values('queries'),updates:values('updates'),conditions:values('conditions'),
+  selected:[controls.queries.value,controls.updates.value,controls.conditions.value],notice:status.textContent};
+chooseTarget('grid');
+const grid={queries:values('queries'),updates:values('updates'),conditions:values('conditions')};
+chooseTarget('multiset');
+const multiset={queries:values('queries'),updates:values('updates')};
+reset.handlers.click();
+console.log(JSON.stringify({tree,array,grid,multiset,restored:values('queries').length===data.facets.queries.length+1}));
+"""
+        result = self.run_node(script, self.data)
+        self.assertIn("kth-ancestor", result["tree"])
+        self.assertNotIn("kth-ancestor", result["array"]["queries"])
+        self.assertNotIn("merge", result["array"]["updates"])
+        self.assertNotIn("static-tree", result["array"]["conditions"])
+        self.assertEqual(result["array"]["selected"], ["", "static", ""])
+        self.assertIn("対象外の条件を解除", result["array"]["notice"])
+        self.assertIn("rectangle-sum", result["grid"]["queries"])
+        self.assertNotIn("ancestor", result["grid"]["queries"])
+        self.assertIn("static", result["grid"]["updates"])
+        self.assertIn("offline-queries", result["grid"]["conditions"])
+        self.assertIn("xor-min", result["multiset"]["queries"])
+        self.assertIn("insert-erase", result["multiset"]["updates"])
+        self.assertTrue(result["restored"])
 
     def test_progressive_enhancement_and_accessibility_markup(self):
         page = (STATIC / "operations.md").read_text(encoding="utf-8")
