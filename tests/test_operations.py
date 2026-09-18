@@ -37,7 +37,7 @@ class OperationFinderTest(unittest.TestCase):
                 for call in entry["calls"]:
                     self.assertTrue(call["signature"])
                     self.assertIn("O(", call["complexity"])
-                for facet in ("queries", "updates", "conditions"):
+                for facet in ("targets", "queries", "updates", "conditions"):
                     allowed = {item["id"] for item in self.data["facets"][facet]}
                     self.assertTrue(entry[facet])
                     self.assertEqual(len(entry[facet]), len(set(entry[facet])))
@@ -88,7 +88,7 @@ console.log(JSON.stringify(input.states.map(state =>
         self.assertEqual(len(result[0]), len(self.entries))
         self.assertEqual(result[1], ["dynamic-li-chao"])
         self.assertEqual(result[2], ["compressed-li-chao"])
-        self.assertEqual(result[3], ["offline-fenwick-2d"])
+        self.assertEqual(result[3], ["offline-fenwick-2d", "weighted-wavelet-matrix"])
         self.assertEqual(result[4], [])
         self.assertIn("persistent-segment-tree", result[5])
         self.assertEqual(result[6], ["acl-fenwick"])
@@ -105,6 +105,41 @@ console.log(JSON.stringify([
 ]));
 """
         self.assertEqual(self.run_node(script), [False, False, True, True])
+
+    def test_workload_capabilities_and_target_separation(self):
+        states = [
+            {"targets": "array", "queries": "range-sum", "updates": "static"},
+            {"targets": "array", "queries": "range-kth"},
+            {"targets": "multiset", "queries": "range-kth"},
+            {"targets": "grid", "queries": "rectangle-sum", "updates": "static"},
+            {"targets": "array", "queries": "aggregate", "updates": "point-set"},
+            {"queries": "boundary-search", "updates": "point-set"},
+            {"queries": "range-sum", "updates": "range-affine"},
+            {"queries": "range-mode", "conditions": "online-queries"},
+            {"queries": "range-sum", "conditions": "offline-queries"},
+            {"targets": "tree", "queries": "path-aggregate", "updates": "static"},
+        ]
+        result = self.run_node("""
+const fs = require('node:fs');
+const { matches } = require('./.verify-helper/docs/static/assets/js/operations.js');
+const {entries, states} = JSON.parse(fs.readFileSync(0, 'utf8'));
+console.log(JSON.stringify(states.map(s => entries.filter(e => matches(e,s)).map(e=>e.id))));
+""", {"entries": self.entries, "states": states})
+        self.assertTrue({"acl-fenwick", "acl-segtree", "disjoint-sparse-table", "sqrt-tree"} <= set(result[0]))
+        self.assertNotIn("ordered-multiset", result[0])
+        self.assertIn("wavelet-matrix", result[1])
+        self.assertNotIn("binary-trie", result[1])
+        self.assertIn("binary-trie", result[2])
+        self.assertNotIn("wavelet-matrix", result[2])
+        self.assertTrue({"offline-fenwick-2d", "dynamic-fenwick-2d", "weighted-wavelet-matrix"} <= set(result[3]))
+        self.assertNotIn("disjoint-sparse-table", result[4])
+        self.assertNotIn("sqrt-tree", result[4])
+        self.assertTrue({"acl-boundary-search", "acl-lazy-boundary-search"} <= set(result[5]))
+        self.assertIn("acl-lazy-sum", result[6])
+        self.assertNotIn("segment-tree-beats", result[6])
+        self.assertEqual(result[7], [])
+        self.assertIn("acl-segtree", result[8])
+        self.assertIn("hld-point-update", result[9])
 
     def test_specialized_structures_match_only_supported_operations(self):
         states = [
@@ -124,7 +159,7 @@ console.log(JSON.stringify(input.states.map(state =>
 """
         result = self.run_node(script, {"entries": self.entries, "states": states})
         self.assertEqual(result[0], ["segment-tree-beats"])
-        self.assertEqual(result[1], ["binary-trie"])
+        self.assertIn("binary-trie", result[1])
         self.assertEqual(result[2], ["aggregate-queue", "aggregate-deque"])
         self.assertEqual(result[3], ["aggregate-deque"])
         self.assertEqual(result[4], [])  # Whole-fold APIs do not provide range prod(l,r).
@@ -148,27 +183,32 @@ function control(value='') {
   return {value, handlers:{}, addEventListener(type, f){this.handlers[type]=f;},
     focus(){this.focused=true;}};
 }
-const controls = {queries:control(), updates:control(), conditions:control(), search:control()};
+const controls = {targets:control(), queries:control(), updates:control(), conditions:control(), search:control()};
 const reset = control(), panel={hidden:true}, status={textContent:''}, empty={hidden:true};
 const cards = [
  {dataset:{queries:'sum', updates:'add', conditions:'online'}, textContent:'A', hidden:false},
- {dataset:{queries:'min', updates:'set', conditions:'static'}, textContent:'B', hidden:false}
+ {dataset:{queries:'min', updates:'static', conditions:'static'}, textContent:'B', hidden:false}
 ];
-const nodes = {'[data-operation-controls]':panel, '[data-operation-reset]':reset,
+const order=[];
+const container={appendChild(card){const i=order.indexOf(card); if(i>=0)order.splice(i,1); order.push(card);}};
+const nodes = {'.operation-results':container, '[data-operation-controls]':panel, '[data-operation-reset]':reset,
  '[data-operation-count]':status, '[data-operation-empty]':empty};
 for (const name of Object.keys(controls)) nodes['[data-operation-filter="'+name+'"]'] = controls[name];
 const root={querySelector:s=>nodes[s],querySelectorAll:()=>cards};
 setupFinder(root);
+controls.updates.value='static';
+controls.updates.handlers.change();
+const prioritized=order[0]===cards[1] && cards.every(card=>!card.hidden);
 controls.queries.value='missing';
 controls.queries.handlers.change();
 const unmatched=empty.hidden===false && cards.every(card=>card.hidden);
 reset.handlers.click();
-console.log(JSON.stringify({unmatched, visible:cards.filter(card=>!card.hidden).length,
+console.log(JSON.stringify({unmatched, prioritized, originalOrder:order[0]===cards[0], visible:cards.filter(card=>!card.hidden).length,
  reset:controls.queries.value==='' && controls.updates.value==='' && controls.conditions.value==='',
- focus:controls.queries.focused, emptyHidden:empty.hidden, enhanced:!panel.hidden}));
+ focus:controls.targets.focused, emptyHidden:empty.hidden, enhanced:!panel.hidden}));
 """
         self.assertEqual(self.run_node(script), {
-            "unmatched": True, "visible": 2, "reset": True, "focus": True,
+            "unmatched": True, "prioritized": True, "originalOrder": True, "visible": 2, "reset": True, "focus": True,
             "emptyHidden": True, "enhanced": True})
 
     def test_progressive_enhancement_and_accessibility_markup(self):
@@ -181,7 +221,7 @@ console.log(JSON.stringify({unmatched, visible:cards.filter(card=>!card.hidden).
         self.assertIn("entry.prerequisites", page)
         self.assertIn("call.complexity", page)
         self.assertNotRegex(page, r"data-operation-entry[^>]*\bhidden\b")
-        for facet in ("queries", "updates", "conditions", "search"):
+        for facet in ("targets", "queries", "updates", "conditions", "search"):
             self.assertIn(f'for="operation-{facet}"', page)
             self.assertIn(f'id="operation-{facet}"', page)
 

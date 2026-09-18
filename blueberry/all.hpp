@@ -1,4 +1,7 @@
 #pragma once
+#include "blueberry/data-structure/sqrt-tree.hpp"
+#include "blueberry/data-structure/persistent-binary-trie.hpp"
+#include "blueberry/data-structure/weighted-wavelet-matrix.hpp"
 
 #include "blueberry/data-structure/persistent-queue.hpp"
 #include "blueberry/data-structure/static-range-distinct.hpp"

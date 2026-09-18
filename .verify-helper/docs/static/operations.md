@@ -9,16 +9,25 @@ title: 操作から探す
 <div class="operation-finder" data-operation-finder>
   <div class="operation-intro">
     <p class="operation-eyebrow">操作から探す</p>
-    <h1>何を求めて、どう更新する？</h1>
-    <p>知りたい値と更新方法を選ぶと、使えるデータ構造が絞り込めます。前提が合う候補から、関数と計算量を確認してください。</p>
+    <h1>どのデータに、何をしたい？</h1>
+    <p>まず配列・木・二次元などの対象を選び、知りたい値と更新方法で絞り込みます。候補の前提・構築コスト・操作の計算量を比べて選んでください。</p>
     <p class="operation-caption">データ構造と木の操作を中心に掲載しています。<a href="{{ '/' | relative_url }}#library-catalog">全ライブラリ一覧</a>も利用できます。</p>
   </div>
 
   <fieldset class="operation-controls" data-operation-controls hidden>
     <legend>目的に合う候補を絞り込む</legend>
     <div class="operation-fields">
+      <div class="operation-target">
+        <label for="operation-targets">1. 対象のデータ</label>
+        <select id="operation-targets" data-operation-filter="targets" aria-describedby="operation-filter-help">
+          <option value="">すべての対象</option>
+          {% for option in site.data.operations.facets.targets %}
+          <option value="{{ option.id | escape }}">{{ option.label | escape }}</option>
+          {% endfor %}
+        </select>
+      </div>
       <div>
-        <label for="operation-queries">知りたい値</label>
+        <label for="operation-queries">2. 知りたい値・探索</label>
         <select id="operation-queries" data-operation-filter="queries" aria-describedby="operation-filter-help">
           <option value="">すべて</option>
           {% for option in site.data.operations.facets.queries %}
@@ -27,7 +36,7 @@ title: 操作から探す
         </select>
       </div>
       <div>
-        <label for="operation-updates">更新方法</label>
+        <label for="operation-updates">3. 必要な更新</label>
         <select id="operation-updates" data-operation-filter="updates" aria-describedby="operation-filter-help">
           <option value="">すべて</option>
           {% for option in site.data.operations.facets.updates %}
@@ -50,7 +59,7 @@ title: 操作から探す
       </div>
       <button class="operation-reset" data-operation-reset type="button">条件をすべて解除</button>
     </div>
-    <p id="operation-filter-help" class="operation-caption">選んだ項目をすべて満たす候補を表示します。複数の検索語も AND 条件です。</p>
+    <p id="operation-filter-help" class="operation-caption">選んだ項目をすべて満たす候補を表示します。検索語も AND 条件です。「値を更新しない」では静的専用を先に、動的構造も候補に表示します。速さの順位ではないため、構築・メモリ・クエリのコストを比較してください。「全クエリを先に集められる」には逐次処理できる構造も含みます。</p>
   </fieldset>
 
   <noscript><p class="operation-notice">JavaScriptが無効のため全候補を表示しています。各候補の文書リンクから使い方を確認できます。</p></noscript>
@@ -68,12 +77,14 @@ title: 操作から探す
 
   <div class="operation-results">
     {% for entry in site.data.operations.entries %}
-    <article class="operation-card" data-operation-entry data-queries="{{ entry.queries | join: ' ' | escape }}" data-updates="{{ entry.updates | join: ' ' | escape }}" data-conditions="{{ entry.conditions | join: ' ' | escape }}" data-keywords="{{ entry.headers | join: ' ' | escape }}">
+    <article class="operation-card" data-operation-entry data-targets="{{ entry.targets | join: ' ' | escape }}" data-queries="{{ entry.queries | join: ' ' | escape }}" data-updates="{{ entry.updates | join: ' ' | escape }}" data-conditions="{{ entry.conditions | join: ' ' | escape }}" data-keywords="{{ entry.headers | join: ' ' | escape }}">
       <div class="operation-card-heading">
         <span class="operation-source operation-source--{{ entry.source | escape }}">{% if entry.source == 'acl' %}ACL · 外部{% elsif entry.source == 'combination' %}Blueberry + ACL{% else %}Blueberry{% endif %}</span>
+        <span class="operation-caption">{% if entry.updates contains 'static' %}静的専用{% else %}更新対応 · 静的にも使用可{% endif %}</span>
         <h3><a href="{% if entry.source == 'acl' %}{{ entry.url | escape }}{% else %}{{ entry.url | relative_url }}{% endif %}">{{ entry.title | escape }}</a></h3>
       </div>
       <dl class="operation-summary">
+        <div><dt>対象</dt><dd>{% for option in site.data.operations.facets.targets %}{% if entry.targets contains option.id %}<span>{{ option.label | escape }}</span>{% endif %}{% endfor %}</dd></div>
         <div><dt>知りたい値</dt><dd>{% for option in site.data.operations.facets.queries %}{% if entry.queries contains option.id %}<span>{{ option.label | escape }}</span>{% endif %}{% endfor %}</dd></div>
         <div><dt>更新方法</dt><dd>{% for option in site.data.operations.facets.updates %}{% if entry.updates contains option.id %}<span>{{ option.label | escape }}</span>{% endif %}{% endfor %}</dd></div>
         <div><dt>条件・性質</dt><dd>{% for option in site.data.operations.facets.conditions %}{% if entry.conditions contains option.id %}<span>{{ option.label | escape }}</span>{% endif %}{% endfor %}</dd></div>

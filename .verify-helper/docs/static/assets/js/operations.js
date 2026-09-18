@@ -2,10 +2,16 @@
 
 (function () {
   const normalize = (text) => String(text || "").normalize("NFKC").toLowerCase();
-  const dimensions = ["queries", "updates", "conditions"];
+  const dimensions = ["targets", "queries", "updates", "conditions"];
 
   function matches(entry, filters = {}) {
-    if (!dimensions.every(name => !filters[name] || entry[name].includes(filters[name]))) return false;
+    // No updates is a requirement on the workload, not a restriction on the
+    // structure's capabilities. Build/load a dynamic structure once and query it.
+    if (!dimensions.every(name => !filters[name] ||
+      (name === "updates" && filters[name] === "static") ||
+      (name === "conditions" && filters[name] === "offline-queries" &&
+        (entry.conditions || []).includes("online-queries")) ||
+      (entry[name] || []).includes(filters[name]))) return false;
     const searchText = entry.searchText === undefined
       ? [entry.title, entry.prerequisites, entry.notes,
           ...(entry.headers || []),
@@ -22,6 +28,7 @@
     );
     const cards = Array.from(root.querySelectorAll("[data-operation-entry]"));
     const entries = cards.map(card => ({
+      targets: (card.dataset.targets || "").split(" "),
       queries: card.dataset.queries.split(" "),
       updates: card.dataset.updates.split(" "),
       conditions: card.dataset.conditions.split(" "),
@@ -34,6 +41,11 @@
         card.hidden = !matches(entries[index], filters);
         if (!card.hidden) ++count;
       });
+      // Move actual DOM nodes so visual and keyboard order stay the same.
+      // This is a workload-specific preference, not a universal speed ranking.
+      const priority = index => filters.updates === "static" && entries[index].updates.includes("static") ? 0 : 1;
+      cards.map((_, index) => index).sort((a, b) => priority(a) - priority(b) || a - b)
+        .forEach(index => root.querySelector(".operation-results").appendChild(cards[index]));
       root.querySelector("[data-operation-count]").textContent = count + " / " + cards.length + " 候補";
       root.querySelector("[data-operation-empty]").hidden = count !== 0;
     }
@@ -42,7 +54,7 @@
     root.querySelector("[data-operation-reset]").addEventListener("click", () => {
       Object.values(controls).forEach(control => { control.value = ""; });
       apply();
-      controls.queries.focus();
+      controls.targets.focus();
     });
     root.querySelector("[data-operation-controls]").hidden = false;
     apply();

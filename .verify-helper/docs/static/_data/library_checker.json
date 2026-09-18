@@ -334,13 +334,22 @@
           "name": "Dynamic Fenwick Tree 2D"
         },
         {
+          "path": "blueberry/data-structure/fenwick-tree.hpp",
+          "name": "Fenwick Tree"
+        },
+        {
           "path": "blueberry/data-structure/offline-fenwick-tree-2d.hpp",
           "name": "Offline Fenwick Tree 2D"
+        },
+        {
+          "path": "blueberry/data-structure/weighted-wavelet-matrix.hpp",
+          "name": "Weighted Wavelet Matrix"
         }
       ],
       "verifies": [
         "verify/data-structure/dynamic-point-add-rectangle-sum.test.cpp",
-        "verify/data-structure/point-add-rectangle-sum.test.cpp"
+        "verify/data-structure/point-add-rectangle-sum.test.cpp",
+        "verify/data-structure/weighted-wavelet-matrix.test.cpp"
       ],
       "ignored_verifies": [],
       "note": "",
@@ -674,10 +683,15 @@
         {
           "path": "blueberry/data-structure/binary-trie.hpp",
           "name": "Binary Trie"
+        },
+        {
+          "path": "blueberry/data-structure/persistent-binary-trie.hpp",
+          "name": "Persistent Binary Trie"
         }
       ],
       "verifies": [
-        "verify/data-structure/binary-trie.test.cpp"
+        "verify/data-structure/binary-trie.test.cpp",
+        "verify/data-structure/persistent-binary-trie.test.cpp"
       ],
       "ignored_verifies": [],
       "note": "",
@@ -795,10 +809,15 @@
         {
           "path": "blueberry/data-structure/fenwick-tree.hpp",
           "name": "Fenwick Tree"
+        },
+        {
+          "path": "blueberry/data-structure/sqrt-tree.hpp",
+          "name": "Sqrt Tree"
         }
       ],
       "verifies": [
-        "verify/data-structure/disjoint-sparse-table.test.cpp"
+        "verify/data-structure/disjoint-sparse-table.test.cpp",
+        "verify/data-structure/sqrt-tree.test.cpp"
       ],
       "ignored_verifies": [],
       "note": "Disjoint Sparse Tableの非冪等な区間積を専用verifyで検証。静的な和だけなら通常の累積和でもO(N)構築・O(1)問い合わせにできる。",
@@ -828,9 +847,14 @@
         {
           "path": "blueberry/data-structure/sparse-table.hpp",
           "name": "Sparse Table"
+        },
+        {
+          "path": "blueberry/data-structure/sqrt-tree.hpp",
+          "name": "Sqrt Tree"
         }
       ],
       "verifies": [
+        "verify/data-structure/sqrt-tree-rmq.test.cpp",
         "verify/data-structure/static-rmq.test.cpp"
       ],
       "ignored_verifies": [],
