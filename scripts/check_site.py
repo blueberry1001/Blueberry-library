@@ -90,9 +90,9 @@ for header in headers:
     for link in re.findall(r'href="([^"]+)"', relations[1]):
         assert link.startswith('/Blueberry-library/') and link.endswith('.html'), (header, link)
         assert (SITE / link.removeprefix('/Blueberry-library/')).exists(), (header, link, "broken dependency/verify link")
-    operations = re.findall(r'<details\b[^>]*class="api-operation"[^>]*>(.*?)</details>', content, re.S)
-    assert operations, (header, "missing expandable API docs")
-    for body in operations:
+    api_operations = re.findall(r'<details\b[^>]*class="api-operation"[^>]*>(.*?)</details>', content, re.S)
+    assert api_operations, (header, "missing expandable API docs")
+    for body in api_operations:
         assert "<summary>" in body and "注意点:" in body, header
         assert "<pre" in body and "<code" in body, (header, "Markdown inside details was not rendered")
         assert "```cpp" not in body, header
@@ -107,6 +107,26 @@ for source in (ROOT / "verify").rglob("*.test.cpp"):
         assert match, (header, path, "missing related verify")
         assert '<code' in match[1] and 'PROBLEM' in match[1], (header, path, "empty source")
         assert f'/Blueberry-library/{path}.html' in match[1], (header, "missing verify link")
+
+# Comparison help must be reachable both from recommendations and each API page.
+import yaml
+comparisons = yaml.safe_load((ROOT / ".verify-helper/docs/static/_data/comparisons.yml").read_text())
+assert 'id="comparison-guide"' in operations
+for family in comparisons:
+    identifier = f'comparison-{family["id"]}'
+    assert operations.count(f'id="{identifier}"') == 1, identifier
+    assert f'href="#{identifier}"' in operations, (identifier, "no recommendation links")
+    for header in family["headers"]:
+        assert f'id="{identifier}"' in (SITE / f"{header}.html").read_text(), header
+assert "__BASEURL__" not in operations
+assert "U√N + Q" in operations and "速度の分岐点ではありません" in operations
+gap_page = (SITE / "verification-gaps.html").read_text()
+evidence = json.loads((ROOT / ".verify-helper/docs/static/_data/library_verification.json").read_text())
+assert {row["path"] for row in evidence["libraries"]} == set(headers)
+for row in evidence["libraries"]:
+    assert f'/{row["path"]}.html' in gap_page, row["path"]
+assert "all.hpp" not in " ".join(driver["path"] for row in evidence["libraries"] for driver in row["direct"])
+assert "主機能の一部に公式verifyなし" in gap_page
 
 if "--without-metrics" in sys.argv[1:]:
     print(f"PASS: 4 categories, {len(headers)} API pages, footer and navigation (before verification).")

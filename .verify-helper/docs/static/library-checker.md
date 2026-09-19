@@ -8,6 +8,7 @@ title: Library Checker 対応表
 
 {% assign coverage = site.data.library_checker %}
 <h1>Library Checker 全問題の対応表</h1>
+<p>ライブラリ単位で検証対象を探す場合は<a href="{{ '/verification-gaps.html' | relative_url }}">verify不足・調査状況の一覧</a>へ。</p>
 <p>公開中の全 <strong>{{ coverage.total }} 問題</strong>を起点に、使える実装と次に追加する機能を探せます。<a href="{{ '/operations.html' | relative_url }}">したい操作から探す</a>こともできます。</p>
 <p>取得日時: <time>{{ coverage.fetched_at | escape }}</time> · <a href="{{ coverage.api_url | escape }}">公式公開問題一覧</a> · <a href="{{ coverage.upstream_url | escape }}/blob/{{ coverage.upstream_revision | escape }}/categories.toml">カテゴリの固定リビジョン</a></p>
 <p><strong>「verifyあり」は検証コードの存在を表し、ACの保証ではありません。</strong>実行結果と測定条件は各verifyのリンク先と<a href="{{ '/benchmarks.html' | relative_url }}">検証結果一覧</a>で確認してください。専用verifyなしの項目は、対応するAPIと使い方を個別に確認したものです。ACLは外部ライブラリとして区別しています。</p>

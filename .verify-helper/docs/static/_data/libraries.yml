@@ -481,3 +481,157 @@
   path: blueberry/string/longest-common-substring.hpp
   description: 2列の最長共通部分文字列の位置を取得
   role: ACLにない機能
+
+- name: Fast Set（64分木）
+  aliases: fast set predecessor 整数集合 前後検索 64分木
+  category: data-structure
+  path: blueberry/data-structure/fast-set.hpp
+  description: 固定整数宇宙で挿入・削除・前後検索を行う64分木
+  role: ACLにない機能
+
+- name: Dual Segment Tree
+  aliases: 双対セグメント木 区間作用 一点取得 affine
+  category: data-structure
+  path: blueberry/data-structure/dual-segment-tree.hpp
+  description: 非可換な作用順を保つ区間作用・一点取得
+  role: ACLにない機能
+
+- name: Double Ended Priority Queue
+  aliases: DEPQ 両端優先度キュー 最小 最大 minmax heap
+  category: data-structure
+  path: blueberry/data-structure/double-ended-priority-queue.hpp
+  description: min-max heapで最小・最大を取得・削除
+  role: ACLにない機能
+
+- name: Skew Heap
+  aliases: meldable heap マージ可能 優先度キュー スキューヒープ
+  category: data-structure
+  path: blueberry/data-structure/skew-heap.hpp
+  description: 所有権を移してヒープ同士をmeldできる優先度キュー
+  role: ACLにない機能
+
+- name: Slope Trick（heap版）
+  aliases: 凸関数 区分線形 DP 絶対値 priority queue
+  category: data-structure
+  path: blueberry/data-structure/slope-trick.hpp
+  description: 単位傾きのhinge加算・累積最小・shiftを扱う簡易版
+  role: ACLにない機能
+
+- name: Splay Slope Trick
+  aliases: 凸関数 区分線形 重み付き 傾き min-plus convolution
+  category: data-structure
+  path: blueberry/data-structure/splay-slope-trick.hpp
+  description: 有限区間の凸関数をsplayで管理し重み付き操作と畳み込みを行う
+  role: ACLにない機能
+
+- name: Persistent Array
+  aliases: 永続配列 任意型 パスコピー 履歴
+  category: data-structure
+  path: blueberry/data-structure/persistent-array.hpp
+  description: 任意の過去バージョンから一点更新して分岐する配列
+  role: ACLにない機能
+
+- name: Persistent Union Find
+  aliases: 永続DSU オンライン 履歴 連結成分
+  category: data-structure
+  path: blueberry/data-structure/persistent-union-find.hpp
+  description: 過去の版を保持しながらオンラインで併合・連結判定
+  role: ACLにない機能
+
+- name: Range Parallel Union Find
+  aliases: 並列union find 区間併合 range unionfind
+  category: data-structure
+  path: blueberry/data-structure/range-parallel-union-find.hpp
+  description: 同長の2区間の対応位置をまとめて併合
+  role: ACLにない機能
+
+- name: Suffix Automaton
+  aliases: SAM 接尾辞オートマトン 部分文字列 出現数
+  category: string
+  path: blueberry/string/suffix-automaton.hpp
+  description: 末尾追加・部分文字列判定・個数・最長共通部分文字列
+  role: ACLにない機能
+
+- name: Linear RMQ
+  aliases: 線形RMQ 静的 最小値 argmin
+  category: data-structure
+  path: blueberry/data-structure/linear-rmq.hpp
+  description: 線形前処理・メモリと定数時間の静的区間最小値
+  role: ACLにない機能
+
+- name: Linear LCA
+  aliases: 線形LCA 共通祖先 木 距離
+  category: graph
+  path: blueberry/graph/linear-lca.hpp
+  description: 線形RMQを使う線形前処理・定数時間のLCA
+  role: ACLにない機能
+
+- name: Centroid Decomposition
+  aliases: 重心分解 1/3重心分解 thirds 距離
+  category: graph
+  path: blueberry/graph/centroid-decomposition.hpp
+  description: 通常の重心分解と実頂点・仮想頂点を区別する1/3分解
+  role: ACLにない機能
+
+- name: Contour Query
+  aliases: 等高線 木 距離帯 点加算 区間加算 contour
+  category: graph
+  path: blueberry/graph/contour-query.hpp
+  description: 木上の頂点加算・距離帯和と距離帯加算・頂点取得
+  role: ACLにない機能
+
+- name: KD Tree
+  aliases: kd-tree 平面 矩形 点集合
+  category: data-structure
+  path: blueberry/data-structure/kd-tree.hpp
+  description: 固定平面点の値更新・半開矩形のモノイド集約
+  role: ACLにない機能
+
+- name: Static Range LIS
+  aliases: 静的区間LIS 最長増加部分列 semi-local
+  category: data-structure
+  path: blueberry/data-structure/static-range-lis.hpp
+  description: 重複値を含む静的配列の区間狭義LIS長
+  role: ACLにない機能
+
+- name: Range Sort Range Product
+  aliases: 区間ソート 区間積 関数合成 非可換
+  category: data-structure
+  path: blueberry/data-structure/range-sort-range-product.hpp
+  description: キーによる昇順・降順の区間ソートと値の区間積
+  role: ACLにない機能
+
+- name: Partially Retroactive Priority Queue
+  aliases: retroactive priority queue 部分レトロアクティブ 過去操作
+  category: data-structure
+  path: blueberry/data-structure/partially-retroactive-priority-queue.hpp
+  description: 過去操作の挿入・削除を反映した現在の優先度キュー
+  role: ACLにない機能
+
+- name: Link-Cut Tree
+  aliases: link cut tree lct 動的木 パス集約
+  category: graph
+  path: blueberry/graph/link-cut-tree.hpp
+  description: 動的森の辺の接続・切断と向きを保つ頂点パス積
+  role: ACLにない機能
+
+- name: Euler Tour Tree
+  aliases: euler tour tree ett 動的木 部分木集約
+  category: graph
+  path: blueberry/graph/euler-tour-tree.hpp
+  description: 動的森の連結成分・部分木の可換集約と一括作用
+  role: ACLにない機能
+
+- name: Static Top Tree
+  aliases: stt 静的top tree 木DP rake compress
+  category: graph
+  path: blueberry/graph/static-top-tree.hpp
+  description: 固定木のrake/compress DPを頂点更新後に対数時間で再計算
+  role: ACLにない機能
+
+- name: Dynamic Top Tree
+  aliases: top tree 動的top tree 二階splay rake compress
+  category: graph
+  path: blueberry/graph/dynamic-top-tree.hpp
+  description: 動的森の辺変更と逆元不要な全木・部分木DP
+  role: ACLにない機能

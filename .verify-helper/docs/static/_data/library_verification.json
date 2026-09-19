@@ -1,0 +1,2037 @@
+{
+  "libraries": [
+    {
+      "path": "blueberry/data-structure/partially-retroactive-priority-queue.hpp",
+      "name": "Partially Retroactive Priority Queue",
+      "direct": [],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/partially-retroactive-priority-queue.cpp"
+      ],
+      "ignored": [],
+      "note": {
+        "partial": true,
+        "reason": "2026-09-19調査時のLibrary Checker公開問題スナップショットには、過去操作の編集を直接検証する問題を見つけていません。",
+        "limits": "通常のpriority queue問題だけでは過去操作の編集を検証できず、専用の公式verifyは未登録です。任意の過去時点の問い合わせは提供しない部分retroactive版です。",
+        "next": "操作履歴を毎回再実行する愚直解で、過去への挿入・削除・不正操作拒否を比較する。",
+        "issue": "https://github.com/blueberry1001/Blueberry-library/issues/28"
+      },
+      "status": "missing",
+      "label": "公式verify未登録"
+    },
+    {
+      "path": "blueberry/data-structure/slope-trick.hpp",
+      "name": "Slope Trick（heap版）",
+      "direct": [],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/slope-tricks.cpp"
+      ],
+      "ignored": [],
+      "note": {
+        "reason": "2026-09-19調査時のLibrary Checker公開問題スナップショットには、heap版Slope Trickの操作を直接検証する対象を見つけていません。",
+        "limits": "小さい整数点での愚直比較はありますが、公式verify未登録です。ABC127 Fは候補で、shiftやmerge全体の検証にはなりません。",
+        "next": "他ジャッジの適切な問題を追加調査し、問題が扱わない操作はランダム比較を維持する。",
+        "issue": "https://github.com/blueberry1001/Blueberry-library/issues/26"
+      },
+      "status": "missing",
+      "label": "公式verify未登録"
+    },
+    {
+      "path": "blueberry/graph/topological-sort.hpp",
+      "name": "Topological Sort",
+      "direct": [],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {
+        "reason": "専用の公式verifyドライバは未登録です。",
+        "limits": "関連ローカルテストはありますが、公式ジャッジでの専用検証を表すものではありません。",
+        "next": "DAGの順序制約・閉路時の返り値を確かめられる問題を選び、専用ドライバを追加する。",
+        "issue": "https://github.com/blueberry1001/Blueberry-library/issues/24"
+      },
+      "status": "missing",
+      "label": "公式verify未登録"
+    },
+    {
+      "path": "blueberry/data-structure/aggregate-deque.hpp",
+      "name": "Aggregate Deque",
+      "direct": [
+        {
+          "path": "verify/data-structure/aggregate-deque.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/deque_operate_all_composite"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/operation-structures.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/aggregate-queue.hpp",
+      "name": "Aggregate Queue",
+      "direct": [
+        {
+          "path": "verify/data-structure/aggregate-queue.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/queue_operate_all_composite"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/operation-structures.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/binary-trie.hpp",
+      "name": "Binary Trie",
+      "direct": [
+        {
+          "path": "verify/data-structure/binary-trie.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/set_xor_min"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/operation-structures.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/disjoint-set-union.hpp",
+      "name": "Disjoint Set Union",
+      "direct": [
+        {
+          "path": "verify/data-structure/unionfind.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/unionfind"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/data_structure_random_test.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/disjoint-sparse-table.hpp",
+      "name": "Disjoint Sparse Table",
+      "direct": [
+        {
+          "path": "verify/data-structure/disjoint-sparse-table-rmq.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/staticrmq"
+        },
+        {
+          "path": "verify/data-structure/disjoint-sparse-table.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/sequence-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/double-ended-priority-queue.hpp",
+      "name": "Double Ended Priority Queue",
+      "direct": [
+        {
+          "path": "verify/data-structure/double-ended-priority-queue.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/double_ended_priority_queue"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/specialized-structures.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/dual-segment-tree.hpp",
+      "name": "Dual Segment Tree",
+      "direct": [
+        {
+          "path": "verify/data-structure/dual-segment-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/range_affine_point_get"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/specialized-structures.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/dynamic-fenwick-tree-2d.hpp",
+      "name": "Dynamic Fenwick Tree 2D",
+      "direct": [
+        {
+          "path": "verify/data-structure/dynamic-point-add-rectangle-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_add_rectangle_sum"
+        },
+        {
+          "path": "verify/data-structure/dynamic-rectangle-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/rectangle_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/dynamic-fenwick-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/dynamic-fenwick-tree.hpp",
+      "name": "Dynamic Fenwick Tree",
+      "direct": [
+        {
+          "path": "verify/data-structure/dynamic-point-add-range-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_add_range_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/dynamic-fenwick-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/dynamic-li-chao-tree.hpp",
+      "name": "Dynamic Li Chao Tree",
+      "direct": [
+        {
+          "path": "verify/data-structure/dynamic-line-add-get-min.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/line_add_get_min"
+        },
+        {
+          "path": "verify/data-structure/dynamic-segment-add-get-min.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/segment_add_get_min"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/dynamic-li-chao-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/dynamic-sqrt-tree.hpp",
+      "name": "Dynamic Sqrt Tree",
+      "direct": [
+        {
+          "path": "verify/data-structure/dynamic-sqrt-tree-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_add_range_sum"
+        },
+        {
+          "path": "verify/data-structure/dynamic-sqrt-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_set_range_composite"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/dynamic-sqrt-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/fast-set.hpp",
+      "name": "Fast Set（64分木）",
+      "direct": [
+        {
+          "path": "verify/data-structure/fast-set.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/predecessor_problem"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/specialized-structures.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/fenwick-tree.hpp",
+      "name": "Fenwick Tree",
+      "direct": [
+        {
+          "path": "verify/data-structure/point-add-range-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_add_range_sum"
+        }
+      ],
+      "indirect": [
+        {
+          "path": "verify/data-structure/weighted-wavelet-matrix.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_add_rectangle_sum"
+        }
+      ],
+      "random_tests": [
+        "tests/data_structure_random_test.cpp",
+        "tests/random/weighted-wavelet-matrix.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/implicit-treap.hpp",
+      "name": "Implicit Treap",
+      "direct": [
+        {
+          "path": "verify/data-structure/implicit-treap-affine.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum"
+        },
+        {
+          "path": "verify/data-structure/implicit-treap-reverse-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/range_reverse_range_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/legacy-treap.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/kd-tree.hpp",
+      "name": "KD Tree",
+      "direct": [
+        {
+          "path": "verify/data-structure/kd-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_add_rectangle_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/static-tree-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/li-chao-tree.hpp",
+      "name": "Li Chao Tree",
+      "direct": [
+        {
+          "path": "verify/data-structure/line-add-get-min.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/line_add_get_min"
+        },
+        {
+          "path": "verify/data-structure/segment-add-get-min.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/segment_add_get_min"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/li-chao-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/linear-rmq.hpp",
+      "name": "Linear RMQ",
+      "direct": [
+        {
+          "path": "verify/data-structure/linear-rmq.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/staticrmq"
+        }
+      ],
+      "indirect": [
+        {
+          "path": "verify/graph/linear-lca.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/lca"
+        }
+      ],
+      "random_tests": [
+        "tests/random/static-tree-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/offline-fenwick-tree-2d.hpp",
+      "name": "Offline Fenwick Tree 2D",
+      "direct": [
+        {
+          "path": "verify/data-structure/point-add-rectangle-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_add_rectangle_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/offline-fenwick-tree-2d.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/ordered-multiset.hpp",
+      "name": "Ordered Multiset",
+      "direct": [
+        {
+          "path": "verify/data-structure/ordered-multiset-composite.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_set_range_composite"
+        },
+        {
+          "path": "verify/data-structure/ordered-multiset-large-composite.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_set_range_composite_large_array"
+        },
+        {
+          "path": "verify/data-structure/ordered-multiset-priority-queue.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/double_ended_priority_queue"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/legacy-treap.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/ordered-set.hpp",
+      "name": "Ordered Set",
+      "direct": [
+        {
+          "path": "verify/data-structure/ordered-set.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/ordered_set"
+        },
+        {
+          "path": "verify/data-structure/predecessor.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/predecessor_problem"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/data-structure-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/persistent-array.hpp",
+      "name": "Persistent Array",
+      "direct": [
+        {
+          "path": "verify/data-structure/persistent-array.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/persistent_queue"
+        }
+      ],
+      "indirect": [
+        {
+          "path": "verify/data-structure/online-persistent-unionfind.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/persistent_unionfind"
+        }
+      ],
+      "random_tests": [
+        "tests/random/persistence-and-range-union.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/persistent-binary-trie.hpp",
+      "name": "Persistent Binary Trie",
+      "direct": [
+        {
+          "path": "verify/data-structure/persistent-binary-trie.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/set_xor_min"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/persistent-binary-trie.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/persistent-queue.hpp",
+      "name": "Persistent Queue",
+      "direct": [
+        {
+          "path": "verify/data-structure/persistent-queue.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/persistent_queue"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/ds_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/persistent-segment-tree.hpp",
+      "name": "Persistent Segment Tree",
+      "direct": [
+        {
+          "path": "verify/data-structure/persistent-point-set-range-composite.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_set_range_composite"
+        },
+        {
+          "path": "verify/data-structure/persistent-rectangle-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/rectangle_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/data-structure-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/persistent-union-find.hpp",
+      "name": "Persistent Union Find",
+      "direct": [
+        {
+          "path": "verify/data-structure/online-persistent-unionfind.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/persistent_unionfind"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/persistence-and-range-union.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/potential-union-find.hpp",
+      "name": "Potential Union Find",
+      "direct": [
+        {
+          "path": "verify/data-structure/unionfind-with-potential-non-commutative-group.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group"
+        },
+        {
+          "path": "verify/data-structure/unionfind-with-potential.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/unionfind_with_potential"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/data-structure-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/range-parallel-union-find.hpp",
+      "name": "Range Parallel Union Find",
+      "direct": [
+        {
+          "path": "verify/data-structure/range-parallel-unionfind.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/range_parallel_unionfind"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/persistence-and-range-union.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/range-sort-range-product.hpp",
+      "name": "Range Sort Range Product",
+      "direct": [
+        {
+          "path": "verify/data-structure/range-sort-range-product.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_set_range_sort_range_composite"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/range-sort-range-product.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/rectangle-union.hpp",
+      "name": "Rectangle Union Area",
+      "direct": [
+        {
+          "path": "verify/data-structure/rectangle-union.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/area_of_union_of_rectangles"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/ds_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/rollback-union-find.hpp",
+      "name": "Rollback Union Find",
+      "direct": [
+        {
+          "path": "verify/data-structure/persistent-unionfind.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/persistent_unionfind"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/data_structure_random_test.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/segment-tree-beats.hpp",
+      "name": "Segment Tree Beats",
+      "direct": [
+        {
+          "path": "verify/data-structure/segment-tree-beats.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/operation-structures.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/segment-tree.hpp",
+      "name": "Segment Tree",
+      "direct": [
+        {
+          "path": "verify/data-structure/point-set-range-composite.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_set_range_composite"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/data_structure_random_test.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/skew-heap.hpp",
+      "name": "Skew Heap",
+      "direct": [
+        {
+          "path": "verify/data-structure/skew-heap.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/shortest_path"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/specialized-structures.cpp"
+      ],
+      "ignored": [],
+      "note": {
+        "reason": "最短路ドライバで優先度キューとmeldを使用します。meld専用の公式問題は未登録です。",
+        "limits": "最短路の利用例だけでは、空ヒープ・自己meld・所有権移動・全てのmeld順を網羅しません。",
+        "next": "複数ヒープをmultisetの愚直解と比較するローカルテストも併用する。",
+        "issue": "https://github.com/blueberry1001/Blueberry-library/issues/25"
+      },
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/sparse-table.hpp",
+      "name": "Sparse Table",
+      "direct": [
+        {
+          "path": "verify/data-structure/static-rmq.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/staticrmq"
+        }
+      ],
+      "indirect": [
+        {
+          "path": "verify/graph/lowest-common-ancestor-rmq.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/lca"
+        },
+        {
+          "path": "verify/graph/lowest-common-ancestor.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/lca"
+        }
+      ],
+      "random_tests": [
+        "tests/data_structure_random_test.cpp",
+        "tests/tree_random.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/splay-slope-trick.hpp",
+      "name": "Splay Slope Trick",
+      "direct": [
+        {
+          "path": "verify/data-structure/splay-slope-trick.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/min_plus_convolution_convex_convex"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/slope-tricks.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/sqrt-tree.hpp",
+      "name": "Sqrt Tree（静的）",
+      "direct": [
+        {
+          "path": "verify/data-structure/sqrt-tree-rmq.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/staticrmq"
+        },
+        {
+          "path": "verify/data-structure/sqrt-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/sqrt-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/static-range-distinct.hpp",
+      "name": "Static Range Distinct",
+      "direct": [
+        {
+          "path": "verify/data-structure/static-range-distinct.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_count_distinct"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/ds_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/static-range-inversions.hpp",
+      "name": "Static Range Inversions",
+      "direct": [
+        {
+          "path": "verify/data-structure/static-range-inversions.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_inversions_query"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/sequence-batch-four.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/static-range-lis.hpp",
+      "name": "Static Range LIS",
+      "direct": [
+        {
+          "path": "verify/data-structure/static-range-lis.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_lis_query"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/static-range-lis.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/static-range-mode.hpp",
+      "name": "Static Range Mode",
+      "direct": [
+        {
+          "path": "verify/data-structure/static-range-mode.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_mode_query"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/sequence-batch-four.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/wavelet-matrix.hpp",
+      "name": "Wavelet Matrix",
+      "direct": [
+        {
+          "path": "verify/data-structure/range-kth-smallest.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/range_kth_smallest"
+        },
+        {
+          "path": "verify/data-structure/static-range-frequency.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_frequency"
+        }
+      ],
+      "indirect": [
+        {
+          "path": "verify/data-structure/static-range-distinct.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_count_distinct"
+        },
+        {
+          "path": "verify/data-structure/static-range-lis.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_lis_query"
+        }
+      ],
+      "random_tests": [
+        "tests/random/ds_batch_three.cpp",
+        "tests/random/static-range-lis.cpp",
+        "tests/random/wavelet-matrix.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/data-structure/weighted-wavelet-matrix.hpp",
+      "name": "Weighted Wavelet Matrix",
+      "direct": [
+        {
+          "path": "verify/data-structure/weighted-wavelet-matrix.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_add_rectangle_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/weighted-wavelet-matrix.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/assignment.hpp",
+      "name": "Assignment",
+      "direct": [
+        {
+          "path": "verify/graph/assignment.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/assignment"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/biconnected-components.hpp",
+      "name": "Biconnected Components",
+      "direct": [
+        {
+          "path": "verify/graph/biconnected-components.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/biconnected_components"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/cartesian-tree.hpp",
+      "name": "Cartesian Tree",
+      "direct": [
+        {
+          "path": "verify/graph/cartesian-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/cartesian_tree"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/sequence-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/centroid-decomposition.hpp",
+      "name": "Centroid Decomposition",
+      "direct": [
+        {
+          "path": "verify/graph/centroid-decomposition-thirds.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/frequency_table_of_tree_distance"
+        }
+      ],
+      "indirect": [
+        {
+          "path": "verify/graph/contour-add.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/vertex_get_range_contour_add_on_tree"
+        },
+        {
+          "path": "verify/graph/contour-query.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/vertex_add_range_contour_sum_on_tree"
+        }
+      ],
+      "random_tests": [
+        "tests/random/static-tree-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/clique-enumeration.hpp",
+      "name": "Clique Enumeration",
+      "direct": [
+        {
+          "path": "verify/graph/clique-enumeration.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/enumerate_cliques"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-batch-four.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/complement-components.hpp",
+      "name": "Complement Components",
+      "direct": [
+        {
+          "path": "verify/graph/complement-components.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/connected_components_of_complement_graph"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/contour-query.hpp",
+      "name": "Contour Query",
+      "direct": [
+        {
+          "path": "verify/graph/contour-add.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/vertex_get_range_contour_add_on_tree"
+        },
+        {
+          "path": "verify/graph/contour-query.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/vertex_add_range_contour_sum_on_tree"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/static-tree-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/count-spanning-trees.hpp",
+      "name": "Count Spanning Trees",
+      "direct": [
+        {
+          "path": "verify/graph/count-directed-spanning-trees.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/counting_spanning_tree_directed"
+        },
+        {
+          "path": "verify/graph/count-spanning-trees.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/counting_spanning_tree_undirected"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/cycle-detection.hpp",
+      "name": "Cycle Detection",
+      "direct": [
+        {
+          "path": "verify/graph/cycle-detection-directed.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/cycle_detection"
+        },
+        {
+          "path": "verify/graph/cycle-detection-undirected.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/cycle_detection_undirected"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/dijkstra.hpp",
+      "name": "Dijkstra",
+      "direct": [
+        {
+          "path": "verify/graph/shortest-path.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/shortest_path"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/dijkstra.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/dynamic-top-tree.hpp",
+      "name": "Dynamic Top Tree",
+      "direct": [
+        {
+          "path": "verify/graph/dynamic-top-tree-subtree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_subtree_sum"
+        },
+        {
+          "path": "verify/graph/dynamic-top-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/dynamic-top-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/euler-tour-tree.hpp",
+      "name": "Euler Tour Tree",
+      "direct": [
+        {
+          "path": "verify/graph/euler-tour-tree-vertex-add.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_subtree_sum"
+        },
+        {
+          "path": "verify/graph/euler-tour-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_tree_subtree_add_subtree_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/euler-tour-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/eulerian-trail.hpp",
+      "name": "Eulerian Trail",
+      "direct": [
+        {
+          "path": "verify/graph/eulerian-trail-directed.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/eulerian_trail_directed"
+        },
+        {
+          "path": "verify/graph/eulerian-trail-undirected.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/eulerian_trail_undirected"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/heavy-light-decomposition.hpp",
+      "name": "Heavy Light Decomposition",
+      "direct": [
+        {
+          "path": "verify/graph/heavy-light-decomposition-noncommutative.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/vertex_set_path_composite"
+        },
+        {
+          "path": "verify/graph/heavy-light-decomposition-path.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/vertex_add_path_sum"
+        },
+        {
+          "path": "verify/graph/heavy-light-decomposition-subtree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/vertex_add_subtree_sum"
+        },
+        {
+          "path": "verify/graph/jump-on-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/jump_on_tree"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/tree_random.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/hopcroft-karp.hpp",
+      "name": "Hopcroft–Karp",
+      "direct": [
+        {
+          "path": "verify/graph/bipartite-matching.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bipartitematching"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/linear-lca.hpp",
+      "name": "Linear LCA",
+      "direct": [
+        {
+          "path": "verify/graph/linear-lca.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/lca"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/static-tree-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/link-cut-tree.hpp",
+      "name": "Link-Cut Tree",
+      "direct": [
+        {
+          "path": "verify/graph/link-cut-tree-composite.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite"
+        },
+        {
+          "path": "verify/graph/link-cut-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/link-cut-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/low-link.hpp",
+      "name": "Low Link",
+      "direct": [
+        {
+          "path": "verify/graph/two-edge-connected-components.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/two_edge_connected_components"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/low-link.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/lowest-common-ancestor.hpp",
+      "name": "Lowest Common Ancestor",
+      "direct": [
+        {
+          "path": "verify/graph/lowest-common-ancestor-rmq.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/lca"
+        },
+        {
+          "path": "verify/graph/lowest-common-ancestor.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/lca"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/tree_random.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/maximum-independent-set.hpp",
+      "name": "Maximum Independent Set",
+      "direct": [
+        {
+          "path": "verify/graph/maximum-independent-set.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/maximum_independent_set"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-batch-four.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/minimum-spanning-forest.hpp",
+      "name": "Minimum Spanning Forest",
+      "direct": [
+        {
+          "path": "verify/graph/minimum-spanning-forest.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/minimum_spanning_tree"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/rerooting.hpp",
+      "name": "Rerooting DP",
+      "direct": [
+        {
+          "path": "verify/graph/tree-path-composite-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/tree_path_composite_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/rerooting.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/rooted-tree-isomorphism.hpp",
+      "name": "Rooted Tree Isomorphism",
+      "direct": [
+        {
+          "path": "verify/graph/rooted-tree-isomorphism.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/rooted_tree_isomorphism_classification"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-batch-four.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/static-top-tree.hpp",
+      "name": "Static Top Tree",
+      "direct": [
+        {
+          "path": "verify/graph/static-top-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum_fixed_root"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/static-top-tree.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/tree-diameter.hpp",
+      "name": "Tree Diameter",
+      "direct": [
+        {
+          "path": "verify/graph/tree-diameter.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/tree_diameter"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/graph/triangle-enumeration.hpp",
+      "name": "Triangle Enumeration",
+      "direct": [
+        {
+          "path": "verify/graph/triangle-enumeration.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/enumerate_triangles"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/graph-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/bitwise-convolution.hpp",
+      "name": "Bitwise Convolution",
+      "direct": [
+        {
+          "path": "verify/math/bitwise-and-convolution.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bitwise_and_convolution"
+        },
+        {
+          "path": "verify/math/bitwise-or-via-and.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bitwise_and_convolution"
+        },
+        {
+          "path": "verify/math/bitwise-xor-convolution.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bitwise_xor_convolution"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/algebra-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/discrete-log.hpp",
+      "name": "Discrete Logarithm",
+      "direct": [
+        {
+          "path": "verify/math/discrete-log.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/discrete_logarithm_mod"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/divisor-convolution.hpp",
+      "name": "Divisor Convolution",
+      "direct": [
+        {
+          "path": "verify/math/gcd-convolution.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/gcd_convolution"
+        },
+        {
+          "path": "verify/math/lcm-convolution.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/lcm_convolution"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/enumerate-quotients.hpp",
+      "name": "Enumerate Quotients",
+      "direct": [
+        {
+          "path": "verify/math/enumerate-quotients.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/enumerate_quotients"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/factorize.hpp",
+      "name": "Factorize",
+      "direct": [
+        {
+          "path": "verify/math/factorize.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/factorize"
+        },
+        {
+          "path": "verify/math/primality-test.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/primality_test"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/formal-power-series.hpp",
+      "name": "Formal Power Series",
+      "direct": [
+        {
+          "path": "verify/math/division-of-polynomials.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/division_of_polynomials"
+        },
+        {
+          "path": "verify/math/exp-formal-power-series.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/exp_of_formal_power_series"
+        },
+        {
+          "path": "verify/math/inv-formal-power-series.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/inv_of_formal_power_series"
+        },
+        {
+          "path": "verify/math/log-formal-power-series.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/log_of_formal_power_series"
+        },
+        {
+          "path": "verify/math/pow-formal-power-series.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/pow_of_formal_power_series"
+        },
+        {
+          "path": "verify/math/sqrt-formal-power-series.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/sqrt_of_formal_power_series"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/formal-power-series.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/fraction.hpp",
+      "name": "Fraction",
+      "direct": [
+        {
+          "path": "verify/math/fraction-sort-points-by-argument.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/sort_points_by_argument"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/fraction.cpp",
+        "tests/random/slope-tricks.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/kth-root-integer.hpp",
+      "name": "Kth Root Integer",
+      "direct": [
+        {
+          "path": "verify/math/kth-root-integer.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/kth_root_integer"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/linear-recurrence.hpp",
+      "name": "Linear Recurrence",
+      "direct": [
+        {
+          "path": "verify/math/find-linear-recurrence.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/find_linear_recurrence"
+        },
+        {
+          "path": "verify/math/kth-term-of-linearly-recurrent-sequence.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/longest-increasing-subsequence.hpp",
+      "name": "Longest Increasing Subsequence",
+      "direct": [
+        {
+          "path": "verify/math/longest-increasing-subsequence.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/longest_increasing_subsequence"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/sequence-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/matrix.hpp",
+      "name": "Matrix",
+      "direct": [
+        {
+          "path": "verify/math/inverse-matrix.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/inverse_matrix"
+        },
+        {
+          "path": "verify/math/matrix-det.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/matrix_det"
+        },
+        {
+          "path": "verify/math/matrix-rank.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/matrix_rank"
+        },
+        {
+          "path": "verify/math/system-of-linear-equations.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/system_of_linear_equations"
+        }
+      ],
+      "indirect": [
+        {
+          "path": "verify/graph/count-directed-spanning-trees.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/counting_spanning_tree_directed"
+        },
+        {
+          "path": "verify/graph/count-spanning-trees.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/counting_spanning_tree_undirected"
+        }
+      ],
+      "random_tests": [
+        "tests/random/algebra-expansion.cpp",
+        "tests/random/graph_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/mod-sqrt.hpp",
+      "name": "Modular Square Root",
+      "direct": [
+        {
+          "path": "verify/math/mod-sqrt.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/sqrt_mod"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/montmort.hpp",
+      "name": "Montmort Numbers",
+      "direct": [
+        {
+          "path": "verify/math/montmort.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/montmort_number_mod"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/multipoint-evaluation.hpp",
+      "name": "Multipoint Evaluation",
+      "direct": [
+        {
+          "path": "verify/math/multipoint-evaluation.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/multipoint_evaluation"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-batch-four.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/polynomial-interpolation.hpp",
+      "name": "Polynomial Interpolation",
+      "direct": [
+        {
+          "path": "verify/math/polynomial-interpolation.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/polynomial_interpolation"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-batch-four.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/polynomial-product.hpp",
+      "name": "Polynomial Product",
+      "direct": [
+        {
+          "path": "verify/math/polynomial-product.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/product_of_polynomial_sequence"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/prime-sieve.hpp",
+      "name": "Prime Sieve",
+      "direct": [
+        {
+          "path": "verify/math/enumerate-primes.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/enumerate_primes"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/sample-point-shift.hpp",
+      "name": "Sample Point Shift",
+      "direct": [
+        {
+          "path": "verify/math/sample-point-shift.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/shift_of_sampling_points_of_polynomial"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math-batch-four.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/stirling-second.hpp",
+      "name": "Stirling Numbers Second Kind",
+      "direct": [
+        {
+          "path": "verify/math/stirling-second.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/subset-convolution.hpp",
+      "name": "Subset Convolution",
+      "direct": [
+        {
+          "path": "verify/math/subset-convolution.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/subset_convolution"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/algebra-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/taylor-shift.hpp",
+      "name": "Polynomial Taylor Shift",
+      "direct": [
+        {
+          "path": "verify/math/taylor-shift.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/polynomial_taylor_shift"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/math_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/string/aho-corasick.hpp",
+      "name": "Aho–Corasick",
+      "direct": [
+        {
+          "path": "verify/string/aho-corasick.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/aho_corasick"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/string-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/string/count-subsequences.hpp",
+      "name": "Count Subsequences",
+      "direct": [
+        {
+          "path": "verify/string/count-subsequences.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/number_of_subsequences"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/count_subsequences.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/string/eertree.hpp",
+      "name": "Eertree",
+      "direct": [
+        {
+          "path": "verify/string/eertree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/eertree"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/string-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/string/longest-common-substring.hpp",
+      "name": "Longest Common Substring",
+      "direct": [
+        {
+          "path": "verify/string/longest-common-substring.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/longest_common_substring"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/sequence-batch-four.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/string/lyndon-factorization.hpp",
+      "name": "Lyndon Factorization",
+      "direct": [
+        {
+          "path": "verify/string/lyndon-factorization.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/lyndon_factorization"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/string-expansion.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/string/manacher.hpp",
+      "name": "Manacher",
+      "direct": [
+        {
+          "path": "verify/string/enumerate-palindromes.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/enumerate_palindromes"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/manacher.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/string/prefix-function.hpp",
+      "name": "Prefix Function / KMP",
+      "direct": [
+        {
+          "path": "verify/string/kmp-search.test.cpp",
+          "problem": "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/sequence-batch-two.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/string/suffix-automaton.hpp",
+      "name": "Suffix Automaton",
+      "direct": [
+        {
+          "path": "verify/string/suffix-automaton-lcs.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/longest_common_substring"
+        },
+        {
+          "path": "verify/string/suffix-automaton-substrings.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/number_of_substrings"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/suffix-automaton.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/string/z-algorithm.hpp",
+      "name": "Z Algorithm",
+      "direct": [
+        {
+          "path": "verify/string/z-algorithm.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/zalgorithm"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    }
+  ],
+  "counts": {
+    "missing": 3,
+    "direct": 98
+  }
+}

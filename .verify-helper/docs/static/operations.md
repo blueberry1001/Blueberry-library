@@ -64,6 +64,12 @@ title: 操作から探す
 
   <noscript><p class="operation-notice">JavaScriptが無効のため全候補を表示しています。各候補の文書リンクから使い方を確認できます。</p></noscript>
 
+  <details class="comparison-guide" id="comparison-guide">
+    <summary>似た構造の使い分け — 詳しい比較を読む</summary>
+    <p>候補カードの「比較を開く」からも該当箇所へ移動できます。更新回数・クエリ回数・メモリと、必要な操作を合わせて選んでください。</p>
+    {% for family in site.data.comparisons %}{% include library_comparison.html family=family.id %}{% endfor %}
+  </details>
+
   <div class="operation-results-heading">
     <h2>候補</h2>
     <p role="status" aria-live="polite" aria-atomic="true" data-operation-count>{{ site.data.operations.entries.size }} / {{ site.data.operations.entries.size }} 候補</p>
@@ -96,6 +102,10 @@ title: 操作から探す
       </ul>
       <p class="operation-prerequisites"><strong>前提</strong> {{ entry.prerequisites | escape }}</p>
       {% if entry.notes %}<p class="operation-notes">{{ entry.notes | escape }}</p>{% endif %}
+      {% for family in site.data.comparisons %}
+      {% assign hint = family.hints[entry.id] %}
+      {% if hint %}<p class="operation-choice"><strong>使い分け</strong> {{ hint | escape }} <a href="#comparison-{{ family.id }}">比較を開く<span class="visually-hidden">：{{ family.title | escape }}</span></a></p>{% endif %}
+      {% endfor %}
       {% if entry.external_url %}<p class="operation-external"><a href="{{ entry.external_url | escape }}">組み合わせる ACL の公式文書（外部）</a></p>{% endif %}
     </article>
     {% endfor %}

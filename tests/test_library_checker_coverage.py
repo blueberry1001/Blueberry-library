@@ -107,6 +107,41 @@ class CoverageTests(unittest.TestCase):
             coverage.write_or_check(target, "changed\n", True)
         self.assertEqual(target.read_text(), "first\n")
 
+    def test_library_evidence_distinguishes_direct_indirect_and_ignored(self):
+        self.driver()
+        self.driver("disabled", header="blueberry/ds/b.hpp", prefix="#define IGNORE\n")
+        self.write("tests/random/sample.cpp", '#include "blueberry/ds/b.hpp"\n')
+        rows = {r["path"]: r for r in coverage.build_library_verification(self.root, self.catalog, {})}
+        self.assertEqual(rows["blueberry/ds/a.hpp"]["status"], "direct")
+        b = rows["blueberry/ds/b.hpp"]
+        self.assertEqual(b["status"], "indirect")
+        self.assertEqual(len(b["ignored"]), 1)
+        self.assertEqual(b["random_tests"], ["tests/random/sample.cpp"])
+        self.assertNotIn("passed", b)
+
+    def test_library_evidence_smoke_does_not_cover_all_headers(self):
+        self.write("blueberry/all.hpp", '#include "blueberry/ds/a.hpp"\n')
+        self.driver(header="blueberry/all.hpp")
+        rows = coverage.build_library_verification(self.root, self.catalog, {})
+        self.assertEqual([r["status"] for r in rows], ["missing", "missing"])
+        with self.assertRaises(ValueError):
+            coverage.build_library_verification(self.root, self.catalog, {"blueberry/no.hpp": {}})
+
+    def test_chronological_driver_does_not_hide_retroactive_gap(self):
+        self.driver()
+        rows = coverage.build_library_verification(self.root, self.catalog,
+                  {"blueberry/ds/a.hpp": {"partial": True, "limits": "retroactive edits unverified"}})
+        a = next(row for row in rows if row["path"] == "blueberry/ds/a.hpp")
+        self.assertEqual(a["status"], "partial")
+        self.assertEqual(len(a["direct"]), 1)
+
+    def test_library_evidence_accepts_other_judges_without_claiming_lc(self):
+        self.write("verify/aoj.test.cpp", '#define PROBLEM "https://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=ALDS1_9_C"\n#include "blueberry/ds/b.hpp"\n')
+        rows = coverage.build_library_verification(self.root, self.catalog, {})
+        b = next(r for r in rows if r["path"] == "blueberry/ds/b.hpp")
+        self.assertEqual(b["status"], "direct")
+        self.assertIn("u-aizu", b["direct"][0]["problem"])
+
     def test_browser_filter_keeps_implementation_distinct_from_acl(self):
         node = shutil.which("node")
         if node is None:

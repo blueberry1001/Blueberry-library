@@ -92,6 +92,17 @@ class CheckDocsSelectionTest(unittest.TestCase):
             with self.subTest(args=args), self.assertRaises(AssertionError):
                 self.run_main(args)
 
+    def test_summary_template_brackets_must_be_html_escaped(self):
+        document = page("blueberry/test/a.hpp")
+        for signature, valid in (("vector<int>", False), ("vector&lt;int&gt;", True)):
+            with self.subTest(signature=signature):
+                self.write("docs/test/a.md", document.replace("get — O(1)", f"<code>{signature}</code> — O(1)"))
+                if valid:
+                    self.run_main(["--structure-only"])
+                else:
+                    with self.assertRaisesRegex(AssertionError, "Escape template brackets"):
+                        self.run_main(["--structure-only"])
+
     def test_unknown_non_document_and_noncanonical_paths_fail(self):
         for path in ("docs/test/missing.md", "blueberry/test/a.hpp", "docs/test/../test/a.md", "/docs/test/a.md", "docs\\test\\a.md"):
             with self.subTest(path=path), self.assertRaises(ValueError):

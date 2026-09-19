@@ -13,7 +13,35 @@ facets:
       label: "グラフ・連結成分"
     - id: "lines"
       label: "直線・線分の集合"
+    - id: "string"
+      label: "文字列・記号列"
+    - id: "convex"
+      label: "凸な区分線形関数"
   queries:
+    - id: "tree-dp"
+      label: "分岐を含む木全体のDP"
+    - id: "point-get"
+      label: "1点の値"
+    - id: "membership"
+      label: "キーの存在判定"
+    - id: "set-minmax"
+      label: "集合の最小・最大"
+    - id: "substring"
+      label: "部分文字列の判定・出現数"
+    - id: "distinct-substrings"
+      label: "異なる部分文字列の総数"
+    - id: "common-substring"
+      label: "最長共通部分文字列"
+    - id: "range-lis"
+      label: "区間の最長増加部分列長"
+    - id: "convex-min"
+      label: "凸関数の最小値・最小点"
+    - id: "function-value"
+      label: "指定した点での関数値"
+    - id: "contour-sum"
+      label: "木の距離帯（等高線）の和"
+    - id: "decomposition"
+      label: "木を重心で分割"
     - id: "boundary-search"
       label: "条件を満たす最大区間（max_right / min_left）"
     - id: "first-position"
@@ -80,6 +108,28 @@ facets:
       id: "subtree-aggregate"
       label: "部分木の集約"
   updates:
+    - id: "link-cut"
+      label: "森の辺を接続・切断"
+    - id: "subtree-action"
+      label: "部分木・連結成分へ作用"
+    - id: "past-edit"
+      label: "過去の操作を挿入・削除"
+    - id: "append"
+      label: "末尾に記号を追加"
+    - id: "range-sort"
+      label: "区間を昇順・降順にソート"
+    - id: "range-union"
+      label: "同長の2区間を対応位置ごとに併合"
+    - id: "heap-edit"
+      label: "キーを追加・最小/最大を削除"
+    - id: "heap-meld"
+      label: "ヒープ同士を併合"
+    - id: "convex-edit"
+      label: "hinge加算・凸関数のshift"
+    - id: "convex-convolution"
+      label: "凸関数のmin-plus畳み込み"
+    - id: "contour-add"
+      label: "木の距離帯（等高線）に加算"
     - id: "range-assign"
       label: "区間を同じ値に代入"
     - id: "range-affine"
@@ -134,6 +184,8 @@ facets:
       id: "rollback"
       label: "追加を巻き戻す"
   conditions:
+    - id: "fixed-universe"
+      label: "キーが固定された整数宇宙に収まる"
     - id: "offline-queries"
       label: "全クエリを先に集められる"
     - id: "online-queries"
@@ -1009,3 +1061,321 @@ entries:
     calls: [{"signature": "wm.add(p, delta)", "complexity": "O(log(σ+1) log(N+1))"}, {"signature": "wm.sum(l, r, low, upper)", "complexity": "O(log(σ+1) log(N+1))"}, {"signature": "wm.sum(l, r)", "complexity": "O(log(N+1))"}]
     prerequisites: "N個の値・座標を固定し、重みだけ更新。σは異なる値数。構築O(N log(N+1))、メモリO(N log(σ+1))。重みは加法可換群。"
     notes: "配列は添字[l,r)×値域[low,upper)。平面上の点はx順に並べyを値にし、x境界をlower_boundで添字化。将来の更新点も構築時に含める。値そのものの変更・新規座標の追加は不可。"
+  - id: fast-set
+    title: Fast Set（64分木）
+    source: blueberry
+    headers: [blueberry/data-structure/fast-set.hpp]
+    url: /blueberry/data-structure/fast-set.hpp.html
+    targets: [multiset]
+    queries: [membership, predecessor]
+    updates: [insert-erase]
+    conditions: [fixed-universe, online-queries]
+    calls:
+      - {signature: 'set.insert(x) / set.erase(x) / set.next(x) / set.prev(x)', complexity: 'O(1+log₆₄ U)'}
+      - {signature: 'set.contains(x)', complexity: 'O(1)'}
+    prerequisites: '0<=x<Uの整数。構築・メモリO(1+U/64) words。重複・rank/kthなし。'
+    notes: '宇宙Uに比例するビット領域を持つ。巨大で疎な値や任意型にはOrdered Set/Trieも比較する。'
+  - id: dual-segment-tree
+    title: Dual Segment Tree（双対セグ木）
+    source: blueberry
+    headers: [blueberry/data-structure/dual-segment-tree.hpp]
+    url: /blueberry/data-structure/dual-segment-tree.hpp.html
+    targets: [array]
+    queries: [point-get]
+    updates: [point-set, range-action, range-add, range-assign, range-affine]
+    conditions: [noncommutative, online-queries]
+    calls:
+      - {signature: 'tree.apply(l,r,f) / tree.set(p,x) / tree.get(p)', complexity: 'O(log(N+1))'}
+      - {signature: 'tree.get_all()', complexity: 'O(N)'}
+    prerequisites: '固定配列と作用mapping、composition(new,old)、作用の単位元id。構築・メモリO(N)。'
+    notes: '区間和や区間積は持たない。作用順を保つためgetも内部の遅延状態を更新する。'
+  - id: double-ended-priority-queue
+    title: Double Ended Priority Queue
+    source: blueberry
+    headers: [blueberry/data-structure/double-ended-priority-queue.hpp]
+    url: /blueberry/data-structure/double-ended-priority-queue.hpp.html
+    targets: [multiset]
+    queries: [set-minmax]
+    updates: [heap-edit]
+    conditions: [duplicates, online-queries]
+    calls:
+      - {signature: 'queue.min() / queue.max()', complexity: 'O(1)'}
+      - {signature: 'queue.push(x) / queue.pop_min() / queue.pop_max()', complexity: '償却 O(log(N+1))'}
+    prerequisites: '比較可能なキー。min/max/popは非空時。メモリO(C)、Cは保持容量で削除後も残る。'
+    notes: '両端だけを取り出す用途。任意キーの削除・順位・meldは提供しない。'
+  - id: skew-heap
+    title: Skew Heap（meld可能）
+    source: blueberry
+    headers: [blueberry/data-structure/skew-heap.hpp]
+    url: /blueberry/data-structure/skew-heap.hpp.html
+    targets: [multiset]
+    queries: [set-minmax]
+    updates: [heap-edit, heap-meld]
+    conditions: [duplicates, online-queries]
+    calls:
+      - {signature: 'heap.top()', complexity: 'O(1)'}
+      - {signature: 'heap.push(x) / heap.pop() / heap.meld(other)', complexity: '償却 O(log(N+M+1))、単発最悪 O(N+M)'}
+    prerequisites: '同じ比較順のヒープ同士をmeld。N,Mは要素数。メモリO(N)。ムーブ専用。'
+    notes: 'meldはotherを空にして所有権を移す。比較順に応じた片側だけを取得し、minとmaxの両方は保持しない。'
+  - id: slope-trick
+    title: Slope Trick（heap版）
+    source: blueberry
+    headers: [blueberry/data-structure/slope-trick.hpp]
+    url: /blueberry/data-structure/slope-trick.hpp.html
+    targets: [convex]
+    queries: [convex-min, function-value]
+    updates: [convex-edit]
+    conditions: [online-queries]
+    calls:
+      - {signature: 'f.add_abs(a) / f.add_x_minus_a(a) / f.add_a_minus_x(a)', complexity: '償却 O(log(K+1))'}
+      - {signature: 'f.min() / f.argmin() / f.shift(l,r)', complexity: 'O(1)'}
+      - {signature: 'f.eval(x)', complexity: 'O(K log(K+1))'}
+    prerequisites: '全実数上の下に有界な凸区分線形関数。Kは保持する折点数。単位傾きのhingeを追加。'
+    notes: '重み付き傾きや定義域制約はSplay版を比較。evalはヒープをコピーして評価するため最小値取得より重い。'
+  - id: splay-slope-trick
+    title: Splay Slope Trick（有限区間）
+    source: blueberry
+    headers: [blueberry/data-structure/splay-slope-trick.hpp]
+    url: /blueberry/data-structure/splay-slope-trick.hpp.html
+    targets: [convex]
+    queries: [convex-min, function-value]
+    updates: [convex-edit, convex-convolution]
+    conditions: [online-queries]
+    calls:
+      - {signature: 'f.add_abs(a,w) / f.eval(x) / f.min() / f.argmin()', complexity: '償却 O(log(K+1))'}
+      - {signature: 'f.convolve(g) / f.merge(g)', complexity: 'O((K+L) log(K+L+1))'}
+    prerequisites: '有限閉区間上の凸区分線形関数。K,Lは折点数。重みは非負、型の演算・overflow条件を満たす。'
+    notes: '全実数上のheap版とは定義域が異なる。空の定義域や範囲外の評価はoptional。merge/convolveは相手を消費する。'
+  - id: persistent-array
+    title: Persistent Array
+    source: blueberry
+    headers: [blueberry/data-structure/persistent-array.hpp]
+    url: /blueberry/data-structure/persistent-array.hpp.html
+    targets: [array]
+    queries: [point-get]
+    updates: [point-set]
+    conditions: [history, online-queries]
+    calls:
+      - {signature: 'array.set(version,p,x) / array.get(version,p)', complexity: '償却 O(log(N+1))'}
+    prerequisites: '既定構築・コピーできる値型。版0が初期配列。更新ごとにO(log(N+1))の追加ノード。'
+    notes: '過去の版は変わらない。区間積を保持したい場合はPersistent Segment Tree。'
+  - id: persistent-union-find
+    title: Persistent Union Find
+    source: blueberry
+    headers: [blueberry/data-structure/persistent-union-find.hpp]
+    url: /blueberry/data-structure/persistent-union-find.hpp.html
+    targets: [graph]
+    queries: [connectivity]
+    updates: [merge]
+    conditions: [history, online-queries]
+    calls:
+      - {signature: 'uf.merge(version,a,b) / uf.same(version,a,b)', complexity: '償却 O(log²(N+1))'}
+    prerequisites: '固定頂点集合。経路圧縮なしのunion-by-sizeを永続配列上で扱う。更新ごとにO(log(N+1))ノード追加。'
+    notes: '任意の過去版から分岐できる。DFSで状態を戻せるだけならRollback版も比較。'
+  - id: range-parallel-union-find
+    title: Range Parallel Union Find
+    source: blueberry
+    headers: [blueberry/data-structure/range-parallel-union-find.hpp]
+    url: /blueberry/data-structure/range-parallel-union-find.hpp.html
+    targets: [array, graph]
+    queries: [connectivity]
+    updates: [range-union]
+    conditions: [online-queries]
+    calls:
+      - {signature: 'uf.range_merge(a,b,length)', complexity: '全Q操作 O((N log(N+1)+Q) α(N))'}
+      - {signature: 'uf.same(a,b) / uf.leader(a)', complexity: '償却 O(α(N))'}
+    prerequisites: '固定N頂点。構築・メモリO(N log(N+1))。callbackの処理時間は別加算。'
+    notes: '区間内を一つの成分にする操作ではなく、a+iとb+iをそれぞれ併合する。'
+  - id: suffix-automaton
+    title: Suffix Automaton
+    source: blueberry
+    headers: [blueberry/string/suffix-automaton.hpp]
+    url: /blueberry/string/suffix-automaton.hpp.html
+    targets: [string]
+    queries: [substring, distinct-substrings, common-substring]
+    updates: [append]
+    conditions: [online-queries]
+    calls:
+      - {signature: 'sam.append(c)', complexity: '構築全体 O(N log(σ+1))'}
+      - {signature: 'sam.contains(pattern) / sam.count(pattern)', complexity: 'O(M log(σ+1))、countは更新後初回にO(N)追加'}
+      - {signature: 'sam.distinct_substrings()', complexity: 'O(1)'}
+    prerequisites: '比較可能な記号。Nは構築済み長、Mはpattern長、σは異なる記号数。map遷移。'
+    notes: 'countの後にappendするたび出現数集計は無効化される。末尾以外の編集は不可。'
+  - id: linear-rmq
+    title: Linear RMQ
+    source: blueberry
+    headers: [blueberry/data-structure/linear-rmq.hpp]
+    url: /blueberry/data-structure/linear-rmq.hpp.html
+    targets: [array]
+    queries: [range-minmax]
+    updates: [static]
+    conditions: [online-queries]
+    calls:
+      - {signature: 'rmq.argmin(l,r) / rmq.prod(l,r)', complexity: 'O(1)'}
+    prerequisites: '比較可能な固定配列。word-RAMで構築・メモリO(N)、区間は非空。'
+    notes: '同値なら最左の添字。一般の区間和・gcd・関数合成には使えない。'
+  - id: linear-lca
+    title: Linear LCA
+    source: blueberry
+    headers: [blueberry/graph/linear-lca.hpp]
+    url: /blueberry/graph/linear-lca.hpp.html
+    targets: [tree]
+    queries: [ancestor]
+    updates: [static]
+    conditions: [static-tree, online-queries]
+    calls:
+      - {signature: 'tree.lca(u,v) / tree.distance(u,v)', complexity: 'O(1)'}
+    prerequisites: '固定の連結木。Euler tourとLinear RMQで構築・メモリO(N)。'
+    notes: 'k番目の祖先は提供しない。必要ならDoubling LCAやHLDを使う。'
+  - id: centroid-decomposition
+    title: Centroid Decomposition（通常 / 1/3）
+    source: blueberry
+    headers: [blueberry/graph/centroid-decomposition.hpp]
+    url: /blueberry/graph/centroid-decomposition.hpp.html
+    targets: [tree]
+    queries: [decomposition]
+    updates: [static]
+    conditions: [static-tree, offline-queries]
+    calls:
+      - {signature: 'CentroidDecomposition(tree) / centroid_decomposition_thirds(tree,callback)', complexity: 'O(N log(N+1)) + callback'}
+    prerequisites: '固定の無重み木。1/3版は実頂点と仮想頂点を区別する二群分割。'
+    notes: '各成分がN/3以下になる頂点を探す意味ではない。距離の集約にはcallbackなどを接続する。'
+  - id: contour-query
+    title: Contour Query（頂点加算・距離帯和）
+    source: blueberry
+    headers: [blueberry/graph/contour-query.hpp]
+    url: /blueberry/graph/contour-query.hpp.html
+    targets: [tree]
+    queries: [contour-sum]
+    updates: [point-add]
+    conditions: [static-tree, online-queries]
+    calls:
+      - {signature: 'tree.add(v,x) / tree.sum(v,l,r)', complexity: 'O(log²(N+1))'}
+    prerequisites: '固定の無重み木、値はACL fenwick_tree対応の整数またはstatic_modint。構築・メモリO(N log(N+1))。'
+    notes: '中心vからの距離が[l,r)に入る頂点を集計。距離0にはv自身が入る。'
+  - id: contour-add
+    title: Contour Add（距離帯加算・頂点取得）
+    source: blueberry
+    headers: [blueberry/graph/contour-query.hpp]
+    url: /blueberry/graph/contour-query.hpp.html
+    targets: [tree]
+    queries: [point-get]
+    updates: [contour-add]
+    conditions: [static-tree, online-queries]
+    calls:
+      - {signature: 'tree.add(v,l,r,x) / tree.get(v)', complexity: 'O(log²(N+1))'}
+    prerequisites: '固定の無重み木、値はACL fenwick_tree対応の整数またはstatic_modint。構築・メモリO(N log(N+1))。'
+    notes: '距離帯加算と距離帯和の両方を同時に提供する構造ではない。'
+  - id: kd-tree
+    title: KD Tree（固定平面点）
+    source: blueberry
+    headers: [blueberry/data-structure/kd-tree.hpp]
+    url: /blueberry/data-structure/kd-tree.hpp.html
+    targets: [grid]
+    queries: [rectangle-sum]
+    updates: [point-set, point-add]
+    conditions: [known-updates, online-queries]
+    calls:
+      - {signature: 'tree.set(p,x) / tree.set(p,tree.get(p)+delta)', complexity: 'O(log(N+1))'}
+      - {signature: 'tree.prod(xl,yl,xr,yr)', complexity: 'O(√N)'}
+    prerequisites: '平面座標は固定、可換モノイド。加算には値型の+が必要。メモリO(N)。'
+    notes: '任意の未知座標の追加や最近傍APIは提供しない。矩形和専用のFenwick/Waveletとも比較。'
+  - id: static-range-lis
+    title: Static Range LIS
+    source: blueberry
+    headers: [blueberry/data-structure/static-range-lis.hpp]
+    url: /blueberry/data-structure/static-range-lis.hpp.html
+    targets: [array]
+    queries: [range-lis]
+    updates: [static]
+    conditions: [duplicates, online-queries]
+    calls:
+      - {signature: 'query.lis(l,r)', complexity: 'O(log(N+1))'}
+    prerequisites: '比較可能な固定配列。構築O(N log²(N+1))、メモリO(N log(N+1))。'
+    notes: '狭義増加。同値を含む非減少LISではない。空区間は0。'
+  - id: range-sort-range-product
+    title: Range Sort Range Product
+    source: blueberry
+    headers: [blueberry/data-structure/range-sort-range-product.hpp]
+    url: /blueberry/data-structure/range-sort-range-product.hpp.html
+    targets: [array]
+    queries: [aggregate, range-sum, range-minmax, whole-aggregate]
+    updates: [point-set, range-sort]
+    conditions: [noncommutative, online-queries]
+    calls:
+      - {signature: 'tree.sort(l,r,descending)', complexity: '全Q操作で O((N+Q)(log(N+1)+W))、単発最悪 O(N(log(N+1)+W))'}
+      - {signature: 'tree.prod(l,r) / tree.set(p,key,value)', complexity: 'O(log(N+1)+W)'}
+    prerequisites: '全ての生存キーが相異なる符号なし整数。Wはビット幅、値はモノイド。構築O(N log(N+1))・メモリO(N)。'
+    notes: '降順に並べ替えた区間でも非可換な積の向きを保つ。重複キーや安定ソートの構造ではない。'
+  - id: partially-retroactive-priority-queue
+    title: Partially Retroactive Priority Queue
+    source: blueberry
+    headers: [blueberry/data-structure/partially-retroactive-priority-queue.hpp]
+    url: /blueberry/data-structure/partially-retroactive-priority-queue.hpp.html
+    targets: [multiset]
+    queries: [set-minmax]
+    updates: [past-edit]
+    conditions: [duplicates, online-queries]
+    calls:
+      - {signature: 'queue.insert_op(t,x) / queue.pop_op(t) / queue.erase_op(t)', complexity: 'O(log(M+1))'}
+      - {signature: 'queue.min() / queue.size()', complexity: 'O(1)'}
+    prerequisites: 'M個の固定時刻スロット。各時刻に高々1操作。構築・メモリO(M)。'
+    notes: '過去操作の変更を反映した現在の最小値を返す部分retroactive版。任意の過去時点の問い合わせは不可。不正な履歴変更はfalseで拒否。'
+  - id: link-cut-tree
+    title: Link-Cut Tree
+    source: blueberry
+    headers: [blueberry/graph/link-cut-tree.hpp]
+    url: /blueberry/graph/link-cut-tree.hpp.html
+    targets: [tree]
+    queries: [path-aggregate, connectivity, point-get]
+    updates: [point-set, point-add, link-cut]
+    conditions: [static-tree, noncommutative, online-queries]
+    calls:
+      - {signature: 'tree.link(u,v) / tree.cut(u,v) / tree.prod(u,v) / tree.set(v,x)', complexity: '償却 O(log(N+1))'}
+      - {signature: 'tree.set(v,tree.get(v)+delta)', complexity: '償却 O(log(N+1))'}
+    prerequisites: '固定頂点の動的森、頂点値はモノイド。加算には値型の+が必要。構築・メモリO(N)。'
+    notes: 'パス積はuからvの向きを保つ。部分木集約とパス一括作用は提供しない。閉路を作るlink・存在しない辺のcutはfalse。'
+  - id: euler-tour-tree
+    title: Euler Tour Tree
+    source: blueberry
+    headers: [blueberry/graph/euler-tour-tree.hpp]
+    url: /blueberry/graph/euler-tour-tree.hpp.html
+    targets: [tree]
+    queries: [subtree-aggregate, connectivity, point-get]
+    updates: [point-set, point-add, link-cut, subtree-action]
+    conditions: [static-tree, online-queries]
+    calls:
+      - {signature: 'tree.link(u,v) / tree.cut(u,v) / tree.prod(v,parent) / tree.apply(v,parent,f)', complexity: '償却 O(log(N+1))'}
+      - {signature: 'tree.set(v,tree.get(v)+delta)', complexity: '償却 O(log(N+1))'}
+    prerequisites: '固定頂点の動的森、可換モノイドと頂点数を考慮した作用。加算には値型の+が必要。構築・メモリO(N)。'
+    notes: 'parent=-1なら連結成分全体、それ以外は実在する隣接頂点側を除いた部分木。一般グラフの動的連結性やパス積は提供しない。'
+  - id: static-top-tree
+    title: Static Top Tree
+    source: blueberry
+    headers: [blueberry/graph/static-top-tree.hpp]
+    url: /blueberry/graph/static-top-tree.hpp.html
+    targets: [tree]
+    queries: [tree-dp]
+    updates: [point-set, point-add]
+    conditions: [static-tree, online-queries]
+    calls:
+      - {signature: 'tree.set(v,x)', complexity: 'O(log(N+1))'}
+      - {signature: 'tree.all_prod()', complexity: 'O(1)'}
+      - {signature: 'tree.set(v,tree.get(v)+delta)', complexity: 'O(log(N+1))'}
+    prerequisites: '根と辺を固定した非空木。rake/compress可能な木DPをcallbackで定義。加算には値型の+が必要。構築O(N log(N+1))・メモリO(N)。'
+    notes: '単なる頂点値の和以外にも分岐を扱うDPを保持できる。辺の変更は不可。callbackが定数時間の場合の計算量。'
+  - id: dynamic-top-tree
+    title: Dynamic Top Tree（二階splay）
+    source: blueberry
+    headers: [blueberry/graph/dynamic-top-tree.hpp]
+    url: /blueberry/graph/dynamic-top-tree.hpp.html
+    targets: [tree]
+    queries: [tree-dp, subtree-aggregate, connectivity, point-get]
+    updates: [point-set, point-add, link-cut]
+    conditions: [static-tree, online-queries]
+    calls:
+      - {signature: 'tree.link(u,v) / tree.cut(u,v) / tree.set(v,x)', complexity: '償却 O(log²(N+1))'}
+      - {signature: 'tree.all_prod(root) / tree.subtree_prod(v,parent)', complexity: '償却 O(log²(N+1))'}
+      - {signature: 'tree.set(v,tree.get(v)+delta)', complexity: '償却 O(log²(N+1))'}
+    prerequisites: '固定頂点の動的森。根変更・rake/compressに整合する木DPをcallbackで定義。加算には値型の+が必要。構築・メモリO(N)。'
+    notes: '逆元不要。prod(u,v)も脇の枝を含む連結成分のclusterであり、LCTのパスだけの積とは異なる。狭義の辺クラスタモデルではなく頂点ベースの二階splay方式。'

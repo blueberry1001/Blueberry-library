@@ -1,0 +1,27 @@
+{
+  "blueberry/graph/topological-sort.hpp": {
+    "reason": "専用の公式verifyドライバは未登録です。",
+    "limits": "関連ローカルテストはありますが、公式ジャッジでの専用検証を表すものではありません。",
+    "next": "DAGの順序制約・閉路時の返り値を確かめられる問題を選び、専用ドライバを追加する。",
+    "issue": "https://github.com/blueberry1001/Blueberry-library/issues/24"
+  },
+  "blueberry/data-structure/slope-trick.hpp": {
+    "reason": "2026-09-19調査時のLibrary Checker公開問題スナップショットには、heap版Slope Trickの操作を直接検証する対象を見つけていません。",
+    "limits": "小さい整数点での愚直比較はありますが、公式verify未登録です。ABC127 Fは候補で、shiftやmerge全体の検証にはなりません。",
+    "next": "他ジャッジの適切な問題を追加調査し、問題が扱わない操作はランダム比較を維持する。",
+    "issue": "https://github.com/blueberry1001/Blueberry-library/issues/26"
+  },
+  "blueberry/data-structure/skew-heap.hpp": {
+    "reason": "最短路ドライバで優先度キューとmeldを使用します。meld専用の公式問題は未登録です。",
+    "limits": "最短路の利用例だけでは、空ヒープ・自己meld・所有権移動・全てのmeld順を網羅しません。",
+    "next": "複数ヒープをmultisetの愚直解と比較するローカルテストも併用する。",
+    "issue": "https://github.com/blueberry1001/Blueberry-library/issues/25"
+  },
+  "blueberry/data-structure/partially-retroactive-priority-queue.hpp": {
+    "partial": true,
+    "reason": "2026-09-19調査時のLibrary Checker公開問題スナップショットには、過去操作の編集を直接検証する問題を見つけていません。",
+    "limits": "通常のpriority queue問題だけでは過去操作の編集を検証できず、専用の公式verifyは未登録です。任意の過去時点の問い合わせは提供しない部分retroactive版です。",
+    "next": "操作履歴を毎回再実行する愚直解で、過去への挿入・削除・不正操作拒否を比較する。",
+    "issue": "https://github.com/blueberry1001/Blueberry-library/issues/28"
+  }
+}
