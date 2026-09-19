@@ -1,5 +1,5 @@
 ---
-title: Sqrt Tree
+title: Sqrt Tree（静的）
 documentation_of: //blueberry/data-structure/sqrt-tree.hpp
 ---
 
@@ -19,6 +19,16 @@ L = 1 + log log(N + 2)。N は要素数で `0 <= N <= INT_MAX`。
 空配列・空区間に対応し、値の更新はできない。入力配列はコピーされるため構築後に破棄してよい。
 各層で 2 冪に切り上げた長さの prefix・suffix・ブロック間積を保持する。
 クエリ時の `op` 呼び出しは最大 2 回。返り値はすべて値で、参照の寿命や無効化はない。
+
+このクラスは静的クエリに特化した版として維持する。
+一点更新が必要な場合は [Dynamic Sqrt Tree]({{ '/blueberry/data-structure/dynamic-sqrt-tree.hpp.html' | relative_url }}) を使う。
+
+| 版 | 区間積 | 一点更新 | 用途 |
+| --- | --- | --- | --- |
+| `SqrtTree` | O(1)、`op` は最大2回 | 非対応 | 構築後に変更しない配列 |
+| `DynamicSqrtTree` | O(1) | O(√N) | 更新が少なく区間積が多い配列 |
+
+いずれも構築・メモリは O(N L)。更新頻度が高い場合は、更新と区間積がともに O(log N) の ACL segtree と比較する。
 
 ## 最小使用例
 

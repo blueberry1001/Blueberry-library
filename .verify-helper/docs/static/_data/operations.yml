@@ -959,7 +959,7 @@ entries:
     notes: "jumpはuからvへのパス上のk番目。範囲外は-1。"
   -
     id: "sqrt-tree"
-    title: "Sqrt Tree"
+    title: "Sqrt Tree（静的）"
     source: "blueberry"
     headers: ["blueberry/data-structure/sqrt-tree.hpp"]
     url: "/blueberry/data-structure/sqrt-tree.hpp.html"
@@ -970,6 +970,19 @@ entries:
     calls: [{"signature": "tree.prod(l, r) / tree.all_prod()", "complexity": "O(1)"}]
     prerequisites: "N要素、モノイド。構築・メモリO(N log log(N+2))、演算・コピーO(1)を仮定。"
     notes: "空区間はe()。更新なし。DSTより漸近メモリは小さいが、パディングと定数倍も比較する。"
+  -
+    id: "dynamic-sqrt-tree"
+    title: "Dynamic Sqrt Tree（一点更新）"
+    source: "blueberry"
+    headers: ["blueberry/data-structure/dynamic-sqrt-tree.hpp"]
+    url: "/blueberry/data-structure/dynamic-sqrt-tree.hpp.html"
+    targets: ["array"]
+    queries: ["range-sum", "range-minmax", "range-gcd", "aggregate", "whole-aggregate"]
+    updates: ["point-set", "point-add"]
+    conditions: ["unregistered", "noncommutative", "online-queries"]
+    calls: [{"signature": "tree.prod(l, r) / tree.all_prod()", "complexity": "O(1)"}, {"signature": "tree.set(p, x) / tree.set(p, tree.get(p) + delta)", "complexity": "O(sqrt(N+1))"}]
+    prerequisites: "N要素、モノイド。一点加算には値型の+が必要。構築・メモリO(N log log(N+2))、演算・コピーO(1)を仮定。"
+    notes: "空区間はe()。更新より区間積が多い用途向け。更新なしなら静的Sqrt Tree、更新が多いならACL segtreeと比較する。"
   -
     id: "persistent-binary-trie"
     title: "Persistent Binary Trie"

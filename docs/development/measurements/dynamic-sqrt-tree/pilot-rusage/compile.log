@@ -1,0 +1,25 @@
+g++ -std=gnu++20 -O2 -DNDEBUG -I. -I.deps/ac-library benchmarks/dynamic-sqrt-tree.cpp -o /tmp/blueberry-dynamic-sqrt-benchmark-4t5k3m1e/benchmark
+In file included from benchmarks/dynamic-sqrt-tree.cpp:16:
+In member function ‘S blueberry::DynamicSqrtTree<S, op, e>::Table::prod(int, int, const blueberry::DynamicSqrtTree<S, op, e>::Table*) const [with S = long long int; auto op = sum_op; auto e = sum_identity]’,
+    inlined from ‘S blueberry::DynamicSqrtTree<S, op, e>::Table::prod(int, int, const blueberry::DynamicSqrtTree<S, op, e>::Table*) const [with S = long long int; auto op = sum_op; auto e = sum_identity]’ at ./blueberry/data-structure/dynamic-sqrt-tree.hpp:99:23,
+    inlined from ‘S blueberry::DynamicSqrtTree<S, op, e>::prod(int, int) const [with S = long long int; auto op = sum_op; auto e = sum_identity]’ at ./blueberry/data-structure/dynamic-sqrt-tree.hpp:153:22,
+    inlined from ‘void measure(const std::string&, const std::vector<long long int>&, const std::vector<Query>&, int, uint64_t, uint64_t) [with Tree = blueberry::DynamicSqrtTree<long long int, sum_op, sum_identity>]’ at benchmarks/dynamic-sqrt-tree.cpp:44:62:
+./blueberry/data-structure/dynamic-sqrt-tree.hpp:99:23: warning: ‘this’ pointer is null [-Wnonnull]
+   99 |           product = op(product, index->prod(static_cast<int>(left + 1), static_cast<int>(right)));
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./blueberry/data-structure/dynamic-sqrt-tree.hpp: In function ‘void measure(const std::string&, const std::vector<long long int>&, const std::vector<Query>&, int, uint64_t, uint64_t) [with Tree = blueberry::DynamicSqrtTree<long long int, sum_op, sum_identity>]’:
+./blueberry/data-structure/dynamic-sqrt-tree.hpp:86:7: note: in a call to non-static member function ‘S blueberry::DynamicSqrtTree<S, op, e>::Table::prod(int, int, const blueberry::DynamicSqrtTree<S, op, e>::Table*) const [with S = long long int; auto op = sum_op; auto e = sum_identity]’
+   86 |     S prod(int l, int r, const Table* index = nullptr) const {
+      |       ^~~~
+In member function ‘S blueberry::DynamicSqrtTree<S, op, e>::Table::prod(int, int, const blueberry::DynamicSqrtTree<S, op, e>::Table*) const [with S = long long int; auto op = sum_op; auto e = sum_identity]’,
+    inlined from ‘S blueberry::DynamicSqrtTree<S, op, e>::Table::prod(int, int, const blueberry::DynamicSqrtTree<S, op, e>::Table*) const [with S = long long int; auto op = sum_op; auto e = sum_identity]’ at ./blueberry/data-structure/dynamic-sqrt-tree.hpp:99:23,
+    inlined from ‘S blueberry::DynamicSqrtTree<S, op, e>::prod(int, int) const [with S = long long int; auto op = sum_op; auto e = sum_identity]’ at ./blueberry/data-structure/dynamic-sqrt-tree.hpp:153:22,
+    inlined from ‘S blueberry::DynamicSqrtTree<S, op, e>::all_prod() const [with S = long long int; auto op = sum_op; auto e = sum_identity]’ at ./blueberry/data-structure/dynamic-sqrt-tree.hpp:155:35,
+    inlined from ‘void measure(const std::string&, const std::vector<long long int>&, const std::vector<Query>&, int, uint64_t, uint64_t) [with Tree = blueberry::DynamicSqrtTree<long long int, sum_op, sum_identity>]’ at benchmarks/dynamic-sqrt-tree.cpp:47:57:
+./blueberry/data-structure/dynamic-sqrt-tree.hpp:99:23: warning: ‘this’ pointer is null [-Wnonnull]
+   99 |           product = op(product, index->prod(static_cast<int>(left + 1), static_cast<int>(right)));
+      |                     ~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./blueberry/data-structure/dynamic-sqrt-tree.hpp: In function ‘void measure(const std::string&, const std::vector<long long int>&, const std::vector<Query>&, int, uint64_t, uint64_t) [with Tree = blueberry::DynamicSqrtTree<long long int, sum_op, sum_identity>]’:
+./blueberry/data-structure/dynamic-sqrt-tree.hpp:86:7: note: in a call to non-static member function ‘S blueberry::DynamicSqrtTree<S, op, e>::Table::prod(int, int, const blueberry::DynamicSqrtTree<S, op, e>::Table*) const [with S = long long int; auto op = sum_op; auto e = sum_identity]’
+   86 |     S prod(int l, int r, const Table* index = nullptr) const {
+      |       ^~~~

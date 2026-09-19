@@ -1,4 +1,5 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/static_range_sum"
+// @title Disjoint Sparse Table - Static Range Sum（区間和）
 #include <iostream>
 #include <vector>
 #include "blueberry/data-structure/disjoint-sparse-table.hpp"
