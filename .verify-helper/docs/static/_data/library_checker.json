@@ -23,10 +23,10 @@
   ],
   "total": 253,
   "counts": {
-    "missing": 149,
+    "missing": 135,
     "driver": 1,
-    "verify": 94,
-    "acl": 9
+    "verify": 109,
+    "acl": 8
   },
   "statuses": [
     {
@@ -154,11 +154,16 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/data-structure/double-ended-priority-queue.hpp",
+          "name": "Double Ended Priority Queue"
+        },
+        {
           "path": "blueberry/data-structure/ordered-multiset.hpp",
           "name": "Ordered Multiset"
         }
       ],
       "verifies": [
+        "verify/data-structure/double-ended-priority-queue.test.cpp",
         "verify/data-structure/ordered-multiset-priority-queue.test.cpp"
       ],
       "ignored_verifies": [],
@@ -252,11 +257,16 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/data-structure/persistent-array.hpp",
+          "name": "Persistent Array"
+        },
+        {
           "path": "blueberry/data-structure/persistent-queue.hpp",
           "name": "Persistent Queue"
         }
       ],
       "verifies": [
+        "verify/data-structure/persistent-array.test.cpp",
         "verify/data-structure/persistent-queue.test.cpp"
       ],
       "ignored_verifies": [],
@@ -285,11 +295,20 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/data-structure/persistent-array.hpp",
+          "name": "Persistent Array"
+        },
+        {
+          "path": "blueberry/data-structure/persistent-union-find.hpp",
+          "name": "Persistent Union Find"
+        },
+        {
           "path": "blueberry/data-structure/rollback-union-find.hpp",
           "name": "Rollback Union Find"
         }
       ],
       "verifies": [
+        "verify/data-structure/online-persistent-unionfind.test.cpp",
         "verify/data-structure/persistent-unionfind.test.cpp"
       ],
       "ignored_verifies": [],
@@ -343,6 +362,10 @@
           "name": "Fenwick Tree"
         },
         {
+          "path": "blueberry/data-structure/kd-tree.hpp",
+          "name": "KD Tree"
+        },
+        {
           "path": "blueberry/data-structure/offline-fenwick-tree-2d.hpp",
           "name": "Offline Fenwick Tree 2D"
         },
@@ -353,6 +376,7 @@
       ],
       "verifies": [
         "verify/data-structure/dynamic-point-add-rectangle-sum.test.cpp",
+        "verify/data-structure/kd-tree.test.cpp",
         "verify/data-structure/point-add-rectangle-sum.test.cpp",
         "verify/data-structure/weighted-wavelet-matrix.test.cpp"
       ],
@@ -433,10 +457,17 @@
       "title": "Point Set Range Sort Range Composite",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/point_set_range_sort_range_composite",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/data-structure/range-sort-range-product.hpp",
+          "name": "Range Sort Range Product"
+        }
+      ],
+      "verifies": [
+        "verify/data-structure/range-sort-range-product.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -450,11 +481,16 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/data-structure/fast-set.hpp",
+          "name": "Fast Set（64分木）"
+        },
+        {
           "path": "blueberry/data-structure/ordered-set.hpp",
           "name": "Ordered Set"
         }
       ],
       "verifies": [
+        "verify/data-structure/fast-set.test.cpp",
         "verify/data-structure/predecessor.test.cpp"
       ],
       "ignored_verifies": [],
@@ -486,10 +522,17 @@
       "title": "Range Affine Point Get",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/range_affine_point_get",
-      "status": "acl",
-      "label": "ACL推奨",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/data-structure/dual-segment-tree.hpp",
+          "name": "Dual Segment Tree"
+        }
+      ],
+      "verifies": [
+        "verify/data-structure/dual-segment-tree.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "ACL lazy_segtreeのapply(l,r,f)とget(p)で対応する。",
       "external_url": "https://atcoder.github.io/ac-library/production/document_en/lazysegtree.html"
@@ -578,10 +621,17 @@
       "title": "Range Parallel Unionfind",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/range_parallel_unionfind",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/data-structure/range-parallel-union-find.hpp",
+          "name": "Range Parallel Union Find"
+        }
+      ],
+      "verifies": [
+        "verify/data-structure/range-parallel-unionfind.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -776,10 +826,21 @@
       "title": "Static Range LIS Query",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/static_range_lis_query",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/data-structure/static-range-lis.hpp",
+          "name": "Static Range LIS"
+        },
+        {
+          "path": "blueberry/data-structure/wavelet-matrix.hpp",
+          "name": "Wavelet Matrix"
+        }
+      ],
+      "verifies": [
+        "verify/data-structure/static-range-lis.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -859,6 +920,10 @@
           "name": "Disjoint Sparse Table"
         },
         {
+          "path": "blueberry/data-structure/linear-rmq.hpp",
+          "name": "Linear RMQ"
+        },
+        {
           "path": "blueberry/data-structure/sparse-table.hpp",
           "name": "Sparse Table"
         },
@@ -869,6 +934,7 @@
       ],
       "verifies": [
         "verify/data-structure/disjoint-sparse-table-rmq.test.cpp",
+        "verify/data-structure/linear-rmq.test.cpp",
         "verify/data-structure/sqrt-tree-rmq.test.cpp",
         "verify/data-structure/static-rmq.test.cpp"
       ],
@@ -1454,11 +1520,16 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/data-structure/skew-heap.hpp",
+          "name": "Skew Heap"
+        },
+        {
           "path": "blueberry/graph/dijkstra.hpp",
           "name": "Dijkstra"
         }
       ],
       "verifies": [
+        "verify/data-structure/skew-heap.test.cpp",
         "verify/graph/shortest-path.test.cpp"
       ],
       "ignored_verifies": [],
@@ -1562,10 +1633,17 @@
       "title": "Dynamic Tree Subtree Add Subtree Sum",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/dynamic_tree_subtree_add_subtree_sum",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/euler-tour-tree.hpp",
+          "name": "Euler Tour Tree"
+        }
+      ],
+      "verifies": [
+        "verify/graph/euler-tour-tree.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1575,10 +1653,17 @@
       "title": "Dynamic Tree Vertex Add Path Sum",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/link-cut-tree.hpp",
+          "name": "Link-Cut Tree"
+        }
+      ],
+      "verifies": [
+        "verify/graph/link-cut-tree.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1588,10 +1673,22 @@
       "title": "Dynamic Tree Vertex Add Subtree Sum",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_subtree_sum",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/dynamic-top-tree.hpp",
+          "name": "Dynamic Top Tree"
+        },
+        {
+          "path": "blueberry/graph/euler-tour-tree.hpp",
+          "name": "Euler Tour Tree"
+        }
+      ],
+      "verifies": [
+        "verify/graph/dynamic-top-tree-subtree.test.cpp",
+        "verify/graph/euler-tour-tree-vertex-add.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1601,10 +1698,17 @@
       "title": "Dynamic Tree Vertex Set Path Composite",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/link-cut-tree.hpp",
+          "name": "Link-Cut Tree"
+        }
+      ],
+      "verifies": [
+        "verify/graph/link-cut-tree-composite.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1614,10 +1718,17 @@
       "title": "Frequency Table of Tree Distance",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/frequency_table_of_tree_distance",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/centroid-decomposition.hpp",
+          "name": "Centroid Decomposition"
+        }
+      ],
+      "verifies": [
+        "verify/graph/centroid-decomposition-thirds.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1651,8 +1762,16 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/data-structure/linear-rmq.hpp",
+          "name": "Linear RMQ"
+        },
+        {
           "path": "blueberry/data-structure/sparse-table.hpp",
           "name": "Sparse Table"
+        },
+        {
+          "path": "blueberry/graph/linear-lca.hpp",
+          "name": "Linear LCA"
         },
         {
           "path": "blueberry/graph/lowest-common-ancestor.hpp",
@@ -1660,6 +1779,7 @@
         }
       ],
       "verifies": [
+        "verify/graph/linear-lca.test.cpp",
         "verify/graph/lowest-common-ancestor-rmq.test.cpp",
         "verify/graph/lowest-common-ancestor.test.cpp"
       ],
@@ -1672,10 +1792,17 @@
       "title": "Point Set Tree Path Composite Sum",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/dynamic-top-tree.hpp",
+          "name": "Dynamic Top Tree"
+        }
+      ],
+      "verifies": [
+        "verify/graph/dynamic-top-tree.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1685,10 +1812,17 @@
       "title": "Point Set Tree Path Composite Sum (Fixed Root)",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum_fixed_root",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/static-top-tree.hpp",
+          "name": "Static Top Tree"
+        }
+      ],
+      "verifies": [
+        "verify/graph/static-top-tree.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1791,10 +1925,21 @@
       "title": "Vertex Add Range Contour Sum on Tree",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/vertex_add_range_contour_sum_on_tree",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/centroid-decomposition.hpp",
+          "name": "Centroid Decomposition"
+        },
+        {
+          "path": "blueberry/graph/contour-query.hpp",
+          "name": "Contour Query"
+        }
+      ],
+      "verifies": [
+        "verify/graph/contour-query.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -1824,10 +1969,21 @@
       "title": "Vertex Get Range Contour Add on Tree",
       "category": "Tree",
       "url": "https://judge.yosupo.jp/problem/vertex_get_range_contour_add_on_tree",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/graph/centroid-decomposition.hpp",
+          "name": "Centroid Decomposition"
+        },
+        {
+          "path": "blueberry/graph/contour-query.hpp",
+          "name": "Contour Query"
+        }
+      ],
+      "verifies": [
+        "verify/graph/contour-add.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -2016,10 +2172,17 @@
       "title": "Min Plus Convolution (Convex and Convex)",
       "category": "Convolution",
       "url": "https://judge.yosupo.jp/problem/min_plus_convolution_convex_convex",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/data-structure/splay-slope-trick.hpp",
+          "name": "Splay Slope Trick"
+        }
+      ],
+      "verifies": [
+        "verify/data-structure/splay-slope-trick.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
@@ -3427,10 +3590,15 @@
         {
           "path": "blueberry/string/longest-common-substring.hpp",
           "name": "Longest Common Substring"
+        },
+        {
+          "path": "blueberry/string/suffix-automaton.hpp",
+          "name": "Suffix Automaton"
         }
       ],
       "verifies": [
-        "verify/string/longest-common-substring.test.cpp"
+        "verify/string/longest-common-substring.test.cpp",
+        "verify/string/suffix-automaton-lcs.test.cpp"
       ],
       "ignored_verifies": [],
       "note": "",
@@ -3461,10 +3629,17 @@
       "title": "Number of Substrings",
       "category": "String",
       "url": "https://judge.yosupo.jp/problem/number_of_substrings",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/string/suffix-automaton.hpp",
+          "name": "Suffix Automaton"
+        }
+      ],
+      "verifies": [
+        "verify/string/suffix-automaton-substrings.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
