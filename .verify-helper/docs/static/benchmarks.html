@@ -5,6 +5,7 @@ title: Verifyの実行時間
 <h1>Verifyの実行時間</h1>
 <p>Library Checkerの公式データとcheckerを使った<strong>ローカル実行</strong>の記録です。
 Yosupoの提出画面に表示される時間ではありません。</p>
+<p><a href="{{ '/docs/development/fastest-performance-plan.html' | relative_url }}">Fastestとの差を縮める方針</a>では、Static RMQの入出力・構築・クエリを分けた実測と、汎用性を維持する改善の優先順位をまとめています。</p>
 <ul>
   <li>通常のCIは変更の影響を受けるverifyだけを1回実行します。対象はキャッシュ済みのACも再コンパイル・再実行します。テストデータのキャッシュは利用します。</li>
   <li>手動の全件CIとローカルの標準設定は直列3回です。各回のケース別elapsed合計の中央値と、最大ケース時間の中央値を表示します。1回実行ではその1回の値です。</li>

@@ -1,0 +1,86 @@
+{
+  "revision": "2f36f54a1f814c21c2603d9a9a01b531998e62ef",
+  "note": "Harness/prototypes are working-tree sources identified by hashes; library headers are unchanged.",
+  "utc": "2026-09-19T06:57:14Z",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpuinfo": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 183\nmodel name\t: Intel(R) Core(TM) i7-14650HX\nstepping\t: 1\nmicrocode\t: 0xffffffff\ncpu MHz\t\t: 2419.200\ncache size\t: 30720 KB\nphysical id\t: 0\nsiblings\t: 24\ncore id\t\t: 0\ncpu cores\t: 12\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nvmx flags\t: vnmi invvpid ept_x_only ept_ad ept_1gb tsc_offset vtpr ept vpid unrestricted_guest ept_mode_based_exec tsc_scaling usr_wait_pause\nbugs\t\t: spectre_v1 spectre_v2 spec_store_bypass swapgs retbleed eibrs_pbrsb rfds bhi\nbogomips\t: 4838.40\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 39 bits physical, 48 bits virtual\npower management:",
+  "cpu_affinity": 0,
+  "profiles": {
+    "gcc-verify": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-pipe",
+      "-Wall",
+      "-Wextra",
+      "-Wshadow",
+      "-D_GLIBCXX_ASSERTIONS"
+    ],
+    "gcc-release": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "clang-release": [
+      "clang++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ]
+  },
+  "sources": {
+    "benchmarks/static-rmq-cost-breakdown.cpp": "1f0a2275d23a9b93f0eada279fbda0758b0eb0bc32118c3659ac9d9e04326523",
+    "benchmarks/run-static-rmq-cost-breakdown.py": "dfe2f89167feb5a6bf852be08f95f78520b6999ca810a29e1403dbf843214c2f",
+    "blueberry/data-structure/sparse-table.hpp": "92dde23f0b59ed3577d147d6b052c5f303afff43f05553380c5e2ab3359de703",
+    "blueberry/data-structure/disjoint-sparse-table.hpp": "dad40b1377f1baa16942e15f214eaea9a7b01021ba34b1558701a2ff33fbd922",
+    "blueberry/data-structure/sqrt-tree.hpp": "5c1a6a05f7b85cfa3d0029ef6b7b323eed7ae13f46169c8b3ac03f4141f4f63f",
+    "blueberry/data-structure/linear-rmq.hpp": "4559e12939eb74ad5ea6c8a26d755a7718d7b3686a6d84b88a2f218731c15cc6"
+  },
+  "compiler_versions": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+  },
+  "problem_revision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "cases": {
+    "max_random_00": {
+      "input_sha256": "b2e14cff545031ea3b4d6b0af2128f2cad832a42d65852d66c20766b914ac4e3",
+      "output_sha256": "4dc7847a415682c5729fe01b307fe02afbcfd97fe22969483d08414b52a7a068"
+    },
+    "small_width_query_00": {
+      "input_sha256": "ec3d4ee7eb7012baf392a418b5ba59806da3fedca6d1a2445b7d070c8b6c655c",
+      "output_sha256": "1c84aec7894596ac25144ff469196151ea899e38cd7beb614659fb242876e3c1"
+    },
+    "small_values_00": {
+      "input_sha256": "9f7359c01bcd6465c0a4094f0b6e2bd2c8fd3b00a6c08ef843e1f174678374c9",
+      "output_sha256": "03860febffae10b28f5dc1394a401ef9da2e96e152870c4586a2f27637e8f74c"
+    }
+  },
+  "references": {
+    "362362": {
+      "sha256": "d0f9eaaadd5e084e23eb241bd55da98b2836e138b7bb84c69afa0895ec6c21c1",
+      "url": "https://judge.yosupo.jp/submission/362362",
+      "flags_note": "unmodified source pragmas remain active; not normalized to harness ISA/optimization"
+    },
+    "362370": {
+      "sha256": "7742b0f828f46dbe8fef4c026a3c805cd0aecbae90afafa5198358657e448911",
+      "url": "https://judge.yosupo.jp/submission/362370",
+      "flags_note": "unmodified source pragmas remain active; not normalized to harness ISA/optimization"
+    },
+    "400989": {
+      "sha256": "56bf7a35675f30e6368587f2e928a9b83634bf2a00b5f10c89012f18414b1822",
+      "url": "https://judge.yosupo.jp/submission/400989",
+      "flags_note": "unmodified source pragmas remain active; not normalized to harness ISA/optimization"
+    },
+    "402567": {
+      "sha256": "2d4af5a29cb81f91d19d0e2c324222344f5b9103f58423e92e3b5d25b1ec2cbd",
+      "url": "https://judge.yosupo.jp/submission/402567",
+      "flags_note": "unmodified source pragmas remain active; not normalized to harness ISA/optimization"
+    }
+  },
+  "repeats": 5,
+  "warmups_per_configuration": 1,
+  "ordering": "fixed seed 917 shuffles configurations per round; sequential pinned processes",
+  "output_check": "full stdout whitespace tokens equal official expected output, every run",
+  "timing": "process wall includes startup/destruction/IO; phases use steady_clock; batch query excludes IO, stream query includes query input and output"
+}

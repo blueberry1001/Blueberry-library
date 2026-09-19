@@ -1,0 +1,11 @@
+["g++", "-std=gnu++20", "-O2", "-pipe", "-Wall", "-Wextra", "-Wshadow", "-D_GLIBCXX_ASSERTIONS", "-I", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/benchmarks/static-rmq-cost-breakdown.cpp", "-o", "/tmp/blueberry-rmq-study-0b2x3zn1/gcc-verify"]
+["g++", "-std=gnu++20", "-O2", "-DNDEBUG", "-I", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/benchmarks/static-rmq-cost-breakdown.cpp", "-o", "/tmp/blueberry-rmq-study-0b2x3zn1/gcc-release"]
+["clang++", "-std=gnu++20", "-O2", "-DNDEBUG", "-I", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/benchmarks/static-rmq-cost-breakdown.cpp", "-o", "/tmp/blueberry-rmq-study-0b2x3zn1/clang-release"]
+["g++", "-std=gnu++23", "-O2", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fastest-study/rmq-reference/362362.cpp", "-o", "/tmp/blueberry-rmq-study-0b2x3zn1/reference-362362"]
+["g++", "-std=gnu++23", "-O2", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fastest-study/rmq-reference/362370.cpp", "-o", "/tmp/blueberry-rmq-study-0b2x3zn1/reference-362370"]
+["g++", "-std=gnu++23", "-O2", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fastest-study/rmq-reference/400989.cpp", "-o", "/tmp/blueberry-rmq-study-0b2x3zn1/reference-400989"]
+["g++", "-std=gnu++23", "-O2", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fastest-study/rmq-reference/402567.cpp", "-o", "/tmp/blueberry-rmq-study-0b2x3zn1/reference-402567", "-mavx2"]
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fastest-study/rmq-reference/402567.cpp: In member function ‘void canard::io::buffered_writer<MaxValue>::flush() [with unsigned int MaxValue = 1000000000]’:
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fastest-study/rmq-reference/402567.cpp:1538:16: warning: ignoring return value of ‘ssize_t write(int, const void*, size_t)’ declared with attribute ‘warn_unused_result’ [-Wunused-result]
+ 1538 |         ::write(descriptor_, storage_.get(), static_cast<std::size_t>(cursor_ - storage_.get()));
+      |         ~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
