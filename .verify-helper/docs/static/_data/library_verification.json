@@ -56,6 +56,77 @@
       "label": "公式verify未登録"
     },
     {
+      "path": "blueberry/utility/fast-io.hpp",
+      "name": "Fast I/O",
+      "direct": [
+        {
+          "path": "verify/data-structure/disjoint-sparse-table-rmq.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/staticrmq"
+        },
+        {
+          "path": "verify/data-structure/disjoint-sparse-table.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_sum"
+        },
+        {
+          "path": "verify/data-structure/fast-set.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/predecessor_problem"
+        },
+        {
+          "path": "verify/data-structure/linear-rmq.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/staticrmq"
+        },
+        {
+          "path": "verify/data-structure/range-kth-smallest.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/range_kth_smallest"
+        },
+        {
+          "path": "verify/data-structure/sqrt-tree-rmq.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/staticrmq"
+        },
+        {
+          "path": "verify/data-structure/sqrt-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_sum"
+        },
+        {
+          "path": "verify/data-structure/static-range-frequency.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_frequency"
+        },
+        {
+          "path": "verify/data-structure/static-range-lis.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/static_range_lis_query"
+        },
+        {
+          "path": "verify/graph/link-cut-tree-composite.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite"
+        },
+        {
+          "path": "verify/graph/link-cut-tree.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum"
+        },
+        {
+          "path": "verify/utility/fast-io-128bit.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
+        },
+        {
+          "path": "verify/utility/fast-io.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/many_aplusb"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/fast-io.cpp"
+      ],
+      "ignored": [],
+      "note": {
+        "partial": true,
+        "reason": "Many A + Bと128bit版の専用verifyで整数入出力を検証します。",
+        "limits": "文字列・浮動小数点・不正token・FILEエラー・対話pipeはローカルテストであり、専用の公式問題による検証ではありません。",
+        "next": "型ごとの端点と標準変換との比較、buffer境界、stdinを開いたままの対話テストを維持する。"
+      },
+      "status": "partial",
+      "label": "主機能の一部に公式verifyなし"
+    },
+    {
       "path": "blueberry/data-structure/aggregate-deque.hpp",
       "name": "Aggregate Deque",
       "direct": [
@@ -142,7 +213,8 @@
       ],
       "indirect": [],
       "random_tests": [
-        "tests/random/sequence-batch-two.cpp"
+        "tests/random/sequence-batch-two.cpp",
+        "tests/random/static-rmq-contracts.cpp"
       ],
       "ignored": [],
       "note": {},
@@ -389,6 +461,7 @@
         }
       ],
       "random_tests": [
+        "tests/random/static-rmq-contracts.cpp",
         "tests/random/static-tree-expansion.cpp"
       ],
       "ignored": [],
@@ -775,7 +848,8 @@
       ],
       "indirect": [],
       "random_tests": [
-        "tests/random/sqrt-tree.cpp"
+        "tests/random/sqrt-tree.cpp",
+        "tests/random/static-rmq-contracts.cpp"
       ],
       "ignored": [],
       "note": {},
@@ -2032,6 +2106,7 @@
   ],
   "counts": {
     "missing": 3,
+    "partial": 1,
     "direct": 98
   }
 }

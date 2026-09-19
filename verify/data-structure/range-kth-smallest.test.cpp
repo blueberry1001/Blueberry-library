@@ -1,22 +1,21 @@
 #define PROBLEM "https://judge.yosupo.jp/problem/range_kth_smallest"
-#include <iostream>
+#include "blueberry/utility/fast-io.hpp"
 #include <vector>
 #include "blueberry/data-structure/wavelet-matrix.hpp"
 
 using namespace std;
 
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(nullptr);
+  blueberry::FastInput in; blueberry::FastOutput out;
   int n, q;
-  cin >> n >> q;
+  in.read(n, q);
   vector<int> a(n);
-  for (int& x : a) cin >> x;
+  for (int& x : a) in.read(x);
   blueberry::WaveletMatrix<int> wm(a);
   // k is zero-indexed; duplicate values each occupy one position.
   while (q--) {
     int l, r, k;
-    cin >> l >> r >> k;
-    cout << wm.kth_smallest(l, r, k) << '\n';
+    in.read(l, r, k);
+    out.writeln(wm.kth_smallest(l, r, k));
   }
 }

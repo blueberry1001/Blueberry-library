@@ -1,4 +1,10 @@
 {
+  "blueberry/utility/fast-io.hpp": {
+    "partial": true,
+    "reason": "Many A + Bと128bit版の専用verifyで整数入出力を検証します。",
+    "limits": "文字列・浮動小数点・不正token・FILEエラー・対話pipeはローカルテストであり、専用の公式問題による検証ではありません。",
+    "next": "型ごとの端点と標準変換との比較、buffer境界、stdinを開いたままの対話テストを維持する。"
+  },
   "blueberry/graph/topological-sort.hpp": {
     "reason": "専用の公式verifyドライバは未登録です。",
     "limits": "関連ローカルテストはありますが、公式ジャッジでの専用検証を表すものではありません。",

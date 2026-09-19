@@ -120,7 +120,10 @@ def build_rows(root, inventory, mappings, catalog):
     for problem in inventory["problems"]:
         identifier = problem["id"]
         mapping = mappings.get(identifier, {})
-        headers = used[identifier] | set(mapping.get("headers", []))
+        # Helpers such as Fast I/O are dependencies, not implementations of every
+        # problem whose driver uses them. A reviewed mapping can opt one in.
+        headers = {path for path in used[identifier] if not path.startswith("blueberry/utility/")}
+        headers.update(mapping.get("headers", []))
         status = mapping.get("status", "missing")
         if drivers[identifier]:
             status = "verify" if headers else "driver"

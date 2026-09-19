@@ -1,0 +1,58 @@
+{
+  "baseline_revision": "e0d8e71d5e760769a8060d52d4547a3bc85a5439",
+  "current_source_sha256": {
+    "blueberry/data-structure/sqrt-tree.hpp": "be63276f4928eb360809644d13b5d55d7fd90d3595a9ae74e90fb3a1ce11745b",
+    "blueberry/utility/fast-io.hpp": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+    "docs/development/measurements/generic-performance/io/benchmark.cpp": "066359d662802b90efa7c657a7e9d18a173e0ffd751f4adc13f61582f75a8860",
+    "docs/development/measurements/generic-performance/io/interactive.cpp": "0d12e27a4b9fbcc755738d565cb9964c0931815cc99ba7882156cea3c9e4b39b",
+    "docs/development/measurements/generic-performance/io/run.py": "9f5dbca4d0307811f84384f5e70ceca840057317ceee9aca51ab41d8a969deef"
+  },
+  "timestamp_utc": "2026-09-19T08:25:54Z",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpuinfo": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 183\nmodel name\t: Intel(R) Core(TM) i7-14650HX\nstepping\t: 1\nmicrocode\t: 0xffffffff\ncpu MHz\t\t: 2419.200\ncache size\t: 30720 KB\nphysical id\t: 0\nsiblings\t: 24\ncore id\t\t: 0\ncpu cores\t: 12\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nvmx flags\t: vnmi invvpid ept_x_only ept_ad ept_1gb tsc_offset vtpr ept vpid unrestricted_guest ept_mode_based_exec tsc_scaling usr_wait_pause\nbugs\t\t: spectre_v1 spectre_v2 spec_store_bypass swapgs retbleed eibrs_pbrsb rfds bhi\nbogomips\t: 4838.40\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 39 bits physical, 48 bits virtual\npower management:",
+  "cpu_affinity": 0,
+  "profiles": {
+    "gcc-release": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "gcc-verify": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-D_GLIBCXX_ASSERTIONS"
+    ],
+    "clang-release": [
+      "clang++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ]
+  },
+  "repeats": 5,
+  "warmups": 1,
+  "compilers": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+  },
+  "input_revision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "inputs": {
+    "max_random_00": {
+      "input": "b2e14cff545031ea3b4d6b0af2128f2cad832a42d65852d66c20766b914ac4e3",
+      "output": "4dc7847a415682c5729fe01b307fe02afbcfd97fe22969483d08414b52a7a068"
+    },
+    "small_width_query_00": {
+      "input": "ec3d4ee7eb7012baf392a418b5ba59806da3fedca6d1a2445b7d070c8b6c655c",
+      "output": "1c84aec7894596ac25144ff469196151ea899e38cd7beb614659fb242876e3c1"
+    },
+    "small_values_00": {
+      "input": "9f7359c01bcd6465c0a4094f0b6e2bd2c8fd3b00a6c08ef843e1f174678374c9",
+      "output": "03860febffae10b28f5dc1394a401ef9da2e96e152870c4586a2f27637e8f74c"
+    }
+  },
+  "timing": "total_ms includes read, build, queries, output flush; process_ms also includes startup/destruction and time wrapper. Full output checked every run.",
+  "ordering": "Seed 20260919 shuffle each round; one pinned process at a time; stdin regular file and pipe, stdout regular file.",
+  "baseline_header_sha256": "109b0f157fb6fe9cc4e64111fa3b509bc08c4ce3f9f59617643d9e4e2158e600"
+}

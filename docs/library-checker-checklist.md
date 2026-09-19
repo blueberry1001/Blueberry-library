@@ -9,13 +9,13 @@
 実行結果は各verifyページと[測定一覧](https://blueberry1001.github.io/Blueberry-library/benchmarks.html)で確認してください。
 ACL推奨は外部ライブラリです。Blueberryの実装数・チェック済み数には含めません。
 
-実装＋verifyあり: 109 / 実装あり・専用verifyなし: 0 / ACL推奨: 8 / 補助verifyのみ: 1 / 未対応: 135
+実装＋verifyあり: 111 / 実装あり・専用verifyなし: 0 / ACL推奨: 8 / 補助verifyのみ: 0 / 未対応: 134
 
 ## Sample
 
 - [ ] [A + B](https://judge.yosupo.jp/problem/aplusb) (`aplusb`): 未対応
-- [ ] [Many A + B](https://judge.yosupo.jp/problem/many_aplusb) (`many_aplusb`): 補助verifyのみ — [verify](../verify/utility/all-headers.test.cpp)
-- [ ] [Many A + B (128 bit)](https://judge.yosupo.jp/problem/many_aplusb_128bit) (`many_aplusb_128bit`): 未対応
+- [x] [Many A + B](https://judge.yosupo.jp/problem/many_aplusb) (`many_aplusb`): 実装＋verifyあり — [Fast I/O](../blueberry/utility/fast-io.hpp), [verify](../verify/utility/all-headers.test.cpp), [verify](../verify/utility/fast-io.test.cpp) — FastInput/FastOutputの多数の64bit整数の読み書きを専用verifyで検証。加算自体のライブラリではなく、高速入出力の対応問題として明示登録する。
+- [x] [Many A + B (128 bit)](https://judge.yosupo.jp/problem/many_aplusb_128bit) (`many_aplusb_128bit`): 実装＋verifyあり — [Fast I/O](../blueberry/utility/fast-io.hpp), [verify](../verify/utility/fast-io-128bit.test.cpp) — FastInput/FastOutputの符号付き128bit整数の読み書きを専用verifyで検証。GNU C++の128bit整数拡張を用いる高速入出力の対応問題として明示登録する。
 
 ## Data Structure
 

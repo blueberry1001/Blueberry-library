@@ -59,6 +59,44 @@ class CoverageTests(unittest.TestCase):
         self.assertEqual(self.rows()[0]["status"], "missing")
         self.assertEqual(self.rows()[0]["ignored_verifies"], ["verify/one.test.cpp"])
 
+    def test_problem_implementations_exclude_automatic_utility_dependencies(self):
+        utility = "blueberry/utility/fast-io.hpp"
+        indirect = "blueberry/utility/helper.hpp"
+        for path in (utility, indirect):
+            self.write(path, "// utility\n")
+            self.catalog[path] = path
+        self.write("blueberry/ds/b.hpp", f'#include "{indirect}"\n')
+        self.driver(prefix=f'#include "{utility}"\n')
+        row = self.rows()[0]
+        self.assertEqual(row["status"], "verify")
+        self.assertEqual([item["path"] for item in row["headers"]],
+                         ["blueberry/ds/a.hpp", "blueberry/ds/b.hpp"])
+        self.assertEqual(row["verifies"], ["verify/one.test.cpp"])
+
+    def test_reviewed_mapping_can_include_utility_implementation(self):
+        utility = "blueberry/utility/fast-io.hpp"
+        self.write(utility, "// utility\n")
+        self.catalog[utility] = "Fast I/O"
+        self.driver(header=utility)
+        automatic = self.rows()[0]
+        self.assertEqual(automatic["status"], "driver")
+        self.assertEqual(automatic["headers"], [])
+        mapped = self.rows({"alpha": {"status": "implemented", "headers": [utility],
+                                      "note": "Dedicated I/O verification"}})[0]
+        self.assertEqual(mapped["status"], "verify")
+        self.assertEqual(mapped["headers"], [{"path": utility, "name": "Fast I/O"}])
+
+    def test_utility_library_keeps_direct_verification_evidence(self):
+        utility = "blueberry/utility/fast-io.hpp"
+        self.write(utility, "// utility\n")
+        self.catalog[utility] = "Fast I/O"
+        self.driver(prefix=f'#include "{utility}"\n')
+        self.assertNotIn(utility, [item["path"] for item in self.rows()[0]["headers"]])
+        rows = {r["path"]: r for r in coverage.build_library_verification(self.root, self.catalog, {})}
+        self.assertEqual(rows[utility]["status"], "direct")
+        self.assertEqual(rows[utility]["direct"], [{"path": "verify/one.test.cpp",
+                                                   "problem": "https://judge.yosupo.jp/problem/alpha"}])
+
     def test_comment_does_not_create_a_driver(self):
         self.write("verify/comment.test.cpp", '// #define PROBLEM "https://judge.yosupo.jp/problem/unknown"\n')
         self.assertEqual(self.rows()[0]["status"], "missing")

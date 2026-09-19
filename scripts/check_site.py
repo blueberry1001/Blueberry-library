@@ -22,7 +22,8 @@ assert 'data-catalog-search' in home and 'data-catalog-controls hidden' in home
 assert 'data-catalog-empty hidden' in home and 'id="library-catalog"' in home
 assert "calc(100% - 300px)" not in home, "Upstream inline sidebar CSS returned"
 assert home.index("</section>") < home.index("<footer>"), "Footer must follow the content"
-for category in ("data-structure", "graph", "math", "string"):
+categories = ("data-structure", "graph", "math", "string", "utility")
+for category in categories:
     assert f"/Blueberry-library/categories/{category}.html" in home
     content = (SITE / "categories" / f"{category}.html").read_text()
     assert "収録ライブラリ" in content and f"/blueberry/{category}/" in content
@@ -129,7 +130,7 @@ assert "all.hpp" not in " ".join(driver["path"] for row in evidence["libraries"]
 assert "主機能の一部に公式verifyなし" in gap_page
 
 if "--without-metrics" in sys.argv[1:]:
-    print(f"PASS: 4 categories, {len(headers)} API pages, footer and navigation (before verification).")
+    print(f"PASS: {len(categories)} categories, {len(headers)} API pages, footer and navigation (before verification).")
     sys.exit(0)
 
 metrics = json.loads((SITE / "assets/verification-metrics.json").read_text())
@@ -145,5 +146,5 @@ for row in metrics["results"]:
     assert metrics["generated_at"] in content, "Missing measured data on verify page"
     if row["status"] == "not_selected":
         assert "今回未実行" in content, "Unselected verify must not look measured"
-print(f"PASS: 4 categories, {len(headers)} API pages, {len(selected)} measured verifies, "
+print(f"PASS: {len(categories)} categories, {len(headers)} API pages, {len(selected)} measured verifies, "
       f"{len(paths) - len(selected)} intentionally unselected, footer and navigation.")
