@@ -1,0 +1,57 @@
+PASS g++ gnu++20 specialized-structures seeds 1..3
+PASS g++ gnu++20 wavelet-matrix seeds 1..3
+PASS g++ gnu++20 static-range-lis seeds 1..3
+PASS g++ gnu++23 specialized-structures seeds 1..3
+PASS g++ gnu++23 wavelet-matrix seeds 1..3
+PASS g++ gnu++23 static-range-lis seeds 1..3
+PASS clang++ gnu++20 specialized-structures seeds 1..3
+In file included from tests/random/wavelet-matrix.cpp:11:
+./blueberry/data-structure/wavelet-matrix.hpp:85:60: error: shift count >= width of type [-Werror,-Wshift-count-overflow]
+   85 |       for (int shift = 0; remaining; shift += 8, remaining >>= 8) {
+      |                                                            ^   ~
+tests/random/wavelet-matrix.cpp:29:37: note: in instantiation of member function 'blueberry::WaveletMatrix<signed char>::WaveletMatrix' requested here
+   29 |   const blueberry::WaveletMatrix<T> wm(a);
+      |                                     ^
+tests/random/wavelet-matrix.cpp:102:3: note: in instantiation of function template specialization 'check<signed char>' requested here
+  102 |   check(vector<signed char>{-128, 127, 0, -128, 1}, rng, seed);
+      |   ^
+In file included from tests/random/wavelet-matrix.cpp:11:
+./blueberry/data-structure/wavelet-matrix.hpp:85:60: error: shift count >= width of type [-Werror,-Wshift-count-overflow]
+   85 |       for (int shift = 0; remaining; shift += 8, remaining >>= 8) {
+      |                                                            ^   ~
+tests/random/wavelet-matrix.cpp:29:37: note: in instantiation of member function 'blueberry::WaveletMatrix<unsigned char>::WaveletMatrix' requested here
+   29 |   const blueberry::WaveletMatrix<T> wm(a);
+      |                                     ^
+tests/random/wavelet-matrix.cpp:77:3: note: in instantiation of function template specialization 'check<unsigned char>' requested here
+   77 |   check(a, rng, seed);
+      |   ^
+tests/random/wavelet-matrix.cpp:105:3: note: in instantiation of function template specialization 'radix_boundaries<unsigned char>' requested here
+  105 |   radix_boundaries<unsigned char>(rng, seed);
+      |   ^
+In file included from tests/random/wavelet-matrix.cpp:11:
+./blueberry/data-structure/wavelet-matrix.hpp:85:60: error: shift count >= width of type [-Werror,-Wshift-count-overflow]
+   85 |       for (int shift = 0; remaining; shift += 8, remaining >>= 8) {
+      |                                                            ^   ~
+tests/random/wavelet-matrix.cpp:29:37: note: in instantiation of member function 'blueberry::WaveletMatrix<char>::WaveletMatrix' requested here
+   29 |   const blueberry::WaveletMatrix<T> wm(a);
+      |                                     ^
+tests/random/wavelet-matrix.cpp:77:3: note: in instantiation of function template specialization 'check<char>' requested here
+   77 |   check(a, rng, seed);
+      |   ^
+tests/random/wavelet-matrix.cpp:106:3: note: in instantiation of function template specialization 'radix_boundaries<char>' requested here
+  106 |   radix_boundaries<char>(rng, seed);
+      |   ^
+In file included from tests/random/wavelet-matrix.cpp:11:
+./blueberry/data-structure/wavelet-matrix.hpp:85:60: error: shift count >= width of type [-Werror,-Wshift-count-overflow]
+   85 |       for (int shift = 0; remaining; shift += 8, remaining >>= 8) {
+      |                                                            ^   ~
+tests/random/wavelet-matrix.cpp:29:37: note: in instantiation of member function 'blueberry::WaveletMatrix<char8_t>::WaveletMatrix' requested here
+   29 |   const blueberry::WaveletMatrix<T> wm(a);
+      |                                     ^
+tests/random/wavelet-matrix.cpp:77:3: note: in instantiation of function template specialization 'check<char8_t>' requested here
+   77 |   check(a, rng, seed);
+      |   ^
+tests/random/wavelet-matrix.cpp:108:3: note: in instantiation of function template specialization 'radix_boundaries<char8_t>' requested here
+  108 |   radix_boundaries<char8_t>(rng, seed);
+      |   ^
+4 errors generated.

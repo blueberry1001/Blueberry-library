@@ -23,9 +23,8 @@
   ],
   "total": 253,
   "counts": {
-    "missing": 135,
-    "driver": 1,
-    "verify": 109,
+    "missing": 134,
+    "verify": 111,
     "acl": 8
   },
   "statuses": [
@@ -69,14 +68,20 @@
       "title": "Many A + B",
       "category": "Sample",
       "url": "https://judge.yosupo.jp/problem/many_aplusb",
-      "status": "driver",
-      "label": "補助verifyのみ",
-      "headers": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/utility/fast-io.hpp",
+          "name": "Fast I/O"
+        }
+      ],
       "verifies": [
-        "verify/utility/all-headers.test.cpp"
+        "verify/utility/all-headers.test.cpp",
+        "verify/utility/fast-io.test.cpp"
       ],
       "ignored_verifies": [],
-      "note": "",
+      "note": "FastInput/FastOutputの多数の64bit整数の読み書きを専用verifyで検証。加算自体のライブラリではなく、高速入出力の対応問題として明示登録する。",
       "external_url": ""
     },
     {
@@ -84,12 +89,19 @@
       "title": "Many A + B (128 bit)",
       "category": "Sample",
       "url": "https://judge.yosupo.jp/problem/many_aplusb_128bit",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/utility/fast-io.hpp",
+          "name": "Fast I/O"
+        }
+      ],
+      "verifies": [
+        "verify/utility/fast-io-128bit.test.cpp"
+      ],
       "ignored_verifies": [],
-      "note": "",
+      "note": "FastInput/FastOutputの符号付き128bit整数の読み書きを専用verifyで検証。GNU C++の128bit整数拡張を用いる高速入出力の対応問題として明示登録する。",
       "external_url": ""
     },
     {

@@ -54,9 +54,21 @@ class FastSet {
     return (levels_[0][x / 64] >> (x % 64)) & 1;
   }
   bool insert(int x) {
-    if (contains(x)) return false;
+    assert(0 <= x && x < universe_);
+    auto& leaf = levels_[0][x / 64];
+    const auto bit = std::uint64_t{1} << (x % 64);
+    if (leaf & bit) return false;
+    const bool was_empty = leaf == 0;
+    leaf |= bit;
     ++count_;
-    for (auto& row : levels_) { row[x / 64] |= std::uint64_t{1} << (x % 64); x /= 64; }
+    if (!was_empty) return true;
+    for (std::size_t h = 1; h < levels_.size(); ++h) {
+      x /= 64;
+      auto& word = levels_[h][x / 64];
+      const bool word_was_empty = word == 0;
+      word |= std::uint64_t{1} << (x % 64);
+      if (!word_was_empty) break;
+    }
     return true;
   }
   bool erase(int x) {

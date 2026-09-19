@@ -14,16 +14,16 @@ template <class T, class Compare = std::less<T>>
 class LinearRMQ {
   std::vector<T> values_;
   Compare compare_;
-  int width_ = 1;
+  int shift_ = 0;
   std::vector<unsigned> masks_;
   std::vector<std::vector<int>> table_;
+  // Arguments come from left-to-right ranges. Even overlapping sparse-table
+  // ranges have ordered leftmost minima, so equality always chooses a.
   int best(int a, int b) const {
-    if (compare_(values_[a], values_[b])) return a;
-    if (compare_(values_[b], values_[a])) return b;
-    return std::min(a, b);
+    return compare_(values_[b], values_[a]) ? b : a;
   }
   int small(int l, int r) const {
-    const int start = (l / width_) * width_;
+    const int start = (l >> shift_) << shift_;
     return start + std::countr_zero(masks_[r - 1] & (~0u << (l - start)));
   }
  public:
@@ -31,10 +31,13 @@ class LinearRMQ {
       : values_(values), compare_(std::move(compare)), masks_(values.size()) {
     assert(values.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
     const int n = size();
-    width_ = std::max(1, static_cast<int>(std::bit_width(static_cast<unsigned>(n))) / 2);
+    const unsigned target = static_cast<unsigned>(std::max(1, std::bit_width(static_cast<unsigned>(n)) / 2));
+    const int width = static_cast<int>(std::bit_ceil(target));
+    shift_ = std::countr_zero(static_cast<unsigned>(width));
     std::vector<int> minima;
+    minima.reserve((static_cast<std::size_t>(n) + width - 1) >> shift_);
     for (int start = 0; start < n;) {
-      const int end = start + std::min(width_, n - start);
+      const int end = start + std::min(width, n - start);
       unsigned mask = 0;
       for (int i = start; i < end; ++i) {
         while (mask && compare_(values_[i], values_[start + std::bit_width(mask) - 1]))
@@ -59,14 +62,14 @@ class LinearRMQ {
   T get(int p) const { assert(0 <= p && p < size()); return values_[p]; }
   int argmin(int l, int r) const {
     assert(0 <= l && l < r && r <= size());
-    const int a = l / width_, b = (r - 1) / width_;
+    const int a = l >> shift_, b = (r - 1) >> shift_;
     if (a == b) return small(l, r);
-    int answer = best(small(l, (a + 1) * width_), small(b * width_, r));
+    int answer = small(l, (a + 1) << shift_);
     if (a + 1 < b) {
       const int k = std::bit_width(static_cast<unsigned>(b - a - 1)) - 1;
       answer = best(answer, best(table_[k][a + 1], table_[k][b - (1 << k)]));
     }
-    return answer;
+    return best(answer, small(b << shift_, r));
   }
   T prod(int l, int r) const { return values_[argmin(l, r)]; }
 };

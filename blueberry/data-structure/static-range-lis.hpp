@@ -18,26 +18,31 @@ class StaticRangeLIS {
   int n_ = 0;
   WaveletMatrix<int> diagram_;
 
-  static std::vector<int> multiply(const std::vector<int>& a,
-                                   const std::vector<int>& b) {
-    const int n = static_cast<int>(a.size());
-    if (n <= 1) return std::vector<int>(n, 0);
+  static void multiply(const int* a, const int* b, int n, int* row, int* scratch) {
+    if (n <= 1) { if (n) row[0] = 0; return; }
     const int middle = n / 2;
-    std::vector<int> row(n), column(n);
+    const int capacity = n - middle;
+    int* column = scratch;
+    int* x = column + n;
+    int* y = x + capacity;
+    int* xp = y + capacity;
+    int* yp = xp + capacity;
+    int* sub = yp + capacity;
     for (int half = 0; half < 2; ++half) {
-      std::vector<int> x, y, xp, yp;
+      int nx = 0, ny = 0;
       for (int i = 0; i < n; ++i) {
         if ((a[i] >= middle) == (half != 0)) {
-          x.push_back(a[i] - half * middle);
-          xp.push_back(i);
+          x[nx] = a[i] - half * middle;
+          xp[nx++] = i;
         }
         if ((b[i] >= middle) == (half != 0)) {
-          y.push_back(b[i] - half * middle);
-          yp.push_back(i);
+          y[ny] = b[i] - half * middle;
+          yp[ny++] = i;
         }
       }
-      auto sub = multiply(x, y);
-      for (int i = 0; i < static_cast<int>(x.size()); ++i) {
+      assert(nx == ny);
+      multiply(x, y, nx, sub, sub + capacity);
+      for (int i = 0; i < nx; ++i) {
         row[xp[i]] = yp[sub[i]];
         column[yp[sub[i]]] = xp[i];
       }
@@ -64,11 +69,11 @@ class StaticRangeLIS {
       while (left.delta != 0) advance(left);
       if (left.column > right.column) row[r] = right.column;
     }
-    return row;
   }
 
   static std::vector<int> partial_product(const std::vector<int>& a,
-                                         const std::vector<int>& b) {
+                                         const std::vector<int>& b,
+                                         std::vector<int>& scratch) {
     const int n = static_cast<int>(a.size());
     std::vector<int> inverse_a(n, -1), inverse_b(n, -1), x, y, rows, columns;
     for (int i = 0; i < n; ++i) {
@@ -85,7 +90,8 @@ class StaticRangeLIS {
       columns.push_back(i);
     }
     for (int i = 0; i < n; ++i) if (b[i] < 0) y.push_back(i);
-    const auto product = multiply(x, y);
+    std::vector<int> product(n);
+    multiply(x.data(), y.data(), n, product.data(), scratch.data());
     std::vector<int> result(n, -1);
     const int offset = n - static_cast<int>(rows.size());
     for (int i = 0; i < static_cast<int>(rows.size()); ++i) {
@@ -95,7 +101,8 @@ class StaticRangeLIS {
     return result;
   }
 
-  static std::vector<int> build_diagram(const std::vector<int>& p) {
+  static std::vector<int> build_diagram(const std::vector<int>& p,
+                                      std::vector<int>& scratch) {
     const int n = static_cast<int>(p.size());
     if (n <= 1) return std::vector<int>(n, -1);
     const int middle = n / 2;
@@ -106,13 +113,13 @@ class StaticRangeLIS {
         sub.push_back(p[i] - half * middle);
         positions.push_back(i);
       }
-      const auto child = build_diagram(sub);
+      const auto child = build_diagram(sub, scratch);
       padded[half].resize(n);
       std::iota(padded[half].begin(), padded[half].end(), 0);
       for (int i = 0; i < static_cast<int>(sub.size()); ++i)
         padded[half][positions[i]] = child[i] < 0 ? -1 : positions[child[i]];
     }
-    return partial_product(padded[0], padded[1]);
+    return partial_product(padded[0], padded[1], scratch);
   }
 
  public:
@@ -128,7 +135,16 @@ class StaticRangeLIS {
       return a > b;  // Equal values must never form a strictly increasing pair.
     });
     for (int i = 0; i < n_; ++i) rank[order[i]] = i;
-    auto row = build_diagram(rank);
+    // Each multiplication frame uses n + 5*ceil(n/2) ints; siblings share it.
+    // One constructor-local buffer also serves all outer recursion frames.
+    std::size_t scratch_size = 0;
+    for (std::size_t n = values.size(); n > 1; n = (n + 1) / 2)
+      scratch_size += n + 5 * ((n + 1) / 2);
+    std::vector<int> row;
+    {
+      std::vector<int> scratch(scratch_size);
+      row = build_diagram(rank, scratch);
+    }
     for (int& x : row) if (x < 0) x = n_;
     diagram_ = WaveletMatrix<int>(row);
   }

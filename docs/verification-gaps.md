@@ -35,6 +35,28 @@
 - DAGの順序制約・閉路時の返り値を確かめられる問題を選び、専用ドライバを追加する。
 - [追跡Issue](https://github.com/blueberry1001/Blueberry-library/issues/24)
 
+## Fast I/O
+
+[blueberry/utility/fast-io.hpp](../blueberry/utility/fast-io.hpp) — **主機能の一部に公式verifyなし**
+
+- 専用ドライバ: [verify/data-structure/disjoint-sparse-table-rmq.test.cpp](../verify/data-structure/disjoint-sparse-table-rmq.test.cpp) / [問題](https://judge.yosupo.jp/problem/staticrmq)
+- 専用ドライバ: [verify/data-structure/disjoint-sparse-table.test.cpp](../verify/data-structure/disjoint-sparse-table.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_sum)
+- 専用ドライバ: [verify/data-structure/fast-set.test.cpp](../verify/data-structure/fast-set.test.cpp) / [問題](https://judge.yosupo.jp/problem/predecessor_problem)
+- 専用ドライバ: [verify/data-structure/linear-rmq.test.cpp](../verify/data-structure/linear-rmq.test.cpp) / [問題](https://judge.yosupo.jp/problem/staticrmq)
+- 専用ドライバ: [verify/data-structure/range-kth-smallest.test.cpp](../verify/data-structure/range-kth-smallest.test.cpp) / [問題](https://judge.yosupo.jp/problem/range_kth_smallest)
+- 専用ドライバ: [verify/data-structure/sqrt-tree-rmq.test.cpp](../verify/data-structure/sqrt-tree-rmq.test.cpp) / [問題](https://judge.yosupo.jp/problem/staticrmq)
+- 専用ドライバ: [verify/data-structure/sqrt-tree.test.cpp](../verify/data-structure/sqrt-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_sum)
+- 専用ドライバ: [verify/data-structure/static-range-frequency.test.cpp](../verify/data-structure/static-range-frequency.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_frequency)
+- 専用ドライバ: [verify/data-structure/static-range-lis.test.cpp](../verify/data-structure/static-range-lis.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_lis_query)
+- 専用ドライバ: [verify/graph/link-cut-tree-composite.test.cpp](../verify/graph/link-cut-tree-composite.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite)
+- 専用ドライバ: [verify/graph/link-cut-tree.test.cpp](../verify/graph/link-cut-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum)
+- 専用ドライバ: [verify/utility/fast-io-128bit.test.cpp](../verify/utility/fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
+- 専用ドライバ: [verify/utility/fast-io.test.cpp](../verify/utility/fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
+- 関連ローカルテスト: [tests/random/fast-io.cpp](../tests/random/fast-io.cpp)
+- Many A + Bと128bit版の専用verifyで整数入出力を検証します。
+- 文字列・浮動小数点・不正token・FILEエラー・対話pipeはローカルテストであり、専用の公式問題による検証ではありません。
+- 型ごとの端点と標準変換との比較、buffer境界、stdinを開いたままの対話テストを維持する。
+
 ## Aggregate Deque
 
 [blueberry/data-structure/aggregate-deque.hpp](../blueberry/data-structure/aggregate-deque.hpp) — **専用verifyドライバあり**
@@ -70,6 +92,7 @@
 - 専用ドライバ: [verify/data-structure/disjoint-sparse-table-rmq.test.cpp](../verify/data-structure/disjoint-sparse-table-rmq.test.cpp) / [問題](https://judge.yosupo.jp/problem/staticrmq)
 - 専用ドライバ: [verify/data-structure/disjoint-sparse-table.test.cpp](../verify/data-structure/disjoint-sparse-table.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_sum)
 - 関連ローカルテスト: [tests/random/sequence-batch-two.cpp](../tests/random/sequence-batch-two.cpp)
+- 関連ローカルテスト: [tests/random/static-rmq-contracts.cpp](../tests/random/static-rmq-contracts.cpp)
 
 ## Double Ended Priority Queue
 
@@ -161,6 +184,7 @@
 
 - 専用ドライバ: [verify/data-structure/linear-rmq.test.cpp](../verify/data-structure/linear-rmq.test.cpp) / [問題](https://judge.yosupo.jp/problem/staticrmq)
 - 間接利用: [verify/graph/linear-lca.test.cpp](../verify/graph/linear-lca.test.cpp) / [問題](https://judge.yosupo.jp/problem/lca)
+- 関連ローカルテスト: [tests/random/static-rmq-contracts.cpp](../tests/random/static-rmq-contracts.cpp)
 - 関連ローカルテスト: [tests/random/static-tree-expansion.cpp](../tests/random/static-tree-expansion.cpp)
 
 ## Offline Fenwick Tree 2D
@@ -309,6 +333,7 @@
 - 専用ドライバ: [verify/data-structure/sqrt-tree-rmq.test.cpp](../verify/data-structure/sqrt-tree-rmq.test.cpp) / [問題](https://judge.yosupo.jp/problem/staticrmq)
 - 専用ドライバ: [verify/data-structure/sqrt-tree.test.cpp](../verify/data-structure/sqrt-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_sum)
 - 関連ローカルテスト: [tests/random/sqrt-tree.cpp](../tests/random/sqrt-tree.cpp)
+- 関連ローカルテスト: [tests/random/static-rmq-contracts.cpp](../tests/random/static-rmq-contracts.cpp)
 
 ## Static Range Distinct
 

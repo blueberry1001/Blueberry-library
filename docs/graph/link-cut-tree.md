@@ -13,6 +13,11 @@ ACL には動的森がないため独立実装です。部分木集約・パス�
 N は固定頂点数、格納メモリと一時スタックは O(N)。操作の O(log N) は償却であり、単発最悪 O(N) です。
 値・集約値のオーバーフローは呼び出し側で防いでください。辺を切っても頂点番号は変化しません。
 
+内部では空の子との単位元演算と、splay中の重複した集約更新を省いています。
+正逆両方向の集約・反転・カスタムS型・失敗するlink/cutの扱いは維持します。
+[同じAPIでの性能測定](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/generic-performance/lct/REPORT.md)では、
+非可換演算での改善と、加算では入力形状によって差が小さい場合の両方を記録しています。
+
 ## 最小使用例
 
 {% raw %}

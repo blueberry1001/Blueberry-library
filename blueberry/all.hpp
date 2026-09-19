@@ -1,4 +1,5 @@
 #pragma once
+#include "blueberry/utility/fast-io.hpp"
 #include "blueberry/data-structure/dynamic-sqrt-tree.hpp"
 #include "blueberry/data-structure/sqrt-tree.hpp"
 #include "blueberry/data-structure/persistent-binary-trie.hpp"

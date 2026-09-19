@@ -9,7 +9,7 @@ documentation_of: //blueberry/data-structure/linear-rmq.hpp
 
 `blueberry::LinearRMQ<T, Compare = std::less<T>>` は静的配列の最小値・最小位置を返す。N 要素、`0 <= N <= INT_MAX`。比較は const 呼び出し可能な strict weak ordering、T と比較器はコピー可能とする。既定の比較は最小値、`std::greater<T>` なら最大値。同値は常に最左位置を返す。
 
-B = max(1, floor(bit_width(N)/2)) のブロック内に単調スタックを unsigned のビットマスクで保存し、ブロック最小値だけに Sparse Table を構築する。単語長が log N 以上で bit_width/countr_zero を O(1) とする word RAM で、構築・メモリ O(1+N)、クエリ O(1)。固定ブロック幅の Sparse Table を線形と呼ぶ方式ではない。比較・コピー・破棄は O(1) とする。
+B = bit_ceil(max(1, floor(bit_width(N)/2))) のブロック内に単調スタックを unsigned のビットマスクで保存し、ブロック最小値だけに Sparse Table を構築する。幅は Θ(log N) の範囲で2冪へ切り上げ、ブロック番号を除算せずshiftで計算する。単語長が log N 以上で bit_width/countr_zero を O(1) とする word RAM で、構築・メモリ O(1+N)、クエリ O(1)。固定ブロック幅の Sparse Table を線形と呼ぶ方式ではない。比較・コピー・破棄は O(1) とする。
 
 値は所有コピーされ、入力の変更・破棄は影響しない。値の更新・空区間の集約は不可。空配列は構築できるが size 以外の問い合わせはできない。返り値は値であり内部参照を公開しない。ACL には静的線形 RMQ がない。D は代入先が保持する旧データの要素数。
 
