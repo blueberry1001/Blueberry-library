@@ -60,6 +60,18 @@ class DynamicSqrtTree {
         layer.suffix[i - 1] = op(values[i - 1], layer.suffix[i]);
     }
 
+    void update_block(Layer& layer, std::size_t p) {
+      const std::size_t start = (p >> layer.child_bits) << layer.child_bits;
+      const std::size_t end = start + (std::size_t{1} << layer.child_bits);
+      // Prefixes before p and suffixes after p are unchanged by this assignment.
+      layer.prefix[p] = p == start ? values[p] : op(layer.prefix[p - 1], values[p]);
+      for (std::size_t i = p + 1; i < end; ++i)
+        layer.prefix[i] = op(layer.prefix[i - 1], values[i]);
+      layer.suffix[p] = p + 1 == end ? values[p] : op(values[p], layer.suffix[p + 1]);
+      for (std::size_t i = p; i > start; --i)
+        layer.suffix[i - 1] = op(values[i - 1], layer.suffix[i]);
+    }
+
     void rebuild_between(Layer& layer, std::size_t start) {
       const std::size_t block = std::size_t{1} << layer.child_bits;
       const std::size_t count = std::size_t{1} << (layer.bits - layer.child_bits);
@@ -77,7 +89,7 @@ class DynamicSqrtTree {
     void set(int p, const S& value) {
       values[p] = value;
       for (auto& layer : layers) {
-        rebuild_block(layer, (static_cast<std::size_t>(p) >> layer.child_bits) << layer.child_bits);
+        update_block(layer, static_cast<std::size_t>(p));
         if (!layer.between.empty())
           rebuild_between(layer, (static_cast<std::size_t>(p) >> layer.bits) << layer.bits);
       }
