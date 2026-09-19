@@ -7,6 +7,16 @@ documentation_of: //blueberry/data-structure/disjoint-sparse-table.hpp
 
 ## 概要・前提
 
+**集約演算はコンストラクタに渡した `op` で決まる。** 区間和は `x + y`、区間最小値は `std::min(x, y)` を指定する。
+Library Checker に提出する場合は、問題に合ったverifyコードを使う。
+
+| 問題 | 演算 | 提出用コード |
+| --- | --- | --- |
+| Static Range Sum（区間和） | `[](long long x, long long y) { return x + y; }` | [区間和版]({{ '/verify/data-structure/disjoint-sparse-table.test.cpp.html' | relative_url }}) |
+| Static RMQ（区間最小値） | `[](int x, int y) { return std::min(x, y); }` | [区間最小値版]({{ '/verify/data-structure/disjoint-sparse-table-rmq.test.cpp.html' | relative_url }}) |
+
+区間和版を Static RMQ に提出すると、最小値ではなく合計を出力するためWAになる。
+
 結合的演算の静的区間集約。ACL にない O(1) クエリを提供する。
 N は要素数、0 ≤ N ≤ INT_MAX。T はコピー可能、Op は const 呼び出し可能で結合則を満たすこと。
 可換性・冪等性・単位元は不要。演算・コピー O(1) を仮定して構築・メモリ O(N log(N+1))。
