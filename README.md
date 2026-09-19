@@ -31,6 +31,7 @@ uf.rollback(saved);
 | Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest, Rooted Tree Isomorphism, Clique Enumeration, Maximum Independent Set |
 | Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers, Multipoint Evaluation, Polynomial Interpolation, Sample Point Shift |
 | String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP, Count Subsequences, Longest Common Substring |
+| Utility | Fast I/O（整数・128bit・文字列・浮動小数点、通常ファイル・pipe・対話入力） |
 
 標準のDSU・Fenwick Tree・Segment Tree・Z AlgorithmはACLを第一候補とし、既存のBlueberry版は互換用に保持します。
 ドキュメントの検索欄では日本語の用途や `LCA`, `HLD`, `FPS`, `BIT` でも検索できます（`/` で検索へ移動）。
@@ -43,6 +44,8 @@ uf.rollback(saved);
 
 候補の「比較を開く」では、DST・静的/動的Sqrt Tree・ACL segtreeなどの構築・メモリ・更新回数U・クエリ回数Qを含めた選び方を、その場で確認できます。比較は個別APIページでも折り畳んで掲載しています。
 [Fastestとの差を縮める方針](docs/development/fastest-performance-plan.md)では、Static RMQの入出力・構築・クエリを分けた実測と、汎用APIを維持する高速化の優先順位をまとめています。
+[汎用性を保つ高速化の実装結果](docs/development/generic-performance-improvements.md)では、同条件の変更前後・不採用候補・検証結果を確認できます。
+大量の入出力には[Fast I/O](docs/utility/fast-io.md)を使用できます。`FastInput in; FastOutput out;`で始め、`in.read(n, q)` / `out.writeln(answer)`で読み書きします。対話入力は`FastInput<true>`を選び、各応答後に`out.flush()`を呼びます。
 [ライブラリごとのverify不足・調査状況](https://blueberry1001.github.io/Blueberry-library/verification-gaps.html)では、専用ドライバ未登録・間接利用・主機能の一部だけの検証を区別しています。通常の優先度キューのverifyがあっても、retroactive操作の検証済みとは扱いません。
 
 ## 問題から探す

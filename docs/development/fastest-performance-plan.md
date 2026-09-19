@@ -9,6 +9,7 @@ title: 汎用性を維持してFastestとの差を縮める方針
 一方、Fastestの特殊な前提を既存APIへ黙って持ち込まない。
 2026-09-19の調査ではStatic RMQの4提出を実行比較し、ほか4問題・12提出もソースを確認した。
 ライブラリ本体や既存verifyの入出力は、この調査では変更していない。
+その後の[実装・変更前後の比較]({{ '/docs/development/generic-performance-improvements.html' | relative_url }})では、この方針に基づいて内部処理と入出力を改善している。
 
 ## Static RMQ: 入出力の影響は大きいが、それだけではない
 
