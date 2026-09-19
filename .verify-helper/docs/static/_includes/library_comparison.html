@@ -1,0 +1,15 @@
+{% assign comparison = site.data.comparisons | where: 'id', include.family | first %}
+{% if comparison %}
+<details class="library-comparison" id="comparison-{{ comparison.id }}">
+  <summary>{{ comparison.title | escape }}</summary>
+  <p>{{ comparison.summary | escape }}</p>
+  <p class="comparison-scroll-hint">比較表は横にスクロールして読めます。</p>
+  <div class="comparison-table" role="region" aria-label="{{ comparison.title | escape }}の比較表" tabindex="0">
+    <table>
+      <thead><tr>{% for column in comparison.columns %}<th scope="col">{{ column | escape }}</th>{% endfor %}</tr></thead>
+      <tbody>{% for row in comparison.rows %}<tr>{% for cell in row %}<td>{{ cell | escape }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+    </table>
+  </div>
+  {{ comparison.detail | replace: '__BASEURL__', site.baseurl | markdownify }}
+</details>
+{% endif %}

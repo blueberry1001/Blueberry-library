@@ -86,7 +86,7 @@ int main() {
 | `DynamicTopTree& operator=(DynamicTopTree&& other)` | O(D) | [開く](#move-assign) |
 
 <details class="api-operation" id="construct" markdown="1">
-<summary><code>DynamicTopTree(const vector<V>& values = {})</code> — O(N)</summary>
+<summary><code>DynamicTopTree(const vector&lt;V&gt;&amp; values = {})</code> — O(N)</summary>
 
 孤立点を構築します。空入力・省略も可能です。
 

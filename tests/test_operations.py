@@ -88,10 +88,10 @@ console.log(JSON.stringify(input.states.map(state =>
         self.assertEqual(len(result[0]), len(self.entries))
         self.assertEqual(result[1], ["dynamic-li-chao"])
         self.assertEqual(result[2], ["compressed-li-chao"])
-        self.assertEqual(result[3], ["offline-fenwick-2d", "weighted-wavelet-matrix"])
+        self.assertEqual(result[3], ["offline-fenwick-2d", "weighted-wavelet-matrix", "kd-tree"])
         self.assertEqual(result[4], [])
         self.assertIn("persistent-segment-tree", result[5])
-        self.assertEqual(result[6], ["acl-fenwick"])
+        self.assertEqual(result[6], ["acl-fenwick", "contour-query", "contour-add"])
 
     def test_unknown_filter_never_silently_shows_unrelated_results(self):
         script = """
@@ -119,6 +119,9 @@ console.log(JSON.stringify([
             {"queries": "range-sum", "conditions": "offline-queries"},
             {"targets": "tree", "queries": "path-aggregate", "updates": "static"},
             {"targets": "array", "queries": "range-sum", "updates": "point-add"},
+            {"targets": "tree", "queries": "tree-dp", "updates": "static", "conditions": "static-tree"},
+            {"targets": "tree", "queries": "path-aggregate", "updates": "point-add", "conditions": "static-tree"},
+            {"targets": "tree", "queries": "subtree-aggregate", "updates": "point-add", "conditions": "static-tree"},
         ]
         result = self.run_node("""
 const fs = require('node:fs');
@@ -144,6 +147,10 @@ console.log(JSON.stringify(states.map(s => entries.filter(e => matches(e,s)).map
         self.assertIn("hld-point-update", result[9])
         self.assertIn("dynamic-sqrt-tree", result[10])
         self.assertNotIn("sqrt-tree", result[10])
+        self.assertTrue({"static-top-tree", "dynamic-top-tree"} <= set(result[11]))
+        self.assertIn("link-cut-tree", result[12])
+        self.assertNotIn("dynamic-top-tree", result[12], "DTT includes off-path branches")
+        self.assertIn("euler-tour-tree", result[13])
 
     def test_specialized_structures_match_only_supported_operations(self):
         states = [
@@ -247,13 +254,21 @@ chooseTarget('grid');
 const grid={queries:values('queries'),updates:values('updates'),conditions:values('conditions')};
 chooseTarget('multiset');
 const multiset={queries:values('queries'),updates:values('updates')};
+chooseTarget('string');
+const string={queries:values('queries'),updates:values('updates')};
+chooseTarget('convex');
+const convex={queries:values('queries'),updates:values('updates')};
 reset.handlers.click();
-console.log(JSON.stringify({tree,array,grid,multiset,restored:values('queries').length===data.facets.queries.length+1}));
+console.log(JSON.stringify({tree,array,grid,multiset,string,convex,restored:values('queries').length===data.facets.queries.length+1}));
 """
         result = self.run_node(script, self.data)
         self.assertIn("kth-ancestor", result["tree"])
         self.assertNotIn("kth-ancestor", result["array"]["queries"])
         self.assertNotIn("merge", result["array"]["updates"])
+        self.assertNotIn("link-cut", result["array"]["updates"])
+        self.assertNotIn("subtree-action", result["array"]["updates"])
+        self.assertNotIn("tree-dp", result["array"]["queries"])
+        self.assertIn("range-sort", result["array"]["updates"])
         self.assertNotIn("static-tree", result["array"]["conditions"])
         self.assertEqual(result["array"]["selected"], ["", "static", ""])
         self.assertIn("対象外の条件を解除", result["array"]["notice"])
@@ -263,6 +278,12 @@ console.log(JSON.stringify({tree,array,grid,multiset,restored:values('queries').
         self.assertIn("offline-queries", result["grid"]["conditions"])
         self.assertIn("xor-min", result["multiset"]["queries"])
         self.assertIn("insert-erase", result["multiset"]["updates"])
+        self.assertIn("substring", result["string"]["queries"])
+        self.assertIn("append", result["string"]["updates"])
+        self.assertNotIn("link-cut", result["string"]["updates"])
+        self.assertIn("convex-min", result["convex"]["queries"])
+        self.assertIn("convex-convolution", result["convex"]["updates"])
+        self.assertNotIn("ancestor", result["convex"]["queries"])
         self.assertTrue(result["restored"])
 
     def test_progressive_enhancement_and_accessibility_markup(self):

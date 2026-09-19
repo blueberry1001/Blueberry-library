@@ -136,6 +136,68 @@ def md_escape(text):
     return text.replace("\\", "\\\\").replace("[", "\\[").replace("]", "\\]").replace("\n", " ")
 
 
+def build_library_verification(root, catalog, notes):
+    """Inventory evidence, not AC status or proof that every API is exercised."""
+    unknown = notes.keys() - catalog.keys()
+    if unknown:
+        raise ValueError(f"Verification notes refer to unknown libraries: {sorted(unknown)}")
+    rows = {path: {"path": path, "name": name, "direct": [], "indirect": [],
+                   "random_tests": [], "ignored": [], "note": notes.get(path, {})}
+            for path, name in catalog.items()}
+    problem_url = re.compile(r'^\s*#\s*define\s+PROBLEM\s+"(https://[^"\s]+)"', re.M)
+    for source in sorted((root / "verify").rglob("*.test.cpp")):
+        text = cpp_without_comments(source.read_text(encoding="utf-8"))
+        urls = problem_url.findall(text)
+        if not urls:
+            continue
+        if len(urls) != 1:
+            raise ValueError(f"Ambiguous PROBLEM in {source}")
+        direct = set(INCLUDE.findall(text)) & catalog.keys()
+        transitive = dependencies(root, text, catalog)
+        ignored = re.search(r'^\s*#\s*define\s+IGNORE\b', text, re.M)
+        evidence = {"path": source.relative_to(root).as_posix(), "problem": urls[0]}
+        for path in transitive:
+            kind = "ignored" if ignored else "direct" if path in direct else "indirect"
+            rows[path][kind].append(evidence)
+    # Include graphs indicate related tests, not complete API coverage.
+    for source in sorted((root / "tests").rglob("*.cpp")):
+        for path in dependencies(root, source.read_text(encoding="utf-8"), catalog):
+            rows[path]["random_tests"].append(source.relative_to(root).as_posix())
+    labels = {"direct": "専用verifyドライバあり", "partial": "主機能の一部に公式verifyなし", "indirect": "依存先としてのみ利用",
+              "missing": "公式verify未登録"}
+    result = []
+    for row in rows.values():
+        status = "direct" if row["direct"] else "indirect" if row["indirect"] else "missing"
+        if row["direct"] and row["note"].get("partial"):
+            status = "partial"
+        row.update(status=status, label=labels[status])
+        result.append(row)
+    return sorted(result, key=lambda row: (row["status"] == "direct", row["path"]))
+
+
+def render_verification_gaps(rows):
+    lines = ["# ライブラリごとのverify状況", "",
+             "`python3 scripts/library_checker_coverage.py` で生成。専用ドライバ未登録を先に掲載します。", "",
+             "ドライバの存在・include関係はACや全APIの網羅を意味しません。all.hppのA+Bテストは含めません。",
+             "問題が存在しないという断定ではありません。調査済みの候補・未検証操作・次の作業は注記を参照してください。", ""]
+    for row in rows:
+        lines += [f"## {row['name']}", "",
+                  f"[{row['path']}](../{row['path']}) — **{row['label']}**", ""]
+        for kind, label in (("direct", "専用ドライバ"), ("indirect", "間接利用"), ("ignored", "無効化中")):
+            for item in row[kind]:
+                lines.append(f"- {label}: [{item['path']}](../{item['path']}) / [問題]({item['problem']})")
+        for path in row["random_tests"]:
+            lines.append(f"- 関連ローカルテスト: [{path}](../{path})")
+        note = row["note"]
+        for key in ("reason", "limits", "next"):
+            if note.get(key):
+                lines.append(f"- {md_escape(note[key])}")
+        if note.get("issue"):
+            lines.append(f"- [追跡Issue]({note['issue']})")
+        lines.append("")
+    return "\n".join(lines)
+
+
 def render_markdown(inventory, rows):
     counts = Counter(row["status"] for row in rows)
     lines = ["# Library Checker 全問題チェックリスト", "",
@@ -199,11 +261,18 @@ def main():
     inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
     mappings = json.loads((ROOT / "data/library-checker-mappings.json").read_text(encoding="utf-8"))
     rows = build_rows(ROOT, inventory, mappings, read_catalog(ROOT))
+    notes = json.loads((ROOT / "data/library-verification-notes.json").read_text(encoding="utf-8"))
+    library_rows = build_library_verification(ROOT, read_catalog(ROOT), notes)
     payload = {key: value for key, value in inventory.items() if key != "problems"}
     payload.update({"total": len(rows), "counts": dict(Counter(row["status"] for row in rows)),
                     "statuses": [{"id": key, "label": value} for key, value in LABELS.items()], "problems": rows})
     write_or_check(ROOT / ".verify-helper/docs/static/_data/library_checker.json", json.dumps(payload, ensure_ascii=False, indent=2) + "\n", args.check)
     write_or_check(ROOT / "docs/library-checker-checklist.md", render_markdown(inventory, rows), args.check)
+    library_payload = {"libraries": library_rows,
+                       "counts": dict(Counter(row["status"] for row in library_rows))}
+    write_or_check(ROOT / ".verify-helper/docs/static/_data/library_verification.json",
+                   json.dumps(library_payload, ensure_ascii=False, indent=2) + "\n", args.check)
+    write_or_check(ROOT / "docs/verification-gaps.md", render_verification_gaps(library_rows), args.check)
     print(f"{'Checked' if args.check else 'Generated'} {len(rows)} published problems: {dict(Counter(row['status'] for row in rows))}")
 
 

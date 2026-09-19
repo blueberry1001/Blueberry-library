@@ -54,7 +54,7 @@ int main() {
 | `LinkCutTree& operator=(LinkCutTree&& other)` | O(D) | [開く](#move-assign) |
 
 <details class="api-operation" id="construct" markdown="1">
-<summary><code>LinkCutTree(const vector<S>& values = {})</code> — O(N)</summary>
+<summary><code>LinkCutTree(const vector&lt;S&gt;&amp; values = {})</code> — O(N)</summary>
 
 N 個の孤立点を構築します。空配列・引数省略も可能です。
 

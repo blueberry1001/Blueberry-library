@@ -32,6 +32,10 @@ def collect_examples(root):
         assert details and len(ids) == len(set(ids)) and set(links) == set(ids), document
         for identifier, body in details:
             assert "<summary>" in body and "O(" in body and "注意点:" in body, (document, identifier)
+            summary = re.search(r"<summary>(.*?)</summary>", body, re.S)
+            assert summary, (document, identifier, "Close the summary element")
+            for code in re.findall(r"<code>(.*?)</code>", summary[1], re.S):
+                assert "<" not in code and ">" not in code, (document, identifier, "Escape template brackets in HTML code")
             assert "```cpp" in body, (document, identifier)
         blocks = re.findall(r"```cpp\n(.*?)\n```", text, re.S)
         protected = re.findall(r"{% raw %}\s*```cpp\n(.*?)\n```\s*{% endraw %}", text, re.S)

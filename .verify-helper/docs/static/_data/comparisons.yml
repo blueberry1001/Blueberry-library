@@ -1,0 +1,232 @@
+- id: range-product
+  headers: [blueberry/data-structure/disjoint-sparse-table.hpp, blueberry/data-structure/sparse-table.hpp, blueberry/data-structure/sqrt-tree.hpp, blueberry/data-structure/dynamic-sqrt-tree.hpp, blueberry/data-structure/segment-tree.hpp, blueberry/data-structure/fenwick-tree.hpp, blueberry/data-structure/linear-rmq.hpp]
+  title: 区間積 — DST・Sqrt Tree・Segment Treeの違い
+  summary: 更新がなければ構築とメモリ、更新があれば更新回数Uと問い合わせ回数Qを合わせて選びます。
+  hints:
+    disjoint-sparse-table: 更新なしで結合的な演算を扱うなら有力。構築・メモリはO(N log N)。
+    sqrt-tree: 更新なしで問い合わせが多く、DSTの表が大きい場合の候補。構築O(N log log N)。
+    dynamic-sqrt-tree: 更新が少なく問い合わせが非常に多い場合の候補。更新1回はO(√N)。
+    sparse-table: min/max/gcdのような冪等演算専用。和や一般の関数合成には使えません。
+    acl-segtree: 更新が多い、境界探索が必要、またはまず汎用構造から試したい場合に。
+    acl-fenwick: 加算と区間和ならメモリの小さい第一候補。一般のモノイド積には使えません。
+    linear-rmq: 静的な最小値・最大値に特化し、前処理とメモリをO(N)に抑える候補。
+  columns: [構造, 構築 / メモリ, 一点更新, 区間クエリ, 選ぶ条件]
+  rows:
+    - [累積和（逆元あり）, O(N) / O(N), 通常は再構築, O(1), 更新なしの和なら最初に検討]
+    - [Sparse Table, O(N log N) / O(N log N), 再構築, O(1), 冪等性が必要]
+    - [Linear RMQ, O(N) / O(N), 再構築, O(1), 比較による最小/最大専用・word-RAM]
+    - [Disjoint Sparse Table, O(N log N) / O(N log N), 再構築, O(1), 一般の結合的演算・非可換も可]
+    - [Sqrt Tree（静的）, O(N log log N) / O(N log log N), 再構築, O(1), 一般の結合的演算・クエリが多い]
+    - [Dynamic Sqrt Tree, O(N log log N) / O(N log log N), O(√N), O(1), 更新が少なくクエリが多い]
+    - [ACL segtree, O(N) / O(N), O(log N), O(log N), 更新・境界探索・線形メモリ]
+    - [ACL fenwick_tree, O(N log N) / O(N), O(log N), O(log N), 加算と区間和。構築はaddをN回]
+  detail: |
+    **Nは要素数、Uは一点更新回数、Qは区間問い合わせ回数**です。演算・コピーがO(1)の場合を考えます。小さいNでは対数の項を1以上として読みます。
+
+    * 更新がないとき、DSTは **O(N log N + Q)**、静的Sqrt Treeは **O(N log log N + Q)**、segtreeは **O(N + Q log N)**。Qが小さいなら構築が軽いsegtreeも候補です。和ならO(N + Q)の累積和で十分な場合があります。
+    * 更新があるとき、Dynamic Sqrt Treeは **O(N log log N + U√N + Q)**、segtreeは **O(N + (U + Q)log N)**。√Nが大きくなるため、「更新率が低い」だけでなくNとUの絶対数も見ます。
+    * 構築を無視した概算では、動的Sqrt TreeはU(√N − log N)の追加コストと、Q(log N − 1)の削減を交換します。例えばN=2¹⁶なら√N=256、log₂N=16です。この数値は**演算量の目安で、速度の分岐点ではありません**。実際の演算回数・キャッシュ・要素サイズが違います。
+    * 更新をまとめて行い、その後に多くの問い合わせがあるなら、静的構造を作り直す案もあります。各更新の直後に問い合わせが来る場合とは分けて考えます。
+
+    **代数条件と機能も先に確認します。** Sparse Tableの重なる区間を合成する方式には冪等性が必要です。DST/Sqrt Tree/segtreeは左から右の非可換な積にも対応します。`max_right` / `min_left` が必要ならACL segtreeが候補で、これらのSqrt Tree/DSTにはありません。本ライブラリのDSTとLinear RMQは非空区間だけを受け取り、Sqrt Treeとsegtreeは空区間で指定した単位元を返します。
+
+    [DSTを含む4構造の同条件測定](__BASEURL__/docs/development/range-product-selection-comparison.html)では、N=65,536・更新なし・Q=100の構築込み中央値はACL segtreeが0.307ms、DSTが2.603msでした。一方、Q=100,000ではACLが7.877ms、DSTが3.786ms、静的Sqrt Treeが2.855msとなり、問い合わせ数で選択が変わりました。
+
+    同じNでU=1,000・Q=99,000ならDynamic Sqrt Treeが3.481ms、ACLが7.920ms、U=50,000・Q=50,000ならそれぞれ16.139msと5.011msでした。**「常にSqrt Treeが最速」という順位ではありません。** 加算・掲載入力・掲載CPUに限った結果です。レポートに構築と操作の内訳、5回の生ログ、メモリを掲載しています。静的構造を更新ごとに再構築する測定は行っていません。
+
+- id: ordered-values
+  headers: [blueberry/data-structure/ordered-set.hpp, blueberry/data-structure/ordered-multiset.hpp, blueberry/data-structure/binary-trie.hpp, blueberry/data-structure/wavelet-matrix.hpp, blueberry/data-structure/persistent-binary-trie.hpp, blueberry/data-structure/fast-set.hpp]
+  title: 集合・順位 — Ordered Set・Binary Trie・Wavelet Matrix
+  summary: 集合全体の順序と、配列の添字区間内の順序を分けて考えます。
+  hints:
+    ordered-set: 比較できる任意型のキーをオンラインで挿入・削除し、順位も知りたい場合に。
+    ordered-multiset: 重複数やキー順の積が必要な場合に。XOR距離はBinary Trieを選びます。
+    binary-trie: 固定ビット幅の非負整数とXOR順の問い合わせに特化。
+    wavelet-matrix: 配列の添字区間内でk番目・頻度を求める静的構造。集合全体の更新とは別用途です。
+    persistent-binary-trie: 過去の集合から分岐したい場合に。新しい版ごとにノードが増えます。
+    fast-set: 固定整数宇宙の前後検索に特化。rank/kthや重複が必要なら他の構造を選びます。
+  columns: [欲しい操作, 主な候補, 制約・注意]
+  rows:
+    - [任意型のキーの前後・順位, Ordered Set / Multiset, 比較順。平衡木の期待計算量]
+    - [整数のXOR最小・k番目, Binary Trie, ビット幅Bに対してO(B)。整数の範囲が前提]
+    - [整数宇宙の前後検索, Fast Set（64分木）, O(1+log₆₄ U)・O(1+U/64) words。rank/kthなし]
+    - [配列の区間k番目・頻度, Wavelet Matrix, 値列は固定。構築O(N log N)・クエリO(log(σ+1))]
+    - [過去の集合への分岐, Persistent Binary Trie, 更新O(B)・版ごとに追加メモリ]
+  detail: |
+    `set`という名前だけでは、重複・順位・XOR・履歴に対応するかは分かりません。`std::set`の前後検索は対数時間ですが、反復子を進めてk番目を得る操作は線形です。Ordered Setは順位を保持する用途、Binary Trieは整数ビットを使う用途として選びます。
+
+    Wavelet Matrixの`kth_smallest(l,r,k)`は**元配列の位置[l,r)に限定**します。集合全体からのk番目とは異なります。Weighted Wavelet Matrixで更新できるのは重みであり、並べ替えに使うキー値そのものではありません。
+
+    Nは配列長、σは異なる値の数、BはBinary Trieに指定するビット幅です。本ライブラリのWavelet Matrixは座標圧縮するため、入力型のビット幅ではなくσがクエリ段数を決めます。
+
+    Fast SetのUは格納できる整数宇宙の幅で、現在の要素数ではありません。64bitの集合を階層化するため木の段数は少なくなりますが、`std::set`に対して一定倍率で速くなる保証ではありません。例えばUが10⁹なら疎な集合でも最下段だけで約125MBが必要です。順位・重複・任意型キーまで含む置き換えではありません。
+
+    [64分木とstd::setの同条件測定](__BASEURL__/docs/development/specialized-structures-comparison.html)では、この整数宇宙と操作分布でFast Setが高速でした。任意型キーや巨大な疎集合まで一般化した結果ではありません。
+
+- id: rectangles
+  headers: [blueberry/data-structure/offline-fenwick-tree-2d.hpp, blueberry/data-structure/dynamic-fenwick-tree-2d.hpp, blueberry/data-structure/weighted-wavelet-matrix.hpp, blueberry/data-structure/kd-tree.hpp]
+  title: 二次元 — 座標を先に集められるか、何を更新するか
+  summary: 点の座標・キーが固定なのか、未知の点を追加するのかで候補が変わります。
+  hints:
+    offline-fenwick-2d: 更新点の座標を先に登録できるなら有力。操作の答えは登録後に逐次返せます。
+    dynamic-fenwick-2d: 未知の点を逐次更新できる代わりに、疎な領域の管理コストが増えます。
+    weighted-wavelet-matrix: キーを固定したまま重みだけ更新し、位置×値域の集計や順位も使いたい場合に。
+    kd-tree: 固定平面点で、逆元のない可換モノイドを集約したい場合にも使えます。矩形問い合わせはO(√N)。
+  columns: [構造, 先に固定するもの, 更新・問い合わせ, 適した場面]
+  rows:
+    - [Offline Fenwick Tree 2D, 更新が起こる全座標, 点加算・長方形和 O(log² N), 座標を事前登録できる]
+    - [Dynamic Fenwick Tree 2D, 整数座標の領域, 点加算・長方形和 O(log C log(K+1))平均, 未登録点が後から来る]
+    - [Weighted Wavelet Matrix, 配列のキー値と順序, 重み更新・値域和 O(log(σ+1) log(N+1)), 区間順位・頻度も併用する]
+    - [KD Tree, 全ての点座標, 点代入O(log N)・矩形集約O(√N), 逆元不要の可換モノイド・メモリO(N)]
+  detail: |
+    Nは登録点数、Cはx座標領域の幅、Kは更新した異なる点の数、σは異なるキー値の数です。対数の項は1以上として読みます。動的Fenwickの更新には再確保もあり平均・償却の評価です。二次元和には加減算が必要です。座標を事前に知ることと、問い合わせをオフラインで並べ替えることは別です。Offline Fenwick Tree 2Dも、座標の登録・構築後は入力順に答えられます。
+
+    行列が密か疎かも重要です。H×Wの全セルを持つ方法ではO(HW)のメモリが必要ですが、座標圧縮や疎な構造なら存在する点を中心に保持できます。長方形の端点は半開区間のAPIに合わせ、重複座標を別点として扱うか合算するかを確認します。
+
+    [固定点・加算群での比較測定](__BASEURL__/docs/development/static-tree-expansion-comparison.html)ではKD TreeよりOffline Fenwick Tree 2Dが高速でした。KD Treeは逆元不要の集約も扱えるため、時間だけでなく必要な演算とメモリを比較します。
+
+- id: persistence
+  headers: [blueberry/data-structure/persistent-segment-tree.hpp, blueberry/data-structure/persistent-binary-trie.hpp, blueberry/data-structure/persistent-queue.hpp, blueberry/data-structure/rollback-union-find.hpp, blueberry/data-structure/persistent-array.hpp, blueberry/data-structure/persistent-union-find.hpp, blueberry/data-structure/partially-retroactive-priority-queue.hpp]
+  title: 過去の状態 — 永続化とRollbackの違い
+  summary: 過去の版から自由に分岐するのか、直前の変更を戻しながら探索するのかを選びます。
+  hints:
+    persistent-segment-tree: どの過去バージョンからも更新して分岐できます。更新ごとにO(log N)のメモリが増えます。
+    rollback-union-find: DFSで変更を戻せる場合に。任意の版を同時に操作する永続構造とは異なります。
+    persistent-array: 任意型の値を一点取得・更新する永続化の土台。区間集約が必要なら永続セグ木。
+    persistent-union-find: 任意の過去版からオンラインで併合したい場合。Rollbackより1操作のコストは増えます。
+    partially-retroactive-priority-queue: 過去操作を編集し、その後の履歴を反映した現在の最小値が欲しい場合。
+  columns: [方式, 履歴の扱い, メモリ・使い分け]
+  rows:
+    - [Persistent Segment Tree, 任意版から一点更新・区間積, 更新ごとにO(log N)のノード追加]
+    - [Persistent Binary Trie, 任意版から整数集合を更新, 更新ごとにO(B)のノード追加]
+    - [Persistent Queue, 任意版のpush/popから分岐, FIFO用途の専用構造]
+    - [Persistent Array, 任意型の一点取得・版からの更新, O(log N)・更新ごとにO(log N)ノード追加]
+    - [Persistent Union Find, 任意版の併合・連結判定, O(log² N)・オンライン分岐]
+    - [Rollback Union Find, 保存した時点へ巻き戻す, 版の木をDFSできるなら履歴を使い回せる]
+    - [部分Retroactive Priority Queue, 既存の過去操作を挿入・削除, O(log M)編集・現在の最小値O(1)。固定M時刻]
+  detail: |
+    **永続化は過去の状態を変更せず、新しい版を作る方式**です。コピーしたオブジェクトが同じノード領域を共有する実装もあるため、版IDの所有者・コピー・寿命の契約は各APIを確認してください。全版を保持するメモリも見積もります。
+
+    **Rollbackは現在の状態に対する変更を逆順に戻す方式**です。クエリが事前に分かって版の木をDFSできるなら便利ですが、任意の過去版への問い合わせをそのままオンラインで処理する機能ではありません。問題名がPersistent Unionfindでも、解法がrollbackを使うことがあります。
+
+    **Retroactiveは操作の履歴そのものを編集します。** 過去の挿入を消した結果、それより後のpopが別の要素を取り出すことがあります。今回の部分retroactive版は、その変更を反映した現在の状態だけを問い合わせます。任意時刻の状態を直接問い合わせる完全retroactive版とは区別してください。
+
+    永続配列は、既定構築・コピー可能な任意型を値として持てる基盤です。任意の既存C++クラスを自動で永続化するものではありません。内部状態を配列のパスコピーで更新する設計が必要で、例えばUnion Findでは経路圧縮をやめてunion-by-sizeを利用します。
+
+- id: static-tree
+  headers: [blueberry/graph/lowest-common-ancestor.hpp, blueberry/graph/heavy-light-decomposition.hpp, blueberry/graph/rerooting.hpp, blueberry/graph/linear-lca.hpp, blueberry/graph/centroid-decomposition.hpp, blueberry/graph/contour-query.hpp]
+  title: 静的木 — LCA・HLD・Rerootingの役割
+  summary: 祖先だけ知りたいのか、パスを集約したいのか、全根の木DPが必要なのかを区別します。
+  hints:
+    doubling-lca: LCAに加えk番目の祖先も必要なら。構築O(N log N)、問い合わせO(log N)。
+    rmq-lca: LCAの問い合わせが多い固定木に。現行版の前処理・メモリはO(N log N)。
+    hld-point-update: 木のパスを配列区間へ分け、点更新と集約を組み合わせたい場合に。
+    hld-range-update: 木のパスを区間へ分解して遅延セグ木で処理。合計コストはO(log² N)。
+    linear-lca: LCA・距離に用途を絞り、前処理・メモリを線形にしたい場合に。
+    centroid-decomposition: 重心での分割結果を使うアルゴリズムの土台。値の集約そのものは別に実装します。
+    contour-query: 部分木やパスではなく、頂点からの距離範囲で値を集計する用途。
+    contour-add: 無重み木の距離範囲に加算し、各頂点の値を取得する用途。
+  columns: [構造, 主な用途, コスト・制約]
+  rows:
+    - [Doubling LCA, LCA・k番目の祖先, 前処理O(N log N)・LCA O(log N)]
+    - [RMQ版LCA, 問い合わせの多いLCA, 前処理O(N log N)・LCA O(1)]
+    - [Linear LCA, LCA・距離を線形メモリで保持, 前処理O(N)・LCA O(1)。k番目の祖先なし]
+    - [HLD + ACL segtree, 頂点/辺のパス積と点更新, HLD構築O(N)・パス積O(log² N)]
+    - [Rerooting DP, 全頂点を根にしたDP, 条件を満たすDPでO(N)。木構造と値を固定して計算]
+    - [Contour Query / Add, 中心からの距離帯の値更新・和, 構築O(N log N)・操作O(log² N)。無重み木]
+  detail: |
+    HLDが返すO(log N)個の配列区間に対し、segtreeの問い合わせを行うと合計O(log² N)です。非可換な演算では区間の向きを保つ必要があります。辺の値はどの頂点位置に置くかも合わせます。
+
+    木の値の更新と、辺を追加・削除して**木の形を変えること**は別です。ここに挙げた構造は固定された木向けです。link/cutが必要な用途には動的森用のデータ構造を選びます。
+
+    Contour Queryの集合は`l <= distance(v,u) < r`の頂点です。Euler tourの部分木区間やHLDのパス区間とは異なり、複数の枝にまたがります。通常の重心分解を利用する実装と、実頂点・仮想頂点を区別する1/3重心分解の汎用APIも分けています。
+
+- id: range-updates
+  title: 区間更新 — Lazy Segtree・双対セグ木・Beats
+  headers: [blueberry/data-structure/dual-segment-tree.hpp, blueberry/data-structure/segment-tree-beats.hpp]
+  summary: 更新内容だけでなく、その後に1点を読むのか区間全体を集約するのかで選びます。
+  hints:
+    dual-segment-tree: 区間作用の後に1点だけ取得するなら、区間積を持たない双対版を検討。
+    acl-lazy-segtree: 区間への作用と区間積の両方が必要で、作用の合成・集約への適用を定義できる場合。
+    segment-tree-beats: chmin/chmaxと区間和を組み合わせるための専用構造。一般の作用テンプレートではありません。
+  columns: [構造, できること, 演算の条件・コスト]
+  rows:
+    - [Dual Segment Tree, 区間作用・一点取得, 作用合成のみ。各O(log N)]
+    - [ACL lazy_segtree, 区間作用・区間積・境界探索, 集約への作用とモノイド。各O(log N)]
+    - [Segment Tree Beats, 加算・chmin/chmax・和/最小/最大, 混合操作列は償却O(log² N)規模。単発線形の場合あり]
+  detail: |
+    双対セグ木の`composition(new, old)`は**oldの後にnewを適用**します。例えばaffine変換を逆順に合成すると答えが変わります。区間和を保持しないため、双対版には`prod(l,r)`や`max_right`はありません。
+
+    Lazy Segtreeでは、区間全体への作用を集約値だけから更新できる必要があります。区間加算・和なら要素数も集約に持ちます。chmin後の和は和だけからは分からないため、通常のlazy作用をそのまま作ることはできません。Beatsは第2最大値・最大値の個数などを持って、この場合を扱います。
+
+    [affine更新・一点取得の同条件測定](__BASEURL__/docs/development/specialized-structures-comparison.html)では双対版はACL lazy_segtreeより低メモリでしたが、実行時間は遅い結果でした。「機能が少ないから必ず高速」とは判断せず、作用のコストも含めて選びます。
+
+- id: priority-queues
+  title: 優先度キュー — 両端・meld・過去操作のどれが必要か
+  headers: [blueberry/data-structure/double-ended-priority-queue.hpp, blueberry/data-structure/skew-heap.hpp]
+  summary: 通常のpush/popだけなら標準priority_queue。追加操作が必要な場合に専用構造を選びます。
+  hints:
+    double-ended-priority-queue: 最小値と最大値の両方を取り出したい場合に。meldや順位は扱いません。
+    skew-heap: 独立して作ったヒープ同士を繰り返し合体させたい場合に。
+  columns: [構造, 主な操作, 制約]
+  rows:
+    - [std::priority_queue, 一方の端の取得・削除, top O(1)・更新O(log N)。meldなし]
+    - [Double Ended Priority Queue, 最小・最大の取得と削除, 両端O(1)・更新は償却O(log N)。メモリは保持容量O(C)]
+    - [Skew Heap, 一方の端の取得・削除・meld, meld等は償却対数。相手の所有権を消費]
+    - [部分Retroactive Priority Queue, 過去操作の編集・現在の最小値, 固定M時刻。編集O(log M)・最小値O(1)]
+  detail: |
+    最小・最大を2つのヒープで遅延削除する方法もありますが、削除済みの要素が内部に残り続けると、メモリは現在の要素数より大きくなります。今回の両端キューはmin-max heapで実際の要素を管理します。ただしvectorの保持容量Cはpopやclearでも縮まらず、現在の要素数Nまで自動的にメモリが減るわけではありません。pushの再確保は単発で線形になるため、更新時間は償却評価です。
+
+    Skew Heapのmeldは相手を空にします。コピー共有ではありません。同じ型でも比較器が異なる順序を定めているヒープ同士は併合できません。個々の操作は線形になることがあり、対数なのは操作列に対する償却評価です。
+
+    [両端キュー・meldの比較測定](__BASEURL__/docs/development/specialized-structures-comparison.html)に入力分布と生ログを掲載しています。meld不要の場合のSkew Heapの順位を、この結果から推測することはできません。
+
+- id: tree-aggregation
+  title: 木の集約 — パス・部分木・木DPと辺の変更
+  headers: [blueberry/graph/link-cut-tree.hpp, blueberry/graph/euler-tour-tree.hpp, blueberry/graph/static-top-tree.hpp, blueberry/graph/dynamic-top-tree.hpp]
+  summary: 集約する範囲と、木の形が変わるかを先に決めます。動的木というだけで全ての操作が揃うわけではありません。
+  hints:
+    link-cut-tree: 辺が変わる森で、向きのあるパス積が必要な場合に。
+    euler-tour-tree: 辺が変わる森で、部分木・連結成分の可換集約や一括作用が必要な場合に。
+    static-top-tree: 木の形が固定で、分岐を含む木DPを頂点更新後に再計算したい場合に。
+    dynamic-top-tree: 辺の変更や根の変更があり、逆元を使えない木DPを保持したい場合に。
+  columns: [構造, 辺の変更, この実装が保持する集約, 操作の目安]
+  rows:
+    - [HLD + ACL segtree, 不可, 固定木のパス・部分木, パスO(log² N)・部分木O(log N)]
+    - [Link-Cut Tree, link/cut, 頂点パスの順序付き積, 償却O(log N)]
+    - [Euler Tour Tree, link/cut, 部分木・連結成分の可換積と作用, 償却O(log N)]
+    - [Static Top Tree, 不可, rake/compressで表せる固定根の木DP, 頂点更新O(log N)・全体取得O(1)]
+    - [Dynamic Top Tree（二階splay）, link/cut, 逆元不要な根変更・部分木を含む木DP, 償却O(log² N)を保証]
+  detail: |
+    **値が変わることと辺が変わることを分けます。** 木の形が固定ならHLDの前処理を再利用できます。辺を毎回切り替えるならHLDを作り直す費用がかかるため、動的森の構造を選びます。
+
+    Link-Cut Treeの`prod(u,v)`はuからvへ頂点値を順に合成します。この実装には部分木集約とパス一括作用はありません。Euler Tour Treeは逆に**可換**な集約を要求し、パス積は提供しません。`prod(v,parent)`は隣接するparent側を除いた部分木、parent省略時は連結成分全体です。頂点数付きの作用を指定して部分木をまとめて更新できます。
+
+    部分木の頂点値を足し合わせることと、各子のDPを用いて親のDPを再計算することは異なります。Static Top Treeは直列結合compressと分岐結合rakeへ分解できる木DPを保持します。結合順やheavy childの選択で答えが変わらないcallbackを用意する必要があり、任意の再帰式を自動変換する仕組みではありません。
+
+    Dynamic Top Treeはこの分解を辺変更にも対応させ、light側もsplayで保持します。逆元を要求しない一方、この実装が保証する計算量は償却O(log² N)です。`prod(u,v)`はu→vを境界のパスとし、**脇の枝も含む連結成分全体のcluster**を返します。LCTのパスだけの積と同じ意味ではありません。`all_prod(root)`ならrootを唯一の境界に正規化した全木DPを得られます。
+
+    動的森のlinkは閉路を作る場合に失敗します。これらは、閉路を持つ一般グラフで辺を削除した後の代替経路を自動で探すデータ構造ではありません。償却対数時間の操作でも単発では線形になる場合があります。
+
+    [辺を変更しない同条件の比較測定](__BASEURL__/docs/development/dynamic-tree-comparison.html)では、STT・HLD・Euler順序が対応する動的構造より高速でした。固定木にも動的構造は使えますが、辺変更が不要ならその管理コストを払う必要があるかを検討します。ここから辺変更そのものの速度は比較できません。
+
+- id: convex-functions
+  title: 凸関数 — 簡単なSlope TrickとSplay版
+  headers: [blueberry/data-structure/slope-trick.hpp, blueberry/data-structure/splay-slope-trick.hpp]
+  summary: 単位傾きの絶対値DPにはheap版。有限定義域・重み付き傾き・畳み込みにはsplay版を比較します。
+  hints:
+    slope-trick: 操作が対応するhinge追加・累積最小・shiftで足りるなら簡単なheap版。
+    splay-slope-trick: 有限区間で任意の傾きや重み付き折点、定義域制限、min-plus畳み込みを扱う場合。
+  columns: [構造, 表現できる関数, 得意な操作・注意]
+  rows:
+    - [Slope Trick（heap）, 全実数上で下に有界・単位傾き変化, hinge追加は償却対数・minはO(1)・evalはO(K log K)]
+    - [Splay Slope Trick, 有限閉区間上の凸区分線形関数, 重み付き折点・eval/minは償却対数・畳み込み対応]
+    - [Li Chao Tree, 追加した直線/線分の最小値, 直線集合の包絡線。凸関数にhingeを加える操作とは異なる]
+  detail: |
+    heap版の`add_abs(a)`は`|x-a|`を加えます。重みw回の繰り返しはwに比例するので、大きい重みを単位追加へ展開する前にsplay版を検討します。heap版の`eval`は最小値だけの取得より重く、ヒープのコピーと走査を行います。
+
+    splay版は有限の定義域を持ちます。`restrict`は定義域の交差、`merge`は関数の和、`convolve`はmin-plus畳み込みです。いずれも名前だけで「任意の関数」を扱うわけではなく、**凸性と型の算術条件が必要**です。非凸関数は対象外で、全実数定義域のheap版をそのまま差し替える契約でもありません。
+
+    整数型で折線の点列から作る場合、区間の傾きを割り算で正確に表せる必要があります。有理数が必要ならFraction型などを検討し、その演算コストとoverflowも見積もります。浮動小数点では丸め誤差による凸性判定にも注意してください。
+
+    [両方が扱える単位重みの測定](__BASEURL__/docs/development/specialized-structures-comparison.html)ではheap版が高速でした。大きい重み・点評価・畳み込みはこの測定に含まず、対応する操作の計算量で別に判断します。

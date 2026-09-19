@@ -71,7 +71,7 @@ int main() {
 | `StaticTopTree& operator=(StaticTopTree&& other)` | O(D) | [開く](#move-assign) |
 
 <details class="api-operation" id="construct" markdown="1">
-<summary><code>StaticTopTree(const vector<vector<int>>& tree, const vector<V>& values, int root = 0)</code> — O(N log(N+1))</summary>
+<summary><code>StaticTopTree(const vector&lt;vector&lt;int&gt;&gt;&amp; tree, const vector&lt;V&gt;&amp; values, int root = 0)</code> — O(N log(N+1))</summary>
 
 無向連結木と値から固定根の rake/compress 木を構築します。
 

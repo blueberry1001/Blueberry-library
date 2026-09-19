@@ -353,3 +353,15 @@ th {
 .verification-example pre { max-height: 36rem; overflow: auto; }
 .bundled-source > summary { cursor: pointer; padding: 12px 0; font-weight: 600; }
 .bundled-source pre { max-height: 36rem; overflow: auto; }
+/* Comparisons stay collapsed until requested, including on individual API pages. */
+.comparison-guide, .library-comparison { margin: 1rem 0; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.comparison-guide > summary, .library-comparison > summary { cursor: pointer; font-weight: 600; line-height: 1.6; }
+.comparison-guide > summary:focus-visible, .library-comparison > summary:focus-visible, .comparison-table:focus-visible { outline: 3px solid #3157d5; outline-offset: 3px; }
+.library-comparison[open] > summary { margin-bottom: .8rem; }
+.comparison-table { max-width: 100%; overflow-x: auto; margin-bottom: 1rem; }
+.comparison-table table { margin-bottom: 0; font-size: .9rem; }
+.comparison-table th, .comparison-table td { min-width: 8rem; vertical-align: top; }
+.comparison-scroll-hint { display: none; color: var(--muted); font-size: .8rem; }
+@media (max-width: 700px) { .comparison-scroll-hint { display: block; } }
+.operation-choice { padding-top: .6rem; margin: .75rem 0 0; border-top: 1px solid var(--line); font-size: .88rem; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

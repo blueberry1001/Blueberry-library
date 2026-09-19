@@ -41,6 +41,9 @@ uf.rollback(saved);
 [Library Checker対応表](https://blueberry1001.github.io/Blueberry-library/library-checker.html)は全公開問題のスナップショットを掲載し、
 実装とverifyあり／専用verifyなし／ACL推奨／未対応を区別します。リポジトリ内の[チェックリスト](docs/library-checker-checklist.md)も同じデータから生成します。
 
+候補の「比較を開く」では、DST・静的/動的Sqrt Tree・ACL segtreeなどの構築・メモリ・更新回数U・クエリ回数Qを含めた選び方を、その場で確認できます。比較は個別APIページでも折り畳んで掲載しています。
+[ライブラリごとのverify不足・調査状況](https://blueberry1001.github.io/Blueberry-library/verification-gaps.html)では、専用ドライバ未登録・間接利用・主機能の一部だけの検証を区別しています。通常の優先度キューのverifyがあっても、retroactive操作の検証済みとは扱いません。
+
 ## 問題から探す
 
 | やりたいこと | 選ぶもの・最初に使う操作 |
