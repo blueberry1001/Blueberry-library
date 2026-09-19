@@ -118,6 +118,7 @@ console.log(JSON.stringify([
             {"queries": "range-mode", "conditions": "online-queries"},
             {"queries": "range-sum", "conditions": "offline-queries"},
             {"targets": "tree", "queries": "path-aggregate", "updates": "static"},
+            {"targets": "array", "queries": "range-sum", "updates": "point-add"},
         ]
         result = self.run_node("""
 const fs = require('node:fs');
@@ -125,7 +126,7 @@ const { matches } = require('./.verify-helper/docs/static/assets/js/operations.j
 const {entries, states} = JSON.parse(fs.readFileSync(0, 'utf8'));
 console.log(JSON.stringify(states.map(s => entries.filter(e => matches(e,s)).map(e=>e.id))));
 """, {"entries": self.entries, "states": states})
-        self.assertTrue({"acl-fenwick", "acl-segtree", "disjoint-sparse-table", "sqrt-tree"} <= set(result[0]))
+        self.assertTrue({"acl-fenwick", "acl-segtree", "disjoint-sparse-table", "sqrt-tree", "dynamic-sqrt-tree"} <= set(result[0]))
         self.assertNotIn("ordered-multiset", result[0])
         self.assertIn("wavelet-matrix", result[1])
         self.assertNotIn("binary-trie", result[1])
@@ -134,12 +135,15 @@ console.log(JSON.stringify(states.map(s => entries.filter(e => matches(e,s)).map
         self.assertTrue({"offline-fenwick-2d", "dynamic-fenwick-2d", "weighted-wavelet-matrix"} <= set(result[3]))
         self.assertNotIn("disjoint-sparse-table", result[4])
         self.assertNotIn("sqrt-tree", result[4])
+        self.assertIn("dynamic-sqrt-tree", result[4])
         self.assertTrue({"acl-boundary-search", "acl-lazy-boundary-search"} <= set(result[5]))
         self.assertIn("acl-lazy-sum", result[6])
         self.assertNotIn("segment-tree-beats", result[6])
         self.assertEqual(result[7], [])
         self.assertIn("acl-segtree", result[8])
         self.assertIn("hld-point-update", result[9])
+        self.assertIn("dynamic-sqrt-tree", result[10])
+        self.assertNotIn("sqrt-tree", result[10])
 
     def test_specialized_structures_match_only_supported_operations(self):
         states = [

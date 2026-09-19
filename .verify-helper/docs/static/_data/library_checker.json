@@ -309,12 +309,17 @@
           "name": "Dynamic Fenwick Tree"
         },
         {
+          "path": "blueberry/data-structure/dynamic-sqrt-tree.hpp",
+          "name": "Dynamic Sqrt Tree"
+        },
+        {
           "path": "blueberry/data-structure/fenwick-tree.hpp",
           "name": "Fenwick Tree"
         }
       ],
       "verifies": [
         "verify/data-structure/dynamic-point-add-range-sum.test.cpp",
+        "verify/data-structure/dynamic-sqrt-tree-sum.test.cpp",
         "verify/data-structure/point-add-range-sum.test.cpp"
       ],
       "ignored_verifies": [],
@@ -364,6 +369,10 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/data-structure/dynamic-sqrt-tree.hpp",
+          "name": "Dynamic Sqrt Tree"
+        },
+        {
           "path": "blueberry/data-structure/ordered-multiset.hpp",
           "name": "Ordered Multiset"
         },
@@ -377,6 +386,7 @@
         }
       ],
       "verifies": [
+        "verify/data-structure/dynamic-sqrt-tree.test.cpp",
         "verify/data-structure/ordered-multiset-composite.test.cpp",
         "verify/data-structure/persistent-point-set-range-composite.test.cpp",
         "verify/data-structure/point-set-range-composite.test.cpp"
@@ -812,7 +822,7 @@
         },
         {
           "path": "blueberry/data-structure/sqrt-tree.hpp",
-          "name": "Sqrt Tree"
+          "name": "Sqrt Tree（静的）"
         }
       ],
       "verifies": [
@@ -845,15 +855,20 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/data-structure/disjoint-sparse-table.hpp",
+          "name": "Disjoint Sparse Table"
+        },
+        {
           "path": "blueberry/data-structure/sparse-table.hpp",
           "name": "Sparse Table"
         },
         {
           "path": "blueberry/data-structure/sqrt-tree.hpp",
-          "name": "Sqrt Tree"
+          "name": "Sqrt Tree（静的）"
         }
       ],
       "verifies": [
+        "verify/data-structure/disjoint-sparse-table-rmq.test.cpp",
         "verify/data-structure/sqrt-tree-rmq.test.cpp",
         "verify/data-structure/static-rmq.test.cpp"
       ],
