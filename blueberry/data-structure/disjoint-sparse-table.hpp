@@ -15,12 +15,14 @@ template <class T, class Op>
 class DisjointSparseTable {
  public:
   DisjointSparseTable(const std::vector<T>& values, Op op)
-      : values_(values), op_(std::move(op)) {
+      : op_(std::move(op)) {
     assert(values.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
     const std::size_t n = values.size();
     const int levels = n < 2 ? 0 : std::bit_width(n - 1);
-    table_.reserve(levels);
-    for (int level = 0; level < levels; ++level) {
+    table_.reserve(std::max(1, levels));
+    // Level zero is also the owning copy used by singleton queries.
+    table_.push_back(values);
+    for (int level = 1; level < levels; ++level) {
       table_.push_back(values);
       auto& row = table_.back();
       const std::size_t half = std::size_t{1} << level;
@@ -37,15 +39,14 @@ class DisjointSparseTable {
 
   T prod(int left, int right) const {
     assert(0 <= left && left < right && right <= size());
-    if (right - left == 1) return values_[left];
+    if (right - left == 1) return table_[0][left];
     const int level = std::bit_width(static_cast<unsigned>(left ^ (right - 1))) - 1;
     return op_(table_[level][left], table_[level][right - 1]);
   }
 
-  int size() const { return static_cast<int>(values_.size()); }
+  int size() const { return table_.empty() ? 0 : static_cast<int>(table_[0].size()); }
 
  private:
-  std::vector<T> values_;
   Op op_;
   std::vector<std::vector<T>> table_;
 };

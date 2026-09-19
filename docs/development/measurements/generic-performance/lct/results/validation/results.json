@@ -1,0 +1,343 @@
+{
+  "sources": {
+    "blueberry/graph/link-cut-tree.hpp": "84d9e99518ebd952c344fad81a8150da0fab3a65a36d3c899771a0c38ac31e13",
+    "tests/random/link-cut-tree.cpp": "5d84a77777bd6112e8f6372991de6b8fa49a9617742e2e24df832924004f249d",
+    "verify/graph/link-cut-tree.test.cpp": "3cf61392139c1a24ec78e1cb0712125aeaceee42dfccde8efcaa9a937d148622",
+    "verify/graph/link-cut-tree-composite.test.cpp": "0793bbcfc9c2010cce99065e22f9e7b4e4269eb3443bd180b72667b7b2ddae35"
+  },
+  "random": [
+    {
+      "compiler": "g++",
+      "standard": "gnu++20",
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        20260919
+      ],
+      "passed": true
+    },
+    {
+      "compiler": "g++",
+      "standard": "gnu++23",
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        20260919
+      ],
+      "passed": true
+    },
+    {
+      "compiler": "clang++",
+      "standard": "gnu++20",
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        20260919
+      ],
+      "passed": true
+    },
+    {
+      "compiler": "clang++",
+      "standard": "gnu++23",
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        20260919
+      ],
+      "passed": true
+    },
+    {
+      "compiler": "clang++",
+      "standard": "gnu++20",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "seeds": [
+        20260919
+      ],
+      "passed": true
+    }
+  ],
+  "official": [
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "almost_line_00",
+      "input_sha256": "40b6eb0b5d7386688b0bd75855725da5523e22ff4f56a711d46039c1928f89e2",
+      "output_sha256": "12af92bd60450d26d95c6b559185348098088041b2536cb843c0d1d772913328",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "almost_line_01",
+      "input_sha256": "8c4539d5a18ee7581d78375ebe5961b548e5cf6a2d5e44114bde91711b5dd41a",
+      "output_sha256": "de562e0c8497f73ac1430b43084373d863bc1af80f289935fc12769d6fecc3c4",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "example_00",
+      "input_sha256": "50a23c4cb9c3001db5ee6eb73176fa22efc5d93bce45f21573dae5b4588bb66b",
+      "output_sha256": "29bad14f09ca230e71cdaea1fed93ea91dc9bda067d85c15465ba6d2be226d6f",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "issue_1216_00",
+      "input_sha256": "14ff24db4e0a0537fba202f9641a15228da874c47ab5451fda77384133f14294",
+      "output_sha256": "ec65f2bf3651b8b67909668cb372eccd4d3301f75a77b55a5ea593b77e18b55e",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "max_random_00",
+      "input_sha256": "94911f7673f06eaf937d13e9a1c96f70fcfd2b5c16e35f5897b1440071364f9f",
+      "output_sha256": "4708ed8861d8caa6f7cd0e3ac591dbb088fbde2a629fd8e88fcc1f17adcf3a1c",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "max_random_01",
+      "input_sha256": "e18f87220c544b4363a9230bed09e7f40eac8f01bab0132e2d2a23728c56b010",
+      "output_sha256": "ecc0eda295bed591de4bad99ec157480aa6f2c6cf9a06ba41733f0f717ae85b2",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "max_random_02",
+      "input_sha256": "c09345ecbdfbb79ffbb72e52d80f57d0818f0d63925a62c88b9737cbc1be4a7c",
+      "output_sha256": "e21d928f038d52c5a4c5c0be258a59bf61f76b0fdacc59ace5b24072a7935138",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "random_00",
+      "input_sha256": "4ee40dd7d326a812934dd0ad6a4e1e45bd6cf88a6106cea8937e3c3a8dde6bc0",
+      "output_sha256": "8f1c24a55190ac9d3e8e0cb1c4ef079ca8506cfbb3551d60d6f8fbcb82bb0a03",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "random_01",
+      "input_sha256": "bee58f343b063f4f699a91f2dfc0f6a2d24f8a7279b3b39c627c38e7dc3a4259",
+      "output_sha256": "37bc9fa2b98680c3e9ae6fdf700fd6d088908b64ac04d9b6fa011f2e83239a68",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "random_02",
+      "input_sha256": "98ac90e4c37ba932c7e4d7a62c35d24b3b68a3c4f2a1e114966e12c0cdc4556c",
+      "output_sha256": "f58d9a59d5afc858cb6a30f10f5bd6b64f945d373792ea1666ec39d0f5c2e2cd",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "random_03",
+      "input_sha256": "b6afdfa2265080d63a98d11e0fca71620cd61c123f9bd61615dbe468f327b0c7",
+      "output_sha256": "61d4a6c8b29cd0a0b8f7a7bd2dcf0438beb15fc9892b479a415d1ed031b8ba46",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "random_04",
+      "input_sha256": "009f8137e54ee1a721d5dbfd7bbfebc957f927f455d2632c41c4928f13508e8b",
+      "output_sha256": "5f06f82611c0c541d35adb98216f9d1a5516c7883863255e2b5990031e5b4de9",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "small_00",
+      "input_sha256": "81245ef80e2fcc72695eabed7bb7aeb33f2e3592b75afbe9ee4d0fac3478bcc6",
+      "output_sha256": "e440e96483be50f5f2b9232f72052b02991fdf54e68acd79ae760f81ee97679c",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "small_01",
+      "input_sha256": "f517c026ef0cf9e949426954ded7d6dda810d71d202f85037361b6ac0dedcb2b",
+      "output_sha256": "a9d023f79369abae03ef960b1dd001957e938613e385a5a0d4e724426bb44eaf",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_add_path_sum",
+      "case": "small_02",
+      "input_sha256": "9f3dc4fa90760051d6440e1f3b75e503f93a81489c8d0d18e90ecaa63d0bb71b",
+      "output_sha256": "cdcf0648826d926718c9c43d16c2c025a701812b2ed8b19cf0d76c777be47019",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "almost_line_00",
+      "input_sha256": "aa8ae75ea9ad5d4a180954c35ebad8a71fc458f0ec907cd867b0dde7a6821345",
+      "output_sha256": "6b7a81db430668305a73a01c85502e0e14f5e5208020f1207c6d9a1e2168e564",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "almost_line_01",
+      "input_sha256": "36ecb6ca701683eca6e0c4c9678760e506688969912a82327e248c6c3bb5803b",
+      "output_sha256": "59ad750f82dfbaf4574c9d1ce19f88185f5197de73234b3254f1bd8e9a3c5c54",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "example_00",
+      "input_sha256": "fecff4beb4e6621fbe0c96792ebd8ba5a8f46ae9365205d6f35c579f468bfc82",
+      "output_sha256": "1a77bd6c4cac5c36f63d4717c70470f79e51a1cb00820cb19d5b35dd187f8276",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "example_01",
+      "input_sha256": "5b39e2806559fb1ce74485c2ec435925b05a24b1f444f9383989926160329190",
+      "output_sha256": "738b5d64b5d687acfd72e5df6497a0d10b22e873ef8843b03677cb32a61cecd1",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "issue_1216_00",
+      "input_sha256": "6d2c2c6f662360549991d39e5f9840a2d58cc09ef304f61d3ec36d45366afaf6",
+      "output_sha256": "b3f7749b2eb71b8f0e2d3ef17c99916676915c17bdb4c0ebd4b8f85eb9d797bb",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "max_random_00",
+      "input_sha256": "0e830fe6d5484850919ae2a36eda2bd742525ff8080e9706872083571f78315f",
+      "output_sha256": "fd0206a6db336f67a74a2dfa6433e270f17cb15412c9666107911ac58ad65734",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "max_random_01",
+      "input_sha256": "6d935f41646d1afb3f239964afa0eb35c7dbb35e5f9385951f60c478d03a213f",
+      "output_sha256": "84e7cce62bfc443bfbfba9cdc0196cdd420590fff6b480f349b7617194375a72",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "max_random_02",
+      "input_sha256": "a39cec8b5ae2c9a521f4f455bc88585b18a3c27af05a1eee1c03c3ffbdc37589",
+      "output_sha256": "cf006fa0402343efd5b600401685c7793fa0b047e93edc61254ef4f3d150330e",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "medium_00",
+      "input_sha256": "9dd0281600d56ee90ac872a8e8236bb6aa0926d1e0d95a5d9efc0ed58dee5731",
+      "output_sha256": "f3b2a2d9fba6a7f6258469a4724eec5d3b4f6e5750dcc6b2e9037a7b493f185e",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "medium_01",
+      "input_sha256": "d4ab08d13a34333f64146ae4216f67712a603eb78c5e7455105b9783d3669b6d",
+      "output_sha256": "2f4fab159d46ed13e1758e1b2e0cf8a16192de3b841ec8e79877f8828b0f5baa",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "medium_02",
+      "input_sha256": "f7e937c0b5a27128df237fdbe067a0ace7a7542f5d27b0a01a903b488da1133c",
+      "output_sha256": "67e25d4037a7224ce261ddb9cc70ebe9cef21bcae437999d4b4fd2b13ac5d2fb",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "medium_03",
+      "input_sha256": "a232b22805f6a1bef08e974223ee2c09825968dbd40de59e72f19334d9da6c27",
+      "output_sha256": "3ab2721ae684426edd8561f091b0bbb21b90e1926988e46d8e5f1cdcaf1632f2",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "medium_04",
+      "input_sha256": "e683b9077a1f56f335e662e14dc561a8c63f620901a6a24ec51a6357afc9d17e",
+      "output_sha256": "d39185e5935a3b48c6393c0da8b1fbdbdc8d93edfcb0eba543268b1191ad3958",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "random_00",
+      "input_sha256": "888a709a3a655e9449d993bfd28e95cbd8cc9502ddd42a53f91a2002b58dfb02",
+      "output_sha256": "d5912e2023e3d9eeeca3fcce5d4ef3fca32552905d378af0c714edb20ea9fe90",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "random_01",
+      "input_sha256": "67c85c19ab5af77fd037c851d49ae4fde37122a386fd7bf5a8359c00aa306544",
+      "output_sha256": "24bf08760bf33f057e713d2e2620c50905e54cc94568d6cd692be15e1239d9a9",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "random_02",
+      "input_sha256": "188091244563c0ebca8f6447ef7128d34b40d3288cd32b345b149489eb801e04",
+      "output_sha256": "b358519f644e0cdf30f3676bf2bd8b7acf4421c34d350da5e4b365603faf9c7a",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "random_03",
+      "input_sha256": "f2b44f1b33a8f1ccef9e84157491ca55dce18a3fae5111de1d9aca22debbe9d2",
+      "output_sha256": "bbbb378c33ad16317c46716e1a8f08dacfc117e0df714dc81dac921dacc239f5",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "random_04",
+      "input_sha256": "ad20337c39e98ec65afb474e5b360df595c0ff424b84131cfc228f4ec9e6177f",
+      "output_sha256": "23f48ee677e8d2897fda62ea85fb03220b1759259a5899be1130e204e5d5336d",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "small_00",
+      "input_sha256": "ae577512c72f89119ccf81cdc791410a87fc710c5494933c8a3c2c28e5b35bcd",
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "small_01",
+      "input_sha256": "3e6192cc5bd7fde0a129564522043e21c19693ce069ffe6b0b352bcc729b392c",
+      "output_sha256": "b1ce0aa6fdf3cf349d773243dab9fbbe09d30619f38b0c1e8977e28c4f0bc495",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "small_02",
+      "input_sha256": "a33656982adcf3d3ec222af14b635bf2a3b2cdc099bcd3845fb9865db4fba734",
+      "output_sha256": "2c316b24b7fbec7e4b2e84d891e99e7922ccb18b6f3e2e505c1ed33b9b25a87b",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "small_03",
+      "input_sha256": "0d9c9641893d2b4432383d535c501c4b1ccd0e08ed7eafa25142c784a79d9bf0",
+      "output_sha256": "084c799cd551dd1d8d5c5f9a5d593b2e931f5e36122ee5c793c1d08a19839cc0",
+      "passed": true
+    },
+    {
+      "problem": "dynamic_tree_vertex_set_path_composite",
+      "case": "small_04",
+      "input_sha256": "778adf18266d5e3e5d086b93290546323774ab66931927060cec4bec6bb9607a",
+      "output_sha256": "eedb85ab90d324a555a45560d75c88cecf23721990c3b6353697d707e6465c74",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

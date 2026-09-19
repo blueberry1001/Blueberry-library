@@ -21,6 +21,16 @@ unsigned long long seed; int step;
 void check(bool good,const char* label){if(!good){std::cerr<<"seed="<<seed<<" step="<<step<<" operation="<<label<<'\n';std::exit(1);}}
 int main(int argc,char**argv){
  seed=argc>1?std::strtoull(argv[1],nullptr,10):1;std::mt19937_64 rng(seed);
+ {
+  blueberry::FastSet set(262145);std::set<int> oracle;
+  const std::vector<int> boundary={0,1,63,64,4095,4096,262143,262144};
+  for(int x:boundary){check(set.insert(x),"fast empty word propagation");oracle.insert(x);check(!set.insert(x),"fast duplicate boundary");}
+  for(auto it=boundary.rbegin();it!=boundary.rend();++it){
+   check(set.erase(*it),"fast last bit propagation");oracle.erase(*it);
+   check(set.next(0)==(oracle.empty()?262145:*oracle.begin()),"fast next after last bit");
+   check(set.prev(262145)==(oracle.empty()?-1:*oracle.rbegin()),"fast prev after last bit");
+  }
+ }
  for(int n:{0,1,2,63,64,65,127,128,129,4095,4096,4097}){
   std::string bits(n,'0');std::set<int> oracle;
   for(int i=0;i<n;++i)if(rng()%3==0){bits[i]='1';oracle.insert(i);}

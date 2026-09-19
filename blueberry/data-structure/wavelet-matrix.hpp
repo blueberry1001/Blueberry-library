@@ -1,11 +1,13 @@
 #pragma once
 
 #include <algorithm>
+#include <array>
 #include <bit>
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <limits>
+#include <numeric>
 #include <optional>
 #include <type_traits>
 #include <vector>
@@ -67,12 +69,41 @@ class WaveletMatrix {
   explicit WaveletMatrix(const std::vector<T>& a) : values_(a) {
     assert(a.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
     n_ = static_cast<int>(a.size());
-    std::sort(values_.begin(), values_.end());
-    values_.erase(std::unique(values_.begin(), values_.end()), values_.end());
-    if (values_.empty()) return;
-    height_ = std::bit_width(static_cast<unsigned>(values_.size() - 1));
+    if (n_ == 0) return;
     std::vector<int> current(n_), next(n_);
-    for (int i = 0; i < n_; ++i) current[i] = lower(a[i]);
+    // Reuse the partition buffer for sorted positions: no per-value binary search.
+    std::iota(next.begin(), next.end(), 0);
+    using U = std::make_unsigned_t<T>;
+    U base = 0, remaining = 0;
+    int passes = 0;
+    if (n_ >= 64) {
+      const auto [minimum, maximum] = std::minmax_element(a.begin(), a.end());
+      base = static_cast<U>(*minimum);
+      // Unsigned subtraction preserves the order relative to the minimum,
+      // including signed extrema, without signed overflow or fixed value bounds.
+      remaining = U(static_cast<U>(*maximum) - base);
+      for (U width = remaining; width; width = U(width >> 8)) ++passes;
+    }
+    // Histogram setup dominates small, wide-valued inputs; choose by actual width.
+    if (n_ < 64 || n_ < 128 * passes) {
+      std::sort(next.begin(), next.end(), [&](int i, int j) { return a[i] < a[j]; });
+    } else {
+      for (int shift = 0; remaining; shift += 8, remaining = U(remaining >> 8)) {
+        std::array<int, 256> offsets{};
+        for (int p : next) ++offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255];
+        int offset = 0;
+        for (int& count : offsets) { const int size = count; count = offset; offset += size; }
+        for (int p : next) current[offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255]++] = p;
+        current.swap(next);
+      }
+    }
+    int distinct = 0;
+    for (int p : next) {
+      if (distinct == 0 || values_[distinct - 1] != a[p]) values_[distinct++] = a[p];
+      current[p] = distinct - 1;
+    }
+    values_.resize(distinct);
+    height_ = std::bit_width(static_cast<unsigned>(values_.size() - 1));
     levels_.resize(height_);
     for (int h = 0; h < height_; ++h) {
       auto& level = levels_[h];
