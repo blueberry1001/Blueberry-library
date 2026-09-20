@@ -351,8 +351,11 @@ th {
 .verification-example { margin: 12px 0; }
 .verification-example > summary { cursor: pointer; overflow-wrap: anywhere; }
 .verification-example pre { max-height: 36rem; overflow: auto; }
-.bundled-source > summary { cursor: pointer; padding: 12px 0; font-weight: 600; }
-.bundled-source pre { max-height: 36rem; overflow: auto; }
+.source-actions { justify-content: flex-end; }
+.source-actions [data-source-status] { flex: 1 1 10rem; }
+.source-actions [data-source-status]:empty { display: none; }
+.source-actions[hidden] { display: none; }
+[data-source-enhanced] .source-fallback-note { display: none; }
 /* Comparisons stay collapsed until requested, including on individual API pages. */
 .comparison-guide, .library-comparison { margin: 1rem 0; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
 .comparison-guide > summary, .library-comparison > summary { cursor: pointer; font-weight: 600; line-height: 1.6; }

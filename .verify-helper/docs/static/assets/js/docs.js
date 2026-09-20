@@ -1,5 +1,29 @@
 "use strict";
 
+function setSourceBundled(viewer, bundled) {
+  viewer.querySelector("#unbundled").hidden = bundled;
+  viewer.querySelector("#bundled-source").hidden = !bundled;
+  const toggle = viewer.querySelector("[data-source-toggle]");
+  toggle.textContent = bundled ? "Unbundle" : "Bundle";
+  toggle.setAttribute("aria-pressed", String(bundled));
+  viewer.querySelector("[data-source-status]").textContent = "";
+}
+
+function initializeSourceViewer(viewer) {
+  const toggle = viewer.querySelector("[data-source-toggle]");
+  if (!toggle) return;
+  viewer.dataset.sourceEnhanced = "true";
+  setSourceBundled(viewer, false);
+  viewer.querySelector("[data-source-actions]").hidden = false;
+  toggle.addEventListener("click", () => {
+    setSourceBundled(viewer, !viewer.querySelector("#unbundled").hidden);
+  });
+  viewer.querySelector("[data-source-copy]").addEventListener("click", () => {
+    const panel = viewer.querySelector("#unbundled").hidden ? "#bundled-source" : "#unbundled";
+    copyCode(viewer.querySelector(`${panel} pre > code`), viewer.querySelector("[data-source-status]"));
+  });
+}
+
 function openLinkedOperation(hash = window.location.hash) {
   if (!hash) return;
   let id;
@@ -9,6 +33,10 @@ function openLinkedOperation(hash = window.location.hash) {
     return;
   }
   let target = document.getElementById(id);
+  if (["bundled", "bundled-source", "unbundled"].includes(id)) {
+    const viewer = target?.closest("[data-source-viewer]");
+    if (viewer?.querySelector("[data-source-toggle]")) setSourceBundled(viewer, id !== "unbundled");
+  }
   while (target) {
     if (target instanceof HTMLDetailsElement) target.open = true;
     target = target.parentElement;
@@ -46,6 +74,7 @@ async function copyCode(code, status) {
 
 window.addEventListener("hashchange", () => openLinkedOperation());
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("[data-source-viewer]").forEach(initializeSourceViewer);
   openLinkedOperation();
   const copy = document.getElementById("copy-include");
   if (copy) copy.addEventListener("click", () => copyCode(
@@ -55,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", () => openLinkedOperation(link.getAttribute("href")));
   });
   document.querySelectorAll("pre > code").forEach((code) => {
+    if (code.closest("[data-source-viewer]")?.querySelector("[data-source-toggle]")) return;
     const controls = document.createElement("div");
     controls.className = "code-actions";
     const button = document.createElement("button");
