@@ -10,7 +10,12 @@ class Element {
     this.parentElement = parent;
     this.dataset = {};
     this.hidden = false;
+    this.attributes = {};
+    this.listeners = {};
   }
+  setAttribute(name, value) { this.attributes[name] = value; }
+  addEventListener(name, listener) { this.listeners[name] = listener; }
+  closest() { return this.viewer || null; }
 }
 class Details extends Element { open = false; }
 const outer = new Details();
@@ -38,6 +43,40 @@ assert.equal(inner.open, true, "deep links reveal the nearest closed operation")
 assert.equal(outer.open, true, "deep links reveal all closed ancestor details");
 context.window.location.hash = "#%broken";
 assert.doesNotThrow(() => context.openLinkedOperation());
+
+const sourceNodes = Object.fromEntries([
+  "#unbundled", "#bundled-source", "[data-source-toggle]", "[data-source-actions]",
+  "[data-source-copy]", "[data-source-status]", "#unbundled pre > code", "#bundled-source pre > code",
+].map(selector => [selector, new Element(selector)]));
+const viewer = { dataset: {}, querySelector: selector => sourceNodes[selector] };
+for (const node of Object.values(sourceNodes)) node.viewer = viewer;
+nodes.set("bundled", sourceNodes["#bundled-source"]);
+nodes.set("bundled-source", sourceNodes["#bundled-source"]);
+nodes.set("unbundled", sourceNodes["#unbundled"]);
+context.initializeSourceViewer(viewer);
+const toggle = sourceNodes["[data-source-toggle]"];
+assert.equal(toggle.textContent, "Bundle");
+assert.equal(sourceNodes["#bundled-source"].hidden, true);
+toggle.listeners.click();
+assert.equal(toggle.textContent, "Unbundle");
+assert.equal(toggle.attributes["aria-pressed"], "true");
+assert.equal(sourceNodes["#unbundled"].hidden, true);
+assert.equal(sourceNodes["#bundled-source"].hidden, false);
+sourceNodes["[data-source-copy]"].listeners.click();
+assert.equal(copied, "#bundled-source pre > code", "copy uses the visible bundled source");
+toggle.listeners.click();
+sourceNodes["[data-source-copy]"].listeners.click();
+assert.equal(copied, "#unbundled pre > code", "copy returns to the original source");
+for (const hash of ["#bundled", "#bundled-source"]) {
+  context.openLinkedOperation(hash);
+  assert.equal(sourceNodes["#bundled-source"].hidden, false);
+}
+context.openLinkedOperation("#unbundled");
+assert.equal(sourceNodes["#unbundled"].hidden, false);
+assert.equal(toggle.textContent, "Bundle");
+assert.equal(toggle.attributes["aria-pressed"], "false");
+assert.equal(sourceNodes["[data-source-status]"].textContent, "");
+assert.doesNotThrow(() => context.initializeSourceViewer({ querySelector: () => null }));
 
 const rows = [
   ["Wavelet Matrix 区間 頻度", "data-structure", "range kth smallest"],
@@ -88,5 +127,5 @@ assert.equal(empty.hidden, false, "queries are plain text, not HTML or regex");
   await context.copyCode(code, status);
   assert.equal(selected, code, "clipboard denial selects the exact source for manual copy");
   assert.match(status.textContent, /選択/);
-  console.log("PASS: catalog filtering, nested anchors, clipboard success and fallback");
+  console.log("PASS: catalog filtering, source toggle/copy/anchors, nested anchors, clipboard success and fallback");
 })().catch(error => { console.error(error); process.exitCode = 1; });

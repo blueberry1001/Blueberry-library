@@ -15,13 +15,23 @@
 </div>
 
 <h2 id="source-code">Code</h2>
-<span id="unbundled"></span>
+<div data-source-viewer>
+{% if page.data.bundledCode %}
+<div class="code-actions source-actions" data-source-actions hidden>
+  <span role="status" data-source-status></span>
+  <button type="button" data-source-copy>コードをコピー</button>
+  <button type="button" data-source-toggle aria-controls="unbundled bundled-source" aria-pressed="false">Bundle</button>
+</div>
+{% endif %}
+<div id="unbundled">
 {% include highlight.html extension=page.data._pathExtension content=page.data.code %}
+</div>
 
 {% if page.data.bundledCode %}
-<details class="bundled-source" id="bundled-source">
-  <summary id="bundled">依存ヘッダを展開したコードを開く</summary>
-  <p>提出先のコンパイル条件に合わせ、使用するmain関数とともにコンパイルしてください。</p>
+<div class="bundled-source" id="bundled-source">
+  <span id="bundled"></span>
+  <h3 class="source-fallback-note">依存ヘッダを展開したコード</h3>
   {% include highlight.html extension=page.data._pathExtension content=page.data.bundledCode %}
-</details>
+</div>
 {% endif %}
+</div>

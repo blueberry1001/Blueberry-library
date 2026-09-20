@@ -85,7 +85,7 @@ for header in headers:
             continue
         assert target.is_file(), (header, href, "broken API documentation link")
     assert 'assets/js/copy-button.js' not in content, (header, "upstream controls duplicate copy buttons and bundle unrelated examples")
-    assert 'id="bundled-source"' in content, (header, "missing expandable bundled source")
+    assert 'id="bundled-source"' in content, (header, "missing bundled source")
     relations = re.search(r'<div class="source-relations">(.*?)</div>', content, re.S)
     assert relations, (header, "missing source relationships")
     for link in re.findall(r'href="([^"]+)"', relations[1]):
@@ -101,6 +101,11 @@ for header in headers:
 # Every direct library include in a verify has an inline, nonempty source example.
 for source in (ROOT / "verify").rglob("*.test.cpp"):
     path = source.relative_to(ROOT).as_posix()
+    verify_page = (SITE / f"{path}.html").read_text()
+    assert 'data-source-viewer' in verify_page, path
+    assert 'data-source-toggle' in verify_page and '>Bundle</button>' in verify_page, path
+    assert '<details class="bundled-source"' not in verify_page, path
+    assert 'id="unbundled"' in verify_page and 'id="bundled-source"' in verify_page, path
     includes = re.findall(r'#include "(blueberry/[^"\n]+)"', source.read_text())
     for header in includes:
         content = (SITE / f"{header}.html").read_text()
