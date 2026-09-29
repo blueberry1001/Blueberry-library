@@ -6,9 +6,9 @@
 
 `benchmarks/monoids.cpp`、seed 712367、GCC 13.3.0 / Clang 18.1.3、`-O2 -std=gnu++20`。assert 有効と `-DNDEBUG` を分けた。Windows 上の WSL2 Linux 5.15.167.4 x86_64 で計測。N=1024 / 100000、Q=N / 4N、更新・問合せを交互に実行し、5 回ずつ計測順を交替。入力生成は測定外。構築は入力ノード生成を含み、操作から分離した。ログの checksum は両実装で一致する。
 
-生ログは [GCC assert](monoid-measurements/g++-assert.log)、[GCC release](monoid-measurements/g++-release.log)、[Clang assert](monoid-measurements/clang++-assert.log)、[Clang release](monoid-measurements/clang++-release.log)。小さい入力、N/Q 比違い、全反復と I/O 単独測定を保持する。
+生ログは [GCC assert](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/monoid-measurements/g++-assert.log)、[GCC release](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/monoid-measurements/g++-release.log)、[Clang assert](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/monoid-measurements/clang++-assert.log)、[Clang release](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/monoid-measurements/clang++-release.log)。小さい入力、N/Q 比違い、全反復と I/O 単独測定を保持する。
 
-[環境・ソースハッシュ](monoid-measurements/environment.json)に CPU と測定対象を記録した。ログの時刻から、これらの測定は統合側の make check / docs / verify 開始前に完了していることを確認した。
+[環境・ソースハッシュ](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/monoid-measurements/environment.json)に CPU と測定対象を記録した。ログの時刻から、これらの測定は統合側の make check / docs / verify 開始前に完了していることを確認した。
 
 | compiler / mode | recipe 構築中央値 ms | direct 構築中央値 ms | recipe 操作中央値 (min) ms | direct 操作中央値 (min) ms |
 | --- | ---: | ---: | ---: | ---: |
