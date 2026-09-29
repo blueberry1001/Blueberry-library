@@ -127,6 +127,8 @@ const recipeRows = recipes.map(recipe => {
 const recipeCatalog = { ...catalog, querySelectorAll: () => recipeRows };
 for (const [query, kind, expected] of [
   ["等差数列", "lazy", ["ap"]],
+  ["区間等差数列加算", "lazy", ["ap"]],
+  ["最大部分和", "segtree", ["maxsub"]],
   ["ＦＬＩＰ 転倒数", "lazy", ["inv"]],
   ["DP", "segtree", ["matrix"]],
   ["実装済み", "segtree", ["maxsub", "bracket", "compose", "maxcount"]],
