@@ -22,7 +22,7 @@ assert 'data-catalog-search' in home and 'data-catalog-controls hidden' in home
 assert 'data-catalog-empty hidden' in home and 'id="library-catalog"' in home
 assert "calc(100% - 300px)" not in home, "Upstream inline sidebar CSS returned"
 assert home.index("</section>") < home.index("<footer>"), "Footer must follow the content"
-categories = ("data-structure", "graph", "math", "string", "utility")
+categories = ("algebra", "data-structure", "graph", "math", "string", "utility")
 for category in categories:
     assert f"/Blueberry-library/categories/{category}.html" in home
     content = (SITE / "categories" / f"{category}.html").read_text()
@@ -52,6 +52,15 @@ for content in (operations, coverage):
         assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("discovery page", href)
 for page in ("operations.html", "library-checker.html"):
     assert f'/Blueberry-library/{page}' in home, (page, "missing home navigation")
+
+monoids = (SITE / "monoids.html").read_text()
+assert '/Blueberry-library/monoids.html' in home
+assert 'data-catalog-search' in monoids and 'aria-live="polite"' in monoids
+assert not re.search(r'<article\b[^>]*data-library[^>]*\bhidden\b', monoids)
+assert 'JavaScript' in monoids and '設計例' in monoids
+assert 'href=""' not in monoids, "Recipes without example problems must not render empty links"
+for href in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', monoids):
+    assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("monoids", href)
 
 migration = (SITE / "migration.html").read_text()
 for link in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', migration):

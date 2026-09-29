@@ -24,8 +24,8 @@
   "total": 253,
   "counts": {
     "missing": 134,
-    "verify": 111,
-    "acl": 8
+    "verify": 112,
+    "acl": 7
   },
   "statuses": [
     {
@@ -405,6 +405,10 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/algebra/monoids.hpp",
+          "name": "いろいろなモノイド"
+        },
+        {
           "path": "blueberry/data-structure/dynamic-sqrt-tree.hpp",
           "name": "Dynamic Sqrt Tree"
         },
@@ -422,6 +426,7 @@
         }
       ],
       "verifies": [
+        "verify/algebra/monoid-affine-composition.test.cpp",
         "verify/data-structure/dynamic-sqrt-tree.test.cpp",
         "verify/data-structure/ordered-multiset-composite.test.cpp",
         "verify/data-structure/persistent-point-set-range-composite.test.cpp",
@@ -554,10 +559,17 @@
       "title": "Range Affine Range Sum",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/range_affine_range_sum",
-      "status": "acl",
-      "label": "ACL推奨",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/algebra/monoids.hpp",
+          "name": "いろいろなモノイド"
+        }
+      ],
+      "verifies": [
+        "verify/algebra/monoid-affine-sum.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "区間長をSに含めるACL lazy_segtreeで対応する。固定長配列では動的列Treapよりこちらを第一候補にする。",
       "external_url": "https://atcoder.github.io/ac-library/production/document_en/lazysegtree.html"

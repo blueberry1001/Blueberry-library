@@ -1,6 +1,33 @@
 {
   "libraries": [
     {
+      "path": "blueberry/algebra/monoids.hpp",
+      "name": "いろいろなモノイド",
+      "direct": [
+        {
+          "path": "verify/algebra/monoid-affine-composition.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/point_set_range_composite"
+        },
+        {
+          "path": "verify/algebra/monoid-affine-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/range_affine_range_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/monoids.cpp"
+      ],
+      "ignored": [],
+      "note": {
+        "partial": true,
+        "reason": "AffineSumとAffineCompositionはACLの木に載せた専用Library Checkerドライバで検証します。",
+        "limits": "IndexAffineSum、AffineSumSquares、BinaryFlipInversions、MaxSubarray、Bracket、MaxCountは境界・ランダム・愚直比較で検証します。案内ページの問題リンクは公式ケース検証済みを意味しません。",
+        "next": "各レシピの作用合成・単位元・空区間・非可換順序を固定seedで比較し、追加の公式問題に対応する場合は専用ドライバを増やす。"
+      },
+      "status": "partial",
+      "label": "主機能の一部に公式verifyなし"
+    },
+    {
       "path": "blueberry/data-structure/partially-retroactive-priority-queue.hpp",
       "name": "Partially Retroactive Priority Queue",
       "direct": [],
@@ -2105,8 +2132,8 @@
     }
   ],
   "counts": {
+    "partial": 2,
     "missing": 3,
-    "partial": 1,
     "direct": 98
   }
 }

@@ -27,6 +27,7 @@ uf.rollback(saved);
 
 | 分類 | ライブラリ |
 | --- | --- |
+| Algebra | いろいろなモノイド（区間等差数列加算、affine・二乗和、反転・転倒数、最大部分配列、括弧列、関数合成、最大値と個数） |
 | Data Structure | Sparse Table / Disjoint Sparse Table / Sqrt Tree, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix / Weighted Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie / Persistent Binary Trie, Aggregate Queue / Deque, Persistent Queue, Static Range Distinct, Rectangle Union Area, Static Range Inversions, Static Range Mode |
 | Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest, Rooted Tree Isomorphism, Clique Enumeration, Maximum Independent Set |
 | Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers, Multipoint Evaluation, Polynomial Interpolation, Sample Point Shift |
@@ -39,6 +40,7 @@ uf.rollback(saved);
 [操作から探す](https://blueberry1001.github.io/Blueberry-library/operations.html)では、配列・木・二次元・集合などの対象から、知りたい値・更新方法・入力条件を絞り込みます。
 更新なしでも動的構造を候補に含め、SegTreeの境界探索・最初の該当位置・区間affine/代入・chmin/chmaxも探せます。
 静的な問い合わせの到着順と、値の更新の有無は別の条件として扱います。
+[いろいろなモノイド](https://blueberry1001.github.io/Blueberry-library/monoids.html)では、セグ木・遅延セグ木・Beatsに載せる演算を用途や別名で検索できます。実装済みの8種類と、DP行列・XOR基底・区間加算gcdなどの設計例を区別し、状態・更新式・制約・応用問題を掲載しています。
 [Library Checker対応表](https://blueberry1001.github.io/Blueberry-library/library-checker.html)は全公開問題のスナップショットを掲載し、
 実装とverifyあり／専用verifyなし／ACL推奨／未対応を区別します。リポジトリ内の[チェックリスト](docs/library-checker-checklist.md)も同じデータから生成します。
 
