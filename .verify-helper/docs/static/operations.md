@@ -3,6 +3,8 @@ layout: page
 title: 操作から探す
 ---
 
+セグ木に載せる演算を探すなら [いろいろなモノイド]({{ '/monoids.html' | relative_url }})へ。等差数列加算・括弧列・転倒数などを検索できます。
+
 <link rel="stylesheet" href="{{ '/assets/css/operations.css' | relative_url }}">
 <script src="{{ '/assets/js/operations.js' | relative_url }}" defer></script>
 

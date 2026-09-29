@@ -117,6 +117,31 @@ search.value = "<script>";
 context.filterCatalog(catalog);
 assert.equal(empty.hidden, false, "queries are plain text, not HTML or regex");
 
+// The monoid finder deliberately shares catalog behavior; test the published data.
+const recipes = JSON.parse(fs.readFileSync(path.join(__dirname, "../.verify-helper/docs/static/_data/monoids.yml"), "utf8"));
+const recipeRows = recipes.map(recipe => {
+  const row = new Element(Object.values(recipe).join(" "));
+  row.dataset = { category: recipe.kind, keywords: recipe.keywords };
+  return row;
+});
+const recipeCatalog = { ...catalog, querySelectorAll: () => recipeRows };
+for (const [query, kind, expected] of [
+  ["等差数列", "lazy", ["ap"]],
+  ["ＦＬＩＰ 転倒数", "lazy", ["inv"]],
+  ["DP", "segtree", ["matrix"]],
+  ["実装済み", "segtree", ["maxsub", "bracket", "compose", "maxcount"]],
+  ["等差数列", "beats", []],
+]) {
+  search.value = query;
+  category.value = kind;
+  context.filterCatalog(recipeCatalog);
+  assert.deepEqual(recipes.filter((_, i) => !recipeRows[i].hidden).map(recipe => recipe.id), expected);
+}
+search.value = category.value = "";
+context.filterCatalog(recipeCatalog);
+assert.equal(recipeRows.every(row => !row.hidden), true, "clearing filters restores every recipe");
+assert.equal(new Set(recipes.map(recipe => recipe.id)).size, recipes.length, "recipe anchors are unique");
+
 (async () => {
   const code = new Element("int main() {\n  assert(1 < 2);\n}\n");
   const status = new Element();

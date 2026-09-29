@@ -106,6 +106,28 @@ console.log(JSON.stringify([
 """
         self.assertEqual(self.run_node(script), [False, False, True, True])
 
+    def test_monoid_recipes_separate_update_contracts(self):
+        states = [
+            {"queries": "range-sum", "updates": "range-progression"},
+            {"queries": "range-square-sum", "updates": "range-assign"},
+            {"queries": "range-inversions", "updates": "range-bit-flip"},
+            {"queries": "range-inversions", "updates": "reverse"},
+            {"queries": "max-subarray", "updates": "range-add"},
+            {"queries": "balanced-brackets", "updates": "point-set"},
+        ]
+        result = self.run_node("""
+const fs = require('node:fs');
+const { matches } = require('./.verify-helper/docs/static/assets/js/operations.js');
+const {entries, states} = JSON.parse(fs.readFileSync(0, 'utf8'));
+console.log(JSON.stringify(states.map(s => entries.filter(e => matches(e,s)).map(e=>e.id))));
+""", {"entries": self.entries, "states": states})
+        self.assertEqual(result[0], ["monoid-progression"])
+        self.assertEqual(result[1], ["monoid-square-sum"])
+        self.assertEqual(result[2], ["monoid-binary-inversions"])
+        self.assertNotIn("monoid-binary-inversions", result[3])
+        self.assertNotIn("monoid-max-subarray", result[4])
+        self.assertEqual(result[5], ["monoid-brackets"])
+
     def test_workload_capabilities_and_target_separation(self):
         states = [
             {"targets": "array", "queries": "range-sum", "updates": "static"},

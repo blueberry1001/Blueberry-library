@@ -5,6 +5,17 @@
 ドライバの存在・include関係はACや全APIの網羅を意味しません。all.hppのA+Bテストは含めません。
 問題が存在しないという断定ではありません。調査済みの候補・未検証操作・次の作業は注記を参照してください。
 
+## いろいろなモノイド
+
+[blueberry/algebra/monoids.hpp](../blueberry/algebra/monoids.hpp) — **主機能の一部に公式verifyなし**
+
+- 専用ドライバ: [verify/algebra/monoid-affine-composition.test.cpp](../verify/algebra/monoid-affine-composition.test.cpp) / [問題](https://judge.yosupo.jp/problem/point_set_range_composite)
+- 専用ドライバ: [verify/algebra/monoid-affine-sum.test.cpp](../verify/algebra/monoid-affine-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/range_affine_range_sum)
+- 関連ローカルテスト: [tests/random/monoids.cpp](../tests/random/monoids.cpp)
+- AffineSumとAffineCompositionはACLの木に載せた専用Library Checkerドライバで検証します。
+- IndexAffineSum、AffineSumSquares、BinaryFlipInversions、MaxSubarray、Bracket、MaxCountは境界・ランダム・愚直比較で検証します。案内ページの問題リンクは公式ケース検証済みを意味しません。
+- 各レシピの作用合成・単位元・空区間・非可換順序を固定seedで比較し、追加の公式問題に対応する場合は専用ドライバを増やす。
+
 ## Partially Retroactive Priority Queue
 
 [blueberry/data-structure/partially-retroactive-priority-queue.hpp](../blueberry/data-structure/partially-retroactive-priority-queue.hpp) — **公式verify未登録**

@@ -9,8 +9,8 @@
 [Library Checker](https://judge.yosupo.jp/) の公式テストデータで検証されています。
 
 <div class="library-summary">
-{% assign category_ids = 'data-structure,graph,math,string,utility' | split: ',' %}
-{% assign category_titles = 'Data Structure,Graph,Math,String,Utility' | split: ',' %}
+{% assign category_ids = 'algebra,data-structure,graph,math,string,utility' | split: ',' %}
+{% assign category_titles = 'Algebra,Data Structure,Graph,Math,String,Utility' | split: ',' %}
 {% for category in category_ids %}
   {% assign entries = site.data.libraries | where: 'category', category %}
   <a href="{{ '/categories/' | append: category | append: '.html' | relative_url }}"><strong>{{ category_titles[forloop.index0] }} · {{ entries.size }}</strong><span>{{ entries | map: 'name' | join: ' / ' | escape }}</span><span>用途と操作を確認する →</span></a>
@@ -19,7 +19,7 @@
 
 [名前・用途から検索](#library-catalog) · [全ファイルと検証状態](#library-files)
 
-[したい操作から候補を絞る]({{ '/operations.html' | relative_url }}) · [Library Checker 全問題の対応表]({{ '/library-checker.html' | relative_url }})
+[したい操作から候補を絞る]({{ '/operations.html' | relative_url }}) · [いろいろなモノイド]({{ '/monoids.html' | relative_url }}) · [Library Checker 全問題の対応表]({{ '/library-checker.html' | relative_url }})
 
 ## 方針
 
