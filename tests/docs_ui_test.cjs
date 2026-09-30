@@ -131,7 +131,7 @@ for (const [query, kind, expected] of [
   ["最大部分和", "segtree", ["maxsub"]],
   ["ＦＬＩＰ 転倒数", "lazy", ["inv"]],
   ["DP", "segtree", ["matrix"]],
-  ["実装済み", "segtree", ["maxsub", "bracket", "compose", "maxcount"]],
+  ["第二最大", "segtree", ["top2"]],
   ["等差数列", "beats", []],
 ]) {
   search.value = query;

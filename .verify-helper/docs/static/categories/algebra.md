@@ -7,4 +7,4 @@ category: algebra
 ACL の segtree / lazy_segtree に載せるモノイドと作用を提供します。
 標準のセグ木本体は外部ライブラリの ACL を利用してください。
 
-[いろいろなモノイド]({{ '/monoids.html' | relative_url }})で、等差数列加算・転倒数・括弧列などの用途、更新方法、応用問題から探せます。
+[いろいろなモノイド：コピー用の早見表]({{ '/monoids.html' | relative_url }})で、操作ごとの `S`・`F` と ACL に渡すコードを探せます。Blueberry のヘッダは不要です。

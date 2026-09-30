@@ -5,13 +5,55 @@ title: いろいろなモノイド
 
 # いろいろなモノイド
 
-「区間和」以外にも、括弧列・転倒数・最大部分配列・DPをセグ木に載せられます。
-まず欲しい答えを選び、**隣り合う区間を何の情報で合成できるか**を考えます。
-標準の木は外部ライブラリの ACL を使い、Blueberry は載せる演算を提供します。
+**欲しい操作を選んで、`S`・`F` と演算をコピーするためのレシピ集です。**
+木には ACL を使います。Blueberry のヘッダは不要です。
+各コードは独立しているので、使いたいものを一つコピーしてください。
 
-**実装済み**は [monoids.hpp の API・コピーできる使用例]({{ '/blueberry/algebra/monoids.hpp.html' | relative_url }})、
-**既存実装**は個別ライブラリへ進んでください。**設計例**は必要な状態と式を示した発展案で、
-このヘッダに実装されていません。問題リンクは応用先であり、すべてを自動 verify 済みという意味ではありません。
+<details markdown="1">
+<summary>共通の使い方（ACLへの渡し方・初期化・注意点）</summary>
+
+セグ木には `S, op, e`、遅延セグ木にはさらに `F, mapping, composition, id` を渡します。
+各レシピの `leaf(...)` で葉を作り、次のどちらかで構築します。
+
+{% raw %}
+```cpp
+#include <atcoder/segtree>
+#include <atcoder/lazysegtree>
+#include <vector>
+
+// ここに選んだレシピをコピー。
+
+// main 内: 各レシピの初期化例に合わせて全要素を埋める。
+std::vector<S> init(n);
+for (int i = 0; i < n; ++i) init[i] = leaf(a[i]);
+```
+{% endraw %}
+
+セグ木の場合:
+
+{% raw %}
+```cpp
+atcoder::segtree<S, op, e> seg(init);
+```
+{% endraw %}
+
+遅延セグ木の場合:
+
+{% raw %}
+```cpp
+atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
+```
+{% endraw %}
+
+共通操作は `seg.prod(l, r)`（区間の集約）、`seg.set(i, leaf(...))`（一点変更）、
+遅延セグ木なら `seg.apply(l, r, f)`（区間更新）です。区間は **0-indexed の `[l, r)`**。
+下の「使う例」は、そのレシピでの初期化と操作の例です。
+
+- **葉と空区間は別:** 長さを持つレシピでは `seg(n)` の全要素は長さ 0。零配列も `leaf(0)` を並べます。添字を持つものは `leaf(0, i)`。
+- **合成順:** `op(left, right)` は左から右。`composition(f, g)` は **`g` の後に `f`**。
+- **型と計算量:** 中間積まで型に収まることが前提です。必要なら `long long` を `modint` 等に変更します（順序比較・ビット演算を使うレシピは除く）。結合・作用が `O(1)` なら構築 `O(N)`、操作 `O(log N)`。
+
+</details>
 
 ## 用途から探す
 
@@ -26,62 +68,36 @@ title: いろいろなモノイド
     <button type="button" data-catalog-reset>条件をクリア</button>
     <span data-catalog-count role="status" aria-live="polite"></span>
   </div>
-  <p>空白区切りは AND 検索。英字の大文字・全角も正規化します。「実装済み」「設計例」も検索できます。</p>
+  <p>空白区切りは AND 検索。英字の大文字・全角も正規化します。</p>
   <noscript><p>JavaScript が無効のため全レシピを表示しています。見出しとブラウザ内検索で探せます。</p></noscript>
   <p data-catalog-empty hidden>一致するレシピがありません。キーワードを減らすか条件をクリアしてください。</p>
   <div id="monoid-results">
   {% for recipe in site.data.monoids %}
     <article data-library data-category="{{ recipe.kind | escape }}" data-keywords="{{ recipe.keywords | escape }}" id="{{ recipe.id | escape }}">
       <h3>{{ recipe.title | escape }}</h3>
-      {% assign api_anchor = recipe.api | split: '<' | first | downcase %}
-      <p><strong>{{ recipe.status | escape }}</strong> · {{ recipe.structure | escape }}{% if recipe.api != '' %} · <a href="{{ '/blueberry/algebra/monoids.hpp.html' | relative_url }}#{{ api_anchor }}"><code>{{ recipe.api | escape }}</code></a>{% endif %}{% if recipe.id == 'beats' %} · <a href="{{ '/blueberry/data-structure/segment-tree-beats.hpp.html' | relative_url }}">SegmentTreeBeats API</a>{% endif %}</p>
-      <p><strong>持つ情報・合成:</strong> {{ recipe.state | escape }}</p>
-      <p><strong>更新・使い方:</strong> {{ recipe.action | escape }}</p>
-      <p><strong>前提・注意:</strong> {{ recipe.caveat | escape }}</p>
+      <p><code>{{ recipe.structure | escape }}</code>{% if recipe.cost %} · {{ recipe.cost | escape }}{% endif %}</p>
+      <p><strong>S・結合:</strong> <code>{{ recipe.state | escape }}</code></p>
+      <p><strong>{% if recipe.kind == 'lazy' %}F・作用{% else %}操作{% endif %}:</strong> <code>{{ recipe.action | escape }}</code></p>
+      <p>{{ recipe.caveat | escape }}</p>
+      {% if recipe.code %}<pre><code class="language-cpp">{{ recipe.code | escape }}</code></pre>{% endif %}
+      {% if recipe.usage %}<details><summary>使う例</summary><pre><code class="language-cpp">{{ recipe.usage | escape }}</code></pre></details>{% endif %}
+      {% if recipe.id == 'beats' %}
+      <p><code>chmin(x)</code> と区間和には、和・最大値 <code>max1</code>・厳密に二番目の最大値 <code>max2</code>・最大値の個数 <code>cnt</code> を持ちます。<code>max2 &lt; x &lt; max1</code> なら和を <code>(x-max1)*cnt</code> だけ変更し、最大値を <code>x</code> にします。<code>x &gt;= max1</code> は何もせず、それ以外は子へ降ります。</p>
+      <p>子へ降りる判定が必要なので、通常の ACL <code>lazy_segtree</code> に <code>mapping</code> を渡すだけでは扱えません。<a href="{{ '/blueberry/data-structure/segment-tree-beats.hpp.html' | relative_url }}">Segment Tree Beats</a> を使います。</p>
+      {% endif %}
       {% if recipe.problem_url != '' %}<p>応用問題: <a href="{{ recipe.problem_url | escape }}">{{ recipe.problem | escape }}</a>{{ recipe.problem_note | escape }}</p>{% endif %}
     </article>
   {% endfor %}
   </div>
 </div>
 
-## 等差数列加算をすぐ使う
+## レシピを変えるとき
 
-`[l,r)` に `first, first+step, first+2*step, ...` を加算するとき、
-絶対添字 `i` に対して `step*i + (first-step*l)` を加えます。
-`IndexAffineSum<T>` は区間和に加えて **区間長と添字和**を持つので、ノードがどこで分割されても同じ作用を配れます。
-より一般に `x_i ← a*x_i+b*i+c` を扱い、更新後の和は `a*sum+b*index_sum+c*len` です。
+`op` の結合則・単位元、遅延作用の分配則を保ちます。
+`max_right` / `min_left` は、空区間で true になる単調な条件に使えます。
+区間の順序そのものを反転する操作は通常の固定区間セグ木では扱えず、
+[Implicit Treap]({{ '/blueberry/data-structure/implicit-treap.hpp.html' | relative_url }})などが必要です。
 
-この表現なら通常の加算・代入・乗算・一次式による代入も同じ型で行えます。
-`leaf(value,i)` の `i` は木全体で共通の座標にし、更新区間の左端を 0 に戻さないでください。
-具体的な ACL の型宣言・構築・assert 付き例は [API ページ]({{ '/blueberry/algebra/monoids.hpp.html' | relative_url }})にあります。
-[CSES Polynomial Queries](https://cses.fi/problemset/task/1736) は初項 1、公差 1 の例です。
-
-## 載せる前のチェック
-
-1. **セグ木:** `op(op(a,b),c)=op(a,op(b,c))` と単位元が必要です。交換法則は不要です。関数合成・括弧・転倒数では左右を入れ替えられません。
-2. **遅延セグ木:** 区間の要約だけで更新でき、作用が合成でき、`mapping(f,op(x,y))=op(mapping(f,x),mapping(f,y))` を満たす必要があります。ACL の `composition(f,g)` は **g の後に f** です。詳細は [ACL 公式仕様](https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html)を参照してください。
-3. **空区間:** 葉と単位元は別です。長さ付きモノイドで `segtree(n)` / `lazy_segtree(n)` を使うと、全要素が長さ 0 の単位元になります。長さ n の零配列が欲しいときも `leaf(0)`（添字付きなら `leaf(0,i)`）を n 個並べて構築します。
-4. **計算量:** 以下の定数サイズ状態は結合・作用 O(1)、木の構築とメモリ O(N)、一点変更・区間集約・通常の遅延更新 O(log N) です。行列・bitset・多項式では演算自体の費用を掛けます。Beats は別の償却評価です。
-5. **数値:** 中間積・個数の積・添字和を含めて型に収まる必要があります。二乗和や転倒数は入力の最大値だけで型を決めないでください。浮動小数点は丸めにより厳密な結合則を満たしません。
-6. **境界探索:** `max_right` / `min_left` には単位元で true になる単調な判定が必要です。負数のある区間和で「和 ≤ K」をそのまま使うことはできません。
-
-## Beats は「いつでも作用できるモノイド」ではない
-
-`chmin(x)` と区間和では、和・長さ・最大値だけでは足りません。
-最大値 `max1`、**厳密に二番目の最大値** `max2`、最大値の個数 `cnt` を持つと、
-`max2 < x < max1` のときだけ和を `(x-max1)*cnt` だけ変更できます。
-`x >= max1` は何もしません。`x <= max2` では子へ降ります（等号も安全側に降りる）。
-`chmax` は最小側も対称に管理し、加算との相互作用も保ちます。
-
-これは失敗できる作用と再帰を含むため、通常の ACL `lazy_segtree` にこの mapping を渡すだけでは動きません。
-[既存 Segment Tree Beats]({{ '/blueberry/data-structure/segment-tree-beats.hpp.html' | relative_url }})は
-chmin/chmax/add と sum/min/max を実装しています。詳細な数値制約と償却計算量はそのページで確認してください。
-区間 modulo・平方根・除算なども「変化しない区間を止める」発想は似ていますが、
-各操作について値域・ポテンシャルと償却解析が必要で、既存 Beats がそのまま対応するわけではありません。
-
-## さらに広げるとき
-
-区間反転は要素順を変えるため、通常の固定区間 segtree の遅延作用にはできません。
-必要なら [Implicit Treap]({{ '/blueberry/data-structure/implicit-treap.hpp.html' | relative_url }})などで正順・逆順の集約を持ちます。
-「長さ付きハッシュなら衝突がなくなる」「区間和だけで中央値も求まる」といった推論にも注意してください。
-状態が十分か、閉じた演算か、状態サイズが増えすぎないかを小さい愚直解との比較で確認します。
+ACL の詳しい使い方は [segtree](https://atcoder.github.io/ac-library/production/document_ja/segtree.html)・
+[lazy_segtree](https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html) を参照してください。
+問題リンクは応用先です。問題ごとの初期化・型・出力形式に合わせて使ってください。

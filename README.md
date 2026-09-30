@@ -40,7 +40,7 @@ uf.rollback(saved);
 [操作から探す](https://blueberry1001.github.io/Blueberry-library/operations.html)では、配列・木・二次元・集合などの対象から、知りたい値・更新方法・入力条件を絞り込みます。
 更新なしでも動的構造を候補に含め、SegTreeの境界探索・最初の該当位置・区間affine/代入・chmin/chmaxも探せます。
 静的な問い合わせの到着順と、値の更新の有無は別の条件として扱います。
-[いろいろなモノイド](https://blueberry1001.github.io/Blueberry-library/monoids.html)では、セグ木・遅延セグ木・Beatsに載せる演算を用途や別名で検索できます。実装済みの8種類と、DP行列・XOR基底・区間加算gcdなどの設計例を区別し、状態・更新式・制約・応用問題を掲載しています。
+[いろいろなモノイド](https://blueberry1001.github.io/Blueberry-library/monoids.html)は、欲しい操作から `S`・`F` と演算を探してコピーできる早見表です。等差数列加算・DP行列・XOR基底・区間加算gcdなど20種類の独立したACL用コードと、Beatsの考え方・応用問題を掲載しています。共通の使い方は一か所にまとめ、Blueberryのヘッダなしで使えます。
 [Library Checker対応表](https://blueberry1001.github.io/Blueberry-library/library-checker.html)は全公開問題のスナップショットを掲載し、
 実装とverifyあり／専用verifyなし／ACL推奨／未対応を区別します。リポジトリ内の[チェックリスト](docs/library-checker-checklist.md)も同じデータから生成します。
 

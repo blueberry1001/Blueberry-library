@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Static regression checks against Jekyll output (no browser required)."""
 import json
+import html
 from pathlib import Path
 import re
 import subprocess
@@ -57,7 +58,16 @@ monoids = (SITE / "monoids.html").read_text()
 assert '/Blueberry-library/monoids.html' in home
 assert 'data-catalog-search' in monoids and 'aria-live="polite"' in monoids
 assert not re.search(r'<article\b[^>]*data-library[^>]*\bhidden\b', monoids)
-assert 'JavaScript' in monoids and '設計例' in monoids
+assert 'JavaScript' in monoids and '共通の使い方' in monoids
+recipes = json.loads((ROOT / '.verify-helper/docs/static/_data/monoids.yml').read_text())
+for recipe in recipes:
+    article = re.search(r'<article\b[^>]*\bid="' + re.escape(recipe['id']) + r'"[^>]*>(.*?)</article>', monoids, re.S)
+    assert article, recipe['id']
+    if recipe.get('code'):
+        code = re.search(r'<pre><code\b[^>]*>(.*?)</code></pre>', article[1], re.S)
+        assert code and html.unescape(code[1]).rstrip('\n') == recipe['code'].rstrip('\n'), (recipe['id'], 'copy text differs')
+        assert '<em>' not in article[1], (recipe['id'], 'formula interpreted as emphasis')
+assert sum(bool(recipe.get('code')) for recipe in recipes) == 20
 assert 'href=""' not in monoids, "Recipes without example problems must not render empty links"
 for href in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', monoids):
     assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("monoids", href)
