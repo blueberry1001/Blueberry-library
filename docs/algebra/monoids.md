@@ -1,9 +1,15 @@
 ---
-title: いろいろなモノイド — 実装済みレシピ
+title: モノイド集 — ヘッダ版のAPI詳細
 documentation_of: //blueberry/algebra/monoids.hpp
 ---
 
-[いろいろなモノイドの案内へ]({{ '/monoids.html' | relative_url }})
+**[いろいろなモノイド：S・Fとコピー用コードの早見表]({{ '/monoids.html' | relative_url }})**
+
+ACL に渡す定義を探す場合は早見表を使ってください。各例を単独でコピーでき、Blueberry のヘッダは不要です。
+このページは既存の `blueberry::monoid` を使う場合の詳細仕様です。
+
+<details markdown="1">
+<summary>ヘッダ版の使い方・API詳細を開く</summary>
 
 ## 概要・前提
 
@@ -84,7 +90,7 @@ assert(seg.prod(0, 3).best == 5);
 
 S::sum と F::a,b は T、S::len は long long。
 
-x → a*x+b。加算 {1,d}、代入 {0,v}、乗算 {k,0} を同じ型で扱えます。
+`x → a*x+b`。加算 `{1,d}`、代入 `{0,v}`、乗算 `{k,0}` を同じ型で扱えます。
 
 ### 操作一覧
 
@@ -309,7 +315,7 @@ auto identity = M::id();
 
 S::sum,index_sum と F::a,b,c は T、S::len は long long。
 
-絶対添字 i で x_i → a*x_i+b*i+c。区間 [l,r) に初項 s・公差 d を加えるには {1,d,s-d*l}。代入なら {0,d,s-d*l}。leaf の添字は実際の配置と一致させます。
+絶対添字 `i` で `x_i → a*x_i+b*i+c`。区間 `[l,r)` に初項 `s`・公差 `d` を加えるには `{1,d,s-d*l}`。代入なら `{0,d,s-d*l}`。`leaf` の添字は実際の配置と一致させます。
 
 ### 操作一覧
 
@@ -572,7 +578,7 @@ auto identity = M::id();
 
 S::sum,square_sum と F::a,b は T、S::len は long long。
 
-(a*x+b)^2=a²*x²+2ab*x+b² を利用。len*square_sum-sum*sum から分散の分子や全ての組の差の二乗和を計算できます。除算はこの型に含みません。
+`(a*x+b)^2=a²*x²+2ab*x+b²` を利用。`len*square_sum-sum*sum` から分散の分子や全ての組の差の二乗和を計算できます。除算はこの型に含みません。
 
 ### 操作一覧
 
@@ -816,7 +822,7 @@ auto identity = M::id();
 
 S::zero,one,inversions は全て long long。F は bool。
 
-反転後の転倒数は zero*one-inversions。非可換で、連結時に左の one と右の zero の積を加えます。
+反転後の転倒数は `zero*one-inversions`。非可換で、連結時に左の `one` と右の `zero` の積を加えます。
 
 ### 操作一覧
 
@@ -1298,7 +1304,7 @@ auto s = M::op(M::leaf('('), M::e());
 
 S::a,b は全て T。
 
-葉を左から順に適用します。op(x,y)=y∘x なので、ACL の composition(f,g)=f∘g と引数の意味が異なります。結果 z の関数値は z.a*t+z.b。非可換です。
+葉を左から順に適用します。`op(x,y)=y∘x` なので、ACL の `composition(f,g)=f∘g` と引数の意味が異なります。結果 `z` の関数値は `z.a*t+z.b`。非可換です。
 
 ### 操作一覧
 
@@ -1537,7 +1543,7 @@ auto s = M::op(M::leaf(-3), M::e());
 | レシピ | 使える問題・公式資料 | 適用方法 |
 | --- | --- | --- |
 | AffineSum | [Library Checker: Range Affine Range Sum](https://judge.yosupo.jp/problem/range_affine_range_sum) | T を modint998244353 にする |
-| AffineComposition | [Library Checker: Point Set Range Composite](https://judge.yosupo.jp/problem/point_set_range_composite) | prod の a*x+b を出力 |
+| AffineComposition | [Library Checker: Point Set Range Composite](https://judge.yosupo.jp/problem/point_set_range_composite) | prod の `a*x+b` を出力 |
 | BinaryFlipInversions | [AtCoder practice2 L](https://atcoder.jp/contests/practice2/tasks/practice2_l) | 区間反転と転倒数を直接処理 |
 | IndexAffineSum | [CSES Polynomial Queries](https://cses.fi/problemset/task/1736) | 0-indexed [l,r) には {1,1,1-l} を適用 |
 | MaxSubarray | [CSES Subarray Sum Queries](https://cses.fi/problemset/task/1190) | 点変更の後に all_prod().best |
@@ -1549,3 +1555,5 @@ auto s = M::op(M::leaf(-3), M::e());
 公式問題へのドライバと固定 seed の境界・ランダム比較をリポジトリの verify/tests に用意しています。
 [性能調査・測定条件と結果]({{ '/docs/development/monoid-performance.html' | relative_url }})も参照してください。
 問題リンクは利用例であり、全リンクについて提出済みを意味しません。
+
+</details>

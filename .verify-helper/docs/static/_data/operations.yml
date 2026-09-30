@@ -1394,68 +1394,68 @@ entries:
     title: '等差数列加算・添字affineと区間和（IndexAffineSum + ACL）'
     source: combination
     headers: [blueberry/algebra/monoids.hpp]
-    url: /blueberry/algebra/monoids.hpp.html
+    url: /monoids.html#ap
     external_url: https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html
     queries: [range-sum, whole-aggregate]
     updates: [static, point-set, range-progression, range-affine, range-add, range-assign]
     conditions: [online-queries, offline-queries]
     calls:
       - {signature: 'seg.apply(l,r,{1,d,first-d*l}) / seg.prod(l,r).sum', complexity: 'O(log(N+1))'}
-    prerequisites: 'M=blueberry::monoid::IndexAffineSum<T>。各葉をM::leaf(value,i)で初期化。添字は0始まりの絶対位置、区間は[l,r)。構築・メモリO(N)。'
+    prerequisites: '早見表のS・F・演算をコピー。各葉をleaf(value,i)で初期化。添字は0始まりの絶対位置、区間は[l,r)。構築・メモリO(N)。'
     notes: 'AP arithmetic progression。作用はx_i→a*x_i+b*i+c。setでも元の添字を保つ。first-d*lを含む全中間値が型に収まること。'
   - id: monoid-square-sum
     targets: [array]
     title: '区間affine・加算・代入と二乗和（AffineSumSquares + ACL）'
     source: combination
     headers: [blueberry/algebra/monoids.hpp]
-    url: /blueberry/algebra/monoids.hpp.html
+    url: /monoids.html#squares
     external_url: https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html
     queries: [range-sum, range-square-sum, whole-aggregate]
     updates: [static, point-set, range-affine, range-add, range-assign]
     conditions: [online-queries, offline-queries]
     calls:
       - {signature: 'seg.apply(l,r,{a,b}) / seg.prod(l,r).square_sum', complexity: 'O(log(N+1))'}
-    prerequisites: 'M=blueberry::monoid::AffineSumSquares<T>。葉はM::leaf(value)。二乗・交差項を含む中間値が型に収まること。構築・メモリO(N)。'
+    prerequisites: '早見表のS・F・演算をコピー。葉はleaf(value)。二乗・交差項を含む中間値が型に収まること。構築・メモリO(N)。'
     notes: 'sumとsquare_sumを同時保持。分散の分子len*square_sum-sum*sumにも利用可能。平均を求める除算は呼び出し側で行う。'
   - id: monoid-binary-inversions
     targets: [array]
     title: '0/1反転と区間転倒数（BinaryFlipInversions + ACL）'
     source: combination
     headers: [blueberry/algebra/monoids.hpp]
-    url: /blueberry/algebra/monoids.hpp.html
+    url: /monoids.html#inv
     external_url: https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html
     queries: [range-inversions]
     updates: [static, point-set, range-bit-flip]
     conditions: [online-queries, offline-queries, noncommutative]
     calls:
       - {signature: 'seg.apply(l,r,true) / seg.prod(l,r).inversions', complexity: 'O(log(N+1))'}
-    prerequisites: 'M=blueberry::monoid::BinaryFlipInversions。要素は0/1のみ。M::leaf(bit)で初期化。構築・メモリO(N)。'
+    prerequisites: '要素は0/1のみ。leaf(bit)で初期化。構築・メモリO(N)。'
     notes: '反転はビットのNOT。列の左右反転とは異なる。一般整数列の転倒数にはこのレシピを使えない。'
   - id: monoid-max-subarray
     targets: [array]
     title: '一点更新と最大部分和（MaxSubarray + ACL）'
     source: combination
     headers: [blueberry/algebra/monoids.hpp]
-    url: /blueberry/algebra/monoids.hpp.html
+    url: /monoids.html#maxsub
     external_url: https://atcoder.github.io/ac-library/production/document_ja/segtree.html
     queries: [max-subarray]
     updates: [static, point-set]
     conditions: [online-queries, offline-queries, noncommutative]
     calls:
-      - {signature: 'seg.set(p,M::leaf(x)) / seg.prod(l,r).best', complexity: 'O(log(N+1))'}
-    prerequisites: 'M=blueberry::monoid::MaxSubarray<T>。加算と全順序を持つ型。空部分列を許し全負でも答え0。構築・メモリO(N)。'
+      - {signature: 'seg.set(p,leaf(x)) / seg.prod(l,r).best', complexity: 'O(log(N+1))'}
+    prerequisites: '加算と全順序を持つ型。空部分列を許し全負でも答え0。構築・メモリO(N)。'
     notes: 'sum/prefix/suffix/bestを保持。区間加算をこの情報だけでlazyに載せることはできない。'
   - id: monoid-brackets
     targets: [string, array]
     title: '一点更新と括弧列判定（Bracket + ACL）'
     source: combination
     headers: [blueberry/algebra/monoids.hpp]
-    url: /blueberry/algebra/monoids.hpp.html
+    url: /monoids.html#bracket
     external_url: https://atcoder.github.io/ac-library/production/document_ja/segtree.html
     queries: [balanced-brackets]
     updates: [static, point-set]
     conditions: [online-queries, offline-queries, noncommutative]
     calls:
-      - {signature: 'seg.set(p,M::leaf(c)) / seg.prod(l,r)', complexity: 'O(log(N+1))'}
-    prerequisites: 'M=blueberry::monoid::Bracket。文字は丸括弧のみ。sum==0かつmin_prefix>=0で正しい括弧列、空区間も真。構築・メモリO(N)。'
+      - {signature: 'seg.set(p,leaf(c)) / seg.prod(l,r)', complexity: 'O(log(N+1))'}
+    prerequisites: '文字は丸括弧のみ。sum==0かつmin_prefix>=0で正しい括弧列、空区間も真。構築・メモリO(N)。'
     notes: '二点をswapするときは二回set。複数種類の括弧の入れ子判定には使えない。'

@@ -24,6 +24,8 @@ class OperationFinderTest(unittest.TestCase):
         self.assertEqual(len(ids), len(set(ids)))
         catalog = yaml.safe_load((STATIC / "_data/libraries.yml").read_text(encoding="utf-8"))
         headers = {row["path"] for row in catalog}
+        recipes = {row["id"]: row for row in yaml.safe_load(
+            (STATIC / "_data/monoids.yml").read_text(encoding="utf-8"))}
         for facet, values in self.data["facets"].items():
             identifiers = [item["id"] for item in values]
             self.assertEqual(len(identifiers), len(set(identifiers)), facet)
@@ -52,7 +54,12 @@ class OperationFinderTest(unittest.TestCase):
                         self.assertTrue((ROOT / header).is_file())
                         doc = ROOT / ("docs/" + header.removeprefix("blueberry/").removesuffix(".hpp") + ".md")
                         self.assertIn("documentation_of: //" + header, doc.read_text(encoding="utf-8"))
-                    self.assertEqual(entry["url"], "/" + entry["headers"][0] + ".html")
+                    if entry["url"].startswith("/monoids.html#"):
+                        recipe = recipes[entry["url"].split("#", 1)[1]]
+                        self.assertTrue(recipe.get("code"), "Recommendation must link to a copyable recipe")
+                        self.assertEqual(entry["headers"], ["blueberry/algebra/monoids.hpp"])
+                    else:
+                        self.assertEqual(entry["url"], "/" + entry["headers"][0] + ".html")
                 if entry["source"] == "combination":
                     self.assertTrue(entry["external_url"].startswith("https://atcoder.github.io/ac-library/"))
                 else:
