@@ -67,7 +67,8 @@ for recipe in recipes:
         code = re.search(r'<pre><code\b[^>]*>(.*?)</code></pre>', article[1], re.S)
         assert code and html.unescape(code[1]).rstrip('\n') == recipe['code'].rstrip('\n'), (recipe['id'], 'copy text differs')
         assert '<em>' not in article[1], (recipe['id'], 'formula interpreted as emphasis')
-assert sum(bool(recipe.get('code')) for recipe in recipes) == 20
+assert sum(bool(recipe.get('code')) for recipe in recipes) == 30
+assert '使う例' not in monoids and '操作一覧' not in monoids
 assert 'href=""' not in monoids, "Recipes without example problems must not render empty links"
 for href in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', monoids):
     assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("monoids", href)
@@ -111,7 +112,19 @@ for header in headers:
         assert link.startswith('/Blueberry-library/') and link.endswith('.html'), (header, link)
         assert (SITE / link.removeprefix('/Blueberry-library/')).exists(), (header, link, "broken dependency/verify link")
     api_operations = re.findall(r'<details\b[^>]*class="api-operation"[^>]*>(.*?)</details>', content, re.S)
-    assert api_operations, (header, "missing expandable API docs")
+    if header == 'blueberry/algebra/monoids.hpp':
+        assert not api_operations and '操作一覧' not in content
+        assert len(re.findall(r'<article\b[^>]*data-monoid-definition', content)) == 30
+        for recipe in recipes:
+            if not recipe.get('code'):
+                continue
+            anchor = recipe['api'].split('<')[0].lower() if recipe['api'] else recipe['id']
+            section = re.search(r'<article\b[^>]*id="' + anchor + r'"[^>]*>(.*?)</article>', content, re.S)
+            assert section, anchor
+            code = re.search(r'<pre><code\b[^>]*>(.*?)</code></pre>', section[1], re.S)
+            assert code and html.unescape(code[1]).rstrip('\n') == recipe['code'].rstrip('\n'), anchor
+    else:
+        assert api_operations, (header, "missing expandable API docs")
     for body in api_operations:
         assert "<summary>" in body and "注意点:" in body, header
         assert "<pre" in body and "<code" in body, (header, "Markdown inside details was not rendered")

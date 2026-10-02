@@ -425,6 +425,219 @@ void test(){
 """,
 }
 
+TESTS.update({
+    "add_min": r"""
+void test(){
+ auto view=[](S s){return vector<long long>{s.empty?0:s.minimum,s.empty};};
+ for(trial=0;trial<40;++trial){
+  int n=trial%10;vector<long long>a(n);vector<S>v;
+  for(auto& x:a){x=draw(21)-10;v.push_back(S{x,false});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<80;++step){
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);
+   F f=draw(11)-5;
+   action_laws(v,f,F{0},op,e,mapping,composition,id,view);
+   action_laws(v,f,F{-3},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i){a[i]+=f;}
+   l=draw(n+1);r=draw(n+1);if(l>r)swap(l,r);
+   long long mn=0,cnt=0;for(int i=l;i<r;++i){if(!cnt||a[i]<mn){mn=a[i];cnt=1;}else if(a[i]==mn)++cnt;}
+   vector<long long>expected{mn,l==r};EQ(view(seg.prod(l,r)),expected);
+   if(n&&step%9==0){int p=draw(n);a[p]=draw(9)-4;seg.set(p,S{a[p],false});}
+  }
+ }
+}
+""",
+    "assign_min": r"""
+void test(){
+ auto view=[](S s){return vector<long long>{s.empty?0:s.minimum,s.empty};};
+ for(trial=0;trial<40;++trial){
+  int n=trial%10;vector<long long>a(n);vector<S>v;
+  for(auto& x:a){x=draw(21)-10;v.push_back(S{x,false});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<80;++step){
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);
+   F f=step%4==0?F{}:F{draw(11)-5};
+   action_laws(v,f,F{0},op,e,mapping,composition,id,view);
+   action_laws(v,f,F{-3},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i){if(f)a[i]=*f;}
+   l=draw(n+1);r=draw(n+1);if(l>r)swap(l,r);
+   long long mn=0,cnt=0;for(int i=l;i<r;++i){if(!cnt||a[i]<mn){mn=a[i];cnt=1;}else if(a[i]==mn)++cnt;}
+   vector<long long>expected{mn,l==r};EQ(view(seg.prod(l,r)),expected);
+   if(n&&step%9==0){int p=draw(n);a[p]=draw(9)-4;seg.set(p,S{a[p],false});}
+  }
+ }
+}
+""",
+    "min_count_add": r"""
+void test(){
+ auto view=[](S s){return vector<long long>{s.count?s.minimum:0,s.count};};
+ for(trial=0;trial<40;++trial){
+  int n=trial%10;vector<long long>a(n);vector<S>v;
+  for(auto& x:a){x=draw(21)-10;v.push_back(S{x,1});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<80;++step){
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);
+   F f=draw(11)-5;
+   action_laws(v,f,F{0},op,e,mapping,composition,id,view);
+   action_laws(v,f,F{-3},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i){a[i]+=f;}
+   l=draw(n+1);r=draw(n+1);if(l>r)swap(l,r);
+   long long mn=0,cnt=0;for(int i=l;i<r;++i){if(!cnt||a[i]<mn){mn=a[i];cnt=1;}else if(a[i]==mn)++cnt;}
+   vector<long long>expected{mn,cnt};EQ(view(seg.prod(l,r)),expected);
+   if(n&&step%9==0){int p=draw(n);a[p]=draw(9)-4;seg.set(p,S{a[p],1});}
+  }
+ }
+}
+""",
+    "affine_extrema": r"""
+void test(){
+ auto view=[](S s){return vector<long long>{s.empty?0:s.minimum,s.empty?0:s.maximum,s.empty};};
+ for(trial=0;trial<40;++trial){
+  int n=trial%10;vector<long long>a(n);vector<S>v;
+  for(auto&x:a){x=draw(21)-10;v.push_back(S{x,x,false});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<80;++step){
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);F f{draw(3)-1,draw(11)-5};
+   action_laws(v,f,F{-1,3},op,e,mapping,composition,id,view);
+   action_laws(v,f,F{0,-2},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i)a[i]=f.a*a[i]+f.b;
+   l=draw(n+1);r=draw(n+1);if(l>r)swap(l,r);
+   long long mn=0,mx=0;for(int i=l;i<r;++i){if(i==l)mn=mx=a[i];else{mn=min(mn,a[i]);mx=max(mx,a[i]);}}
+   vector<long long>expected{mn,mx,l==r};EQ(view(seg.prod(l,r)),expected);
+  }
+ }
+}
+""",
+    "binary_assign_flip": r"""
+void test(){
+ auto view=[](S s){return vector<long long>{s.ones,s.len};};
+ for(trial=0;trial<40;++trial){
+  int n=trial%10;vector<bool>a(n);vector<S>v;
+  for(int i=0;i<n;++i){a[i]=draw(2);v.push_back(S{a[i],1});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(int f=0;f<4;++f)for(int g=0;g<4;++g)
+   action_laws(v,F{bool(f&1),bool(f&2)},F{bool(g&1),bool(g&2)},op,e,mapping,composition,id,view);
+  for(step=0;step<80;++step){
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);F f{bool(draw(2)),bool(draw(2))};
+   seg.apply(l,r,f);for(int i=l;i<r;++i)a[i]=a[i]?f.one:f.zero;
+   l=draw(n+1);r=draw(n+1);if(l>r)swap(l,r);
+   long long ones=0;for(int i=l;i<r;++i)ones+=a[i];
+   vector<long long>expected{ones,r-l};EQ(view(seg.prod(l,r)),expected);
+  }
+ }
+}
+""",
+    "digit_assign": r"""
+void test(){
+ auto view=[](S s){return vector<int>{s.value.val(),s.power.val(),s.repunit.val(),s.len};};
+ for(trial=0;trial<48;++trial){
+  int n=trial%12;vector<int>a(n);vector<S>v;
+  for(auto&x:a){x=trial%3==0?9:draw(10);v.push_back(S{x,10,1,1});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<80;++step){
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);F f=step%4==0?F{}:F{draw(10)};
+   action_laws(v,f,F{0},op,e,mapping,composition,id,view);
+   action_laws(v,f,F{9},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i)if(f)a[i]=*f;
+   for(int ql=0;ql<=n;++ql)for(int qr=ql;qr<=n;++qr){
+    long long value=0,power=1,repunit=0;
+    for(int i=ql;i<qr;++i){value=(value*10+a[i])%998244353;power=power*10%998244353;repunit=(repunit*10+1)%998244353;}
+    vector<int>expected{int(value),int(power),int(repunit),qr-ql};EQ(view(seg.prod(ql,qr)),expected);
+   }
+  }
+ }
+}
+""",
+    "weighted_add": r"""
+void test(){
+ auto view=[](S s){return vector<long long>{s.sum,s.weights};};
+ for(trial=0;trial<40;++trial){
+  int n=trial%10;vector<long long>a(n),weight(n);vector<S>v;
+  for(int i=0;i<n;++i){a[i]=draw(21)-10;weight[i]=draw(7)-3;v.push_back(S{a[i]*weight[i],weight[i]});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<80;++step){
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);F f=draw(11)-5;
+   action_laws(v,f,F{-3},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i)a[i]+=f;
+   l=draw(n+1);r=draw(n+1);if(l>r)swap(l,r);
+   long long sum=0,weights=0;for(int i=l;i<r;++i){sum+=a[i]*weight[i];weights+=weight[i];}
+   vector<long long>expected{sum,weights};EQ(view(seg.prod(l,r)),expected);
+  }
+ }
+}
+""",
+    "add_variation": r"""
+void test(){
+ auto view=[](S s){return vector<long long>{s.empty?0:s.first,s.empty?0:s.last,s.variation,s.empty};};
+ for(trial=0;trial<40;++trial){
+  int n=trial%10;vector<long long>a(n);vector<S>v;
+  for(auto&x:a){x=draw(21)-10;v.push_back(S{x,x,0,false});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<80;++step){
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);F f=draw(11)-5;
+   action_laws(v,f,F{-3},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i)a[i]+=f;
+   // Query beyond the update so both changed boundary differences are exercised.
+   for(int ql=0;ql<=n;++ql)for(int qr=ql;qr<=n;++qr){
+    long long variation=0;for(int i=ql+1;i<qr;++i)variation+=std::abs(a[i]-a[i-1]);
+    vector<long long>expected{ql==qr?0:a[ql],ql==qr?0:a[qr-1],variation,ql==qr};
+    EQ(view(seg.prod(ql,qr)),expected);
+   }
+  }
+ }
+}
+""",
+    "assign_maxsub": r"""
+void test(){
+ auto view=[](S s){return vector<long long>{s.sum,s.prefix,s.suffix,s.best,s.len};};
+ for(trial=0;trial<40;++trial){
+  int n=trial%10;vector<long long>a(n);vector<S>v;
+  for(auto&x:a){x=draw(21)-10;long long p=max(0LL,x);v.push_back(S{x,p,p,p,1});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<80;++step){
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);F f=step%4==0?F{}:F{draw(11)-5};
+   action_laws(v,f,F{0},op,e,mapping,composition,id,view);
+   action_laws(v,f,F{-3},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i)if(f)a[i]=*f;
+   for(int ql=0;ql<=n;++ql)for(int qr=ql;qr<=n;++qr){
+    long long sum=0,prefix=0,suffix=0,best=0,cur=0;
+    for(int i=ql;i<qr;++i){sum+=a[i];prefix=max(prefix,sum);}
+    for(int i=qr;i-->ql;){cur+=a[i];suffix=max(suffix,cur);}
+    for(int i=ql;i<qr;++i){cur=0;for(int j=i;j<qr;++j){cur+=a[j];best=max(best,cur);}}
+    vector<long long>expected{sum,prefix,suffix,best,qr-ql};EQ(view(seg.prod(ql,qr)),expected);
+   }
+  }
+ }
+}
+""",
+    "minplus": r"""
+void test(){
+ auto sample=[](){S s{};for(auto&row:s)for(auto&x:row)x=draw(4)==0?INF:draw(17)-7;return s;};
+ for(trial=0;trial<40;++trial){
+  int n=trial%10;vector<S>v;for(int i=0;i<n;++i)v.push_back(sample());
+  atcoder::segtree<S,op,e>seg(v);monoid_laws(v,op,e,[](S s){return s;});
+  for(step=0;step<30;++step){
+   if(n){int p=draw(n);v[p]=sample();seg.set(p,v[p]);}
+   for(int l=0;l<=n;++l)for(int r=l;r<=n;++r){
+    S actual=seg.prod(l,r);
+    // Enumerate the two-state layered DP independently of matrix multiplication.
+    for(int start=0;start<2;++start){
+     array<long long,2>dp{INF,INF};dp[start]=0;
+     for(int i=l;i<r;++i){
+      array<long long,2>next{INF,INF};
+      for(int from=0;from<2;++from)for(int to=0;to<2;++to)
+       if(dp[from]!=INF&&v[i][to][from]!=INF)next[to]=min(next[to],dp[from]+v[i][to][from]);
+      dp=next;
+     }
+     for(int to=0;to<2;++to)EQ(actual[to][start],dp[to]);
+    }
+   }
+  }
+ }
+}
+""",
+})
+
 PRELUDE = r"""
 #include <bits/stdc++.h>
 #include <atcoder/segtree>
@@ -502,7 +715,10 @@ class MonoidSnippetTest(unittest.TestCase):
                 unit.write_text(code + '\n#include <atcoder/segtree>\n#include <atcoder/lazysegtree>\n'
                                 + f"int main() {{ {tree} seg(0); (void)seg; }}\n", encoding="utf-8")
                 isolated.append(str(unit))
-                source += f"\nnamespace recipe_{name} {{\n{code}\n{TESTS[name]}\n}}\n"
+                # Leaf/result convenience functions are deliberately absent from
+                # the reader's S/F block. They only adapt test inputs and outputs.
+                helpers = entry.get("test_helpers", "")
+                source += f"\nnamespace recipe_{name} {{\n{code}\n{helpers}\n{TESTS[name]}\n}}\n"
             subprocess.run([*flags, "-fsyntax-only", *isolated], check=True, timeout=120)
             source += '\nint main() {\n'
             for name in snippets:

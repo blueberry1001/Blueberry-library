@@ -130,7 +130,7 @@ for (const [query, kind, expected] of [
   ["区間等差数列加算", "lazy", ["ap"]],
   ["最大部分和", "segtree", ["maxsub"]],
   ["ＦＬＩＰ 転倒数", "lazy", ["inv"]],
-  ["DP", "segtree", ["matrix"]],
+  ["DP", "segtree", ["matrix", "minplus"]],
   ["第二最大", "segtree", ["top2"]],
   ["等差数列", "beats", []],
 ]) {
