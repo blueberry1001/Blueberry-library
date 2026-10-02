@@ -1401,7 +1401,7 @@ entries:
     conditions: [online-queries, offline-queries]
     calls:
       - {signature: 'seg.apply(l,r,{1,d,first-d*l}) / seg.prod(l,r).sum', complexity: 'O(log(N+1))'}
-    prerequisites: '早見表のS・F・演算をコピー。各葉をleaf(value,i)で初期化。添字は0始まりの絶対位置、区間は[l,r)。構築・メモリO(N)。'
+    prerequisites: '早見表のS・F・演算をコピー。各葉をS{value,i,1}で初期化。添字は0始まりの絶対位置、区間は[l,r)。構築・メモリO(N)。'
     notes: 'AP arithmetic progression。作用はx_i→a*x_i+b*i+c。setでも元の添字を保つ。first-d*lを含む全中間値が型に収まること。'
   - id: monoid-square-sum
     targets: [array]
@@ -1415,7 +1415,7 @@ entries:
     conditions: [online-queries, offline-queries]
     calls:
       - {signature: 'seg.apply(l,r,{a,b}) / seg.prod(l,r).square_sum', complexity: 'O(log(N+1))'}
-    prerequisites: '早見表のS・F・演算をコピー。葉はleaf(value)。二乗・交差項を含む中間値が型に収まること。構築・メモリO(N)。'
+    prerequisites: '早見表のS・F・演算をコピー。葉はS{value,value*value,1}。二乗・交差項を含む中間値が型に収まること。構築・メモリO(N)。'
     notes: 'sumとsquare_sumを同時保持。分散の分子len*square_sum-sum*sumにも利用可能。平均を求める除算は呼び出し側で行う。'
   - id: monoid-binary-inversions
     targets: [array]
@@ -1429,7 +1429,7 @@ entries:
     conditions: [online-queries, offline-queries, noncommutative]
     calls:
       - {signature: 'seg.apply(l,r,true) / seg.prod(l,r).inversions', complexity: 'O(log(N+1))'}
-    prerequisites: '要素は0/1のみ。leaf(bit)で初期化。構築・メモリO(N)。'
+    prerequisites: '要素は0/1のみ。S{1-bit,bit,0}で初期化。構築・メモリO(N)。'
     notes: '反転はビットのNOT。列の左右反転とは異なる。一般整数列の転倒数にはこのレシピを使えない。'
   - id: monoid-max-subarray
     targets: [array]
@@ -1442,7 +1442,7 @@ entries:
     updates: [static, point-set]
     conditions: [online-queries, offline-queries, noncommutative]
     calls:
-      - {signature: 'seg.set(p,leaf(x)) / seg.prod(l,r).best', complexity: 'O(log(N+1))'}
+      - {signature: 'seg.set(p,{x,m,m,m}) / seg.prod(l,r).best（m=max(0LL,x)）', complexity: 'O(log(N+1))'}
     prerequisites: '加算と全順序を持つ型。空部分列を許し全負でも答え0。構築・メモリO(N)。'
     notes: 'sum/prefix/suffix/bestを保持。区間加算をこの情報だけでlazyに載せることはできない。'
   - id: monoid-brackets
@@ -1456,6 +1456,6 @@ entries:
     updates: [static, point-set]
     conditions: [online-queries, offline-queries, noncommutative]
     calls:
-      - {signature: 'seg.set(p,leaf(c)) / seg.prod(l,r)', complexity: 'O(log(N+1))'}
+      - {signature: 'seg.set(p,{x,min(0LL,x)}) / seg.prod(l,r)（開き括弧はx=1、閉じ括弧はx=-1）', complexity: 'O(log(N+1))'}
     prerequisites: '文字は丸括弧のみ。sum==0かつmin_prefix>=0で正しい括弧列、空区間も真。構築・メモリO(N)。'
     notes: '二点をswapするときは二回set。複数種類の括弧の入れ子判定には使えない。'

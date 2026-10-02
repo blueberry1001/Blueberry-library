@@ -24,12 +24,19 @@ def collect_examples(root):
         document = root / ("docs/" + header.removeprefix("blueberry/").removesuffix(".hpp") + ".md")
         text = document.read_text(encoding="utf-8")
         assert f"documentation_of: //{header}" in text, document
-        for heading in ("## 概要・前提", "## 最小使用例", "## 操作一覧"):
+        # The monoid cookbook intentionally documents definitions rather than
+        # repeating a public-operation reference for every recipe.
+        definitions = header == "blueberry/algebra/monoids.hpp"
+        for heading in (() if definitions else ("## 概要・前提", "## 最小使用例", "## 操作一覧")):
             assert heading in text, (document, heading)
         details = re.findall(r'<details class="api-operation" id="([^"]+)" markdown="1">(.*?)</details>', text, re.S)
         ids = [identifier for identifier, _ in details]
         links = re.findall(r"\[開く\]\(#([^)]*)\)", text)
-        assert details and len(ids) == len(set(ids)) and set(links) == set(ids), document
+        if definitions:
+            assert "recipe.code | escape" in text and "data-monoid-definition" in text, document
+            assert "## 操作一覧" not in text and not details, document
+        else:
+            assert details and len(ids) == len(set(ids)) and set(links) == set(ids), document
         for identifier, body in details:
             assert "<summary>" in body and "O(" in body and "注意点:" in body, (document, identifier)
             summary = re.search(r"<summary>(.*?)</summary>", body, re.S)

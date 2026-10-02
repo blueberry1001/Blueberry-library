@@ -5,15 +5,15 @@ title: いろいろなモノイド
 
 # いろいろなモノイド
 
-**欲しい操作を選んで、`S`・`F` と演算をコピーするためのレシピ集です。**
-木には ACL を使います。Blueberry のヘッダは不要です。
+欲しい操作を選んで、`S`・`F`と演算をコピーするための定義集です。
+木にはACLを使います。Blueberryのヘッダは不要です。
 各コードは独立しているので、使いたいものを一つコピーしてください。
 
 <details markdown="1">
 <summary>共通の使い方（ACLへの渡し方・初期化・注意点）</summary>
 
 セグ木には `S, op, e`、遅延セグ木にはさらに `F, mapping, composition, id` を渡します。
-各レシピの `leaf(...)` で葉を作り、次のどちらかで構築します。
+各定義のコメントに従って葉の`S`を作り、次のどちらかで構築します。`e()`は空区間の単位元です。
 
 {% raw %}
 ```cpp
@@ -23,13 +23,14 @@ title: いろいろなモノイド
 
 // ここに選んだレシピをコピー。
 
-// main 内: 各レシピの初期化例に合わせて全要素を埋める。
+// main 内: 各定義の葉の形式に合わせて全要素を埋める。
 std::vector<S> init(n);
-for (int i = 0; i < n; ++i) init[i] = leaf(a[i]);
+// 例: S が {sum,len} の場合
+for (int i = 0; i < n; ++i) init[i] = S{a[i], 1};
 ```
 {% endraw %}
 
-セグ木の場合:
+セグ木は次のように構築します。
 
 {% raw %}
 ```cpp
@@ -37,7 +38,7 @@ atcoder::segtree<S, op, e> seg(init);
 ```
 {% endraw %}
 
-遅延セグ木の場合:
+遅延セグ木は次のように構築します。
 
 {% raw %}
 ```cpp
@@ -45,13 +46,11 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
 ```
 {% endraw %}
 
-共通操作は `seg.prod(l, r)`（区間の集約）、`seg.set(i, leaf(...))`（一点変更）、
+共通操作は `seg.prod(l, r)`（区間の集約）、`seg.set(i, s)`（一点変更）、
 遅延セグ木なら `seg.apply(l, r, f)`（区間更新）です。区間は **0-indexed の `[l, r)`**。
-下の「使う例」は、そのレシピでの初期化と操作の例です。
-
-- **葉と空区間は別:** 長さを持つレシピでは `seg(n)` の全要素は長さ 0。零配列も `leaf(0)` を並べます。添字を持つものは `leaf(0, i)`。
+- **葉と空区間は別:** 長さを持つ定義では`seg(n)`の全要素は長さ0です。零配列でも各葉の長さは1にします。
 - **合成順:** `op(left, right)` は左から右。`composition(f, g)` は **`g` の後に `f`**。
-- **型と計算量:** 中間積まで型に収まることが前提です。必要なら `long long` を `modint` 等に変更します（順序比較・ビット演算を使うレシピは除く）。結合・作用が `O(1)` なら構築 `O(N)`、操作 `O(log N)`。
+- **型と計算量:** 中間積まで型に収まることが前提です。各定義の演算は、記載がなければ`O(1)`です。木の構築は`O(N)`、区間取得・更新は`O(log N)`で、演算が定数時間でない場合はその費用を掛けます。
 
 </details>
 
@@ -75,12 +74,10 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
   {% for recipe in site.data.monoids %}
     <article data-library data-category="{{ recipe.kind | escape }}" data-keywords="{{ recipe.keywords | escape }}" id="{{ recipe.id | escape }}">
       <h3>{{ recipe.title | escape }}</h3>
-      <p><code>{{ recipe.structure | escape }}</code>{% if recipe.cost %} · {{ recipe.cost | escape }}{% endif %}</p>
-      <p><strong>S・結合:</strong> <code>{{ recipe.state | escape }}</code></p>
-      <p><strong>{% if recipe.kind == 'lazy' %}F・作用{% else %}操作{% endif %}:</strong> <code>{{ recipe.action | escape }}</code></p>
-      <p>{{ recipe.caveat | escape }}</p>
+      {% if recipe.nonconstant_cost %}<p>{{ recipe.nonconstant_cost | escape }}</p>{% endif %}
+      {% if recipe.note %}<p><code>{{ recipe.note | escape }}</code></p>{% endif %}
+      {% if recipe.caveat != '' %}<p>{{ recipe.caveat | escape }}</p>{% endif %}
       {% if recipe.code %}<pre><code class="language-cpp">{{ recipe.code | escape }}</code></pre>{% endif %}
-      {% if recipe.usage %}<details><summary>使う例</summary><pre><code class="language-cpp">{{ recipe.usage | escape }}</code></pre></details>{% endif %}
       {% if recipe.id == 'beats' %}
       <p><code>chmin(x)</code> と区間和には、和・最大値 <code>max1</code>・厳密に二番目の最大値 <code>max2</code>・最大値の個数 <code>cnt</code> を持ちます。<code>max2 &lt; x &lt; max1</code> なら和を <code>(x-max1)*cnt</code> だけ変更し、最大値を <code>x</code> にします。<code>x &gt;= max1</code> は何もせず、それ以外は子へ降ります。</p>
       <p>子へ降りる判定が必要なので、通常の ACL <code>lazy_segtree</code> に <code>mapping</code> を渡すだけでは扱えません。<a href="{{ '/blueberry/data-structure/segment-tree-beats.hpp.html' | relative_url }}">Segment Tree Beats</a> を使います。</p>

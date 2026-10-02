@@ -12,9 +12,11 @@
     "keywords": "range add assign set affine sum 区間加算 区間更新 区間代入 和",
     "problem_url": "https://judge.yosupo.jp/problem/range_affine_range_sum",
     "problem": "Library Checker: Range Affine Range Sum",
-    "code": "using T = long long;\n\nstruct S { T sum; long long len; };\nstruct F { T a, b; };\nS op(S x, S y) { return {x.sum + y.sum, x.len + y.len}; }\nS e() { return {T(0), 0}; }\nS leaf(T x) { return {x, 1}; }\nS mapping(F f, S x) { return {f.a * x.sum + f.b * T(x.len), x.len}; }\nF composition(F f, F g) { return {f.a * g.a, f.a * g.b + f.b}; }\nF id() { return {T(1), T(0)}; }",
+    "code": "using T = long long;\n\nstruct S { T sum; long long len; };\nstruct F { T a, b; };\nS op(S x, S y) { return {x.sum + y.sum, x.len + y.len}; }\nS e() { return {T(0), 0}; }\n\nS mapping(F f, S x) { return {f.a * x.sum + f.b * T(x.len), x.len}; }\nF composition(F f, F g) { return {f.a * g.a, f.a * g.b + f.b}; }\nF id() { return {T(1), T(0)}; }",
     "cost": "結合・作用 O(1)、各更新・区間取得 O(log N)。",
-    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, F{1, d}); // 加算\nseg.apply(l, r, F{0, x}); // 代入\nauto ans = seg.prod(l, r).sum;"
+    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, F{1, d}); // 加算\nseg.apply(l, r, F{0, x}); // 代入\nauto ans = seg.prod(l, r).sum;",
+    "test_helpers": "S leaf(T x) { return {x, 1}; }",
+    "note": "葉は {x,1}。加算 F{1,d}、代入 F{0,x}、答えは sum。"
   },
   {
     "id": "ap",
@@ -25,13 +27,15 @@
     "api": "IndexAffineSum<T>",
     "state": "sum, len, index_sum。添字和は更新しない。",
     "action": "x_i ← a*x_i+b*i+c。初項 first、公差 step の加算は a=1,b=step,c=first-step*l。",
-    "caveat": "0-indexed 半開区間。leaf の添字と更新係数は共通の絶対座標。",
+    "caveat": "0-indexed 半開区間。初期状態の添字と更新係数は共通の絶対座標。",
     "keywords": "AP arithmetic progression polynomial linear index 等差 数列 線形 傾き",
     "problem_url": "https://cses.fi/problemset/task/1736",
     "problem": "CSES: Polynomial Queries",
-    "code": "using T = long long;\n\nstruct S { T sum, index_sum; long long len; };\nstruct F { T a, b, c; };\nS op(S x, S y) {\n    return {x.sum + y.sum, x.index_sum + y.index_sum, x.len + y.len};\n}\nS e() { return {T(0), T(0), 0}; }\nS leaf(T x, long long i) { return {x, T(i), 1}; }\nS mapping(F f, S x) {\n    return {f.a * x.sum + f.b * x.index_sum + f.c * T(x.len), x.index_sum, x.len};\n}\nF composition(F f, F g) {\n    return {f.a * g.a, f.a * g.b + f.b, f.a * g.c + f.c};\n}\nF id() { return {T(1), T(0), T(0)}; }",
+    "code": "using T = long long;\n\nstruct S { T sum, index_sum; long long len; };\nstruct F { T a, b, c; };\nS op(S x, S y) {\n    return {x.sum + y.sum, x.index_sum + y.index_sum, x.len + y.len};\n}\nS e() { return {T(0), T(0), 0}; }\n\nS mapping(F f, S x) {\n    return {f.a * x.sum + f.b * x.index_sum + f.c * T(x.len), x.index_sum, x.len};\n}\nF composition(F f, F g) {\n    return {f.a * g.a, f.a * g.b + f.b, f.a * g.c + f.c};\n}\nF id() { return {T(1), T(0), T(0)}; }",
     "cost": "結合・作用 O(1)、各更新・区間取得 O(log N)。",
-    "usage": "init[i] = leaf(a[i], i);\nseg.apply(l, r, F{1, step, first - step * l});\nauto ans = seg.prod(l, r).sum;"
+    "usage": "init[i] = leaf(a[i], i);\nseg.apply(l, r, F{1, step, first - step * l});\nauto ans = seg.prod(l, r).sum;",
+    "test_helpers": "S leaf(T x, long long i) { return {x, T(i), 1}; }",
+    "note": "葉は {x,i,1}。区間 [l,r) に初項 first・公差 step を加える F は {1,step,first-step*l}。答えは sum。"
   },
   {
     "id": "squares",
@@ -46,9 +50,11 @@
     "keywords": "square variance moment 二乗和 平方和 分散 モーメント",
     "problem_url": "",
     "problem": "",
-    "code": "using T = long long;\n\nstruct S { T sum, square_sum; long long len; };\nstruct F { T a, b; };\nS op(S x, S y) {\n    return {x.sum + y.sum, x.square_sum + y.square_sum, x.len + y.len};\n}\nS e() { return {T(0), T(0), 0}; }\nS leaf(T x) { return {x, x * x, 1}; }\nS mapping(F f, S x) {\n    return {f.a * x.sum + f.b * T(x.len),\n            f.a * f.a * x.square_sum + T(2) * f.a * f.b * x.sum +\n                f.b * f.b * T(x.len), x.len};\n}\nF composition(F f, F g) { return {f.a * g.a, f.a * g.b + f.b}; }\nF id() { return {T(1), T(0)}; }",
+    "code": "using T = long long;\n\nstruct S { T sum, square_sum; long long len; };\nstruct F { T a, b; };\nS op(S x, S y) {\n    return {x.sum + y.sum, x.square_sum + y.square_sum, x.len + y.len};\n}\nS e() { return {T(0), T(0), 0}; }\n\nS mapping(F f, S x) {\n    return {f.a * x.sum + f.b * T(x.len),\n            f.a * f.a * x.square_sum + T(2) * f.a * f.b * x.sum +\n                f.b * f.b * T(x.len), x.len};\n}\nF composition(F f, F g) { return {f.a * g.a, f.a * g.b + f.b}; }\nF id() { return {T(1), T(0)}; }",
     "cost": "結合・作用 O(1)、各更新・区間取得 O(log N)。",
-    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, F{a, b});\nauto ans = seg.prod(l, r).square_sum;"
+    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, F{a, b});\nauto ans = seg.prod(l, r).square_sum;",
+    "test_helpers": "S leaf(T x) { return {x, x * x, 1}; }",
+    "note": "葉は {x,x*x,1}。答えは square_sum。"
   },
   {
     "id": "inv",
@@ -63,9 +69,11 @@
     "keywords": "flip inversion binary bit 反転 転倒 二値 01",
     "problem_url": "https://atcoder.jp/contests/practice2/tasks/practice2_l",
     "problem": "AtCoder practice2 L",
-    "code": "\nstruct S { long long zero, one, inversions; };\nusing F = bool;\nS op(S x, S y) {\n    return {x.zero + y.zero, x.one + y.one,\n            x.inversions + y.inversions + x.one * y.zero};\n}\nS e() { return {0, 0, 0}; }\nS leaf(bool x) { return {x ? 0 : 1, x ? 1 : 0, 0}; }\nS mapping(F f, S x) {\n    return f ? S{x.one, x.zero, x.zero * x.one - x.inversions} : x;\n}\nF composition(F f, F g) { return f != g; }\nF id() { return false; }",
+    "code": "struct S { long long zero, one, inversions; };\nusing F = bool;\nS op(S x, S y) {\n    return {x.zero + y.zero, x.one + y.one,\n            x.inversions + y.inversions + x.one * y.zero};\n}\nS e() { return {0, 0, 0}; }\n\nS mapping(F f, S x) {\n    return f ? S{x.one, x.zero, x.zero * x.one - x.inversions} : x;\n}\nF composition(F f, F g) { return f != g; }\nF id() { return false; }",
     "cost": "結合・作用 O(1)、各更新・区間取得 O(log N)。",
-    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, true);\nauto ans = seg.prod(l, r).inversions;"
+    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, true);\nauto ans = seg.prod(l, r).inversions;",
+    "test_helpers": "S leaf(bool x) { return {x ? 0 : 1, x ? 1 : 0, 0}; }",
+    "note": "0 の葉は {1,0,0}、1 は {0,1,0}。F=true で反転。答えは inversions。"
   },
   {
     "id": "maxsub",
@@ -80,9 +88,11 @@
     "keywords": "maximum subarray kadane 最大部分和 最大部分列 最大部分配列 連続 部分和",
     "problem_url": "https://cses.fi/problemset/task/1190",
     "problem": "CSES: Subarray Sum Queries",
-    "code": "#include <algorithm>\nusing T = long long;\n\nstruct S { T sum, prefix, suffix, best; };\nS op(S x, S y) {\n    return {x.sum + y.sum, std::max(x.prefix, x.sum + y.prefix),\n            std::max(y.suffix, y.sum + x.suffix),\n            std::max(std::max(x.best, y.best), x.suffix + y.prefix)};\n}\nS e() { return {T(0), T(0), T(0), T(0)}; }\nS leaf(T x) {\n    T positive = std::max(T(0), x);\n    return {x, positive, positive, positive};\n}",
+    "code": "#include <algorithm>\nusing T = long long;\n\nstruct S { T sum, prefix, suffix, best; };\nS op(S x, S y) {\n    return {x.sum + y.sum, std::max(x.prefix, x.sum + y.prefix),\n            std::max(y.suffix, y.sum + x.suffix),\n            std::max(std::max(x.best, y.best), x.suffix + y.prefix)};\n}\nS e() { return {T(0), T(0), T(0), T(0)}; }",
     "cost": "結合 O(1)、一点変更・区間取得 O(log N)。",
-    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = seg.prod(l, r).best;"
+    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = seg.prod(l, r).best;",
+    "test_helpers": "S leaf(T x) {\n    T positive = std::max(T(0), x);\n    return {x, positive, positive, positive};\n}",
+    "note": "葉は {x,max(0LL,x),max(0LL,x),max(0LL,x)}。答えは best。"
   },
   {
     "id": "bracket",
@@ -97,9 +107,11 @@
     "keywords": "parenthesis parentheses bracket 括弧 括弧列 正当性",
     "problem_url": "https://atcoder.jp/contests/abc223/tasks/abc223_f",
     "problem": "AtCoder ABC223 F",
-    "code": "#include <algorithm>\n#include <cassert>\n\nstruct S { long long sum, min_prefix; };\nS op(S x, S y) {\n    return {x.sum + y.sum, std::min(x.min_prefix, x.sum + y.min_prefix)};\n}\nS e() { return {0, 0}; }\nS leaf(char c) {\n    assert(c == '(' || c == ')');\n    return c == '(' ? S{1, 0} : S{-1, -1};\n}",
+    "code": "#include <algorithm>\n\nstruct S { long long sum, min_prefix; };\nS op(S x, S y) {\n    return {x.sum + y.sum, std::min(x.min_prefix, x.sum + y.min_prefix)};\n}\nS e() { return {0, 0}; }",
     "cost": "結合 O(1)、一点変更・区間取得 O(log N)。",
-    "usage": "init[i] = leaf(s[i]);\nseg.set(i, leaf(c));\nauto x = seg.prod(l, r);\nbool ok = x.sum == 0 && x.min_prefix >= 0;"
+    "usage": "init[i] = leaf(s[i]);\nseg.set(i, leaf(c));\nauto x = seg.prod(l, r);\nbool ok = x.sum == 0 && x.min_prefix >= 0;",
+    "test_helpers": "S leaf(char c) {\n    return c == '(' ? S{1, 0} : S{-1, -1};\n}",
+    "note": "葉は ( が {1,0}、) が {-1,-1}。sum==0 && min_prefix>=0 で正しい括弧列。"
   },
   {
     "id": "compose",
@@ -114,9 +126,11 @@
     "keywords": "function composite affine noncommutative 関数合成 非可換",
     "problem_url": "https://judge.yosupo.jp/problem/point_set_range_composite",
     "problem": "Library Checker: Point Set Range Composite",
-    "code": "using T = long long;\n\nstruct S { T a, b; };\n// Concatenation evaluates the left interval first, then the right interval.\nS op(S x, S y) { return {y.a * x.a, y.a * x.b + y.b}; }\nS e() { return {T(1), T(0)}; }\nS leaf(T a, T b) { return {a, b}; }",
+    "code": "using T = long long;\n\nstruct S { T a, b; };\n// Concatenation evaluates the left interval first, then the right interval.\nS op(S x, S y) { return {y.a * x.a, y.a * x.b + y.b}; }\nS e() { return {T(1), T(0)}; }",
     "cost": "結合 O(1)、一点変更・区間取得 O(log N)。",
-    "usage": "init[i] = leaf(a[i], b[i]);\nseg.set(i, leaf(a, b));\nauto f = seg.prod(l, r);\nauto ans = f.a * x + f.b;"
+    "usage": "init[i] = leaf(a[i], b[i]);\nseg.set(i, leaf(a, b));\nauto f = seg.prod(l, r);\nauto ans = f.a * x + f.b;",
+    "test_helpers": "S leaf(T a, T b) { return {a, b}; }",
+    "note": "葉は関数の係数 {a,b}。区間結果 f を f.a*x+f.b と評価。"
   },
   {
     "id": "maxcount",
@@ -131,9 +145,11 @@
     "keywords": "max count frequency argmax 最大 個数 頻度",
     "problem_url": "",
     "problem": "",
-    "code": "using T = long long;\n\nstruct S { T value; long long count; };\nS op(S x, S y) {\n    if (x.count == 0) return y;\n    if (y.count == 0) return x;\n    if (x.value < y.value) return y;\n    if (y.value < x.value) return x;\n    return {x.value, x.count + y.count};\n}\nS e() { return {T{}, 0}; }\nS leaf(T x) { return {x, 1}; }",
+    "code": "using T = long long;\n\nstruct S { T value; long long count; };\nS op(S x, S y) {\n    if (x.count == 0) return y;\n    if (y.count == 0) return x;\n    if (x.value < y.value) return y;\n    if (y.value < x.value) return x;\n    return {x.value, x.count + y.count};\n}\nS e() { return {T{}, 0}; }",
     "cost": "結合 O(1)、一点変更・区間取得 O(log N)。",
-    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = seg.prod(l, r); // ans.value, ans.count"
+    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = seg.prod(l, r); // ans.value, ans.count",
+    "test_helpers": "S leaf(T x) { return {x, 1}; }",
+    "note": "葉は {x,1}。答えは value,count。"
   },
   {
     "id": "beats",
@@ -152,20 +168,23 @@
   },
   {
     "id": "basic",
-    "title": "和・min/max・gcd・bitwise AND/OR/XOR",
+    "title": "一点変更 → 区間gcd",
     "kind": "segtree",
     "status": "コピー用",
     "structure": "ACL segtree",
     "api": "",
     "state": "それぞれの結合演算と単位元（0、上限/下限、0、全ビット1/0/0）を使う。",
-    "action": "コードは gcd。和は op=x+y,e=0、min/max は op=min/max,e=型の最大/最小値、AND/OR/XOR は op=&/|/^,e=全ビット1/0/0 に差し替える。leaf も恒等関数にする。",
+    "action": "コードは gcd。和は op=x+y,e=0、min/max は op=min/max,e=型の最大/最小値、AND/OR/XOR は op=&/|/^,e=全ビット1/0/0 に差し替え、葉には元の値を置く。",
     "caveat": "min/max の番兵は型の範囲に合わせる。符号付き最小値の絶対値や gcd の表現可能性に注意。",
     "keywords": "基本 単位元 最大 最小 gcd 最大公約数 AND OR XOR bitwise",
     "problem_url": "",
     "problem": "",
-    "cost": "gcd の結合 O(log V)、一点変更・区間取得 O(log N log V)。",
-    "code": "#include <numeric>\nusing S = long long;\nS op(S x, S y) { return std::gcd(x, y); }\nS e() { return 0; }\nS leaf(S x) { return std::gcd(x, 0LL); }",
-    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = seg.prod(l, r);"
+    "cost": "結合 O(log V)。Vは扱う値の絶対値の上限。",
+    "code": "#include <numeric>\nusing S = long long;\nS op(S x, S y) { return std::gcd(x, y); }\nS e() { return 0; }",
+    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = seg.prod(l, r);",
+    "test_helpers": "S leaf(S x) { return std::gcd(x, 0LL); }",
+    "note": "葉は std::gcd(x,0LL)。区間結果が答え。",
+    "nonconstant_cost": "結合 O(log V)。Vは扱う値の絶対値の上限。"
   },
   {
     "id": "run",
@@ -181,8 +200,10 @@
     "problem_url": "https://atcoder.jp/contests/abc322/tasks/abc322_f",
     "problem": "AtCoder ABC322 F",
     "cost": "結合・作用 O(1)、各更新・区間取得 O(log N)。",
-    "code": "#include <algorithm>\n#include <array>\nstruct S { int len; std::array<int, 2> prefix, suffix, best; };\nusing F = bool;\nS e() { return {}; }\nS leaf(bool x) {\n    S s{1, {}, {}, {}};\n    s.prefix[x] = s.suffix[x] = s.best[x] = 1;\n    return s;\n}\nS op(S x, S y) {\n    S z{}; z.len = x.len + y.len;\n    for (int b = 0; b < 2; ++b) {\n        z.prefix[b] = x.prefix[b] + (x.prefix[b] == x.len ? y.prefix[b] : 0);\n        z.suffix[b] = y.suffix[b] + (y.suffix[b] == y.len ? x.suffix[b] : 0);\n        z.best[b] = std::max({x.best[b], y.best[b], x.suffix[b] + y.prefix[b]});\n    }\n    return z;\n}\nS mapping(F f, S x) {\n    if (f) {\n        std::swap(x.prefix[0], x.prefix[1]);\n        std::swap(x.suffix[0], x.suffix[1]);\n        std::swap(x.best[0], x.best[1]);\n    }\n    return x;\n}\nF composition(F f, F g) { return f != g; }\nF id() { return false; }",
-    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, true);\nauto ans = seg.prod(l, r).best[1];"
+    "code": "#include <algorithm>\n#include <array>\nstruct S { int len; std::array<int, 2> prefix, suffix, best; };\nusing F = bool;\nS e() { return {}; }\n\nS op(S x, S y) {\n    S z{}; z.len = x.len + y.len;\n    for (int b = 0; b < 2; ++b) {\n        z.prefix[b] = x.prefix[b] + (x.prefix[b] == x.len ? y.prefix[b] : 0);\n        z.suffix[b] = y.suffix[b] + (y.suffix[b] == y.len ? x.suffix[b] : 0);\n        z.best[b] = std::max({x.best[b], y.best[b], x.suffix[b] + y.prefix[b]});\n    }\n    return z;\n}\nS mapping(F f, S x) {\n    if (f) {\n        std::swap(x.prefix[0], x.prefix[1]);\n        std::swap(x.suffix[0], x.suffix[1]);\n        std::swap(x.best[0], x.best[1]);\n    }\n    return x;\n}\nF composition(F f, F g) { return f != g; }\nF id() { return false; }",
+    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, true);\nauto ans = seg.prod(l, r).best[1];",
+    "test_helpers": "S leaf(bool x) {\n    S s{1, {}, {}, {}};\n    s.prefix[x] = s.suffix[x] = s.best[x] = 1;\n    return s;\n}",
+    "note": "0 の葉は {1,{1,0},{1,0},{1,0}}、1 は {1,{0,1},{0,1},{0,1}}。F=true で反転、答えは best[1]。"
   },
   {
     "id": "top2",
@@ -198,8 +219,10 @@
     "problem_url": "https://atcoder.jp/contests/abc343/tasks/abc343_f",
     "problem": "AtCoder ABC343 F",
     "cost": "結合 O(1)、一点変更・区間取得 O(log N)。",
-    "code": "#include <array>\nstruct S { std::array<long long, 2> value, count; };\nS e() { return {}; }\nS leaf(long long x) { return {{x, 0}, {1, 0}}; }\nS op(S x, S y) {\n    for (int i = 0; i < 2; ++i) {\n        if (!y.count[i]) continue;\n        long long v = y.value[i], c = y.count[i];\n        if (x.count[0] && x.value[0] == v) x.count[0] += c;\n        else if (!x.count[0] || v > x.value[0]) {\n            x.value[1] = x.value[0]; x.count[1] = x.count[0];\n            x.value[0] = v; x.count[0] = c;\n        } else if (x.count[1] && x.value[1] == v) x.count[1] += c;\n        else if (!x.count[1] || v > x.value[1]) {\n            x.value[1] = v; x.count[1] = c;\n        }\n    }\n    return x;\n}",
-    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = seg.prod(l, r).count[1]; // 存在しなければ 0"
+    "code": "#include <array>\nstruct S { std::array<long long, 2> value, count; };\nS e() { return {}; }\n\nS op(S x, S y) {\n    for (int i = 0; i < 2; ++i) {\n        if (!y.count[i]) continue;\n        long long v = y.value[i], c = y.count[i];\n        if (x.count[0] && x.value[0] == v) x.count[0] += c;\n        else if (!x.count[0] || v > x.value[0]) {\n            x.value[1] = x.value[0]; x.count[1] = x.count[0];\n            x.value[0] = v; x.count[0] = c;\n        } else if (x.count[1] && x.value[1] == v) x.count[1] += c;\n        else if (!x.count[1] || v > x.value[1]) {\n            x.value[1] = v; x.count[1] = c;\n        }\n    }\n    return x;\n}",
+    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = seg.prod(l, r).count[1]; // 存在しなければ 0",
+    "test_helpers": "S leaf(long long x) { return {{x, 0}, {1, 0}}; }",
+    "note": "葉は {{x,0},{1,0}}。答えは count[1]、第二最大値がなければ 0。"
   },
   {
     "id": "product",
@@ -215,8 +238,10 @@
     "problem_url": "https://atcoder.jp/contests/abc357/tasks/abc357_f",
     "problem": "AtCoder ABC357 F",
     "cost": "結合・作用 O(1)、各更新・区間取得 O(log N)。",
-    "code": "using T = long long;\nstruct S { T a, b, ab; long long len; };\nstruct F { T a, b; };\nS op(S x, S y) { return {x.a+y.a, x.b+y.b, x.ab+y.ab, x.len+y.len}; }\nS e() { return {0, 0, 0, 0}; }\nS leaf(T a, T b) { return {a, b, a*b, 1}; }\nS mapping(F f, S x) {\n    return {x.a+f.a*x.len, x.b+f.b*x.len,\n            x.ab+f.a*x.b+f.b*x.a+f.a*f.b*x.len, x.len};\n}\nF composition(F f, F g) { return {f.a+g.a, f.b+g.b}; }\nF id() { return {0, 0}; }",
-    "usage": "init[i] = leaf(a[i], b[i]);\nseg.apply(l, r, F{u, v_add});\nauto ans = seg.prod(l, r).ab;"
+    "code": "using T = long long;\nstruct S { T a, b, ab; long long len; };\nstruct F { T a, b; };\nS op(S x, S y) { return {x.a+y.a, x.b+y.b, x.ab+y.ab, x.len+y.len}; }\nS e() { return {0, 0, 0, 0}; }\n\nS mapping(F f, S x) {\n    return {x.a+f.a*x.len, x.b+f.b*x.len,\n            x.ab+f.a*x.b+f.b*x.a+f.a*f.b*x.len, x.len};\n}\nF composition(F f, F g) { return {f.a+g.a, f.b+g.b}; }\nF id() { return {0, 0}; }",
+    "usage": "init[i] = leaf(a[i], b[i]);\nseg.apply(l, r, F{u, v_add});\nauto ans = seg.prod(l, r).ab;",
+    "test_helpers": "S leaf(T a, T b) { return {a, b, a*b, 1}; }",
+    "note": "葉は {a,b,a*b,1}。F{u,v} で A+=u,B+=v、答えは ab。"
   },
   {
     "id": "poly",
@@ -232,8 +257,10 @@
     "problem_url": "",
     "problem": "",
     "cost": "結合・作用 O(1)、各更新・区間取得 O(log N)。",
-    "code": "using T = long long;\nstruct S { T sum, i1, i2; long long len; };\nstruct F { T c0, c1, c2; };\nS op(S x, S y) { return {x.sum+y.sum, x.i1+y.i1, x.i2+y.i2, x.len+y.len}; }\nS e() { return {0, 0, 0, 0}; }\nS leaf(T x, T i) { return {x, i, i*i, 1}; }\nS mapping(F f, S x) {\n    x.sum += f.c0*x.len + f.c1*x.i1 + f.c2*x.i2;\n    return x;\n}\nF composition(F f, F g) { return {f.c0+g.c0, f.c1+g.c1, f.c2+g.c2}; }\nF id() { return {0, 0, 0}; }",
-    "usage": "init[i] = leaf(a[i], i);\nseg.apply(l, r, F{c0, c1, c2}); // a[i] += c0+c1*i+c2*i*i\nauto ans = seg.prod(l, r).sum;"
+    "code": "using T = long long;\nstruct S { T sum, i1, i2; long long len; };\nstruct F { T c0, c1, c2; };\nS op(S x, S y) { return {x.sum+y.sum, x.i1+y.i1, x.i2+y.i2, x.len+y.len}; }\nS e() { return {0, 0, 0, 0}; }\n\nS mapping(F f, S x) {\n    x.sum += f.c0*x.len + f.c1*x.i1 + f.c2*x.i2;\n    return x;\n}\nF composition(F f, F g) { return {f.c0+g.c0, f.c1+g.c1, f.c2+g.c2}; }\nF id() { return {0, 0, 0}; }",
+    "usage": "init[i] = leaf(a[i], i);\nseg.apply(l, r, F{c0, c1, c2}); // a[i] += c0+c1*i+c2*i*i\nauto ans = seg.prod(l, r).sum;",
+    "test_helpers": "S leaf(T x, T i) { return {x, i, i*i, 1}; }",
+    "note": "葉は {x,i,i*i,1}。F{c0,c1,c2} で c0+c1*i+c2*i*i を加算。答えは sum。"
   },
   {
     "id": "xor_sum",
@@ -248,9 +275,12 @@
     "keywords": "xor bit count sum ビット 反転 和",
     "problem_url": "",
     "problem": "",
-    "cost": "結合・作用 O(B)、各更新・区間取得 O(B log N)、メモリ O(NB)。B=30。",
-    "code": "#include <array>\nconstexpr int B = 30;\nstruct S { std::array<long long, B> ones; long long len; };\nusing F = unsigned;\nS e() { return {}; }\nS leaf(unsigned x) {\n    S s{}; s.len = 1;\n    for (int b = 0; b < B; ++b) s.ones[b] = (x >> b) & 1U;\n    return s;\n}\nS op(S x, S y) {\n    x.len += y.len;\n    for (int b = 0; b < B; ++b) x.ones[b] += y.ones[b];\n    return x;\n}\nS mapping(F f, S x) {\n    for (int b = 0; b < B; ++b)\n        if ((f >> b) & 1U) x.ones[b] = x.len - x.ones[b];\n    return x;\n}\nF composition(F f, F g) { return f ^ g; }\nF id() { return 0; }\nlong long sum(S x) {\n    long long ans = 0;\n    for (int b = 0; b < B; ++b) ans += x.ones[b] * (1LL << b);\n    return ans;\n}",
-    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, mask);\nauto ans = sum(seg.prod(l, r));"
+    "cost": "結合・作用 O(B)。Bはビット幅で、この例では30。",
+    "code": "#include <array>\nconstexpr int B = 30;\nstruct S { std::array<long long, B> ones; long long len; };\nusing F = unsigned;\nS e() { return {}; }\n\nS op(S x, S y) {\n    x.len += y.len;\n    for (int b = 0; b < B; ++b) x.ones[b] += y.ones[b];\n    return x;\n}\nS mapping(F f, S x) {\n    for (int b = 0; b < B; ++b)\n        if ((f >> b) & 1U) x.ones[b] = x.len - x.ones[b];\n    return x;\n}\nF composition(F f, F g) { return f ^ g; }\nF id() { return 0; }",
+    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, mask);\nauto ans = sum(seg.prod(l, r));",
+    "test_helpers": "S leaf(unsigned x) {\n    S s{}; s.len = 1;\n    for (int b = 0; b < B; ++b) s.ones[b] = (x >> b) & 1U;\n    return s;\n}\nlong long sum(S x) {\n    long long ans = 0;\n    for (int b = 0; b < B; ++b) ans += x.ones[b] * (1LL << b);\n    return ans;\n}",
+    "note": "葉は len=1、ones[b]=(x>>b)&1。答えは Σones[b]*(1LL<<b)。",
+    "nonconstant_cost": "結合・作用 O(B)。Bはビット幅で、この例では30。"
   },
   {
     "id": "hash",
@@ -266,8 +296,10 @@
     "problem_url": "",
     "problem": "",
     "cost": "結合 O(1)、一点変更・区間取得 O(log N)。",
-    "code": "#include <atcoder/modint>\nusing T = atcoder::modint998244353;\nconstexpr int BASE = 911382323;\nstruct S { T hash, power; int len; };\nS op(S x, S y) { return {x.hash*y.power+y.hash, x.power*y.power, x.len+y.len}; }\nS e() { return {0, 1, 0}; }\nS leaf(int c) { return {c, BASE, 1}; }",
-    "usage": "init[i] = leaf(static_cast<unsigned char>(s[i]) + 1);\nseg.set(i, leaf(static_cast<unsigned char>(c) + 1));\nauto h = seg.prod(l, r); // h.hash.val(), h.len"
+    "code": "#include <atcoder/modint>\nusing T = atcoder::modint998244353;\ninline constexpr int BASE = 911382323;\nstruct S { T hash, power; int len; };\nS op(S x, S y) { return {x.hash*y.power+y.hash, x.power*y.power, x.len+y.len}; }\nS e() { return {0, 1, 0}; }",
+    "usage": "init[i] = leaf(static_cast<unsigned char>(s[i]) + 1);\nseg.set(i, leaf(static_cast<unsigned char>(c) + 1));\nauto h = seg.prod(l, r); // h.hash.val(), h.len",
+    "test_helpers": "S leaf(int c) { return {c, BASE, 1}; }",
+    "note": "葉は {文字コード+1,BASE,1}。比較するのは hash と len。"
   },
   {
     "id": "matrix",
@@ -283,8 +315,10 @@
     "problem_url": "",
     "problem": "",
     "cost": "結合 O(1)、一点変更・区間取得 O(log N)。",
-    "code": "#include <array>\n#include <atcoder/modint>\nusing T = atcoder::modint998244353;\nusing S = std::array<std::array<T, 2>, 2>;\nS op(S x, S y) { // 列ベクトルに左区間、右区間の順で作用\n    S z{};\n    for (int i = 0; i < 2; ++i)\n        for (int j = 0; j < 2; ++j)\n            for (int k = 0; k < 2; ++k) z[i][j] += y[i][k]*x[k][j];\n    return z;\n}\nS e() { return {{{1, 0}, {0, 1}}}; }\nS leaf(T x) { return {{{x, 1}, {1, 0}}}; }",
-    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto m = seg.prod(l, r);\nauto ans = m[0][0].val(); // 初期状態 (dp,prev)=(1,0)、dp_next=a[i]*dp+prev"
+    "code": "#include <array>\n#include <atcoder/modint>\nusing T = atcoder::modint998244353;\nusing S = std::array<std::array<T, 2>, 2>;\nS op(S x, S y) { // 列ベクトルに左区間、右区間の順で作用\n    S z{};\n    for (int i = 0; i < 2; ++i)\n        for (int j = 0; j < 2; ++j)\n            for (int k = 0; k < 2; ++k) z[i][j] += y[i][k]*x[k][j];\n    return z;\n}\nS e() { return {{{1, 0}, {0, 1}}}; }",
+    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto m = seg.prod(l, r);\nauto ans = m[0][0].val(); // 初期状態 (dp,prev)=(1,0)、dp_next=a[i]*dp+prev",
+    "test_helpers": "S leaf(T x) { return {{{x, 1}, {1, 0}}}; }",
+    "note": "葉は {{{a,1},{1,0}}}。初期状態 (dp,prev)=(1,0) なら区間結果の [0][0] が答え。"
   },
   {
     "id": "basis",
@@ -299,9 +333,12 @@
     "keywords": "linear basis xor span 部分集合 線形基底 線形代数",
     "problem_url": "",
     "problem": "",
-    "cost": "結合 O(B²)、一点変更・区間取得 O(B² log N)、メモリ O(NB)。B=30。",
-    "code": "#include <algorithm>\n#include <array>\nconstexpr int B = 30;\nusing S = std::array<unsigned, B>;\nS e() { return {}; }\nvoid insert(S& s, unsigned x) {\n    for (int b = B-1; b >= 0; --b) {\n        if (!((x >> b) & 1U)) continue;\n        if (s[b]) { x ^= s[b]; continue; }\n        for (int j = b-1; j >= 0; --j) if ((x >> j) & 1U) x ^= s[j];\n        for (int j = b+1; j < B; ++j) if ((s[j] >> b) & 1U) s[j] ^= x;\n        s[b] = x;\n        return;\n    }\n}\nS leaf(unsigned x) { S s{}; insert(s, x); return s; }\nS op(S x, S y) { for (unsigned v : y) insert(x, v); return x; }\nunsigned maximum(S s) {\n    unsigned ans = 0;\n    for (int b = B-1; b >= 0; --b) ans = std::max(ans, ans ^ s[b]);\n    return ans;\n}",
-    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = maximum(seg.prod(l, r));"
+    "cost": "結合 O(B²)。Bはビット幅で、この例では30。",
+    "code": "#include <array>\nconstexpr int B = 30;\nusing S = std::array<unsigned, B>;\nS e() { return {}; }\n\nS op(S x, S y) {\n    auto insert = [](S& s, unsigned x) {\n        for (int b = B-1; b >= 0; --b) {\n            if (!((x >> b) & 1U)) continue;\n            if (s[b]) { x ^= s[b]; continue; }\n            for (int j = b-1; j >= 0; --j) if ((x >> j) & 1U) x ^= s[j];\n            for (int j = b+1; j < B; ++j) if ((s[j] >> b) & 1U) s[j] ^= x;\n            s[b] = x;\n            return;\n        }\n    };\n    for (unsigned v : y) insert(x, v);\n    return x;\n}",
+    "usage": "init[i] = leaf(a[i]);\nseg.set(i, leaf(x));\nauto ans = maximum(seg.prod(l, r));",
+    "test_helpers": "void insert(S& s, unsigned x) {\n    for (int b = B-1; b >= 0; --b) {\n        if (!((x >> b) & 1U)) continue;\n        if (s[b]) { x ^= s[b]; continue; }\n        for (int j = b-1; j >= 0; --j) if ((x >> j) & 1U) x ^= s[j];\n        for (int j = b+1; j < B; ++j) if ((s[j] >> b) & 1U) s[j] ^= x;\n        s[b] = x;\n        return;\n    }\n}\nS leaf(unsigned x) { S s{}; insert(s, x); return s; }\nunsigned maximum(S s) {\n    unsigned ans = 0;\n    for (int b = B-1; b >= 0; --b) ans = std::max(ans, ans ^ s[b]);\n    return ans;\n}",
+    "note": "葉はゼロ初期化し、x>0 なら最高位 bit b に s[b]=x。結果の全基底ベクトルを XOR すると最大値。",
+    "nonconstant_cost": "結合 O(B²)。Bはビット幅で、この例では30。"
   },
   {
     "id": "gcdadd",
@@ -316,9 +353,12 @@
     "keywords": "range add gcd difference 差分 最大公約数 加算",
     "problem_url": "",
     "problem": "",
-    "cost": "結合 O(log V)、作用 O(1)、更新・取得 O(log N log V)。",
-    "code": "#include <numeric>\nstruct S { long long first, last, d; bool empty; };\nusing F = long long;\nS e() { return {0, 0, 0, true}; }\nS leaf(long long x) { return {x, x, 0, false}; }\nS op(S x, S y) {\n    if (x.empty) return y;\n    if (y.empty) return x;\n    return {x.first, y.last, std::gcd(std::gcd(x.d, y.d), y.first-x.last), false};\n}\nS mapping(F f, S x) {\n    if (!x.empty) { x.first += f; x.last += f; }\n    return x;\n}\nF composition(F f, F g) { return f+g; }\nF id() { return 0; }\nlong long gcd(S x) { return x.empty ? 0 : std::gcd(x.first, x.d); }",
-    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, d);\nauto ans = gcd(seg.prod(l, r));"
+    "cost": "結合 O(log V)。Vは値と隣接差の絶対値の上限。",
+    "code": "#include <numeric>\nstruct S { long long first, last, d; bool empty; };\nusing F = long long;\nS e() { return {0, 0, 0, true}; }\n\nS op(S x, S y) {\n    if (x.empty) return y;\n    if (y.empty) return x;\n    return {x.first, y.last, std::gcd(std::gcd(x.d, y.d), y.first-x.last), false};\n}\nS mapping(F f, S x) {\n    if (!x.empty) { x.first += f; x.last += f; }\n    return x;\n}\nF composition(F f, F g) { return f+g; }\nF id() { return 0; }",
+    "usage": "init[i] = leaf(a[i]);\nseg.apply(l, r, d);\nauto ans = gcd(seg.prod(l, r));",
+    "test_helpers": "S leaf(long long x) { return {x, x, 0, false}; }\nlong long gcd(S x) { return x.empty ? 0 : std::gcd(x.first, x.d); }",
+    "note": "葉は {x,x,0,false}。F は加算値。結果 s の答えは s.empty ? 0 : std::gcd(s.first,s.d)。",
+    "nonconstant_cost": "結合 O(log V)。Vは値と隣接差の絶対値の上限。"
   },
   {
     "id": "mex",
@@ -334,8 +374,10 @@
     "problem_url": "",
     "problem": "",
     "cost": "結合 O(1)、一点変更・区間取得 O(log N)。",
-    "code": "#include <algorithm>\n#include <limits>\nusing S = long long;\nS op(S x, S y) { return std::min(x, y); }\nS e() { return std::numeric_limits<S>::max(); }\nS leaf(long long count) { return count; }",
-    "usage": "init[x] = leaf(count[x]); // 値 x の個数。長さ N の配列なら値域 [0,N] を用意\nseg.set(x, leaf(count[x]));\nint ans = seg.max_right(0, [](S mn) { return mn > 0; });"
+    "code": "#include <algorithm>\n#include <limits>\nusing S = long long;\nS op(S x, S y) { return std::min(x, y); }\nS e() { return std::numeric_limits<S>::max(); }",
+    "usage": "init[x] = leaf(count[x]); // 値 x の個数。長さ N の配列なら値域 [0,N] を用意\nseg.set(x, leaf(count[x]));\nint ans = seg.max_right(0, [](S mn) { return mn > 0; });",
+    "test_helpers": "S leaf(long long count) { return count; }",
+    "note": "葉は値ごとの出現回数。max_right(0, [](S x){ return x>0; }) が mex。"
   },
   {
     "id": "cover",
@@ -351,7 +393,199 @@
     "problem_url": "",
     "problem": "",
     "cost": "結合・作用 O(1)、各更新・区間取得 O(log N)。",
-    "code": "#include <algorithm>\nstruct S { long long minimum, min_length, length; };\nusing F = long long;\nS e() { return {0, 0, 0}; }\nS leaf(long long length) { return {0, length, length}; }\nS op(S x, S y) {\n    if (!x.length) return y;\n    if (!y.length) return x;\n    long long mn = std::min(x.minimum, y.minimum);\n    return {mn, (x.minimum == mn ? x.min_length : 0)\n                + (y.minimum == mn ? y.min_length : 0), x.length+y.length};\n}\nS mapping(F f, S x) { if (x.length) x.minimum += f; return x; }\nF composition(F f, F g) { return f+g; }\nF id() { return 0; }\nlong long covered(S x) { return x.length - (x.minimum == 0 ? x.min_length : 0); }",
-    "usage": "init[i] = leaf(xs[i+1] - xs[i]); // 昇順の相異なる圧縮座標\nseg.apply(l, r, 1); // [xs[l],xs[r]) を追加。削除は -1\nauto ans = covered(seg.all_prod());"
+    "code": "#include <algorithm>\nstruct S { long long minimum, min_length, length; };\nusing F = long long;\nS e() { return {0, 0, 0}; }\n\nS op(S x, S y) {\n    if (!x.length) return y;\n    if (!y.length) return x;\n    long long mn = std::min(x.minimum, y.minimum);\n    return {mn, (x.minimum == mn ? x.min_length : 0)\n                + (y.minimum == mn ? y.min_length : 0), x.length+y.length};\n}\nS mapping(F f, S x) { if (x.length) x.minimum += f; return x; }\nF composition(F f, F g) { return f+g; }\nF id() { return 0; }",
+    "usage": "init[i] = leaf(xs[i+1] - xs[i]); // 昇順の相異なる圧縮座標\nseg.apply(l, r, 1); // [xs[l],xs[r]) を追加。削除は -1\nauto ans = covered(seg.all_prod());",
+    "test_helpers": "S leaf(long long length) { return {0, length, length}; }\nlong long covered(S x) { return x.length - (x.minimum == 0 ? x.min_length : 0); }",
+    "note": "葉は {0,長さ,長さ}。F は被覆回数の増減。答えは length−(minimum==0 ? min_length : 0)。"
+  },
+  {
+    "id": "add_min",
+    "title": "区間加算 → 区間最小値",
+    "kind": "lazy",
+    "status": "コピー用",
+    "structure": "ACL lazy_segtree",
+    "api": "",
+    "state": "minimum と空フラグ。",
+    "action": "F の値を最小値へ加算。",
+    "caveat": "空状態には加算しない。番兵値を使わず、全ての long long 値を表せる。",
+    "note": "葉は {x,false}。F は加算値、答えは minimum。",
+    "keywords": "range add min 加算 最小",
+    "problem_url": "",
+    "problem": "",
+    "code": "#include <algorithm>\nstruct S { long long minimum; bool empty; };\nusing F = long long;\nS op(S x, S y) {\n    if (x.empty) return y;\n    if (y.empty) return x;\n    return {std::min(x.minimum, y.minimum), false};\n}\nS e() { return {0, true}; }\nS mapping(F f, S x) { if (!x.empty) x.minimum += f; return x; }\nF composition(F f, F g) { return f+g; }\nF id() { return 0; }",
+    "test_helpers": "",
+    "usage": "",
+    "cost": ""
+  },
+  {
+    "id": "assign_min",
+    "title": "区間代入 → 区間最小値",
+    "kind": "lazy",
+    "status": "コピー用",
+    "structure": "ACL lazy_segtree",
+    "api": "",
+    "state": "minimum と空フラグ。F は代入値の optional。",
+    "action": "新しい代入が古い代入を上書きする。",
+    "caveat": "nullopt は何もしない作用。0 も代入できる。",
+    "note": "葉は {x,false}。F{x} で代入、答えは minimum。",
+    "keywords": "range assign set min 代入 最小 optional",
+    "problem_url": "",
+    "problem": "",
+    "code": "#include <algorithm>\n#include <optional>\nstruct S { long long minimum; bool empty; };\nusing F = std::optional<long long>;\nS op(S x, S y) {\n    if (x.empty) return y;\n    if (y.empty) return x;\n    return {std::min(x.minimum, y.minimum), false};\n}\nS e() { return {0, true}; }\nS mapping(F f, S x) { if (f && !x.empty) x.minimum = *f; return x; }\nF composition(F f, F g) { return f ? f : g; }\nF id() { return std::nullopt; }",
+    "test_helpers": "",
+    "usage": "",
+    "cost": ""
+  },
+  {
+    "id": "affine_extrema",
+    "title": "affine 更新 → 区間最小値・最大値",
+    "kind": "lazy",
+    "status": "コピー用",
+    "structure": "ACL lazy_segtree",
+    "api": "",
+    "state": "minimum, maximum と空フラグ。",
+    "action": "x←a*x+b。a<0 なら最小値と最大値が入れ替わる。",
+    "caveat": "順序のある数値型向け。modint には使えない。",
+    "note": "葉は {x,x,false}。F{a,b} で更新、答えは minimum,maximum。",
+    "keywords": "affine extrema negative 最小 最大 負 乗算 符号反転",
+    "problem_url": "",
+    "problem": "",
+    "code": "#include <algorithm>\nstruct S { long long minimum, maximum; bool empty; };\nstruct F { long long a, b; };\nS op(S x, S y) {\n    if (x.empty) return y;\n    if (y.empty) return x;\n    return {std::min(x.minimum,y.minimum), std::max(x.maximum,y.maximum), false};\n}\nS e() { return {0, 0, true}; }\nS mapping(F f, S x) {\n    if (x.empty) return x;\n    long long a = f.a*x.minimum+f.b, b = f.a*x.maximum+f.b;\n    return {std::min(a,b), std::max(a,b), false};\n}\nF composition(F f, F g) { return {f.a*g.a, f.a*g.b+f.b}; }\nF id() { return {1, 0}; }",
+    "test_helpers": "",
+    "usage": "",
+    "cost": ""
+  },
+  {
+    "id": "binary_assign_flip",
+    "title": "0/1 代入・反転 → 1 の個数",
+    "kind": "lazy",
+    "status": "コピー用",
+    "structure": "ACL lazy_segtree",
+    "api": "",
+    "state": "ones,len。F は 0 と 1 の移り先。",
+    "action": "二値上の全4関数を持てば、代入と反転を同じ作用として合成できる。",
+    "caveat": "初期値は 0/1。空区間の ones は 0。",
+    "note": "葉は {bit,1}。代入0={false,false}、代入1={true,true}、反転={true,false}。答えは ones。",
+    "keywords": "binary assign flip count 二値 代入 反転 個数",
+    "problem_url": "",
+    "problem": "",
+    "code": "struct S { long long ones, len; };\nstruct F { bool zero, one; };\nS op(S x, S y) { return {x.ones+y.ones, x.len+y.len}; }\nS e() { return {0, 0}; }\nS mapping(F f, S x) {\n    return {(f.zero ? x.len-x.ones : 0) + (f.one ? x.ones : 0), x.len};\n}\nF composition(F f, F g) {\n    return {g.zero ? f.one : f.zero, g.one ? f.one : f.zero};\n}\nF id() { return {false, true}; }",
+    "test_helpers": "",
+    "usage": "",
+    "cost": ""
+  },
+  {
+    "id": "digit_assign",
+    "title": "数字の区間代入 → 十進数としての値",
+    "kind": "lazy",
+    "status": "コピー用",
+    "structure": "ACL lazy_segtree",
+    "api": "",
+    "state": "value, power=10^len, repunit=11…1, len。",
+    "action": "連結は left.value*right.power+right.value。代入は digit*repunit。",
+    "caveat": "答えは mod 998244353。先頭の 0 も一桁として残る。代入値は 0〜9。",
+    "note": "数字 d の葉は {d,10,1,1}。F{d} で代入、答えは value.val()。",
+    "keywords": "decimal concatenate digit assign 十進数 数字 連結 代入",
+    "problem_url": "",
+    "problem": "",
+    "code": "#include <atcoder/modint>\n#include <optional>\nusing T = atcoder::modint998244353;\nstruct S { T value, power, repunit; int len; };\nusing F = std::optional<int>;\nS op(S x, S y) {\n    return {x.value*y.power+y.value, x.power*y.power,\n            x.repunit*y.power+y.repunit, x.len+y.len};\n}\nS e() { return {0, 1, 0, 0}; }\nS mapping(F f, S x) { if (f) x.value = *f*x.repunit; return x; }\nF composition(F f, F g) { return f ? f : g; }\nF id() { return std::nullopt; }",
+    "test_helpers": "S leaf(int digit) { return {digit, 10, 1, 1}; }",
+    "usage": "",
+    "cost": ""
+  },
+  {
+    "id": "weighted_add",
+    "title": "区間加算 → 固定重み付き和",
+    "kind": "lazy",
+    "status": "コピー用",
+    "structure": "ACL lazy_segtree",
+    "api": "",
+    "state": "sum=Σw_i*x_i, weights=Σw_i。",
+    "action": "全要素へ d を足すと重み付き和は d*weights 増える。",
+    "caveat": "重みは固定。負の重みも使える。重み自体の更新には対応しない。",
+    "note": "値 x・重み w の葉は {w*x,w}。F は加算値、答えは sum。",
+    "keywords": "weighted sum range add 重み付き 和 加算",
+    "problem_url": "",
+    "problem": "",
+    "code": "struct S { long long sum, weights; };\nusing F = long long;\nS op(S x, S y) { return {x.sum+y.sum, x.weights+y.weights}; }\nS e() { return {0, 0}; }\nS mapping(F f, S x) { return {x.sum+f*x.weights, x.weights}; }\nF composition(F f, F g) { return f+g; }\nF id() { return 0; }",
+    "test_helpers": "S leaf(long long value, long long weight) { return {value*weight, weight}; }",
+    "usage": "",
+    "cost": ""
+  },
+  {
+    "id": "add_variation",
+    "title": "区間加算 → 隣接差の絶対値の和",
+    "kind": "lazy",
+    "status": "コピー用",
+    "structure": "ACL lazy_segtree",
+    "api": "",
+    "state": "first,last,variation=Σ|x_i−x_(i−1)| と空フラグ。",
+    "action": "区間全体への加算で内部の差は変わらない。結合時に境界の差を足す。",
+    "caveat": "隣接差、その絶対値、和が long long に収まること。",
+    "note": "葉は {x,x,0,false}。F は加算値、答えは variation。空・一要素では 0。",
+    "keywords": "range add variation adjacent absolute difference 隣接 差 絶対値 総変動",
+    "problem_url": "",
+    "problem": "",
+    "code": "#include <cstdlib>\nstruct S { long long first, last, variation; bool empty; };\nusing F = long long;\nS op(S x, S y) {\n    if (x.empty) return y;\n    if (y.empty) return x;\n    return {x.first, y.last, x.variation+y.variation+std::abs(y.first-x.last), false};\n}\nS e() { return {0, 0, 0, true}; }\nS mapping(F f, S x) {\n    if (!x.empty) { x.first += f; x.last += f; }\n    return x;\n}\nF composition(F f, F g) { return f+g; }\nF id() { return 0; }",
+    "test_helpers": "",
+    "usage": "",
+    "cost": ""
+  },
+  {
+    "id": "assign_maxsub",
+    "title": "区間代入 → 最大部分配列和",
+    "kind": "lazy",
+    "status": "コピー用",
+    "structure": "ACL lazy_segtree",
+    "api": "",
+    "state": "sum,prefix,suffix,best,len。",
+    "action": "区間を同じ値 x で埋めると、prefix,suffix,best は max(0,x*len)。",
+    "caveat": "空部分配列を許す。区間加算には対応しない。",
+    "note": "葉は {x,max(0LL,x),max(0LL,x),max(0LL,x),1}。F{x} で代入、答えは best。",
+    "keywords": "range assign maximum subarray 代入 最大部分和 最大部分配列和",
+    "problem_url": "",
+    "problem": "",
+    "code": "#include <algorithm>\n#include <optional>\nstruct S { long long sum, prefix, suffix, best, len; };\nusing F = std::optional<long long>;\nS op(S x, S y) {\n    return {x.sum+y.sum, std::max(x.prefix,x.sum+y.prefix),\n            std::max(y.suffix,y.sum+x.suffix),\n            std::max({x.best,y.best,x.suffix+y.prefix}), x.len+y.len};\n}\nS e() { return {0, 0, 0, 0, 0}; }\nS mapping(F f, S x) {\n    if (!f) return x;\n    long long sum = *f*x.len, best = std::max(0LL,sum);\n    return {sum, best, best, best, x.len};\n}\nF composition(F f, F g) { return f ? f : g; }\nF id() { return std::nullopt; }",
+    "test_helpers": "",
+    "usage": "",
+    "cost": ""
+  },
+  {
+    "id": "minplus",
+    "title": "局所コスト変更 → 2 状態 DP の最小コスト",
+    "kind": "segtree",
+    "status": "コピー用",
+    "structure": "ACL segtree",
+    "api": "",
+    "state": "S[to][from] に遷移コスト。到達不能は INF。",
+    "action": "行列積の加算を min、乗算を加算に置き換えて区間を合成。",
+    "caveat": "全ての有限な経路コストと中間和は (-INF,INF) 内に収める。INF 同士を加算しない。",
+    "note": "葉の [to][from] に一段の遷移コストを置く。始点 s・終点 t の答えは区間結果の [t][s]。",
+    "keywords": "minplus min-plus matrix DP transition 最小 コスト 動的計画法 行列 遷移",
+    "problem_url": "",
+    "problem": "",
+    "code": "#include <algorithm>\n#include <array>\nconstexpr long long INF = 4'000'000'000'000'000'000LL;\nusing S = std::array<std::array<long long, 2>, 2>;\nS op(S x, S y) {\n    S z{{{INF,INF},{INF,INF}}};\n    for (int i = 0; i < 2; ++i)\n        for (int j = 0; j < 2; ++j)\n            for (int k = 0; k < 2; ++k)\n                if (y[i][k] != INF && x[k][j] != INF)\n                    z[i][j] = std::min(z[i][j], y[i][k]+x[k][j]);\n    return z;\n}\nS e() { return {{{0,INF},{INF,0}}}; }",
+    "test_helpers": "",
+    "usage": "",
+    "cost": ""
+  },
+  {
+    "id": "min_count_add",
+    "title": "区間加算 → 最小値とその個数",
+    "kind": "lazy",
+    "status": "コピー用",
+    "structure": "ACL lazy_segtree",
+    "api": "",
+    "state": "minimum,count。同じ最小値なら個数を加算。",
+    "action": "区間加算では最小値だけ変わり、その個数は変わらない。",
+    "caveat": "空区間は count=0。空状態の minimum は答えとして扱わない。",
+    "note": "葉は {x,1}。F は加算値、答えは minimum,count。",
+    "keywords": "range add minimum count 最小値 個数 加算",
+    "problem_url": "",
+    "problem": "",
+    "code": "struct S { long long minimum, count; };\nusing F = long long;\nS op(S x, S y) {\n    if (!x.count) return y;\n    if (!y.count) return x;\n    if (x.minimum < y.minimum) return x;\n    if (y.minimum < x.minimum) return y;\n    return {x.minimum, x.count+y.count};\n}\nS e() { return {0, 0}; }\nS mapping(F f, S x) { if (x.count) x.minimum += f; return x; }\nF composition(F f, F g) { return f+g; }\nF id() { return 0; }",
+    "test_helpers": "",
+    "usage": "",
+    "cost": ""
   }
 ]
