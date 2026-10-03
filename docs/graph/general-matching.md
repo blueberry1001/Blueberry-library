@@ -7,7 +7,7 @@ documentation_of: //blueberry/graph/general-matching.hpp
 
 ## 概要・前提
 
-無向グラフの最大マッチングを求めます。奇数長の閉路を含むグラフにも使える、Edmondsのblossom法です。ACLには一般グラフの最大マッチングはありません。二部グラフでは、このライブラリの[HopcroftKarp](hopcroft-karp.md)を使うと計算量を抑えられます。
+無向グラフの最大マッチングを求めます。奇数長の閉路を含むグラフにも使える、Edmondsのblossom法です。ACLには一般グラフの最大マッチングはありません。二部グラフでは、このライブラリの[HopcroftKarp]({{ '/blueberry/graph/hopcroft-karp.hpp.html' | relative_url }})を使うと計算量を抑えられます。
 
 頂点数をN、入力辺数をMとします。自己ループは無視し、多重辺は1本にまとめます。正規化を含む最悪時間計算量はO(N³+M)、入力と返り値を除く補助メモリはO(N²)です。疎なグラフでも正規化にN×Nの作業配列を使います。Library CheckerのN≤500を主な利用規模として検証していますが、固定の頂点数上限は設けていません。
 

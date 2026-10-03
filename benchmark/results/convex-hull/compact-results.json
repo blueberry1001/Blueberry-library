@@ -1,0 +1,1528 @@
+{
+  "date": "2026-10-03T04:51:59.791005+00:00",
+  "prepared": {
+    "entries": [
+      {
+        "compiler": "g++",
+        "mode": "release",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DNDEBUG",
+          "/workspace/Blueberry-library/benchmark/results/convex-hull/compact-candidate.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/convex-hull/compact-g++-release"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary": "/workspace/Blueberry-library/.build/convex-hull/compact-g++-release",
+        "binary_sha256": "050c0a8eebe7256f09a09dd634a1ca1fde80f5c45c6cdf5c21f91bc64bd45e1b"
+      },
+      {
+        "compiler": "g++",
+        "mode": "assert",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/results/convex-hull/compact-candidate.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/convex-hull/compact-g++-assert"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary": "/workspace/Blueberry-library/.build/convex-hull/compact-g++-assert",
+        "binary_sha256": "8bb2d5b3ae331a1d1be8a63af1df4bf5dae80779880f42fe2658bf2367d64e42"
+      },
+      {
+        "compiler": "clang++",
+        "mode": "release",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DNDEBUG",
+          "/workspace/Blueberry-library/benchmark/results/convex-hull/compact-candidate.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/convex-hull/compact-clang++-release"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary": "/workspace/Blueberry-library/.build/convex-hull/compact-clang++-release",
+        "binary_sha256": "8775fb4666b17d82f6d0179277c4e57c97f395209eb14a426a5e9c0cab7a86c9"
+      },
+      {
+        "compiler": "clang++",
+        "mode": "assert",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/results/convex-hull/compact-candidate.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/convex-hull/compact-clang++-assert"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary": "/workspace/Blueberry-library/.build/convex-hull/compact-clang++-assert",
+        "binary_sha256": "c0b565dc7ce04619365e1a17b388722088d49770e11e7437ea991236d41287a6"
+      }
+    ],
+    "source_sha256": {
+      "benchmark/results/convex-hull/compact-candidate.cpp": "2dd5cfe2fa9bbb5feb09eff582f1624fa88f66e98915acb40192065c6d0093cb",
+      "blueberry/geometry/convex-hull.hpp": "cdc6aaa2c1cd1c913be5f3b0fe2864295e0677f82740419c08ed03bbd299859e"
+    }
+  },
+  "conditions": "Coordinated quiet CPU window after integration jobs stopped/completed. Five samples plus one warmup, alternating candidate order. Tiny inputs 500000 operations per sample; large inputs one call per sample. Includes input copy and result destruction. Header unchanged.",
+  "summary": [
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "all-same",
+      "variant": "compact",
+      "median_ns": 3476692.0,
+      "min_ns": 3260681.0,
+      "samples": [
+        3476692.0,
+        3710027.0,
+        3986235.0,
+        3460112.0,
+        3260681.0
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "all-same",
+      "variant": "guarded",
+      "median_ns": 3393829.0,
+      "min_ns": 3340709.0,
+      "samples": [
+        3753788.0,
+        3342205.0,
+        3393829.0,
+        3407630.0,
+        3340709.0
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "all-same",
+      "variant": "original",
+      "median_ns": 3421557.0,
+      "min_ns": 3338524.0,
+      "samples": [
+        3387703.0,
+        3688646.0,
+        3814793.0,
+        3421557.0,
+        3338524.0
+      ],
+      "size": 1,
+      "capacity": 200000
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "collinear",
+      "variant": "compact",
+      "median_ns": 4712720.0,
+      "min_ns": 4412591.0,
+      "samples": [
+        4712720.0,
+        4423702.0,
+        4739978.0,
+        4412591.0,
+        4746109.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "collinear",
+      "variant": "guarded",
+      "median_ns": 4546760.0,
+      "min_ns": 4453974.0,
+      "samples": [
+        4850124.0,
+        4453974.0,
+        4457702.0,
+        4546760.0,
+        4794859.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "collinear",
+      "variant": "original",
+      "median_ns": 4626155.0,
+      "min_ns": 4452354.0,
+      "samples": [
+        4452354.0,
+        4723116.0,
+        4626155.0,
+        4977185.0,
+        4558902.0
+      ],
+      "size": 2,
+      "capacity": 200001
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "empty",
+      "variant": "compact",
+      "median_ns": 11.974894,
+      "min_ns": 11.269624,
+      "samples": [
+        11.982368,
+        11.974894,
+        11.928018,
+        13.23919,
+        11.269624
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "empty",
+      "variant": "guarded",
+      "median_ns": 11.970046,
+      "min_ns": 11.392058,
+      "samples": [
+        11.406632,
+        11.970046,
+        11.998058,
+        12.177836,
+        11.392058
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "empty",
+      "variant": "original",
+      "median_ns": 10.829156,
+      "min_ns": 10.584754,
+      "samples": [
+        11.372824,
+        10.726282,
+        10.829156,
+        11.220992,
+        10.584754
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "random",
+      "variant": "compact",
+      "median_ns": 23594486.0,
+      "min_ns": 23248765.0,
+      "samples": [
+        23386988.0,
+        24395362.0,
+        23594486.0,
+        23248765.0,
+        24035511.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "random",
+      "variant": "guarded",
+      "median_ns": 23199563.0,
+      "min_ns": 23077444.0,
+      "samples": [
+        23616362.0,
+        23077444.0,
+        23199563.0,
+        23919770.0,
+        23130013.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "random",
+      "variant": "original",
+      "median_ns": 23328483.0,
+      "min_ns": 23068327.0,
+      "samples": [
+        23309226.0,
+        25159055.0,
+        23328483.0,
+        23446178.0,
+        23068327.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "singleton",
+      "variant": "compact",
+      "median_ns": 36.637624,
+      "min_ns": 36.408474,
+      "samples": [
+        36.637624,
+        36.408474,
+        37.064472,
+        36.457094,
+        37.75679
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "singleton",
+      "variant": "guarded",
+      "median_ns": 25.116926,
+      "min_ns": 24.623356,
+      "samples": [
+        25.116926,
+        24.842204,
+        24.623356,
+        29.548092,
+        26.122778
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "singleton",
+      "variant": "original",
+      "median_ns": 25.695162,
+      "min_ns": 24.128418,
+      "samples": [
+        24.128418,
+        25.695162,
+        25.461188,
+        26.311306,
+        27.729804
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "two",
+      "variant": "compact",
+      "median_ns": 42.659422,
+      "min_ns": 41.887128,
+      "samples": [
+        43.103604,
+        42.172022,
+        42.659422,
+        44.520292,
+        41.887128
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "two",
+      "variant": "guarded",
+      "median_ns": 26.991356,
+      "min_ns": 26.860292,
+      "samples": [
+        26.860292,
+        26.96821,
+        27.718094,
+        29.564854,
+        26.991356
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "two",
+      "variant": "original",
+      "median_ns": 27.205756,
+      "min_ns": 27.134038,
+      "samples": [
+        28.178834,
+        27.17423,
+        27.511098,
+        27.134038,
+        27.205756
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "two-unique",
+      "variant": "compact",
+      "median_ns": 3927475.0,
+      "min_ns": 3646812.0,
+      "samples": [
+        3646812.0,
+        3809690.0,
+        4050237.0,
+        3927475.0,
+        4000229.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "two-unique",
+      "variant": "guarded",
+      "median_ns": 3825492.0,
+      "min_ns": 3787843.0,
+      "samples": [
+        3787843.0,
+        4040768.0,
+        3825492.0,
+        3794192.0,
+        3883157.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "workload": "two-unique",
+      "variant": "original",
+      "median_ns": 3851906.0,
+      "min_ns": 3721017.0,
+      "samples": [
+        4419329.0,
+        3773146.0,
+        3721017.0,
+        3869409.0,
+        3851906.0
+      ],
+      "size": 2,
+      "capacity": 200000
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "all-same",
+      "variant": "compact",
+      "median_ns": 3279976.0,
+      "min_ns": 3101302.0,
+      "samples": [
+        3179995.0,
+        3101302.0,
+        3279976.0,
+        3490686.0,
+        3370465.0
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "all-same",
+      "variant": "guarded",
+      "median_ns": 3103517.0,
+      "min_ns": 2972173.0,
+      "samples": [
+        3178389.0,
+        3103517.0,
+        3351706.0,
+        2972173.0,
+        3089735.0
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "all-same",
+      "variant": "original",
+      "median_ns": 3006119.0,
+      "min_ns": 2899615.0,
+      "samples": [
+        2899615.0,
+        3006119.0,
+        3035491.0,
+        3037703.0,
+        2961356.0
+      ],
+      "size": 1,
+      "capacity": 200000
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "collinear",
+      "variant": "compact",
+      "median_ns": 4330942.0,
+      "min_ns": 4296362.0,
+      "samples": [
+        4296990.0,
+        4330942.0,
+        4296362.0,
+        4426030.0,
+        4391359.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "collinear",
+      "variant": "guarded",
+      "median_ns": 4270852.0,
+      "min_ns": 4261771.0,
+      "samples": [
+        4261852.0,
+        4261771.0,
+        4639441.0,
+        4466270.0,
+        4270852.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "collinear",
+      "variant": "original",
+      "median_ns": 4329759.0,
+      "min_ns": 4250369.0,
+      "samples": [
+        4250369.0,
+        4404368.0,
+        4254905.0,
+        4329759.0,
+        4435515.0
+      ],
+      "size": 2,
+      "capacity": 200001
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "empty",
+      "variant": "compact",
+      "median_ns": 11.817412,
+      "min_ns": 11.264114,
+      "samples": [
+        13.223152,
+        11.264114,
+        11.54808,
+        23.211336,
+        11.817412
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "empty",
+      "variant": "guarded",
+      "median_ns": 12.159646,
+      "min_ns": 11.467628,
+      "samples": [
+        11.963246,
+        11.467628,
+        43.50008,
+        20.206692,
+        12.159646
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "empty",
+      "variant": "original",
+      "median_ns": 11.068568,
+      "min_ns": 10.731384,
+      "samples": [
+        11.718284,
+        11.175598,
+        10.731384,
+        10.758602,
+        11.068568
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "random",
+      "variant": "compact",
+      "median_ns": 23404520.0,
+      "min_ns": 23182660.0,
+      "samples": [
+        23404520.0,
+        23868778.0,
+        23361427.0,
+        23182660.0,
+        23423385.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "random",
+      "variant": "guarded",
+      "median_ns": 23525185.0,
+      "min_ns": 22914059.0,
+      "samples": [
+        22914059.0,
+        23782842.0,
+        23525185.0,
+        28864768.0,
+        23192241.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "random",
+      "variant": "original",
+      "median_ns": 23284959.0,
+      "min_ns": 22579626.0,
+      "samples": [
+        23297001.0,
+        22873276.0,
+        22579626.0,
+        23302414.0,
+        23284959.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "singleton",
+      "variant": "compact",
+      "median_ns": 35.755012,
+      "min_ns": 34.975176,
+      "samples": [
+        35.755012,
+        37.100642,
+        36.326044,
+        35.48085,
+        34.975176
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "singleton",
+      "variant": "guarded",
+      "median_ns": 24.56591,
+      "min_ns": 24.249148,
+      "samples": [
+        24.349648,
+        24.249148,
+        24.676588,
+        25.011724,
+        24.56591
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "singleton",
+      "variant": "original",
+      "median_ns": 24.558552,
+      "min_ns": 24.172822,
+      "samples": [
+        24.256742,
+        24.968366,
+        24.6337,
+        24.172822,
+        24.558552
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "two",
+      "variant": "compact",
+      "median_ns": 39.381932,
+      "min_ns": 38.903878,
+      "samples": [
+        39.193722,
+        40.227096,
+        38.903878,
+        39.381932,
+        40.380728
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "two",
+      "variant": "guarded",
+      "median_ns": 26.50487,
+      "min_ns": 25.961534,
+      "samples": [
+        26.694872,
+        27.841964,
+        25.961534,
+        26.039164,
+        26.50487
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "two",
+      "variant": "original",
+      "median_ns": 26.333662,
+      "min_ns": 25.089972,
+      "samples": [
+        25.089972,
+        26.740564,
+        26.44352,
+        25.791202,
+        26.333662
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "two-unique",
+      "variant": "compact",
+      "median_ns": 3408116.0,
+      "min_ns": 3287970.0,
+      "samples": [
+        3309770.0,
+        3408116.0,
+        3451949.0,
+        3547009.0,
+        3287970.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "two-unique",
+      "variant": "guarded",
+      "median_ns": 3482077.0,
+      "min_ns": 3310648.0,
+      "samples": [
+        3470827.0,
+        3482077.0,
+        3601816.0,
+        3566503.0,
+        3310648.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "workload": "two-unique",
+      "variant": "original",
+      "median_ns": 3414519.0,
+      "min_ns": 3302472.0,
+      "samples": [
+        3302472.0,
+        3458230.0,
+        3391933.0,
+        3488469.0,
+        3414519.0
+      ],
+      "size": 2,
+      "capacity": 200000
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "all-same",
+      "variant": "compact",
+      "median_ns": 4120650.0,
+      "min_ns": 3664116.0,
+      "samples": [
+        4120650.0,
+        3664116.0,
+        3848058.0,
+        4123857.0,
+        4471659.0
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "all-same",
+      "variant": "guarded",
+      "median_ns": 3541510.0,
+      "min_ns": 3057966.0,
+      "samples": [
+        3541510.0,
+        3576578.0,
+        3302391.0,
+        3633801.0,
+        3057966.0
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "all-same",
+      "variant": "original",
+      "median_ns": 3470210.0,
+      "min_ns": 3166389.0,
+      "samples": [
+        3166389.0,
+        3269066.0,
+        3659509.0,
+        3470210.0,
+        4759190.0
+      ],
+      "size": 1,
+      "capacity": 200000
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "collinear",
+      "variant": "compact",
+      "median_ns": 6312641.0,
+      "min_ns": 6184153.0,
+      "samples": [
+        6271389.0,
+        6450891.0,
+        6312641.0,
+        6184153.0,
+        6687922.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "collinear",
+      "variant": "guarded",
+      "median_ns": 6665023.0,
+      "min_ns": 6214107.0,
+      "samples": [
+        6885383.0,
+        6214107.0,
+        6485100.0,
+        6830236.0,
+        6665023.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "collinear",
+      "variant": "original",
+      "median_ns": 6414482.0,
+      "min_ns": 6137752.0,
+      "samples": [
+        6313545.0,
+        6461877.0,
+        6137752.0,
+        6414482.0,
+        6613180.0
+      ],
+      "size": 2,
+      "capacity": 200001
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "empty",
+      "variant": "compact",
+      "median_ns": 21.408088,
+      "min_ns": 14.277424,
+      "samples": [
+        25.548094,
+        14.277424,
+        27.187802,
+        21.408088,
+        19.126854
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "empty",
+      "variant": "guarded",
+      "median_ns": 29.725316,
+      "min_ns": 25.057532,
+      "samples": [
+        25.057532,
+        31.029212,
+        34.074098,
+        29.725316,
+        27.103704
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "empty",
+      "variant": "original",
+      "median_ns": 17.410478,
+      "min_ns": 13.075388,
+      "samples": [
+        29.697062,
+        13.075388,
+        14.450454,
+        22.038964,
+        17.410478
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "random",
+      "variant": "compact",
+      "median_ns": 24247925.0,
+      "min_ns": 23275641.0,
+      "samples": [
+        24303285.0,
+        23275641.0,
+        23851001.0,
+        25671055.0,
+        24247925.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "random",
+      "variant": "guarded",
+      "median_ns": 23653049.0,
+      "min_ns": 23214901.0,
+      "samples": [
+        23379477.0,
+        23936739.0,
+        23653049.0,
+        24246561.0,
+        23214901.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "random",
+      "variant": "original",
+      "median_ns": 25437353.0,
+      "min_ns": 23773467.0,
+      "samples": [
+        25069387.0,
+        26145835.0,
+        26230546.0,
+        25437353.0,
+        23773467.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "singleton",
+      "variant": "compact",
+      "median_ns": 56.425528,
+      "min_ns": 38.133814,
+      "samples": [
+        65.253382,
+        59.87909,
+        56.425528,
+        52.20292,
+        38.133814
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "singleton",
+      "variant": "guarded",
+      "median_ns": 46.213296,
+      "min_ns": 29.543518,
+      "samples": [
+        48.744556,
+        48.167458,
+        46.213296,
+        39.782938,
+        29.543518
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "singleton",
+      "variant": "original",
+      "median_ns": 38.975696,
+      "min_ns": 28.867722,
+      "samples": [
+        38.975696,
+        39.719908,
+        41.66799,
+        28.88656,
+        28.867722
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "two",
+      "variant": "compact",
+      "median_ns": 38.87522,
+      "min_ns": 38.074354,
+      "samples": [
+        38.074354,
+        42.75653,
+        38.578962,
+        38.879472,
+        38.87522
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "two",
+      "variant": "guarded",
+      "median_ns": 29.289188,
+      "min_ns": 28.980086,
+      "samples": [
+        29.885194,
+        33.499298,
+        29.078824,
+        29.289188,
+        28.980086
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "two",
+      "variant": "original",
+      "median_ns": 26.784034,
+      "min_ns": 26.539836,
+      "samples": [
+        26.784034,
+        26.6666,
+        26.799746,
+        26.539836,
+        34.838616
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "two-unique",
+      "variant": "compact",
+      "median_ns": 3584538.0,
+      "min_ns": 3509392.0,
+      "samples": [
+        3602972.0,
+        3600064.0,
+        3584538.0,
+        3509392.0,
+        3582245.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "two-unique",
+      "variant": "guarded",
+      "median_ns": 3762071.0,
+      "min_ns": 3540861.0,
+      "samples": [
+        3648033.0,
+        3830921.0,
+        3540861.0,
+        3865795.0,
+        3762071.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "workload": "two-unique",
+      "variant": "original",
+      "median_ns": 3599886.0,
+      "min_ns": 3555294.0,
+      "samples": [
+        3594164.0,
+        4102843.0,
+        3710387.0,
+        3599886.0,
+        3555294.0
+      ],
+      "size": 2,
+      "capacity": 200000
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "all-same",
+      "variant": "compact",
+      "median_ns": 4001722.0,
+      "min_ns": 3198567.0,
+      "samples": [
+        4558958.0,
+        3198567.0,
+        4631797.0,
+        4001722.0,
+        3218891.0
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "all-same",
+      "variant": "guarded",
+      "median_ns": 3817137.0,
+      "min_ns": 3296845.0,
+      "samples": [
+        4033031.0,
+        4000103.0,
+        3296845.0,
+        3371907.0,
+        3817137.0
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "all-same",
+      "variant": "original",
+      "median_ns": 4237361.0,
+      "min_ns": 3346956.0,
+      "samples": [
+        4641134.0,
+        4237361.0,
+        3346956.0,
+        3799571.0,
+        4770733.0
+      ],
+      "size": 1,
+      "capacity": 200000
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "collinear",
+      "variant": "compact",
+      "median_ns": 7454161.0,
+      "min_ns": 6601474.0,
+      "samples": [
+        7013107.0,
+        8589660.0,
+        6601474.0,
+        7454161.0,
+        8627454.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "collinear",
+      "variant": "guarded",
+      "median_ns": 8634352.0,
+      "min_ns": 6834834.0,
+      "samples": [
+        8908818.0,
+        6834834.0,
+        7470505.0,
+        8634352.0,
+        8688841.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "collinear",
+      "variant": "original",
+      "median_ns": 7167971.0,
+      "min_ns": 6329050.0,
+      "samples": [
+        6329050.0,
+        9056605.0,
+        8432676.0,
+        7167971.0,
+        6897488.0
+      ],
+      "size": 2,
+      "capacity": 200001
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "empty",
+      "variant": "compact",
+      "median_ns": 28.462478,
+      "min_ns": 20.445582,
+      "samples": [
+        37.212338,
+        24.608736,
+        31.1229,
+        20.445582,
+        28.462478
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "empty",
+      "variant": "guarded",
+      "median_ns": 30.357284,
+      "min_ns": 22.625494,
+      "samples": [
+        22.625494,
+        30.357284,
+        29.879456,
+        41.10293,
+        38.275802
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "empty",
+      "variant": "original",
+      "median_ns": 27.094466,
+      "min_ns": 17.641484,
+      "samples": [
+        31.581322,
+        23.706852,
+        27.094466,
+        17.641484,
+        29.225154
+      ],
+      "size": 0,
+      "capacity": 0
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "random",
+      "variant": "compact",
+      "median_ns": 36910062.0,
+      "min_ns": 24325487.0,
+      "samples": [
+        36910062.0,
+        37948879.0,
+        37993729.0,
+        24325487.0,
+        30112933.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "random",
+      "variant": "guarded",
+      "median_ns": 36210315.0,
+      "min_ns": 29060494.0,
+      "samples": [
+        38203149.0,
+        36210315.0,
+        38346056.0,
+        34491140.0,
+        29060494.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "random",
+      "variant": "original",
+      "median_ns": 32727582.0,
+      "min_ns": 23713354.0,
+      "samples": [
+        32727582.0,
+        38184197.0,
+        43263934.0,
+        23713354.0,
+        24345133.0
+      ],
+      "size": 34,
+      "capacity": 200001
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "singleton",
+      "variant": "compact",
+      "median_ns": 52.071932,
+      "min_ns": 46.314226,
+      "samples": [
+        46.314226,
+        51.802372,
+        53.143356,
+        62.509354,
+        52.071932
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "singleton",
+      "variant": "guarded",
+      "median_ns": 43.179526,
+      "min_ns": 29.039346,
+      "samples": [
+        29.039346,
+        34.675474,
+        43.390174,
+        48.679346,
+        43.179526
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "singleton",
+      "variant": "original",
+      "median_ns": 36.106638,
+      "min_ns": 32.438772,
+      "samples": [
+        36.106638,
+        33.835816,
+        42.303552,
+        32.438772,
+        40.385154
+      ],
+      "size": 1,
+      "capacity": 1
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "two",
+      "variant": "compact",
+      "median_ns": 39.270654,
+      "min_ns": 36.833978,
+      "samples": [
+        39.270654,
+        36.833978,
+        36.99451,
+        40.99682,
+        50.399932
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "two",
+      "variant": "guarded",
+      "median_ns": 29.474064,
+      "min_ns": 28.932816,
+      "samples": [
+        29.06647,
+        29.474064,
+        28.932816,
+        33.0696,
+        41.950532
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "two",
+      "variant": "original",
+      "median_ns": 29.20637,
+      "min_ns": 26.585046,
+      "samples": [
+        29.20637,
+        26.601292,
+        26.585046,
+        38.161326,
+        36.670846
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "two-unique",
+      "variant": "compact",
+      "median_ns": 5361066.0,
+      "min_ns": 4241107.0,
+      "samples": [
+        5512581.0,
+        5059921.0,
+        5367960.0,
+        5361066.0,
+        4241107.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "two-unique",
+      "variant": "guarded",
+      "median_ns": 4489305.0,
+      "min_ns": 4156811.0,
+      "samples": [
+        4443381.0,
+        4156811.0,
+        4547601.0,
+        4489305.0,
+        5018603.0
+      ],
+      "size": 2,
+      "capacity": 2
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "two-unique",
+      "variant": "original",
+      "median_ns": 4909927.0,
+      "min_ns": 4328417.0,
+      "samples": [
+        4328417.0,
+        4713349.0,
+        4909927.0,
+        4948201.0,
+        5646039.0
+      ],
+      "size": 2,
+      "capacity": 200000
+    }
+  ]
+}

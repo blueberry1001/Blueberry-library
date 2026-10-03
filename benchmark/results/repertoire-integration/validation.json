@@ -1,0 +1,705 @@
+{
+  "schema_version": 1,
+  "record_kind": "repertoire_integration_validation_evidence",
+  "recorded_at": "2026-10-03T05:55:57.396861+00:00",
+  "branch": "integration/repertoire-expansion",
+  "tested_revision": "294965b2c29ed247a737c7822cd3ecb2c15270b7",
+  "full_verified": false,
+  "overall_status": "blocked_on_official_aoj_dataset_access",
+  "publication_status": "local_only_no_push_remote_merge_or_deploy",
+  "header_sha256": {
+    "blueberry/graph/dominator-tree.hpp": "4f1c0081d915d708c375b5507215b7d3945f84ffd425ee4fb0baa3e2e68a9582",
+    "blueberry/graph/general-matching.hpp": "ccb0526c5323effe2723ca735e8d792a81bf0d5b18618e12de32eae2874ab460",
+    "blueberry/geometry/convex-hull.hpp": "cdc6aaa2c1cd1c913be5f3b0fe2864295e0677f82740419c08ed03bbd299859e"
+  },
+  "header_bytes_match_tested_commit": true,
+  "inventory": {
+    "catalog_libraries": 106,
+    "headers_including_umbrella": 107,
+    "verify_sources": 144,
+    "random_sources": 51,
+    "documentation_examples": 110
+  },
+  "environment": {
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "os": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "python": "3.12.14",
+    "tools": {
+      "online-judge-verify-helper": "5.6.0",
+      "online-judge-tools": "11.5.1",
+      "online-judge-api-client": "10.10.1"
+    },
+    "method": "oj-elapsed-log-v1",
+    "recorder_sha256": "943f6d2f19295a7ca9b2b67a840a06a6e8aed02429d82f9b6ddde1a394a7742c",
+    "jobs": 1,
+    "tle_seconds": 60
+  },
+  "compiler_matrix": {
+    "report": {
+      "path": ".verification/integrated/integration.json",
+      "sha256": "9dc0aa2c0f583248faabb1d27842b8d110f05907b46ff87a84d1a569435ac79b"
+    },
+    "stages": [
+      {
+        "name": "gpp-gnupp20",
+        "command": [
+          "make",
+          "check",
+          "CXX=g++",
+          "CXX_STANDARD=gnu++20",
+          "COMPILE_JOBS=3"
+        ],
+        "extra_env": {},
+        "exit_code": 0,
+        "seconds": 362.0890860557556,
+        "status": "passed",
+        "log": {
+          "path": ".verification/integrated/gpp-gnupp20.log",
+          "sha256": "a49e53315c0cd1fadef3b1bb2e10f6b94952ceba916afe50e94dfd1e93936273"
+        },
+        "counts": {
+          "headers": 107,
+          "verify_compilations": 144,
+          "random_runners_20_seeds": 51
+        }
+      },
+      {
+        "name": "gpp-gnupp20-release-headers",
+        "command": [
+          "make",
+          "include-test",
+          "CXX=g++",
+          "CXX_STANDARD=gnu++20",
+          "COMPILE_JOBS=3"
+        ],
+        "extra_env": {
+          "CXXFLAGS": "-DNDEBUG",
+          "CPPFLAGS": "-isystem .deps/ac-library"
+        },
+        "exit_code": 0,
+        "seconds": 17.514269590377808,
+        "status": "passed",
+        "log": {
+          "path": ".verification/integrated/gpp-gnupp20-release-headers.log",
+          "sha256": "28661423149f2bc62e3355fdec99417444cb0544438e00a6165be6a96e4e7ec6"
+        },
+        "counts": {
+          "headers": 107,
+          "verify_compilations": 0,
+          "random_runners_20_seeds": 0
+        }
+      },
+      {
+        "name": "gpp-gnupp23",
+        "command": [
+          "make",
+          "compile-test",
+          "random-test",
+          "CXX=g++",
+          "CXX_STANDARD=gnu++23",
+          "COMPILE_JOBS=3"
+        ],
+        "extra_env": {},
+        "exit_code": 0,
+        "seconds": 286.6622519493103,
+        "status": "passed",
+        "log": {
+          "path": ".verification/integrated/gpp-gnupp23.log",
+          "sha256": "889b2a0ff49ed89fd7201fb59cc4a97e12628fa686928308a3bf65814dca5dbe"
+        },
+        "counts": {
+          "headers": 107,
+          "verify_compilations": 144,
+          "random_runners_20_seeds": 51
+        }
+      },
+      {
+        "name": "gpp-gnupp23-release-headers",
+        "command": [
+          "make",
+          "include-test",
+          "CXX=g++",
+          "CXX_STANDARD=gnu++23",
+          "COMPILE_JOBS=3"
+        ],
+        "extra_env": {
+          "CXXFLAGS": "-DNDEBUG",
+          "CPPFLAGS": "-isystem .deps/ac-library"
+        },
+        "exit_code": 0,
+        "seconds": 17.619885206222534,
+        "status": "passed",
+        "log": {
+          "path": ".verification/integrated/gpp-gnupp23-release-headers.log",
+          "sha256": "954bbedf2b25b13825b7c26a1f9a0579c6e568dbab834fbabaadc8deb0e15d88"
+        },
+        "counts": {
+          "headers": 107,
+          "verify_compilations": 0,
+          "random_runners_20_seeds": 0
+        }
+      },
+      {
+        "name": "clangpp-gnupp20",
+        "command": [
+          "make",
+          "compile-test",
+          "random-test",
+          "CXX=clang++",
+          "CXX_STANDARD=gnu++20",
+          "COMPILE_JOBS=3"
+        ],
+        "extra_env": {},
+        "exit_code": 0,
+        "seconds": 246.1104612350464,
+        "status": "passed",
+        "log": {
+          "path": ".verification/integrated/clangpp-gnupp20.log",
+          "sha256": "b7febc2e62c8304d4c91a282b4891e8374d12bfb9f4bf64c7c8e3c5f61d21fca"
+        },
+        "counts": {
+          "headers": 107,
+          "verify_compilations": 144,
+          "random_runners_20_seeds": 51
+        }
+      },
+      {
+        "name": "clangpp-gnupp20-release-headers",
+        "command": [
+          "make",
+          "include-test",
+          "CXX=clang++",
+          "CXX_STANDARD=gnu++20",
+          "COMPILE_JOBS=3"
+        ],
+        "extra_env": {
+          "CXXFLAGS": "-DNDEBUG",
+          "CPPFLAGS": "-isystem .deps/ac-library"
+        },
+        "exit_code": 0,
+        "seconds": 20.436758518218994,
+        "status": "passed",
+        "log": {
+          "path": ".verification/integrated/clangpp-gnupp20-release-headers.log",
+          "sha256": "8ed50c73d1d54d1e208d5a574223cf8f5e88c4b075ee8c49efb39e410373cc71"
+        },
+        "counts": {
+          "headers": 107,
+          "verify_compilations": 0,
+          "random_runners_20_seeds": 0
+        }
+      },
+      {
+        "name": "clangpp-gnupp23",
+        "command": [
+          "make",
+          "compile-test",
+          "random-test",
+          "CXX=clang++",
+          "CXX_STANDARD=gnu++23",
+          "COMPILE_JOBS=3"
+        ],
+        "extra_env": {},
+        "exit_code": 0,
+        "seconds": 287.3549313545227,
+        "status": "passed",
+        "log": {
+          "path": ".verification/integrated/clangpp-gnupp23.log",
+          "sha256": "97d22096be6c5e60f8a37d1dcfa2c44a42a970cf45d5a0679436d061c054eab9"
+        },
+        "counts": {
+          "headers": 107,
+          "verify_compilations": 144,
+          "random_runners_20_seeds": 51
+        }
+      },
+      {
+        "name": "clangpp-gnupp23-release-headers",
+        "command": [
+          "make",
+          "include-test",
+          "CXX=clang++",
+          "CXX_STANDARD=gnu++23",
+          "COMPILE_JOBS=3"
+        ],
+        "extra_env": {
+          "CXXFLAGS": "-DNDEBUG",
+          "CPPFLAGS": "-isystem .deps/ac-library"
+        },
+        "exit_code": 0,
+        "seconds": 21.724138498306274,
+        "status": "passed",
+        "log": {
+          "path": ".verification/integrated/clangpp-gnupp23-release-headers.log",
+          "sha256": "3551bbb9eac7a06f3c14c50f58d48add0aac21600226d5099fe331533a79b7c8"
+        },
+        "counts": {
+          "headers": 107,
+          "verify_compilations": 0,
+          "random_runners_20_seeds": 0
+        }
+      }
+    ]
+  },
+  "unit_tests": {
+    "status": "passed",
+    "count": 97,
+    "evidence": {
+      "path": ".verification/integrated/gpp-gnupp20.log",
+      "sha256": "a49e53315c0cd1fadef3b1bb2e10f6b94952ceba916afe50e94dfd1e93936273"
+    }
+  },
+  "documentation_examples": {
+    "status": "passed",
+    "count": 110,
+    "compiler": "GCC 14.2 GNU C++20",
+    "evidence": {
+      "path": ".verification/integrated/gpp-gnupp20.log",
+      "sha256": "a49e53315c0cd1fadef3b1bb2e10f6b94952ceba916afe50e94dfd1e93936273"
+    }
+  },
+  "focused_official_checks": [
+    {
+      "path": "verify/graph/dominator-tree.test.cpp",
+      "environment_index": 0,
+      "status": "passed",
+      "repeat_count": 3,
+      "case_count": 13,
+      "compiler": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-pipe",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-D_GLIBCXX_ASSERTIONS"
+      ],
+      "verifier_sha256": "b9f88a61d3888214a66c5773ab098cd85f5163f058793c4d1817ccdce8408482",
+      "dataset_sha256": "37f949572b3a7676297752e68b7c0308d92f925f22c98f67f4cd86ed2b19eeb4",
+      "recorded_revision": "294965b2c29ed247a737c7822cd3ecb2c15270b7",
+      "generated_at": "2026-10-03T04:54:24.719644+00:00",
+      "report": {
+        "path": ".verification/integration-graph/official/current.json",
+        "sha256": "82d802f51babb8a4780710a2065371580f8418016069e0167978de45dfd8719c"
+      },
+      "raw_case_logs": [
+        {
+          "path": ".verification/integration-graph/official/run-57v8v_f1/6df907dd5b3e5180-0-1.json",
+          "sha256": "4976f162a407dcccfe165c30d1ab0dd65ff26759f3c75c3a84b98c8b4f339f1b"
+        },
+        {
+          "path": ".verification/integration-graph/official/run-57v8v_f1/6df907dd5b3e5180-0-2.json",
+          "sha256": "e8f6f0fa621434f5f18e1ad394e1b0ac1aeab0d38da98ea5a6d77158dbf60f81"
+        },
+        {
+          "path": ".verification/integration-graph/official/run-57v8v_f1/6df907dd5b3e5180-0-3.json",
+          "sha256": "141cea92aacd7f07ba865807a074709e001ca342366fc726ffa9ad05b6e48065"
+        }
+      ]
+    },
+    {
+      "path": "verify/graph/general-matching.test.cpp",
+      "environment_index": 0,
+      "status": "passed",
+      "repeat_count": 3,
+      "case_count": 12,
+      "compiler": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-pipe",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-D_GLIBCXX_ASSERTIONS"
+      ],
+      "verifier_sha256": "d06d870e74e144ba89929070d5cfbf7c88288f49598294693964a7dae8ac3eb8",
+      "dataset_sha256": "967f20b945a72d376c4edb3a7a7c762a29c7d9dfa311219cae9e51e7c80abb4e",
+      "recorded_revision": "294965b2c29ed247a737c7822cd3ecb2c15270b7",
+      "generated_at": "2026-10-03T04:54:24.719644+00:00",
+      "report": {
+        "path": ".verification/integration-graph/official/current.json",
+        "sha256": "82d802f51babb8a4780710a2065371580f8418016069e0167978de45dfd8719c"
+      },
+      "raw_case_logs": [
+        {
+          "path": ".verification/integration-graph/official/run-57v8v_f1/7b17f96be2d02e03-0-1.json",
+          "sha256": "a023596e9925a386595730f195f68b08726890d0084aef8c821f4756aec07d0d"
+        },
+        {
+          "path": ".verification/integration-graph/official/run-57v8v_f1/7b17f96be2d02e03-0-2.json",
+          "sha256": "4d14782d054edebd72716f64c83301f63040c8eeb6ca582002685226f35f0206"
+        },
+        {
+          "path": ".verification/integration-graph/official/run-57v8v_f1/7b17f96be2d02e03-0-3.json",
+          "sha256": "554ab482b675cc3e4e997274273408b42931d78e0925403470a1e61b5126a311"
+        }
+      ]
+    },
+    {
+      "path": "verify/geometry/static-convex-hull.test.cpp",
+      "environment_index": 0,
+      "status": "passed",
+      "repeat_count": 3,
+      "case_count": 25,
+      "compiler": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-pipe",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-D_GLIBCXX_ASSERTIONS"
+      ],
+      "verifier_sha256": "15bb67572c539ac294aa795afdd96de06756fc60a65e89da2dccef21015fa9d0",
+      "dataset_sha256": "11ba22446995bc531b062883a1f9acef85654a1d02cd2d13fa8885369b4af694",
+      "recorded_revision": "22784da0bad55f734e98c853c92bd9350f3ab4bd",
+      "generated_at": "2026-10-03T04:39:24.416114+00:00",
+      "report": {
+        "path": ".verification/convex-hull/official-retry/current.json",
+        "sha256": "6e8cbea283598a8030ba20d8976bd2b59eb54ff4aef19042be802b99317efb0d"
+      },
+      "raw_case_logs": [
+        {
+          "path": ".verification/convex-hull/official-retry/run-_gwi7_k6/0e8b733753f6b6de-0-1.json",
+          "sha256": "f36b1914b42fb3c5db833b57fe8ba2169647289575ea1dc9fe70cd075c1b767a"
+        },
+        {
+          "path": ".verification/convex-hull/official-retry/run-_gwi7_k6/0e8b733753f6b6de-0-2.json",
+          "sha256": "d147202c7bcbb4afcded768283e7d01dbc86bd70ac306c68f55d59091be97400"
+        },
+        {
+          "path": ".verification/convex-hull/official-retry/run-_gwi7_k6/0e8b733753f6b6de-0-3.json",
+          "sha256": "1592eb5b61be29cf11b20a444ca18d8a8ddaf72ce5bbd11b49b6c4fc97e043b7"
+        }
+      ],
+      "revision_context": "Executed with the convex-hull addition uncommitted atop 22784da; this earlier report is not relabeled as the integrated revision. The verifier bytes match the integrated source; the integrated full attempt also passed this driver."
+    }
+  ],
+  "sanitizers": [
+    {
+      "name": "dominator-tree-clangpp-gnupp20-asan-ubsan",
+      "revision": "294965b2c29ed247a737c7822cd3ecb2c15270b7",
+      "source_sha256": "9bf583183dca3863e351a3077a0750fbb3de25ecb6ff4ea3b3d8f87d34963cae",
+      "header_sha256": "4f1c0081d915d708c375b5507215b7d3945f84ffd425ee4fb0baa3e2e68a9582",
+      "seeds": [
+        20261003
+      ],
+      "status": "passed",
+      "elapsed_seconds": 0.866,
+      "commands": [
+        [
+          "clang++",
+          "-std=gnu++20",
+          "-O1",
+          "-pipe",
+          "-Wall",
+          "-Wextra",
+          "-Wshadow",
+          "-Werror",
+          "-I.",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "tests/random/dominator-tree.cpp",
+          "-o",
+          "/tmp/blueberry-integration-dominator-tree-clangpp-gnupp20-asan-ubsan"
+        ],
+        [
+          "/tmp/blueberry-integration-dominator-tree-clangpp-gnupp20-asan-ubsan",
+          "20261003"
+        ]
+      ],
+      "result_source": {
+        "path": ".verification/integration-graph/focused-results.json",
+        "sha256": "d1944b2c7571d3167d3198ba86c7c888bdb3470aeb7443c3cc61505c9abeab84"
+      },
+      "log": {
+        "path": ".verification/integration-graph/dominator-tree-clangpp-gnupp20-asan-ubsan.log",
+        "sha256": "0bbbb0551ca14b9562a7e69c6f3ed28078f041bed0a41d2f3143da7768493e97"
+      }
+    },
+    {
+      "name": "general-matching-clangpp-gnupp20-asan-ubsan",
+      "revision": "294965b2c29ed247a737c7822cd3ecb2c15270b7",
+      "source_sha256": "9590711bd2596bde08e54a925ba97d2e9a5cce4030c875f1a230023bb3179f60",
+      "header_sha256": "ccb0526c5323effe2723ca735e8d792a81bf0d5b18618e12de32eae2874ab460",
+      "seeds": [
+        20261003
+      ],
+      "status": "passed",
+      "elapsed_seconds": 0.516,
+      "commands": [
+        [
+          "clang++",
+          "-std=gnu++20",
+          "-O1",
+          "-pipe",
+          "-Wall",
+          "-Wextra",
+          "-Wshadow",
+          "-Werror",
+          "-I.",
+          "-g",
+          "-fsanitize=address,undefined",
+          "-fno-sanitize-recover=all",
+          "-fno-omit-frame-pointer",
+          "tests/random/general-matching.cpp",
+          "-o",
+          "/tmp/blueberry-integration-general-matching-clangpp-gnupp20-asan-ubsan"
+        ],
+        [
+          "/tmp/blueberry-integration-general-matching-clangpp-gnupp20-asan-ubsan",
+          "20261003"
+        ]
+      ],
+      "result_source": {
+        "path": ".verification/integration-graph/focused-results.json",
+        "sha256": "d1944b2c7571d3167d3198ba86c7c888bdb3470aeb7443c3cc61505c9abeab84"
+      },
+      "log": {
+        "path": ".verification/integration-graph/general-matching-clangpp-gnupp20-asan-ubsan.log",
+        "sha256": "0283c2e273aa5c12d29bc1705e9ec10e336c2f2bb744a48d144079b747aac3db"
+      }
+    },
+    {
+      "name": "convex-hull-clangpp-gnupp23-asan-ubsan",
+      "status": "passed",
+      "revision": "294965b2c29ed247a737c7822cd3ecb2c15270b7",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-I.",
+        "tests/random/convex-hull.cpp",
+        "-o",
+        ".verification/convex-hull/sanitizer-final/random"
+      ],
+      "source_sha256": "350871648651e3242c870aba1f20eee94531896d6e1541e403db96d3de80f98e",
+      "header_sha256": "cdc6aaa2c1cd1c913be5f3b0fe2864295e0677f82740419c08ed03bbd299859e",
+      "compiler": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+      "seed": 20261003,
+      "compile_exit_code": 0,
+      "run_exit_code": 0,
+      "run_seconds": 0.4012435429999641,
+      "result_source": {
+        "path": ".verification/convex-hull/sanitizer-final/result.json",
+        "sha256": "6dc4e99bc7701de9a8d3bf3955e81002f2bf841a3592e204df35dc0a49c13bed"
+      },
+      "compile_log": {
+        "path": ".verification/convex-hull/sanitizer-final/compile.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "run_log": {
+        "path": ".verification/convex-hull/sanitizer-final/run.log",
+        "sha256": "1ba439c9d901a2359e32de5b4680d7a72ee9baf7f504463d895450bc40cfb521"
+      }
+    }
+  ],
+  "full_official_attempt": {
+    "command": [
+      "make",
+      "verify",
+      "VERIFY_REPEATS=1"
+    ],
+    "exit_code": 2,
+    "succeeded": false,
+    "repeat_count": 1,
+    "status_counts": {
+      "passed": 142,
+      "failed": 2
+    },
+    "total_targets": 144,
+    "generated_at": "2026-10-03T04:54:40.116458+00:00",
+    "revision": "294965b2c29ed247a737c7822cd3ecb2c15270b7",
+    "report": {
+      "path": ".verification/integration-graph/full-attempt/current.json",
+      "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab"
+    },
+    "markdown_report": {
+      "path": ".verification/integration-graph/full-attempt/report.md",
+      "sha256": "12438a1c833f429685ed67f9c2ecce5c1b2e8990e28dd4d23aeed5c1dd7a3872"
+    },
+    "attempt_record": {
+      "path": ".verification/integration-graph/full-attempt/attempt.json",
+      "sha256": "c0127fc9c76a70f2e3c65b761df916bdb1318bcb3020372b79ef50ccc097c871"
+    },
+    "log": {
+      "path": ".verification/integration-graph/full-verify.log",
+      "sha256": "ff7ff1826af560b63f691ca2f1c3fb20ed9d0b5735bfda908d80e62edf346a6b"
+    },
+    "source_snapshot_entries": 253,
+    "source_snapshot_sha256": "7069d1cc427176ae8f8750546274f9d9e74bc71242513d9b0d06cba8188fb3f1",
+    "source_snapshot_matches_current_and_commit": true,
+    "unresolved_rows": [
+      {
+        "path": "verify/math/lcm-convolution.test.cpp",
+        "environment_index": 0,
+        "status": "failed",
+        "verify_wall_seconds": 2.7658448329993917,
+        "delta_percent": null,
+        "comparison": "未完了 / 失敗"
+      },
+      {
+        "path": "verify/string/kmp-search.test.cpp",
+        "environment_index": 0,
+        "status": "failed",
+        "verify_wall_seconds": 2.317051239999273,
+        "delta_percent": null,
+        "comparison": "未完了 / 失敗"
+      }
+    ],
+    "failures": {
+      "verify/math/lcm-convolution.test.cpp": "Library Checker repository git pull returned HTTP 503 before compilation/tests.",
+      "verify/string/kmp-search.test.cpp": "AOJ judgedat.u-aizu.ac.jp testcase header retrieval failed with proxy tunnel 403 before compilation/tests."
+    }
+  },
+  "lcm_official_retry": {
+    "exit_code": 0,
+    "exit_code_provenance": "Actual successful retry process exit reported by the integrating parent; current.json independently records succeeded:true.",
+    "succeeded": true,
+    "revision": "294965b2c29ed247a737c7822cd3ecb2c15270b7",
+    "generated_at": "2026-10-03T05:49:27.135707+00:00",
+    "same_recorded_environment_as_full_attempt": true,
+    "report": {
+      "path": ".verification/integration-graph/retry-lcm/current.json",
+      "sha256": "c9f4345a4aac8acf76dd12906c9ca5aac63bb83b172e0259c2d261bb8b8c18d1"
+    },
+    "log": {
+      "path": ".verification/integration-graph/retry-lcm.log",
+      "sha256": "c6753f0f31fcd6fe6b6870861b1d20a5f13f8e6759dd6f6915a32982625092fe"
+    },
+    "result": {
+      "path": "verify/math/lcm-convolution.test.cpp",
+      "environment_index": 0,
+      "status": "passed",
+      "case_count": 29,
+      "repeat_count": 1,
+      "compiler": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-pipe",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-D_GLIBCXX_ASSERTIONS"
+      ],
+      "verifier_sha256": "7fe9cdff6c689b3a75a9a64d87f1e8a5197d25e2f722d4bb0de4fb5d03fd4ea7",
+      "dataset_sha256": "eba4dd47a4e7e18c56f3f3e3758f734dae1f419ec3c89ee0ccfb2550263f932f"
+    },
+    "raw_case_logs": [
+      {
+        "path": ".verification/integration-graph/retry-lcm/run-g_cilm14/2a4ce6f5dfcabe84-0-1.json",
+        "sha256": "c15ce33869bdac7e6b750298e98ea5e94c8fc46e84f216b393f54e3145cf9df9"
+      }
+    ]
+  },
+  "combined_coverage": {
+    "passed_targets": 143,
+    "total_targets": 144,
+    "unresolved_targets": [
+      "verify/string/kmp-search.test.cpp"
+    ],
+    "basis": "Union of the 142 passed original target rows and the one successful LCM retry; original full attempt remains failed.",
+    "promoted_to_successful_full_report": false,
+    "measurements_pooled_or_rewritten": false
+  },
+  "blocker": {
+    "path": "verify/string/kmp-search.test.cpp",
+    "problem_url": "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_14_B",
+    "failed_dataset_url": "https://judgedat.u-aizu.ac.jp/testcases/ALDS1_14_B/header",
+    "error": "Tunnel connection failed: 403 Forbidden",
+    "stage": "official testcase retrieval before compile/tests",
+    "official_verification_completed": false,
+    "resolution_required": "Recover the complete official AOJ dataset from an authorized official source, then run this unchanged verifier with the same revision/compiler/configuration.",
+    "evidence": {
+      "path": ".verification/integration-graph/full-verify.log",
+      "sha256": "ff7ff1826af560b63f691ca2f1c3fb20ed9d0b5735bfda908d80e62edf346a6b"
+    }
+  },
+  "documentation": {
+    "report": {
+      "path": ".verification/integrated/documentation.json",
+      "sha256": "946fd343f61a2be40f71470f1e355df04d6e2ae9c5f3b30142ed6fe0e2298211"
+    },
+    "stages": [
+      {
+        "stage": "make docs",
+        "command": [
+          "make",
+          "docs"
+        ],
+        "exit_code": 2,
+        "log": {
+          "path": ".verification/integrated/docs.log",
+          "sha256": "9777187369a19ac767385164aaf1e3b94b8c39cf7be3bc12a07f54ab3596cc10"
+        },
+        "status": "failed",
+        "generation_completed": true,
+        "failed_stage": "scripts/publish_metrics.py",
+        "reason": "Publication validator correctly rejected the failed original full verification report."
+      },
+      {
+        "stage": "jekyll without metrics",
+        "command": [
+          "jekyll",
+          "build",
+          "--source",
+          ".verify-helper/markdown",
+          "--destination",
+          ".build/site",
+          "--config",
+          ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+        ],
+        "exit_code": 0,
+        "stale_generated_metrics_removed": [],
+        "log": {
+          "path": ".verification/integrated/jekyll.log",
+          "sha256": "16062da621388b716da738826132fbd7996e0458bc6b813756518eef740a8622"
+        },
+        "status": "passed_without_metrics"
+      },
+      {
+        "stage": "site preflight without metrics",
+        "command": [
+          "python3",
+          "scripts/check_site.py",
+          "--without-metrics"
+        ],
+        "exit_code": 0,
+        "log": {
+          "path": ".verification/integrated/site-preflight.log",
+          "sha256": "3acc26efadb6be979b07d5aaf39229010099d777c2d399c696e8bab5e2a2ac92"
+        },
+        "status": "passed_without_metrics"
+      }
+    ],
+    "site_verified_with_metrics": false,
+    "site_preflight_without_metrics_passed": true,
+    "categories_checked": 7,
+    "api_pages_checked": 106,
+    "metrics_publication_succeeded": false
+  },
+  "evidence_notes": [
+    "Raw reports and logs are retained as local .verification artifacts; SHA-256 references identify their exact bytes.",
+    "This file is an evidence summary, not a schema-1 publication report, and cannot promote the incomplete official suite to full success.",
+    "Focused three-repeat runs remain distinct from the integrated one-repeat full attempt and LCM retry.",
+    "The initial convex official attempt failed during setup; its separate successful official-retry report is referenced above.",
+    "No aggregate assembler was executed or published."
+  ],
+  "source_identity": {
+    "evidence": {
+      "path": ".verification/integrated/source-identity.json",
+      "sha256": "3f7c1629c7ab39f203beb5d6061b3947f1ebf4c3dacba60a8a8683a7fb54c6f2"
+    },
+    "verification_method": "Current source bytes compared directly with tested-revision HEAD blobs, rather than relying only on git status.",
+    "file_count": 318
+  }
+}

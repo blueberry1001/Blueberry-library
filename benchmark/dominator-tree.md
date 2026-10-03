@@ -47,6 +47,11 @@ The runner generates a temporary variant of our own implementation with nested
 predecessor and bucket vectors. DFS, compression, API, input generation, and the
 dominator algorithm remain the same. The selected implementation stores incoming
 edges in CSR and stores each bucket as an intrusive list in two integer arrays.
+Processing order also differs: the nested-vector variant collects predecessors
+in original vertex-ID order and processes buckets in insertion order; the flat
+variant collects predecessors in DFS order and processes buckets in reverse
+insertion order. The timings compare these complete variants and do not isolate
+the effect of storage layout from the effect of processing order.
 No fixed problem limit, ISA requirement, or restricted query order is introduced.
 
 Each configuration uses C++20 and `-O2`, GCC 13.3 or Clang 18.1, with assertions

@@ -126,9 +126,9 @@ deduplicated input retains its original N-element capacity, whereas the
 independent buffer candidate returns a compact copy for one/two unique
 points. This does not establish that compacting is beneficial for tiny
 inputs, where an additional allocation can dominate the whole operation.
-The public header is unchanged pending the targeted evaluation below.
+The targeted evaluation below supports retaining the current public header.
 
-### Pending degenerate-result experiment
+### Degenerate-result experiment
 
 `benchmark/results/convex-hull/compact-candidate.cpp` and
 `compact-prepared.json` preserve a prepared follow-up without changing the
@@ -145,11 +145,45 @@ input copying and result destruction, so their values must be compared only
 within this follow-up, not directly against the earlier table. Correctness
 comparison against the unchanged header is built into the executable.
 
-Four GCC/Clang release/assertion binaries compiled successfully. **No
-follow-up timings or runtime checks have run at this checkpoint.** Integration
-with the now-available graph checkpoint takes priority; the compact-result
-decision remains pending a later coordinated quiet window. Initial timing
-and memory results above remain the evidence for the unchanged public header.
+Four GCC/Clang release/assertion binaries compiled successfully. After the
+graph checkpoint became available, integration checks paused for a second
+coordinated timing window. The prepared source/header/binary hashes matched;
+all built-in hull comparisons passed. `compact-raw.json` and
+`compact-results.json` preserve 420 measured samples, and
+`compact-quiet-processes.txt` records the process snapshot.
+
+Clang release medians (nanoseconds per complete call for the first three
+rows, milliseconds thereafter):
+
+| Input | Original | Compact | Guarded |
+| --- | ---: | ---: | ---: |
+| Empty, ns | 11.07 | 11.82 | 12.16 |
+| Singleton, ns | 24.56 | 35.76 | 24.57 |
+| Two points, ns | 26.33 | 39.38 | 26.50 |
+| All same, ms | 3.006 | 3.280 | 3.104 |
+| Two unique, ms | 3.415 | 3.408 | 3.482 |
+| Random, ms | 23.285 | 23.405 | 23.525 |
+| Collinear, ms | 4.330 | 4.331 | 4.271 |
+
+Unconditional compaction slowed singleton/two-point calls by about 34–50%
+on both release compilers; assertion-enabled measurements agreed in
+direction. Guarded compaction avoided the additional allocation for tiny
+exact-capacity inputs, but larger duplicate inputs had no consistent speed
+gain. It does reduce retained result capacity from 200,000 (all-same or
+two-unique) or 200,001 (collinear) to one/two elements. Both versions remain
+within the documented O(N) memory contract.
+
+The GCC release follow-up had substantial run-to-run variation despite local
+coordination: the original random case ranged from 23.7 to 43.3 ms. All
+samples are retained without filtering. The initial all-same advantage of
+the independent buffer implementation did not reproduce as a stable
+compaction benefit, so it is not used as a reason to change the header.
+
+**Decision: retain the existing header.** Reject unconditional
+compaction because the tiny-input regression is clear. Guarded compaction
+is a retained-capacity tradeoff rather than a demonstrated speed improvement;
+the additional branch/allocation is not adopted in this batch. Initial
+timing and memory results above remain applicable to the unchanged header.
 
 ## I/O and memory
 
@@ -210,3 +244,38 @@ handled by the integration task; benchmark agreement supplements those
 checks rather than replacing them. Current Fastest-source access is the
 remaining research limitation, and this report makes no fastest-submission
 claim.
+
+## Local integration validation
+
+The 2026-10-03 integration at `294965b2c29ed247a737c7822cd3ecb2c15270b7`
+joins this hull with dominator trees and general matching from the exact
+desktop checkpoint `4568d4d02d36a2d235ede82e869d3774f009ea8d`. Validation
+evidence and source hashes are recorded in
+`benchmark/results/repertoire-integration/validation.json`.
+
+GCC 14.2 and Clang 19.1.7, each with GNU C++20 and GNU C++23, passed all
+107 header checks, 144 verifier compilations, and 51 randomized programs on
+seeds 1–20. All four release-header configurations also passed. `make check`
+passed 97 unit tests and 110 executable documentation examples. The three new
+algorithms passed their official datasets three times each: convex hull 25
+cases, dominator tree 13 cases, and general matching 12 cases. Their focused
+AddressSanitizer/UndefinedBehaviorSanitizer checks passed as well.
+
+**The full verification gate remains incomplete.** The single-repeat
+`make verify` attempt exited with status 2: 142 targets passed, while two
+could not download official data. The LCM convolution failure was an HTTP 503
+during a Library Checker repository update; a separate retry passed all 29
+cases on the same source revision. Thus 143 of 144 targets have passing
+evidence across the preserved attempts. The unchanged KMP search verifier
+still lacks its official AOJ `ALDS1_14_B` cases because the official dataset
+hosts return proxy CONNECT 403. No solution test failed, but missing official
+coverage is not counted as a pass. The original failed report and retry stay
+separate, and the overall status remains incomplete.
+
+Documentation generation and the local Jekyll build completed. The site
+preflight passed for seven categories and 106 API pages with metrics omitted.
+The complete `make docs` command exited with status 2 because its metrics
+publication step correctly rejected the failed full-suite report. Full
+verification and the metrics-enabled site check require access to the AOJ
+official cases or a complete cache with official provenance. The planned
+furthest-pair batch remains pending this integration gate.
