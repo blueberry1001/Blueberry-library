@@ -29,7 +29,7 @@ uf.rollback(saved);
 | --- | --- |
 | Algebra | いろいろなモノイド（区間等差数列加算、affine・二乗和、反転・転倒数、最大部分配列、括弧列、関数合成、最大値と個数） |
 | Data Structure | Sparse Table / Disjoint Sparse Table / Sqrt Tree, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix / Weighted Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie / Persistent Binary Trie, Aggregate Queue / Deque, Persistent Queue, Static Range Distinct, Rectangle Union Area, Static Range Inversions, Static Range Mode |
-| Geometry | Convex Hull（整数座標、重複・共線対応、反時計回りの頂点列） |
+| Geometry | Convex Hull（整数座標、重複・共線対応、反時計回りの頂点列）, Furthest Pair（最遠点対の元の添字） |
 | Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, General Matching, Dominator Tree, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest, Rooted Tree Isomorphism, Clique Enumeration, Maximum Independent Set |
 | Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers, Multipoint Evaluation, Polynomial Interpolation, Sample Point Shift |
 | String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP, Count Subsequences, Longest Common Substring |
@@ -63,6 +63,7 @@ uf.rollback(saved);
 | 点加算・長方形内の重みの和 | [Offline Fenwick 2D](docs/data-structure/offline-fenwick-tree-2d.md): 座標登録 → `add`, `sum` |
 | 未知の更新点に対する点加算・長方形和 | [Dynamic Fenwick 2D](docs/data-structure/dynamic-fenwick-tree-2d.md): `add`, `pref`, `sum` |
 | 整数座標の点集合の凸包 | [Convex Hull](docs/geometry/convex-hull.md): `convex_hull(points)` |
+| 整数座標の点集合の最遠点対 | [Furthest Pair](docs/geometry/furthest-pair.md): `furthest_pair(points)` |
 | 巨大な添字の疎な配列 | [Dynamic Fenwick](docs/data-structure/dynamic-fenwick-tree.md): `add`, `sum`, `lower_bound` |
 | 非負重みの最短路・経路復元 | [Dijkstra](docs/graph/dijkstra.md): `dijkstra`, `path_to` |
 | 共通祖先・木の距離 | [LCA](docs/graph/lowest-common-ancestor.md): doubling / RMQ版を選択 |
