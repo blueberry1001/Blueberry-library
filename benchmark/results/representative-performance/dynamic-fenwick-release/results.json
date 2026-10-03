@@ -1,0 +1,853 @@
+{
+  "started_at": "2026-10-03T07:19:49.518102+00:00",
+  "finished_at": "2026-10-03T07:20:16.231766+00:00",
+  "baseline_commit": "ca8a4df35269a6980cf0b9612878e420744fc860",
+  "mode": "release",
+  "repeats": 5,
+  "warmups": 1,
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           46 bits physical, 57 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  5\nOn-line CPU(s) list:                     0-4\nVendor ID:                               GenuineIntel\nModel name:                              INTEL(R) XEON(R) PLATINUM 8573C\nCPU family:                              6\nModel:                                   207\nThread(s) per core:                      1\nCore(s) per socket:                      5\nSocket(s):                               1\nStepping:                                2\nBogoMIPS:                                4600.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 arat avx512vbmi umip waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid cldemote movdiri movdir64b fsrm serialize tsxldtrk avx512_fp16 arch_capabilities\nHypervisor vendor:                       KVM\nVirtualization type:                     full\nL1d cache:                               144 KiB (3 instances)\nL1i cache:                               96 KiB (3 instances)\nL2 cache:                                6 MiB (3 instances)\nL3 cache:                                260 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-4\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Vulnerable\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Vulnerable\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Vulnerable: __user pointer sanitization and usercopy barriers only; no swapgs barriers\nVulnerability Spectre v2:                Vulnerable; STIBP: disabled; PBRSB-eIBRS: Not affected; BHI: Vulnerable\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+  "summary": [
+    {
+      "family": "dynamic-fenwick",
+      "shape": "broad",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1306,
+          "min": 1217,
+          "max": 2302
+        },
+        "get_ns": {
+          "median": 237790592,
+          "min": 232246531,
+          "max": 270652612
+        },
+        "initialization_ns": {
+          "median": 69029698,
+          "min": 64824359,
+          "max": 76983557
+        },
+        "range_ns": {
+          "median": 38639590,
+          "min": 36124862,
+          "max": 40881207
+        },
+        "update_ns": {
+          "median": 128308718,
+          "min": 123714509,
+          "max": 160479844
+        }
+      },
+      "peak_rss_kib": 47112
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "broad",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1576,
+          "min": 1111,
+          "max": 1993
+        },
+        "get_ns": {
+          "median": 20051332,
+          "min": 19039606,
+          "max": 20847362
+        },
+        "initialization_ns": {
+          "median": 70555771,
+          "min": 66841332,
+          "max": 77277894
+        },
+        "range_ns": {
+          "median": 35179729,
+          "min": 34434474,
+          "max": 36400478
+        },
+        "update_ns": {
+          "median": 125386157,
+          "min": 119994998,
+          "max": 134184244
+        }
+      },
+      "peak_rss_kib": 47112
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "broad",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1761,
+          "min": 1192,
+          "max": 2733
+        },
+        "get_ns": {
+          "median": 219136239,
+          "min": 207910995,
+          "max": 224840014
+        },
+        "initialization_ns": {
+          "median": 71078240,
+          "min": 64158714,
+          "max": 74971278
+        },
+        "range_ns": {
+          "median": 37820566,
+          "min": 35494183,
+          "max": 49290429
+        },
+        "update_ns": {
+          "median": 132536456,
+          "min": 118369271,
+          "max": 156259305
+        }
+      },
+      "peak_rss_kib": 47112
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "broad",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1789,
+          "min": 1011,
+          "max": 2396
+        },
+        "get_ns": {
+          "median": 20824406,
+          "min": 20333460,
+          "max": 22170627
+        },
+        "initialization_ns": {
+          "median": 70948089,
+          "min": 63235871,
+          "max": 92301109
+        },
+        "range_ns": {
+          "median": 35543215,
+          "min": 34787378,
+          "max": 39679678
+        },
+        "update_ns": {
+          "median": 123834848,
+          "min": 119564429,
+          "max": 129036504
+        }
+      },
+      "peak_rss_kib": 47132
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "broad",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 2044,
+          "min": 1593,
+          "max": 2360
+        },
+        "get_ns": {
+          "median": 225177864,
+          "min": 224710286,
+          "max": 231889116
+        },
+        "initialization_ns": {
+          "median": 72923778,
+          "min": 68835504,
+          "max": 74924145
+        },
+        "range_ns": {
+          "median": 37329268,
+          "min": 36112475,
+          "max": 37492183
+        },
+        "update_ns": {
+          "median": 131772133,
+          "min": 129304981,
+          "max": 146106509
+        }
+      },
+      "peak_rss_kib": 47120
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "broad",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1922,
+          "min": 1162,
+          "max": 2521
+        },
+        "get_ns": {
+          "median": 21289604,
+          "min": 20929677,
+          "max": 22213387
+        },
+        "initialization_ns": {
+          "median": 71926172,
+          "min": 64870869,
+          "max": 75336803
+        },
+        "range_ns": {
+          "median": 37785428,
+          "min": 34022181,
+          "max": 39007556
+        },
+        "update_ns": {
+          "median": 129395176,
+          "min": 122003755,
+          "max": 134581730
+        }
+      },
+      "peak_rss_kib": 47112
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "broad",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1810,
+          "min": 1063,
+          "max": 2718
+        },
+        "get_ns": {
+          "median": 224909561,
+          "min": 222567585,
+          "max": 233434368
+        },
+        "initialization_ns": {
+          "median": 72884075,
+          "min": 71106568,
+          "max": 77387908
+        },
+        "range_ns": {
+          "median": 36849201,
+          "min": 35509117,
+          "max": 37424657
+        },
+        "update_ns": {
+          "median": 142340472,
+          "min": 135222798,
+          "max": 161832191
+        }
+      },
+      "peak_rss_kib": 47160
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "broad",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1969,
+          "min": 1600,
+          "max": 2439
+        },
+        "get_ns": {
+          "median": 20655114,
+          "min": 19875158,
+          "max": 22181622
+        },
+        "initialization_ns": {
+          "median": 70536744,
+          "min": 69292284,
+          "max": 99361387
+        },
+        "range_ns": {
+          "median": 35468891,
+          "min": 34257879,
+          "max": 64118263
+        },
+        "update_ns": {
+          "median": 132626662,
+          "min": 127530743,
+          "max": 140504226
+        }
+      },
+      "peak_rss_kib": 47112
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "hotspot",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1469,
+          "min": 1293,
+          "max": 1990
+        },
+        "get_ns": {
+          "median": 8770631,
+          "min": 8650796,
+          "max": 9354986
+        },
+        "initialization_ns": {
+          "median": 6108187,
+          "min": 5767987,
+          "max": 6794181
+        },
+        "range_ns": {
+          "median": 1076938,
+          "min": 1046164,
+          "max": 1279124
+        },
+        "update_ns": {
+          "median": 10095583,
+          "min": 9571092,
+          "max": 11141142
+        }
+      },
+      "peak_rss_kib": 4996
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "hotspot",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1239,
+          "min": 1228,
+          "max": 1615
+        },
+        "get_ns": {
+          "median": 2885206,
+          "min": 2815337,
+          "max": 2934145
+        },
+        "initialization_ns": {
+          "median": 6036777,
+          "min": 5736707,
+          "max": 6762146
+        },
+        "range_ns": {
+          "median": 1057153,
+          "min": 1041345,
+          "max": 1311914
+        },
+        "update_ns": {
+          "median": 9934402,
+          "min": 9595247,
+          "max": 10555366
+        }
+      },
+      "peak_rss_kib": 4996
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "hotspot",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1449,
+          "min": 1429,
+          "max": 1908
+        },
+        "get_ns": {
+          "median": 7482336,
+          "min": 7235168,
+          "max": 7797727
+        },
+        "initialization_ns": {
+          "median": 5286564,
+          "min": 4908876,
+          "max": 6333127
+        },
+        "range_ns": {
+          "median": 931462,
+          "min": 923308,
+          "max": 1396348
+        },
+        "update_ns": {
+          "median": 7798769,
+          "min": 7545548,
+          "max": 12739305
+        }
+      },
+      "peak_rss_kib": 4996
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "hotspot",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1351,
+          "min": 1260,
+          "max": 2070
+        },
+        "get_ns": {
+          "median": 2965788,
+          "min": 2957526,
+          "max": 3041655
+        },
+        "initialization_ns": {
+          "median": 5116053,
+          "min": 4879091,
+          "max": 6125060
+        },
+        "range_ns": {
+          "median": 917784,
+          "min": 913961,
+          "max": 984395
+        },
+        "update_ns": {
+          "median": 7847734,
+          "min": 7678582,
+          "max": 8211249
+        }
+      },
+      "peak_rss_kib": 4996
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "hotspot",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1118,
+          "min": 957,
+          "max": 1807
+        },
+        "get_ns": {
+          "median": 9452445,
+          "min": 8739020,
+          "max": 10477813
+        },
+        "initialization_ns": {
+          "median": 5982342,
+          "min": 5757120,
+          "max": 6926818
+        },
+        "range_ns": {
+          "median": 1090014,
+          "min": 1083621,
+          "max": 1560267
+        },
+        "update_ns": {
+          "median": 9936510,
+          "min": 9478745,
+          "max": 10185681
+        }
+      },
+      "peak_rss_kib": 4996
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "hotspot",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1143,
+          "min": 950,
+          "max": 1709
+        },
+        "get_ns": {
+          "median": 3061333,
+          "min": 2961982,
+          "max": 3464344
+        },
+        "initialization_ns": {
+          "median": 6335340,
+          "min": 5941651,
+          "max": 6975471
+        },
+        "range_ns": {
+          "median": 1134570,
+          "min": 1108890,
+          "max": 1289106
+        },
+        "update_ns": {
+          "median": 10392700,
+          "min": 9504240,
+          "max": 10618444
+        }
+      },
+      "peak_rss_kib": 4996
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "hotspot",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1413,
+          "min": 933,
+          "max": 1647
+        },
+        "get_ns": {
+          "median": 7815938,
+          "min": 7443134,
+          "max": 7991028
+        },
+        "initialization_ns": {
+          "median": 5219686,
+          "min": 4927927,
+          "max": 7577201
+        },
+        "range_ns": {
+          "median": 1120937,
+          "min": 975786,
+          "max": 1167153
+        },
+        "update_ns": {
+          "median": 8089631,
+          "min": 7814857,
+          "max": 9145724
+        }
+      },
+      "peak_rss_kib": 4996
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "hotspot",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1089,
+          "min": 975,
+          "max": 1464
+        },
+        "get_ns": {
+          "median": 3061070,
+          "min": 3025295,
+          "max": 3199495
+        },
+        "initialization_ns": {
+          "median": 5255358,
+          "min": 4863527,
+          "max": 6824277
+        },
+        "range_ns": {
+          "median": 982179,
+          "min": 965119,
+          "max": 1014843
+        },
+        "update_ns": {
+          "median": 8165575,
+          "min": 7707372,
+          "max": 10252299
+        }
+      },
+      "peak_rss_kib": 4996
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "boundary",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1133,
+          "min": 1052,
+          "max": 1534
+        },
+        "get_ns": {
+          "median": 34550065,
+          "min": 33399562,
+          "max": 36682547
+        },
+        "initialization_ns": {
+          "median": 5405186,
+          "min": 5169614,
+          "max": 6066346
+        },
+        "range_ns": {
+          "median": 6803938,
+          "min": 5919039,
+          "max": 7089713
+        },
+        "update_ns": {
+          "median": 8983183,
+          "min": 8520700,
+          "max": 10549359
+        }
+      },
+      "peak_rss_kib": 4740
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "boundary",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1296,
+          "min": 1047,
+          "max": 1745
+        },
+        "get_ns": {
+          "median": 12718759,
+          "min": 12249087,
+          "max": 13373199
+        },
+        "initialization_ns": {
+          "median": 5589070,
+          "min": 5187632,
+          "max": 6455629
+        },
+        "range_ns": {
+          "median": 6651108,
+          "min": 6181284,
+          "max": 7983824
+        },
+        "update_ns": {
+          "median": 9148417,
+          "min": 8590539,
+          "max": 9874099
+        }
+      },
+      "peak_rss_kib": 4740
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "boundary",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1355,
+          "min": 1165,
+          "max": 2007
+        },
+        "get_ns": {
+          "median": 26788944,
+          "min": 25561113,
+          "max": 26911148
+        },
+        "initialization_ns": {
+          "median": 4851200,
+          "min": 4515310,
+          "max": 5725082
+        },
+        "range_ns": {
+          "median": 4708470,
+          "min": 4608836,
+          "max": 4932713
+        },
+        "update_ns": {
+          "median": 7835759,
+          "min": 7302286,
+          "max": 8543587
+        }
+      },
+      "peak_rss_kib": 4788
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "boundary",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1707,
+          "min": 1430,
+          "max": 1912
+        },
+        "get_ns": {
+          "median": 10870438,
+          "min": 10460173,
+          "max": 11600444
+        },
+        "initialization_ns": {
+          "median": 4960045,
+          "min": 4883500,
+          "max": 5347872
+        },
+        "range_ns": {
+          "median": 5063094,
+          "min": 4991784,
+          "max": 5622880
+        },
+        "update_ns": {
+          "median": 7812696,
+          "min": 7592666,
+          "max": 8034634
+        }
+      },
+      "peak_rss_kib": 4740
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "boundary",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1596,
+          "min": 1306,
+          "max": 1760
+        },
+        "get_ns": {
+          "median": 36802871,
+          "min": 34940506,
+          "max": 39411619
+        },
+        "initialization_ns": {
+          "median": 5534189,
+          "min": 5449463,
+          "max": 7692286
+        },
+        "range_ns": {
+          "median": 6273176,
+          "min": 6152147,
+          "max": 7475911
+        },
+        "update_ns": {
+          "median": 9554135,
+          "min": 8767166,
+          "max": 11779893
+        }
+      },
+      "peak_rss_kib": 4740
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "boundary",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1451,
+          "min": 1123,
+          "max": 1711
+        },
+        "get_ns": {
+          "median": 13753162,
+          "min": 13462829,
+          "max": 15591769
+        },
+        "initialization_ns": {
+          "median": 5619813,
+          "min": 5546461,
+          "max": 9158980
+        },
+        "range_ns": {
+          "median": 6237217,
+          "min": 6188515,
+          "max": 6912362
+        },
+        "update_ns": {
+          "median": 10472966,
+          "min": 9133752,
+          "max": 11506751
+        }
+      },
+      "peak_rss_kib": 4740
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "boundary",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1345,
+          "min": 943,
+          "max": 1625
+        },
+        "get_ns": {
+          "median": 27300583,
+          "min": 25827988,
+          "max": 32063277
+        },
+        "initialization_ns": {
+          "median": 4795970,
+          "min": 4688585,
+          "max": 5709382
+        },
+        "range_ns": {
+          "median": 4661752,
+          "min": 4573728,
+          "max": 4960582
+        },
+        "update_ns": {
+          "median": 7927804,
+          "min": 7509562,
+          "max": 8415636
+        }
+      },
+      "peak_rss_kib": 4740
+    },
+    {
+      "family": "dynamic-fenwick",
+      "shape": "boundary",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1608,
+          "min": 1342,
+          "max": 2111
+        },
+        "get_ns": {
+          "median": 10905354,
+          "min": 10364151,
+          "max": 12277955
+        },
+        "initialization_ns": {
+          "median": 4817507,
+          "min": 4667846,
+          "max": 7822405
+        },
+        "range_ns": {
+          "median": 5133160,
+          "min": 4839840,
+          "max": 5818031
+        },
+        "update_ns": {
+          "median": 8374045,
+          "min": 7560592,
+          "max": 10776522
+        }
+      },
+      "peak_rss_kib": 4740
+    }
+  ],
+  "conditions": "Alternating compiler/implementation order, separate subprocess per profile. Input generation, correctness oracle, startup, output and destruction excluded; no I/O claim. Stage scopes in benchmark/results/representative-performance/plan.md. Linux process peak RSS includes inputs, runtime and every stage; not a live-allocation measure. Prepared inputs/binaries are hash checked. Shared-host activity can remain."
+}

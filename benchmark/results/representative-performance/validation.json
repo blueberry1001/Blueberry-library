@@ -1,0 +1,946 @@
+{
+  "created_at": "2026-10-03T07:30:01.534226+00:00",
+  "scope": "Benchmark-only local survey; no production integration or publication",
+  "baseline_commit": "ca8a4df35269a6980cf0b9612878e420744fc860",
+  "branch": "survey/representative-performance",
+  "production_headers_docs_tests_scripts_unchanged": true,
+  "active_experiments": {
+    "dense-assert": {
+      "prepared": "benchmark/results/representative-performance/dense-assert/prepared.json",
+      "timing_profiles": 144,
+      "warmups": 24,
+      "diagnostic_profiles": 0,
+      "final_correctness_profiles": 24
+    },
+    "dense-release": {
+      "prepared": "benchmark/results/representative-performance/dense-release/prepared.json",
+      "timing_profiles": 144,
+      "warmups": 24,
+      "diagnostic_profiles": 0,
+      "final_correctness_profiles": 24
+    },
+    "dynamic-fenwick-assert": {
+      "prepared": "benchmark/results/representative-performance/dynamic-fenwick-assert/prepared.json",
+      "timing_profiles": 144,
+      "warmups": 24,
+      "diagnostic_profiles": 12,
+      "final_correctness_profiles": 36
+    },
+    "dynamic-fenwick-release": {
+      "prepared": "benchmark/results/representative-performance/dynamic-fenwick-release/prepared.json",
+      "timing_profiles": 144,
+      "warmups": 24,
+      "diagnostic_profiles": 12,
+      "final_correctness_profiles": 36
+    },
+    "persistent-segment-assert": {
+      "prepared": "benchmark/results/representative-performance/persistent-segment-assert/prepared.json",
+      "timing_profiles": 144,
+      "warmups": 24,
+      "diagnostic_profiles": 12,
+      "final_correctness_profiles": 36
+    },
+    "persistent-segment-release": {
+      "prepared": "benchmark/results/representative-performance/persistent-segment-release/prepared.json",
+      "timing_profiles": 144,
+      "warmups": 24,
+      "diagnostic_profiles": 12,
+      "final_correctness_profiles": 36
+    }
+  },
+  "timings": {
+    "main_profiles": 864,
+    "main_warmups": 144,
+    "main_measured": 720,
+    "focused_profiles": 140,
+    "focused_warmups": 14,
+    "focused_measured": 126
+  },
+  "correctness": {
+    "final_current_runner_profiles": 192,
+    "preserved_pre_retention_profiles": 192,
+    "contract_checks": {
+      "dynamic-fenwick-results.json": {
+        "combinations": 6,
+        "checks_per_run": 27700
+      },
+      "persistent-segment-results.json": {
+        "combinations": 6,
+        "checks_per_run": 180010
+      }
+    },
+    "diagnostic_profiles": 48,
+    "medians_ranges_and_current_source_binary_hashes_recomputed": true
+  },
+  "blocked_full_official_gate": "Existing AOJ ALDS1_14_B proxy CONNECT403 remains; no new network attempt. Full make verify/publication not claimed.",
+  "unchanged_previous_archive": {
+    "path": "/workspace/artifacts/blueberry-static-tree-ca8a4df/Blueberry-library-static-tree-ca8a4df.tar.gz",
+    "sha256": "8c5fad6d72bfedf3d6a442f7a3bf0af76f16adb9b6d0d374f21024337e2e1a46"
+  },
+  "validation_limits": [
+    "No production headers changed; full make check and official datasets were not rerun for this benchmark-only batch.",
+    "Prior and current runner snapshots preserve preparation amendments; final current-runner correctness gates passed."
+  ],
+  "files": [
+    {
+      "path": "benchmark/representative-dense.hpp",
+      "bytes": 12817,
+      "sha256": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e"
+    },
+    {
+      "path": "benchmark/representative-performance-recheck.py",
+      "bytes": 4295,
+      "sha256": "93d48442ac495247ee9126f3e1dad26a0bcf5726bfd154581ca985982a006c2e"
+    },
+    {
+      "path": "benchmark/representative-performance-summary.py",
+      "bytes": 12395,
+      "sha256": "b02df618fcf2c4495cf2cb946b0104ab35edc8543d9c57148287e7ce572e1ff5"
+    },
+    {
+      "path": "benchmark/representative-performance.cpp",
+      "bytes": 11952,
+      "sha256": "15b3603680fd8fa451ec48f773ab421b4d2f89cd4d501832e73e9bbcebc7a469"
+    },
+    {
+      "path": "benchmark/representative-performance.py",
+      "bytes": 17049,
+      "sha256": "db0d0bce2b2de5fb29d6d5da05ec0bc04eb8b13e984af444ba2be6c960a28632"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/dynamic-fenwick-clang++-strict-baseline.log",
+      "bytes": 493,
+      "sha256": "5d78984810fdc88c7020c2c4351a196649545760e5b0d2cbed2f546556ef36bc"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/dynamic-fenwick-clang++-strict-candidate.log",
+      "bytes": 496,
+      "sha256": "7240e3495e83087e6d54d833b817cf9417bc29f03587a57810cbf800b40fc3ca"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/dynamic-fenwick-clang++-ubsan-baseline.log",
+      "bytes": 541,
+      "sha256": "f1d99fbed31aaf5aa9aca0a2ceb3b6bf04572db8c20fbe05f3491740250be0b8"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/dynamic-fenwick-clang++-ubsan-candidate.log",
+      "bytes": 544,
+      "sha256": "e970c2a8e544041fd0a59efd695573a1f532757ca4ee0223a4a62c4e56e273af"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/dynamic-fenwick-contract.cpp",
+      "bytes": 4195,
+      "sha256": "aaa6382b76319db5d5fd610c70e4db25f892de202f74fc0c918a4e14046ae175"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/dynamic-fenwick-g++-strict-baseline.log",
+      "bytes": 481,
+      "sha256": "1077863a9ca78c41d48db75cb78285165ee30f17e21b83eff2b3d3b10702d65e"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/dynamic-fenwick-g++-strict-candidate.log",
+      "bytes": 484,
+      "sha256": "6f9a982fa9bc43a61dadea60567a5087792aec2b038fa3f4cc51bbaad532e0a0"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/dynamic-fenwick-results.json",
+      "bytes": 9396,
+      "sha256": "1c22829f49e42d9f7eb5431fab30418db69eeb26fa7445d935ce19b9eecdfc68"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/persistent-contract.cpp",
+      "bytes": 7663,
+      "sha256": "cacb53b9be6389b3caa27c2fd962e0ff09cd99b08b23445f564c90b024a5c716"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/persistent-segment-clang++-strict-baseline.log",
+      "bytes": 507,
+      "sha256": "3ba239406f595d54d7c3e95e3f38ab4ece3626339945951bf1ae84898125d304"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/persistent-segment-clang++-strict-candidate.log",
+      "bytes": 510,
+      "sha256": "3faa9c01f191242558bba879482ffdaf25581c3bf75f512e23bcb7d1271114f5"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/persistent-segment-clang++-ubsan-baseline.log",
+      "bytes": 555,
+      "sha256": "ba9d1780119746d658d68ab3a4fac43999df7a6c80c3f99f1d02294319cc236c"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/persistent-segment-clang++-ubsan-candidate.log",
+      "bytes": 558,
+      "sha256": "ec61b6f8e46bc17441bd48567235ae06ce7628d097f94f64efa7abf683c56bec"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/persistent-segment-g++-strict-baseline.log",
+      "bytes": 495,
+      "sha256": "d2c1f6711afbe2c3fa272a461ce8a67feae15a56f0d3394f1994cd287252c150"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/persistent-segment-g++-strict-candidate.log",
+      "bytes": 498,
+      "sha256": "6b4a44c432375e87b051ec53f34779013fd44a9abbe56f0e8504fbd5bf186c37"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/persistent-segment-results.json",
+      "bytes": 9535,
+      "sha256": "089a71443f5e88a8dc86c7259358da3a47ab167f0b938e9ed41257cf2ee38252"
+    },
+    {
+      "path": "benchmark/results/representative-performance/contract-checks/run-contracts.py",
+      "bytes": 4672,
+      "sha256": "afe33c29db920ddb5e1bbd084f423f39148ce298e34e33f188c908bdb6579438"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/baseline-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/baseline-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2261,
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/baseline-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/baseline-persistent-segment-tree.hpp.txt",
+      "bytes": 2999,
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/baseline-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/candidate.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/compile.json",
+      "bytes": 2289,
+      "sha256": "729498bcfac28f8ed4b6eb3b949642586ed04d9f852826193ac356c4824b69e6"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/correctness-gate.json",
+      "bytes": 289,
+      "sha256": "6e5be4a510e317ca043d3229788c7680b1dd7d204035a7516ce27617f9c1c97f"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/correctness-in-progress.json",
+      "bytes": 9739,
+      "sha256": "63eb2d4a8fa87b9e5b7cb5415cce327b42cd18de0e3fc187f05e044876c06fc9"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/correctness.json",
+      "bytes": 9739,
+      "sha256": "63eb2d4a8fa87b9e5b7cb5415cce327b42cd18de0e3fc187f05e044876c06fc9"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/diagnostics.json",
+      "bytes": 358,
+      "sha256": "a6bda482c5898e1040a5f373cc0534dd27c07a925583f56fda5160361da25b9e"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/pre-retention-correctness-gate.json",
+      "bytes": 289,
+      "sha256": "006e59bded6ed8d5392334f0c67aa4522180e8b5ae59f2d0d2c66dbcc8fb28ec"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/pre-retention-correctness.json",
+      "bytes": 9739,
+      "sha256": "a05a99e116efd60b65e84f85daada70178692a07c23f43b3038e0861bd324725"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/prepared.json",
+      "bytes": 8224,
+      "sha256": "c9fcc3a726ac0451a74183139f15ed7383e5e8fdab2524b26402ecdf403f6cb2"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/quiet-processes.txt",
+      "bytes": 7078,
+      "sha256": "5cea560cd0b9d29ed3fee006934b979b30496498fe946e2be6e07f26ea95ff2e"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/raw.json",
+      "bytes": 86588,
+      "sha256": "83747c5700e63c7238ee843e0b2b2d0c843b7c378d026b097910ec42a1da5d25"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/results.json",
+      "bytes": 23300,
+      "sha256": "80ae8f38feca5c7db99cc8a463a58c328c3ac1115c24acd2017a00f62192bbd3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/runner-amendment-2.json",
+      "bytes": 679,
+      "sha256": "af3bd6e3021ef1bac43222f6f891324238dc4d0f692354a6f4afad9fb9c12528"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-assert/runner-amendment.json",
+      "bytes": 594,
+      "sha256": "1990bef74a3d1a4e7a6a575ba69ddb584cf3ae70d0f9136f28cb22a4d298a8dd"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/baseline-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/baseline-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2261,
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/baseline-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/baseline-persistent-segment-tree.hpp.txt",
+      "bytes": 2999,
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/baseline-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/candidate.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/compile.json",
+      "bytes": 2331,
+      "sha256": "a8c54bfd3e695cfe730d52f61760bdea7dffaca8d8332ca8e76dd6e5c0995e16"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/correctness-gate.json",
+      "bytes": 289,
+      "sha256": "aa4b56a6ba8a6d44bed23b2631283cac50bb22e3ba6bfa5c2883225088b067de"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/correctness-in-progress.json",
+      "bytes": 9739,
+      "sha256": "3094d274cce23b736e52f10d912f82a24ec9bc57fab88adb2c56f0fb34320989"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/correctness.json",
+      "bytes": 9739,
+      "sha256": "3094d274cce23b736e52f10d912f82a24ec9bc57fab88adb2c56f0fb34320989"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/diagnostics.json",
+      "bytes": 358,
+      "sha256": "a6bda482c5898e1040a5f373cc0534dd27c07a925583f56fda5160361da25b9e"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/pre-retention-correctness-gate.json",
+      "bytes": 289,
+      "sha256": "42d5eaa6bc789e0ea0e32f991c81ba26ff44c4cd66367cc165c3f1e1f0d8ad9f"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/pre-retention-correctness.json",
+      "bytes": 9739,
+      "sha256": "3094d274cce23b736e52f10d912f82a24ec9bc57fab88adb2c56f0fb34320989"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/prepared.json",
+      "bytes": 8276,
+      "sha256": "802c405c45ab237e9acdb267350b6de272189af9a48aa1629b5e23f27bfa267c"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/quiet-processes.txt",
+      "bytes": 7078,
+      "sha256": "e4b891f839adf4b8f7b0dcb64fe84527031f7461d109356e549a7d33a85bfa32"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/raw.json",
+      "bytes": 86584,
+      "sha256": "93b02e7b8f0527c230d7ec05de90015d1d0202b23e3d8997ed3ce0b3e23686cf"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/results.json",
+      "bytes": 23299,
+      "sha256": "fe3023209f83ec2e895b869bf9aa458bf0ef3c9d2f6f8c3fc22a03ceaaf8e0db"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/runner-amendment-2.json",
+      "bytes": 679,
+      "sha256": "9b7ca6e76adc3797e98992b37a5050c92c284b60bd8e8da9829974644a70fbbe"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dense-release/runner-amendment.json",
+      "bytes": 594,
+      "sha256": "d8eacf6d44c17ae68c043271e45500227544e671f53b8ec7fc44b4aa07a37b91"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/baseline-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/baseline-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2261,
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/baseline-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/baseline-persistent-segment-tree.hpp.txt",
+      "bytes": 2999,
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/baseline-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/candidate-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/candidate-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2448,
+      "sha256": "34ae81541b179c2dd2bc24e7573d2f5540deb37622f91eb9152ae76c2c3a5126"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/candidate-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/candidate-persistent-segment-tree.hpp.txt",
+      "bytes": 2999,
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/candidate-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/candidate.patch",
+      "bytes": 562,
+      "sha256": "7ab2db7f76c35d0744507e33257aeb5c0d2007edefdf3cd24cd2ce7472627166"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/compile.json",
+      "bytes": 7163,
+      "sha256": "2b433ba2f66324792678a42d5fcc83800af97bc21b672999b72aea5c8017ab4c"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/correctness-gate.json",
+      "bytes": 289,
+      "sha256": "d5641a20ebcf91214aa8ec7f0e8c0488ca03ee27d55f9b34a4b7696586cf86d1"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/correctness-in-progress.json",
+      "bytes": 22005,
+      "sha256": "11372004faa7df8e8b8c370660b1f0cbb40465b23a5a27a7353717e1627b2c8e"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/correctness.json",
+      "bytes": 22005,
+      "sha256": "11372004faa7df8e8b8c370660b1f0cbb40465b23a5a27a7353717e1627b2c8e"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/diagnostics-in-progress.json",
+      "bytes": 13615,
+      "sha256": "e082df5e1cb205524f064142f29ca5eff1d8564d5d2de165147633bd6db1ca3a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/diagnostics.json",
+      "bytes": 14932,
+      "sha256": "2f9b407cfdde9e6dbe9cfac0b21abfee6425ab994891a3918db421594234a672"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/pre-retention-correctness-gate.json",
+      "bytes": 289,
+      "sha256": "df587e38f2e2cfff550bf85a820185ebf37fd406e4e3468227c469756aa8004f"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/pre-retention-correctness.json",
+      "bytes": 22005,
+      "sha256": "10a22b9fc0a57966db43f8934e6dbbaf3358b18223d57ef36c0ba2c73688a835"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/prepared.json",
+      "bytes": 14371,
+      "sha256": "577cebc72dc737f0fbb0796028a7706e7c18e5a46440ee1451eab2d2a1020e15"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/quiet-processes.txt",
+      "bytes": 7078,
+      "sha256": "af75f16b0b6f82ebe6b99158d383e37156f696f149dfb72289b970663d0a720c"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/raw.json",
+      "bytes": 80868,
+      "sha256": "d858065aa9edc84081ae01a583497001c9e44b2015ab0d7cfd3632193dd7113e"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/results.json",
+      "bytes": 22809,
+      "sha256": "22dd970e55bff8b48f9baa91889be7cd9ea66c972946a126d7d9064a7b7433ef"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/runner-amendment-2.json",
+      "bytes": 679,
+      "sha256": "d781af704a30fab03d1d7249869af75496cc3f0ee3882e9480a8322fed37484f"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-assert/runner-amendment.json",
+      "bytes": 594,
+      "sha256": "a161c09ed356a9f583160856e7e2cd9b5fb854ccc67f1f68754deb6b51fbf684"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/baseline-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/baseline-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2261,
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/baseline-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/baseline-persistent-segment-tree.hpp.txt",
+      "bytes": 2999,
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/baseline-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/candidate-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/candidate-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2448,
+      "sha256": "34ae81541b179c2dd2bc24e7573d2f5540deb37622f91eb9152ae76c2c3a5126"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/candidate-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/candidate-persistent-segment-tree.hpp.txt",
+      "bytes": 2999,
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/candidate-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/candidate.patch",
+      "bytes": 562,
+      "sha256": "7ab2db7f76c35d0744507e33257aeb5c0d2007edefdf3cd24cd2ce7472627166"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/compile.json",
+      "bytes": 7289,
+      "sha256": "6acb9c59f663080ddc2da3439d59a5e93ce41368cf510a0e2e58f6c4601e86eb"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/correctness-gate.json",
+      "bytes": 289,
+      "sha256": "28263fa0416e1903bfccacce6725d76e9fb7dbb8bd9136a0c5eee6410af1163d"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/correctness-in-progress.json",
+      "bytes": 22005,
+      "sha256": "2b78174ec7b30ab8c37b3674cd7eedc974d360cec5717ff56d1ef401893ce28b"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/correctness.json",
+      "bytes": 22005,
+      "sha256": "2b78174ec7b30ab8c37b3674cd7eedc974d360cec5717ff56d1ef401893ce28b"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/diagnostics-in-progress.json",
+      "bytes": 13615,
+      "sha256": "f5719a3218ed2fa868cd8bc0cde4e52a06c9589e8d4f65b1d881e07c8f1e0af2"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/diagnostics.json",
+      "bytes": 14932,
+      "sha256": "ab365335f76278c1bfe66e16232bdf8bdc5e126b7e7b097199d9a0fd7e767c38"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/pre-retention-correctness-gate.json",
+      "bytes": 289,
+      "sha256": "2f4541e3dfc76909695200a004b99373f46fafcf94218f765dffc2159865b832"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/pre-retention-correctness.json",
+      "bytes": 22005,
+      "sha256": "bde2de2b07515fe77e3a92a851abfa48adebee410941a351e68754f6d1ab824d"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/prepared.json",
+      "bytes": 14520,
+      "sha256": "27824c28ca3760946b8b3bfd572fe3b4886d7b9cf22a0024826af841108d5870"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/quiet-processes.txt",
+      "bytes": 7078,
+      "sha256": "f68e67d870c72b9159b8f7e224e3b9641148a45eafbce217a865b996006eb966"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/raw.json",
+      "bytes": 80860,
+      "sha256": "6f1459c249dd507c880b8307b872ef8555443b5dfada26e00fe3a29b453f4c10"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/results.json",
+      "bytes": 22806,
+      "sha256": "8c0ea0aa0e908ce3ee18b59bb916865ce12446db3d8303fe388740be32b1dc0c"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/runner-amendment-2.json",
+      "bytes": 679,
+      "sha256": "d521c306bfeacceecd26168b57ea2a301da0c553a671714819f25cbc9f770220"
+    },
+    {
+      "path": "benchmark/results/representative-performance/dynamic-fenwick-release/runner-amendment.json",
+      "bytes": 594,
+      "sha256": "032a9089a4259e017d2c15b6a19ca3eb60a2e697bfb06833810a8a78d7c9ec4a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/focused-recheck/prepared.json",
+      "bytes": 24283,
+      "sha256": "3b3cb9c72419cffd5084a1848681bdfae2c3a6b51fd82ac26015ad8130dee014"
+    },
+    {
+      "path": "benchmark/results/representative-performance/focused-recheck/quiet-processes.txt",
+      "bytes": 7078,
+      "sha256": "11a15a98d5154ac344103e18b4a1957909573f8242cfc6d630cb24103b393306"
+    },
+    {
+      "path": "benchmark/results/representative-performance/focused-recheck/raw.json",
+      "bytes": 80716,
+      "sha256": "eb2f334a995f858cc8909d5099c23c74e5b267580802bfdaaf00e86de2ae7429"
+    },
+    {
+      "path": "benchmark/results/representative-performance/focused-recheck/results.json",
+      "bytes": 11107,
+      "sha256": "f1a2e7f402a5340c186ce4edc973e3b418f17ec7c4b4891fc630ceccf2a8f613"
+    },
+    {
+      "path": "benchmark/results/representative-performance/focused-stage-comparisons.csv",
+      "bytes": 5570,
+      "sha256": "70db54959dd770c43526d2d5af03a1812ab261db86a6a400773e33f9880820b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/host-limits.json",
+      "bytes": 512,
+      "sha256": "e5699928602586758a0101e45c92e4c3faa74d6db0cf1860c22108200918aab3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/measured-shortlist.md",
+      "bytes": 14993,
+      "sha256": "c127ad3b24e656b9d276c351a031f1cbb36ea756c67e446d053514f5aebbc992"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/baseline-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/baseline-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2261,
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/baseline-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/baseline-persistent-segment-tree.hpp.txt",
+      "bytes": 2999,
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/baseline-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/candidate-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/candidate-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2261,
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/candidate-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/candidate-persistent-segment-tree.hpp.txt",
+      "bytes": 3252,
+      "sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/candidate-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/candidate.patch",
+      "bytes": 623,
+      "sha256": "1b7c56756398f174f456bc89738f67b2355a4a4732afeb0219625dccd8b04058"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/compile.json",
+      "bytes": 7217,
+      "sha256": "1bada44caf06fdd357d4b7dff991407461ae85cc10bc246c883b0f23528f5631"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/correctness-gate.json",
+      "bytes": 289,
+      "sha256": "eef93393ba2b45d644414119248a467b3c4cdcd22c912691d2604c65e59530c6"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/correctness-in-progress.json",
+      "bytes": 18993,
+      "sha256": "0447c14481e035c7ec16061e39746e480deff585e72b4bef169e43dd4c2c8027"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/correctness.json",
+      "bytes": 18993,
+      "sha256": "0447c14481e035c7ec16061e39746e480deff585e72b4bef169e43dd4c2c8027"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/diagnostics-in-progress.json",
+      "bytes": 12045,
+      "sha256": "295d84b125293e104be2aa4c3c39836f649b28b5472ed3e32af37f040a0ee78a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/diagnostics.json",
+      "bytes": 13314,
+      "sha256": "d7213f0b4449345d1ac12fde963f229b8b3f4711f904260b10fe50471c0c1147"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/pre-retention-correctness-gate.json",
+      "bytes": 289,
+      "sha256": "2d3531c0d8a512c432aed6708553c2d8980f6052b8382a241ec34f5bbee25602"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/pre-retention-correctness.json",
+      "bytes": 18993,
+      "sha256": "df594d732870880a1c18e7a07bcf44aef2d74f7766925f243256443abcc75e56"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/prepared.json",
+      "bytes": 14458,
+      "sha256": "583d22314b1fa849383d8c546d1615bf3d361961547a75bd2af0bc54df4a79e9"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/quiet-processes.txt",
+      "bytes": 7078,
+      "sha256": "4d44d09d50f8d5876833048e5c9977defcb48e1bfa0dee8ee223370c431ff81a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/raw.json",
+      "bytes": 68980,
+      "sha256": "56bfd0464bebd6e9067b31eeb33c44fa494bbdca198521482a3dde3a6f641a74"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/results.json",
+      "bytes": 23157,
+      "sha256": "1768d96e9069d0d1d0b8e0701e1cfbc0fd47689a35d32e6a92f99c1752a87437"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/runner-amendment-2.json",
+      "bytes": 679,
+      "sha256": "d9644e111b7ecf5f4cf700da769395b96ec18aa17c87e544d52620d2f1a8760e"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-assert/runner-amendment.json",
+      "bytes": 594,
+      "sha256": "9c3627bcdd0d37ea2c615b3dc97dcf0ee9f49097af6880084d2998f84582c410"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/baseline-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/baseline-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2261,
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/baseline-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/baseline-persistent-segment-tree.hpp.txt",
+      "bytes": 2999,
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/baseline-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/candidate-disjoint-set-union.hpp.txt",
+      "bytes": 1631,
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/candidate-dynamic-fenwick-tree.hpp.txt",
+      "bytes": 2261,
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/candidate-fenwick-tree.hpp.txt",
+      "bytes": 2153,
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/candidate-persistent-segment-tree.hpp.txt",
+      "bytes": 3252,
+      "sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/candidate-segment-tree.hpp.txt",
+      "bytes": 2076,
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/candidate.patch",
+      "bytes": 623,
+      "sha256": "1b7c56756398f174f456bc89738f67b2355a4a4732afeb0219625dccd8b04058"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/compile.json",
+      "bytes": 7343,
+      "sha256": "19eeccdbf7eb84453ae92cbe5841bb7762e1a844f9947c0e52b5d9a3cbe3b700"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/correctness-gate.json",
+      "bytes": 289,
+      "sha256": "33cc46394c4c78b3cd351536ce90f5e2eab18e968e07a19d56f375b32c14a9f2"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/correctness-in-progress.json",
+      "bytes": 18993,
+      "sha256": "94452ce1191cf0af74498d9489ca42f597eebcea1d30f0b1cdbd2bdbda70b125"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/correctness.json",
+      "bytes": 18993,
+      "sha256": "94452ce1191cf0af74498d9489ca42f597eebcea1d30f0b1cdbd2bdbda70b125"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/diagnostics-in-progress.json",
+      "bytes": 12045,
+      "sha256": "60be0b47fb014093534022f963cd4118f742b91217fc1bc83ba3bc4dd8395573"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/diagnostics.json",
+      "bytes": 13314,
+      "sha256": "13beb31fce907859b63c368d8a00b0132148d7a7cd285baff58b03da3ecd05a0"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/pre-retention-correctness-gate.json",
+      "bytes": 289,
+      "sha256": "c134ff760536183c7508b30dac6c67b868372b33ad3373a8da99fb4baef1fd7c"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/pre-retention-correctness.json",
+      "bytes": 18993,
+      "sha256": "697d328c6ed6007792a7a96c348ae8ae92e198780e0f2fab21c2cc1550148aa4"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/prepared.json",
+      "bytes": 14607,
+      "sha256": "c3487062fc3feca1d5a2ede836b597aaad5b4e5fe2f18fe900d1db31c00915b8"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/quiet-processes.txt",
+      "bytes": 7078,
+      "sha256": "37084012e572cef9c8c5f9d1f7fc82b5f493719bba57e5644073fe8761e36c68"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/raw.json",
+      "bytes": 68976,
+      "sha256": "071e7d7fbd971fa2c5ea2ab4bfb17c0aab8bba74cbea8b3faf75d3b095bb2cf6"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/results.json",
+      "bytes": 23154,
+      "sha256": "47648962c11651757710300c122df13b1cc98b83e640b8030d63d6c9ec1b9aef"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/runner-amendment-2.json",
+      "bytes": 679,
+      "sha256": "ee621af3933beb7aed36add1c53b966632c1612da01cf667a23e4808fab31962"
+    },
+    {
+      "path": "benchmark/results/representative-performance/persistent-segment-release/runner-amendment.json",
+      "bytes": 594,
+      "sha256": "250d255beb63bdad627f819487175bee2a6101c3b305153cc8515bd71bdabdad"
+    },
+    {
+      "path": "benchmark/results/representative-performance/plan.md",
+      "bytes": 6381,
+      "sha256": "de9b39b210843b0c7f351f4e074399b28003d0bea1537cadda79c873347af389"
+    },
+    {
+      "path": "benchmark/results/representative-performance/pre-retention-runner.py.txt",
+      "bytes": 15732,
+      "sha256": "88da21f6ecf1b63e056520f429f8513bd8efc736cf3e4ae1143620e534724fc1"
+    },
+    {
+      "path": "benchmark/results/representative-performance/preparation-runner.py.txt",
+      "bytes": 14046,
+      "sha256": "5babc0f954826084e1e22eafbabd69b4e2842a471a6c5325b9adec2da292fa76"
+    },
+    {
+      "path": "benchmark/results/representative-performance/review.json",
+      "bytes": 1327,
+      "sha256": "45a1ba6721e5fab036c8dce28f711b0ed6496d30f865d703e7276a97c1d59c16"
+    },
+    {
+      "path": "benchmark/results/representative-performance/stage-comparisons.csv",
+      "bytes": 58759,
+      "sha256": "d0c539f703777e609017db6edb74f72e50adf33e49ba66a6f5ceee2f9ccc877c"
+    }
+  ]
+}

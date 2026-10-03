@@ -1,0 +1,306 @@
+#!/usr/bin/env python3
+"""Immutable DS survey; prepare/check first, run only in a coordinated quiet window."""
+import argparse
+import difflib
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import shutil
+import statistics
+import subprocess
+from datetime import datetime, timezone
+
+ROOT = Path(__file__).resolve().parents[1]
+BASELINE = "ca8a4df35269a6980cf0b9612878e420744fc860"
+BASE = ROOT / ".build/representative-performance"
+RESULTS = ROOT / "benchmark/results/representative-performance"
+SOURCES = [ROOT / "benchmark/representative-performance.cpp", ROOT / "benchmark/representative-dense.hpp"]
+HEADERS = ["blueberry/data-structure/" + name + ".hpp" for name in
+           ["disjoint-set-union", "fenwick-tree", "segment-tree", "dynamic-fenwick-tree", "persistent-segment-tree"]]
+
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def write(out, name, value):
+    (out / name).write_text(json.dumps(value, indent=2) + "\n")
+
+
+def replace_once(source, before, after):
+    if source.count(before) != 1:
+        raise RuntimeError("Candidate match is not unique")
+    return source.replace(before, after, 1)
+
+
+def candidate(family, header, source):
+    if family == "dynamic-fenwick" and header.endswith("/dynamic-fenwick-tree.hpp"):
+        return replace_once(source, "    return sum(p, p + 1);", """    const Coord right = p + 1;
+    const Coord left = right - (right & -right);
+    T removed{};
+    for (Coord i = right - 1; i != left; i -= i & -i) removed += value_at(i);
+    return value_at(right) - removed;""")
+    if family == "persistent-segment" and header.endswith("/persistent-segment-tree.hpp"):
+        return replace_once(source, "    return prod(version, p, p + 1);", """    check_version(version);
+    int v = roots_[version], l = 0, r = n_;
+    while (v != 0 && r - l > 1) {
+      const int m = l + (r - l) / 2;
+      if (p < m) { v = nodes_[v].left; r = m; }
+      else { v = nodes_[v].right; l = m; }
+    }
+    return v == 0 ? identity_ : nodes_[v].value;""")
+    return source
+
+
+def location(family, mode):
+    key = f"{family}-{mode}"
+    return BASE / key, RESULTS / key
+
+
+def variants(family):
+    return ["baseline"] if family == "dense" else ["baseline", "candidate"]
+
+
+def prepare(family, mode, args):
+    build, out = location(family, mode)
+    build.mkdir(parents=True, exist_ok=True); out.mkdir(parents=True, exist_ok=True)
+    if (out / "prepared.json").exists():
+        raise RuntimeError("Immutable preparation exists; preserve/move it before reproduction")
+    header_hashes, patches = {}, []
+    for path in HEADERS:
+        before = subprocess.check_output(["git", "show", f"{BASELINE}:{path}"], cwd=ROOT, text=True)
+        after = candidate(family, path, before)
+        patches.extend(difflib.unified_diff(before.splitlines(keepends=True), after.splitlines(keepends=True),
+                                           fromfile="a/" + path, tofile="b/" + path))
+        for variant in variants(family):
+            contents = before if variant == "baseline" else after
+            destination = build / variant / "include" / path
+            destination.parent.mkdir(parents=True, exist_ok=True); destination.write_text(contents)
+            header_hashes[str(destination.relative_to(ROOT))] = digest(destination)
+            (out / f"{variant}-{Path(path).name}.txt").write_text(contents)
+    (out / "candidate.patch").write_text("".join(patches))
+    entries = []
+    for compiler in args.compilers:
+        compiler_path = shutil.which(compiler)
+        if compiler_path is None:
+            raise RuntimeError("Compiler missing: " + compiler)
+        for diagnostic in ([False, True] if compiler == args.compilers[0] and family != "dense" else [False]):
+            for variant in variants(family):
+                binary = build / f"{Path(compiler).name}-{variant}-{'diagnostic' if diagnostic else 'timing'}"
+                command = [compiler_path, "-std=gnu++20", "-O2", "-Wall", "-Wextra",
+                           "-I", str(build / variant / "include"), "-I", str(ROOT),
+                           "-isystem", str(ROOT / ".deps/ac-library")]
+                if mode == "release": command.append("-DNDEBUG")
+                if diagnostic: command.append("-DPROFILE_ALLOCATIONS")
+                command += [str(SOURCES[0]), "-o", str(binary)]
+                result = subprocess.run(command, capture_output=True, text=True)
+                entry = dict(compiler=compiler, compiler_path=compiler_path, variant=variant,
+                             diagnostic=diagnostic, command=command, returncode=result.returncode,
+                             stdout=result.stdout, stderr=result.stderr,
+                             compiler_version=subprocess.check_output([compiler_path, "--version"], text=True),
+                             binary=str(binary.relative_to(ROOT)),
+                             binary_sha256=digest(binary) if result.returncode == 0 else None)
+                entries.append(entry); write(out, "compile.json", entries); result.check_returncode()
+    acl = ROOT / ".deps/ac-library/atcoder"
+    write(out, "prepared.json", dict(created_at=datetime.now(timezone.utc).isoformat(),
+        baseline_commit=BASELINE, family=family, mode=mode, entries=entries, header_sha256=header_hashes,
+        source_sha256={str(p.relative_to(ROOT)): digest(p) for p in SOURCES},
+        runner_sha256=digest(Path(__file__)),
+        acl_sha256={str(p.relative_to(ROOT)): digest(p) for p in sorted(acl.iterdir()) if p.is_file()},
+        environment={k: os.environ.get(k, "") for k in ["CPLUS_INCLUDE_PATH", "CPATH", "LD_LIBRARY_PATH"]}))
+    print(f"Prepared {family}/{mode}; no measurements run.", flush=True)
+
+
+def prepared(family, mode):
+    _, out = location(family, mode)
+    data = json.loads((out / "prepared.json").read_text())
+    amendment = out / "runner-amendment-2.json"
+    if not amendment.exists(): amendment = out / "runner-amendment.json"
+    runner_hash = json.loads(amendment.read_text())["measurement_runner_sha256"] if amendment.exists() else data["runner_sha256"]
+    if digest(Path(__file__)) != runner_hash:
+        raise RuntimeError("Runner changed after recorded preparation/amendment")
+    for group in ["source_sha256", "header_sha256", "acl_sha256"]:
+        for path, expected in data[group].items():
+            if digest(ROOT / path) != expected: raise RuntimeError("Changed immutable input: " + path)
+    for entry in data["entries"]:
+        if digest(ROOT / entry["binary"]) != entry["binary_sha256"]:
+            raise RuntimeError("Changed binary")
+        entry["failure_directory"] = str(out)
+    return data
+
+
+def checked_correctness(family, mode):
+    _, out = location(family, mode)
+    gate = json.loads((out / "correctness-gate.json").read_text())
+    if gate["prepared_sha256"] != digest(out / "prepared.json") or gate["runner_sha256"] != digest(Path(__file__)):
+        raise RuntimeError("Small correctness checks do not match this preparation/runner")
+    if gate["correctness_sha256"] != digest(out / "correctness.json"):
+        raise RuntimeError("Correctness evidence changed")
+
+
+def cases(family, small=False):
+    if family == "dense":
+        return [(kind, shape, "u64", 127 if small else 100000, 211 if small else 200000)
+                for kind in ["dsu", "fenwick", "segment-tree"]
+                for shape in (["random", "clustered"] if kind == "dsu" else ["random", "sequential"])]
+    shapes = ["broad", "hotspot", "boundary"] if family == "dynamic-fenwick" else ["dense-sequential", "dense-branch", "sparse-branch"]
+    scalars = ["u64", "mod998"] if family == "dynamic-fenwick" else ["u64", "affine-u64"]
+    n = 127 if small else (30000 if family == "dynamic-fenwick" else 100000)
+    q = 211 if small else 200000
+    return [(family, shape, scalar, n, q) for shape in shapes for scalar in scalars]
+
+
+def entries_for(data, family, diagnostics=False):
+    result = []
+    for entry in data["entries"]:
+        if entry["diagnostic"] != diagnostics: continue
+        for implementation in (["blueberry", "acl"] if family == "dense" else [entry["variant"]]):
+            result.append((entry, implementation))
+    return result
+
+
+def execute(entry, case, implementation, small):
+    kind, shape, scalar, n, q = case
+    command = ["/bin/sh", "-c", '"$@"; result=$?; exit "$result"', "performance-profile",
+               str(ROOT / entry["binary"]), kind, shape, scalar, implementation, str(n), str(q), str(int(small))]
+    try:
+        result = subprocess.run(command, capture_output=True, text=True, timeout=120)
+    except subprocess.TimeoutExpired as error:
+        evidence = dict(command=command, timeout_seconds=120,
+                        stdout=str(error.stdout), stderr=str(error.stderr))
+        failure = "failure-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f") + ".json"
+        write(Path(entry["failure_directory"]), failure, evidence)
+        raise
+    if result.returncode:
+        evidence = dict(command=command, returncode=result.returncode, stdout=result.stdout, stderr=result.stderr)
+        failure = "failure-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f") + ".json"
+        write(Path(entry["failure_directory"]), failure, evidence)
+        raise RuntimeError(json.dumps(evidence))
+    try:
+        row = json.loads(result.stdout)
+        required = {"input_hash", "checksum", "rss_kib", "build_ns", "update_ns"}
+        required |= {"get_ns", "range_ns"} if kind != "dsu" else {"same_ns", "size_ns"}
+        if not isinstance(row, dict) or not required.issubset(row):
+            raise ValueError("Missing profile object/required fields")
+        if any(type(value) is not int or value < 0 for value in row.values()):
+            raise ValueError("Expected unsigned integer profile values")
+    except (ValueError, TypeError) as error:
+        evidence = dict(command=command, returncode=result.returncode, stdout=result.stdout,
+                        stderr=result.stderr, parse_or_schema_error=str(error))
+        failure = "failure-" + datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f") + ".json"
+        write(Path(entry["failure_directory"]), failure, evidence)
+        raise
+    row.update(family=kind, shape=shape, scalar=scalar, n=n, q=q,
+               compiler=entry["compiler"], implementation=implementation)
+    return row
+
+
+def identity(row):
+    return row["input_hash"], row["checksum"]
+
+
+def check(family, mode, args):
+    data = prepared(family, mode); _, out = location(family, mode)
+    rows, expected = [], {}
+    for case in cases(family, True):
+        for entry, implementation in entries_for(data, family) + entries_for(data, family, True):
+            row = execute(entry, case, implementation, True)
+            row = {k: v for k, v in row.items() if not k.endswith("_ns")}
+            if identity(row) != expected.setdefault(case, identity(row)):
+                write(out, "failed-correctness.json", dict(case=case, expected=expected[case], rejected=row, completed=rows))
+                raise RuntimeError("Small-case oracle/checksum disagreement")
+            rows.append(row)
+            write(out, "correctness-in-progress.json", rows)
+    write(out, "correctness.json", rows)
+    write(out, "correctness-gate.json", dict(prepared_sha256=digest(out / "prepared.json"),
+        runner_sha256=digest(Path(__file__)), correctness_sha256=digest(out / "correctness.json"), profiles=len(rows)))
+    print(f"Checked {family}/{mode}: {len(rows)} small profiles; brute oracles and cross-implementation checksums agree.", flush=True)
+
+
+def quiet(out):
+    snapshot = subprocess.check_output(["ps", "-eo", "pid,pcpu,stat,comm"], text=True)
+    (out / "quiet-processes.txt").write_text(snapshot)
+    for line in snapshot.splitlines()[1:]:
+        fields = line.split()
+        if len(fields) == 4 and fields[3] in {"cc1plus", "clang", "clang++", "clang-19", "g++", "g++-14"}:
+            if "T" not in fields[2] and "Z" not in fields[2]:
+                raise RuntimeError("Compiler active; coordinate quiet timing window")
+
+
+def run(family, mode, args):
+    data = prepared(family, mode); _, out = location(family, mode)
+    checked_correctness(family, mode)
+    if (out / "raw.json").exists(): raise RuntimeError("Preserve existing timing experiment")
+    quiet(out); rows, expected = [], {}
+    entries = entries_for(data, family)
+    started = datetime.now(timezone.utc)
+    for case in cases(family):
+        for repeat in range(-1, args.repeats):
+            for entry, implementation in entries if repeat % 2 else entries[::-1]:
+                row = execute(entry, case, implementation, False)
+                if identity(row) != expected.setdefault(case, identity(row)):
+                    write(out, "failed-profile.json", row); raise RuntimeError("Timing checksum disagreement")
+                row.update(repeat=repeat, warmup=repeat < 0)
+                rows.append(row); write(out, "raw.json", rows)
+        print(f"Completed {family}/{mode} {case[1]}/{case[2]}", flush=True)
+    summary = []
+    for case in cases(family):
+        for entry, implementation in entries:
+            selected = [r for r in rows if not r["warmup"] and
+                        (r["family"], r["shape"], r["scalar"], r["compiler"], r["implementation"]) ==
+                        (*case[:3], entry["compiler"], implementation)]
+            fields = [k for k in selected[0] if k.endswith("_ns")]
+            metrics = {k: dict(median=statistics.median(r[k] for r in selected),
+                               min=min(r[k] for r in selected), max=max(r[k] for r in selected)) for k in fields}
+            summary.append(dict(family=case[0], shape=case[1], scalar=case[2], compiler=entry["compiler"],
+                                implementation=implementation, metrics=metrics,
+                                peak_rss_kib=max(r["rss_kib"] for r in selected)))
+    write(out, "results.json", dict(started_at=started.isoformat(), finished_at=datetime.now(timezone.utc).isoformat(),
+        baseline_commit=BASELINE, mode=mode, repeats=args.repeats, warmups=1,
+        platform=platform.platform(), cpu=subprocess.check_output(["lscpu"], text=True),
+        summary=summary, conditions="Alternating compiler/implementation order, separate subprocess per profile. "
+        "Input generation, correctness oracle, startup, output and destruction excluded; no I/O claim. "
+        "Stage scopes in benchmark/results/representative-performance/plan.md. "
+        "Linux process peak RSS includes inputs, runtime and every stage; not a live-allocation measure. "
+        "Prepared inputs/binaries are hash checked. Shared-host activity can remain."))
+    print(f"Finished {family}/{mode}: {len(rows)} profiles including warmups.", flush=True)
+
+
+def diagnostics(family, mode, args):
+    data = prepared(family, mode); _, out = location(family, mode)
+    checked_correctness(family, mode)
+    if (out / "diagnostics.json").exists(): raise RuntimeError("Preserve existing diagnostics")
+    rows, expected = [], {}
+    for case in cases(family):
+        for entry, implementation in entries_for(data, family, True):
+            row = execute(entry, case, implementation, False)
+            row = {k: v for k, v in row.items() if not k.endswith("_ns")}
+            if identity(row) != expected.setdefault(case, identity(row)):
+                write(out, "failed-diagnostic.json", dict(case=case, expected=expected[case], rejected=row, completed=rows))
+                raise RuntimeError("Diagnostic checksum disagreement")
+            rows.append(row)
+            write(out, "diagnostics-in-progress.json", rows)
+    write(out, "diagnostics.json", dict(conditions="Separate instrumented GCC builds; durations discarded. "
+        "Ordinary new/new[] requested calls/bytes per stage, not peak-live memory; input generation excluded. "
+        "Arithmetic/group operation counts only while stage runs; query lookup counts computed from coordinates "
+        "using exact loop trip counts (not sampled hash bucket probes).", rows=rows))
+    print(f"Diagnostics {family}/{mode}: {len(rows)} profiles.", flush=True)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("action", choices=["prepare", "check", "run", "diagnostics"])
+    parser.add_argument("--experiment", choices=["dense", "dynamic-fenwick", "persistent-segment", "all"], default="all")
+    parser.add_argument("--mode", choices=["release", "assert", "all"], default="all")
+    parser.add_argument("--compilers", nargs="+", default=["g++", "clang++"])
+    parser.add_argument("--repeats", type=int, default=5)
+    args = parser.parse_args()
+    if args.repeats < 3: parser.error("At least three samples required")
+    for family in (["dense", "dynamic-fenwick", "persistent-segment"] if args.experiment == "all" else [args.experiment]):
+        for mode in (["release", "assert"] if args.mode == "all" else [args.mode]):
+            globals()[args.action](family, mode, args)
+
+
+if __name__ == "__main__": main()

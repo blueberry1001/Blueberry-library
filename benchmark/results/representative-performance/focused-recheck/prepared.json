@@ -1,0 +1,542 @@
+{
+  "created_at": "2026-10-03T07:24:10.368989+00:00",
+  "baseline_commit": "ca8a4df35269a6980cf0b9612878e420744fc860",
+  "repeats": 9,
+  "warmups": 1,
+  "groups": [
+    {
+      "family": "dense",
+      "mode": "release",
+      "case": [
+        "segment-tree",
+        "random",
+        "u64",
+        100000,
+        200000
+      ],
+      "compiler_filter": null,
+      "original_prepared_sha256": "802c405c45ab237e9acdb267350b6de272189af9a48aa1629b5e23f27bfa267c",
+      "entries": [
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-release/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-release/g++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/representative-performance/dense-release/g++-baseline-timing",
+            "binary_sha256": "f9fe604432dae15b904b9d13b18d84b5509f791da56ec5c6f841c651c7c3fc0d",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "blueberry"
+        ],
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-release/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-release/g++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/representative-performance/dense-release/g++-baseline-timing",
+            "binary_sha256": "f9fe604432dae15b904b9d13b18d84b5509f791da56ec5c6f841c651c7c3fc0d",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "acl"
+        ],
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-release/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-release/clang++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/representative-performance/dense-release/clang++-baseline-timing",
+            "binary_sha256": "f5dc85e66dd82d1fbed0ee996c4f43e35bc35da2709f0ac47bfa6436579b5609",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "blueberry"
+        ],
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-release/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-release/clang++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/representative-performance/dense-release/clang++-baseline-timing",
+            "binary_sha256": "f5dc85e66dd82d1fbed0ee996c4f43e35bc35da2709f0ac47bfa6436579b5609",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "acl"
+        ]
+      ]
+    },
+    {
+      "family": "dense",
+      "mode": "assert",
+      "case": [
+        "segment-tree",
+        "random",
+        "u64",
+        100000,
+        200000
+      ],
+      "compiler_filter": null,
+      "original_prepared_sha256": "c9fcc3a726ac0451a74183139f15ed7383e5e8fdab2524b26402ecdf403f6cb2",
+      "entries": [
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-assert/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-assert/g++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/representative-performance/dense-assert/g++-baseline-timing",
+            "binary_sha256": "79c578b0e7f1f415c62cf8f844ef4461d24fef2176bdba4fe67bd75615655c9b",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "blueberry"
+        ],
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-assert/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-assert/g++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/representative-performance/dense-assert/g++-baseline-timing",
+            "binary_sha256": "79c578b0e7f1f415c62cf8f844ef4461d24fef2176bdba4fe67bd75615655c9b",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "acl"
+        ],
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-assert/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-assert/clang++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/representative-performance/dense-assert/clang++-baseline-timing",
+            "binary_sha256": "503bdfefbba67caaf3054f72907a64a030c41ef167e20dce437662fc21051b8e",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "blueberry"
+        ],
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-assert/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dense-assert/clang++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/representative-performance/dense-assert/clang++-baseline-timing",
+            "binary_sha256": "503bdfefbba67caaf3054f72907a64a030c41ef167e20dce437662fc21051b8e",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "acl"
+        ]
+      ]
+    },
+    {
+      "family": "persistent-segment",
+      "mode": "release",
+      "case": [
+        "persistent-segment",
+        "dense-sequential",
+        "u64",
+        100000,
+        200000
+      ],
+      "compiler_filter": "g++",
+      "original_prepared_sha256": "c3487062fc3feca1d5a2ede836b597aaad5b4e5fe2f18fe900d1db31c00915b8",
+      "entries": [
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/persistent-segment-release/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/persistent-segment-release/g++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/representative-performance/persistent-segment-release/g++-baseline-timing",
+            "binary_sha256": "f9fe604432dae15b904b9d13b18d84b5509f791da56ec5c6f841c651c7c3fc0d",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "baseline"
+        ],
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "candidate",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/persistent-segment-release/candidate/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/persistent-segment-release/g++-candidate-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/representative-performance/persistent-segment-release/g++-candidate-timing",
+            "binary_sha256": "5d073ee9c89df170819aced1892e287f82b1af1bf84d705c4d4a6632a9bc92a4",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "candidate"
+        ]
+      ]
+    },
+    {
+      "family": "persistent-segment",
+      "mode": "release",
+      "case": [
+        "persistent-segment",
+        "dense-sequential",
+        "affine-u64",
+        100000,
+        200000
+      ],
+      "compiler_filter": "g++",
+      "original_prepared_sha256": "c3487062fc3feca1d5a2ede836b597aaad5b4e5fe2f18fe900d1db31c00915b8",
+      "entries": [
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/persistent-segment-release/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/persistent-segment-release/g++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/representative-performance/persistent-segment-release/g++-baseline-timing",
+            "binary_sha256": "f9fe604432dae15b904b9d13b18d84b5509f791da56ec5c6f841c651c7c3fc0d",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "baseline"
+        ],
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "candidate",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/persistent-segment-release/candidate/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/persistent-segment-release/g++-candidate-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/representative-performance/persistent-segment-release/g++-candidate-timing",
+            "binary_sha256": "5d073ee9c89df170819aced1892e287f82b1af1bf84d705c4d4a6632a9bc92a4",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "candidate"
+        ]
+      ]
+    },
+    {
+      "family": "dynamic-fenwick",
+      "mode": "assert",
+      "case": [
+        "dynamic-fenwick",
+        "boundary",
+        "u64",
+        30000,
+        200000
+      ],
+      "compiler_filter": "clang++",
+      "original_prepared_sha256": "577cebc72dc737f0fbb0796028a7706e7c18e5a46440ee1451eab2d2a1020e15",
+      "entries": [
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dynamic-fenwick-assert/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dynamic-fenwick-assert/clang++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/representative-performance/dynamic-fenwick-assert/clang++-baseline-timing",
+            "binary_sha256": "ae62300eddd6157e9b01dc1e8fd0dd76ea795e207c8b5299537f7a2a68027635",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "baseline"
+        ],
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "candidate",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/representative-performance/dynamic-fenwick-assert/candidate/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/representative-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/representative-performance/dynamic-fenwick-assert/clang++-candidate-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/representative-performance/dynamic-fenwick-assert/clang++-candidate-timing",
+            "binary_sha256": "77d863cf71762533798ce91ed0ed8afeb4ac74f18a9a843462efe75546a89e57",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/representative-performance/focused-recheck"
+          },
+          "candidate"
+        ]
+      ]
+    }
+  ],
+  "runner_sha256": "93d48442ac495247ee9126f3e1dad26a0bcf5726bfd154581ca985982a006c2e",
+  "shared_runner_sha256": "db0d0bce2b2de5fb29d6d5da05ec0bc04eb8b13e984af444ba2be6c960a28632",
+  "conditions": "Same frozen binaries/input cases; no rebuild. Original source/header/binary hashes and small gates verified. Nine alternating samples after one warmup; original experiment unchanged."
+}

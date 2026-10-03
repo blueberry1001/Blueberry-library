@@ -1,0 +1,853 @@
+{
+  "started_at": "2026-10-03T07:21:08.704633+00:00",
+  "finished_at": "2026-10-03T07:21:33.066256+00:00",
+  "baseline_commit": "ca8a4df35269a6980cf0b9612878e420744fc860",
+  "mode": "assert",
+  "repeats": 5,
+  "warmups": 1,
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           46 bits physical, 57 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  5\nOn-line CPU(s) list:                     0-4\nVendor ID:                               GenuineIntel\nModel name:                              INTEL(R) XEON(R) PLATINUM 8573C\nCPU family:                              6\nModel:                                   207\nThread(s) per core:                      1\nCore(s) per socket:                      5\nSocket(s):                               1\nStepping:                                2\nBogoMIPS:                                4600.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 arat avx512vbmi umip waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid cldemote movdiri movdir64b fsrm serialize tsxldtrk avx512_fp16 arch_capabilities\nHypervisor vendor:                       KVM\nVirtualization type:                     full\nL1d cache:                               144 KiB (3 instances)\nL1i cache:                               96 KiB (3 instances)\nL2 cache:                                6 MiB (3 instances)\nL3 cache:                                260 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-4\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Vulnerable\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Vulnerable\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Vulnerable: __user pointer sanitization and usercopy barriers only; no swapgs barriers\nVulnerability Spectre v2:                Vulnerable; STIBP: disabled; PBRSB-eIBRS: Not affected; BHI: Vulnerable\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+  "summary": [
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 4065324,
+          "min": 4024295,
+          "max": 5431283
+        },
+        "get_ns": {
+          "median": 99401102,
+          "min": 91923132,
+          "max": 107851855
+        },
+        "mixed_ns": {
+          "median": 25726068,
+          "min": 23412650,
+          "max": 35355358
+        },
+        "range_ns": {
+          "median": 18672083,
+          "min": 17717507,
+          "max": 20271904
+        },
+        "update_ns": {
+          "median": 42403174,
+          "min": 38348288,
+          "max": 44655840
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 4353462,
+          "min": 4173313,
+          "max": 5783443
+        },
+        "get_ns": {
+          "median": 61617380,
+          "min": 57663384,
+          "max": 68493724
+        },
+        "mixed_ns": {
+          "median": 18663214,
+          "min": 17336639,
+          "max": 20085877
+        },
+        "range_ns": {
+          "median": 17650800,
+          "min": 16933891,
+          "max": 19081639
+        },
+        "update_ns": {
+          "median": 38516008,
+          "min": 35295829,
+          "max": 43456412
+        }
+      },
+      "peak_rss_kib": 40404
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 3903473,
+          "min": 3800231,
+          "max": 5122337
+        },
+        "get_ns": {
+          "median": 102240218,
+          "min": 92208336,
+          "max": 115237031
+        },
+        "mixed_ns": {
+          "median": 25367314,
+          "min": 24027001,
+          "max": 27177973
+        },
+        "range_ns": {
+          "median": 20675960,
+          "min": 19772838,
+          "max": 23103595
+        },
+        "update_ns": {
+          "median": 41321847,
+          "min": 38769485,
+          "max": 50812698
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 3773523,
+          "min": 3728730,
+          "max": 4563592
+        },
+        "get_ns": {
+          "median": 67688885,
+          "min": 64130756,
+          "max": 77619966
+        },
+        "mixed_ns": {
+          "median": 18491842,
+          "min": 17748196,
+          "max": 19635228
+        },
+        "range_ns": {
+          "median": 20639007,
+          "min": 19537763,
+          "max": 21733625
+        },
+        "update_ns": {
+          "median": 44462837,
+          "min": 39332417,
+          "max": 45632739
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "affine-u64",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 6016263,
+          "min": 5573748,
+          "max": 6308833
+        },
+        "get_ns": {
+          "median": 193131836,
+          "min": 167210253,
+          "max": 255861897
+        },
+        "mixed_ns": {
+          "median": 44303443,
+          "min": 37951459,
+          "max": 46809078
+        },
+        "range_ns": {
+          "median": 31909525,
+          "min": 29639937,
+          "max": 34144368
+        },
+        "update_ns": {
+          "median": 55042235,
+          "min": 52214347,
+          "max": 68488263
+        }
+      },
+      "peak_rss_kib": 58864
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "affine-u64",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 6006591,
+          "min": 5134337,
+          "max": 6070753
+        },
+        "get_ns": {
+          "median": 81709922,
+          "min": 80376638,
+          "max": 84014989
+        },
+        "mixed_ns": {
+          "median": 22985608,
+          "min": 22649517,
+          "max": 23451180
+        },
+        "range_ns": {
+          "median": 28840263,
+          "min": 28518996,
+          "max": 31661655
+        },
+        "update_ns": {
+          "median": 58837436,
+          "min": 47093301,
+          "max": 64853976
+        }
+      },
+      "peak_rss_kib": 58860
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "affine-u64",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 5917177,
+          "min": 5410057,
+          "max": 6358577
+        },
+        "get_ns": {
+          "median": 164301169,
+          "min": 154535999,
+          "max": 165420459
+        },
+        "mixed_ns": {
+          "median": 37438842,
+          "min": 36334381,
+          "max": 48034351
+        },
+        "range_ns": {
+          "median": 27637915,
+          "min": 27296725,
+          "max": 31958940
+        },
+        "update_ns": {
+          "median": 56658438,
+          "min": 46763998,
+          "max": 61377416
+        }
+      },
+      "peak_rss_kib": 58860
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "affine-u64",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 5642551,
+          "min": 5325510,
+          "max": 7124726
+        },
+        "get_ns": {
+          "median": 88026830,
+          "min": 84073148,
+          "max": 89365474
+        },
+        "mixed_ns": {
+          "median": 23577502,
+          "min": 23269127,
+          "max": 24852656
+        },
+        "range_ns": {
+          "median": 29174033,
+          "min": 27091235,
+          "max": 32115041
+        },
+        "update_ns": {
+          "median": 50419316,
+          "min": 49601651,
+          "max": 68200160
+        }
+      },
+      "peak_rss_kib": 58860
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 4487634,
+          "min": 4158394,
+          "max": 5333193
+        },
+        "get_ns": {
+          "median": 58885509,
+          "min": 55007610,
+          "max": 62983697
+        },
+        "mixed_ns": {
+          "median": 16636630,
+          "min": 14638596,
+          "max": 18480924
+        },
+        "range_ns": {
+          "median": 11180396,
+          "min": 10962888,
+          "max": 11594295
+        },
+        "update_ns": {
+          "median": 44695827,
+          "min": 43000305,
+          "max": 49839088
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 4234068,
+          "min": 3878296,
+          "max": 6573368
+        },
+        "get_ns": {
+          "median": 36126946,
+          "min": 35299113,
+          "max": 36660342
+        },
+        "mixed_ns": {
+          "median": 11363874,
+          "min": 10658829,
+          "max": 13439961
+        },
+        "range_ns": {
+          "median": 11110974,
+          "min": 10078068,
+          "max": 12450139
+        },
+        "update_ns": {
+          "median": 40352572,
+          "min": 38798099,
+          "max": 42456656
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 3930682,
+          "min": 3562046,
+          "max": 4328348
+        },
+        "get_ns": {
+          "median": 56936086,
+          "min": 54959534,
+          "max": 61132693
+        },
+        "mixed_ns": {
+          "median": 15938017,
+          "min": 14615770,
+          "max": 16734527
+        },
+        "range_ns": {
+          "median": 11570618,
+          "min": 10813556,
+          "max": 12055366
+        },
+        "update_ns": {
+          "median": 41643756,
+          "min": 39468685,
+          "max": 47134956
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 3807597,
+          "min": 3476843,
+          "max": 4550828
+        },
+        "get_ns": {
+          "median": 41022710,
+          "min": 37631063,
+          "max": 45562858
+        },
+        "mixed_ns": {
+          "median": 12237423,
+          "min": 11298682,
+          "max": 13721996
+        },
+        "range_ns": {
+          "median": 11004780,
+          "min": 10513694,
+          "max": 12419015
+        },
+        "update_ns": {
+          "median": 41808316,
+          "min": 41467286,
+          "max": 51304336
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "affine-u64",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 6683298,
+          "min": 6103308,
+          "max": 8307597
+        },
+        "get_ns": {
+          "median": 110566315,
+          "min": 103343200,
+          "max": 126397846
+        },
+        "mixed_ns": {
+          "median": 27420521,
+          "min": 25269774,
+          "max": 28287360
+        },
+        "range_ns": {
+          "median": 19198447,
+          "min": 17111950,
+          "max": 20368711
+        },
+        "update_ns": {
+          "median": 69619152,
+          "min": 61422860,
+          "max": 84794682
+        }
+      },
+      "peak_rss_kib": 58860
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "affine-u64",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 6565440,
+          "min": 5651876,
+          "max": 12867706
+        },
+        "get_ns": {
+          "median": 51651626,
+          "min": 47179620,
+          "max": 68100688
+        },
+        "mixed_ns": {
+          "median": 15768880,
+          "min": 14643046,
+          "max": 19460177
+        },
+        "range_ns": {
+          "median": 17635405,
+          "min": 17058947,
+          "max": 17910346
+        },
+        "update_ns": {
+          "median": 69688172,
+          "min": 63523569,
+          "max": 102496976
+        }
+      },
+      "peak_rss_kib": 58864
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "affine-u64",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 6470702,
+          "min": 5642513,
+          "max": 7142822
+        },
+        "get_ns": {
+          "median": 92571842,
+          "min": 83955003,
+          "max": 100418906
+        },
+        "mixed_ns": {
+          "median": 25643987,
+          "min": 21797225,
+          "max": 26467465
+        },
+        "range_ns": {
+          "median": 16388572,
+          "min": 14107964,
+          "max": 21459463
+        },
+        "update_ns": {
+          "median": 69467444,
+          "min": 57143938,
+          "max": 75582509
+        }
+      },
+      "peak_rss_kib": 58860
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "affine-u64",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 5775471,
+          "min": 5557341,
+          "max": 6300597
+        },
+        "get_ns": {
+          "median": 54914579,
+          "min": 48533403,
+          "max": 56127202
+        },
+        "mixed_ns": {
+          "median": 15475196,
+          "min": 14802312,
+          "max": 21021675
+        },
+        "range_ns": {
+          "median": 14479784,
+          "min": 13934378,
+          "max": 16884708
+        },
+        "update_ns": {
+          "median": 58875404,
+          "min": 56323078,
+          "max": 59510777
+        }
+      },
+      "peak_rss_kib": 58860
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1381,
+          "min": 1192,
+          "max": 1908
+        },
+        "get_ns": {
+          "median": 21586350,
+          "min": 20003405,
+          "max": 22815606
+        },
+        "mixed_ns": {
+          "median": 18849129,
+          "min": 16985317,
+          "max": 20912624
+        },
+        "range_ns": {
+          "median": 4000595,
+          "min": 3869418,
+          "max": 4302833
+        },
+        "update_ns": {
+          "median": 28346318,
+          "min": 25448667,
+          "max": 28769000
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "u64",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1285,
+          "min": 1113,
+          "max": 1311
+        },
+        "get_ns": {
+          "median": 16184642,
+          "min": 15365046,
+          "max": 17153970
+        },
+        "mixed_ns": {
+          "median": 17425256,
+          "min": 16531982,
+          "max": 19499981
+        },
+        "range_ns": {
+          "median": 3948695,
+          "min": 3793853,
+          "max": 4916076
+        },
+        "update_ns": {
+          "median": 27246530,
+          "min": 25256153,
+          "max": 33101144
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1201,
+          "min": 1000,
+          "max": 1340
+        },
+        "get_ns": {
+          "median": 25513119,
+          "min": 22641448,
+          "max": 27613109
+        },
+        "mixed_ns": {
+          "median": 19105185,
+          "min": 17255541,
+          "max": 22764729
+        },
+        "range_ns": {
+          "median": 4373136,
+          "min": 4204101,
+          "max": 4645121
+        },
+        "update_ns": {
+          "median": 28230084,
+          "min": 25599754,
+          "max": 30079724
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1259,
+          "min": 795,
+          "max": 1400
+        },
+        "get_ns": {
+          "median": 14384162,
+          "min": 14254236,
+          "max": 16100015
+        },
+        "mixed_ns": {
+          "median": 16750398,
+          "min": 16008258,
+          "max": 17736836
+        },
+        "range_ns": {
+          "median": 4726568,
+          "min": 4367733,
+          "max": 7000269
+        },
+        "update_ns": {
+          "median": 28947464,
+          "min": 25941128,
+          "max": 31397290
+        }
+      },
+      "peak_rss_kib": 40400
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "affine-u64",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1495,
+          "min": 1141,
+          "max": 1524
+        },
+        "get_ns": {
+          "median": 37402817,
+          "min": 35841461,
+          "max": 38578749
+        },
+        "mixed_ns": {
+          "median": 28944118,
+          "min": 27265402,
+          "max": 31417322
+        },
+        "range_ns": {
+          "median": 6046615,
+          "min": 5534326,
+          "max": 6337575
+        },
+        "update_ns": {
+          "median": 39279142,
+          "min": 34315535,
+          "max": 39800671
+        }
+      },
+      "peak_rss_kib": 58860
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "affine-u64",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1483,
+          "min": 1253,
+          "max": 1891
+        },
+        "get_ns": {
+          "median": 20047073,
+          "min": 19056991,
+          "max": 22375487
+        },
+        "mixed_ns": {
+          "median": 23779959,
+          "min": 22852882,
+          "max": 26148939
+        },
+        "range_ns": {
+          "median": 5807878,
+          "min": 5566916,
+          "max": 6134718
+        },
+        "update_ns": {
+          "median": 36206354,
+          "min": 34095227,
+          "max": 41222191
+        }
+      },
+      "peak_rss_kib": 58860
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "affine-u64",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1178,
+          "min": 945,
+          "max": 1303
+        },
+        "get_ns": {
+          "median": 27640843,
+          "min": 27018461,
+          "max": 34051411
+        },
+        "mixed_ns": {
+          "median": 27730370,
+          "min": 26044221,
+          "max": 28801293
+        },
+        "range_ns": {
+          "median": 5707808,
+          "min": 5037196,
+          "max": 7680578
+        },
+        "update_ns": {
+          "median": 36868807,
+          "min": 34641700,
+          "max": 43816508
+        }
+      },
+      "peak_rss_kib": 58860
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "affine-u64",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1213,
+          "min": 1092,
+          "max": 1288
+        },
+        "get_ns": {
+          "median": 17923151,
+          "min": 17191718,
+          "max": 20566776
+        },
+        "mixed_ns": {
+          "median": 24518379,
+          "min": 22615901,
+          "max": 26571525
+        },
+        "range_ns": {
+          "median": 5631872,
+          "min": 5180846,
+          "max": 5884043
+        },
+        "update_ns": {
+          "median": 37432011,
+          "min": 33878592,
+          "max": 39094005
+        }
+      },
+      "peak_rss_kib": 58860
+    }
+  ],
+  "conditions": "Alternating compiler/implementation order, separate subprocess per profile. Input generation, correctness oracle, startup, output and destruction excluded; no I/O claim. Stage scopes in benchmark/results/representative-performance/plan.md. Linux process peak RSS includes inputs, runtime and every stage; not a live-allocation measure. Prepared inputs/binaries are hash checked. Shared-host activity can remain."
+}
