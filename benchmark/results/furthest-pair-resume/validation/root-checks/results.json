@@ -1,0 +1,93 @@
+{
+  "started_at": "2026-10-03T09:04:30.181618+00:00",
+  "family": "furthest-pair",
+  "head_before": "da912761b09e4c4cf6d67d2c154c03672ca8658b",
+  "source_sha256": {
+    "blueberry/geometry/furthest-pair.hpp": "b2e6e51f3dd36fb7cd7e8e5883847d02d86d2d2e0e4836a337ac97dfda9c5cef",
+    "blueberry/geometry/convex-hull.hpp": "cdc6aaa2c1cd1c913be5f3b0fe2864295e0677f82740419c08ed03bbd299859e",
+    "blueberry/all.hpp": "41223661df926a8a435e34cd2042acb3413aaa901c932aa53b2741e8f5d6fa83",
+    "tests/random/furthest-pair.cpp": "6dd5e7b3df81d36bfbf92fed7c73375bcfc75063ef38f956e65ae2cab1057be8",
+    "tests/random/convex-hull.cpp": "350871648651e3242c870aba1f20eee94531896d6e1541e403db96d3de80f98e",
+    "docs/geometry/furthest-pair.md": "e98357a7acf82fecfc69f213a78d8d47f2824cc09933fdc85685b3beba23af2c",
+    "docs/geometry/convex-hull.md": "dc3333a761b3d67867e7d276a29430a5854d5bd40de9cd855f8c0c150081a840",
+    "verify/geometry/furthest-pair.test.cpp": "b71be52ddf2862c079cb382a20cf67a5492a0adca3715966bd4602982fff0278",
+    "verify/geometry/static-convex-hull.test.cpp": "15bb67572c539ac294aa795afdd96de06756fc60a65e89da2dccef21015fa9d0",
+    ".verify-helper/docs/static/_data/libraries.yml": "8dda4124dd827a55bb975c3a942de72d7b70217d0ebbf1270528f1b6b4de4676",
+    ".verify-helper/docs/static/_data/library_checker.json": "8f6f357cb99632c792fb9557ed93044421624f7f4f48cf4ccc924d6ad7192c1a",
+    "docs/library-checker-checklist.md": "50d883380877f03b39d32d1a1832d9a5949a7caa4705b0efa7394d1c3e350c8d",
+    "README.md": "91e56f3e20798443b139d8fcc427fb55852fed781b6bd4786ce6d3b233d9fafe",
+    ".verify-helper/docs/static/_data/library_verification.json": "058a4faad7f530977e21692ca396a1b9761881af64e66edd540a3584efa84b36",
+    "docs/verification-gaps.md": "90365d2e10e3af58faae24682b4dfb19a39ff91be7ddaa67f39f81848f3dfa89"
+  },
+  "full_official_verification": false,
+  "preserved_full_official_attempt_sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+  "stages": [
+    {
+      "name": "make-check",
+      "command": [
+        "make",
+        "check",
+        "CXX=g++",
+        "CXX_STANDARD=gnu++20",
+        "COMPILE_JOBS=2"
+      ],
+      "extra_env": {},
+      "exit_code": 0,
+      "seconds": 434.0723551859992,
+      "log": ".verification/furthest-pair-resume/root-checks/make-check.log",
+      "log_sha256": "1ad06605c524904f0d23dc6648dcaa45f4ed310d5aa707b039c1f86897409ad0",
+      "status": "passed"
+    },
+    {
+      "name": "docs-publication-gate",
+      "command": [
+        "make",
+        "docs"
+      ],
+      "extra_env": {},
+      "exit_code": 2,
+      "seconds": 24.570828274001542,
+      "log": ".verification/furthest-pair-resume/root-checks/docs-publication-gate.log",
+      "log_sha256": "f5d2868944321b92282d652b584d11dfdfadaf229b48cf3fdfd4454306c20b01",
+      "status": "blocked_or_failed"
+    },
+    {
+      "name": "jekyll",
+      "command": [
+        "jekyll",
+        "build",
+        "--source",
+        ".verify-helper/markdown",
+        "--destination",
+        ".build/site",
+        "--config",
+        ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+      ],
+      "extra_env": {
+        "JEKYLL_ENV": "production"
+      },
+      "exit_code": 0,
+      "seconds": 23.025619810003263,
+      "log": ".verification/furthest-pair-resume/root-checks/jekyll.log",
+      "log_sha256": "d17434861597212bb3951395205286b87d680b8210e3707517e6bd02842919f8",
+      "status": "passed"
+    },
+    {
+      "name": "site-preflight-without-metrics",
+      "command": [
+        "python3",
+        "scripts/check_site.py",
+        "--without-metrics"
+      ],
+      "extra_env": {},
+      "exit_code": 0,
+      "seconds": 0.45647924399963813,
+      "log": ".verification/furthest-pair-resume/root-checks/site-preflight-without-metrics.log",
+      "log_sha256": "7c79b6ca9aaab553a9fa5537643802ff8a668c66a37de5902ed463a4ea7ee932",
+      "status": "passed"
+    }
+  ],
+  "source_unchanged": true,
+  "preserved_full_official_attempt_unchanged": true,
+  "finished_at": "2026-10-03T09:12:32.321015+00:00"
+}

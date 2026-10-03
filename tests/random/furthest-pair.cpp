@@ -66,8 +66,12 @@ void check_expected(const std::vector<std::pair<Coord, Coord>>& points,
                     const Wide& expected, const std::string& label) {
   ++cases;
   const auto before = points;
+  const auto* before_data = points.data();
+  const auto before_capacity = points.capacity();
   const auto actual = blueberry::furthest_pair(points);
   if (points != before) fail(label + ": input changed", before, expected, actual);
+  if (points.data() != before_data || points.capacity() != before_capacity)
+    fail(label + ": input storage invalidated", before, expected, actual);
   if (points.size() < 2) {
     if (actual != std::pair<int, int>{-1, -1})
       fail(label + ": missing sentinel", points, expected, actual);
@@ -114,6 +118,52 @@ void check(const std::vector<std::pair<Coord, Coord>>& points,
     translated.emplace_back(shifted_x.convert_to<long long>(), shifted_y.convert_to<long long>());
   }
   if (within_bounds) check_expected(translated, expected, label + ": translation");
+
+  // A non-axis similarity changes support directions while doubling distance^2.
+  // Form transformed coordinates in the independent wider type before narrowing.
+  Points rotated;
+  within_bounds = true;
+  for (const auto& [x, y] : points) {
+    const Wide rotated_x = Wide(x) - Wide(y);
+    const Wide rotated_y = Wide(x) + Wide(y);
+    if (rotated_x < -Wide(bound) || rotated_x > Wide(bound) ||
+        rotated_y < -Wide(bound) || rotated_y > Wide(bound)) {
+      within_bounds = false;
+      break;
+    }
+    rotated.emplace_back(rotated_x.convert_to<long long>(), rotated_y.convert_to<long long>());
+  }
+  if (within_bounds)
+    check_expected(rotated, points.size() < 2 ? Wide(-1) : Wide(2) * expected,
+                   label + ": non-axis similarity");
+}
+
+void index_and_lifetime_cases() {
+  // std::move binds the documented const-reference API and must not consume input.
+  Points points{{0, 0}, {3, 0}, {0, 4}};
+  const auto before = points;
+  const auto* before_data = points.data();
+  const auto before_capacity = points.capacity();
+  ++cases;
+  const auto actual = blueberry::furthest_pair(std::move(points));
+  if (actual != std::pair<int, int>{1, 2} || points != before ||
+      points.data() != before_data || points.capacity() != before_capacity)
+    fail("rvalue binding preserves caller storage", before, Wide(25), actual);
+  ++cases;
+  const auto temporary = blueberry::furthest_pair(Points{{0, 0}, {3, 0}, {0, 4}});
+  if (temporary != std::pair<int, int>{1, 2})
+    fail("temporary input", before, Wide(25), temporary);
+
+  // Both unique diameter endpoints occur after a long run of interior duplicates.
+  // The collinear and triangular hull cases use the same original-index answer.
+  Points late(257, {1, 0});
+  late.emplace_back(-bound, 0);
+  late.emplace_back(bound, 0);
+  const Wide diameter = squared_distance(late[257], late[258]);
+  check_expected(late, diameter, "late collinear endpoint indices");
+  late.emplace_back(0, 1);
+  check_expected(late, diameter, "late noncollinear endpoint indices");
+  check_expected(Points(4096, {bound, -bound}), Wide(0), "large identical input");
 }
 
 int main(int argc, char** argv) {
@@ -122,6 +172,7 @@ int main(int argc, char** argv) {
                  : env ? std::strtoull(env, nullptr, 10) : 1;
   std::mt19937_64 rng(seed);
   std::cerr << "seed=" << seed << '\n';
+  index_and_lifetime_cases();
 
   const std::vector<Points> boundaries{
       {},
@@ -139,6 +190,8 @@ int main(int argc, char** argv) {
       {{-bound, -bound}, {bound, bound - 1}, {bound - 1, bound - 2}},
       {{-bound, bound}, {bound, -bound + 1}, {bound - 1, -bound + 2}},
       {{2, 3}, {-2, -3}, {2, -3}, {-2, 3}, {0, 0}, {2, 0}, {0, 3}},
+      {{0, 0}, {bound, 1}, {1, bound - 1}, {-bound, -1}, {-1, -bound + 1},
+       {bound, 1}, {1, 0}},
       {{5, 0}, {4, 3}, {3, 4}, {0, 5}, {-3, 4}, {-4, 3},
        {-5, 0}, {-4, -3}, {-3, -4}, {0, -5}, {3, -4}, {4, -3}},
       {{1, 1}, {1, 1}, {0, 0}, {4, 4}, {1, 1}, {4, 4}, {0, 0}}};

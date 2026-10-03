@@ -1,0 +1,83 @@
+{
+  "reviewed_at": "2026-10-03T09:06:47.288814+00:00",
+  "status": "clear_initial_evidence",
+  "material_findings": [],
+  "counts": {
+    "kernel_profiles": 1824,
+    "kernel_warmups": 304,
+    "kernel_measured": 1520,
+    "io_profiles": 384,
+    "io_warmups": 64,
+    "io_measured": 320,
+    "allocation_profiles": 56,
+    "rss_profiles": 48,
+    "summary_rows": 368,
+    "recomputed_median_min_max_values": 3192,
+    "csv_comparisons": 708
+  },
+  "variant_full_call_results": {
+    "indices": {
+      "comparisons": 76,
+      "median_lower_count": 17,
+      "separated_faster_count": 4,
+      "separated_slower_count": 32
+    },
+    "records": {
+      "comparisons": 76,
+      "median_lower_count": 7,
+      "separated_faster_count": 1,
+      "separated_slower_count": 27
+    },
+    "fast-cases": {
+      "comparisons": 76,
+      "median_lower_count": 39,
+      "separated_faster_count": 12,
+      "separated_slower_count": 0
+    }
+  },
+  "fast_case_wrapper_results": {
+    "all-same": {
+      "comparisons": 8,
+      "median_delta_percent_min": -97.05366735221436,
+      "median_delta_percent_max": -90.28800305168797,
+      "separated_faster_count": 8,
+      "separated_slower_count": 0
+    },
+    "tiny": {
+      "comparisons": 4,
+      "median_delta_percent_min": -29.918643242188313,
+      "median_delta_percent_max": -17.21670888307971,
+      "separated_faster_count": 3,
+      "separated_slower_count": 0
+    },
+    "late-different": {
+      "comparisons": 8,
+      "median_delta_percent_min": -0.6491702427903423,
+      "median_delta_percent_max": 13.466123827642074,
+      "separated_faster_count": 0,
+      "separated_slower_count": 0
+    }
+  },
+  "all_input_objective_hull_metadata_identities_match": true,
+  "all_summary_csv_values_match_raw": true,
+  "limits": [
+    "This is initial wrapper/layout evidence at baseline header37dc; it is not final production speedup validation.",
+    "All original warmups, samples and negative comparisons remain. In particular late-different adds real O(N) work and all eight initial ranges overlap.",
+    "Stage decompositions are independent nonadditive proxies; no unavailable field is treated as zero.",
+    "Full/I/O results are compared within compiler and mode; no pooling with later paired experiment.",
+    "Shared unpinned host and five measured samples; sample-range separation is descriptive rather than a statistical confidence interval."
+  ],
+  "artifact_sha256": {
+    "benchmark/results/furthest-pair-resume/initial/prepared.json": "a6d3e98833342e96a7f19ccdfb07f74e5a8fafca7fe3382750ed9261e2256bf0",
+    "benchmark/results/furthest-pair-resume/initial/compile.json": "fb77617b4b1d2931ce2608abb3b65dfcf1f77d11cd3fdc9e9ab9e7b784588263",
+    "benchmark/results/furthest-pair-resume/initial/small-checks.json": "ea0b407a6850715fb88044c106d0d1a2dd86e2c41f18790264f0a92ef5c5c321",
+    "benchmark/results/furthest-pair-resume/initial/measurement/metadata.json": "12902eed6d3189919eaa0fccb329ce39bc20b0605b47bdd8d22336d7873933cf",
+    "benchmark/results/furthest-pair-resume/initial/measurement/kernel.jsonl": "01bff8ce0cac00395b83e07676e0759d79e2cb80f6df2c279d28c7cf5207c446",
+    "benchmark/results/furthest-pair-resume/initial/measurement/io.jsonl": "614d9fb5ac35b937f13d5297ed285ae343ebf1fbf8d2aacf14ee6d9f05b868dc",
+    "benchmark/results/furthest-pair-resume/initial/measurement/summary.json": "ee308afe4315fbfe16192c13dd25218129d6648354c1830369662ce97b93fc80",
+    "benchmark/results/furthest-pair-resume/initial/diagnostics/allocation.json": "bf5ef72f6cad7bcbedf7d16b463ec89b9ef5a9ffa8d1e095270419f0e52ef2cc",
+    "benchmark/results/furthest-pair-resume/initial/diagnostics/memory.json": "78ace313f92884d8c746dee4cb8a516ce7696d386e9abac3d02503e79e2790de",
+    "benchmark/results/furthest-pair-resume/initial/stage-comparisons.csv": "290ee68055f94fb3abce67545f1fe03542c38dd81fe9c8ca0cdabc064529146b",
+    "benchmark/results/furthest-pair-resume/initial/comparison-report.md": "0ce89d607ba49b1208ab781237f81b889796bb46eefe8b25c6f7d547dc993a6e"
+  }
+}

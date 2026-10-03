@@ -1,0 +1,19 @@
+In file included from <stdin>:1:
+./blueberry/geometry/furthest-pair.hpp:21:46: error: static assertion failed due to requirement 'std::is_signed_v<unsigned long long>': furthest_pair requires signed integral coordinates up to 64 bits
+   21 |   static_assert(std::is_integral_v<Coord> && std::is_signed_v<Coord> &&
+      |                                              ^~~~~~~~~~~~~~~~~~~~~~~
+<stdin>:4:19: note: in instantiation of function template specialization 'blueberry::furthest_pair<unsigned long long>' requested here
+    4 | return blueberry::furthest_pair(points).first;
+      |                   ^
+In file included from <stdin>:1:
+In file included from ./blueberry/geometry/furthest-pair.hpp:12:
+/workspace/Blueberry-library/blueberry/geometry/convex-hull.hpp:17:46: error: static assertion failed due to requirement 'std::is_signed_v<unsigned long long>': convex_hull requires signed integral coordinates up to 64 bits
+   17 |   static_assert(std::is_integral_v<Coord> && std::is_signed_v<Coord> &&
+      |                                              ^~~~~~~~~~~~~~~~~~~~~~~
+./blueberry/geometry/furthest-pair.hpp:37:21: note: in instantiation of function template specialization 'blueberry::convex_hull<unsigned long long>' requested here
+   37 |   const auto hull = convex_hull(points);
+      |                     ^
+<stdin>:4:19: note: in instantiation of function template specialization 'blueberry::furthest_pair<unsigned long long>' requested here
+    4 | return blueberry::furthest_pair(points).first;
+      |                   ^
+2 errors generated.

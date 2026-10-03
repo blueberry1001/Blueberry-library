@@ -1,0 +1,7 @@
+In file included from <stdin>:1:
+blueberry/geometry/furthest-pair.hpp: In instantiation of ‘std::pair<int, int> blueberry::furthest_pair(const std::vector<std::pair<_FIter, _FIter> >&) [with Coord = float]’:
+<stdin>:4:32:   required from here
+blueberry/geometry/furthest-pair.hpp:21:22: error: static assertion failed: furthest_pair requires signed integral coordinates up to 64 bits
+   21 |   static_assert(std::is_integral_v<Coord> && std::is_signed_v<Coord> &&
+      |                 ~~~~~^~~~~~~~~~~~~~~~~~~~
+blueberry/geometry/furthest-pair.hpp:21:22: note: ‘std::is_integral_v<float>’ evaluates to false

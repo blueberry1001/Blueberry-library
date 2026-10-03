@@ -1,0 +1,526 @@
+[
+  {
+    "variant": "baseline",
+    "compiler": "g++",
+    "mode": "release",
+    "diagnostic": false,
+    "binary": ".build/furthest-pair-resume/final/baseline-g++-release",
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-release"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 3610337970
+    },
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "binary_sha256": "e181a67923552bc9940a67509f08fa4d0bfa74efc974b9ac7ab922419aeb98a9",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-release",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 14344631
+    }
+  },
+  {
+    "variant": "baseline",
+    "compiler": "g++",
+    "mode": "release",
+    "diagnostic": true,
+    "binary": ".build/furthest-pair-resume/final/baseline-g++-release-allocation",
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline",
+        "-DNDEBUG",
+        "-DFP_ALLOCATION_DIAGNOSTIC",
+        "-Wno-mismatched-new-delete",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-release-allocation"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 4655819737
+    },
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "binary_sha256": "e8fda5a835f298bdb624ef6b151d8267c9b5e57bd3819499a9e50d885f8a7030",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-release-allocation",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 24378364
+    }
+  },
+  {
+    "variant": "baseline",
+    "compiler": "g++",
+    "mode": "assert",
+    "diagnostic": false,
+    "binary": ".build/furthest-pair-resume/final/baseline-g++-assert",
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-assert"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 4813476694
+    },
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "binary_sha256": "95ed80ec3ae9472bc07f6625a887549686afa47b7a3b2a73e0bd05d2ab127a69",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-assert",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 23480305
+    },
+    "invalid_singleton": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-assert",
+        "invalid-singleton",
+        "blueberry"
+      ],
+      "returncode": -6,
+      "stdout": "",
+      "stderr": "baseline-g++-assert: /workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline/blueberry/geometry/convex-hull.hpp:23: std::vector<std::pair<_FIter, _FIter> > blueberry::convex_hull(std::vector<std::pair<_FIter, _FIter> >) [with Coord = long long int]: Assertion `-limit <= static_cast<__int128>(x) && static_cast<__int128>(x) <= limit' failed.\n",
+      "process_ns": 2273585
+    }
+  },
+  {
+    "variant": "baseline",
+    "compiler": "g++",
+    "mode": "assert",
+    "diagnostic": true,
+    "binary": ".build/furthest-pair-resume/final/baseline-g++-assert-allocation",
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline",
+        "-DFP_ALLOCATION_DIAGNOSTIC",
+        "-Wno-mismatched-new-delete",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-assert-allocation"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 4151312825
+    },
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "binary_sha256": "0e68f99926be9ff2b6fdd4011d1401ad6bb3387c07e9ca419c82eebc11221e0c",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-assert-allocation",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 16069571
+    },
+    "invalid_singleton": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-g++-assert-allocation",
+        "invalid-singleton",
+        "blueberry"
+      ],
+      "returncode": -6,
+      "stdout": "",
+      "stderr": "baseline-g++-assert-allocation: /workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline/blueberry/geometry/convex-hull.hpp:23: std::vector<std::pair<_FIter, _FIter> > blueberry::convex_hull(std::vector<std::pair<_FIter, _FIter> >) [with Coord = long long int]: Assertion `-limit <= static_cast<__int128>(x) && static_cast<__int128>(x) <= limit' failed.\n",
+      "process_ns": 4059309
+    }
+  },
+  {
+    "variant": "baseline",
+    "compiler": "clang++",
+    "mode": "release",
+    "diagnostic": false,
+    "binary": ".build/furthest-pair-resume/final/baseline-clang++-release",
+    "compile": {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-clang++-release"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 4187026538
+    },
+    "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+    "binary_sha256": "f41455e18bec1e6f81f8d6197b826e7782600e98a9e1e6f95e6fa4eb44468d56",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-clang++-release",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 15628123
+    }
+  },
+  {
+    "variant": "baseline",
+    "compiler": "clang++",
+    "mode": "assert",
+    "diagnostic": false,
+    "binary": ".build/furthest-pair-resume/final/baseline-clang++-assert",
+    "compile": {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-clang++-assert"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 4602984112
+    },
+    "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+    "binary_sha256": "28aeab1ea3262870406228825d50fb5314a89e0f774e9bc90d809e313ebac846",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-clang++-assert",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 17002777
+    },
+    "invalid_singleton": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/baseline-clang++-assert",
+        "invalid-singleton",
+        "blueberry"
+      ],
+      "returncode": -6,
+      "stdout": "",
+      "stderr": "baseline-clang++-assert: /workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/baseline/blueberry/geometry/convex-hull.hpp:23: std::vector<std::pair<Coord, Coord>> blueberry::convex_hull(std::vector<std::pair<Coord, Coord>>) [Coord = long long]: Assertion `-limit <= static_cast<__int128>(x) && static_cast<__int128>(x) <= limit' failed.\n",
+      "process_ns": 3228027
+    }
+  },
+  {
+    "variant": "final",
+    "compiler": "g++",
+    "mode": "release",
+    "diagnostic": false,
+    "binary": ".build/furthest-pair-resume/final/final-g++-release",
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-release"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 4905151085
+    },
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "binary_sha256": "6bfe9f039a21def9ed2f68cafa4dc52710172008ac318cdefdd113e17520434d",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-release",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 25886014
+    }
+  },
+  {
+    "variant": "final",
+    "compiler": "g++",
+    "mode": "release",
+    "diagnostic": true,
+    "binary": ".build/furthest-pair-resume/final/final-g++-release-allocation",
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final",
+        "-DNDEBUG",
+        "-DFP_ALLOCATION_DIAGNOSTIC",
+        "-Wno-mismatched-new-delete",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-release-allocation"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 5025701835
+    },
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "binary_sha256": "df4473acd7bd3d0c2206b0da4baf041cdea88f8f7749aa53c27d5a5be66cdda4",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-release-allocation",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 22904806
+    }
+  },
+  {
+    "variant": "final",
+    "compiler": "g++",
+    "mode": "assert",
+    "diagnostic": false,
+    "binary": ".build/furthest-pair-resume/final/final-g++-assert",
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-assert"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 5161190532
+    },
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "binary_sha256": "73c0e0fde21a1eced6276c1f8d805e18bd14fa39d34a264e88b8ce32884ebd8f",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-assert",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 23173877
+    },
+    "invalid_singleton": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-assert",
+        "invalid-singleton",
+        "blueberry"
+      ],
+      "returncode": -6,
+      "stdout": "",
+      "stderr": "final-g++-assert: /workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final/blueberry/geometry/furthest-pair.hpp:31: std::pair<int, int> blueberry::furthest_pair(const std::vector<std::pair<_FIter, _FIter> >&) [with Coord = long long int]: Assertion `-limit <= static_cast<__int128>(x) && static_cast<__int128>(x) <= limit' failed.\n",
+      "process_ns": 2444329
+    }
+  },
+  {
+    "variant": "final",
+    "compiler": "g++",
+    "mode": "assert",
+    "diagnostic": true,
+    "binary": ".build/furthest-pair-resume/final/final-g++-assert-allocation",
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final",
+        "-DFP_ALLOCATION_DIAGNOSTIC",
+        "-Wno-mismatched-new-delete",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-assert-allocation"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 4192934993
+    },
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "binary_sha256": "9ff9dad2785b66c58212d6294c470937b0f35d653626d5e465e9ba0bbd28c3f0",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-assert-allocation",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 15601749
+    },
+    "invalid_singleton": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-g++-assert-allocation",
+        "invalid-singleton",
+        "blueberry"
+      ],
+      "returncode": -6,
+      "stdout": "",
+      "stderr": "final-g++-assert-allocation: /workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final/blueberry/geometry/furthest-pair.hpp:31: std::pair<int, int> blueberry::furthest_pair(const std::vector<std::pair<_FIter, _FIter> >&) [with Coord = long long int]: Assertion `-limit <= static_cast<__int128>(x) && static_cast<__int128>(x) <= limit' failed.\n",
+      "process_ns": 3124551
+    }
+  },
+  {
+    "variant": "final",
+    "compiler": "clang++",
+    "mode": "release",
+    "diagnostic": false,
+    "binary": ".build/furthest-pair-resume/final/final-clang++-release",
+    "compile": {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-clang++-release"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 4946550373
+    },
+    "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+    "binary_sha256": "1002ee970775d57e8f17bb9e41e71993968d26eca28b11e6fcdc9c64e5e44289",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-clang++-release",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 16196821
+    }
+  },
+  {
+    "variant": "final",
+    "compiler": "clang++",
+    "mode": "assert",
+    "diagnostic": false,
+    "binary": ".build/furthest-pair-resume/final/final-clang++-assert",
+    "compile": {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final",
+        "/workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final/furthest-pair-resume.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-clang++-assert"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 4762110219
+    },
+    "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+    "binary_sha256": "07fac30064303f6af4f852935ff9c66ce80da7e05c7d3d6fbdc74df81fe3e8ba",
+    "correctness": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-clang++-assert",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "Checked 1258 cases against all-pairs distance.\n",
+      "stderr": "",
+      "process_ns": 18146749
+    },
+    "invalid_singleton": {
+      "command": [
+        "/workspace/Blueberry-library/.build/furthest-pair-resume/final/final-clang++-assert",
+        "invalid-singleton",
+        "blueberry"
+      ],
+      "returncode": -6,
+      "stdout": "",
+      "stderr": "final-clang++-assert: /workspace/Blueberry-library/benchmark/results/furthest-pair-resume/final/final/blueberry/geometry/furthest-pair.hpp:31: std::pair<int, int> blueberry::furthest_pair(const std::vector<std::pair<Coord, Coord>> &) [Coord = long long]: Assertion `-limit <= static_cast<__int128>(x) && static_cast<__int128>(x) <= limit' failed.\n",
+      "process_ns": 2961410
+    }
+  }
+]
