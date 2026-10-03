@@ -9,7 +9,7 @@
 実行結果は各verifyページと[測定一覧](https://blueberry1001.github.io/Blueberry-library/benchmarks.html)で確認してください。
 ACL推奨は外部ライブラリです。Blueberryの実装数・チェック済み数には含めません。
 
-実装＋verifyあり: 112 / 実装あり・専用verifyなし: 0 / ACL推奨: 7 / 補助verifyのみ: 0 / 未対応: 134
+実装＋verifyあり: 114 / 実装あり・専用verifyなし: 0 / ACL推奨: 7 / 補助verifyのみ: 0 / 未対応: 132
 
 ## Sample
 
@@ -80,13 +80,13 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [x] [Cycle Detection (Directed)](https://judge.yosupo.jp/problem/cycle_detection) (`cycle_detection`): 実装＋verifyあり — [Cycle Detection](../blueberry/graph/cycle-detection.hpp), [verify](../verify/graph/cycle-detection-directed.test.cpp)
 - [x] [Cycle Detection (Undirected)](https://judge.yosupo.jp/problem/cycle_detection_undirected) (`cycle_detection_undirected`): 実装＋verifyあり — [Cycle Detection](../blueberry/graph/cycle-detection.hpp), [verify](../verify/graph/cycle-detection-undirected.test.cpp)
 - [ ] [Directed MST](https://judge.yosupo.jp/problem/directedmst) (`directedmst`): 未対応
-- [ ] [Dominator Tree](https://judge.yosupo.jp/problem/dominatortree) (`dominatortree`): 未対応
+- [x] [Dominator Tree](https://judge.yosupo.jp/problem/dominatortree) (`dominatortree`): 実装＋verifyあり — [Dominator Tree](../blueberry/graph/dominator-tree.hpp), [verify](../verify/graph/dominator-tree.test.cpp)
 - [ ] [Dynamic Graph Vertex Add Component Sum](https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum) (`dynamic_graph_vertex_add_component_sum`): 未対応
 - [x] [Enumerate Cliques](https://judge.yosupo.jp/problem/enumerate_cliques) (`enumerate_cliques`): 実装＋verifyあり — [Clique Enumeration](../blueberry/graph/clique-enumeration.hpp), [verify](../verify/graph/clique-enumeration.test.cpp)
 - [x] [Enumerate Triangles](https://judge.yosupo.jp/problem/enumerate_triangles) (`enumerate_triangles`): 実装＋verifyあり — [Triangle Enumeration](../blueberry/graph/triangle-enumeration.hpp), [verify](../verify/graph/triangle-enumeration.test.cpp)
 - [x] [Eulerian Trail (Directed)](https://judge.yosupo.jp/problem/eulerian_trail_directed) (`eulerian_trail_directed`): 実装＋verifyあり — [Eulerian Trail](../blueberry/graph/eulerian-trail.hpp), [verify](../verify/graph/eulerian-trail-directed.test.cpp)
 - [x] [Eulerian Trail (Undirected)](https://judge.yosupo.jp/problem/eulerian_trail_undirected) (`eulerian_trail_undirected`): 実装＋verifyあり — [Eulerian Trail](../blueberry/graph/eulerian-trail.hpp), [verify](../verify/graph/eulerian-trail-undirected.test.cpp)
-- [ ] [Matching on General Graph](https://judge.yosupo.jp/problem/general_matching) (`general_matching`): 未対応
+- [x] [Matching on General Graph](https://judge.yosupo.jp/problem/general_matching) (`general_matching`): 実装＋verifyあり — [General Matching](../blueberry/graph/general-matching.hpp), [verify](../verify/graph/general-matching.test.cpp)
 - [ ] [General Weighted Matching](https://judge.yosupo.jp/problem/general_weighted_matching) (`general_weighted_matching`): 未対応
 - [ ] [Global Minimum Cut of Dynamic Star Augmented Graph](https://judge.yosupo.jp/problem/global_minimum_cut_of_dynamic_star_augmented_graph) (`global_minimum_cut_of_dynamic_star_augmented_graph`): 未対応
 - [ ] [Strongly Connected Components (Incremental)](https://judge.yosupo.jp/problem/incremental_scc) (`incremental_scc`): 未対応

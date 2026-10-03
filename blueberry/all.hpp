@@ -106,3 +106,5 @@
 #include "blueberry/graph/euler-tour-tree.hpp"
 #include "blueberry/graph/static-top-tree.hpp"
 #include "blueberry/graph/dynamic-top-tree.hpp"
+#include "blueberry/graph/dominator-tree.hpp"
+#include "blueberry/graph/general-matching.hpp"
