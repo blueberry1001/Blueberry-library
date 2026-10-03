@@ -23,7 +23,7 @@ assert 'data-catalog-search' in home and 'data-catalog-controls hidden' in home
 assert 'data-catalog-empty hidden' in home and 'id="library-catalog"' in home
 assert "calc(100% - 300px)" not in home, "Upstream inline sidebar CSS returned"
 assert home.index("</section>") < home.index("<footer>"), "Footer must follow the content"
-categories = ("algebra", "data-structure", "graph", "math", "string", "utility")
+categories = ("algebra", "data-structure", "geometry", "graph", "math", "string", "utility")
 for category in categories:
     assert f"/Blueberry-library/categories/{category}.html" in home
     content = (SITE / "categories" / f"{category}.html").read_text()

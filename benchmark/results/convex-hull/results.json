@@ -1,0 +1,1364 @@
+{
+  "created_at": "2026-10-03T04:41:44.011240+00:00",
+  "prepared": {
+    "created_at": "2026-10-03T04:40:35.548079+00:00",
+    "entries": [
+      {
+        "compiler": "g++",
+        "mode": "release",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DNDEBUG",
+          "/workspace/Blueberry-library/benchmark/convex-hull.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/convex-hull/g++-release"
+        ],
+        "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/convex-hull/g++-release",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "5a78c13fdb481eb72e5a5ff44e0e5c454e80bf6f9ad5e6ef20761cf8be3bb8ec"
+      },
+      {
+        "compiler": "g++",
+        "mode": "assert",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/convex-hull.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/convex-hull/g++-assert"
+        ],
+        "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/convex-hull/g++-assert",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "1955acbe6b3f4c96159fd4cfe803127b7b0cd58ed7b20fce9d77e138ba984e05"
+      },
+      {
+        "compiler": "clang++",
+        "mode": "release",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DNDEBUG",
+          "/workspace/Blueberry-library/benchmark/convex-hull.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/convex-hull/clang++-release"
+        ],
+        "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+        "binary": ".build/convex-hull/clang++-release",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "64993700dd5db8dccd17afc91552e82d6e3b79a43159a357970a4a180e3bd560"
+      },
+      {
+        "compiler": "clang++",
+        "mode": "assert",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/convex-hull.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/convex-hull/clang++-assert"
+        ],
+        "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+        "binary": ".build/convex-hull/clang++-assert",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "0f8d802b26304465037d6bf14947e181ff2c381703e9ee2afe5cac78f55192fd"
+      }
+    ],
+    "source_sha256": {
+      "benchmark/convex-hull.cpp": "36465699160025e83aabe81d203681ac4f1f74ba2062c310fcf49d193a14cb79",
+      "blueberry/geometry/convex-hull.hpp": "cdc6aaa2c1cd1c913be5f3b0fe2864295e0677f82740419c08ed03bbd299859e",
+      "blueberry/utility/fast-io.hpp": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845"
+    },
+    "git_head": "22784da0bad55f734e98c853c92bd9350f3ab4bd",
+    "input_size": 200000,
+    "input_sha256": {
+      "random": "e9a736b6d7703b13dff2f81a50d8e04ff706749852267d3f7f676311e6acb645",
+      "parabola": "3fd88c83b9e1226bb07ab139d5d8638df44addcde5c5419b9a796da95192440a"
+    }
+  },
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           46 bits physical, 57 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  5\nOn-line CPU(s) list:                     0-4\nVendor ID:                               GenuineIntel\nModel name:                              INTEL(R) XEON(R) PLATINUM 8573C\nCPU family:                              6\nModel:                                   207\nThread(s) per core:                      1\nCore(s) per socket:                      5\nSocket(s):                               1\nStepping:                                2\nBogoMIPS:                                4600.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 arat avx512vbmi umip waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid cldemote movdiri movdir64b fsrm serialize tsxldtrk avx512_fp16 arch_capabilities\nHypervisor vendor:                       KVM\nVirtualization type:                     full\nL1d cache:                               144 KiB (3 instances)\nL1i cache:                               96 KiB (3 instances)\nL2 cache:                                6 MiB (3 instances)\nL3 cache:                                260 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-4\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Vulnerable\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Vulnerable\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Vulnerable: __user pointer sanitization and usercopy barriers only; no swapgs barriers\nVulnerability Spectre v2:                Vulnerable; STIBP: disabled; PBRSB-eIBRS: Not affected; BHI: Vulnerable\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+  "repeats": 5,
+  "warmups": 1,
+  "io_summary": [
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "blueberry",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 39078500,
+          "min": 38040140
+        },
+        "parse_ns": {
+          "median": 9552274,
+          "min": 9211793
+        },
+        "hull_ns": {
+          "median": 20706815,
+          "min": 19395253
+        },
+        "format_ns": {
+          "median": 5697043,
+          "min": 5502658
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "blueberry",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 65211889,
+          "min": 58418310
+        },
+        "parse_ns": {
+          "median": 20434611,
+          "min": 19403664
+        },
+        "hull_ns": {
+          "median": 20034561,
+          "min": 19233982
+        },
+        "format_ns": {
+          "median": 17732608,
+          "min": 16600235
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "blueberry",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 36621020,
+          "min": 35763779
+        },
+        "parse_ns": {
+          "median": 10592858,
+          "min": 10389093
+        },
+        "hull_ns": {
+          "median": 23625694,
+          "min": 23209572
+        },
+        "format_ns": {
+          "median": 28889,
+          "min": 28659
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "blueberry",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 49333547,
+          "min": 48041027
+        },
+        "parse_ns": {
+          "median": 23607634,
+          "min": 22669452
+        },
+        "hull_ns": {
+          "median": 23486216,
+          "min": 23187467
+        },
+        "format_ns": {
+          "median": 41076,
+          "min": 36116
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "index-chains",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 52000579,
+          "min": 48147799
+        },
+        "parse_ns": {
+          "median": 9123055,
+          "min": 8845727
+        },
+        "hull_ns": {
+          "median": 31514114,
+          "min": 29898021
+        },
+        "format_ns": {
+          "median": 7092804,
+          "min": 5644006
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "index-chains",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 72068942,
+          "min": 70772205
+        },
+        "parse_ns": {
+          "median": 19775751,
+          "min": 19664566
+        },
+        "hull_ns": {
+          "median": 31526492,
+          "min": 30784712
+        },
+        "format_ns": {
+          "median": 17440219,
+          "min": 15823934
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "index-chains",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 48060582,
+          "min": 46409618
+        },
+        "parse_ns": {
+          "median": 10755393,
+          "min": 10082977
+        },
+        "hull_ns": {
+          "median": 35009312,
+          "min": 34056485
+        },
+        "format_ns": {
+          "median": 25965,
+          "min": 25031
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "index-chains",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 60067941,
+          "min": 59150682
+        },
+        "parse_ns": {
+          "median": 22926971,
+          "min": 22564056
+        },
+        "hull_ns": {
+          "median": 34718412,
+          "min": 33938927
+        },
+        "format_ns": {
+          "median": 43649,
+          "min": 40262
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "value-buffer",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 40994147,
+          "min": 37867720
+        },
+        "parse_ns": {
+          "median": 9185052,
+          "min": 9084349
+        },
+        "hull_ns": {
+          "median": 21085758,
+          "min": 19788075
+        },
+        "format_ns": {
+          "median": 5704137,
+          "min": 5560976
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "value-buffer",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 67692552,
+          "min": 61077883
+        },
+        "parse_ns": {
+          "median": 20051787,
+          "min": 19807153
+        },
+        "hull_ns": {
+          "median": 20705026,
+          "min": 20184392
+        },
+        "format_ns": {
+          "median": 23170869,
+          "min": 17401748
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "value-buffer",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 37961363,
+          "min": 37038641
+        },
+        "parse_ns": {
+          "median": 10882276,
+          "min": 10103061
+        },
+        "hull_ns": {
+          "median": 24641143,
+          "min": 24406390
+        },
+        "format_ns": {
+          "median": 28880,
+          "min": 27495
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "variant": "value-buffer",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 50661786,
+          "min": 49079402
+        },
+        "parse_ns": {
+          "median": 22936764,
+          "min": 22574735
+        },
+        "hull_ns": {
+          "median": 24822975,
+          "min": 24066304
+        },
+        "format_ns": {
+          "median": 39027,
+          "min": 37380
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "blueberry",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 37589841,
+          "min": 36375418
+        },
+        "parse_ns": {
+          "median": 9089543,
+          "min": 8679262
+        },
+        "hull_ns": {
+          "median": 19674137,
+          "min": 19233260
+        },
+        "format_ns": {
+          "median": 5597496,
+          "min": 5457362
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "blueberry",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 60146055,
+          "min": 59399524
+        },
+        "parse_ns": {
+          "median": 19841013,
+          "min": 19652026
+        },
+        "hull_ns": {
+          "median": 19444927,
+          "min": 18974935
+        },
+        "format_ns": {
+          "median": 17626280,
+          "min": 16812449
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "blueberry",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 37262517,
+          "min": 35933973
+        },
+        "parse_ns": {
+          "median": 10812873,
+          "min": 10438245
+        },
+        "hull_ns": {
+          "median": 23378308,
+          "min": 22684829
+        },
+        "format_ns": {
+          "median": 29548,
+          "min": 27772
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "blueberry",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 49084290,
+          "min": 48037095
+        },
+        "parse_ns": {
+          "median": 23011833,
+          "min": 22793775
+        },
+        "hull_ns": {
+          "median": 23330280,
+          "min": 22731585
+        },
+        "format_ns": {
+          "median": 45609,
+          "min": 39745
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "index-chains",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 48887330,
+          "min": 47698854
+        },
+        "parse_ns": {
+          "median": 8833742,
+          "min": 8765748
+        },
+        "hull_ns": {
+          "median": 30729546,
+          "min": 29960349
+        },
+        "format_ns": {
+          "median": 5528600,
+          "min": 5403879
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "index-chains",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 70131427,
+          "min": 68546896
+        },
+        "parse_ns": {
+          "median": 19946102,
+          "min": 19167479
+        },
+        "hull_ns": {
+          "median": 30462993,
+          "min": 29368209
+        },
+        "format_ns": {
+          "median": 16723456,
+          "min": 16075674
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "index-chains",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 47611131,
+          "min": 46845412
+        },
+        "parse_ns": {
+          "median": 10535953,
+          "min": 10290595
+        },
+        "hull_ns": {
+          "median": 34849657,
+          "min": 33971022
+        },
+        "format_ns": {
+          "median": 27966,
+          "min": 23827
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "index-chains",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 61259482,
+          "min": 59495036
+        },
+        "parse_ns": {
+          "median": 23809379,
+          "min": 22641812
+        },
+        "hull_ns": {
+          "median": 34832010,
+          "min": 34276911
+        },
+        "format_ns": {
+          "median": 42153,
+          "min": 39037
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "value-buffer",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 37801749,
+          "min": 37518187
+        },
+        "parse_ns": {
+          "median": 8887525,
+          "min": 8637567
+        },
+        "hull_ns": {
+          "median": 20401237,
+          "min": 19746582
+        },
+        "format_ns": {
+          "median": 5484416,
+          "min": 5424739
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "value-buffer",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 60303504,
+          "min": 59759062
+        },
+        "parse_ns": {
+          "median": 20180615,
+          "min": 19392437
+        },
+        "hull_ns": {
+          "median": 19724276,
+          "min": 19212169
+        },
+        "format_ns": {
+          "median": 17267981,
+          "min": 16259402
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "value-buffer",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 38755003,
+          "min": 36433508
+        },
+        "parse_ns": {
+          "median": 10951645,
+          "min": 10132127
+        },
+        "hull_ns": {
+          "median": 25089847,
+          "min": 24108914
+        },
+        "format_ns": {
+          "median": 30438,
+          "min": 26428
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "variant": "value-buffer",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 49633893,
+          "min": 49043430
+        },
+        "parse_ns": {
+          "median": 23049555,
+          "min": 22840442
+        },
+        "hull_ns": {
+          "median": 24442635,
+          "min": 23755363
+        },
+        "format_ns": {
+          "median": 43790,
+          "min": 40034
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "blueberry",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 37174231,
+          "min": 36346437
+        },
+        "parse_ns": {
+          "median": 7902264,
+          "min": 7460609
+        },
+        "hull_ns": {
+          "median": 19677950,
+          "min": 19556882
+        },
+        "format_ns": {
+          "median": 6245380,
+          "min": 6101494
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "blueberry",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 60684304,
+          "min": 60170804
+        },
+        "parse_ns": {
+          "median": 20013530,
+          "min": 19435826
+        },
+        "hull_ns": {
+          "median": 20385621,
+          "min": 20185365
+        },
+        "format_ns": {
+          "median": 17176616,
+          "min": 16134383
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "blueberry",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 36645483,
+          "min": 35131406
+        },
+        "parse_ns": {
+          "median": 9829502,
+          "min": 9486999
+        },
+        "hull_ns": {
+          "median": 24858337,
+          "min": 22873673
+        },
+        "format_ns": {
+          "median": 28299,
+          "min": 27624
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "blueberry",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 49691464,
+          "min": 47662519
+        },
+        "parse_ns": {
+          "median": 23378242,
+          "min": 22555838
+        },
+        "hull_ns": {
+          "median": 23560509,
+          "min": 22786973
+        },
+        "format_ns": {
+          "median": 42787,
+          "min": 40008
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "index-chains",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 53635440,
+          "min": 50921457
+        },
+        "parse_ns": {
+          "median": 7709492,
+          "min": 7476610
+        },
+        "hull_ns": {
+          "median": 36019748,
+          "min": 33905287
+        },
+        "format_ns": {
+          "median": 6264520,
+          "min": 6136206
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "index-chains",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 75885274,
+          "min": 72568649
+        },
+        "parse_ns": {
+          "median": 20301261,
+          "min": 19192363
+        },
+        "hull_ns": {
+          "median": 34807842,
+          "min": 33533210
+        },
+        "format_ns": {
+          "median": 16636512,
+          "min": 16430523
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "index-chains",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 56813693,
+          "min": 50472636
+        },
+        "parse_ns": {
+          "median": 10242005,
+          "min": 9060639
+        },
+        "hull_ns": {
+          "median": 42912926,
+          "min": 37813814
+        },
+        "format_ns": {
+          "median": 30575,
+          "min": 27604
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "index-chains",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 66158495,
+          "min": 64966949
+        },
+        "parse_ns": {
+          "median": 23840418,
+          "min": 23195903
+        },
+        "hull_ns": {
+          "median": 38744963,
+          "min": 38286614
+        },
+        "format_ns": {
+          "median": 48365,
+          "min": 41921
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "value-buffer",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 38443988,
+          "min": 36732515
+        },
+        "parse_ns": {
+          "median": 7818874,
+          "min": 7479346
+        },
+        "hull_ns": {
+          "median": 20647442,
+          "min": 19501914
+        },
+        "format_ns": {
+          "median": 6179621,
+          "min": 6076153
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "value-buffer",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 60269435,
+          "min": 59811323
+        },
+        "parse_ns": {
+          "median": 19448970,
+          "min": 19241179
+        },
+        "hull_ns": {
+          "median": 20298396,
+          "min": 19821864
+        },
+        "format_ns": {
+          "median": 17547562,
+          "min": 16377969
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "value-buffer",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 39805527,
+          "min": 36928430
+        },
+        "parse_ns": {
+          "median": 9449147,
+          "min": 9128310
+        },
+        "hull_ns": {
+          "median": 27715130,
+          "min": 24852483
+        },
+        "format_ns": {
+          "median": 37228,
+          "min": 28754
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "variant": "value-buffer",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 56562398,
+          "min": 51023150
+        },
+        "parse_ns": {
+          "median": 24588796,
+          "min": 23361188
+        },
+        "hull_ns": {
+          "median": 27413014,
+          "min": 25179981
+        },
+        "format_ns": {
+          "median": 45068,
+          "min": 42159
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "blueberry",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 38558490,
+          "min": 37511758
+        },
+        "parse_ns": {
+          "median": 8022349,
+          "min": 7587577
+        },
+        "hull_ns": {
+          "median": 20490704,
+          "min": 19976545
+        },
+        "format_ns": {
+          "median": 6648153,
+          "min": 6302345
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "blueberry",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 63308783,
+          "min": 59543535
+        },
+        "parse_ns": {
+          "median": 20144068,
+          "min": 19375652
+        },
+        "hull_ns": {
+          "median": 22981697,
+          "min": 20707414
+        },
+        "format_ns": {
+          "median": 16974275,
+          "min": 16370548
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "blueberry",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 35886975,
+          "min": 35314556
+        },
+        "parse_ns": {
+          "median": 9438545,
+          "min": 9372454
+        },
+        "hull_ns": {
+          "median": 23892538,
+          "min": 23511483
+        },
+        "format_ns": {
+          "median": 27504,
+          "min": 26831
+        }
+      },
+      "peak_rss_kib": 18196
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "blueberry",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 51020037,
+          "min": 48501987
+        },
+        "parse_ns": {
+          "median": 23692519,
+          "min": 22595848
+        },
+        "hull_ns": {
+          "median": 24936532,
+          "min": 23611924
+        },
+        "format_ns": {
+          "median": 38789,
+          "min": 37666
+        }
+      },
+      "peak_rss_kib": 18196
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "index-chains",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 52499512,
+          "min": 51544305
+        },
+        "parse_ns": {
+          "median": 7814104,
+          "min": 7769203
+        },
+        "hull_ns": {
+          "median": 35179453,
+          "min": 34495567
+        },
+        "format_ns": {
+          "median": 6284989,
+          "min": 6220442
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "index-chains",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 75905078,
+          "min": 75171737
+        },
+        "parse_ns": {
+          "median": 20016371,
+          "min": 19713293
+        },
+        "hull_ns": {
+          "median": 34865175,
+          "min": 34149618
+        },
+        "format_ns": {
+          "median": 17192022,
+          "min": 16861498
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "index-chains",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 49848892,
+          "min": 49072070
+        },
+        "parse_ns": {
+          "median": 9511116,
+          "min": 9098006
+        },
+        "hull_ns": {
+          "median": 37824187,
+          "min": 37423406
+        },
+        "format_ns": {
+          "median": 27680,
+          "min": 25577
+        }
+      },
+      "peak_rss_kib": 18196
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "index-chains",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 62918458,
+          "min": 62147794
+        },
+        "parse_ns": {
+          "median": 23073962,
+          "min": 22380273
+        },
+        "hull_ns": {
+          "median": 37543058,
+          "min": 37160147
+        },
+        "format_ns": {
+          "median": 40087,
+          "min": 37803
+        }
+      },
+      "peak_rss_kib": 18196
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "value-buffer",
+      "workload": "parabola",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 38445318,
+          "min": 37918611
+        },
+        "parse_ns": {
+          "median": 7758444,
+          "min": 7581096
+        },
+        "hull_ns": {
+          "median": 20833710,
+          "min": 20322494
+        },
+        "format_ns": {
+          "median": 6555337,
+          "min": 6196772
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "value-buffer",
+      "workload": "parabola",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 61047359,
+          "min": 59285919
+        },
+        "parse_ns": {
+          "median": 20031945,
+          "min": 19587351
+        },
+        "hull_ns": {
+          "median": 20569590,
+          "min": 19948985
+        },
+        "format_ns": {
+          "median": 16477248,
+          "min": 16093120
+        }
+      },
+      "peak_rss_kib": 24596
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "value-buffer",
+      "workload": "random",
+      "io": "fast",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 36729363,
+          "min": 36642182
+        },
+        "parse_ns": {
+          "median": 9416362,
+          "min": 9235514
+        },
+        "hull_ns": {
+          "median": 25096572,
+          "min": 24337441
+        },
+        "format_ns": {
+          "median": 28277,
+          "min": 26824
+        }
+      },
+      "peak_rss_kib": 18196
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "variant": "value-buffer",
+      "workload": "random",
+      "io": "iostream",
+      "summary": {
+        "end_to_end_ns": {
+          "median": 52203757,
+          "min": 50896740
+        },
+        "parse_ns": {
+          "median": 23808790,
+          "min": 23067149
+        },
+        "hull_ns": {
+          "median": 25078098,
+          "min": 24908096
+        },
+        "format_ns": {
+          "median": 39190,
+          "min": 38764
+        }
+      },
+      "peak_rss_kib": 18196
+    }
+  ],
+  "conditions": "Coordinated local quiet window; shared-host external activity remains possible. Kernel full calls copy immutable input; staged calls run separately. I/O calls move parsed input. End-to-end includes process startup and pipe output. RSS is process peak, not an allocation counter. No -march=native."
+}

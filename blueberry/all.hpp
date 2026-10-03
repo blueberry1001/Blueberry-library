@@ -9,6 +9,7 @@
 #include "blueberry/data-structure/persistent-queue.hpp"
 #include "blueberry/data-structure/static-range-distinct.hpp"
 #include "blueberry/data-structure/rectangle-union.hpp"
+#include "blueberry/geometry/convex-hull.hpp"
 #include "blueberry/graph/assignment.hpp"
 #include "blueberry/graph/complement-components.hpp"
 #include "blueberry/graph/count-spanning-trees.hpp"

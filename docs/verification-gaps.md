@@ -59,6 +59,7 @@
 - 専用ドライバ: [verify/data-structure/sqrt-tree.test.cpp](../verify/data-structure/sqrt-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_sum)
 - 専用ドライバ: [verify/data-structure/static-range-frequency.test.cpp](../verify/data-structure/static-range-frequency.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_frequency)
 - 専用ドライバ: [verify/data-structure/static-range-lis.test.cpp](../verify/data-structure/static-range-lis.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_lis_query)
+- 専用ドライバ: [verify/geometry/static-convex-hull.test.cpp](../verify/geometry/static-convex-hull.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_convex_hull)
 - 専用ドライバ: [verify/graph/link-cut-tree-composite.test.cpp](../verify/graph/link-cut-tree-composite.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite)
 - 専用ドライバ: [verify/graph/link-cut-tree.test.cpp](../verify/graph/link-cut-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum)
 - 専用ドライバ: [verify/utility/fast-io-128bit.test.cpp](../verify/utility/fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
@@ -392,6 +393,13 @@
 
 - 専用ドライバ: [verify/data-structure/weighted-wavelet-matrix.test.cpp](../verify/data-structure/weighted-wavelet-matrix.test.cpp) / [問題](https://judge.yosupo.jp/problem/point_add_rectangle_sum)
 - 関連ローカルテスト: [tests/random/weighted-wavelet-matrix.cpp](../tests/random/weighted-wavelet-matrix.cpp)
+
+## Convex Hull
+
+[blueberry/geometry/convex-hull.hpp](../blueberry/geometry/convex-hull.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/geometry/static-convex-hull.test.cpp](../verify/geometry/static-convex-hull.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_convex_hull)
+- 関連ローカルテスト: [tests/random/convex-hull.cpp](../tests/random/convex-hull.cpp)
 
 ## Assignment
 

@@ -23,8 +23,8 @@
   ],
   "total": 253,
   "counts": {
-    "missing": 134,
-    "verify": 112,
+    "missing": 133,
+    "verify": 113,
     "acl": 7
   },
   "statuses": [
@@ -3856,10 +3856,17 @@
       "title": "Static Convex Hull",
       "category": "Geometry",
       "url": "https://judge.yosupo.jp/problem/static_convex_hull",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/geometry/convex-hull.hpp",
+          "name": "Convex Hull"
+        }
+      ],
+      "verifies": [
+        "verify/geometry/static-convex-hull.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""

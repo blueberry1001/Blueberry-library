@@ -9,8 +9,8 @@
 [Library Checker](https://judge.yosupo.jp/) の公式テストデータで検証されています。
 
 <div class="library-summary">
-{% assign category_ids = 'algebra,data-structure,graph,math,string,utility' | split: ',' %}
-{% assign category_titles = 'Algebra,Data Structure,Graph,Math,String,Utility' | split: ',' %}
+{% assign category_ids = 'algebra,data-structure,geometry,graph,math,string,utility' | split: ',' %}
+{% assign category_titles = 'Algebra,Data Structure,Geometry,Graph,Math,String,Utility' | split: ',' %}
 {% for category in category_ids %}
   {% assign entries = site.data.libraries | where: 'category', category %}
   <a href="{{ '/categories/' | append: category | append: '.html' | relative_url }}"><strong>{{ category_titles[forloop.index0] }} · {{ entries.size }}</strong><span>{{ entries | map: 'name' | join: ' / ' | escape }}</span><span>用途と操作を確認する →</span></a>
