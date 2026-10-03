@@ -9,7 +9,7 @@
 実行結果は各verifyページと[測定一覧](https://blueberry1001.github.io/Blueberry-library/benchmarks.html)で確認してください。
 ACL推奨は外部ライブラリです。Blueberryの実装数・チェック済み数には含めません。
 
-実装＋verifyあり: 115 / 実装あり・専用verifyなし: 0 / ACL推奨: 7 / 補助verifyのみ: 0 / 未対応: 131
+実装＋verifyあり: 116 / 実装あり・専用verifyなし: 0 / ACL推奨: 7 / 補助verifyのみ: 0 / 未対応: 130
 
 ## Sample
 
@@ -264,7 +264,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Convex Layers](https://judge.yosupo.jp/problem/convex_layers) (`convex_layers`): 未対応
 - [ ] [Count Points in Triangles](https://judge.yosupo.jp/problem/count_points_in_triangle) (`count_points_in_triangle`): 未対応
 - [ ] [Euclidean MST](https://judge.yosupo.jp/problem/euclidean_mst) (`euclidean_mst`): 未対応
-- [ ] [Furthest Pair of Points](https://judge.yosupo.jp/problem/furthest_pair) (`furthest_pair`): 未対応
+- [x] [Furthest Pair of Points](https://judge.yosupo.jp/problem/furthest_pair) (`furthest_pair`): 実装＋verifyあり — [Convex Hull](../blueberry/geometry/convex-hull.hpp), [Furthest Pair](../blueberry/geometry/furthest-pair.hpp), [verify](../verify/geometry/furthest-pair.test.cpp)
 - [ ] [Manhattan MST](https://judge.yosupo.jp/problem/manhattanmst) (`manhattanmst`): 未対応
 - [x] [Sort Points by Argument](https://judge.yosupo.jp/problem/sort_points_by_argument) (`sort_points_by_argument`): 実装＋verifyあり — [Fraction](../blueberry/math/fraction.hpp), [verify](../verify/math/fraction-sort-points-by-argument.test.cpp)
 - [x] [Static Convex Hull](https://judge.yosupo.jp/problem/static_convex_hull) (`static_convex_hull`): 実装＋verifyあり — [Convex Hull](../blueberry/geometry/convex-hull.hpp), [verify](../verify/geometry/static-convex-hull.test.cpp)

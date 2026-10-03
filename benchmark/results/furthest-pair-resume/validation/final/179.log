@@ -1,0 +1,25 @@
+In file included from <stdin>:1:
+./blueberry/geometry/furthest-pair.hpp:22:21: error: static assertion failed due to requirement 'sizeof(__int128) <= sizeof(long)': furthest_pair requires signed integral coordinates up to 64 bits
+   22 |                     sizeof(Coord) <= sizeof(std::int64_t),
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<stdin>:4:19: note: in instantiation of function template specialization 'blueberry::furthest_pair<__int128>' requested here
+    4 | return blueberry::furthest_pair(points).first;
+      |                   ^
+./blueberry/geometry/furthest-pair.hpp:22:35: note: expression evaluates to '16 <= 8'
+   22 |                     sizeof(Coord) <= sizeof(std::int64_t),
+      |                     ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+In file included from <stdin>:1:
+In file included from ./blueberry/geometry/furthest-pair.hpp:12:
+/workspace/Blueberry-library/blueberry/geometry/convex-hull.hpp:18:21: error: static assertion failed due to requirement 'sizeof(__int128) <= sizeof(long)': convex_hull requires signed integral coordinates up to 64 bits
+   18 |                     sizeof(Coord) <= sizeof(std::int64_t),
+      |                     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./blueberry/geometry/furthest-pair.hpp:37:21: note: in instantiation of function template specialization 'blueberry::convex_hull<__int128>' requested here
+   37 |   const auto hull = convex_hull(points);
+      |                     ^
+<stdin>:4:19: note: in instantiation of function template specialization 'blueberry::furthest_pair<__int128>' requested here
+    4 | return blueberry::furthest_pair(points).first;
+      |                   ^
+/workspace/Blueberry-library/blueberry/geometry/convex-hull.hpp:18:35: note: expression evaluates to '16 <= 8'
+   18 |                     sizeof(Coord) <= sizeof(std::int64_t),
+      |                     ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+2 errors generated.

@@ -1,0 +1,66 @@
+{
+  "started_at": "2026-10-03T09:18:22.667503+00:00",
+  "scope": "Regenerate and render the newly completed development report only; existing publication metrics gate remains failed. No full-check or official-test rerun.",
+  "source_sha256": {
+    "docs/development/furthest-pair.md": "187b675e1222a828c8905390290c222d9b870725348848b95474df4bed620dda",
+    "docs/geometry/furthest-pair.md": "e98357a7acf82fecfc69f213a78d8d47f2824cc09933fdc85685b3beba23af2c",
+    "blueberry/geometry/furthest-pair.hpp": "b2e6e51f3dd36fb7cd7e8e5883847d02d86d2d2e0e4836a337ac97dfda9c5cef",
+    ".verification/current.json": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab"
+  },
+  "stages": [
+    {
+      "name": "generate",
+      "command": [
+        "python3",
+        "scripts/generate_docs.py",
+        "-j",
+        "2"
+      ],
+      "extra_env": {},
+      "returncode": 0,
+      "elapsed_seconds": 23.227117695001652,
+      "log": ".verification/furthest-pair-resume/report-docs/generate.log",
+      "log_sha256": "be6390bbe7f6bef729c3a85f38dbafe954f5153885aa57aa883f9387902e5eed"
+    },
+    {
+      "name": "jekyll",
+      "command": [
+        "jekyll",
+        "build",
+        "--source",
+        ".verify-helper/markdown",
+        "--destination",
+        ".build/site",
+        "--config",
+        ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+      ],
+      "extra_env": {
+        "JEKYLL_ENV": "production"
+      },
+      "returncode": 0,
+      "elapsed_seconds": 24.107953407001332,
+      "log": ".verification/furthest-pair-resume/report-docs/jekyll.log",
+      "log_sha256": "cbc02d45491d02eb11d7e1ebd24a222a2a07c08199fe4cbf8796903b3b48211e"
+    },
+    {
+      "name": "site-preflight-without-metrics",
+      "command": [
+        "python3",
+        "scripts/check_site.py",
+        "--without-metrics"
+      ],
+      "extra_env": {},
+      "returncode": 0,
+      "elapsed_seconds": 0.4995911179976247,
+      "log": ".verification/furthest-pair-resume/report-docs/site-preflight-without-metrics.log",
+      "log_sha256": "7c79b6ca9aaab553a9fa5537643802ff8a668c66a37de5902ed463a4ea7ee932"
+    }
+  ],
+  "sources_unchanged": true,
+  "development_page": {
+    "path": ".build/site/docs/development/furthest-pair.html",
+    "sha256": "f56efdbd25007fdb5e1b161cc22a15ae97b003d5eb8f2cb63dda58155bee293c",
+    "frozen_source_and_key_results_present": true
+  },
+  "finished_at": "2026-10-03T09:19:10.510690+00:00"
+}

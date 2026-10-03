@@ -1,0 +1,56 @@
+{
+  "reviewed_at": "2026-10-03T08:57:00.767506+00:00",
+  "status": "clear_for_initial_comparison",
+  "material_findings": [],
+  "checkpoint": "da912761b09e4c4cf6d67d2c154c03672ca8658b",
+  "frozen_production_header_sha256": "37dc37add43d42f2a8710852c0f3cb35e0c737baab00080a4362448b3219df4d",
+  "review_scope": "Read-only source/protocol/contract and prepared-artifact audit before timing. No benchmark runs or builds by this review. Final adoption and exact-final-header validation remain separate.",
+  "verified_preparation": {
+    "binaries": 6,
+    "compile_warnings": 0,
+    "independent_all_pairs_cases_per_binary": 1258,
+    "invalid_singleton_checks": 12,
+    "all_invalid_singleton_actual_returncodes": -6,
+    "small_profiles": 240,
+    "matching_workload_identity_groups": 10,
+    "header_and_source_snapshots": 4,
+    "hashed_input_files": 4,
+    "source_snapshot_runner_live_headers_binary_input_and_small_gate_hashes_match": true
+  },
+  "approved_counts": {
+    "kernel_profiles": 1824,
+    "kernel_warmups": 304,
+    "kernel_measured": 1520,
+    "io_profiles": 384,
+    "io_warmups": 64,
+    "io_measured": 320,
+    "separate_allocation_profiles": 56,
+    "separate_rss_profiles": 48
+  },
+  "source_findings": [
+    "All four variants accept measured long-long coordinate inputs through the public bound and produce normalized distinct original indices or the small-input sentinel. Equal objectives, not equal tie choices, are compared.",
+    "Independent singleton checks run before returns and all actual rejection statuses were SIGABRT. Fast-cases also validates N=2 and all-identical shortcuts in debug mode.",
+    "Index and 24-byte-record hulls deduplicate by coordinates, preserve an original representative and remove non-left turns. Calipers use widened exact edge cross products and squared distances with parallel-support endpoints retained.",
+    "Full baseline and wrapper calls use the exact snapshotted public header. Separately timed int-index calipers are explicitly an independent explanatory decomposition, not additive production-stage timings.",
+    "All input generation, result objective validation and hull metadata lie outside kernel timers. Full calls include local storage destruction; separate stage timers do not claim to sum to full elapsed time.",
+    "Main measurement writes raw warmup and measured rows before identity rejection, preserves subprocess/schema failures, and refuses replacement of existing experiment or measurement directories. Missing stages remain null; summaries do not replace missing values with zero.",
+    "I/O comparison separates parse, solve and format with the same input files. End-to-end includes process/pipe/validation overhead. Allocation runs are separate; requested bytes and whole-process RSS are accurately scoped."
+  ],
+  "limits": [
+    "Concrete benchmark inputs use long long only; smaller signed template types are covered by separate library validation, not these candidate timings.",
+    "Small all-pairs benchmark oracle shares its widened squared-distance helper with candidate comparison; the library also has a separate int256 permanent oracle and independent proof review.",
+    "Current negative checks actually returned SIGABRT, but the runner accepts any nonzero termination; timeout or another crash would need manual rejection.",
+    "Current 240 small rows passed and are retained. A hypothetical early small-profile JSON/schema failure saves its rejected subprocess but not earlier accumulated small rows. This limitation does not affect preserved measurement JSONL rows.",
+    "Shared unpinned host and five measured repetitions per cell; no fastest-submission ranking or universal improvement is claimed.",
+    "Final numerical review must retain unchanged-stage regressions, missing values and all original samples; no timing outcome is established by this pre-review."
+  ],
+  "artifact_sha256": {
+    "benchmark/furthest-pair-resume.cpp": "56f59fd120f54daa924e762df1971bd6df473d37532e183fd8de231c9625d439",
+    "benchmark/furthest-pair-resume.py": "98426d136a16e407e921c01248036e3788c9619c2c4b99971132fdd2fc6b4242",
+    "benchmark/results/furthest-pair-resume/plan.md": "bddb02e50e96ac31e07457073ae535df6617e6d960b611f4e1fbbfb230dd925d",
+    "benchmark/results/furthest-pair-resume/research-notes.md": "988493c0e73cdb7cba5418a7a5a47058fd438db65257d0430c0cbfa4bb3aca96",
+    "benchmark/results/furthest-pair-resume/initial/prepared.json": "a6d3e98833342e96a7f19ccdfb07f74e5a8fafca7fe3382750ed9261e2256bf0",
+    "benchmark/results/furthest-pair-resume/initial/compile.json": "fb77617b4b1d2931ce2608abb3b65dfcf1f77d11cd3fdc9e9ab9e7b784588263",
+    "benchmark/results/furthest-pair-resume/initial/small-checks.json": "ea0b407a6850715fb88044c106d0d1a2dd86e2c41f18790264f0a92ef5c5c321"
+  }
+}

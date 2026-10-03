@@ -1,0 +1,36 @@
+{
+  "reviewed_at": "2026-10-03T09:07:11.233689+00:00",
+  "status": "clear_for_final_timing",
+  "material_findings": [],
+  "verified": {
+    "binaries": 12,
+    "compile_warnings": 0,
+    "all_pairs_cases_per_binary": 1258,
+    "small_profiles": 120,
+    "matching_workload_identity_groups": 10,
+    "singleton_SIGABRT_checks": 6,
+    "bound_hash_entries": 28,
+    "baseline_and_final_header_snapshots_match": true
+  },
+  "runner_fix_review": "Independent reviewer found a preparation time-of-check binding gap. It was fixed before final compilation: copied harness and target must match requested hashes; live target/source/dependencies are rechecked before prepared.json sealing. Updated runner SHA4282fb93... was independently rechecked. No actual mismatched preparation occurred.",
+  "expected_measurements": {
+    "profiles": 912,
+    "warmups": 152,
+    "measured": 760,
+    "paired_comparisons": 76,
+    "allocation_profiles": 12
+  },
+  "limits": [
+    "No timing results have been reviewed in this pre-clearance.",
+    "Final comparisons use direct public calls and only full_ns supports adoption; independent stage proxies are retained but not interpreted as production-stage changes.",
+    "Original baseline evidence, earlier layout measurements and failed/missing rows must remain distinct."
+  ],
+  "artifact_sha256": {
+    "benchmark/furthest-pair-final.py": "4282fb93a21636e5d1db503f1c1caba8b33680f7cefe408a6ecd3c1e334abc51",
+    "benchmark/results/furthest-pair-resume/final/prepared.json": "c90d5d86f84f93dee003215d4bb809b7f77b4dae7748af39a7a5ec1d9e46a01f",
+    "benchmark/results/furthest-pair-resume/final/compile.json": "d7d8fa8678864492ed24b33d83ee77551820b052a5b8d2f3334732b284a1cf73",
+    "benchmark/results/furthest-pair-resume/final/small-checks.json": "bb1750578b948ad5f6b8debb4344dca98f7f9e5b5db3a8418bafca74e835f1ab",
+    "benchmark/results/furthest-pair-resume/final/runner.py": "4282fb93a21636e5d1db503f1c1caba8b33680f7cefe408a6ecd3c1e334abc51",
+    "benchmark/results/furthest-pair-resume/final/shared-runner.py": "98426d136a16e407e921c01248036e3788c9619c2c4b99971132fdd2fc6b4242"
+  }
+}

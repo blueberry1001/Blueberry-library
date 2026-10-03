@@ -1,0 +1,33 @@
+{
+  "reviewed_at": "2026-10-03T08:47:28.898995+00:00",
+  "checkpoint": "da912761b09e4c4cf6d67d2c154c03672ca8658b",
+  "status": "clear",
+  "material_findings": [],
+  "scope": "Independent proof/API/include/arithmetic review and bounded exhaustive counterexample search; final permanent-test and performance validation remain separate.",
+  "proof": "proof.md",
+  "execution_result": {
+    "cases": 197120,
+    "support_checks": 624344,
+    "parallel_ties": 306560,
+    "wrapped_sweeps": 131030,
+    "largest_hull": 8,
+    "largest_advances": 10,
+    "status": "pass"
+  },
+  "compile_returncode": 0,
+  "run_returncode": 0,
+  "hashes": {
+    "blueberry/geometry/furthest-pair.hpp": "37dc37add43d42f2a8710852c0f3cb35e0c737baab00080a4362448b3219df4d",
+    "blueberry/geometry/convex-hull.hpp": "cdc6aaa2c1cd1c913be5f3b0fe2864295e0677f82740419c08ed03bbd299859e",
+    "docs/geometry/furthest-pair.md": "aa66cc83434ba523cd7d7e74d9a64d0637d0536009065531d9abbcea52309833",
+    ".verification/furthest-pair-resume/review/proof.md": "c77dba578d3d9c3b4b7062ad943ddc7e6dc872215539c22e5f7509fec4ce3aad",
+    ".verification/furthest-pair-resume/review/exhaustive.cpp": "ca3cc08791073ef8a00029ff98f2e9d74c14f8b5532418523486f2c6e093851c",
+    ".verification/furthest-pair-resume/review/exhaustive-result.json": "3e3dd4e3e234c84729720bb1184ada7a5d4605e4cf7068de484f922d23648c01",
+    ".verification/furthest-pair-resume/review/compile.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    ".verification/furthest-pair-resume/review/run.log": "df090beff9b1edee0965ef132901f1f6151040110ddd82276e28598bf2d6e6d3",
+    ".deps/cache/online-judge-tools/library-checker-problems/geo/furthest_pair/sol/correct.cpp": "0a1e766439fe4077bd7785e7777e9f28b7d22bcb7e8fb9d10cc6f4348fc85ea0",
+    ".deps/cache/online-judge-tools/library-checker-problems/geo/furthest_pair/info.toml": "f5788147a6e968ec9818aba7bc85d86247f98a301ddb208ebb4849c5c9561170",
+    "tests/random/furthest-pair.cpp": "6dd5e7b3df81d36bfbf92fed7c73375bcfc75063ef38f956e65ae2cab1057be8"
+  },
+  "permanent_test_static_review": "Clear at recorded hash: new non-axis similarity uses int256 before range-checked narrowing and doubles squared distance; degenerate sentinel handling is preserved. Added skew near-bound parallelogram, late unique endpoints, all-identical input, rvalue const-reference binding and input storage checks are coherent. Their execution is owned by implementation/focused-validation workers."
+}

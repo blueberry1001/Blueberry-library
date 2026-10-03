@@ -1,0 +1,224 @@
+{
+  "reviewed_at": "2026-10-03T09:19:50.024203+00:00",
+  "status": "clear",
+  "material_findings": [],
+  "scope": "Final independent numerical, report and integrity clearance for the minimal furthest_pair early-case improvement. Source/proof and actual-final-header exhaustive review are separately preserved beside this record. No new timing or test execution during this numerical review.",
+  "baseline_header_sha256": "37dc37add43d42f2a8710852c0f3cb35e0c737baab00080a4362448b3219df4d",
+  "final_header_sha256": "b2e6e51f3dd36fb7cd7e8e5883847d02d86d2d2e0e4836a337ac97dfda9c5cef",
+  "final_counts": {
+    "profiles": 912,
+    "warmups": 152,
+    "measured_profiles": 760,
+    "variant_groups": 152,
+    "paired_comparisons": 76,
+    "recomputed_median_min_max_values": 456,
+    "verified_csv_comparisons": 76,
+    "separate_allocation_profiles": 12,
+    "small_preparation_profiles": 120,
+    "prepared_binaries": 12
+  },
+  "initial_counts_already_independently_reviewed": {
+    "kernel_profiles": 1824,
+    "kernel_warmups": 304,
+    "io_profiles": 384,
+    "io_warmups": 64,
+    "measured_profiles": 1840,
+    "allocation_profiles": 56,
+    "rss_profiles": 48,
+    "small_profiles": 240,
+    "summary_rows": 368,
+    "recomputed_median_min_max_values": 3192,
+    "csv_comparisons": 708
+  },
+  "counts_combined_without_pooling_statistics": {
+    "timing_profiles": 3120,
+    "warmups": 520,
+    "measured_profiles": 2600,
+    "allocation_and_RSS_profiles": 116,
+    "small_preparation_profiles": 360
+  },
+  "final_elapsed_time_results": {
+    "all-same": {
+      "comparisons": 8,
+      "median_elapsed_delta_percent_min": -96.84821615121305,
+      "median_elapsed_delta_percent_max": -91.3719688221709,
+      "lower_median_count": 8,
+      "higher_median_count": 0,
+      "separated_faster_count": 8,
+      "separated_slower_count": 0
+    },
+    "tiny": {
+      "comparisons": 4,
+      "median_elapsed_delta_percent_min": -27.870499909987135,
+      "median_elapsed_delta_percent_max": -11.821496250189023,
+      "lower_median_count": 4,
+      "higher_median_count": 0,
+      "separated_faster_count": 2,
+      "separated_slower_count": 0
+    },
+    "late-different": {
+      "comparisons": 8,
+      "median_elapsed_delta_percent_min": -0.04235413067977811,
+      "median_elapsed_delta_percent_max": 8.67746596699368,
+      "lower_median_count": 1,
+      "higher_median_count": 7,
+      "separated_faster_count": 0,
+      "separated_slower_count": 0
+    }
+  },
+  "retained_negative_evidence": {
+    "higher_median_count": 33,
+    "higher_median_at_least_5_percent_count": 10,
+    "separated_slower_count": 0,
+    "all_33_higher_median_rows_present_in_report": true,
+    "ordinary_comparisons": 56,
+    "ordinary_higher_median_count": 26,
+    "ordinary_median_delta_percent_min": -9.453290491491128,
+    "ordinary_median_delta_percent_max": 17.187852672617222,
+    "largest_overlapping_slowdown": {
+      "compiler": "g++",
+      "mode": "release",
+      "workload": "reversed",
+      "size": 2048,
+      "baseline_median_ns": 97470,
+      "baseline_min_ns": 93075,
+      "baseline_max_ns": 103573,
+      "final_median_ns": 114223,
+      "final_min_ns": 93438,
+      "final_max_ns": 303686,
+      "delta_percent": 17.187852672617222,
+      "separated_faster": false,
+      "separated_slower": false
+    },
+    "interpretation": "All original slower medians and overlapping sample ranges remain. The late-different input has real additional O(N) equality scanning; overlapping ranges do not establish absent overhead or a noise cause. Only all-equal and tiny-case benefits are claimed, not universal acceleration."
+  },
+  "allocation_results": [
+    {
+      "mode": "release",
+      "workload": "all-same",
+      "baseline_calls": 1,
+      "final_calls": 0,
+      "baseline_requested_bytes": 3200000,
+      "final_requested_bytes": 0
+    },
+    {
+      "mode": "release",
+      "workload": "tiny",
+      "baseline_calls": 116666,
+      "final_calls": 66666,
+      "baseline_requested_bytes": 5866624,
+      "final_requested_bytes": 4266640
+    },
+    {
+      "mode": "release",
+      "workload": "late-different",
+      "baseline_calls": 1,
+      "final_calls": 1,
+      "baseline_requested_bytes": 3200000,
+      "final_requested_bytes": 3200000
+    },
+    {
+      "mode": "assert",
+      "workload": "all-same",
+      "baseline_calls": 1,
+      "final_calls": 0,
+      "baseline_requested_bytes": 3200000,
+      "final_requested_bytes": 0
+    },
+    {
+      "mode": "assert",
+      "workload": "tiny",
+      "baseline_calls": 116666,
+      "final_calls": 66666,
+      "baseline_requested_bytes": 5866624,
+      "final_requested_bytes": 4266640
+    },
+    {
+      "mode": "assert",
+      "workload": "late-different",
+      "baseline_calls": 1,
+      "final_calls": 1,
+      "baseline_requested_bytes": 3200000,
+      "final_requested_bytes": 3200000
+    }
+  ],
+  "integrity": {
+    "bound_source_snapshot_dependency_runner_binary_hashes_verified": 28,
+    "frozen_baseline_and_final_headers_match": true,
+    "all_final_raw_summary_and_csv_statistics_reconcile": true,
+    "all_input_objective_case_point_and_hull_identities_agree": true,
+    "initial_and_final_input_objective_identities_agree": true,
+    "all_diagnostic_identities_agree_with_timing_inputs": true,
+    "initial_reviewed_artifact_hashes_unchanged": true,
+    "final_report_formatted_rows_verified": {
+      "all_higher_medians": 33,
+      "grouped_comparisons": 4,
+      "allocation_comparisons": 6,
+      "large_input_hull_statistics": 9
+    },
+    "preparation_binding_gap": "Fixed and reviewed before final compilation; no mismatched preparation or timing evidence was used."
+  },
+  "validation_evidence_reviewed": {
+    "focused_expected_outcome_steps": 328,
+    "unsupported_type_compile_rejections": 24,
+    "coordinate_SIGABRT_rejections": 48,
+    "official_furthest_pair_AC": 138,
+    "official_convex_hull_AC": 75,
+    "official_total_AC": 213,
+    "actual_final_header_exhaustive_cases": 197120,
+    "support_invariant_checks": 624344,
+    "root_stage_exit_codes": [
+      0,
+      2,
+      0,
+      0
+    ],
+    "root_stage_names": [
+      "make-check",
+      "docs-publication-gate",
+      "jekyll",
+      "site-preflight-without-metrics"
+    ],
+    "existing_publication_blocker": "make docs remains exit2 at the unsupported/failed-measurements ValueError. Full official verification and publication are not cleared. Existing Fastest/AOJ403 restrictions were not retried."
+  },
+  "limits": [
+    "Five measured samples per compiler/mode/input cell on a shared unpinned host. Sample-range separation is descriptive, not a confidence interval.",
+    "Final adoption evidence is direct public full_ns only; independent stage proxies are retained raw and are not additive production-stage timings.",
+    "Initial wrapper/layout/I/O results and final paired public-header results are never pooled.",
+    "Requested allocation bytes are cumulative payload, not peak-live capacity; initial RSS is whole-process high water with inputs/runtime/allocator retention.",
+    "Measured coordinate type is long long; generic smaller signed types are covered separately by production validation.",
+    "The initial preparation runner accepts any nonzero singleton exit, but every retained expected rejection was independently confirmed as SIGABRT. Its unused small-schema failure retention limitation remains disclosed.",
+    "No further benchmark dimensions, heavy tests, archives, network attempts or production edits were introduced by this review."
+  ],
+  "artifact_sha256": {
+    "blueberry/geometry/furthest-pair.hpp": "b2e6e51f3dd36fb7cd7e8e5883847d02d86d2d2e0e4836a337ac97dfda9c5cef",
+    "blueberry/geometry/convex-hull.hpp": "cdc6aaa2c1cd1c913be5f3b0fe2864295e0677f82740419c08ed03bbd299859e",
+    "tests/random/furthest-pair.cpp": "6dd5e7b3df81d36bfbf92fed7c73375bcfc75063ef38f956e65ae2cab1057be8",
+    "docs/geometry/furthest-pair.md": "e98357a7acf82fecfc69f213a78d8d47f2824cc09933fdc85685b3beba23af2c",
+    "docs/development/furthest-pair.md": "187b675e1222a828c8905390290c222d9b870725348848b95474df4bed620dda",
+    "benchmark/furthest-pair-resume.cpp": "56f59fd120f54daa924e762df1971bd6df473d37532e183fd8de231c9625d439",
+    "benchmark/furthest-pair-resume.py": "98426d136a16e407e921c01248036e3788c9619c2c4b99971132fdd2fc6b4242",
+    "benchmark/furthest-pair-final.py": "4282fb93a21636e5d1db503f1c1caba8b33680f7cefe408a6ecd3c1e334abc51",
+    "benchmark/furthest-pair-report.py": "893591777dc2eb9b786532ae9f1ec6d2c5ed1d2ce0e85a7ff12adb54d406b17b",
+    "benchmark/furthest-pair-resume-summary.py": "e482fc3ab013b2cac4e020babde01870a5d9447318ee41c85ad535e515212a85",
+    "benchmark/results/furthest-pair-resume/plan.md": "bddb02e50e96ac31e07457073ae535df6617e6d960b611f4e1fbbfb230dd925d",
+    "benchmark/results/furthest-pair-resume/final-plan.md": "8c8a1f5ba55c8fc0f221b4d60aef28080ed638cad26fda0aa43b6b1bebf361d2",
+    "benchmark/results/furthest-pair-resume/research-notes.md": "988493c0e73cdb7cba5418a7a5a47058fd438db65257d0430c0cbfa4bb3aca96",
+    "benchmark/results/furthest-pair-resume/final/prepared.json": "c90d5d86f84f93dee003215d4bb809b7f77b4dae7748af39a7a5ec1d9e46a01f",
+    "benchmark/results/furthest-pair-resume/final/compile.json": "d7d8fa8678864492ed24b33d83ee77551820b052a5b8d2f3334732b284a1cf73",
+    "benchmark/results/furthest-pair-resume/final/small-checks.json": "bb1750578b948ad5f6b8debb4344dca98f7f9e5b5db3a8418bafca74e835f1ab",
+    "benchmark/results/furthest-pair-resume/final/measurement/metadata.json": "d0edd839822693c73cf2ecec1e49b54b8d87e4a48b0a6d099411c9fe0e17e9c8",
+    "benchmark/results/furthest-pair-resume/final/measurement/kernel.jsonl": "4498c3a01e808092572d03d36c1af026cc694142a0089f9595974dd456a8335a",
+    "benchmark/results/furthest-pair-resume/final/measurement/comparisons.json": "958a04006c177146a3ce39c776fd977fe00e0baf3281a8676a8335ae17e1cf05",
+    "benchmark/results/furthest-pair-resume/final/measurement/comparisons.csv": "b36335551482a9bbab82936ae43b2fc6dd1a584adfeb6e2d39315cdc565b2d06",
+    "benchmark/results/furthest-pair-resume/final/diagnostics/metadata.json": "302dfe2962120415bb52f9f1a77f4ce22a49b9c68de454ad40dfb13c552a851f",
+    "benchmark/results/furthest-pair-resume/final/diagnostics/allocation.json": "948d8d95daf405a69cba34110543e05595d6155dafe3873fb44866c0f78cb991",
+    ".verification/furthest-pair-resume/review-final/source-review.json": "bb16380d8a62390f60530dbedb4c5c48ec32857685ce8a808af76f31cbe29e18",
+    ".verification/furthest-pair-resume/review-final/exhaustive-result.json": "df4e39bbea5daf72cccd97a0c8131d5753f51b1781801b74a2cd7022ece2c733",
+    ".verification/furthest-pair-resume/review-final/benchmark-pre-review.json": "340ed83c556d7afb5fe8c2248e863ae6f99149effc16cad73d905ff348420262",
+    ".verification/furthest-pair-resume/review-final/initial-numeric-review.json": "aaf128873bd82c761f3240b3e1278a55d2660e443f148de78c4a9218a24082d2",
+    ".verification/furthest-pair-resume/final/summary.json": "c5afa7b820cfacf476d55ef1ed699612ab25f0946cf21c783ad89ea4d946109c",
+    ".verification/furthest-pair-resume/final/report.json": "e8d83e43ea9e7064c08eed8e23a63fdcb0c00a5bf636c790b7a85343adab1b8a",
+    ".verification/furthest-pair-resume/root-checks/results.json": "3917d3711e8baca4d5a532e1acf83b9468effcd3834d8b4add39687b01f07e30"
+  }
+}

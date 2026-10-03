@@ -23,8 +23,8 @@
   ],
   "total": 253,
   "counts": {
-    "missing": 131,
-    "verify": 115,
+    "missing": 130,
+    "verify": 116,
     "acl": 7
   },
   "statuses": [
@@ -3824,10 +3824,21 @@
       "title": "Furthest Pair of Points",
       "category": "Geometry",
       "url": "https://judge.yosupo.jp/problem/furthest_pair",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/geometry/convex-hull.hpp",
+          "name": "Convex Hull"
+        },
+        {
+          "path": "blueberry/geometry/furthest-pair.hpp",
+          "name": "Furthest Pair"
+        }
+      ],
+      "verifies": [
+        "verify/geometry/furthest-pair.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""
