@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "record_kind": "manual_guidance_provenance",
+  "name": "yomiyasu",
+  "repository": "https://github.com/nanaism/yomiyasu",
+  "requested_ref": "main",
+  "resolved_revision": "8d5abeebe2dd20c2db005deaddcc50be43c59c0a",
+  "resolved_at_utc": "2026-10-03T06:23:42.794740+00:00",
+  "commit_url": "https://github.com/nanaism/yomiyasu/commit/8d5abeebe2dd20c2db005deaddcc50be43c59c0a",
+  "use": "Manual guidance for Japanese technical documentation; no installation or execution of repository code.",
+  "scope": [
+    "SKILL.md",
+    "references/domains/tech.md",
+    "references/gemini-syntax.md",
+    "references/slop-catalog.md"
+  ],
+  "revision_resolution": {
+    "method": "Normal read-only git ls-remote against the public HTTPS repository",
+    "command": [
+      "git",
+      "ls-remote",
+      "https://github.com/nanaism/yomiyasu.git",
+      "refs/heads/main"
+    ],
+    "exit_code": 0,
+    "stdout": "8d5abeebe2dd20c2db005deaddcc50be43c59c0a\trefs/heads/main\n",
+    "same_revision_observed_before_and_after_content_fetch": true
+  },
+  "content_retrieval": {
+    "method": "Fetched the exact commit into a temporary bare repository, then read each file with git show REVISION:PATH.",
+    "command": [
+      "git",
+      "fetch",
+      "--depth=1",
+      "--no-tags",
+      "https://github.com/nanaism/yomiyasu.git",
+      "8d5abeebe2dd20c2db005deaddcc50be43c59c0a"
+    ],
+    "exit_code": 0,
+    "fetched_commit_verified": "8d5abeebe2dd20c2db005deaddcc50be43c59c0a",
+    "hash_definition": "SHA-256 of exact Git blob bytes, including original encoding and line endings; git_blob is the Git SHA-1 object identifier.",
+    "prior_web_read_binding": "The parent previously read main through the web tool. This record pins the retrieved guidance bytes at the Git revision resolved during this task; it does not claim the web tool supplied byte-level hashes for its earlier reads."
+  },
+  "files": [
+    {
+      "path": "SKILL.md",
+      "sha256": "b7115a21db69aefa9323a27076c877d25a3bd6cd6408ba12ed96b1931721e87b",
+      "bytes": 30291,
+      "git_blob": "df3412cd46066a03a6f000a66af19d079ad6a4f8",
+      "source_url": "https://github.com/nanaism/yomiyasu/blob/8d5abeebe2dd20c2db005deaddcc50be43c59c0a/SKILL.md",
+      "raw_url": "https://raw.githubusercontent.com/nanaism/yomiyasu/8d5abeebe2dd20c2db005deaddcc50be43c59c0a/SKILL.md"
+    },
+    {
+      "path": "references/domains/tech.md",
+      "sha256": "aa0afca5b6d742c2e588122012f0243202d172dc8563170ac494c998b7ee9b42",
+      "bytes": 3379,
+      "git_blob": "1394795ff9e3d43004330b3abc93a83527babae7",
+      "source_url": "https://github.com/nanaism/yomiyasu/blob/8d5abeebe2dd20c2db005deaddcc50be43c59c0a/references/domains/tech.md",
+      "raw_url": "https://raw.githubusercontent.com/nanaism/yomiyasu/8d5abeebe2dd20c2db005deaddcc50be43c59c0a/references/domains/tech.md"
+    },
+    {
+      "path": "references/gemini-syntax.md",
+      "sha256": "f75a2783264b7bd83758a0a4224f5fdb1f7a3074d8f4e7037ef2639a78cb5c24",
+      "bytes": 26466,
+      "git_blob": "f06c2bb457d582b890f9581047fac33c4716ef83",
+      "source_url": "https://github.com/nanaism/yomiyasu/blob/8d5abeebe2dd20c2db005deaddcc50be43c59c0a/references/gemini-syntax.md",
+      "raw_url": "https://raw.githubusercontent.com/nanaism/yomiyasu/8d5abeebe2dd20c2db005deaddcc50be43c59c0a/references/gemini-syntax.md"
+    },
+    {
+      "path": "references/slop-catalog.md",
+      "sha256": "8ea6c52198a7d8d370d43c061201c0986eced6738bf21cbf0129676da093ff25",
+      "bytes": 10668,
+      "git_blob": "c4ad42f1ac4a3ab8255f1d35438806fe40a58b42",
+      "source_url": "https://github.com/nanaism/yomiyasu/blob/8d5abeebe2dd20c2db005deaddcc50be43c59c0a/references/slop-catalog.md",
+      "raw_url": "https://raw.githubusercontent.com/nanaism/yomiyasu/8d5abeebe2dd20c2db005deaddcc50be43c59c0a/references/slop-catalog.md"
+    }
+  ],
+  "failed_retrieval_attempts": [
+    {
+      "method": "Python urllib GitHub API request",
+      "url": "https://api.github.com/repos/nanaism/yomiyasu/commits/main",
+      "status": "failed",
+      "error": "urllib.error.URLError: <urlopen error Tunnel connection failed: 403 Forbidden>",
+      "evidence_source": "Exact error text reported by the parent session; no filesystem log was created."
+    },
+    {
+      "method": "web tool open",
+      "url": "https://api.github.com/repos/nanaism/yomiyasu/commits/main",
+      "status": "failed",
+      "error": "Internal Error ()",
+      "evidence_source": "Exact response reported by the parent session; no expanded cause was returned."
+    },
+    {
+      "method": "web tool open",
+      "url": "https://github.com/nanaism/yomiyasu/commits/main/",
+      "status": "failed",
+      "error": "Internal Error ()",
+      "evidence_source": "Exact response reported by the parent session; no expanded cause was returned."
+    }
+  ],
+  "boundaries": {
+    "network_controls_changed": false,
+    "credentials_or_remote_access_changed": false,
+    "permission_escalation_used": false,
+    "remote_code_executed": false,
+    "skill_installed": false,
+    "library_upload_attempted": false
+  },
+  "status": "exact_revision_and_four_guidance_file_hashes_recorded"
+}

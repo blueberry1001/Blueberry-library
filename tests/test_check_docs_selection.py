@@ -78,6 +78,19 @@ class CheckDocsSelectionTest(unittest.TestCase):
             self.run_main(["--paths-file", self.selection(["docs/test/b.md"])])
         self.assertEqual([x[0] for x in compile_examples.call_args.args[1]], ["docs/test/b.md"])
 
+    def test_additional_complete_example_selected_but_fragment_skipped(self):
+        path = "docs/test/a.md"
+        second = "#include <cassert>\nint main() { assert(2 + 2 == 4); }"
+        self.write(path, page("blueberry/test/a.hpp") +
+                   "{% raw %}\n```cpp\n" + second + "\n```\n{% endraw %}\n")
+        for args, total in (([], 7), (["--paths-file", self.selection([path])], 2)):
+            with self.subTest(args=args), patch.object(check_docs, "compile_examples") as compile_examples:
+                self.run_main(args)
+                examples = compile_examples.call_args.args[1]
+                self.assertEqual(len(examples), total)
+                self.assertEqual([example for example in examples if example[0] == path],
+                                 [(path, path, SOURCE), (path, f"{path} example 2", second)])
+
     def test_migration_selection_keeps_all_three_examples(self):
         migration = ".verify-helper/docs/static/migration.md"
         with patch.object(check_docs, "compile_examples") as compile_examples:
@@ -118,6 +131,15 @@ class CheckDocsSelectionTest(unittest.TestCase):
         self.write("docs/test/a.md", page("blueberry/test/a.hpp", "#include <cassert>\nint main() { assert(undeclared_identifier); }"))
         with self.assertRaises(subprocess.CalledProcessError):
             self.run_main(["--paths-file", self.selection(["docs/test/a.md"])])
+
+    @unittest.skipUnless(shutil.which(os.environ.get("CXX", "g++")), "C++ compiler required")
+    def test_additional_example_runtime_failure_propagates(self):
+        path = "docs/test/a.md"
+        self.write(path, page("blueberry/test/a.hpp") +
+                   "{% raw %}\n```cpp\nint main() { return 7; }\n```\n{% endraw %}\n")
+        with self.assertRaises(subprocess.CalledProcessError) as failure:
+            self.run_main(["--paths-file", self.selection([path])])
+        self.assertEqual(failure.exception.returncode, 7)
 
     @unittest.skipUnless(shutil.which(os.environ.get("CXX", "g++")), "C++ compiler required")
     def test_only_selected_valid_cpp_runs_with_real_compiler(self):

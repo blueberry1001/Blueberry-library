@@ -49,7 +49,9 @@ def collect_examples(root):
         assert len(blocks) == len(protected), (document, "Protect C++ braces from Liquid using raw/endraw")
         assert blocks and "int main()" in blocks[0] and "assert(" in blocks[0], document
         path = document.relative_to(root).as_posix()
-        examples.append((path, path, blocks[0]))
+        for index, block in enumerate(block for block in blocks if "int main()" in block):
+            label = path if index == 0 else f"{path} example {index + 1}"
+            examples.append((path, label, block))
 
     for name in ("guide", "migration"):
         guide = root / f".verify-helper/docs/static/{name}.md"
