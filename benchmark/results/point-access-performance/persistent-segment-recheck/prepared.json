@@ -1,0 +1,425 @@
+{
+  "created_at": "2026-10-03T08:26:33.722100+00:00",
+  "baseline_commit": "ca8a4df35269a6980cf0b9612878e420744fc860",
+  "groups": [
+    {
+      "mode": "assert",
+      "shape": "dense-sequential",
+      "compiler": "clang++",
+      "reason": "Unchanged controls: build+36.676%, update+14.817%, range+10.2051% with disjoint slower range samples; large get/update outliers.",
+      "case": [
+        "persistent-segment",
+        "dense-sequential",
+        "u64",
+        100000,
+        200000
+      ],
+      "original_prepared_sha256": "3abf16d2252dfa7c80a0f8d18e026c1265249557892fb853a68913426aa10f9b",
+      "original_correctness_gate_sha256": "48e14ecbb1ec651c15f6f5ed76b7313a9d8c0709a522527943135e004e6a1efd",
+      "original_raw_sha256": "99d7ba8b360b216444b7b648d69b78e3710e198bf9a565622f5383e2b3908ced",
+      "production_header_sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+      "source_sha256": {
+        "benchmark/point-access-performance.cpp": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+        "benchmark/representative-dense.hpp": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e"
+      },
+      "header_sha256": {
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/disjoint-set-union.hpp": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/disjoint-set-union.hpp": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/fenwick-tree.hpp": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/fenwick-tree.hpp": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/segment-tree.hpp": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/segment-tree.hpp": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/dynamic-fenwick-tree.hpp": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/dynamic-fenwick-tree.hpp": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/persistent-segment-tree.hpp": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/persistent-segment-tree.hpp": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366"
+      },
+      "entries": [
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-assert/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/point-access-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-assert/clang++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/point-access-performance/persistent-segment-assert/clang++-baseline-timing",
+            "binary_sha256": "707336f0fe4d6e83e3585530dc52fc871e9e2e661383c9412f5ac2cf4c63def1",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/point-access-performance/persistent-segment-recheck"
+          },
+          "baseline"
+        ],
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "candidate",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-assert/candidate/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/point-access-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-assert/clang++-candidate-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/point-access-performance/persistent-segment-assert/clang++-candidate-timing",
+            "binary_sha256": "6ef77b2d01479979565d6b6e4a4ffa83a77a6072bb2d8648800868646ac20558",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/point-access-performance/persistent-segment-recheck"
+          },
+          "candidate"
+        ]
+      ]
+    },
+    {
+      "mode": "assert",
+      "shape": "dense-branch",
+      "compiler": "clang++",
+      "reason": "Candidate get outlier and overlapping slower build/update controls.",
+      "case": [
+        "persistent-segment",
+        "dense-branch",
+        "u64",
+        100000,
+        200000
+      ],
+      "original_prepared_sha256": "3abf16d2252dfa7c80a0f8d18e026c1265249557892fb853a68913426aa10f9b",
+      "original_correctness_gate_sha256": "48e14ecbb1ec651c15f6f5ed76b7313a9d8c0709a522527943135e004e6a1efd",
+      "original_raw_sha256": "99d7ba8b360b216444b7b648d69b78e3710e198bf9a565622f5383e2b3908ced",
+      "production_header_sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+      "source_sha256": {
+        "benchmark/point-access-performance.cpp": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+        "benchmark/representative-dense.hpp": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e"
+      },
+      "header_sha256": {
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/disjoint-set-union.hpp": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/disjoint-set-union.hpp": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/fenwick-tree.hpp": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/fenwick-tree.hpp": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/segment-tree.hpp": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/segment-tree.hpp": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/dynamic-fenwick-tree.hpp": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/dynamic-fenwick-tree.hpp": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+        ".build/point-access-performance/persistent-segment-assert/baseline/include/blueberry/data-structure/persistent-segment-tree.hpp": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+        ".build/point-access-performance/persistent-segment-assert/candidate/include/blueberry/data-structure/persistent-segment-tree.hpp": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366"
+      },
+      "entries": [
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-assert/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/point-access-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-assert/clang++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/point-access-performance/persistent-segment-assert/clang++-baseline-timing",
+            "binary_sha256": "707336f0fe4d6e83e3585530dc52fc871e9e2e661383c9412f5ac2cf4c63def1",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/point-access-performance/persistent-segment-recheck"
+          },
+          "baseline"
+        ],
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "candidate",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-assert/candidate/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "/workspace/Blueberry-library/benchmark/point-access-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-assert/clang++-candidate-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/point-access-performance/persistent-segment-assert/clang++-candidate-timing",
+            "binary_sha256": "6ef77b2d01479979565d6b6e4a4ffa83a77a6072bb2d8648800868646ac20558",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/point-access-performance/persistent-segment-recheck"
+          },
+          "candidate"
+        ]
+      ]
+    },
+    {
+      "mode": "release",
+      "shape": "sparse-branch",
+      "compiler": "g++",
+      "reason": "Unchanged range+7.2715% with disjoint slower samples.",
+      "case": [
+        "persistent-segment",
+        "sparse-branch",
+        "u64",
+        100000,
+        200000
+      ],
+      "original_prepared_sha256": "a6f0bb4d3111ebbb4ab1555ecff9e8290ebe30ba6d7343c526b288bd4f796d75",
+      "original_correctness_gate_sha256": "6f5cab21bf60e715b120494d921042b1e0a02897c9a9c5b94d66b7af67268f76",
+      "original_raw_sha256": "20033b08d55c70617bfc1350f55df5643548ba9d6ad8e3b8a1e98798b6f32750",
+      "production_header_sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+      "source_sha256": {
+        "benchmark/point-access-performance.cpp": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+        "benchmark/representative-dense.hpp": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e"
+      },
+      "header_sha256": {
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/disjoint-set-union.hpp": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/disjoint-set-union.hpp": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/fenwick-tree.hpp": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/fenwick-tree.hpp": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/segment-tree.hpp": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/segment-tree.hpp": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/dynamic-fenwick-tree.hpp": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/dynamic-fenwick-tree.hpp": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/persistent-segment-tree.hpp": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/persistent-segment-tree.hpp": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366"
+      },
+      "entries": [
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-release/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/point-access-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-release/g++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/point-access-performance/persistent-segment-release/g++-baseline-timing",
+            "binary_sha256": "3f6d9bd5abdb5477d874fd9c8d233db51ef528585b7f6a1ca62d4df28bd1c004",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/point-access-performance/persistent-segment-recheck"
+          },
+          "baseline"
+        ],
+        [
+          {
+            "compiler": "g++",
+            "compiler_path": "/usr/bin/g++",
+            "variant": "candidate",
+            "diagnostic": false,
+            "command": [
+              "/usr/bin/g++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-release/candidate/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/point-access-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-release/g++-candidate-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+            "binary": ".build/point-access-performance/persistent-segment-release/g++-candidate-timing",
+            "binary_sha256": "12b0dbda905bf072107f35a00e6a559c15dc668670050f6ee378e49ceb9d62b8",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/point-access-performance/persistent-segment-recheck"
+          },
+          "candidate"
+        ]
+      ]
+    },
+    {
+      "mode": "release",
+      "shape": "dense-sequential",
+      "compiler": "clang++",
+      "reason": "Unchanged range+5.5427% with disjoint slower samples.",
+      "case": [
+        "persistent-segment",
+        "dense-sequential",
+        "u64",
+        100000,
+        200000
+      ],
+      "original_prepared_sha256": "a6f0bb4d3111ebbb4ab1555ecff9e8290ebe30ba6d7343c526b288bd4f796d75",
+      "original_correctness_gate_sha256": "6f5cab21bf60e715b120494d921042b1e0a02897c9a9c5b94d66b7af67268f76",
+      "original_raw_sha256": "20033b08d55c70617bfc1350f55df5643548ba9d6ad8e3b8a1e98798b6f32750",
+      "production_header_sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+      "source_sha256": {
+        "benchmark/point-access-performance.cpp": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+        "benchmark/representative-dense.hpp": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e"
+      },
+      "header_sha256": {
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/disjoint-set-union.hpp": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/disjoint-set-union.hpp": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/fenwick-tree.hpp": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/fenwick-tree.hpp": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/segment-tree.hpp": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/segment-tree.hpp": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/dynamic-fenwick-tree.hpp": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/dynamic-fenwick-tree.hpp": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+        ".build/point-access-performance/persistent-segment-release/baseline/include/blueberry/data-structure/persistent-segment-tree.hpp": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+        ".build/point-access-performance/persistent-segment-release/candidate/include/blueberry/data-structure/persistent-segment-tree.hpp": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366"
+      },
+      "entries": [
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "baseline",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-release/baseline/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/point-access-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-release/clang++-baseline-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/point-access-performance/persistent-segment-release/clang++-baseline-timing",
+            "binary_sha256": "645ba2cbd5094c85e934c91fcb0eb124e182b129e7733d6c6480b7a22f674121",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/point-access-performance/persistent-segment-recheck"
+          },
+          "baseline"
+        ],
+        [
+          {
+            "compiler": "clang++",
+            "compiler_path": "/tmp/blueberry-setup/bin/clang++",
+            "variant": "candidate",
+            "diagnostic": false,
+            "command": [
+              "/tmp/blueberry-setup/bin/clang++",
+              "-std=gnu++20",
+              "-O2",
+              "-Wall",
+              "-Wextra",
+              "-I",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-release/candidate/include",
+              "-I",
+              "/workspace/Blueberry-library",
+              "-isystem",
+              "/workspace/Blueberry-library/.deps/ac-library",
+              "-DNDEBUG",
+              "/workspace/Blueberry-library/benchmark/point-access-performance.cpp",
+              "-o",
+              "/workspace/Blueberry-library/.build/point-access-performance/persistent-segment-release/clang++-candidate-timing"
+            ],
+            "returncode": 0,
+            "stdout": "",
+            "stderr": "",
+            "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+            "binary": ".build/point-access-performance/persistent-segment-release/clang++-candidate-timing",
+            "binary_sha256": "4912fc04cdbb2c06932a9f5e6f3727e6139e286a7d21ab7e6f8b4076137a718c",
+            "failure_directory": "/workspace/Blueberry-library/benchmark/results/point-access-performance/persistent-segment-recheck"
+          },
+          "candidate"
+        ]
+      ]
+    }
+  ],
+  "repeats": 9,
+  "warmups": 1,
+  "runner_sha256": "bac29e544e2491c943c2961bc947558cf3f47309937f2393a8793a0483d6bf2e",
+  "shared_runner_sha256": "6cd9808dc3c751b153cc78eefe172d9d67335247adba80de1e084ce8f47c768f",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "cgroup": {
+    "cpu.max": "400000 100000",
+    "cpu.weight": "100",
+    "cpuset.cpus.effective": "0-4",
+    "memory.max": "17179869184"
+  },
+  "pid_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "criteria": "Exactly the four preselected cells above. One warmup then nine alternating variants; all stages retained. Compare independently against original medians/ranges; do not pool, replace or filter either run. No new inputs, compiled source, binaries, flags or optimization candidates. Shared host/unpinned; other-tenant/frequency variation remains possible."
+}

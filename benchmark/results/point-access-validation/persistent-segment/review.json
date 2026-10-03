@@ -1,0 +1,185 @@
+{
+  "reviewed_at": "2026-10-03T08:35:31.477416+00:00",
+  "review_head": "5182af3cdb4f05a24ae8978b0599d67c38f1eb70",
+  "baseline_commit": "ca8a4df35269a6980cf0b9612878e420744fc860",
+  "scope": "Independent source/API, permanent-test oracle, documentation, benchmark fairness, final numerical and artifact-integrity review of PersistentSegmentTree get only. No new builds, test executions or timings in this review.",
+  "status": "clear",
+  "material_findings": [],
+  "main_counts": {
+    "raw_profiles": 288,
+    "warmups": 48,
+    "measured_profiles": 240,
+    "diagnostic_profiles": 24,
+    "small_correctness_profiles": 72,
+    "summary_rows": 48,
+    "recomputed_median_min_max_values": 720,
+    "recomputed_peak_rss_maxima": 48,
+    "verified_csv_comparisons": 120
+  },
+  "separate_recheck_counts": {
+    "raw_profiles": 80,
+    "warmups": 8,
+    "measured_profiles": 72,
+    "summary_rows": 8,
+    "recomputed_median_min_max_values": 120,
+    "verified_csv_comparisons": 20,
+    "verified_formatted_report_rows": 20
+  },
+  "combined_counts_only": {
+    "raw_profiles": 368,
+    "warmups": 56,
+    "measured_profiles": 312,
+    "statistics_pooled": false
+  },
+  "main_elapsed_time_results": {
+    "get": {
+      "comparisons": 24,
+      "all_candidate_medians_lower": true,
+      "median_elapsed_reduction_percent_min": 18.830299936782414,
+      "median_elapsed_reduction_percent_max": 59.291334894034996,
+      "candidate_max_below_baseline_min_count": 22
+    },
+    "mixed": {
+      "comparisons": 24,
+      "all_candidate_medians_lower": true,
+      "median_elapsed_reduction_percent_min": 0.36978098839012263,
+      "median_elapsed_reduction_percent_max": 48.39387399954015,
+      "candidate_max_below_baseline_min_count": 15
+    }
+  },
+  "control_findings": {
+    "main_unchanged_stage_median_increase_at_least_5_percent_count": 19,
+    "main_disjoint_slower_range_controls_and_separate_recheck": [
+      {
+        "mode": "release",
+        "compiler": "clang++",
+        "shape": "dense-sequential",
+        "scalar": "u64",
+        "stage": "range_ns",
+        "original_increase_percent": 5.542687907758803,
+        "recheck_change_percent": 0.1609690274587905,
+        "recheck_ranges_overlap": true
+      },
+      {
+        "mode": "release",
+        "compiler": "g++",
+        "shape": "sparse-branch",
+        "scalar": "u64",
+        "stage": "range_ns",
+        "original_increase_percent": 7.271469799294206,
+        "recheck_change_percent": -8.199908454618953,
+        "recheck_ranges_overlap": true
+      },
+      {
+        "mode": "assert",
+        "compiler": "clang++",
+        "shape": "dense-sequential",
+        "scalar": "u64",
+        "stage": "range_ns",
+        "original_increase_percent": 10.205109171314808,
+        "recheck_change_percent": -1.1180264356610015,
+        "recheck_ranges_overlap": true
+      }
+    ],
+    "remaining_recheck_clang_assert_dense_branch_u64_range_increase_percent": 5.799336636639918,
+    "remaining_recheck_range_intervals_overlap": true,
+    "recheck_gcc_release_sparse_constructor_medians_ns": [
+      1278,
+      1413
+    ],
+    "interpretation": "Original negatives and outliers remain intact. The three disjoint slower range controls did not repeat in the separate bounded same-binary experiment. This does not establish their cause or rule out regressions; no improvement of every operation is claimed."
+  },
+  "recheck_elapsed_time_results": {
+    "get_comparisons": 4,
+    "get_candidate_max_below_baseline_min_count": 4,
+    "mixed_comparisons": 4,
+    "mixed_all_candidate_medians_lower": true,
+    "mixed_candidate_max_below_baseline_min_count": 3,
+    "mixed_overlapping_cell": "GCC release sparse-branch/u64"
+  },
+  "mixed_near_tie": {
+    "cell": "Clang assert sparse-branch/affine-u64",
+    "baseline_median_ns": 25386919,
+    "candidate_median_ns": 25293043,
+    "elapsed_reduction_percent": 0.36978098839012263,
+    "baseline_range_ns": [
+      24033506,
+      27018043
+    ],
+    "candidate_range_ns": [
+      20909264,
+      29681568
+    ],
+    "interpretation": "Overlapping near-tie; not an established speed advantage."
+  },
+  "integrity_checks": {
+    "main_hash_entries_verified": {
+      "source": 4,
+      "header": 20,
+      "acl": 74,
+      "binary": 12
+    },
+    "recheck_hash_references_verified": {
+      "source": 8,
+      "header": 40,
+      "binary_references": 8
+    },
+    "frozen_live_header_test_docs_match": true,
+    "small_correctness_gate_hashes_match": true,
+    "main_and_recheck_summaries_and_csv_match_raw": true,
+    "input_checksum_and_version_identities_match_across_variants_compilers_modes_and_recheck": true,
+    "main_raw_unchanged_by_recheck": true,
+    "baseline_and_candidate_snapshots_match_exact_baseline_and_frozen_target": true,
+    "only_target_header_differs_in_comparative_include_roots": true,
+    "diagnostic_get_allocations_zero_both_variants": true,
+    "candidate_get_monoid_callbacks_zero": true,
+    "paired_diagnostic_stage_allocation_calls_and_requested_bytes_equal": true
+  },
+  "static_review": {
+    "header": "Clear: selected root-to-leaf/nil traversal preserves values and return-copy semantics; safe midpoint through INT_MAX; original assertions retained; no insertion, version creation or Op call; no new default-construction or assignment requirement.",
+    "tests": "Clear: independent vector/map historical oracles, nondefault/nonassignable string values, stateful fixed-direction noncommutative monoid, zero-Op get checks, both constructors, empty/singleton/power boundaries/INT_MAX, branches and returned-copy isolation.",
+    "documentation_and_harness": "Clear: monoid identity and order preserved; value-copy allocation cost disclosed; target-only baseline isolation and separate phase contracts explicit."
+  },
+  "limits": [
+    "Five measured repetitions per main cell; nine per rechecked cell. Shared host and unpinned CPU/frequency variation remain.",
+    "Main and recheck statistics are separate; no original negative result or outlier was replaced, filtered or pooled.",
+    "Query stages include identical checksum/value hashing and exclude input generation, startup, output and destruction; no getter-only latency or I/O/end-to-end claim.",
+    "Process peak RSS is not getter-specific memory; requested allocation bytes are cumulative.",
+    "Generic T return copying may allocate. A lawful monoid preserves values; prior Op invocation counts or observable callback traces were not API guarantees.",
+    "Other workers own local/official validation. This numerical review does not clear the existing whole-repository external judge/publication blocker."
+  ],
+  "validation_reference": "benchmark/results/point-access-validation/persistent-segment/validation.json",
+  "reviewed_artifact_sha256": {
+    "blueberry/data-structure/persistent-segment-tree.hpp": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+    "tests/random/persistent-segment-get.cpp": "61bd50e10d29c0955b6e5a7182c3e6780f42413d781ec55e9586fd919986af4b",
+    "docs/data-structure/persistent-segment-tree.md": "8467517bfe7a7f1b25c5361aeb86e23b71c627dcbd1bbd19de308c9da96e042c",
+    "benchmark/point-access-performance.cpp": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+    "benchmark/point-access-performance.py": "6cd9808dc3c751b153cc78eefe172d9d67335247adba80de1e084ce8f47c768f",
+    "benchmark/representative-dense.hpp": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e",
+    "benchmark/point-access-performance-summary.py": "46a2aa6ba860dd70571301a49696604f598d16e86fd97e3b886d5a3cc43504a6",
+    "benchmark/persistent-segment-performance-summary.py": "9aafd631425ee23a0c315b566e21cb8401a36f10cbde46ff8ef60a1a02b86126",
+    "benchmark/persistent-segment-performance-recheck.py": "bac29e544e2491c943c2961bc947558cf3f47309937f2393a8793a0483d6bf2e",
+    "benchmark/results/point-access-performance/persistent-segment-plan.md": "35300d87456a3180af282d957b58f160b6902c8d2ca06b666666a3ac10b3748a",
+    "benchmark/results/point-access-performance/persistent-segment-host-limits.json": "4c094ef3aee8d209438c4b4f25e5f6a5cc1a4651c6081b4bf8686db5a5b04e21",
+    "benchmark/results/point-access-performance/persistent-segment-final-code-report.md": "30597a10e7838cb754c0ff9338a61f6331d550201190614cb09c29b63cf61b3a",
+    "benchmark/results/point-access-performance/persistent-segment-stage-comparisons.csv": "c8233b7cd115a5f0be4da4327e3aba1e1e37b79db13768cd11d32569b0b0d601",
+    "benchmark/results/point-access-performance/persistent-segment-release/prepared.json": "a6f0bb4d3111ebbb4ab1555ecff9e8290ebe30ba6d7343c526b288bd4f796d75",
+    "benchmark/results/point-access-performance/persistent-segment-release/compile.json": "517881ddc146020be13568ec4b66f2a1123f5ef708d33aee5b3e7ab46eac9a2d",
+    "benchmark/results/point-access-performance/persistent-segment-release/correctness-gate.json": "6f5cab21bf60e715b120494d921042b1e0a02897c9a9c5b94d66b7af67268f76",
+    "benchmark/results/point-access-performance/persistent-segment-release/correctness.json": "1e14e1490c8458dba4ddc7395c56d2b2becf278528aa4c0ba22cf140706c9506",
+    "benchmark/results/point-access-performance/persistent-segment-release/raw.json": "20033b08d55c70617bfc1350f55df5643548ba9d6ad8e3b8a1e98798b6f32750",
+    "benchmark/results/point-access-performance/persistent-segment-release/results.json": "f5c50b569d8ce88a8de31a177cd9b60cfe62ed38f7e050af857ecfdf17eea82f",
+    "benchmark/results/point-access-performance/persistent-segment-release/diagnostics.json": "33ac34b790ebfd0af0ce69f3e28c6093867b22d42deab7e4f3e97db4ba8d558f",
+    "benchmark/results/point-access-performance/persistent-segment-assert/prepared.json": "3abf16d2252dfa7c80a0f8d18e026c1265249557892fb853a68913426aa10f9b",
+    "benchmark/results/point-access-performance/persistent-segment-assert/compile.json": "335bb6cd986507d62f77aeb415ae6fdb1f055c561f8cd6da31a352921d2c444f",
+    "benchmark/results/point-access-performance/persistent-segment-assert/correctness-gate.json": "48e14ecbb1ec651c15f6f5ed76b7313a9d8c0709a522527943135e004e6a1efd",
+    "benchmark/results/point-access-performance/persistent-segment-assert/correctness.json": "216e9bad1d6a5bf3f1b7f7e11798b20d83cad8537a90b21005164d08f0b583e5",
+    "benchmark/results/point-access-performance/persistent-segment-assert/raw.json": "99d7ba8b360b216444b7b648d69b78e3710e198bf9a565622f5383e2b3908ced",
+    "benchmark/results/point-access-performance/persistent-segment-assert/results.json": "1ee1a85fe623ff66a6011f329d03da37dfc6f2ea6f0ec37442842be4045e28ff",
+    "benchmark/results/point-access-performance/persistent-segment-assert/diagnostics.json": "221cb54b077e06c4956bb5b3f8b1f2964131c91f50182f10c1d7b47a0bfd90d3",
+    "benchmark/results/point-access-performance/persistent-segment-recheck/prepared.json": "b6afbc3b62d638418f9b8827d6862c8521ce0245a49c271261a7c16f10cc0c05",
+    "benchmark/results/point-access-performance/persistent-segment-recheck/raw.json": "9ed1ccc6c67e51a0520edb6900ae9802c7779a32049eb80f72722febab3ddcb3",
+    "benchmark/results/point-access-performance/persistent-segment-recheck/results.json": "13cd338f984c43a74c9e50da1135828d75b29506c7713ddaac2030980cfb3ff3",
+    "benchmark/results/point-access-performance/persistent-segment-recheck/stage-comparisons.csv": "edb3f58880306b1433756877592a2846a11483ef1ab3c4366193a3e82ad6f6c6"
+  }
+}

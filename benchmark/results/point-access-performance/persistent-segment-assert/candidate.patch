@@ -1,0 +1,18 @@
+--- a/blueberry/data-structure/persistent-segment-tree.hpp
++++ b/blueberry/data-structure/persistent-segment-tree.hpp
+@@ -38,7 +38,14 @@
+   }
+   T get(int version, int p) const {
+     assert(0 <= p && p < n_);
+-    return prod(version, p, p + 1);
++    check_version(version);
++    int v = roots_[version], l = 0, r = n_;
++    while (v != 0 && r - l > 1) {
++      const int m = l + (r - l) / 2;
++      if (p < m) { v = nodes_[v].left; r = m; }
++      else { v = nodes_[v].right; l = m; }
++    }
++    return v == 0 ? identity_ : nodes_[v].value;
+   }
+   T prod(int version, int l, int r) const {
+     check_version(version);

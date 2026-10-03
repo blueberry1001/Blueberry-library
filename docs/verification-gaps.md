@@ -253,6 +253,7 @@
 - 専用ドライバ: [verify/data-structure/persistent-point-set-range-composite.test.cpp](../verify/data-structure/persistent-point-set-range-composite.test.cpp) / [問題](https://judge.yosupo.jp/problem/point_set_range_composite)
 - 専用ドライバ: [verify/data-structure/persistent-rectangle-sum.test.cpp](../verify/data-structure/persistent-rectangle-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/rectangle_sum)
 - 関連ローカルテスト: [tests/random/data-structure-expansion.cpp](../tests/random/data-structure-expansion.cpp)
+- 関連ローカルテスト: [tests/random/persistent-segment-get.cpp](../tests/random/persistent-segment-get.cpp)
 
 ## Persistent Union Find
 

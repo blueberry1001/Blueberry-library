@@ -1,0 +1,2098 @@
+{
+  "schema_version": 1,
+  "record_kind": "persistent_segment_get_validation",
+  "recorded_at": "2026-10-03T08:31:37.079308+00:00",
+  "branch": "improve/point-access-performance",
+  "source_identity": {
+    "base_head": "5182af3cdb4f05a24ae8978b0599d67c38f1eb70",
+    "base_head_contains_candidate_patch": false,
+    "candidate_identity": "Exact frozen source_sha256 values below; the manifest is prepared before the single batch commit.",
+    "performance_baseline_commit": "ca8a4df35269a6980cf0b9612878e420744fc860"
+  },
+  "source_sha256": {
+    ".verify-helper/config.toml": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+    ".verify-helper/docs/static/_data/library_verification.json": "5be1384648ce5d1a8558594481d004ed97e231c833c5a5e7a2e438ca790c8f45",
+    "benchmark/persistent-segment-performance-recheck.py": "bac29e544e2491c943c2961bc947558cf3f47309937f2393a8793a0483d6bf2e",
+    "benchmark/persistent-segment-performance-summary.py": "9aafd631425ee23a0c315b566e21cb8401a36f10cbde46ff8ef60a1a02b86126",
+    "benchmark/point-access-performance-summary.py": "46a2aa6ba860dd70571301a49696604f598d16e86fd97e3b886d5a3cc43504a6",
+    "benchmark/point-access-performance.cpp": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+    "benchmark/point-access-performance.py": "6cd9808dc3c751b153cc78eefe172d9d67335247adba80de1e084ce8f47c768f",
+    "benchmark/representative-dense.hpp": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e",
+    "blueberry/data-structure/ordered-set.hpp": "08afc14df3a88fdc60ba5f0082eef2860e7726949e64d2e8f26a4b22cbc4e654",
+    "blueberry/data-structure/persistent-segment-tree.hpp": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+    "blueberry/data-structure/potential-union-find.hpp": "eab6dffe2e15a5100b81712aa96b1983ff6c69dcb7e9cd5f891a280f186b27b4",
+    "docs/data-structure/persistent-segment-tree.md": "8467517bfe7a7f1b25c5361aeb86e23b71c627dcbd1bbd19de308c9da96e042c",
+    "docs/verification-gaps.md": "c3fb6a67b65285896a28582c5316ebddb37d1ea29d647df4ed0c4d06698031bc",
+    "scripts/check_docs.py": "7c0c0e4e62ff347b3117f4300e76583af3c74bc4adb5e29276762bdd8a4e4b6c",
+    "scripts/verify_with_metrics.py": "943f6d2f19295a7ca9b2b67a840a06a6e8aed02429d82f9b6ddde1a394a7742c",
+    "tests/random/data-structure-expansion.cpp": "0dd707847633844f815ad6df3966f23c56095fa13c9f5972457f4b9aefcc52e1",
+    "tests/random/persistent-segment-get.cpp": "61bd50e10d29c0955b6e5a7182c3e6780f42413d781ec55e9586fd919986af4b",
+    "verify/data-structure/persistent-point-set-range-composite.test.cpp": "2ded7c4d0050350d1e22900fcb1dedb61f3a2a2709434f0c16da2093d2b0ffa5",
+    "verify/data-structure/persistent-rectangle-sum.test.cpp": "2ffb7cfae98dfaa955cb7b305d7dc8ee991c9a8852e25590d421cfd0c33025b8"
+  },
+  "status": "local_and_focused_checks_passed_full_official_publication_gate_blocked",
+  "full_official_verification": false,
+  "publication_status": "local_only_no_push_main_merge_deploy_or_upload",
+  "focused": {
+    "summary": {
+      "path": ".verification/point-access-tuning/persistent-segment/final/summary.json",
+      "sha256": "929475e3287cd15541cd5522e09a2c5d0df5adf98a8ce0490eb5445e4f2ad8ed",
+      "bytes": 13052
+    },
+    "report": {
+      "path": ".verification/point-access-tuning/persistent-segment/final/report.json",
+      "sha256": "8830c996b2bc9ccdd0d52d24a93ba8fe8da6c8f9c03e1ed0721f729227b3ca9d",
+      "bytes": 166174
+    },
+    "passed_steps": 212,
+    "counts": {
+      "documentation_compiles": 4,
+      "documentation_executions": 4,
+      "header_compiles": 16,
+      "random_compiles": 8,
+      "random_seed_runs": 160,
+      "official_driver_compiles": 8,
+      "sanitizer_compiles": 2,
+      "sanitizer_seed_runs": 4,
+      "official_repeats": 6
+    },
+    "random_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "sanitizer": {
+      "compiler": "clang++",
+      "standard": "gnu++23",
+      "optimization": "-O1",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "leak_detection": true,
+      "halt_on_error": true,
+      "seeds": [
+        1,
+        20261003
+      ],
+      "sources": [
+        "tests/random/data-structure-expansion.cpp",
+        "tests/random/persistent-segment-get.cpp"
+      ]
+    },
+    "official": [
+      {
+        "scope": "Existing set/apply/prod regression; direct get is covered by the random/boundary test programs.",
+        "target": "verify/data-structure/persistent-rectangle-sum.test.cpp",
+        "problem": "https://judge.yosupo.jp/problem/rectangle_sum",
+        "cases_per_repeat": 14,
+        "repeats": 3,
+        "case_executions": 42,
+        "all_ac_exit_zero": true,
+        "dataset_sha256": "fc30ff14ff46358b69d772613533ce5933753b0a38fda80d0ab2823948127eb4",
+        "upstream_revision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+        "checker_sha256": "9ecf0eff5d00d720381175a604cedeb2c9b20f4184da1f1adfeba8260f46af28",
+        "real_case_files": true,
+        "runs": [
+          {
+            "original_oj_json": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-1.raw.json",
+              "sha256": "3f4bada1bc771e703663648c3b39b01280b66ebd4e3d2d994378042fe1207f81",
+              "bytes": 26163037
+            },
+            "normalized_samples": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-1.json",
+              "sha256": "13a9e51f72a2ad1ed801b479ea736eb2afc80ceb399112595865b8e7dc84e2a7",
+              "bytes": 1826
+            },
+            "cases": 14,
+            "all_ac_exit_zero": true
+          },
+          {
+            "original_oj_json": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-2.raw.json",
+              "sha256": "929af21ea3152daae512c9ce242c190c547076afcb2b981c67aaa0e03911e70d",
+              "bytes": 26163036
+            },
+            "normalized_samples": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-2.json",
+              "sha256": "fb11bc8a8735a742d18a804e2561ae8aa91b6f764042b677336cc4204ab9ee4c",
+              "bytes": 1825
+            },
+            "cases": 14,
+            "all_ac_exit_zero": true
+          },
+          {
+            "original_oj_json": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-3.raw.json",
+              "sha256": "c26a736414cb6f3ea4792a5cd5c619a9c0bde03e3aff5a0e06d43ad5bc0c120b",
+              "bytes": 26163038
+            },
+            "normalized_samples": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-3.json",
+              "sha256": "b4ec6af7125962398596f423b09a08a1f07dafdc7b17e31087e1b09afc79c60a",
+              "bytes": 1827
+            },
+            "cases": 14,
+            "all_ac_exit_zero": true
+          }
+        ]
+      },
+      {
+        "scope": "Existing set/apply/prod regression; direct get is covered by the random/boundary test programs.",
+        "target": "verify/data-structure/persistent-point-set-range-composite.test.cpp",
+        "problem": "https://judge.yosupo.jp/problem/point_set_range_composite",
+        "cases_per_repeat": 16,
+        "repeats": 3,
+        "case_executions": 48,
+        "all_ac_exit_zero": true,
+        "dataset_sha256": "cfa7f44cf7baabf36b799c55f643929294a8c8f80262e4ad95d554fada462620",
+        "upstream_revision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+        "checker_sha256": "9ecf0eff5d00d720381175a604cedeb2c9b20f4184da1f1adfeba8260f46af28",
+        "real_case_files": true,
+        "runs": [
+          {
+            "original_oj_json": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-1.raw.json",
+              "sha256": "e0711653ce2391445196a62ad003a651084b8bd34331e046272b9565fbed56f8",
+              "bytes": 20907388
+            },
+            "normalized_samples": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-1.json",
+              "sha256": "5a707ecdb6e1eeeeb14c617ebcbd2f687ef91a40e5bfe3df5d76cb8644fc3d76",
+              "bytes": 2068
+            },
+            "cases": 16,
+            "all_ac_exit_zero": true
+          },
+          {
+            "original_oj_json": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-2.raw.json",
+              "sha256": "348b66575283b8401fa8ddff47596815594781e21981a73b562e70f351464fb5",
+              "bytes": 20907386
+            },
+            "normalized_samples": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-2.json",
+              "sha256": "393f4fe2ad1887af8e6926544b60e78a5792baf6deb11e0f2f73757082f03252",
+              "bytes": 2066
+            },
+            "cases": 16,
+            "all_ac_exit_zero": true
+          },
+          {
+            "original_oj_json": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-3.raw.json",
+              "sha256": "c17bdcf963e439f9c8f52aa2711ab75c1ec9c3a4d45c50b980f10859b7334a50",
+              "bytes": 20907388
+            },
+            "normalized_samples": {
+              "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-3.json",
+              "sha256": "5d2c890df643f5617716dd2ac5aab76fdece864001edf6ecab35b166c96341b1",
+              "bytes": 2068
+            },
+            "cases": 16,
+            "all_ac_exit_zero": true
+          }
+        ]
+      }
+    ]
+  },
+  "prior_completed_batch": {
+    "commit": "5182af3cdb4f05a24ae8978b0599d67c38f1eb70",
+    "family": "dynamic-fenwick",
+    "validation": {
+      "path": "benchmark/results/point-access-validation/dynamic-fenwick/validation.json",
+      "sha256": "4fb81e47590e290522416844dc9568631ab322396cb71277caae6ed7cedb4c95",
+      "bytes": 79285
+    },
+    "note": "Its original failure/retry and coverage hashes remain historical evidence at 5182af3, not current PST source hashes."
+  },
+  "coverage_update": {
+    "artifacts": [
+      {
+        "path": ".verify-helper/docs/static/_data/library_verification.json",
+        "base_blob_sha256": "9dde0ddc9a8185b4ac6f85c9f7d7355224397e290614db3837e875574acb2ee4",
+        "candidate_sha256": "5be1384648ce5d1a8558594481d004ed97e231c833c5a5e7a2e438ca790c8f45",
+        "exact_git_diff": "diff --git a/.verify-helper/docs/static/_data/library_verification.json b/.verify-helper/docs/static/_data/library_verification.json\nindex dc3cf06..6ae9763 100644\n--- a/.verify-helper/docs/static/_data/library_verification.json\n+++ b/.verify-helper/docs/static/_data/library_verification.json\n@@ -641,7 +641,8 @@\n       ],\n       \"indirect\": [],\n       \"random_tests\": [\n-        \"tests/random/data-structure-expansion.cpp\"\n+        \"tests/random/data-structure-expansion.cpp\",\n+        \"tests/random/persistent-segment-get.cpp\"\n       ],\n       \"ignored\": [],\n       \"note\": {},\n"
+      },
+      {
+        "path": "docs/verification-gaps.md",
+        "base_blob_sha256": "49eab43a297040bfcbe67758ca7c8ec5a73f0a5d350f1b6c7ead4a4c79de475c",
+        "candidate_sha256": "c3fb6a67b65285896a28582c5316ebddb37d1ea29d647df4ed0c4d06698031bc",
+        "exact_git_diff": "diff --git a/docs/verification-gaps.md b/docs/verification-gaps.md\nindex db864c3..11598e9 100644\n--- a/docs/verification-gaps.md\n+++ b/docs/verification-gaps.md\n@@ -253,6 +253,7 @@\n - 専用ドライバ: [verify/data-structure/persistent-point-set-range-composite.test.cpp](../verify/data-structure/persistent-point-set-range-composite.test.cpp) / [問題](https://judge.yosupo.jp/problem/point_set_range_composite)\n - 専用ドライバ: [verify/data-structure/persistent-rectangle-sum.test.cpp](../verify/data-structure/persistent-rectangle-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/rectangle_sum)\n - 関連ローカルテスト: [tests/random/data-structure-expansion.cpp](../tests/random/data-structure-expansion.cpp)\n+- 関連ローカルテスト: [tests/random/persistent-segment-get.cpp](../tests/random/persistent-segment-get.cpp)\n \n ## Persistent Union Find\n \n"
+      }
+    ],
+    "note": "Both generated coverage artifacts add the new persistent get test before the root check."
+  },
+  "root_checks": {
+    "report": {
+      "path": ".verification/point-access-tuning/persistent-segment/root-checks/results.json",
+      "sha256": "9424a47a8342d5cee9a501343a7880b58cfe86db7b2a12f8d9363a9b6c69ecaf",
+      "bytes": 3489
+    },
+    "runner": {
+      "path": ".verification/point-access-tuning/persistent-segment/root-checks/runner.py",
+      "sha256": "73fa64938709f433bb9209ebfb477006588a81b7f147b56e8e24492cc0214088",
+      "bytes": 3270
+    },
+    "stages": [
+      {
+        "name": "make-check",
+        "command": [
+          "make",
+          "check",
+          "CXX=g++",
+          "CXX_STANDARD=gnu++20",
+          "COMPILE_JOBS=2"
+        ],
+        "extra_env": {},
+        "exit_code": 0,
+        "seconds": 406.83897437700034,
+        "log": ".verification/point-access-tuning/persistent-segment/root-checks/make-check.log",
+        "log_sha256": "aea0fe0e70fd5f7822e669dcc50f70a911448209643f07678854a7a2d6f126e6",
+        "status": "passed"
+      },
+      {
+        "name": "docs-publication-gate",
+        "command": [
+          "make",
+          "docs"
+        ],
+        "extra_env": {},
+        "exit_code": 2,
+        "seconds": 25.295697965999352,
+        "log": ".verification/point-access-tuning/persistent-segment/root-checks/docs-publication-gate.log",
+        "log_sha256": "9777187369a19ac767385164aaf1e3b94b8c39cf7be3bc12a07f54ab3596cc10",
+        "status": "blocked_or_failed"
+      },
+      {
+        "name": "jekyll",
+        "command": [
+          "jekyll",
+          "build",
+          "--source",
+          ".verify-helper/markdown",
+          "--destination",
+          ".build/site",
+          "--config",
+          ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+        ],
+        "extra_env": {
+          "JEKYLL_ENV": "production"
+        },
+        "exit_code": 0,
+        "seconds": 22.352391212998555,
+        "log": ".verification/point-access-tuning/persistent-segment/root-checks/jekyll.log",
+        "log_sha256": "b21cacf2eeff9d1b09fd79b52d2863e71f1f8a8daa347278c8a658e46163a14a",
+        "status": "passed"
+      },
+      {
+        "name": "site-preflight-without-metrics",
+        "command": [
+          "python3",
+          "scripts/check_site.py",
+          "--without-metrics"
+        ],
+        "extra_env": {},
+        "exit_code": 0,
+        "seconds": 0.45887187399966933,
+        "log": ".verification/point-access-tuning/persistent-segment/root-checks/site-preflight-without-metrics.log",
+        "log_sha256": "3acc26efadb6be979b07d5aaf39229010099d777c2d399c696e8bab5e2a2ac92",
+        "status": "passed"
+      }
+    ],
+    "counts_from_make_check_log": {
+      "unit_tests": 99,
+      "documentation_examples": 111,
+      "headers": 107,
+      "verify_compilations": 144,
+      "random_programs": 53,
+      "seeds_per_random_program": 20
+    },
+    "source_unchanged": true,
+    "full_official_verification": false,
+    "note": "make-check, Jekyll and site preflight without metrics passed. make docs still exited 2 at the publication metrics gate."
+  },
+  "performance": {
+    "profiles": 288,
+    "warmups": 48,
+    "measured_profiles": 240,
+    "diagnostic_profiles": 24,
+    "small_correctness_profiles": 72,
+    "experiments": [
+      {
+        "mode": "release",
+        "profiles": 144,
+        "warmups": 24,
+        "measured_profiles": 120,
+        "small_correctness_profiles": 36,
+        "diagnostic_profiles": 12,
+        "prepared": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-release/prepared.json",
+          "sha256": "a6f0bb4d3111ebbb4ab1555ecff9e8290ebe30ba6d7343c526b288bd4f796d75",
+          "bytes": 14906
+        },
+        "raw": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-release/raw.json",
+          "sha256": "20033b08d55c70617bfc1350f55df5643548ba9d6ad8e3b8a1e98798b6f32750",
+          "bytes": 68967
+        },
+        "results": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-release/results.json",
+          "sha256": "f5c50b569d8ce88a8de31a177cd9b60cfe62ed38f7e050af857ecfdf17eea82f",
+          "bytes": 23148
+        },
+        "diagnostics": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-release/diagnostics.json",
+          "sha256": "33ac34b790ebfd0af0ce69f3e28c6093867b22d42deab7e4f3e97db4ba8d558f",
+          "bytes": 13314
+        },
+        "correctness_gate": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-release/correctness-gate.json",
+          "sha256": "6f5cab21bf60e715b120494d921042b1e0a02897c9a9c5b94d66b7af67268f76",
+          "bytes": 289
+        }
+      },
+      {
+        "mode": "assert",
+        "profiles": 144,
+        "warmups": 24,
+        "measured_profiles": 120,
+        "small_correctness_profiles": 36,
+        "diagnostic_profiles": 12,
+        "prepared": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-assert/prepared.json",
+          "sha256": "3abf16d2252dfa7c80a0f8d18e026c1265249557892fb853a68913426aa10f9b",
+          "bytes": 14757
+        },
+        "raw": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-assert/raw.json",
+          "sha256": "99d7ba8b360b216444b7b648d69b78e3710e198bf9a565622f5383e2b3908ced",
+          "bytes": 68985
+        },
+        "results": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-assert/results.json",
+          "sha256": "1ee1a85fe623ff66a6011f329d03da37dfc6f2ea6f0ec37442842be4045e28ff",
+          "bytes": 23158
+        },
+        "diagnostics": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-assert/diagnostics.json",
+          "sha256": "221cb54b077e06c4956bb5b3f8b1f2964131c91f50182f10c1d7b47a0bfd90d3",
+          "bytes": 13314
+        },
+        "correctness_gate": {
+          "path": "benchmark/results/point-access-performance/persistent-segment-assert/correctness-gate.json",
+          "sha256": "48e14ecbb1ec651c15f6f5ed76b7313a9d8c0709a522527943135e004e6a1efd",
+          "bytes": 289
+        }
+      }
+    ],
+    "get_and_mixed_comparisons": {
+      "get_ns": {
+        "conditions": 24,
+        "median_reductions": 24,
+        "candidate_over_baseline_minus_one_percent": [
+          -59.291334894034996,
+          -18.830299936782414
+        ],
+        "candidate_max_below_baseline_min": 22
+      },
+      "mixed_ns": {
+        "conditions": 24,
+        "median_reductions": 24,
+        "candidate_over_baseline_minus_one_percent": [
+          -48.39387399954015,
+          -0.36978098839012263
+        ],
+        "candidate_max_below_baseline_min": 15
+      }
+    },
+    "separate_bounded_recheck": {
+      "profiles": 80,
+      "warmups": 8,
+      "measured_profiles": 72,
+      "selected_cells": 4,
+      "variants_per_cell": 2,
+      "measured_repeats": 9,
+      "same_binaries": true,
+      "prepared": {
+        "path": "benchmark/results/point-access-performance/persistent-segment-recheck/prepared.json",
+        "sha256": "b6afbc3b62d638418f9b8827d6862c8521ce0245a49c271261a7c16f10cc0c05",
+        "bytes": 25950
+      },
+      "raw": {
+        "path": "benchmark/results/point-access-performance/persistent-segment-recheck/raw.json",
+        "sha256": "9ed1ccc6c67e51a0520edb6900ae9802c7779a32049eb80f72722febab3ddcb3",
+        "bytes": 40037
+      },
+      "results": {
+        "path": "benchmark/results/point-access-performance/persistent-segment-recheck/results.json",
+        "sha256": "13cd338f984c43a74c9e50da1135828d75b29506c7713ddaac2030980cfb3ff3",
+        "bytes": 6524
+      },
+      "runner": {
+        "path": "benchmark/persistent-segment-performance-recheck.py",
+        "sha256": "bac29e544e2491c943c2961bc947558cf3f47309937f2393a8793a0483d6bf2e",
+        "bytes": 5298
+      },
+      "note": "Separate bounded recheck of four preselected control/outlier cells. Original 288 profiles remain unchanged; samples are not pooled, filtered or substituted."
+    },
+    "report": {
+      "path": "benchmark/results/point-access-performance/persistent-segment-final-code-report.md",
+      "sha256": "30597a10e7838cb754c0ff9338a61f6331d550201190614cb09c29b63cf61b3a",
+      "bytes": 17812
+    },
+    "comparison_csv": {
+      "path": "benchmark/results/point-access-performance/persistent-segment-stage-comparisons.csv",
+      "sha256": "c8233b7cd115a5f0be4da4327e3aba1e1e37b79db13768cd11d32569b0b0d601",
+      "bytes": 13958
+    },
+    "limits": "Shared host, no CPU pinning. Stage timings include checksum/hash work and exclude input generation, output and destruction. Unchanged-stage regressions remain in raw/summary data; no universal or end-to-end speed claim."
+  },
+  "unresolved_full_gate": {
+    "target": "verify/string/kmp-search.test.cpp",
+    "problem": "AOJ ALDS1_14_B",
+    "reason": "Preserved official testcase download failure due to proxy CONNECT403; not retried in this batch.",
+    "original_report": {
+      "path": ".verification/current.json",
+      "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+      "bytes": 207054
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/tmp/blueberry-setup/build_persistent_segment_manifest.py",
+      "sha256": "4589bc394d0d8df90896871d514cfdb9bd0d21cab64063a362a37a1493b68405",
+      "bytes": 21926
+    },
+    {
+      "path": "/tmp/blueberry-setup/validate_persistent_segment.py",
+      "sha256": "14378c9897f24c45bbcdbff144013a1a35a5723cab8bbeb0a03b49dcaad0fc51",
+      "bytes": 18901
+    },
+    {
+      "path": ".verification/current.json",
+      "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+      "bytes": 207054
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/001.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/002.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/003.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/004.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/005.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/006.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/007.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/008.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/009.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/010.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/011.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/012.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/013.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/014.log",
+      "sha256": "42c27b1073bdda478887ab01c8b0b9301577f8e76b714dacb1af1c82a0351fa6",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/015.log",
+      "sha256": "4a243b35dae71e0151424350a34e1b262a7fa14b7b84c0d36a5b6a22f42e75a2",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/016.log",
+      "sha256": "e45f553d04ff78d9b8ba5649db481dd4574da2c723f614b91793ea11f6e395cc",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/017.log",
+      "sha256": "17d8fe02981dcf08fd39408649a10f2a234c36907f8927af8fad9ac972a8d9db",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/018.log",
+      "sha256": "8666bf47ac18644ea49b19c8399d23d911f9a6863e08c8cc022bae8d0c8b8245",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/019.log",
+      "sha256": "b4df9437cca5061b924d2fb1cbcf6f53a0766f4ce517d4fe8f41659e71420c33",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/020.log",
+      "sha256": "e106b3b43e65032853bbc22b9ef08cbf46f2a205ccd01236e35cab0836adbba5",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/021.log",
+      "sha256": "dccd1e7a86544624263af6736e14fd0bb1545367af286981bfd194168533f14f",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/022.log",
+      "sha256": "1bc51c9051628beab3143ece60b7f6f4de5df1025be916d7367b67eaccecc517",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/023.log",
+      "sha256": "797feeb7bce2028f28f325510c8ca45d9300e40c34260f92a73b125b4f9bc133",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/024.log",
+      "sha256": "22819ed6e7e4d4b2b2d2f0087e1db6f1228f2e4d7d7778b265235b4e74a50296",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/025.log",
+      "sha256": "eed1c261cf1f07195266da28ad3fdd03cba6d1a6fc7a13e8b72a2c4bd6ac78b7",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/026.log",
+      "sha256": "ed596e8fc9dbf6ae34828e8d1dcbe24545db0661e72478f4545fc0672eef1204",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/027.log",
+      "sha256": "5ab771a594db0c3ea94def63cbee11570108269dfd84aa6ece581d0d32742672",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/028.log",
+      "sha256": "f7b1d06b0144c4ac1177e1fdf5f223ae9b63e110e8ef1bffb11ae2bf1dafeb59",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/029.log",
+      "sha256": "8f9339c3add0de20bc91cde747fa9d516c5087487aab1772bc5749b3c99f790e",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/030.log",
+      "sha256": "2cd8784d3600fe9eba7bf36cf0da107039c4f10584fa3f9aa45ac757e57f9843",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/031.log",
+      "sha256": "b97ab57e310d549d6cde324b6d23df4ac951f810643d833931a0d1307bdab670",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/032.log",
+      "sha256": "d4e78e184f237ef05469dc5c35fdbc3cd3c3ef313808df0c9aa8931b2868c39d",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/033.log",
+      "sha256": "0561cebe043b79f1de327df8b844ba0a9eac56ec86a3be8dcfd802a4a51fdd4b",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/034.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/035.log",
+      "sha256": "a103e09b9ca4320e6dd07c6375bc9f7e4d9320fe62e333e9759012c94202a3b3",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/036.log",
+      "sha256": "4c5cb8ed680e716a7291422873adfa42c8a00b57433e709c1fd3fd9f69b8127b",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/037.log",
+      "sha256": "7fa89fd3b1fb47a00fea4220003e18809f6fceb73a6d9add11e2736af61a1ba9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/038.log",
+      "sha256": "d6a0666c343249378a7a665638786799fb275ea9c6f686c274c74b2af2c6ac9d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/039.log",
+      "sha256": "a934b3958fc0b140989ac61e111db900285ccf3f74418bafd45bdc7550cfa0d9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/040.log",
+      "sha256": "ec72adc64f384010dc56e9470324485be1501d5a62c95a8cfda443cc10f19721",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/041.log",
+      "sha256": "5062b5d354c57d993cf990a14327c1a01eba906c7c881d351b705248ee890c5f",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/042.log",
+      "sha256": "4646e8e906f5f38f14740a596f8cca19bbaa59c77155b08ef4209001bbe93ece",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/043.log",
+      "sha256": "e3acdaac355d288491021210008ab3c04f77cbac001b0d2d4ef9a5c82180b5e9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/044.log",
+      "sha256": "fc45ea5ab65b72089b38171c553b54336510e343d2f357c24ed3c40ea7df2dba",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/045.log",
+      "sha256": "adff2e81118a5d394349855a7b5fa6a4d252a443b1b5e38da954036d24cbe284",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/046.log",
+      "sha256": "11e2c9cf855d9a50f8054b3f9a7f90a67dcd9f7a9369dcae8253b14bc143518f",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/047.log",
+      "sha256": "a4ef229ba574e04e7f7132264551ba3101e6f9f2b9b69ed81bf33b5564d51c3c",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/048.log",
+      "sha256": "8f1ae07e5904eab60202b863e58396a788a2cae90ca86973bbc12eabd01ccc9c",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/049.log",
+      "sha256": "fb6585d0fe8da90e87ee59d63de7e63b1e8f261465ce752e4ece5645a45c64b9",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/050.log",
+      "sha256": "0dfe3e75ca42f5f26ec64e6fd109efc1a19f546d62af78303da1b332363235c9",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/051.log",
+      "sha256": "2a71b07a101a177c090df229f8382c775b51a7e008378b3b74814fae689815b6",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/052.log",
+      "sha256": "4e7c5bf88de333df24d6d8af5fd314ec00640383b55e9686d468a07b64c01747",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/053.log",
+      "sha256": "209ec7bb2ee6b4f67be41fa610e02bdf17c4f7d739ea76db51e4951e20c902f2",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/054.log",
+      "sha256": "abecf2d518c1a950ea6e6b98026c4b9181d9cf328b62e5de88351f4c812ed70e",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/055.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/056.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/057.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/058.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/059.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/060.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/061.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/062.log",
+      "sha256": "42c27b1073bdda478887ab01c8b0b9301577f8e76b714dacb1af1c82a0351fa6",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/063.log",
+      "sha256": "4a243b35dae71e0151424350a34e1b262a7fa14b7b84c0d36a5b6a22f42e75a2",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/064.log",
+      "sha256": "e45f553d04ff78d9b8ba5649db481dd4574da2c723f614b91793ea11f6e395cc",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/065.log",
+      "sha256": "17d8fe02981dcf08fd39408649a10f2a234c36907f8927af8fad9ac972a8d9db",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/066.log",
+      "sha256": "8666bf47ac18644ea49b19c8399d23d911f9a6863e08c8cc022bae8d0c8b8245",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/067.log",
+      "sha256": "b4df9437cca5061b924d2fb1cbcf6f53a0766f4ce517d4fe8f41659e71420c33",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/068.log",
+      "sha256": "e106b3b43e65032853bbc22b9ef08cbf46f2a205ccd01236e35cab0836adbba5",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/069.log",
+      "sha256": "dccd1e7a86544624263af6736e14fd0bb1545367af286981bfd194168533f14f",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/070.log",
+      "sha256": "1bc51c9051628beab3143ece60b7f6f4de5df1025be916d7367b67eaccecc517",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/071.log",
+      "sha256": "797feeb7bce2028f28f325510c8ca45d9300e40c34260f92a73b125b4f9bc133",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/072.log",
+      "sha256": "22819ed6e7e4d4b2b2d2f0087e1db6f1228f2e4d7d7778b265235b4e74a50296",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/073.log",
+      "sha256": "eed1c261cf1f07195266da28ad3fdd03cba6d1a6fc7a13e8b72a2c4bd6ac78b7",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/074.log",
+      "sha256": "ed596e8fc9dbf6ae34828e8d1dcbe24545db0661e72478f4545fc0672eef1204",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/075.log",
+      "sha256": "5ab771a594db0c3ea94def63cbee11570108269dfd84aa6ece581d0d32742672",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/076.log",
+      "sha256": "f7b1d06b0144c4ac1177e1fdf5f223ae9b63e110e8ef1bffb11ae2bf1dafeb59",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/077.log",
+      "sha256": "8f9339c3add0de20bc91cde747fa9d516c5087487aab1772bc5749b3c99f790e",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/078.log",
+      "sha256": "2cd8784d3600fe9eba7bf36cf0da107039c4f10584fa3f9aa45ac757e57f9843",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/079.log",
+      "sha256": "b97ab57e310d549d6cde324b6d23df4ac951f810643d833931a0d1307bdab670",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/080.log",
+      "sha256": "d4e78e184f237ef05469dc5c35fdbc3cd3c3ef313808df0c9aa8931b2868c39d",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/081.log",
+      "sha256": "0561cebe043b79f1de327df8b844ba0a9eac56ec86a3be8dcfd802a4a51fdd4b",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/082.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/083.log",
+      "sha256": "a103e09b9ca4320e6dd07c6375bc9f7e4d9320fe62e333e9759012c94202a3b3",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/084.log",
+      "sha256": "4c5cb8ed680e716a7291422873adfa42c8a00b57433e709c1fd3fd9f69b8127b",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/085.log",
+      "sha256": "7fa89fd3b1fb47a00fea4220003e18809f6fceb73a6d9add11e2736af61a1ba9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/086.log",
+      "sha256": "d6a0666c343249378a7a665638786799fb275ea9c6f686c274c74b2af2c6ac9d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/087.log",
+      "sha256": "a934b3958fc0b140989ac61e111db900285ccf3f74418bafd45bdc7550cfa0d9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/088.log",
+      "sha256": "ec72adc64f384010dc56e9470324485be1501d5a62c95a8cfda443cc10f19721",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/089.log",
+      "sha256": "5062b5d354c57d993cf990a14327c1a01eba906c7c881d351b705248ee890c5f",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/090.log",
+      "sha256": "4646e8e906f5f38f14740a596f8cca19bbaa59c77155b08ef4209001bbe93ece",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/091.log",
+      "sha256": "e3acdaac355d288491021210008ab3c04f77cbac001b0d2d4ef9a5c82180b5e9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/092.log",
+      "sha256": "fc45ea5ab65b72089b38171c553b54336510e343d2f357c24ed3c40ea7df2dba",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/093.log",
+      "sha256": "adff2e81118a5d394349855a7b5fa6a4d252a443b1b5e38da954036d24cbe284",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/094.log",
+      "sha256": "11e2c9cf855d9a50f8054b3f9a7f90a67dcd9f7a9369dcae8253b14bc143518f",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/095.log",
+      "sha256": "a4ef229ba574e04e7f7132264551ba3101e6f9f2b9b69ed81bf33b5564d51c3c",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/096.log",
+      "sha256": "8f1ae07e5904eab60202b863e58396a788a2cae90ca86973bbc12eabd01ccc9c",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/097.log",
+      "sha256": "fb6585d0fe8da90e87ee59d63de7e63b1e8f261465ce752e4ece5645a45c64b9",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/098.log",
+      "sha256": "0dfe3e75ca42f5f26ec64e6fd109efc1a19f546d62af78303da1b332363235c9",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/099.log",
+      "sha256": "2a71b07a101a177c090df229f8382c775b51a7e008378b3b74814fae689815b6",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/100.log",
+      "sha256": "4e7c5bf88de333df24d6d8af5fd314ec00640383b55e9686d468a07b64c01747",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/101.log",
+      "sha256": "209ec7bb2ee6b4f67be41fa610e02bdf17c4f7d739ea76db51e4951e20c902f2",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/102.log",
+      "sha256": "abecf2d518c1a950ea6e6b98026c4b9181d9cf328b62e5de88351f4c812ed70e",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/103.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/104.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/105.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/106.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/107.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/108.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/109.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/110.log",
+      "sha256": "42c27b1073bdda478887ab01c8b0b9301577f8e76b714dacb1af1c82a0351fa6",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/111.log",
+      "sha256": "4a243b35dae71e0151424350a34e1b262a7fa14b7b84c0d36a5b6a22f42e75a2",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/112.log",
+      "sha256": "e45f553d04ff78d9b8ba5649db481dd4574da2c723f614b91793ea11f6e395cc",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/113.log",
+      "sha256": "17d8fe02981dcf08fd39408649a10f2a234c36907f8927af8fad9ac972a8d9db",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/114.log",
+      "sha256": "8666bf47ac18644ea49b19c8399d23d911f9a6863e08c8cc022bae8d0c8b8245",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/115.log",
+      "sha256": "b4df9437cca5061b924d2fb1cbcf6f53a0766f4ce517d4fe8f41659e71420c33",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/116.log",
+      "sha256": "e106b3b43e65032853bbc22b9ef08cbf46f2a205ccd01236e35cab0836adbba5",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/117.log",
+      "sha256": "dccd1e7a86544624263af6736e14fd0bb1545367af286981bfd194168533f14f",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/118.log",
+      "sha256": "1bc51c9051628beab3143ece60b7f6f4de5df1025be916d7367b67eaccecc517",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/119.log",
+      "sha256": "797feeb7bce2028f28f325510c8ca45d9300e40c34260f92a73b125b4f9bc133",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/120.log",
+      "sha256": "22819ed6e7e4d4b2b2d2f0087e1db6f1228f2e4d7d7778b265235b4e74a50296",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/121.log",
+      "sha256": "eed1c261cf1f07195266da28ad3fdd03cba6d1a6fc7a13e8b72a2c4bd6ac78b7",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/122.log",
+      "sha256": "ed596e8fc9dbf6ae34828e8d1dcbe24545db0661e72478f4545fc0672eef1204",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/123.log",
+      "sha256": "5ab771a594db0c3ea94def63cbee11570108269dfd84aa6ece581d0d32742672",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/124.log",
+      "sha256": "f7b1d06b0144c4ac1177e1fdf5f223ae9b63e110e8ef1bffb11ae2bf1dafeb59",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/125.log",
+      "sha256": "8f9339c3add0de20bc91cde747fa9d516c5087487aab1772bc5749b3c99f790e",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/126.log",
+      "sha256": "2cd8784d3600fe9eba7bf36cf0da107039c4f10584fa3f9aa45ac757e57f9843",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/127.log",
+      "sha256": "b97ab57e310d549d6cde324b6d23df4ac951f810643d833931a0d1307bdab670",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/128.log",
+      "sha256": "d4e78e184f237ef05469dc5c35fdbc3cd3c3ef313808df0c9aa8931b2868c39d",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/129.log",
+      "sha256": "0561cebe043b79f1de327df8b844ba0a9eac56ec86a3be8dcfd802a4a51fdd4b",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/130.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/131.log",
+      "sha256": "a103e09b9ca4320e6dd07c6375bc9f7e4d9320fe62e333e9759012c94202a3b3",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/132.log",
+      "sha256": "4c5cb8ed680e716a7291422873adfa42c8a00b57433e709c1fd3fd9f69b8127b",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/133.log",
+      "sha256": "7fa89fd3b1fb47a00fea4220003e18809f6fceb73a6d9add11e2736af61a1ba9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/134.log",
+      "sha256": "d6a0666c343249378a7a665638786799fb275ea9c6f686c274c74b2af2c6ac9d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/135.log",
+      "sha256": "a934b3958fc0b140989ac61e111db900285ccf3f74418bafd45bdc7550cfa0d9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/136.log",
+      "sha256": "ec72adc64f384010dc56e9470324485be1501d5a62c95a8cfda443cc10f19721",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/137.log",
+      "sha256": "5062b5d354c57d993cf990a14327c1a01eba906c7c881d351b705248ee890c5f",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/138.log",
+      "sha256": "4646e8e906f5f38f14740a596f8cca19bbaa59c77155b08ef4209001bbe93ece",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/139.log",
+      "sha256": "e3acdaac355d288491021210008ab3c04f77cbac001b0d2d4ef9a5c82180b5e9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/140.log",
+      "sha256": "fc45ea5ab65b72089b38171c553b54336510e343d2f357c24ed3c40ea7df2dba",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/141.log",
+      "sha256": "adff2e81118a5d394349855a7b5fa6a4d252a443b1b5e38da954036d24cbe284",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/142.log",
+      "sha256": "11e2c9cf855d9a50f8054b3f9a7f90a67dcd9f7a9369dcae8253b14bc143518f",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/143.log",
+      "sha256": "a4ef229ba574e04e7f7132264551ba3101e6f9f2b9b69ed81bf33b5564d51c3c",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/144.log",
+      "sha256": "8f1ae07e5904eab60202b863e58396a788a2cae90ca86973bbc12eabd01ccc9c",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/145.log",
+      "sha256": "fb6585d0fe8da90e87ee59d63de7e63b1e8f261465ce752e4ece5645a45c64b9",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/146.log",
+      "sha256": "0dfe3e75ca42f5f26ec64e6fd109efc1a19f546d62af78303da1b332363235c9",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/147.log",
+      "sha256": "2a71b07a101a177c090df229f8382c775b51a7e008378b3b74814fae689815b6",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/148.log",
+      "sha256": "4e7c5bf88de333df24d6d8af5fd314ec00640383b55e9686d468a07b64c01747",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/149.log",
+      "sha256": "209ec7bb2ee6b4f67be41fa610e02bdf17c4f7d739ea76db51e4951e20c902f2",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/150.log",
+      "sha256": "abecf2d518c1a950ea6e6b98026c4b9181d9cf328b62e5de88351f4c812ed70e",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/151.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/152.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/153.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/154.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/155.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/156.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/157.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/158.log",
+      "sha256": "42c27b1073bdda478887ab01c8b0b9301577f8e76b714dacb1af1c82a0351fa6",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/159.log",
+      "sha256": "4a243b35dae71e0151424350a34e1b262a7fa14b7b84c0d36a5b6a22f42e75a2",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/160.log",
+      "sha256": "e45f553d04ff78d9b8ba5649db481dd4574da2c723f614b91793ea11f6e395cc",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/161.log",
+      "sha256": "17d8fe02981dcf08fd39408649a10f2a234c36907f8927af8fad9ac972a8d9db",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/162.log",
+      "sha256": "8666bf47ac18644ea49b19c8399d23d911f9a6863e08c8cc022bae8d0c8b8245",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/163.log",
+      "sha256": "b4df9437cca5061b924d2fb1cbcf6f53a0766f4ce517d4fe8f41659e71420c33",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/164.log",
+      "sha256": "e106b3b43e65032853bbc22b9ef08cbf46f2a205ccd01236e35cab0836adbba5",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/165.log",
+      "sha256": "dccd1e7a86544624263af6736e14fd0bb1545367af286981bfd194168533f14f",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/166.log",
+      "sha256": "1bc51c9051628beab3143ece60b7f6f4de5df1025be916d7367b67eaccecc517",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/167.log",
+      "sha256": "797feeb7bce2028f28f325510c8ca45d9300e40c34260f92a73b125b4f9bc133",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/168.log",
+      "sha256": "22819ed6e7e4d4b2b2d2f0087e1db6f1228f2e4d7d7778b265235b4e74a50296",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/169.log",
+      "sha256": "eed1c261cf1f07195266da28ad3fdd03cba6d1a6fc7a13e8b72a2c4bd6ac78b7",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/170.log",
+      "sha256": "ed596e8fc9dbf6ae34828e8d1dcbe24545db0661e72478f4545fc0672eef1204",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/171.log",
+      "sha256": "5ab771a594db0c3ea94def63cbee11570108269dfd84aa6ece581d0d32742672",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/172.log",
+      "sha256": "f7b1d06b0144c4ac1177e1fdf5f223ae9b63e110e8ef1bffb11ae2bf1dafeb59",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/173.log",
+      "sha256": "8f9339c3add0de20bc91cde747fa9d516c5087487aab1772bc5749b3c99f790e",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/174.log",
+      "sha256": "2cd8784d3600fe9eba7bf36cf0da107039c4f10584fa3f9aa45ac757e57f9843",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/175.log",
+      "sha256": "b97ab57e310d549d6cde324b6d23df4ac951f810643d833931a0d1307bdab670",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/176.log",
+      "sha256": "d4e78e184f237ef05469dc5c35fdbc3cd3c3ef313808df0c9aa8931b2868c39d",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/177.log",
+      "sha256": "0561cebe043b79f1de327df8b844ba0a9eac56ec86a3be8dcfd802a4a51fdd4b",
+      "bytes": 8
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/178.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/179.log",
+      "sha256": "a103e09b9ca4320e6dd07c6375bc9f7e4d9320fe62e333e9759012c94202a3b3",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/180.log",
+      "sha256": "4c5cb8ed680e716a7291422873adfa42c8a00b57433e709c1fd3fd9f69b8127b",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/181.log",
+      "sha256": "7fa89fd3b1fb47a00fea4220003e18809f6fceb73a6d9add11e2736af61a1ba9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/182.log",
+      "sha256": "d6a0666c343249378a7a665638786799fb275ea9c6f686c274c74b2af2c6ac9d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/183.log",
+      "sha256": "a934b3958fc0b140989ac61e111db900285ccf3f74418bafd45bdc7550cfa0d9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/184.log",
+      "sha256": "ec72adc64f384010dc56e9470324485be1501d5a62c95a8cfda443cc10f19721",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/185.log",
+      "sha256": "5062b5d354c57d993cf990a14327c1a01eba906c7c881d351b705248ee890c5f",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/186.log",
+      "sha256": "4646e8e906f5f38f14740a596f8cca19bbaa59c77155b08ef4209001bbe93ece",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/187.log",
+      "sha256": "e3acdaac355d288491021210008ab3c04f77cbac001b0d2d4ef9a5c82180b5e9",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/188.log",
+      "sha256": "fc45ea5ab65b72089b38171c553b54336510e343d2f357c24ed3c40ea7df2dba",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/189.log",
+      "sha256": "adff2e81118a5d394349855a7b5fa6a4d252a443b1b5e38da954036d24cbe284",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/190.log",
+      "sha256": "11e2c9cf855d9a50f8054b3f9a7f90a67dcd9f7a9369dcae8253b14bc143518f",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/191.log",
+      "sha256": "a4ef229ba574e04e7f7132264551ba3101e6f9f2b9b69ed81bf33b5564d51c3c",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/192.log",
+      "sha256": "8f1ae07e5904eab60202b863e58396a788a2cae90ca86973bbc12eabd01ccc9c",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/193.log",
+      "sha256": "fb6585d0fe8da90e87ee59d63de7e63b1e8f261465ce752e4ece5645a45c64b9",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/194.log",
+      "sha256": "0dfe3e75ca42f5f26ec64e6fd109efc1a19f546d62af78303da1b332363235c9",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/195.log",
+      "sha256": "2a71b07a101a177c090df229f8382c775b51a7e008378b3b74814fae689815b6",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/196.log",
+      "sha256": "4e7c5bf88de333df24d6d8af5fd314ec00640383b55e9686d468a07b64c01747",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/197.log",
+      "sha256": "209ec7bb2ee6b4f67be41fa610e02bdf17c4f7d739ea76db51e4951e20c902f2",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/198.log",
+      "sha256": "abecf2d518c1a950ea6e6b98026c4b9181d9cf328b62e5de88351f4c812ed70e",
+      "bytes": 22
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/199.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/200.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/201.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/202.log",
+      "sha256": "42c27b1073bdda478887ab01c8b0b9301577f8e76b714dacb1af1c82a0351fa6",
+      "bytes": 7
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/203.log",
+      "sha256": "1ba439c9d901a2359e32de5b4680d7a72ee9baf7f504463d895450bc40cfb521",
+      "bytes": 14
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/204.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/205.log",
+      "sha256": "a103e09b9ca4320e6dd07c6375bc9f7e4d9320fe62e333e9759012c94202a3b3",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/206.log",
+      "sha256": "f022e676b21592a177a5257cca5308385449a562a59591a620f0bc831bc9bee4",
+      "bytes": 28
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/207.log",
+      "sha256": "b36b01d91bc06f75a62b5d6bdf5e8fa3c6de37d8d5f1c49507ba6d7359689c28",
+      "bytes": 7563
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/208.log",
+      "sha256": "78b0c17c55f9d9144d5cf68b030043aeb703dae49b5dca91a08b75efb90b51d6",
+      "bytes": 7563
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/209.log",
+      "sha256": "ff357765e3111ea40cd8d04afb96f01b8f72176177c3ce3d949c6c926ac0ad8e",
+      "bytes": 7563
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/210.log",
+      "sha256": "6a1863d70cedc11a1f996ea698ac90760a43a0ec782a0720f57512072eaeea0e",
+      "bytes": 9107
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/211.log",
+      "sha256": "2fddb9d22efa552c49e04923c5759ec6dcf55ee8799fe7cd033337000b9cb4b3",
+      "bytes": 9103
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/212.log",
+      "sha256": "24200e69fb08ee48a3a8d5b89e001e8bfb0f6e1b1a2c035f32d09568aa94abcf",
+      "bytes": 9107
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/activity.json",
+      "sha256": "00bc064ebf515088f58e59643e168f2eeeeb6f28ef678079606f0f93b6af19f4",
+      "bytes": 47
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/example-1.cpp",
+      "sha256": "d73d6903674dbc36c187969c630ee1ed2eb3a915aa827414ed45bb4bafbc1a57",
+      "bytes": 491
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-1.json",
+      "sha256": "5a707ecdb6e1eeeeb14c617ebcbd2f687ef91a40e5bfe3df5d76cb8644fc3d76",
+      "bytes": 2068
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-1.raw.json",
+      "sha256": "e0711653ce2391445196a62ad003a651084b8bd34331e046272b9565fbed56f8",
+      "bytes": 20907388
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-2.json",
+      "sha256": "393f4fe2ad1887af8e6926544b60e78a5792baf6deb11e0f2f73757082f03252",
+      "bytes": 2066
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-2.raw.json",
+      "sha256": "348b66575283b8401fa8ddff47596815594781e21981a73b562e70f351464fb5",
+      "bytes": 20907386
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-3.json",
+      "sha256": "5d2c890df643f5617716dd2ac5aab76fdece864001edf6ecab35b166c96341b1",
+      "bytes": 2068
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-point_set_range_composite-3.raw.json",
+      "sha256": "c17bdcf963e439f9c8f52aa2711ab75c1ec9c3a4d45c50b980f10859b7334a50",
+      "bytes": 20907388
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-1.json",
+      "sha256": "13a9e51f72a2ad1ed801b479ea736eb2afc80ceb399112595865b8e7dc84e2a7",
+      "bytes": 1826
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-1.raw.json",
+      "sha256": "3f4bada1bc771e703663648c3b39b01280b66ebd4e3d2d994378042fe1207f81",
+      "bytes": 26163037
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-2.json",
+      "sha256": "fb11bc8a8735a742d18a804e2561ae8aa91b6f764042b677336cc4204ab9ee4c",
+      "bytes": 1825
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-2.raw.json",
+      "sha256": "929af21ea3152daae512c9ce242c190c547076afcb2b981c67aaa0e03911e70d",
+      "bytes": 26163036
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-3.json",
+      "sha256": "b4ec6af7125962398596f423b09a08a1f07dafdc7b17e31087e1b09afc79c60a",
+      "bytes": 1827
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/official-rectangle_sum-3.raw.json",
+      "sha256": "c26a736414cb6f3ea4792a5cd5c619a9c0bde03e3aff5a0e06d43ad5bc0c120b",
+      "bytes": 26163038
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/report.json",
+      "sha256": "8830c996b2bc9ccdd0d52d24a93ba8fe8da6c8f9c03e1ed0721f729227b3ca9d",
+      "bytes": 166174
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/.verify-helper/config.toml",
+      "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+      "bytes": 144
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/blueberry/data-structure/ordered-set.hpp",
+      "sha256": "08afc14df3a88fdc60ba5f0082eef2860e7726949e64d2e8f26a4b22cbc4e654",
+      "bytes": 5601
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/blueberry/data-structure/persistent-segment-tree.hpp",
+      "sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+      "bytes": 3252
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/blueberry/data-structure/potential-union-find.hpp",
+      "sha256": "eab6dffe2e15a5100b81712aa96b1983ff6c69dcb7e9cd5f891a280f186b27b4",
+      "bytes": 1766
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/docs/data-structure/persistent-segment-tree.md",
+      "sha256": "8467517bfe7a7f1b25c5361aeb86e23b71c627dcbd1bbd19de308c9da96e042c",
+      "bytes": 9992
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/scripts/check_docs.py",
+      "sha256": "7c0c0e4e62ff347b3117f4300e76583af3c74bc4adb5e29276762bdd8a4e4b6c",
+      "bytes": 6078
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/scripts/verify_with_metrics.py",
+      "sha256": "943f6d2f19295a7ca9b2b67a840a06a6e8aed02429d82f9b6ddde1a394a7742c",
+      "bytes": 21045
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/tests/random/data-structure-expansion.cpp",
+      "sha256": "0dd707847633844f815ad6df3966f23c56095fa13c9f5972457f4b9aefcc52e1",
+      "bytes": 7065
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/tests/random/persistent-segment-get.cpp",
+      "sha256": "61bd50e10d29c0955b6e5a7182c3e6780f42413d781ec55e9586fd919986af4b",
+      "bytes": 9970
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/verify/data-structure/persistent-point-set-range-composite.test.cpp",
+      "sha256": "2ded7c4d0050350d1e22900fcb1dedb61f3a2a2709434f0c16da2093d2b0ffa5",
+      "bytes": 894
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/source-snapshot/verify/data-structure/persistent-rectangle-sum.test.cpp",
+      "sha256": "2ffb7cfae98dfaa955cb7b305d7dc8ee991c9a8852e25590d421cfd0c33025b8",
+      "bytes": 1331
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/summary.json",
+      "sha256": "929475e3287cd15541cd5522e09a2c5d0df5adf98a8ce0490eb5445e4f2ad8ed",
+      "bytes": 13052
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/final/validation-driver.py",
+      "sha256": "14378c9897f24c45bbcdbff144013a1a35a5723cab8bbeb0a03b49dcaad0fc51",
+      "bytes": 18901
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/focused-console.log",
+      "sha256": "254fa3a9b12a54962964fcdf694097caf9683771fe966c6e1bf26d69721cd062",
+      "bytes": 15797
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/preparation/datasets.json",
+      "sha256": "7b5b4b08754db72166fc36ee08204d862d7f9499a27c37caabd8abee6c7492ef",
+      "bytes": 11347
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/preparation/report.json",
+      "sha256": "9dbc0ae84547c9aba22cdd9c128012505107fabc451383a9466d43550cb5db80",
+      "bytes": 987
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/root-checks/docs-publication-gate.log",
+      "sha256": "9777187369a19ac767385164aaf1e3b94b8c39cf7be3bc12a07f54ab3596cc10",
+      "bytes": 17278
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/root-checks/jekyll.log",
+      "sha256": "b21cacf2eeff9d1b09fd79b52d2863e71f1f8a8daa347278c8a658e46163a14a",
+      "bytes": 460
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/root-checks/make-check.log",
+      "sha256": "aea0fe0e70fd5f7822e669dcc50f70a911448209643f07678854a7a2d6f126e6",
+      "bytes": 40571
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/root-checks/results.json",
+      "sha256": "9424a47a8342d5cee9a501343a7880b58cfe86db7b2a12f8d9363a9b6c69ecaf",
+      "bytes": 3489
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/root-checks/runner.py",
+      "sha256": "73fa64938709f433bb9209ebfb477006588a81b7f147b56e8e24492cc0214088",
+      "bytes": 3270
+    },
+    {
+      "path": ".verification/point-access-tuning/persistent-segment/root-checks/site-preflight-without-metrics.log",
+      "sha256": "3acc26efadb6be979b07d5aaf39229010099d777c2d399c696e8bab5e2a2ac92",
+      "bytes": 80
+    },
+    {
+      "path": ".verify-helper/config.toml",
+      "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+      "bytes": 144
+    },
+    {
+      "path": ".verify-helper/docs/static/_data/library_verification.json",
+      "sha256": "5be1384648ce5d1a8558594481d004ed97e231c833c5a5e7a2e438ca790c8f45",
+      "bytes": 67863
+    },
+    {
+      "path": "benchmark/persistent-segment-performance-recheck.py",
+      "sha256": "bac29e544e2491c943c2961bc947558cf3f47309937f2393a8793a0483d6bf2e",
+      "bytes": 5298
+    },
+    {
+      "path": "benchmark/persistent-segment-performance-summary.py",
+      "sha256": "9aafd631425ee23a0c315b566e21cb8401a36f10cbde46ff8ef60a1a02b86126",
+      "bytes": 7728
+    },
+    {
+      "path": "benchmark/point-access-performance-summary.py",
+      "sha256": "46a2aa6ba860dd70571301a49696604f598d16e86fd97e3b886d5a3cc43504a6",
+      "bytes": 7255
+    },
+    {
+      "path": "benchmark/point-access-performance.cpp",
+      "sha256": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+      "bytes": 14273
+    },
+    {
+      "path": "benchmark/point-access-performance.py",
+      "sha256": "6cd9808dc3c751b153cc78eefe172d9d67335247adba80de1e084ce8f47c768f",
+      "bytes": 17379
+    },
+    {
+      "path": "benchmark/representative-dense.hpp",
+      "sha256": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e",
+      "bytes": 12817
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/baseline-disjoint-set-union.hpp.txt",
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+      "bytes": 1631
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/baseline-dynamic-fenwick-tree.hpp.txt",
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+      "bytes": 2261
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/baseline-fenwick-tree.hpp.txt",
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+      "bytes": 2153
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/baseline-persistent-segment-tree.hpp.txt",
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+      "bytes": 2999
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/baseline-segment-tree.hpp.txt",
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+      "bytes": 2076
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/candidate-disjoint-set-union.hpp.txt",
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+      "bytes": 1631
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/candidate-dynamic-fenwick-tree.hpp.txt",
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+      "bytes": 2261
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/candidate-fenwick-tree.hpp.txt",
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+      "bytes": 2153
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/candidate-persistent-segment-tree.hpp.txt",
+      "sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+      "bytes": 3252
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/candidate-segment-tree.hpp.txt",
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+      "bytes": 2076
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/candidate.patch",
+      "sha256": "1b7c56756398f174f456bc89738f67b2355a4a4732afeb0219625dccd8b04058",
+      "bytes": 623
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/compile.json",
+      "sha256": "335bb6cd986507d62f77aeb415ae6fdb1f055c561f8cd6da31a352921d2c444f",
+      "bytes": 7169
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/correctness-gate.json",
+      "sha256": "48e14ecbb1ec651c15f6f5ed76b7313a9d8c0709a522527943135e004e6a1efd",
+      "bytes": 289
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/correctness-in-progress.json",
+      "sha256": "216e9bad1d6a5bf3f1b7f7e11798b20d83cad8537a90b21005164d08f0b583e5",
+      "bytes": 18993
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/correctness.json",
+      "sha256": "216e9bad1d6a5bf3f1b7f7e11798b20d83cad8537a90b21005164d08f0b583e5",
+      "bytes": 18993
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/diagnostics-in-progress.json",
+      "sha256": "63e595064f5bdd7fd2dcd28551c10de55cd97e72be71627bc9c9d6365049aa78",
+      "bytes": 12045
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/diagnostics.json",
+      "sha256": "221cb54b077e06c4956bb5b3f8b1f2964131c91f50182f10c1d7b47a0bfd90d3",
+      "bytes": 13314
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/prepared.json",
+      "sha256": "3abf16d2252dfa7c80a0f8d18e026c1265249557892fb853a68913426aa10f9b",
+      "bytes": 14757
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/quiet-processes.txt",
+      "sha256": "b52b5032d5655e5f88610b4ba9fc6ca3defcde00740bba2503fd6b6b0e47a10f",
+      "bytes": 10026
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/raw.json",
+      "sha256": "99d7ba8b360b216444b7b648d69b78e3710e198bf9a565622f5383e2b3908ced",
+      "bytes": 68985
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-assert/results.json",
+      "sha256": "1ee1a85fe623ff66a6011f329d03da37dfc6f2ea6f0ec37442842be4045e28ff",
+      "bytes": 23158
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-final-code-report.md",
+      "sha256": "30597a10e7838cb754c0ff9338a61f6331d550201190614cb09c29b63cf61b3a",
+      "bytes": 17812
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-host-limits.json",
+      "sha256": "4c094ef3aee8d209438c4b4f25e5f6a5cc1a4651c6081b4bf8686db5a5b04e21",
+      "bytes": 698
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-plan.md",
+      "sha256": "35300d87456a3180af282d957b58f160b6902c8d2ca06b666666a3ac10b3748a",
+      "bytes": 6375
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-recheck/prepared.json",
+      "sha256": "b6afbc3b62d638418f9b8827d6862c8521ce0245a49c271261a7c16f10cc0c05",
+      "bytes": 25950
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-recheck/quiet-processes.txt",
+      "sha256": "3d74706df13d045e62bb0e8708e10ce016c56d8f32bbc0f1daee40e14a9b8d9c",
+      "bytes": 10026
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-recheck/raw.json",
+      "sha256": "9ed1ccc6c67e51a0520edb6900ae9802c7779a32049eb80f72722febab3ddcb3",
+      "bytes": 40037
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-recheck/results.json",
+      "sha256": "13cd338f984c43a74c9e50da1135828d75b29506c7713ddaac2030980cfb3ff3",
+      "bytes": 6524
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-recheck/stage-comparisons.csv",
+      "sha256": "edb3f58880306b1433756877592a2846a11483ef1ab3c4366193a3e82ad6f6c6",
+      "bytes": 4076
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/baseline-disjoint-set-union.hpp.txt",
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+      "bytes": 1631
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/baseline-dynamic-fenwick-tree.hpp.txt",
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+      "bytes": 2261
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/baseline-fenwick-tree.hpp.txt",
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+      "bytes": 2153
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/baseline-persistent-segment-tree.hpp.txt",
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+      "bytes": 2999
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/baseline-segment-tree.hpp.txt",
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+      "bytes": 2076
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/candidate-disjoint-set-union.hpp.txt",
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+      "bytes": 1631
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/candidate-dynamic-fenwick-tree.hpp.txt",
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+      "bytes": 2261
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/candidate-fenwick-tree.hpp.txt",
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+      "bytes": 2153
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/candidate-persistent-segment-tree.hpp.txt",
+      "sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+      "bytes": 3252
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/candidate-segment-tree.hpp.txt",
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+      "bytes": 2076
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/candidate.patch",
+      "sha256": "1b7c56756398f174f456bc89738f67b2355a4a4732afeb0219625dccd8b04058",
+      "bytes": 623
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/compile.json",
+      "sha256": "517881ddc146020be13568ec4b66f2a1123f5ef708d33aee5b3e7ab46eac9a2d",
+      "bytes": 7295
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/correctness-gate.json",
+      "sha256": "6f5cab21bf60e715b120494d921042b1e0a02897c9a9c5b94d66b7af67268f76",
+      "bytes": 289
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/correctness-in-progress.json",
+      "sha256": "1e14e1490c8458dba4ddc7395c56d2b2becf278528aa4c0ba22cf140706c9506",
+      "bytes": 18993
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/correctness.json",
+      "sha256": "1e14e1490c8458dba4ddc7395c56d2b2becf278528aa4c0ba22cf140706c9506",
+      "bytes": 18993
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/diagnostics-in-progress.json",
+      "sha256": "7bbce338bc01d2a172f6dd36756038a58cfd321c23fb54d0990ffaa2d197ec82",
+      "bytes": 12045
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/diagnostics.json",
+      "sha256": "33ac34b790ebfd0af0ce69f3e28c6093867b22d42deab7e4f3e97db4ba8d558f",
+      "bytes": 13314
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/prepared.json",
+      "sha256": "a6f0bb4d3111ebbb4ab1555ecff9e8290ebe30ba6d7343c526b288bd4f796d75",
+      "bytes": 14906
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/quiet-processes.txt",
+      "sha256": "3817896dc361e3b12af81f38811b7fe91174358dcdb62b0497a13890f42e673a",
+      "bytes": 10026
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/raw.json",
+      "sha256": "20033b08d55c70617bfc1350f55df5643548ba9d6ad8e3b8a1e98798b6f32750",
+      "bytes": 68967
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-release/results.json",
+      "sha256": "f5c50b569d8ce88a8de31a177cd9b60cfe62ed38f7e050af857ecfdf17eea82f",
+      "bytes": 23148
+    },
+    {
+      "path": "benchmark/results/point-access-performance/persistent-segment-stage-comparisons.csv",
+      "sha256": "c8233b7cd115a5f0be4da4327e3aba1e1e37b79db13768cd11d32569b0b0d601",
+      "bytes": 13958
+    },
+    {
+      "path": "benchmark/results/point-access-validation/dynamic-fenwick/validation.json",
+      "sha256": "4fb81e47590e290522416844dc9568631ab322396cb71277caae6ed7cedb4c95",
+      "bytes": 79285
+    },
+    {
+      "path": "blueberry/data-structure/ordered-set.hpp",
+      "sha256": "08afc14df3a88fdc60ba5f0082eef2860e7726949e64d2e8f26a4b22cbc4e654",
+      "bytes": 5601
+    },
+    {
+      "path": "blueberry/data-structure/persistent-segment-tree.hpp",
+      "sha256": "880c5340010c78de2e96490213f561ea46589fc92e886386637ae56756025366",
+      "bytes": 3252
+    },
+    {
+      "path": "blueberry/data-structure/potential-union-find.hpp",
+      "sha256": "eab6dffe2e15a5100b81712aa96b1983ff6c69dcb7e9cd5f891a280f186b27b4",
+      "bytes": 1766
+    },
+    {
+      "path": "docs/data-structure/persistent-segment-tree.md",
+      "sha256": "8467517bfe7a7f1b25c5361aeb86e23b71c627dcbd1bbd19de308c9da96e042c",
+      "bytes": 9992
+    },
+    {
+      "path": "docs/verification-gaps.md",
+      "sha256": "c3fb6a67b65285896a28582c5316ebddb37d1ea29d647df4ed0c4d06698031bc",
+      "bytes": 62496
+    },
+    {
+      "path": "scripts/check_docs.py",
+      "sha256": "7c0c0e4e62ff347b3117f4300e76583af3c74bc4adb5e29276762bdd8a4e4b6c",
+      "bytes": 6078
+    },
+    {
+      "path": "scripts/verify_with_metrics.py",
+      "sha256": "943f6d2f19295a7ca9b2b67a840a06a6e8aed02429d82f9b6ddde1a394a7742c",
+      "bytes": 21045
+    },
+    {
+      "path": "tests/random/data-structure-expansion.cpp",
+      "sha256": "0dd707847633844f815ad6df3966f23c56095fa13c9f5972457f4b9aefcc52e1",
+      "bytes": 7065
+    },
+    {
+      "path": "tests/random/persistent-segment-get.cpp",
+      "sha256": "61bd50e10d29c0955b6e5a7182c3e6780f42413d781ec55e9586fd919986af4b",
+      "bytes": 9970
+    },
+    {
+      "path": "verify/data-structure/persistent-point-set-range-composite.test.cpp",
+      "sha256": "2ded7c4d0050350d1e22900fcb1dedb61f3a2a2709434f0c16da2093d2b0ffa5",
+      "bytes": 894
+    },
+    {
+      "path": "verify/data-structure/persistent-rectangle-sum.test.cpp",
+      "sha256": "2ffb7cfae98dfaa955cb7b305d7dc8ee991c9a8852e25590d421cfd0c33025b8",
+      "bytes": 1331
+    }
+  ],
+  "raw_official_logs_policy": "Original oj JSON and normalized samples are both retained byte-for-byte; no deletion or rewriting of the original raw JSON.",
+  "packaging_status": "Pending exact commit and explicit local packaging signal; prior archives remain immutable."
+}

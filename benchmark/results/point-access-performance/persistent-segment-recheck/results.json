@@ -1,0 +1,288 @@
+{
+  "started_at": "2026-10-03T08:26:33.741186+00:00",
+  "finished_at": "2026-10-03T08:26:46.047417+00:00",
+  "repeats": 9,
+  "warmups": 1,
+  "summary": [
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "u64",
+      "mode": "assert",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 3974110,
+          "min": 3244696,
+          "max": 5648134
+        },
+        "get_ns": {
+          "median": 103828839,
+          "min": 98260774,
+          "max": 155008721
+        },
+        "mixed_ns": {
+          "median": 25834878,
+          "min": 24971663,
+          "max": 42974894
+        },
+        "range_ns": {
+          "median": 21594391,
+          "min": 19826055,
+          "max": 23099132
+        },
+        "update_ns": {
+          "median": 42463661,
+          "min": 36526940,
+          "max": 50880003
+        }
+      }
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "u64",
+      "mode": "assert",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 4026482,
+          "min": 3315955,
+          "max": 5976800
+        },
+        "get_ns": {
+          "median": 67468736,
+          "min": 65852513,
+          "max": 73253686
+        },
+        "mixed_ns": {
+          "median": 18804485,
+          "min": 17519251,
+          "max": 20988889
+        },
+        "range_ns": {
+          "median": 21352960,
+          "min": 20557666,
+          "max": 27267865
+        },
+        "update_ns": {
+          "median": 42118928,
+          "min": 31483961,
+          "max": 51561731
+        }
+      }
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "u64",
+      "mode": "assert",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 4386932,
+          "min": 3253169,
+          "max": 6938087
+        },
+        "get_ns": {
+          "median": 57410475,
+          "min": 52883514,
+          "max": 62708626
+        },
+        "mixed_ns": {
+          "median": 16056746,
+          "min": 15134838,
+          "max": 17344425
+        },
+        "range_ns": {
+          "median": 11349436,
+          "min": 10723892,
+          "max": 11828397
+        },
+        "update_ns": {
+          "median": 46750388,
+          "min": 38824622,
+          "max": 51320612
+        }
+      }
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-branch",
+      "scalar": "u64",
+      "mode": "assert",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 4212433,
+          "min": 3743597,
+          "max": 8645851
+        },
+        "get_ns": {
+          "median": 40789632,
+          "min": 38954173,
+          "max": 45201416
+        },
+        "mixed_ns": {
+          "median": 11837589,
+          "min": 11150473,
+          "max": 12629047
+        },
+        "range_ns": {
+          "median": 12007628,
+          "min": 11342495,
+          "max": 12805634
+        },
+        "update_ns": {
+          "median": 44740406,
+          "min": 42828702,
+          "max": 54618174
+        }
+      }
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "u64",
+      "mode": "release",
+      "compiler": "g++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 1278,
+          "min": 1073,
+          "max": 1862
+        },
+        "get_ns": {
+          "median": 22009517,
+          "min": 21295710,
+          "max": 25511381
+        },
+        "mixed_ns": {
+          "median": 18675995,
+          "min": 17426470,
+          "max": 20669593
+        },
+        "range_ns": {
+          "median": 4441513,
+          "min": 4063976,
+          "max": 4903973
+        },
+        "update_ns": {
+          "median": 27376474,
+          "min": 26310674,
+          "max": 34149114
+        }
+      }
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "sparse-branch",
+      "scalar": "u64",
+      "mode": "release",
+      "compiler": "g++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 1413,
+          "min": 1093,
+          "max": 1942
+        },
+        "get_ns": {
+          "median": 16337600,
+          "min": 15551205,
+          "max": 16932647
+        },
+        "mixed_ns": {
+          "median": 16545407,
+          "min": 14299140,
+          "max": 22003345
+        },
+        "range_ns": {
+          "median": 4077313,
+          "min": 3902075,
+          "max": 4874826
+        },
+        "update_ns": {
+          "median": 28019116,
+          "min": 22840217,
+          "max": 32574445
+        }
+      }
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "u64",
+      "mode": "release",
+      "compiler": "clang++",
+      "implementation": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 4080300,
+          "min": 3278188,
+          "max": 5271054
+        },
+        "get_ns": {
+          "median": 99325772,
+          "min": 94694118,
+          "max": 103433965
+        },
+        "mixed_ns": {
+          "median": 26043015,
+          "min": 24594585,
+          "max": 36523447
+        },
+        "range_ns": {
+          "median": 20701498,
+          "min": 19689694,
+          "max": 23300553
+        },
+        "update_ns": {
+          "median": 42210237,
+          "min": 34048506,
+          "max": 78234231
+        }
+      }
+    },
+    {
+      "family": "persistent-segment",
+      "shape": "dense-sequential",
+      "scalar": "u64",
+      "mode": "release",
+      "compiler": "clang++",
+      "implementation": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 3914184,
+          "min": 3185040,
+          "max": 4819107
+        },
+        "get_ns": {
+          "median": 66515414,
+          "min": 62805204,
+          "max": 69834978
+        },
+        "mixed_ns": {
+          "median": 19068461,
+          "min": 18508529,
+          "max": 19934963
+        },
+        "range_ns": {
+          "median": 20734821,
+          "min": 20195269,
+          "max": 21918531
+        },
+        "update_ns": {
+          "median": 39516486,
+          "min": 31467577,
+          "max": 44039707
+        }
+      }
+    }
+  ]
+}
