@@ -10,6 +10,7 @@
 #include "blueberry/data-structure/static-range-distinct.hpp"
 #include "blueberry/data-structure/rectangle-union.hpp"
 #include "blueberry/geometry/convex-hull.hpp"
+#include "blueberry/geometry/closest-pair.hpp"
 #include "blueberry/geometry/furthest-pair.hpp"
 #include "blueberry/graph/assignment.hpp"
 #include "blueberry/graph/complement-components.hpp"

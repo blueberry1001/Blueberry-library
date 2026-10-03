@@ -1,0 +1,385 @@
+[
+  {
+    "compiler": "g++",
+    "mode": "release",
+    "allocation": false,
+    "binary": ".verification/closest-pair/benchmark/initial/gpp-release",
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-I",
+      "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+      "-DNDEBUG"
+    ],
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-release"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 2763836269
+    },
+    "binary_sha256": "49419a1110ada2ca5e7c335cee16ddebdace642d2a45bf72b54951ed7734a0f3",
+    "oracle_check": {
+      "command": [
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-release",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "{\"cases\":2071,\"variants\":3,\"oracle\":\"all-pairs unsigned128, exact lexicographic indices\"}\n",
+      "stderr": "",
+      "process_ns": 12675354
+    }
+  },
+  {
+    "compiler": "g++",
+    "mode": "release",
+    "allocation": true,
+    "binary": ".verification/closest-pair/benchmark/initial/gpp-release-allocation",
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-I",
+      "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+      "-DNDEBUG",
+      "-DCP_ALLOCATIONS",
+      "-Wno-mismatched-new-delete"
+    ],
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+        "-DNDEBUG",
+        "-DCP_ALLOCATIONS",
+        "-Wno-mismatched-new-delete",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-release-allocation"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 2886397077
+    },
+    "binary_sha256": "f94786b7a9660274f4dd1a4d38fbed4fbdca385ad134187be69c602910935244",
+    "oracle_check": {
+      "command": [
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-release-allocation",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "{\"cases\":2071,\"variants\":3,\"oracle\":\"all-pairs unsigned128, exact lexicographic indices\"}\n",
+      "stderr": "",
+      "process_ns": 12678060
+    }
+  },
+  {
+    "compiler": "g++",
+    "mode": "assert",
+    "allocation": false,
+    "binary": ".verification/closest-pair/benchmark/initial/gpp-assert",
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-I",
+      "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot"
+    ],
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 2740043950
+    },
+    "binary_sha256": "a0f49a18a22b6b598c39ed8e91f9c198d778d566e0c37cd94cc4258984110fae",
+    "oracle_check": {
+      "command": [
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "{\"cases\":2071,\"variants\":3,\"oracle\":\"all-pairs unsigned128, exact lexicographic indices\"}\n",
+      "stderr": "",
+      "process_ns": 13452946
+    },
+    "negative_checks": [
+      {
+        "command": [
+          "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert",
+          "invalid-singleton",
+          "blueberry"
+        ],
+        "returncode": -6,
+        "stdout": "",
+        "stderr": "gpp-assert: /workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/blueberry/geometry/closest-pair.hpp:26: std::pair<int, int> blueberry::closest_pair(const std::vector<std::pair<_FIter, _FIter> >&) [with Coord = long long int]: Assertion `-limit <= static_cast<__int128>(x) && static_cast<__int128>(x) <= limit' failed.\n",
+        "process_ns": 2750565
+      },
+      {
+        "command": [
+          "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert",
+          "invalid-singleton",
+          "vectors"
+        ],
+        "returncode": -6,
+        "stdout": "",
+        "stderr": "gpp-assert: /workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp:63: void validate(const Points&): Assertion `-bound <= Wide(x) && Wide(x) <= bound' failed.\n",
+        "process_ns": 2535568
+      },
+      {
+        "command": [
+          "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert",
+          "invalid-singleton",
+          "sweep"
+        ],
+        "returncode": -6,
+        "stdout": "",
+        "stderr": "gpp-assert: /workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp:63: void validate(const Points&): Assertion `-bound <= Wide(x) && Wide(x) <= bound' failed.\n",
+        "process_ns": 2176779
+      }
+    ]
+  },
+  {
+    "compiler": "g++",
+    "mode": "assert",
+    "allocation": true,
+    "binary": ".verification/closest-pair/benchmark/initial/gpp-assert-allocation",
+    "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-I",
+      "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+      "-DCP_ALLOCATIONS",
+      "-Wno-mismatched-new-delete"
+    ],
+    "compile": {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+        "-DCP_ALLOCATIONS",
+        "-Wno-mismatched-new-delete",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert-allocation"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 2961435182
+    },
+    "binary_sha256": "a63983cb04bc7fa6322a0bc0c5aadc25009fecda4ae13f2682d7372a861b158d",
+    "oracle_check": {
+      "command": [
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert-allocation",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "{\"cases\":2071,\"variants\":3,\"oracle\":\"all-pairs unsigned128, exact lexicographic indices\"}\n",
+      "stderr": "",
+      "process_ns": 12814424
+    },
+    "negative_checks": [
+      {
+        "command": [
+          "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert-allocation",
+          "invalid-singleton",
+          "blueberry"
+        ],
+        "returncode": -6,
+        "stdout": "",
+        "stderr": "gpp-assert-allocation: /workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/blueberry/geometry/closest-pair.hpp:26: std::pair<int, int> blueberry::closest_pair(const std::vector<std::pair<_FIter, _FIter> >&) [with Coord = long long int]: Assertion `-limit <= static_cast<__int128>(x) && static_cast<__int128>(x) <= limit' failed.\n",
+        "process_ns": 2212818
+      },
+      {
+        "command": [
+          "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert-allocation",
+          "invalid-singleton",
+          "vectors"
+        ],
+        "returncode": -6,
+        "stdout": "",
+        "stderr": "gpp-assert-allocation: /workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp:63: void validate(const Points&): Assertion `-bound <= Wide(x) && Wide(x) <= bound' failed.\n",
+        "process_ns": 2120815
+      },
+      {
+        "command": [
+          "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/gpp-assert-allocation",
+          "invalid-singleton",
+          "sweep"
+        ],
+        "returncode": -6,
+        "stdout": "",
+        "stderr": "gpp-assert-allocation: /workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp:63: void validate(const Points&): Assertion `-bound <= Wide(x) && Wide(x) <= bound' failed.\n",
+        "process_ns": 2675911
+      }
+    ]
+  },
+  {
+    "compiler": "clang++",
+    "mode": "release",
+    "allocation": false,
+    "binary": ".verification/closest-pair/benchmark/initial/clangpp-release",
+    "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-I",
+      "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+      "-DNDEBUG"
+    ],
+    "compile": {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/clangpp-release"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 2816530748
+    },
+    "binary_sha256": "9db68a2cadf8104240a086ed7d3c8db7c6e6cee7b420bd0e76aa82672ab766d8",
+    "oracle_check": {
+      "command": [
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/clangpp-release",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "{\"cases\":2071,\"variants\":3,\"oracle\":\"all-pairs unsigned128, exact lexicographic indices\"}\n",
+      "stderr": "",
+      "process_ns": 12857872
+    }
+  },
+  {
+    "compiler": "clang++",
+    "mode": "assert",
+    "allocation": false,
+    "binary": ".verification/closest-pair/benchmark/initial/clangpp-assert",
+    "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-Wall",
+      "-Wextra",
+      "-I",
+      "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot"
+    ],
+    "compile": {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/clangpp-assert"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "",
+      "process_ns": 2854390293
+    },
+    "binary_sha256": "4a9948351d5c9c86a7eb7debbd249cd41531a353cebe5d99dd8dc43ffeded375",
+    "oracle_check": {
+      "command": [
+        "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/clangpp-assert",
+        "check"
+      ],
+      "returncode": 0,
+      "stdout": "{\"cases\":2071,\"variants\":3,\"oracle\":\"all-pairs unsigned128, exact lexicographic indices\"}\n",
+      "stderr": "",
+      "process_ns": 13401644
+    },
+    "negative_checks": [
+      {
+        "command": [
+          "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/clangpp-assert",
+          "invalid-singleton",
+          "blueberry"
+        ],
+        "returncode": -6,
+        "stdout": "",
+        "stderr": "clangpp-assert: /workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/blueberry/geometry/closest-pair.hpp:26: std::pair<int, int> blueberry::closest_pair(const std::vector<std::pair<Coord, Coord>> &) [Coord = long long]: Assertion `-limit <= static_cast<__int128>(x) && static_cast<__int128>(x) <= limit' failed.\n",
+        "process_ns": 2339331
+      },
+      {
+        "command": [
+          "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/clangpp-assert",
+          "invalid-singleton",
+          "vectors"
+        ],
+        "returncode": -6,
+        "stdout": "",
+        "stderr": "clangpp-assert: /workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp:63: void validate(const Points &): Assertion `-bound <= Wide(x) && Wide(x) <= bound' failed.\n",
+        "process_ns": 2202458
+      },
+      {
+        "command": [
+          "/workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/clangpp-assert",
+          "invalid-singleton",
+          "sweep"
+        ],
+        "returncode": -6,
+        "stdout": "",
+        "stderr": "clangpp-assert: /workspace/Blueberry-library/.verification/closest-pair/benchmark/initial/snapshot/benchmark/closest-pair.cpp:63: void validate(const Points &): Assertion `-bound <= Wide(x) && Wide(x) <= bound' failed.\n",
+        "process_ns": 2279887
+      }
+    ]
+  }
+]

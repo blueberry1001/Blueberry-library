@@ -1,0 +1,318 @@
+{
+  "schema_version": 1,
+  "scope": "closest-pair final documentation generation and local site preflight without metrics",
+  "source_report": {
+    "path": ".verification/closest-pair/docs/report.json",
+    "sha256": "6fab93bddf4a38d9ba3327a4a71c1cb1db4e22108aed94698dc186afa8fd3048",
+    "bytes": 10448
+  },
+  "report": {
+    "schema_version": 1,
+    "scope": "closest-pair final documentation generation and local site preflight without metrics",
+    "started_at": "2026-10-03T10:32:54.474790+00:00",
+    "head": "9fb07ca58fa23fc30b2f62070c4cde6182ab68a5",
+    "source_identity_note": "Precise frozen working-tree bytes; no claim that all inputs are already committed at HEAD.",
+    "source_before": {
+      "blueberry/geometry/closest-pair.hpp": {
+        "sha256": "d949453afd1f3695a4f63586e15785cac518188c20f3fe5d6b49d9d06de64214",
+        "bytes": 4516
+      },
+      "blueberry/all.hpp": {
+        "sha256": "e7e15b28289447782a9ce1de0cfb4c77eafb1349c119b36f1ad55599a7f469bc",
+        "bytes": 5605
+      },
+      "docs/geometry/closest-pair.md": {
+        "sha256": "cdc82324ed627553b622c38ef3ba7935b5c47fdde17fd47dc09ec295f5741f90",
+        "bytes": 9313
+      },
+      "docs/development/closest-pair.md": {
+        "sha256": "c86932ca8a6b348fc2410d3bef85d33189ddfe4ec50802a7e40ac8a88a1fa08c",
+        "bytes": 9414
+      },
+      "tests/random/closest-pair.cpp": {
+        "sha256": "757a6a33228327c219549dbccd879d3f9463f492fb39f63ed440892f61d07a66",
+        "bytes": 12808
+      },
+      "verify/geometry/closest-pair.test.cpp": {
+        "sha256": "cf77847d1de97a26333706da6c1d397f960f07aab132321fb3301d88e86c6f96",
+        "bytes": 589
+      },
+      "benchmark/closest-pair-validate.py": {
+        "sha256": "0f37658060d7af79a963a155906895112bf79eef99aa09af613d8aa1618aac77",
+        "bytes": 15248
+      },
+      ".verify-helper/docs/static/_data/libraries.yml": {
+        "sha256": "306a4d29776b320205335484e23fa23eea777bbea324d4681b5d2886cfa5ec1e",
+        "bytes": 30441
+      },
+      ".verify-helper/docs/static/_data/library_checker.json": {
+        "sha256": "6441b8a3651fa4970806da8d17a19039c67c24634b7244d996a58748d7b343f6",
+        "bytes": 127623
+      },
+      ".verify-helper/docs/static/_data/library_verification.json": {
+        "sha256": "96d1d7b9b8623cd6fe4a04275ddf717f64563a2782899989b55c081884321a77",
+        "bytes": 69390
+      },
+      "docs/verification-gaps.md": {
+        "sha256": "fd1899ebf017e82cb27ea3886344af1ab3e0c0c219e6485d9d2583f9d894e23d",
+        "bytes": 64029
+      },
+      "docs/library-checker-checklist.md": {
+        "sha256": "272177e3edbba43adaa7a71d2b2390b7f50b0aa3b801de494b17cc34940d3dfc",
+        "bytes": 57858
+      },
+      "scripts/generate_docs.py": {
+        "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+        "bytes": 2382
+      },
+      "scripts/publish_metrics.py": {
+        "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+        "bytes": 1167
+      },
+      "scripts/check_site.py": {
+        "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+        "bytes": 11780
+      },
+      "Makefile": {
+        "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+        "bytes": 2677
+      },
+      ".verify-helper/config.toml": {
+        "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+        "bytes": 144
+      },
+      "/tmp/blueberry-setup/pages-document-plugins.yml": {
+        "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+        "bytes": 462
+      }
+    },
+    "current_report_before": {
+      "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+      "bytes": 207054
+    },
+    "stages": [
+      {
+        "name": "make-docs",
+        "argv": [
+          "make",
+          "docs"
+        ],
+        "environment_overrides": {},
+        "started_at": "2026-10-03T10:32:54.479187+00:00",
+        "finished_at": "2026-10-03T10:33:18.487180+00:00",
+        "elapsed_seconds": 24.008007704000192,
+        "exit_code": 2,
+        "log": {
+          "path": ".verification/closest-pair/docs/make-docs.log",
+          "sha256": "4309e040896dbebb779d09837cb47cc8ebec1ce97c44b0968c2d6dc830f3871c",
+          "bytes": 17573
+        },
+        "expected_existing_publication_gate_rejection": true
+      },
+      {
+        "name": "jekyll",
+        "argv": [
+          "jekyll",
+          "build",
+          "--source",
+          ".verify-helper/markdown",
+          "--destination",
+          ".build/site",
+          "--config",
+          ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+        ],
+        "environment_overrides": {
+          "JEKYLL_ENV": "production"
+        },
+        "started_at": "2026-10-03T10:33:18.488077+00:00",
+        "finished_at": "2026-10-03T10:33:40.741938+00:00",
+        "elapsed_seconds": 22.25383847700141,
+        "exit_code": 0,
+        "log": {
+          "path": ".verification/closest-pair/docs/jekyll.log",
+          "sha256": "75308f9f27063f1c2b58702d14189eb370d1abad0f284ac34c59e1f73fdac703",
+          "bytes": 461
+        }
+      },
+      {
+        "name": "site-preflight-without-metrics",
+        "argv": [
+          "python3",
+          "scripts/check_site.py",
+          "--without-metrics"
+        ],
+        "environment_overrides": {},
+        "started_at": "2026-10-03T10:33:40.742581+00:00",
+        "finished_at": "2026-10-03T10:33:41.193646+00:00",
+        "elapsed_seconds": 0.45100367099803407,
+        "exit_code": 0,
+        "log": {
+          "path": ".verification/closest-pair/docs/site-preflight-without-metrics.log",
+          "sha256": "b65148986c7912bef24b1840fc796d7433b5ba93ad9edb9702fa58e026c89850",
+          "bytes": 80
+        }
+      }
+    ],
+    "full_official_verified": false,
+    "site_with_metrics_verified": false,
+    "runner": {
+      "sha256": "921a947b372816f044cccf43b3fbc901036e6392287879c31aac9cfcf5b2cf81",
+      "bytes": 3490
+    },
+    "source_after": {
+      "blueberry/geometry/closest-pair.hpp": {
+        "sha256": "d949453afd1f3695a4f63586e15785cac518188c20f3fe5d6b49d9d06de64214",
+        "bytes": 4516
+      },
+      "blueberry/all.hpp": {
+        "sha256": "e7e15b28289447782a9ce1de0cfb4c77eafb1349c119b36f1ad55599a7f469bc",
+        "bytes": 5605
+      },
+      "docs/geometry/closest-pair.md": {
+        "sha256": "cdc82324ed627553b622c38ef3ba7935b5c47fdde17fd47dc09ec295f5741f90",
+        "bytes": 9313
+      },
+      "docs/development/closest-pair.md": {
+        "sha256": "c86932ca8a6b348fc2410d3bef85d33189ddfe4ec50802a7e40ac8a88a1fa08c",
+        "bytes": 9414
+      },
+      "tests/random/closest-pair.cpp": {
+        "sha256": "757a6a33228327c219549dbccd879d3f9463f492fb39f63ed440892f61d07a66",
+        "bytes": 12808
+      },
+      "verify/geometry/closest-pair.test.cpp": {
+        "sha256": "cf77847d1de97a26333706da6c1d397f960f07aab132321fb3301d88e86c6f96",
+        "bytes": 589
+      },
+      "benchmark/closest-pair-validate.py": {
+        "sha256": "0f37658060d7af79a963a155906895112bf79eef99aa09af613d8aa1618aac77",
+        "bytes": 15248
+      },
+      ".verify-helper/docs/static/_data/libraries.yml": {
+        "sha256": "306a4d29776b320205335484e23fa23eea777bbea324d4681b5d2886cfa5ec1e",
+        "bytes": 30441
+      },
+      ".verify-helper/docs/static/_data/library_checker.json": {
+        "sha256": "6441b8a3651fa4970806da8d17a19039c67c24634b7244d996a58748d7b343f6",
+        "bytes": 127623
+      },
+      ".verify-helper/docs/static/_data/library_verification.json": {
+        "sha256": "96d1d7b9b8623cd6fe4a04275ddf717f64563a2782899989b55c081884321a77",
+        "bytes": 69390
+      },
+      "docs/verification-gaps.md": {
+        "sha256": "fd1899ebf017e82cb27ea3886344af1ab3e0c0c219e6485d9d2583f9d894e23d",
+        "bytes": 64029
+      },
+      "docs/library-checker-checklist.md": {
+        "sha256": "272177e3edbba43adaa7a71d2b2390b7f50b0aa3b801de494b17cc34940d3dfc",
+        "bytes": 57858
+      },
+      "scripts/generate_docs.py": {
+        "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+        "bytes": 2382
+      },
+      "scripts/publish_metrics.py": {
+        "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+        "bytes": 1167
+      },
+      "scripts/check_site.py": {
+        "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+        "bytes": 11780
+      },
+      "Makefile": {
+        "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+        "bytes": 2677
+      },
+      ".verify-helper/config.toml": {
+        "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+        "bytes": 144
+      },
+      "/tmp/blueberry-setup/pages-document-plugins.yml": {
+        "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+        "bytes": 462
+      }
+    },
+    "source_unchanged": true,
+    "current_report_after": {
+      "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+      "bytes": 207054
+    },
+    "current_report_unchanged": true,
+    "finished_at": "2026-10-03T10:33:41.195411+00:00",
+    "rendered_pages": [
+      {
+        "path": ".build/site/blueberry/geometry/closest-pair.hpp.html",
+        "sha256": "6e9f193537b30453749f82db308b395bd090e153b335fdacd747cf7cb383c490",
+        "bytes": 90519
+      },
+      {
+        "path": ".build/site/docs/development/closest-pair.html",
+        "sha256": "683c16110bd4320624a46704e64811582eee2f3231db55773fa5c21617ad2c27",
+        "bytes": 16056
+      }
+    ],
+    "rendered_checks": {
+      "original_index_bounds": true,
+      "lexicographic_minimum_original_index_pair": true,
+      "single_expanded_api_operation": true,
+      "complete_api_signature": true,
+      "operation_table_anchor": true,
+      "operation_prose_and_code_rendered": true,
+      "no_visible_raw_tags_or_fences": true,
+      "small_input_memory_exception": true,
+      "api_duplicate_condition": true,
+      "development_lexicographic_contract": true,
+      "development_allocation_paths": true,
+      "nonduplicate_memory_diagnostic": true,
+      "duplicate_memory_diagnostic": true,
+      "rss_scope_caveat": true
+    },
+    "site_counts": {
+      "categories": 7,
+      "api_pages": 108,
+      "source": "site-preflight-without-metrics.log"
+    },
+    "status": {
+      "make_docs_succeeded": false,
+      "documentation_generation_completed": true,
+      "existing_metrics_publication_gate_rejected": true,
+      "jekyll_succeeded": true,
+      "site_preflight_without_metrics_succeeded": true,
+      "rendered_closest_pair_contract_checked": true,
+      "full_official_verified": false,
+      "site_with_metrics_verified": false
+    },
+    "limitation": "make docs exited 2 because publish_metrics rejected the existing unsupported or failed measurements. Jekyll and check_site --without-metrics succeeded separately; neither establishes full official verification nor publication metrics validity.",
+    "finalize_script": {
+      "path": ".verification/closest-pair/docs/finalize.py",
+      "sha256": "c9856ea0ee1e9acf6381068c0ed589eaaca1343e174813be1e9799e2c96ceb22",
+      "bytes": 5224
+    },
+    "finalized_at": "2026-10-03T10:35:17.084104+00:00"
+  },
+  "logs": [
+    {
+      "path": ".verification/closest-pair/docs/make-docs.log",
+      "sha256": "4309e040896dbebb779d09837cb47cc8ebec1ce97c44b0968c2d6dc830f3871c",
+      "bytes": 17573,
+      "encoding": "utf-8",
+      "text": "CPLUS_INCLUDE_PATH=\"/workspace/Blueberry-library/.deps/ac-library:/workspace/Blueberry-library/.deps/ac-library:/tmp/blueberry-setup/boost/usr/include\" python3 scripts/generate_docs.py -j 2\n/tmp/blueberry-setup/venv/lib/python3.12/site-packages/onlinejudge_verify/documentation/main.py:6: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.\n  import pkg_resources\n/workspace/Blueberry-library/blueberry/geometry/furthest-pair.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/geometry/convex-hull.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/algebra/monoids.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/aggregate-deque.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/aggregate-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/binary-trie.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/disjoint-set-union.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/disjoint-sparse-table.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/double-ended-priority-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dual-segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-fenwick-tree-2d.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-fenwick-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-li-chao-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-sqrt-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/fast-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/fenwick-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/implicit-treap.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/kd-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/li-chao-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/linear-rmq.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/offline-fenwick-tree-2d.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/ordered-multiset.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/ordered-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/partially-retroactive-priority-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-array.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-binary-trie.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/potential-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/range-parallel-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/range-sort-range-product.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/rectangle-union.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/rollback-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/segment-tree-beats.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/skew-heap.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/slope-trick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/sparse-table.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/splay-slope-trick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/sqrt-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-distinct.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/wavelet-matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-inversions.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-lis.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-mode.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/weighted-wavelet-matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/assignment.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/biconnected-components.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/cartesian-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/centroid-decomposition.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/clique-enumeration.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/complement-components.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/contour-query.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/count-spanning-trees.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/cycle-detection.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dijkstra.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dynamic-top-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/euler-tour-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/eulerian-trail.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/heavy-light-decomposition.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/hopcroft-karp.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/linear-lca.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/link-cut-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/low-link.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/lowest-common-ancestor.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/maximum-independent-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/minimum-spanning-forest.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/rerooting.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/rooted-tree-isomorphism.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/static-top-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/topological-sort.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/tree-diameter.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/triangle-enumeration.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/general-matching.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dominator-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/bitwise-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/discrete-log.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/divisor-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/enumerate-quotients.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/factorize.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/formal-power-series.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/fraction.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/kth-root-integer.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/linear-recurrence.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/longest-increasing-subsequence.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/mod-sqrt.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/montmort.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/multipoint-evaluation.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/polynomial-interpolation.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/polynomial-product.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/prime-sieve.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/sample-point-shift.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/stirling-second.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/subset-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/taylor-shift.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/aho-corasick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/count-subsequences.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/eertree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/longest-common-substring.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/lyndon-factorization.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/manacher.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/prefix-function.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/suffix-automaton.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/z-algorithm.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/utility/fast-io.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/geometry/closest-pair.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/all.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\npython3 scripts/publish_metrics.py\nTraceback (most recent call last):\n  File \"/workspace/Blueberry-library/scripts/publish_metrics.py\", line 17, in <module>\n    validate_publication_report(report, expected, revision)\n  File \"/workspace/Blueberry-library/scripts/verify_with_metrics.py\", line 302, in validate_publication_report\n    raise ValueError(\"do not publish unsupported or failed measurements\")\nValueError: do not publish unsupported or failed measurements\nmake: *** [Makefile:59: docs] Error 1\n"
+    },
+    {
+      "path": ".verification/closest-pair/docs/jekyll.log",
+      "sha256": "75308f9f27063f1c2b58702d14189eb370d1abad0f284ac34c59e1f73fdac703",
+      "bytes": 461,
+      "encoding": "utf-8",
+      "text": "Configuration file: /workspace/Blueberry-library/.verify-helper/markdown/_config.yml\nConfiguration file: /tmp/blueberry-setup/pages-document-plugins.yml\n            Source: /workspace/Blueberry-library/.verify-helper/markdown\n       Destination: /workspace/Blueberry-library/.build/site\n Incremental build: disabled. Enable with --incremental\n      Generating... \n                    done in 21.707 seconds.\n Auto-regeneration: disabled. Use --watch to enable.\n"
+    },
+    {
+      "path": ".verification/closest-pair/docs/site-preflight-without-metrics.log",
+      "sha256": "b65148986c7912bef24b1840fc796d7433b5ba93ad9edb9702fa58e026c89850",
+      "bytes": 80,
+      "encoding": "utf-8",
+      "text": "PASS: 7 categories, 108 API pages, footer and navigation (before verification).\n"
+    }
+  ],
+  "provenance_note": "The embedded report and UTF-8 log texts preserve the original local evidence content and hashes. Rendered pages and local runner files remain at their recorded paths; this aggregate includes report and log text only."
+}
