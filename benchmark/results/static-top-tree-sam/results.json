@@ -1,0 +1,1581 @@
+{
+  "date": "2026-10-03T06:29:37.208474+00:00",
+  "prepared": {
+    "created_at": "2026-10-03T06:27:59.898000+00:00",
+    "baseline_commit": "9c2914f6db8fde2c56e5aade4fcc40c15b75cad5",
+    "source_sha256": "27b0650e9f344a4148a98080369bfd64e672f860ebe5e3fb1e8a668f673d161c",
+    "header_sha256": {
+      ".build/static-top-tree-sam/baseline/include/blueberry/graph/static-top-tree.hpp": "39bfa188004ae500635d543724da00720468835485ceb69f4eddd8c5f5d8c384",
+      ".build/static-top-tree-sam/candidate/include/blueberry/graph/static-top-tree.hpp": "a7b6dceb927681893250fe0d55f3df2e1b6250d66b2f364b24d2cf50eab2c29a",
+      ".build/static-top-tree-sam/baseline/include/blueberry/string/suffix-automaton.hpp": "323f5c9ccc95dd47631e2b2bf745a099452c039cfcc2809c470d7192a5f6bf92",
+      ".build/static-top-tree-sam/candidate/include/blueberry/string/suffix-automaton.hpp": "d6b78f7c0d525ea34b2dbef1e8695ab934bfe4fc4c4a9b9ed9b47fedb7381329"
+    },
+    "entries": [
+      {
+        "compiler": "g++",
+        "variant": "baseline",
+        "mode": "timing",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-DNDEBUG",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/baseline/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/g++-timing-baseline"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/static-top-tree-sam/g++-timing-baseline",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "544b8bb4c448b7b58c13f0cfb91a3ff13776f48991d2f103d83b553e6e12f684"
+      },
+      {
+        "compiler": "g++",
+        "variant": "candidate",
+        "mode": "timing",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-DNDEBUG",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/candidate/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/g++-timing-candidate"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/static-top-tree-sam/g++-timing-candidate",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "59d613c7d30f661d2094d5a3a6de49a1182a77d5237628ac54a9e48c8d37d779"
+      },
+      {
+        "compiler": "g++",
+        "variant": "baseline",
+        "mode": "allocations",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-DNDEBUG",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/baseline/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DPROFILE_ALLOCATIONS",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/g++-allocations-baseline"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/static-top-tree-sam/g++-allocations-baseline",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "70fae836d24f217dbfbbbd3c827b7a877b91e463880d5d3b9e684532f6b34b8d"
+      },
+      {
+        "compiler": "g++",
+        "variant": "candidate",
+        "mode": "allocations",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-DNDEBUG",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/candidate/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DPROFILE_ALLOCATIONS",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/g++-allocations-candidate"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/static-top-tree-sam/g++-allocations-candidate",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "c815a7ecff1db6c30c43eecedc5ab50b12baa4aba9b5aaefb8d01c31fb9a7941"
+      },
+      {
+        "compiler": "clang++",
+        "variant": "baseline",
+        "mode": "timing",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-DNDEBUG",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/baseline/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/clang++-timing-baseline"
+        ],
+        "version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+        "binary": ".build/static-top-tree-sam/clang++-timing-baseline",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "a2793c420aba4d24526c2ce97776ea141819e653081540509a810be7406eee99"
+      },
+      {
+        "compiler": "clang++",
+        "variant": "candidate",
+        "mode": "timing",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-DNDEBUG",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/candidate/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-sam/clang++-timing-candidate"
+        ],
+        "version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+        "binary": ".build/static-top-tree-sam/clang++-timing-candidate",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "f10123a4f02b2fdb2996e55a9dccbdc5a595ad6d5ad9f8c9914503df34363b0c"
+      }
+    ]
+  },
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           46 bits physical, 57 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  5\nOn-line CPU(s) list:                     0-4\nVendor ID:                               GenuineIntel\nModel name:                              INTEL(R) XEON(R) PLATINUM 8573C\nCPU family:                              6\nModel:                                   207\nThread(s) per core:                      1\nCore(s) per socket:                      5\nSocket(s):                               1\nStepping:                                2\nBogoMIPS:                                4600.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 arat avx512vbmi umip waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid cldemote movdiri movdir64b fsrm serialize tsxldtrk avx512_fp16 arch_capabilities\nHypervisor vendor:                       KVM\nVirtualization type:                     full\nL1d cache:                               144 KiB (3 instances)\nL1i cache:                               96 KiB (3 instances)\nL2 cache:                                6 MiB (3 instances)\nL3 cache:                                260 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-4\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Vulnerable\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Vulnerable\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Vulnerable: __user pointer sanitization and usercopy barriers only; no swapgs barriers\nVulnerability Spectre v2:                Vulnerable; STIBP: disabled; PBRSB-eIBRS: Not affected; BHI: Vulnerable\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+  "repeats": 5,
+  "warmups": 1,
+  "summary": [
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 13190844,
+          "min": 11704816,
+          "max": 15206106
+        },
+        "operations_ns": {
+          "median": 68829821,
+          "min": 65010537,
+          "max": 70610195
+        }
+      },
+      "peak_rss_kib": 27476
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 12612422,
+          "min": 11368299,
+          "max": 14642643
+        },
+        "operations_ns": {
+          "median": 69530261,
+          "min": 68636957,
+          "max": 117641444
+        }
+      },
+      "peak_rss_kib": 27476
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 11976316,
+          "min": 9768938,
+          "max": 19548398
+        },
+        "operations_ns": {
+          "median": 67793466,
+          "min": 63940018,
+          "max": 70613802
+        }
+      },
+      "peak_rss_kib": 27476
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 11465953,
+          "min": 10325816,
+          "max": 16869322
+        },
+        "operations_ns": {
+          "median": 66794132,
+          "min": 62961636,
+          "max": 68360933
+        }
+      },
+      "peak_rss_kib": 27476
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 8971626,
+          "min": 7582416,
+          "max": 10496909
+        },
+        "operations_ns": {
+          "median": 60931818,
+          "min": 59345948,
+          "max": 62070444
+        }
+      },
+      "peak_rss_kib": 20500
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 8580683,
+          "min": 7381622,
+          "max": 12443575
+        },
+        "operations_ns": {
+          "median": 63030233,
+          "min": 57951382,
+          "max": 68638877
+        }
+      },
+      "peak_rss_kib": 20500
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 8823266,
+          "min": 7819134,
+          "max": 15169290
+        },
+        "operations_ns": {
+          "median": 63347299,
+          "min": 62654807,
+          "max": 65886587
+        }
+      },
+      "peak_rss_kib": 20500
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 8354987,
+          "min": 7707592,
+          "max": 10424683
+        },
+        "operations_ns": {
+          "median": 64450547,
+          "min": 62215607,
+          "max": 98628877
+        }
+      },
+      "peak_rss_kib": 20500
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 20323667,
+          "min": 17163263,
+          "max": 22068034
+        },
+        "operations_ns": {
+          "median": 73058429,
+          "min": 70910267,
+          "max": 83157962
+        }
+      },
+      "peak_rss_kib": 32604
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 17971679,
+          "min": 17186357,
+          "max": 23491508
+        },
+        "operations_ns": {
+          "median": 69942014,
+          "min": 67689948,
+          "max": 74706191
+        }
+      },
+      "peak_rss_kib": 32604
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 19175936,
+          "min": 17320309,
+          "max": 20255745
+        },
+        "operations_ns": {
+          "median": 73857810,
+          "min": 69882993,
+          "max": 86733464
+        }
+      },
+      "peak_rss_kib": 32604
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 18271077,
+          "min": 16136541,
+          "max": 19385490
+        },
+        "operations_ns": {
+          "median": 73328986,
+          "min": 69666755,
+          "max": 81994007
+        }
+      },
+      "peak_rss_kib": 32620
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 15540184,
+          "min": 14181212,
+          "max": 16908940
+        },
+        "operations_ns": {
+          "median": 56153490,
+          "min": 54846402,
+          "max": 59885761
+        }
+      },
+      "peak_rss_kib": 23964
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 12998598,
+          "min": 11009896,
+          "max": 13290041
+        },
+        "operations_ns": {
+          "median": 57357317,
+          "min": 55518340,
+          "max": 62681005
+        }
+      },
+      "peak_rss_kib": 23964
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 15778150,
+          "min": 14515110,
+          "max": 18673872
+        },
+        "operations_ns": {
+          "median": 57248876,
+          "min": 54303098,
+          "max": 60757635
+        }
+      },
+      "peak_rss_kib": 23964
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 13964628,
+          "min": 11708628,
+          "max": 15330217
+        },
+        "operations_ns": {
+          "median": 56093927,
+          "min": 55191813,
+          "max": 58859597
+        }
+      },
+      "peak_rss_kib": 23964
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 22590747,
+          "min": 18485969,
+          "max": 31383537
+        },
+        "operations_ns": {
+          "median": 80720250,
+          "min": 76732981,
+          "max": 85467901
+        }
+      },
+      "peak_rss_kib": 26324
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 16185295,
+          "min": 13439029,
+          "max": 17758099
+        },
+        "operations_ns": {
+          "median": 80302378,
+          "min": 78347849,
+          "max": 80903972
+        }
+      },
+      "peak_rss_kib": 26324
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 18177821,
+          "min": 15636274,
+          "max": 20936257
+        },
+        "operations_ns": {
+          "median": 83257688,
+          "min": 78024652,
+          "max": 94246114
+        }
+      },
+      "peak_rss_kib": 26324
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 16162940,
+          "min": 13486890,
+          "max": 17329504
+        },
+        "operations_ns": {
+          "median": 82975156,
+          "min": 81158771,
+          "max": 94280645
+        }
+      },
+      "peak_rss_kib": 26324
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 16257207,
+          "min": 13236281,
+          "max": 18306178
+        },
+        "operations_ns": {
+          "median": 69672683,
+          "min": 68742700,
+          "max": 76995399
+        }
+      },
+      "peak_rss_kib": 19256
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 13027107,
+          "min": 11645741,
+          "max": 13262959
+        },
+        "operations_ns": {
+          "median": 73084131,
+          "min": 69514731,
+          "max": 74180798
+        }
+      },
+      "peak_rss_kib": 19328
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 16965144,
+          "min": 15786045,
+          "max": 17727577
+        },
+        "operations_ns": {
+          "median": 76768859,
+          "min": 72395379,
+          "max": 80363707
+        }
+      },
+      "peak_rss_kib": 19328
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 13601088,
+          "min": 11521229,
+          "max": 14803749
+        },
+        "operations_ns": {
+          "median": 76084749,
+          "min": 75051769,
+          "max": 77483551
+        }
+      },
+      "peak_rss_kib": 19256
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 38692292,
+          "min": 30250519,
+          "max": 45868958
+        },
+        "operations_ns": {
+          "median": 78260953,
+          "min": 72927959,
+          "max": 80642065
+        }
+      },
+      "peak_rss_kib": 27588
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 36748706,
+          "min": 33702375,
+          "max": 39151697
+        },
+        "operations_ns": {
+          "median": 76821664,
+          "min": 74795583,
+          "max": 83252144
+        }
+      },
+      "peak_rss_kib": 27588
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 28615659,
+          "min": 27425539,
+          "max": 31006614
+        },
+        "operations_ns": {
+          "median": 72264384,
+          "min": 71087163,
+          "max": 78718323
+        }
+      },
+      "peak_rss_kib": 27588
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 25889865,
+          "min": 25202085,
+          "max": 33341465
+        },
+        "operations_ns": {
+          "median": 74047030,
+          "min": 72390327,
+          "max": 76968727
+        }
+      },
+      "peak_rss_kib": 27604
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 28285087,
+          "min": 25653201,
+          "max": 29071077
+        },
+        "operations_ns": {
+          "median": 65860569,
+          "min": 63326420,
+          "max": 66331117
+        }
+      },
+      "peak_rss_kib": 20228
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 26805400,
+          "min": 23395169,
+          "max": 30523929
+        },
+        "operations_ns": {
+          "median": 64376646,
+          "min": 60119859,
+          "max": 74973474
+        }
+      },
+      "peak_rss_kib": 20228
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 29275874,
+          "min": 25326437,
+          "max": 31148572
+        },
+        "operations_ns": {
+          "median": 67315988,
+          "min": 63306098,
+          "max": 69912679
+        }
+      },
+      "peak_rss_kib": 20228
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 26422671,
+          "min": 23783462,
+          "max": 28949282
+        },
+        "operations_ns": {
+          "median": 65255320,
+          "min": 61601359,
+          "max": 79414796
+        }
+      },
+      "peak_rss_kib": 20228
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 14636039,
+          "min": 13821946,
+          "max": 17045375
+        },
+        "operations_ns": {
+          "median": 73105999,
+          "min": 70995958,
+          "max": 75385119
+        }
+      },
+      "peak_rss_kib": 29604
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 14077924,
+          "min": 12622805,
+          "max": 17923681
+        },
+        "operations_ns": {
+          "median": 72174334,
+          "min": 70869725,
+          "max": 74726592
+        }
+      },
+      "peak_rss_kib": 29604
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 14938571,
+          "min": 13118002,
+          "max": 17043025
+        },
+        "operations_ns": {
+          "median": 71192881,
+          "min": 69426753,
+          "max": 74256458
+        }
+      },
+      "peak_rss_kib": 29608
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 13186160,
+          "min": 11632630,
+          "max": 14720025
+        },
+        "operations_ns": {
+          "median": 73122033,
+          "min": 69070028,
+          "max": 77468984
+        }
+      },
+      "peak_rss_kib": 29604
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 11599299,
+          "min": 10048904,
+          "max": 15702628
+        },
+        "operations_ns": {
+          "median": 61728644,
+          "min": 60240844,
+          "max": 94912855
+        }
+      },
+      "peak_rss_kib": 21812
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 9711584,
+          "min": 8572113,
+          "max": 13290281
+        },
+        "operations_ns": {
+          "median": 63015043,
+          "min": 60032035,
+          "max": 75874836
+        }
+      },
+      "peak_rss_kib": 21812
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 11802420,
+          "min": 11312366,
+          "max": 12145923
+        },
+        "operations_ns": {
+          "median": 62085887,
+          "min": 60578933,
+          "max": 64244814
+        }
+      },
+      "peak_rss_kib": 21824
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 11549411,
+          "min": 10885046,
+          "max": 12439159
+        },
+        "operations_ns": {
+          "median": 64754741,
+          "min": 62069996,
+          "max": 66160581
+        }
+      },
+      "peak_rss_kib": 21808
+    },
+    {
+      "family": "sam",
+      "shape": "random4",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 104748616,
+          "min": 98988203,
+          "max": 130222418
+        },
+        "counts_ns": {
+          "median": 6513210,
+          "min": 6439428,
+          "max": 7217577
+        },
+        "queries_ns": {
+          "median": 17888024,
+          "min": 17354010,
+          "max": 19667110
+        },
+        "lcs_ns": {
+          "median": 46827705,
+          "min": 44446811,
+          "max": 57446011
+        }
+      },
+      "peak_rss_kib": 55104
+    },
+    {
+      "family": "sam",
+      "shape": "random4",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 104711378,
+          "min": 91968021,
+          "max": 121464489
+        },
+        "counts_ns": {
+          "median": 6808112,
+          "min": 6579176,
+          "max": 7942615
+        },
+        "queries_ns": {
+          "median": 18623347,
+          "min": 17562168,
+          "max": 20164201
+        },
+        "lcs_ns": {
+          "median": 46088206,
+          "min": 45203320,
+          "max": 48055062
+        }
+      },
+      "peak_rss_kib": 55104
+    },
+    {
+      "family": "sam",
+      "shape": "random4",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 118667013,
+          "min": 105913080,
+          "max": 126323365
+        },
+        "counts_ns": {
+          "median": 6372570,
+          "min": 6362502,
+          "max": 7416112
+        },
+        "queries_ns": {
+          "median": 20705775,
+          "min": 18516757,
+          "max": 21143683
+        },
+        "lcs_ns": {
+          "median": 51437570,
+          "min": 50545886,
+          "max": 51528433
+        }
+      },
+      "peak_rss_kib": 55104
+    },
+    {
+      "family": "sam",
+      "shape": "random4",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 121377373,
+          "min": 109579669,
+          "max": 139996428
+        },
+        "counts_ns": {
+          "median": 6579701,
+          "min": 6151460,
+          "max": 6667292
+        },
+        "queries_ns": {
+          "median": 20044179,
+          "min": 19388627,
+          "max": 20820119
+        },
+        "lcs_ns": {
+          "median": 52189461,
+          "min": 50665279,
+          "max": 53605645
+        }
+      },
+      "peak_rss_kib": 55104
+    },
+    {
+      "family": "sam",
+      "shape": "random26",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 105819002,
+          "min": 98718112,
+          "max": 116518476
+        },
+        "counts_ns": {
+          "median": 5207844,
+          "min": 4717804,
+          "max": 6746694
+        },
+        "queries_ns": {
+          "median": 19655529,
+          "min": 18786803,
+          "max": 20206896
+        },
+        "lcs_ns": {
+          "median": 71080494,
+          "min": 68218240,
+          "max": 73738236
+        }
+      },
+      "peak_rss_kib": 42608
+    },
+    {
+      "family": "sam",
+      "shape": "random26",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 113864926,
+          "min": 109377117,
+          "max": 127183122
+        },
+        "counts_ns": {
+          "median": 5749943,
+          "min": 5062791,
+          "max": 6617490
+        },
+        "queries_ns": {
+          "median": 18936618,
+          "min": 18731576,
+          "max": 19302981
+        },
+        "lcs_ns": {
+          "median": 70355985,
+          "min": 68894120,
+          "max": 76502288
+        }
+      },
+      "peak_rss_kib": 42608
+    },
+    {
+      "family": "sam",
+      "shape": "random26",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 107639872,
+          "min": 101284911,
+          "max": 115370621
+        },
+        "counts_ns": {
+          "median": 5476382,
+          "min": 4887181,
+          "max": 6001499
+        },
+        "queries_ns": {
+          "median": 19142080,
+          "min": 18869602,
+          "max": 20634526
+        },
+        "lcs_ns": {
+          "median": 61756069,
+          "min": 61039137,
+          "max": 62416955
+        }
+      },
+      "peak_rss_kib": 42608
+    },
+    {
+      "family": "sam",
+      "shape": "random26",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 107776390,
+          "min": 97479959,
+          "max": 111649746
+        },
+        "counts_ns": {
+          "median": 5576431,
+          "min": 4978265,
+          "max": 6513809
+        },
+        "queries_ns": {
+          "median": 19735492,
+          "min": 17929776,
+          "max": 22457368
+        },
+        "lcs_ns": {
+          "median": 63611796,
+          "min": 61142087,
+          "max": 66280317
+        }
+      },
+      "peak_rss_kib": 42608
+    },
+    {
+      "family": "sam",
+      "shape": "periodic",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 18995596,
+          "min": 18588802,
+          "max": 22926700
+        },
+        "counts_ns": {
+          "median": 3202681,
+          "min": 2981017,
+          "max": 4046315
+        },
+        "queries_ns": {
+          "median": 1469064,
+          "min": 1394826,
+          "max": 1669309
+        },
+        "lcs_ns": {
+          "median": 1805810,
+          "min": 1739571,
+          "max": 2049329
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "periodic",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 20321159,
+          "min": 19103079,
+          "max": 23467627
+        },
+        "counts_ns": {
+          "median": 3387197,
+          "min": 3120171,
+          "max": 3574353
+        },
+        "queries_ns": {
+          "median": 1419092,
+          "min": 1379981,
+          "max": 1637939
+        },
+        "lcs_ns": {
+          "median": 1900347,
+          "min": 1757444,
+          "max": 2396549
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "periodic",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 19914864,
+          "min": 17767542,
+          "max": 23203456
+        },
+        "counts_ns": {
+          "median": 3237550,
+          "min": 2911179,
+          "max": 3837401
+        },
+        "queries_ns": {
+          "median": 2106793,
+          "min": 1965398,
+          "max": 2390180
+        },
+        "lcs_ns": {
+          "median": 2270792,
+          "min": 2209889,
+          "max": 2451495
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "periodic",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 20135424,
+          "min": 18292199,
+          "max": 28270584
+        },
+        "counts_ns": {
+          "median": 3250174,
+          "min": 2965950,
+          "max": 3720846
+        },
+        "queries_ns": {
+          "median": 2032914,
+          "min": 1974915,
+          "max": 2158671
+        },
+        "lcs_ns": {
+          "median": 2260755,
+          "min": 2205206,
+          "max": 2361378
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "equal",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 20185802,
+          "min": 19661842,
+          "max": 25554488
+        },
+        "counts_ns": {
+          "median": 3286232,
+          "min": 3115877,
+          "max": 3844962
+        },
+        "queries_ns": {
+          "median": 1236105,
+          "min": 1165188,
+          "max": 1506195
+        },
+        "lcs_ns": {
+          "median": 1208903,
+          "min": 1163176,
+          "max": 1530157
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "equal",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 19634200,
+          "min": 17657137,
+          "max": 22240206
+        },
+        "counts_ns": {
+          "median": 3179115,
+          "min": 3090539,
+          "max": 3473260
+        },
+        "queries_ns": {
+          "median": 1171712,
+          "min": 1160591,
+          "max": 1326833
+        },
+        "lcs_ns": {
+          "median": 1244486,
+          "min": 1231137,
+          "max": 1343294
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "equal",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 21885388,
+          "min": 18892159,
+          "max": 22875369
+        },
+        "counts_ns": {
+          "median": 3581656,
+          "min": 2985271,
+          "max": 3835573
+        },
+        "queries_ns": {
+          "median": 1773324,
+          "min": 1684329,
+          "max": 1808965
+        },
+        "lcs_ns": {
+          "median": 1388507,
+          "min": 1377134,
+          "max": 1457186
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "equal",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 19038180,
+          "min": 17858700,
+          "max": 24177277
+        },
+        "counts_ns": {
+          "median": 3306698,
+          "min": 2950417,
+          "max": 4160799
+        },
+        "queries_ns": {
+          "median": 1715836,
+          "min": 1686745,
+          "max": 1791930
+        },
+        "lcs_ns": {
+          "median": 1427558,
+          "min": 1394801,
+          "max": 1570737
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "int",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 114913254,
+          "min": 105147707,
+          "max": 153717426
+        },
+        "counts_ns": {
+          "median": 5810388,
+          "min": 5690416,
+          "max": 7215806
+        },
+        "queries_ns": {
+          "median": 20603677,
+          "min": 18285713,
+          "max": 55603227
+        },
+        "lcs_ns": {
+          "median": 76085128,
+          "min": 73994211,
+          "max": 81434517
+        }
+      },
+      "peak_rss_kib": 44552
+    },
+    {
+      "family": "sam",
+      "shape": "int",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 113423917,
+          "min": 105015698,
+          "max": 118611831
+        },
+        "counts_ns": {
+          "median": 5551515,
+          "min": 4918217,
+          "max": 9876827
+        },
+        "queries_ns": {
+          "median": 19805105,
+          "min": 19010359,
+          "max": 22051502
+        },
+        "lcs_ns": {
+          "median": 75985795,
+          "min": 73928812,
+          "max": 79715168
+        }
+      },
+      "peak_rss_kib": 44672
+    },
+    {
+      "family": "sam",
+      "shape": "int",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 116369340,
+          "min": 112567291,
+          "max": 130033501
+        },
+        "counts_ns": {
+          "median": 6089032,
+          "min": 5308360,
+          "max": 11449870
+        },
+        "queries_ns": {
+          "median": 20128041,
+          "min": 19891477,
+          "max": 23206946
+        },
+        "lcs_ns": {
+          "median": 63630551,
+          "min": 62230886,
+          "max": 64076429
+        }
+      },
+      "peak_rss_kib": 44552
+    },
+    {
+      "family": "sam",
+      "shape": "int",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 110103461,
+          "min": 99639893,
+          "max": 118372642
+        },
+        "counts_ns": {
+          "median": 5453033,
+          "min": 4708233,
+          "max": 6584600
+        },
+        "queries_ns": {
+          "median": 19512324,
+          "min": 18271238,
+          "max": 21275985
+        },
+        "lcs_ns": {
+          "median": 63348146,
+          "min": 61919698,
+          "max": 68830370
+        }
+      },
+      "peak_rss_kib": 44668
+    }
+  ],
+  "conditions": "Coordinated quiet window, five alternating before/after samples after warmup. GCC/Clang release only; input generation, process startup and output excluded. Tree operation phase includes one all_prod checksum after every set. SAM build, first lazy count, repeated count/contains and LCS are separate. Destruction excluded. Process RSS includes generated inputs. Shared-host activity possible."
+}

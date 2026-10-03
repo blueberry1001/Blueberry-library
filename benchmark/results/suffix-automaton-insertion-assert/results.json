@@ -1,0 +1,776 @@
+{
+  "date": "2026-10-03T06:37:19.546781+00:00",
+  "prepared": {
+    "created_at": "2026-10-03T06:35:48.245408+00:00",
+    "baseline_commit": "9c2914f6db8fde2c56e5aade4fcc40c15b75cad5",
+    "assertions_enabled": true,
+    "source_sha256": "27b0650e9f344a4148a98080369bfd64e672f860ebe5e3fb1e8a668f673d161c",
+    "header_sha256": {
+      ".build/suffix-automaton-insertion-assert/baseline/include/blueberry/graph/static-top-tree.hpp": "39bfa188004ae500635d543724da00720468835485ceb69f4eddd8c5f5d8c384",
+      ".build/suffix-automaton-insertion-assert/candidate/include/blueberry/graph/static-top-tree.hpp": "39bfa188004ae500635d543724da00720468835485ceb69f4eddd8c5f5d8c384",
+      ".build/suffix-automaton-insertion-assert/baseline/include/blueberry/string/suffix-automaton.hpp": "323f5c9ccc95dd47631e2b2bf745a099452c039cfcc2809c470d7192a5f6bf92",
+      ".build/suffix-automaton-insertion-assert/candidate/include/blueberry/string/suffix-automaton.hpp": "b799c60a925e4021f655ba016aa041ff2699fa0b17ddb94c0c3a2f62d296fd79"
+    },
+    "entries": [
+      {
+        "compiler": "g++",
+        "variant": "baseline",
+        "mode": "timing",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/baseline/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/g++-timing-baseline"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/suffix-automaton-insertion-assert/g++-timing-baseline",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "90c81b52b2462fea2aaa737cf92a7a4da699107d3d5e7744bbaded9ebed63d0a"
+      },
+      {
+        "compiler": "g++",
+        "variant": "candidate",
+        "mode": "timing",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/candidate/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/g++-timing-candidate"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/suffix-automaton-insertion-assert/g++-timing-candidate",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "d43bf99582f8a8de543e80bf9a317d1ea615e7389671af1e1b03e748e91c3bea"
+      },
+      {
+        "compiler": "g++",
+        "variant": "baseline",
+        "mode": "allocations",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/baseline/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DPROFILE_ALLOCATIONS",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/g++-allocations-baseline"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/suffix-automaton-insertion-assert/g++-allocations-baseline",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "70dc53fc0b4081891bedee0cfcded4a6b2c8abae0e5eb56cfd5d69fcca71560e"
+      },
+      {
+        "compiler": "g++",
+        "variant": "candidate",
+        "mode": "allocations",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/candidate/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DPROFILE_ALLOCATIONS",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/g++-allocations-candidate"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/suffix-automaton-insertion-assert/g++-allocations-candidate",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "a8a7cc9bd8393f2ff55dba6694061130f458095866de017718e40d57bcdb2b52"
+      },
+      {
+        "compiler": "clang++",
+        "variant": "baseline",
+        "mode": "timing",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/baseline/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/clang++-timing-baseline"
+        ],
+        "version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+        "binary": ".build/suffix-automaton-insertion-assert/clang++-timing-baseline",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "a0e575cdaa59accd5339606fd087419bfd64f520eb364cec7231501e6ab0c940"
+      },
+      {
+        "compiler": "clang++",
+        "variant": "candidate",
+        "mode": "timing",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/candidate/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/suffix-automaton-insertion-assert/clang++-timing-candidate"
+        ],
+        "version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+        "binary": ".build/suffix-automaton-insertion-assert/clang++-timing-candidate",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "7730af0a343b02b9265dbecb7f3e947a52a2228bbda56a54766e04fa4a3a47ec"
+      }
+    ]
+  },
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           46 bits physical, 57 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  5\nOn-line CPU(s) list:                     0-4\nVendor ID:                               GenuineIntel\nModel name:                              INTEL(R) XEON(R) PLATINUM 8573C\nCPU family:                              6\nModel:                                   207\nThread(s) per core:                      1\nCore(s) per socket:                      5\nSocket(s):                               1\nStepping:                                2\nBogoMIPS:                                4600.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 arat avx512vbmi umip waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid cldemote movdiri movdir64b fsrm serialize tsxldtrk avx512_fp16 arch_capabilities\nHypervisor vendor:                       KVM\nVirtualization type:                     full\nL1d cache:                               144 KiB (3 instances)\nL1i cache:                               96 KiB (3 instances)\nL2 cache:                                6 MiB (3 instances)\nL3 cache:                                260 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-4\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Vulnerable\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Vulnerable\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Vulnerable: __user pointer sanitization and usercopy barriers only; no swapgs barriers\nVulnerability Spectre v2:                Vulnerable; STIBP: disabled; PBRSB-eIBRS: Not affected; BHI: Vulnerable\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+  "repeats": 5,
+  "warmups": 1,
+  "summary": [
+    {
+      "family": "sam",
+      "shape": "random4",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 129574649,
+          "min": 113209947,
+          "max": 148727426
+        },
+        "counts_ns": {
+          "median": 7178344,
+          "min": 6908931,
+          "max": 7317006
+        },
+        "queries_ns": {
+          "median": 18974865,
+          "min": 18507211,
+          "max": 80131996
+        },
+        "lcs_ns": {
+          "median": 48191654,
+          "min": 46719924,
+          "max": 104053166
+        }
+      },
+      "peak_rss_kib": 55104
+    },
+    {
+      "family": "sam",
+      "shape": "random4",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 132136571,
+          "min": 102226849,
+          "max": 168506435
+        },
+        "counts_ns": {
+          "median": 6941333,
+          "min": 6711121,
+          "max": 14002040
+        },
+        "queries_ns": {
+          "median": 18618653,
+          "min": 18226901,
+          "max": 34902224
+        },
+        "lcs_ns": {
+          "median": 48376445,
+          "min": 47490682,
+          "max": 225374357
+        }
+      },
+      "peak_rss_kib": 55124
+    },
+    {
+      "family": "sam",
+      "shape": "random4",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 124203276,
+          "min": 116344126,
+          "max": 135784987
+        },
+        "counts_ns": {
+          "median": 7155786,
+          "min": 6959754,
+          "max": 7793944
+        },
+        "queries_ns": {
+          "median": 21184376,
+          "min": 19514392,
+          "max": 21948310
+        },
+        "lcs_ns": {
+          "median": 57356067,
+          "min": 51102946,
+          "max": 80033040
+        }
+      },
+      "peak_rss_kib": 55104
+    },
+    {
+      "family": "sam",
+      "shape": "random4",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 128430117,
+          "min": 111461076,
+          "max": 208852761
+        },
+        "counts_ns": {
+          "median": 7348576,
+          "min": 6619063,
+          "max": 9081374
+        },
+        "queries_ns": {
+          "median": 23010698,
+          "min": 19481639,
+          "max": 23406640
+        },
+        "lcs_ns": {
+          "median": 56720982,
+          "min": 54022291,
+          "max": 74752251
+        }
+      },
+      "peak_rss_kib": 55104
+    },
+    {
+      "family": "sam",
+      "shape": "random26",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 115968957,
+          "min": 112407537,
+          "max": 118462258
+        },
+        "counts_ns": {
+          "median": 6114493,
+          "min": 5496841,
+          "max": 6668241
+        },
+        "queries_ns": {
+          "median": 20270520,
+          "min": 19271314,
+          "max": 21451357
+        },
+        "lcs_ns": {
+          "median": 70911237,
+          "min": 63176217,
+          "max": 71273620
+        }
+      },
+      "peak_rss_kib": 42608
+    },
+    {
+      "family": "sam",
+      "shape": "random26",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 111831574,
+          "min": 109172486,
+          "max": 114674067
+        },
+        "counts_ns": {
+          "median": 5924455,
+          "min": 5527632,
+          "max": 8771527
+        },
+        "queries_ns": {
+          "median": 21166480,
+          "min": 19103533,
+          "max": 23359364
+        },
+        "lcs_ns": {
+          "median": 68938764,
+          "min": 66255173,
+          "max": 70153217
+        }
+      },
+      "peak_rss_kib": 42608
+    },
+    {
+      "family": "sam",
+      "shape": "random26",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 107344662,
+          "min": 105328886,
+          "max": 114343647
+        },
+        "counts_ns": {
+          "median": 5362267,
+          "min": 5307442,
+          "max": 5930914
+        },
+        "queries_ns": {
+          "median": 18950100,
+          "min": 18363116,
+          "max": 21449178
+        },
+        "lcs_ns": {
+          "median": 63472051,
+          "min": 61852478,
+          "max": 66127683
+        }
+      },
+      "peak_rss_kib": 42608
+    },
+    {
+      "family": "sam",
+      "shape": "random26",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 109861226,
+          "min": 101469021,
+          "max": 119914275
+        },
+        "counts_ns": {
+          "median": 5384648,
+          "min": 4697849,
+          "max": 6021308
+        },
+        "queries_ns": {
+          "median": 20667562,
+          "min": 18436147,
+          "max": 23033557
+        },
+        "lcs_ns": {
+          "median": 61774394,
+          "min": 60269582,
+          "max": 64894707
+        }
+      },
+      "peak_rss_kib": 42720
+    },
+    {
+      "family": "sam",
+      "shape": "periodic",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 23027907,
+          "min": 17992509,
+          "max": 24649147
+        },
+        "counts_ns": {
+          "median": 3632563,
+          "min": 3125133,
+          "max": 3924000
+        },
+        "queries_ns": {
+          "median": 1419399,
+          "min": 1391660,
+          "max": 1526291
+        },
+        "lcs_ns": {
+          "median": 1979109,
+          "min": 1919628,
+          "max": 2095990
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "periodic",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 21644674,
+          "min": 17891772,
+          "max": 22303629
+        },
+        "counts_ns": {
+          "median": 3599078,
+          "min": 3061253,
+          "max": 3716803
+        },
+        "queries_ns": {
+          "median": 1520838,
+          "min": 1419859,
+          "max": 2189256
+        },
+        "lcs_ns": {
+          "median": 1931209,
+          "min": 1850456,
+          "max": 3321711
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "periodic",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 22082042,
+          "min": 18505251,
+          "max": 25789991
+        },
+        "counts_ns": {
+          "median": 3729917,
+          "min": 3024519,
+          "max": 6260671
+        },
+        "queries_ns": {
+          "median": 2020287,
+          "min": 1932334,
+          "max": 2748263
+        },
+        "lcs_ns": {
+          "median": 2288352,
+          "min": 2234673,
+          "max": 2968418
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "periodic",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 21651637,
+          "min": 18242843,
+          "max": 24174634
+        },
+        "counts_ns": {
+          "median": 3532833,
+          "min": 2894762,
+          "max": 3702977
+        },
+        "queries_ns": {
+          "median": 1975299,
+          "min": 1910130,
+          "max": 2042883
+        },
+        "lcs_ns": {
+          "median": 2337901,
+          "min": 2214295,
+          "max": 2868927
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "equal",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 22235902,
+          "min": 20896907,
+          "max": 24042206
+        },
+        "counts_ns": {
+          "median": 3721399,
+          "min": 3075562,
+          "max": 4185310
+        },
+        "queries_ns": {
+          "median": 1275666,
+          "min": 1168809,
+          "max": 1404644
+        },
+        "lcs_ns": {
+          "median": 1435815,
+          "min": 1354844,
+          "max": 1663835
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "equal",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 20379156,
+          "min": 18878059,
+          "max": 28662678
+        },
+        "counts_ns": {
+          "median": 3355478,
+          "min": 3030198,
+          "max": 4905730
+        },
+        "queries_ns": {
+          "median": 1248123,
+          "min": 1172987,
+          "max": 1454166
+        },
+        "lcs_ns": {
+          "median": 1424435,
+          "min": 1392741,
+          "max": 1906174
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "equal",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 22066519,
+          "min": 17906003,
+          "max": 24269321
+        },
+        "counts_ns": {
+          "median": 3636316,
+          "min": 2943760,
+          "max": 3862693
+        },
+        "queries_ns": {
+          "median": 1704489,
+          "min": 1674334,
+          "max": 1727903
+        },
+        "lcs_ns": {
+          "median": 1389409,
+          "min": 1378657,
+          "max": 1403611
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "equal",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 19771321,
+          "min": 18900885,
+          "max": 28676073
+        },
+        "counts_ns": {
+          "median": 3526305,
+          "min": 3022450,
+          "max": 4229042
+        },
+        "queries_ns": {
+          "median": 1725016,
+          "min": 1648796,
+          "max": 1971119
+        },
+        "lcs_ns": {
+          "median": 1449277,
+          "min": 1373559,
+          "max": 1598754
+        }
+      },
+      "peak_rss_kib": 27296
+    },
+    {
+      "family": "sam",
+      "shape": "int",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 118861500,
+          "min": 102283527,
+          "max": 122308125
+        },
+        "counts_ns": {
+          "median": 5478932,
+          "min": 4723331,
+          "max": 5842067
+        },
+        "queries_ns": {
+          "median": 18705081,
+          "min": 18037728,
+          "max": 20812739
+        },
+        "lcs_ns": {
+          "median": 75718025,
+          "min": 74468905,
+          "max": 76737675
+        }
+      },
+      "peak_rss_kib": 44552
+    },
+    {
+      "family": "sam",
+      "shape": "int",
+      "scalar": "generic",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 117488726,
+          "min": 101756215,
+          "max": 146584857
+        },
+        "counts_ns": {
+          "median": 6360636,
+          "min": 5905043,
+          "max": 10262392
+        },
+        "queries_ns": {
+          "median": 19894561,
+          "min": 18420141,
+          "max": 20627977
+        },
+        "lcs_ns": {
+          "median": 78796242,
+          "min": 73414174,
+          "max": 80472179
+        }
+      },
+      "peak_rss_kib": 44552
+    },
+    {
+      "family": "sam",
+      "shape": "int",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 111695323,
+          "min": 97868794,
+          "max": 131410622
+        },
+        "counts_ns": {
+          "median": 5234779,
+          "min": 5178748,
+          "max": 6894595
+        },
+        "queries_ns": {
+          "median": 22709464,
+          "min": 18354937,
+          "max": 23932366
+        },
+        "lcs_ns": {
+          "median": 64161280,
+          "min": 63434238,
+          "max": 67678633
+        }
+      },
+      "peak_rss_kib": 44552
+    },
+    {
+      "family": "sam",
+      "shape": "int",
+      "scalar": "generic",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 123206978,
+          "min": 117024437,
+          "max": 132933210
+        },
+        "counts_ns": {
+          "median": 7724394,
+          "min": 5453700,
+          "max": 9159811
+        },
+        "queries_ns": {
+          "median": 19828272,
+          "min": 18413238,
+          "max": 21089427
+        },
+        "lcs_ns": {
+          "median": 66468059,
+          "min": 60337687,
+          "max": 69550866
+        }
+      },
+      "peak_rss_kib": 44568
+    }
+  ],
+  "conditions": "Coordinated quiet window, five alternating before/after samples after warmup. Assertion state is recorded in each immutable compile command; experiments kept separate. Input generation, process startup and output excluded. Tree operation phase includes one all_prod checksum after every set. SAM build, first lazy count, repeated count/contains and LCS are separate. Destruction excluded. Process RSS includes generated inputs. Shared-host activity possible."
+}

@@ -1,0 +1,13 @@
+--- a/blueberry/string/suffix-automaton.hpp
++++ b/blueberry/string/suffix-automaton.hpp
+@@ -65,8 +65,8 @@
+     states_.push_back({{}, 0, n_ + 1, n_, false});
+     ++n_;
+     int p = last_;
+-    while (p != -1 && !states_[p].next.contains(symbol)) {
+-      states_[p].next.emplace(symbol, current);
++    while (p != -1) {
++      if (!states_[p].next.try_emplace(symbol, current).second) break;
+       p = states_[p].link;
+     }
+     if (p != -1) {

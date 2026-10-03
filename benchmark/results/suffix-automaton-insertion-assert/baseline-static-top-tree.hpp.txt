@@ -1,7 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <cassert>
-#include <cstddef>
+#include <functional>
 #include <limits>
 #include <vector>
 
@@ -34,13 +34,11 @@ class StaticTopTree {
   }
   int balance(const std::vector<int>& items,const std::vector<int>& weights,int kind) {
     if(items.empty())return -1;
-    if(items.size()==1)return items[0];
     std::vector<int> prefix(weights.size()+1);
     for(std::size_t i=0;i<weights.size();++i)prefix[i+1]=prefix[i]+weights[i];
     // Isolate the weighted median: each recursive side has <= half the weight.
     auto build=[&](auto&& self,int l,int r)->int {
       if(l==r)return -1;
-      if(l+1==r)return items[l];
       int target=prefix[l]+(prefix[r]-prefix[l])/2;
       int m=static_cast<int>(std::upper_bound(prefix.begin()+l,prefix.begin()+r,target)-prefix.begin())-1;
       int a=self(self,l,m),b=items[m],c=self(self,m+1,r);

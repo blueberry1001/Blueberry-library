@@ -1,0 +1,976 @@
+{
+  "date": "2026-10-03T06:36:59.993861+00:00",
+  "prepared": {
+    "created_at": "2026-10-03T06:35:27.754042+00:00",
+    "baseline_commit": "9c2914f6db8fde2c56e5aade4fcc40c15b75cad5",
+    "assertions_enabled": true,
+    "source_sha256": "27b0650e9f344a4148a98080369bfd64e672f860ebe5e3fb1e8a668f673d161c",
+    "header_sha256": {
+      ".build/static-top-tree-assert/baseline/include/blueberry/graph/static-top-tree.hpp": "39bfa188004ae500635d543724da00720468835485ceb69f4eddd8c5f5d8c384",
+      ".build/static-top-tree-assert/candidate/include/blueberry/graph/static-top-tree.hpp": "a7b6dceb927681893250fe0d55f3df2e1b6250d66b2f364b24d2cf50eab2c29a",
+      ".build/static-top-tree-assert/baseline/include/blueberry/string/suffix-automaton.hpp": "323f5c9ccc95dd47631e2b2bf745a099452c039cfcc2809c470d7192a5f6bf92",
+      ".build/static-top-tree-assert/candidate/include/blueberry/string/suffix-automaton.hpp": "323f5c9ccc95dd47631e2b2bf745a099452c039cfcc2809c470d7192a5f6bf92"
+    },
+    "entries": [
+      {
+        "compiler": "g++",
+        "variant": "baseline",
+        "mode": "timing",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/baseline/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/g++-timing-baseline"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/static-top-tree-assert/g++-timing-baseline",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "fac82a84fe561359fcb75e32cd4485be259b4c8cb785927a3068d8ae18f56f38"
+      },
+      {
+        "compiler": "g++",
+        "variant": "candidate",
+        "mode": "timing",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/candidate/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/g++-timing-candidate"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/static-top-tree-assert/g++-timing-candidate",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "ee74ef9b518459ab74fd1302f145fba6bc43655406775df561bcb11300cdc5fd"
+      },
+      {
+        "compiler": "g++",
+        "variant": "baseline",
+        "mode": "allocations",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/baseline/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DPROFILE_ALLOCATIONS",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/g++-allocations-baseline"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/static-top-tree-assert/g++-allocations-baseline",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "3ba2af862d5002f1726d336f16c92f877c8f5866a3b0c4f57d6bc7f62982f2db"
+      },
+      {
+        "compiler": "g++",
+        "variant": "candidate",
+        "mode": "allocations",
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/candidate/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "-DPROFILE_ALLOCATIONS",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/g++-allocations-candidate"
+        ],
+        "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+        "binary": ".build/static-top-tree-assert/g++-allocations-candidate",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "651cbe2eb7fd33086480ef594dd94fa7234abc9ac3002decfa6b4a77de877ea9"
+      },
+      {
+        "compiler": "clang++",
+        "variant": "baseline",
+        "mode": "timing",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/baseline/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/clang++-timing-baseline"
+        ],
+        "version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+        "binary": ".build/static-top-tree-assert/clang++-timing-baseline",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "4185404bf6ff86a0ea59ccd894b4068f8b6d8d0fa3caf563a17f7d643bc0bbbe"
+      },
+      {
+        "compiler": "clang++",
+        "variant": "candidate",
+        "mode": "timing",
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/candidate/include",
+          "-I",
+          "/workspace/Blueberry-library",
+          "/workspace/Blueberry-library/benchmark/static-top-tree-sam.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.build/static-top-tree-assert/clang++-timing-candidate"
+        ],
+        "version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+        "binary": ".build/static-top-tree-assert/clang++-timing-candidate",
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "binary_sha256": "e8f64bf96130a0f6d06d55aaabe507310b8d6f48fe848df99ad4cdb917fb46de"
+      }
+    ]
+  },
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "cpu": "Architecture:                            x86_64\nCPU op-mode(s):                          32-bit, 64-bit\nAddress sizes:                           46 bits physical, 57 bits virtual\nByte Order:                              Little Endian\nCPU(s):                                  5\nOn-line CPU(s) list:                     0-4\nVendor ID:                               GenuineIntel\nModel name:                              INTEL(R) XEON(R) PLATINUM 8573C\nCPU family:                              6\nModel:                                   207\nThread(s) per core:                      1\nCore(s) per socket:                      5\nSocket(s):                               1\nStepping:                                2\nBogoMIPS:                                4600.00\nFlags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves avx_vnni avx512_bf16 arat avx512vbmi umip waitpkg avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid cldemote movdiri movdir64b fsrm serialize tsxldtrk avx512_fp16 arch_capabilities\nHypervisor vendor:                       KVM\nVirtualization type:                     full\nL1d cache:                               144 KiB (3 instances)\nL1i cache:                               96 KiB (3 instances)\nL2 cache:                                6 MiB (3 instances)\nL3 cache:                                260 MiB (1 instance)\nNUMA node(s):                            1\nNUMA node0 CPU(s):                       0-4\nVulnerability Gather data sampling:      Not affected\nVulnerability Ghostwrite:                Not affected\nVulnerability Indirect target selection: Vulnerable\nVulnerability Itlb multihit:             Not affected\nVulnerability L1tf:                      Not affected\nVulnerability Mds:                       Not affected\nVulnerability Meltdown:                  Not affected\nVulnerability Mmio stale data:           Not affected\nVulnerability Old microcode:             Not affected\nVulnerability Reg file data sampling:    Not affected\nVulnerability Retbleed:                  Vulnerable\nVulnerability Spec rstack overflow:      Not affected\nVulnerability Spec store bypass:         Vulnerable\nVulnerability Spectre v1:                Vulnerable: __user pointer sanitization and usercopy barriers only; no swapgs barriers\nVulnerability Spectre v2:                Vulnerable; STIBP: disabled; PBRSB-eIBRS: Not affected; BHI: Vulnerable\nVulnerability Srbds:                     Not affected\nVulnerability Tsa:                       Not affected\nVulnerability Tsx async abort:           Not affected\nVulnerability Vmscape:                   Not affected\n",
+  "repeats": 5,
+  "warmups": 1,
+  "summary": [
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 12656082,
+          "min": 11976788,
+          "max": 13066540
+        },
+        "operations_ns": {
+          "median": 68852409,
+          "min": 65901961,
+          "max": 73301547
+        }
+      },
+      "peak_rss_kib": 27476
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 11923740,
+          "min": 9860928,
+          "max": 29672367
+        },
+        "operations_ns": {
+          "median": 67888438,
+          "min": 65887174,
+          "max": 132281212
+        }
+      },
+      "peak_rss_kib": 27476
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 10853030,
+          "min": 9583514,
+          "max": 11987375
+        },
+        "operations_ns": {
+          "median": 67138483,
+          "min": 65227317,
+          "max": 69311358
+        }
+      },
+      "peak_rss_kib": 27508
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 11854726,
+          "min": 9473035,
+          "max": 15447101
+        },
+        "operations_ns": {
+          "median": 65623269,
+          "min": 62580661,
+          "max": 66254219
+        }
+      },
+      "peak_rss_kib": 27476
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 8059842,
+          "min": 6984463,
+          "max": 9899098
+        },
+        "operations_ns": {
+          "median": 58226200,
+          "min": 55319539,
+          "max": 64573495
+        }
+      },
+      "peak_rss_kib": 20500
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 7867813,
+          "min": 6555480,
+          "max": 9146074
+        },
+        "operations_ns": {
+          "median": 59174064,
+          "min": 55634763,
+          "max": 61896292
+        }
+      },
+      "peak_rss_kib": 20500
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 9629790,
+          "min": 7961180,
+          "max": 9970041
+        },
+        "operations_ns": {
+          "median": 64907308,
+          "min": 61651271,
+          "max": 66294235
+        }
+      },
+      "peak_rss_kib": 20500
+    },
+    {
+      "family": "tree",
+      "shape": "path",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 8720655,
+          "min": 7314499,
+          "max": 10549284
+        },
+        "operations_ns": {
+          "median": 65739741,
+          "min": 62431378,
+          "max": 69620014
+        }
+      },
+      "peak_rss_kib": 20500
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 20241382,
+          "min": 17526247,
+          "max": 23348210
+        },
+        "operations_ns": {
+          "median": 70584159,
+          "min": 69243824,
+          "max": 71412504
+        }
+      },
+      "peak_rss_kib": 32604
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 18234860,
+          "min": 16969141,
+          "max": 19278567
+        },
+        "operations_ns": {
+          "median": 70020447,
+          "min": 68192979,
+          "max": 80833155
+        }
+      },
+      "peak_rss_kib": 32604
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 19506238,
+          "min": 16262467,
+          "max": 27993457
+        },
+        "operations_ns": {
+          "median": 69670999,
+          "min": 68204762,
+          "max": 76574322
+        }
+      },
+      "peak_rss_kib": 32604
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 16788181,
+          "min": 13448568,
+          "max": 21976432
+        },
+        "operations_ns": {
+          "median": 70818133,
+          "min": 69570943,
+          "max": 72672907
+        }
+      },
+      "peak_rss_kib": 32612
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 15618367,
+          "min": 12269485,
+          "max": 21058158
+        },
+        "operations_ns": {
+          "median": 56339730,
+          "min": 54804392,
+          "max": 60550632
+        }
+      },
+      "peak_rss_kib": 24016
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 11433405,
+          "min": 9983437,
+          "max": 14991247
+        },
+        "operations_ns": {
+          "median": 57936980,
+          "min": 56427022,
+          "max": 60085435
+        }
+      },
+      "peak_rss_kib": 23964
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 17893584,
+          "min": 15400698,
+          "max": 18475344
+        },
+        "operations_ns": {
+          "median": 56036559,
+          "min": 53990877,
+          "max": 59895286
+        }
+      },
+      "peak_rss_kib": 23964
+    },
+    {
+      "family": "tree",
+      "shape": "star",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 14407796,
+          "min": 13524300,
+          "max": 16530587
+        },
+        "operations_ns": {
+          "median": 56594403,
+          "min": 55199526,
+          "max": 59462384
+        }
+      },
+      "peak_rss_kib": 23964
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 15550536,
+          "min": 15331497,
+          "max": 20635255
+        },
+        "operations_ns": {
+          "median": 81400969,
+          "min": 79061885,
+          "max": 86294284
+        }
+      },
+      "peak_rss_kib": 26324
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 17390740,
+          "min": 13937532,
+          "max": 20275964
+        },
+        "operations_ns": {
+          "median": 79729490,
+          "min": 76966990,
+          "max": 85838499
+        }
+      },
+      "peak_rss_kib": 26328
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 18361696,
+          "min": 15080066,
+          "max": 19745961
+        },
+        "operations_ns": {
+          "median": 82066740,
+          "min": 78740618,
+          "max": 88786338
+        }
+      },
+      "peak_rss_kib": 26324
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 14451557,
+          "min": 13342353,
+          "max": 20334808
+        },
+        "operations_ns": {
+          "median": 82292983,
+          "min": 81158337,
+          "max": 87221561
+        }
+      },
+      "peak_rss_kib": 26324
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 14475481,
+          "min": 12424563,
+          "max": 19614725
+        },
+        "operations_ns": {
+          "median": 72206206,
+          "min": 67731931,
+          "max": 74539745
+        }
+      },
+      "peak_rss_kib": 19220
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 11579602,
+          "min": 11002933,
+          "max": 13034081
+        },
+        "operations_ns": {
+          "median": 70635627,
+          "min": 66194763,
+          "max": 72810548
+        }
+      },
+      "peak_rss_kib": 19220
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 15476467,
+          "min": 13356933,
+          "max": 16655771
+        },
+        "operations_ns": {
+          "median": 77857336,
+          "min": 73420934,
+          "max": 97424691
+        }
+      },
+      "peak_rss_kib": 19220
+    },
+    {
+      "family": "tree",
+      "shape": "balanced",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 12815811,
+          "min": 12169193,
+          "max": 14207131
+        },
+        "operations_ns": {
+          "median": 76078091,
+          "min": 73553972,
+          "max": 84482322
+        }
+      },
+      "peak_rss_kib": 19220
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 34758960,
+          "min": 34101450,
+          "max": 39438016
+        },
+        "operations_ns": {
+          "median": 78998682,
+          "min": 76558210,
+          "max": 82744155
+        }
+      },
+      "peak_rss_kib": 27588
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 34056347,
+          "min": 32771127,
+          "max": 36880516
+        },
+        "operations_ns": {
+          "median": 77780227,
+          "min": 75460755,
+          "max": 81405424
+        }
+      },
+      "peak_rss_kib": 27588
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 30467622,
+          "min": 27396375,
+          "max": 33583305
+        },
+        "operations_ns": {
+          "median": 75939469,
+          "min": 70537549,
+          "max": 79033664
+        }
+      },
+      "peak_rss_kib": 27588
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 30271555,
+          "min": 26943517,
+          "max": 31379888
+        },
+        "operations_ns": {
+          "median": 74276994,
+          "min": 72286024,
+          "max": 80491377
+        }
+      },
+      "peak_rss_kib": 27588
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 27661304,
+          "min": 24217244,
+          "max": 29102783
+        },
+        "operations_ns": {
+          "median": 66886598,
+          "min": 64351334,
+          "max": 70683277
+        }
+      },
+      "peak_rss_kib": 20228
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 26568701,
+          "min": 23483473,
+          "max": 27521245
+        },
+        "operations_ns": {
+          "median": 67362984,
+          "min": 61685670,
+          "max": 68626334
+        }
+      },
+      "peak_rss_kib": 20228
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 28954189,
+          "min": 25190537,
+          "max": 31602645
+        },
+        "operations_ns": {
+          "median": 65866873,
+          "min": 61745604,
+          "max": 70064586
+        }
+      },
+      "peak_rss_kib": 20228
+    },
+    {
+      "family": "tree",
+      "shape": "random",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 26307797,
+          "min": 24724477,
+          "max": 28585765
+        },
+        "operations_ns": {
+          "median": 67511987,
+          "min": 64259140,
+          "max": 70735646
+        }
+      },
+      "peak_rss_kib": 20228
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 17236810,
+          "min": 14769378,
+          "max": 20171208
+        },
+        "operations_ns": {
+          "median": 72797269,
+          "min": 69150618,
+          "max": 75870944
+        }
+      },
+      "peak_rss_kib": 29608
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "u64",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 15336730,
+          "min": 12565937,
+          "max": 17826787
+        },
+        "operations_ns": {
+          "median": 71124393,
+          "min": 70719865,
+          "max": 75891427
+        }
+      },
+      "peak_rss_kib": 29604
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 13616751,
+          "min": 12466439,
+          "max": 17548993
+        },
+        "operations_ns": {
+          "median": 71078593,
+          "min": 69151104,
+          "max": 79519696
+        }
+      },
+      "peak_rss_kib": 29604
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "u64",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 11696740,
+          "min": 11013681,
+          "max": 17344946
+        },
+        "operations_ns": {
+          "median": 72682741,
+          "min": 70318537,
+          "max": 79669683
+        }
+      },
+      "peak_rss_kib": 29608
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 11915892,
+          "min": 9985435,
+          "max": 12859694
+        },
+        "operations_ns": {
+          "median": 62476971,
+          "min": 59732246,
+          "max": 68594468
+        }
+      },
+      "peak_rss_kib": 21812
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "mod998",
+      "compiler": "g++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 9951912,
+          "min": 9229255,
+          "max": 12272173
+        },
+        "operations_ns": {
+          "median": 62611993,
+          "min": 58413684,
+          "max": 69318674
+        }
+      },
+      "peak_rss_kib": 21808
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "baseline",
+      "metrics": {
+        "build_ns": {
+          "median": 13027127,
+          "min": 11264782,
+          "max": 13962819
+        },
+        "operations_ns": {
+          "median": 65348236,
+          "min": 59348746,
+          "max": 67304371
+        }
+      },
+      "peak_rss_kib": 21812
+    },
+    {
+      "family": "tree",
+      "shape": "broom",
+      "scalar": "mod998",
+      "compiler": "clang++",
+      "variant": "candidate",
+      "metrics": {
+        "build_ns": {
+          "median": 10334371,
+          "min": 9837111,
+          "max": 15262454
+        },
+        "operations_ns": {
+          "median": 71534430,
+          "min": 64962694,
+          "max": 73669253
+        }
+      },
+      "peak_rss_kib": 21808
+    }
+  ],
+  "conditions": "Coordinated quiet window, five alternating before/after samples after warmup. Assertion state is recorded in each immutable compile command; experiments kept separate. Input generation, process startup and output excluded. Tree operation phase includes one all_prod checksum after every set. SAM build, first lazy count, repeated count/contains and LCS are separate. Destruction excluded. Process RSS includes generated inputs. Shared-host activity possible."
+}
