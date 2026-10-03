@@ -20,6 +20,7 @@
 
 [blueberry/data-structure/partially-retroactive-priority-queue.hpp](../blueberry/data-structure/partially-retroactive-priority-queue.hpp) — **公式verify未登録**
 
+- 関連ローカルテスト: [tests/random/partially-retroactive-priority-queue-ties.cpp](../tests/random/partially-retroactive-priority-queue-ties.cpp)
 - 関連ローカルテスト: [tests/random/partially-retroactive-priority-queue.cpp](../tests/random/partially-retroactive-priority-queue.cpp)
 - 2026-09-19調査時のLibrary Checker公開問題スナップショットには、過去操作の編集を直接検証する問題を見つけていません。
 - 通常のpriority queue問題だけでは過去操作の編集を検証できず、専用の公式verifyは未登録です。任意の過去時点の問い合わせは提供しない部分retroactive版です。

@@ -1,0 +1,269 @@
+{
+  "head": "5318b6b41cafc022f1fafe0a71c63f85392bc143",
+  "source_sha256": "166a65920afc6c1c0ca9d75f161476c6fe80be9090fb178ccba9162e1db7d268",
+  "header_sha256": "56e55bbd567b6e84af495b96d6f5b93c05bdd2d9747d7c84c0f88f57c0454810",
+  "environment_setup": "source /tmp/blueberry-setup/env.sh",
+  "steps": [
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/partially-retroactive-priority-queue-ties.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-assert"
+      ],
+      "status": 0,
+      "seconds": 1.8107132760014792,
+      "log": "g++-assert-compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log_text": ""
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-assert",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.014352661000884837,
+      "log": "g++-assert-seed1.log",
+      "log_sha256": "05ee27209dcd709e3e2b956499a40a938886c437c46192d6e8a51b2c2eb90559",
+      "log_text": "seed=1\nretroactive priority queue ties: 3616 edits, 128838 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-assert",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.018289213003299665,
+      "log": "g++-assert-seed2.log",
+      "log_sha256": "4e2aa806416216fb159a944d654147e54f8f7e82580fbcc5c806d927a11f81f2",
+      "log_text": "seed=2\nretroactive priority queue ties: 3616 edits, 129682 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-assert",
+        "3"
+      ],
+      "status": 0,
+      "seconds": 0.006674593001662288,
+      "log": "g++-assert-seed3.log",
+      "log_sha256": "683c0e474cd5bc6dbee779197c73e4857ddb1bba937e715293d2663005b61479",
+      "log_text": "seed=3\nretroactive priority queue ties: 3616 edits, 128746 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-assert",
+        "20261003"
+      ],
+      "status": 0,
+      "seconds": 0.00810820999686257,
+      "log": "g++-assert-seed20261003.log",
+      "log_sha256": "bf77823c27da5a6c9cbcf8720ea44349d1dc1c34f0442dd3bce971f1c3903f27",
+      "log_text": "seed=20261003\nretroactive priority queue ties: 3616 edits, 131366 checks passed\n"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/partially-retroactive-priority-queue-ties.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-release",
+        "-DNDEBUG"
+      ],
+      "status": 0,
+      "seconds": 2.530630912999186,
+      "log": "g++-release-compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log_text": ""
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-release",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.012147514000389492,
+      "log": "g++-release-seed1.log",
+      "log_sha256": "05ee27209dcd709e3e2b956499a40a938886c437c46192d6e8a51b2c2eb90559",
+      "log_text": "seed=1\nretroactive priority queue ties: 3616 edits, 128838 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-release",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.008201771997846663,
+      "log": "g++-release-seed2.log",
+      "log_sha256": "4e2aa806416216fb159a944d654147e54f8f7e82580fbcc5c806d927a11f81f2",
+      "log_text": "seed=2\nretroactive priority queue ties: 3616 edits, 129682 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-release",
+        "3"
+      ],
+      "status": 0,
+      "seconds": 0.010007769000367261,
+      "log": "g++-release-seed3.log",
+      "log_sha256": "683c0e474cd5bc6dbee779197c73e4857ddb1bba937e715293d2663005b61479",
+      "log_text": "seed=3\nretroactive priority queue ties: 3616 edits, 128746 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/g++-release",
+        "20261003"
+      ],
+      "status": 0,
+      "seconds": 0.00804811600028188,
+      "log": "g++-release-seed20261003.log",
+      "log_sha256": "bf77823c27da5a6c9cbcf8720ea44349d1dc1c34f0442dd3bce971f1c3903f27",
+      "log_text": "seed=20261003\nretroactive priority queue ties: 3616 edits, 131366 checks passed\n"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/partially-retroactive-priority-queue-ties.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-assert"
+      ],
+      "status": 0,
+      "seconds": 1.7175955309976416,
+      "log": "clang++-assert-compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log_text": ""
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-assert",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.00611610900159576,
+      "log": "clang++-assert-seed1.log",
+      "log_sha256": "05ee27209dcd709e3e2b956499a40a938886c437c46192d6e8a51b2c2eb90559",
+      "log_text": "seed=1\nretroactive priority queue ties: 3616 edits, 128838 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-assert",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.005788255999505054,
+      "log": "clang++-assert-seed2.log",
+      "log_sha256": "4e2aa806416216fb159a944d654147e54f8f7e82580fbcc5c806d927a11f81f2",
+      "log_text": "seed=2\nretroactive priority queue ties: 3616 edits, 129682 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-assert",
+        "3"
+      ],
+      "status": 0,
+      "seconds": 0.005819426998641575,
+      "log": "clang++-assert-seed3.log",
+      "log_sha256": "683c0e474cd5bc6dbee779197c73e4857ddb1bba937e715293d2663005b61479",
+      "log_text": "seed=3\nretroactive priority queue ties: 3616 edits, 128746 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-assert",
+        "20261003"
+      ],
+      "status": 0,
+      "seconds": 0.006237000998225994,
+      "log": "clang++-assert-seed20261003.log",
+      "log_sha256": "bf77823c27da5a6c9cbcf8720ea44349d1dc1c34f0442dd3bce971f1c3903f27",
+      "log_text": "seed=20261003\nretroactive priority queue ties: 3616 edits, 131366 checks passed\n"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/partially-retroactive-priority-queue-ties.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-release",
+        "-DNDEBUG"
+      ],
+      "status": 0,
+      "seconds": 1.5847894660000748,
+      "log": "clang++-release-compile.log",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "log_text": ""
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-release",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.005756415001087589,
+      "log": "clang++-release-seed1.log",
+      "log_sha256": "05ee27209dcd709e3e2b956499a40a938886c437c46192d6e8a51b2c2eb90559",
+      "log_text": "seed=1\nretroactive priority queue ties: 3616 edits, 128838 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-release",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.005865395000000717,
+      "log": "clang++-release-seed2.log",
+      "log_sha256": "4e2aa806416216fb159a944d654147e54f8f7e82580fbcc5c806d927a11f81f2",
+      "log_text": "seed=2\nretroactive priority queue ties: 3616 edits, 129682 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-release",
+        "3"
+      ],
+      "status": 0,
+      "seconds": 0.005533560000912985,
+      "log": "clang++-release-seed3.log",
+      "log_sha256": "683c0e474cd5bc6dbee779197c73e4857ddb1bba937e715293d2663005b61479",
+      "log_text": "seed=3\nretroactive priority queue ties: 3616 edits, 128746 checks passed\n"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/retroactive-priority-queue-ties-smoke/clang++-release",
+        "20261003"
+      ],
+      "status": 0,
+      "seconds": 0.00580166099825874,
+      "log": "clang++-release-seed20261003.log",
+      "log_sha256": "bf77823c27da5a6c9cbcf8720ea44349d1dc1c34f0442dd3bce971f1c3903f27",
+      "log_text": "seed=20261003\nretroactive priority queue ties: 3616 edits, 131366 checks passed\n"
+    }
+  ],
+  "source_unchanged": true,
+  "header_unchanged": true,
+  "complete": true
+}
