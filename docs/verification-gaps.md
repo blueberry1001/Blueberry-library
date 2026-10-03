@@ -133,6 +133,7 @@
 [blueberry/data-structure/dynamic-fenwick-tree.hpp](../blueberry/data-structure/dynamic-fenwick-tree.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/data-structure/dynamic-point-add-range-sum.test.cpp](../verify/data-structure/dynamic-point-add-range-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/point_add_range_sum)
+- 関連ローカルテスト: [tests/random/dynamic-fenwick-get.cpp](../tests/random/dynamic-fenwick-get.cpp)
 - 関連ローカルテスト: [tests/random/dynamic-fenwick-tree.cpp](../tests/random/dynamic-fenwick-tree.cpp)
 
 ## Dynamic Li Chao Tree

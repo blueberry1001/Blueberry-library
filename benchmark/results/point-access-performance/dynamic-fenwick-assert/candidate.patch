@@ -1,0 +1,15 @@
+--- a/blueberry/data-structure/dynamic-fenwick-tree.hpp
++++ b/blueberry/data-structure/dynamic-fenwick-tree.hpp
+@@ -52,7 +52,11 @@
+   }
+   T get(Coord p) const {
+     assert(0 <= p && p < n_);
+-    return sum(p, p + 1);
++    const Coord right = p + 1;
++    const Coord left = right - (right & -right);
++    T removed{};
++    for (Coord i = right - 1; i != left; i -= i & -i) removed += value_at(i);
++    return value_at(right) - removed;
+   }
+   // First p with pref(p+1) >= weight, or size(). Requires nonnegative values.
+   Coord lower_bound(T weight) const {

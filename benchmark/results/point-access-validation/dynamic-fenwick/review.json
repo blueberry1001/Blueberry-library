@@ -1,0 +1,119 @@
+{
+  "reviewed_at": "2026-10-03T08:06:51.189207+00:00",
+  "review_head": "da421b2fdb3efdd051ad1da57d5478c31ce0f762",
+  "baseline_commit": "ca8a4df35269a6980cf0b9612878e420744fc860",
+  "scope": "Independent source, test-oracle, documentation, benchmark fairness, final numerical and artifact-integrity review of DynamicFenwickTree get only.",
+  "status": "clear",
+  "material_findings": [],
+  "counts": {
+    "raw_profiles": 288,
+    "warmups": 48,
+    "measured_profiles": 240,
+    "diagnostic_profiles": 24,
+    "small_correctness_profiles": 72,
+    "summary_rows": 48,
+    "recomputed_median_min_max_values": 864,
+    "recomputed_peak_rss_maxima": 48,
+    "verified_csv_comparisons": 144
+  },
+  "elapsed_time_results": {
+    "get": {
+      "comparisons": 24,
+      "all_candidate_medians_lower": true,
+      "median_elapsed_reduction_percent_min": 56.27751012434764,
+      "median_elapsed_reduction_percent_max": 91.54770869483973,
+      "candidate_max_below_baseline_min_count": 24
+    },
+    "mixed": {
+      "comparisons": 24,
+      "all_candidate_medians_lower": true,
+      "median_elapsed_reduction_percent_min": 29.94597261775116,
+      "median_elapsed_reduction_percent_max": 52.000247731734284,
+      "candidate_max_below_baseline_min_count": 24,
+      "add_count": 40000,
+      "get_count": 160000
+    }
+  },
+  "unchanged_stage_controls": {
+    "median_elapsed_increase_at_least_5_percent_count": 22,
+    "all_these_sample_ranges_overlap": true,
+    "largest_non_constructor_increase": {
+      "mode": "release",
+      "compiler": "g++",
+      "shape": "boundary",
+      "scalar": "u64",
+      "stage": "initialization_ns",
+      "baseline_median_ns": 5335975,
+      "candidate_median_ns": 5953294,
+      "increase_percent": 11.569000979202482
+    },
+    "assert_clang_broad_u64_increase_percent": {
+      "initialization": 11.117893166103743,
+      "update": 10.933693991131864,
+      "range": 9.091591468956018
+    },
+    "interpretation": "Recorded slowdowns remain unexplained. Overlapping samples do not establish an absent regression or a noise cause. No uniform improvement in every operation is claimed."
+  },
+  "integrity_checks": {
+    "summary_csv_and_rss_values_match_raw": true,
+    "case_inputs_results_mixed_checksums_counts_and_lookup_counts_agree": true,
+    "both_correctness_gates_and_amendment_chains_match": true,
+    "verified_hash_entries": {
+      "source": 4,
+      "header": 20,
+      "acl": 74,
+      "production_header": 2,
+      "binary": 12
+    },
+    "snapshots_match_prepared_headers_and_exact_baseline": true,
+    "diagnostic_get_allocations_zero_both_variants": true,
+    "paired_diagnostic_stage_allocation_calls_and_requested_bytes_equal": true,
+    "persistent_production_header_unchanged": true
+  },
+  "static_review": {
+    "generic_api_coordinate_promotions_signed_intermediates_and_const_find": "clear",
+    "tests": "Independent map/vector oracles, demonstrably nonassignable additive values, narrow/max signed coordinates and safe LLONG_MAX/MIN cancellation regressions reviewed.",
+    "sanitizer_requirement": "UBSan is needed to detect invalid intermediate overflow even when a wrapped final result compares equal; the validation owner confirmed coverage of the new test.",
+    "documentation_and_mixed_harness": "clear",
+    "resolved_runner_findings": [
+      "Reject changed live production header.",
+      "Require initialization timing and mixed checksum/count fields."
+    ]
+  },
+  "limits": [
+    "No builds, tests or benchmarks executed by this review; preserved evidence was independently reconciled.",
+    "Stage times include identical checksum/value hashing and exclude generation, startup, output and destruction; no isolated accessor latency or I/O/end-to-end claim.",
+    "Shared host, unpinned CPU and frequency variability remain; five measured repetitions per matrix cell.",
+    "Process peak RSS is not getter-specific or live-allocation memory; requested allocation bytes are cumulative.",
+    "Floating-point association and arithmetic callback counts can change; mathematical commutative additive-group results are preserved.",
+    "Full local and official validation is recorded separately; this numerical review does not resolve the existing whole-repository external judge blocker."
+  ],
+  "validation_reference": "benchmark/results/point-access-validation/dynamic-fenwick/validation.json",
+  "reviewed_artifact_sha256": {
+    "blueberry/data-structure/dynamic-fenwick-tree.hpp": "34ae81541b179c2dd2bc24e7573d2f5540deb37622f91eb9152ae76c2c3a5126",
+    "blueberry/data-structure/persistent-segment-tree.hpp": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+    "tests/random/dynamic-fenwick-get.cpp": "0a6be162163a812a3d1a6676b11f4e12eff95c243acf57441148832a47fc6cd0",
+    "docs/data-structure/dynamic-fenwick-tree.md": "8d001d92142b321b9ac00548dbd12976f5497f97fb18daccff07880503e08663",
+    "benchmark/point-access-performance.cpp": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+    "benchmark/representative-dense.hpp": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e",
+    "benchmark/point-access-performance.py": "6cd9808dc3c751b153cc78eefe172d9d67335247adba80de1e084ce8f47c768f",
+    "benchmark/point-access-performance-summary.py": "46a2aa6ba860dd70571301a49696604f598d16e86fd97e3b886d5a3cc43504a6",
+    "benchmark/results/point-access-performance/plan.md": "62be305af266fc43fc1acb07987b530454370a2ca2dd6882bc48d3b0bd80485e",
+    "benchmark/results/point-access-performance/dynamic-fenwick-final-code-report.md": "effca46a9c872c3f89d9fc19d909b1de50386701e8a8eca13299cb67ade8f423",
+    "benchmark/results/point-access-performance/dynamic-fenwick-stage-comparisons.csv": "23bad9b44244c2a1aa22695ac58d1aa408dbe8423cd652cb32ff1d883f36cd13",
+    "benchmark/results/point-access-performance/dynamic-fenwick-release/prepared.json": "ac49e3b7112c33c5311733ae1aba490df03975fae38a1a4425c2000f091ee000",
+    "benchmark/results/point-access-performance/dynamic-fenwick-release/runner-amendment.json": "52cdeb0472af3de4713b6250ce46eb589cbcb07a1be9b28a0c606869a0d7f2a1",
+    "benchmark/results/point-access-performance/dynamic-fenwick-release/correctness-gate.json": "924785d5ab9e8634fd53a58d36520f749c6b2f502022a10017a7ebbd599029f6",
+    "benchmark/results/point-access-performance/dynamic-fenwick-release/correctness.json": "e84903dda314c5bed81e501b1041bff26de6a09b8d667a6a5f6befdd71d73e97",
+    "benchmark/results/point-access-performance/dynamic-fenwick-release/raw.json": "9e745c36be8be357f769f0933ca48583ba03be6baee11991ebb115520cbc0dc6",
+    "benchmark/results/point-access-performance/dynamic-fenwick-release/results.json": "f83fff9c9df7066cdfff3757bcb66e063860eafa7e114f3f7190f54dfa6dc7a0",
+    "benchmark/results/point-access-performance/dynamic-fenwick-release/diagnostics.json": "48dcca6cbbe7df0505be07722b2795d07681cf438b41c894d7f298125838bd99",
+    "benchmark/results/point-access-performance/dynamic-fenwick-assert/prepared.json": "aa580f70654674a25fa90f438bacca89b585f72b7a40b8b3b3605058d070b9d7",
+    "benchmark/results/point-access-performance/dynamic-fenwick-assert/runner-amendment.json": "ed138f76ddce5c6d8faf7b088caa44f256c22e086624a8443dd0bbd3b091e413",
+    "benchmark/results/point-access-performance/dynamic-fenwick-assert/correctness-gate.json": "0913c54a2e0c4e2fb188d8a4aced83211ab939d86d63fbb12ed7a162584e301e",
+    "benchmark/results/point-access-performance/dynamic-fenwick-assert/correctness.json": "603baad54e60f7f1f6675b62769d4df802fc156f5cc0b8ef99b0acd2059f590f",
+    "benchmark/results/point-access-performance/dynamic-fenwick-assert/raw.json": "2890be0872709b618a4f127ceeaf290219dc53ca0628107d34d782fe1568060e",
+    "benchmark/results/point-access-performance/dynamic-fenwick-assert/results.json": "fefa14c59cb9a9135a28026fe61809affb992f3e842a3a1c896de5618b0322b2",
+    "benchmark/results/point-access-performance/dynamic-fenwick-assert/diagnostics.json": "242d4ae7d61b2fe9a7d0c523cc4fca2d1dbbe2a1c5caade6d7d07a879cc95870"
+  }
+}

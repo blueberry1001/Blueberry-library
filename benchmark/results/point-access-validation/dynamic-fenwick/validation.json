@@ -1,0 +1,1929 @@
+{
+  "schema_version": 1,
+  "record_kind": "dynamic_fenwick_get_first_batch_validation",
+  "recorded_at": "2026-10-03T08:05:35.430403+00:00",
+  "branch": "improve/point-access-performance",
+  "source_identity": {
+    "base_head": "da421b2fdb3efdd051ad1da57d5478c31ce0f762",
+    "base_head_contains_candidate_patch": false,
+    "candidate_identity": "Exact frozen source_sha256 values below; the manifest is prepared before the single batch commit.",
+    "performance_baseline_commit": "ca8a4df35269a6980cf0b9612878e420744fc860"
+  },
+  "source_sha256": {
+    ".verify-helper/config.toml": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+    ".verify-helper/docs/static/_data/library_verification.json": "9dde0ddc9a8185b4ac6f85c9f7d7355224397e290614db3837e875574acb2ee4",
+    "benchmark/point-access-performance-summary.py": "46a2aa6ba860dd70571301a49696604f598d16e86fd97e3b886d5a3cc43504a6",
+    "benchmark/point-access-performance.cpp": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+    "benchmark/point-access-performance.py": "6cd9808dc3c751b153cc78eefe172d9d67335247adba80de1e084ce8f47c768f",
+    "benchmark/representative-dense.hpp": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e",
+    "blueberry/data-structure/dynamic-fenwick-tree-2d.hpp": "402e676360cef0769e1ea935bdc43defcef4a16f056f302025d91ef884e6cf42",
+    "blueberry/data-structure/dynamic-fenwick-tree.hpp": "34ae81541b179c2dd2bc24e7573d2f5540deb37622f91eb9152ae76c2c3a5126",
+    "docs/data-structure/dynamic-fenwick-tree.md": "8d001d92142b321b9ac00548dbd12976f5497f97fb18daccff07880503e08663",
+    "docs/verification-gaps.md": "49eab43a297040bfcbe67758ca7c8ec5a73f0a5d350f1b6c7ead4a4c79de475c",
+    "scripts/check_docs.py": "7c0c0e4e62ff347b3117f4300e76583af3c74bc4adb5e29276762bdd8a4e4b6c",
+    "scripts/verify_with_metrics.py": "943f6d2f19295a7ca9b2b67a840a06a6e8aed02429d82f9b6ddde1a394a7742c",
+    "tests/random/dynamic-fenwick-get.cpp": "0a6be162163a812a3d1a6676b11f4e12eff95c243acf57441148832a47fc6cd0",
+    "tests/random/dynamic-fenwick-tree.cpp": "b37ffbb494af1857033185316be43d3c75cfd1b2792f1f59974954d441513558",
+    "verify/data-structure/dynamic-point-add-range-sum.test.cpp": "63cdd54a015459d76366d2ca5ff047e2bd3dedfdb93fe216fbe4dbe8039c468d"
+  },
+  "status": "local_and_focused_checks_passed_full_official_publication_gate_blocked",
+  "full_official_verification": false,
+  "publication_status": "local_only_no_push_main_merge_deploy_or_upload",
+  "focused": {
+    "summary": {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/summary.json",
+      "sha256": "9084da6ee2e2953aba70308229577bb813a61441f0a420d4998eb6343ffe5f6f",
+      "bytes": 9307
+    },
+    "report": {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/report.json",
+      "sha256": "a43c4c71489c1c299376abafc3fcc902103ec7e3a6d4af32c1c12da7112483ff",
+      "bytes": 147702
+    },
+    "passed_steps": 205,
+    "counts": {
+      "documentation_compiles": 4,
+      "documentation_executions": 4,
+      "header_compiles": 16,
+      "random_compiles": 8,
+      "random_seed_runs": 160,
+      "official_driver_compiles": 4,
+      "sanitizer_compiles": 2,
+      "sanitizer_seed_runs": 4,
+      "official_repeats": 3
+    },
+    "random_seeds": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "sanitizer": {
+      "compiler": "clang++",
+      "standard": "gnu++23",
+      "optimization": "-O1",
+      "sanitizers": [
+        "address",
+        "undefined"
+      ],
+      "leak_detection": true,
+      "halt_on_error": true,
+      "seeds": [
+        1,
+        20261003
+      ],
+      "sources": [
+        "tests/random/dynamic-fenwick-tree.cpp",
+        "tests/random/dynamic-fenwick-get.cpp"
+      ],
+      "note": "Includes the new signed-limit cancellation regressions under UBSan."
+    },
+    "official": {
+      "scope": "Existing add/sum regression; direct get is covered by the random/boundary test programs.",
+      "target": "verify/data-structure/dynamic-point-add-range-sum.test.cpp",
+      "problem": "https://judge.yosupo.jp/problem/point_add_range_sum",
+      "cases_per_repeat": 21,
+      "repeats": 3,
+      "case_executions": 63,
+      "all_ac_exit_zero": true,
+      "dataset_sha256": "69a417c418afa9b58453e7d43b057d50b41f9afcf7db181935ef2bf58b73b86e",
+      "upstream_revision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+      "checker_sha256": "9ecf0eff5d00d720381175a604cedeb2c9b20f4184da1f1adfeba8260f46af28",
+      "real_case_files": true,
+      "runs": [
+        {
+          "original_oj_json": {
+            "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-1.raw.json",
+            "sha256": "387ca07b3f1b6e8460dc426511408a5227a95afe13ce3ad509afc6c9487107b3",
+            "bytes": 31282508
+          },
+          "normalized_samples": {
+            "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-1.json",
+            "sha256": "0eb046af1c7ea58444b810a2cdedb77ce24f5f5900a6fa60bfe79281dd11623d",
+            "bytes": 2712
+          },
+          "cases": 21,
+          "all_ac_exit_zero": true
+        },
+        {
+          "original_oj_json": {
+            "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-2.raw.json",
+            "sha256": "ba1e9d5f6617e210fc22b53d5955cc74e692f951f9942808fa868420b5199144",
+            "bytes": 31282512
+          },
+          "normalized_samples": {
+            "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-2.json",
+            "sha256": "6b5ac14c824d3acf6a8132c008ed729344ccbe13226d542ac906878e22e87101",
+            "bytes": 2716
+          },
+          "cases": 21,
+          "all_ac_exit_zero": true
+        },
+        {
+          "original_oj_json": {
+            "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-3.raw.json",
+            "sha256": "a664122be8cad9f03aeea65c4f12e82b77191adf8578d4436f1d0dc656dca001",
+            "bytes": 31282512
+          },
+          "normalized_samples": {
+            "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-3.json",
+            "sha256": "8880014ebea0d91ac5cc944600f62b383fcc4651561a064bf30b72c3b019338e",
+            "bytes": 2716
+          },
+          "cases": 21,
+          "all_ac_exit_zero": true
+        }
+      ]
+    }
+  },
+  "original_root_attempt": {
+    "report": {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks/results.json",
+      "sha256": "4038350849228fbde919486aa1a6b3d59ea4c602fcad494a6eb4d8d50ac36f98",
+      "bytes": 1421
+    },
+    "runner": {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks/runner.py",
+      "sha256": "4e7a6e93b435743931f9fec33ecc1b3a240d46b437ac917ec68b3745d5253ac3",
+      "bytes": 3065
+    },
+    "succeeded": false,
+    "stages": [
+      {
+        "name": "make-check",
+        "command": [
+          "make",
+          "check",
+          "CXX=g++",
+          "CXX_STANDARD=gnu++20",
+          "COMPILE_JOBS=2"
+        ],
+        "extra_env": {},
+        "exit_code": 2,
+        "seconds": 37.280822714999886,
+        "log": ".verification/point-access-tuning/dynamic-fenwick/root-checks/make-check.log",
+        "log_sha256": "1f55fd17f7e19f510e64da0b979b79f3758041876cd61bd1b27034ffbe1df579",
+        "status": "blocked_or_failed"
+      }
+    ],
+    "reason": "Generated coverage was stale after adding the new random test; the original make-check exited 2. Later stages did not run.",
+    "finished_at_not_recorded": true
+  },
+  "coverage_fix": {
+    "artifacts": [
+      {
+        "path": ".verify-helper/docs/static/_data/library_verification.json",
+        "base_blob_sha256": "a961af722bc3555d124026a57abb9c9a764a6cd05caa33364e8db59a900f41ec",
+        "candidate_sha256": "9dde0ddc9a8185b4ac6f85c9f7d7355224397e290614db3837e875574acb2ee4",
+        "exact_git_diff": "diff --git a/.verify-helper/docs/static/_data/library_verification.json b/.verify-helper/docs/static/_data/library_verification.json\nindex 4802d1d..dc3cf06 100644\n--- a/.verify-helper/docs/static/_data/library_verification.json\n+++ b/.verify-helper/docs/static/_data/library_verification.json\n@@ -321,6 +321,7 @@\n       ],\n       \"indirect\": [],\n       \"random_tests\": [\n+        \"tests/random/dynamic-fenwick-get.cpp\",\n         \"tests/random/dynamic-fenwick-tree.cpp\"\n       ],\n       \"ignored\": [],\n"
+      },
+      {
+        "path": "docs/verification-gaps.md",
+        "base_blob_sha256": "b0c82cbd160c85cb3af5890fde43d0cbbdd6f8849635d90b8a9f0e8f5c23c926",
+        "candidate_sha256": "49eab43a297040bfcbe67758ca7c8ec5a73f0a5d350f1b6c7ead4a4c79de475c",
+        "exact_git_diff": "diff --git a/docs/verification-gaps.md b/docs/verification-gaps.md\nindex 35e02b4..db864c3 100644\n--- a/docs/verification-gaps.md\n+++ b/docs/verification-gaps.md\n@@ -133,6 +133,7 @@\n [blueberry/data-structure/dynamic-fenwick-tree.hpp](../blueberry/data-structure/dynamic-fenwick-tree.hpp) — **専用verifyドライバあり**\n \n - 専用ドライバ: [verify/data-structure/dynamic-point-add-range-sum.test.cpp](../verify/data-structure/dynamic-point-add-range-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/point_add_range_sum)\n+- 関連ローカルテスト: [tests/random/dynamic-fenwick-get.cpp](../tests/random/dynamic-fenwick-get.cpp)\n - 関連ローカルテスト: [tests/random/dynamic-fenwick-tree.cpp](../tests/random/dynamic-fenwick-tree.cpp)\n \n ## Dynamic Li Chao Tree\n"
+      }
+    ],
+    "note": "Both generated coverage artifacts add the new random test; original failure bytes remain preserved."
+  },
+  "root_retry": {
+    "report": {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/results.json",
+      "sha256": "d0f0c9b3ecdb6c167c22772fc19055681fcb57a7cab79c6036b484802a04a520",
+      "bytes": 3246
+    },
+    "runner": {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/runner.py",
+      "sha256": "549dcca086574466f82587672891d553a8ba1dc12b6811a48f597d88f32f73f8",
+      "bytes": 3239
+    },
+    "stages": [
+      {
+        "name": "make-check",
+        "command": [
+          "make",
+          "check",
+          "CXX=g++",
+          "CXX_STANDARD=gnu++20",
+          "COMPILE_JOBS=2"
+        ],
+        "extra_env": {},
+        "exit_code": 0,
+        "seconds": 401.713588356999,
+        "log": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/make-check.log",
+        "log_sha256": "65915e9360e05c914f62a70c93396f05a0bdd49df9f659c8b1041f0903be947e",
+        "status": "passed"
+      },
+      {
+        "name": "docs-publication-gate",
+        "command": [
+          "make",
+          "docs"
+        ],
+        "extra_env": {},
+        "exit_code": 2,
+        "seconds": 23.678155155999775,
+        "log": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/docs-publication-gate.log",
+        "log_sha256": "9777187369a19ac767385164aaf1e3b94b8c39cf7be3bc12a07f54ab3596cc10",
+        "status": "blocked_or_failed"
+      },
+      {
+        "name": "jekyll",
+        "command": [
+          "jekyll",
+          "build",
+          "--source",
+          ".verify-helper/markdown",
+          "--destination",
+          ".build/site",
+          "--config",
+          ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+        ],
+        "extra_env": {
+          "JEKYLL_ENV": "production"
+        },
+        "exit_code": 0,
+        "seconds": 27.846837057999437,
+        "log": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/jekyll.log",
+        "log_sha256": "1ce19e2326dfdee3565efeea171b39414b30e0909f3f2218bb9e4c1bd54855ae",
+        "status": "passed"
+      },
+      {
+        "name": "site-preflight-without-metrics",
+        "command": [
+          "python3",
+          "scripts/check_site.py",
+          "--without-metrics"
+        ],
+        "extra_env": {},
+        "exit_code": 0,
+        "seconds": 0.45409891300005256,
+        "log": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/site-preflight-without-metrics.log",
+        "log_sha256": "3acc26efadb6be979b07d5aaf39229010099d777c2d399c696e8bab5e2a2ac92",
+        "status": "passed"
+      }
+    ],
+    "counts_from_make_check_log": {
+      "unit_tests": 99,
+      "documentation_examples": 111,
+      "headers": 107,
+      "verify_compilations": 144,
+      "random_programs": 52,
+      "seeds_per_random_program": 20
+    },
+    "source_unchanged": true,
+    "full_official_verification": false,
+    "note": "make-check, Jekyll and site preflight without metrics passed. make docs still exited 2 at the publication metrics gate."
+  },
+  "performance": {
+    "profiles": 288,
+    "warmups": 48,
+    "measured_profiles": 240,
+    "diagnostic_profiles": 24,
+    "small_correctness_profiles": 72,
+    "experiments": [
+      {
+        "mode": "release",
+        "profiles": 144,
+        "warmups": 24,
+        "measured_profiles": 120,
+        "small_correctness_profiles": 36,
+        "diagnostic_profiles": 12,
+        "prepared": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/prepared.json",
+          "sha256": "ac49e3b7112c33c5311733ae1aba490df03975fae38a1a4425c2000f091ee000",
+          "bytes": 14816
+        },
+        "raw": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/raw.json",
+          "sha256": "9e745c36be8be357f769f0933ca48583ba03be6baee11991ebb115520cbc0dc6",
+          "bytes": 113520
+        },
+        "results": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/results.json",
+          "sha256": "f83fff9c9df7066cdfff3757bcb66e063860eafa7e114f3f7190f54dfa6dc7a0",
+          "bytes": 25593
+        },
+        "diagnostics": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/diagnostics.json",
+          "sha256": "48dcca6cbbe7df0505be07722b2795d07681cf438b41c894d7f298125838bd99",
+          "bytes": 19346
+        },
+        "runner_amendment": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/runner-amendment.json",
+          "sha256": "52cdeb0472af3de4713b6250ce46eb589cbcb07a1be9b28a0c606869a0d7f2a1",
+          "bytes": 541
+        }
+      },
+      {
+        "mode": "assert",
+        "profiles": 144,
+        "warmups": 24,
+        "measured_profiles": 120,
+        "small_correctness_profiles": 36,
+        "diagnostic_profiles": 12,
+        "prepared": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/prepared.json",
+          "sha256": "aa580f70654674a25fa90f438bacca89b585f72b7a40b8b3b3605058d070b9d7",
+          "bytes": 14667
+        },
+        "raw": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/raw.json",
+          "sha256": "2890be0872709b618a4f127ceeaf290219dc53ca0628107d34d782fe1568060e",
+          "bytes": 113536
+        },
+        "results": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/results.json",
+          "sha256": "fefa14c59cb9a9135a28026fe61809affb992f3e842a3a1c896de5618b0322b2",
+          "bytes": 25598
+        },
+        "diagnostics": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/diagnostics.json",
+          "sha256": "242d4ae7d61b2fe9a7d0c523cc4fca2d1dbbe2a1c5caade6d7d07a879cc95870",
+          "bytes": 19346
+        },
+        "runner_amendment": {
+          "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/runner-amendment.json",
+          "sha256": "ed138f76ddce5c6d8faf7b088caa44f256c22e086624a8443dd0bbd3b091e413",
+          "bytes": 541
+        }
+      }
+    ],
+    "get_and_mixed_comparisons": {
+      "get_ns": {
+        "conditions": 24,
+        "median_reductions": 24,
+        "candidate_over_baseline_minus_one_percent": [
+          -91.54770869483973,
+          -56.27751012434764
+        ],
+        "candidate_max_below_baseline_min": 24
+      },
+      "mixed_ns": {
+        "conditions": 24,
+        "median_reductions": 24,
+        "candidate_over_baseline_minus_one_percent": [
+          -52.000247731734284,
+          -29.94597261775116
+        ],
+        "candidate_max_below_baseline_min": 24
+      }
+    },
+    "report": {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-final-code-report.md",
+      "sha256": "effca46a9c872c3f89d9fc19d909b1de50386701e8a8eca13299cb67ade8f423",
+      "bytes": 10558
+    },
+    "comparison_csv": {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-stage-comparisons.csv",
+      "sha256": "23bad9b44244c2a1aa22695ac58d1aa408dbe8423cd652cb32ff1d883f36cd13",
+      "bytes": 15148
+    },
+    "limits": "Shared host, no CPU pinning. Stage timings include checksum/hash work and exclude input generation, output and destruction. Unchanged-stage regressions remain in raw/summary data; no universal or end-to-end speed claim."
+  },
+  "unresolved_full_gate": {
+    "target": "verify/string/kmp-search.test.cpp",
+    "problem": "AOJ ALDS1_14_B",
+    "reason": "Preserved official testcase download failure due to proxy CONNECT403; not retried in this batch.",
+    "original_report": {
+      "path": ".verification/current.json",
+      "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+      "bytes": 207054
+    }
+  },
+  "artifacts": [
+    {
+      "path": "/tmp/blueberry-setup/validate_dynamic_fenwick.py",
+      "sha256": "8dd507476a46376ca4998cb78b0516ef47a1375abf31f9ccfa8124802992dc93",
+      "bytes": 17885
+    },
+    {
+      "path": ".verification/current.json",
+      "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+      "bytes": 207054
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/001.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/002.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/003.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/004.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/005.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/006.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/007.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/008.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/009.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/010.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/011.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/012.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/013.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/014.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/015.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/016.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/017.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/018.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/019.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/020.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/021.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/022.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/023.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/024.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/025.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/026.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/027.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/028.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/029.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/030.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/031.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/032.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/033.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/034.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/035.log",
+      "sha256": "a8695f4b66de027eb1480a5761d582ea03afdca54be79d2696e027ea393eeac4",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/036.log",
+      "sha256": "2b24975ed6ea234d179464cf38f831de14f1ed33729aae4abe09869966043ee9",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/037.log",
+      "sha256": "7038a5f7350ea5343ddc618cdbca09f8b926ab1b0a89448c3add708bbedc8b04",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/038.log",
+      "sha256": "38770ed13d2678a0243693a29afc989f200c32c252a4263c5c8ae02cefa1bdea",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/039.log",
+      "sha256": "1d62b4862646d2216c5af9cab7ef11575818f0bab1d37cd68900ec86e5ed18b5",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/040.log",
+      "sha256": "a56cd7823c521e3ffa808801b46cf3f438264be435116985a557ce89f43e85b9",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/041.log",
+      "sha256": "7683a8eeace0ff3aacc444270a82135648c6691a218c2b2f099542ab2d69959f",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/042.log",
+      "sha256": "7246f11fd1f171d9ed3800cd4a039e156fb6ba03f9ae36b5befd4afc76fe18a7",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/043.log",
+      "sha256": "e9cdeeb589eedfcdcc6d07435ecffb15de4225ad42d1aee8863f5b2280cad424",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/044.log",
+      "sha256": "9cbf735c9727f89f8403c1b875616ba80426bf0e5585fd033b6f5a60cb59ff2d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/045.log",
+      "sha256": "5bea819d20a9ce1d1ab9ac5e78be5c48349c12ed0592870492affab52d2778de",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/046.log",
+      "sha256": "5b9906679db28b1f4d50abeaf16a67c839b8571155f443d362208b04041a89a6",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/047.log",
+      "sha256": "4a3978c4b638721de8b67144fe8937a917016f3a2209278fdf3ec3b9fb625543",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/048.log",
+      "sha256": "1a5e29bbbe5b607f01b0273eb32a5df818f09c6d1188801f39924f3a4835eb1a",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/049.log",
+      "sha256": "7e0c0aa3b1b033c5d8eb1310762816a25bc93477d0e83b5c29ed9390c32c47ac",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/050.log",
+      "sha256": "f1d0680df81532cbd1a0a445694e69275993a882eaf993e01c4f649f77915daf",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/051.log",
+      "sha256": "932129bdf39646ec2b931e3ec1eaaa4acdc9f34f8b6a963e2bbd9aa686ba4c8d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/052.log",
+      "sha256": "ad30975546fc2b3e3e9ab380a158e730520879739fbade58096e00636f600bd5",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/053.log",
+      "sha256": "8cbe61e03089eaf40f8ac8813b53d80a0c0ed16e25e7116334a73974b88c56be",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/054.log",
+      "sha256": "166f1fc199576720a97bafc9bd88c5d2b3ac2f779b045ea55ef74605d2ef6b23",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/055.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/056.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/057.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/058.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/059.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/060.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/061.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/062.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/063.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/064.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/065.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/066.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/067.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/068.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/069.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/070.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/071.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/072.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/073.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/074.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/075.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/076.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/077.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/078.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/079.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/080.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/081.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/082.log",
+      "sha256": "a8695f4b66de027eb1480a5761d582ea03afdca54be79d2696e027ea393eeac4",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/083.log",
+      "sha256": "2b24975ed6ea234d179464cf38f831de14f1ed33729aae4abe09869966043ee9",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/084.log",
+      "sha256": "7038a5f7350ea5343ddc618cdbca09f8b926ab1b0a89448c3add708bbedc8b04",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/085.log",
+      "sha256": "38770ed13d2678a0243693a29afc989f200c32c252a4263c5c8ae02cefa1bdea",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/086.log",
+      "sha256": "1d62b4862646d2216c5af9cab7ef11575818f0bab1d37cd68900ec86e5ed18b5",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/087.log",
+      "sha256": "a56cd7823c521e3ffa808801b46cf3f438264be435116985a557ce89f43e85b9",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/088.log",
+      "sha256": "7683a8eeace0ff3aacc444270a82135648c6691a218c2b2f099542ab2d69959f",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/089.log",
+      "sha256": "7246f11fd1f171d9ed3800cd4a039e156fb6ba03f9ae36b5befd4afc76fe18a7",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/090.log",
+      "sha256": "e9cdeeb589eedfcdcc6d07435ecffb15de4225ad42d1aee8863f5b2280cad424",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/091.log",
+      "sha256": "9cbf735c9727f89f8403c1b875616ba80426bf0e5585fd033b6f5a60cb59ff2d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/092.log",
+      "sha256": "5bea819d20a9ce1d1ab9ac5e78be5c48349c12ed0592870492affab52d2778de",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/093.log",
+      "sha256": "5b9906679db28b1f4d50abeaf16a67c839b8571155f443d362208b04041a89a6",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/094.log",
+      "sha256": "4a3978c4b638721de8b67144fe8937a917016f3a2209278fdf3ec3b9fb625543",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/095.log",
+      "sha256": "1a5e29bbbe5b607f01b0273eb32a5df818f09c6d1188801f39924f3a4835eb1a",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/096.log",
+      "sha256": "7e0c0aa3b1b033c5d8eb1310762816a25bc93477d0e83b5c29ed9390c32c47ac",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/097.log",
+      "sha256": "f1d0680df81532cbd1a0a445694e69275993a882eaf993e01c4f649f77915daf",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/098.log",
+      "sha256": "932129bdf39646ec2b931e3ec1eaaa4acdc9f34f8b6a963e2bbd9aa686ba4c8d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/099.log",
+      "sha256": "ad30975546fc2b3e3e9ab380a158e730520879739fbade58096e00636f600bd5",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/100.log",
+      "sha256": "8cbe61e03089eaf40f8ac8813b53d80a0c0ed16e25e7116334a73974b88c56be",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/101.log",
+      "sha256": "166f1fc199576720a97bafc9bd88c5d2b3ac2f779b045ea55ef74605d2ef6b23",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/102.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/103.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/104.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/105.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/106.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/107.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/108.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/109.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/110.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/111.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/112.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/113.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/114.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/115.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/116.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/117.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/118.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/119.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/120.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/121.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/122.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/123.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/124.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/125.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/126.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/127.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/128.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/129.log",
+      "sha256": "a8695f4b66de027eb1480a5761d582ea03afdca54be79d2696e027ea393eeac4",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/130.log",
+      "sha256": "2b24975ed6ea234d179464cf38f831de14f1ed33729aae4abe09869966043ee9",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/131.log",
+      "sha256": "7038a5f7350ea5343ddc618cdbca09f8b926ab1b0a89448c3add708bbedc8b04",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/132.log",
+      "sha256": "38770ed13d2678a0243693a29afc989f200c32c252a4263c5c8ae02cefa1bdea",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/133.log",
+      "sha256": "1d62b4862646d2216c5af9cab7ef11575818f0bab1d37cd68900ec86e5ed18b5",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/134.log",
+      "sha256": "a56cd7823c521e3ffa808801b46cf3f438264be435116985a557ce89f43e85b9",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/135.log",
+      "sha256": "7683a8eeace0ff3aacc444270a82135648c6691a218c2b2f099542ab2d69959f",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/136.log",
+      "sha256": "7246f11fd1f171d9ed3800cd4a039e156fb6ba03f9ae36b5befd4afc76fe18a7",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/137.log",
+      "sha256": "e9cdeeb589eedfcdcc6d07435ecffb15de4225ad42d1aee8863f5b2280cad424",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/138.log",
+      "sha256": "9cbf735c9727f89f8403c1b875616ba80426bf0e5585fd033b6f5a60cb59ff2d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/139.log",
+      "sha256": "5bea819d20a9ce1d1ab9ac5e78be5c48349c12ed0592870492affab52d2778de",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/140.log",
+      "sha256": "5b9906679db28b1f4d50abeaf16a67c839b8571155f443d362208b04041a89a6",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/141.log",
+      "sha256": "4a3978c4b638721de8b67144fe8937a917016f3a2209278fdf3ec3b9fb625543",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/142.log",
+      "sha256": "1a5e29bbbe5b607f01b0273eb32a5df818f09c6d1188801f39924f3a4835eb1a",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/143.log",
+      "sha256": "7e0c0aa3b1b033c5d8eb1310762816a25bc93477d0e83b5c29ed9390c32c47ac",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/144.log",
+      "sha256": "f1d0680df81532cbd1a0a445694e69275993a882eaf993e01c4f649f77915daf",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/145.log",
+      "sha256": "932129bdf39646ec2b931e3ec1eaaa4acdc9f34f8b6a963e2bbd9aa686ba4c8d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/146.log",
+      "sha256": "ad30975546fc2b3e3e9ab380a158e730520879739fbade58096e00636f600bd5",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/147.log",
+      "sha256": "8cbe61e03089eaf40f8ac8813b53d80a0c0ed16e25e7116334a73974b88c56be",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/148.log",
+      "sha256": "166f1fc199576720a97bafc9bd88c5d2b3ac2f779b045ea55ef74605d2ef6b23",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/149.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/150.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/151.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/152.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/153.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/154.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/155.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/156.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/157.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/158.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/159.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/160.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/161.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/162.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/163.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/164.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/165.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/166.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/167.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/168.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/169.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/170.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/171.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/172.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/173.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/174.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/175.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/176.log",
+      "sha256": "a8695f4b66de027eb1480a5761d582ea03afdca54be79d2696e027ea393eeac4",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/177.log",
+      "sha256": "2b24975ed6ea234d179464cf38f831de14f1ed33729aae4abe09869966043ee9",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/178.log",
+      "sha256": "7038a5f7350ea5343ddc618cdbca09f8b926ab1b0a89448c3add708bbedc8b04",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/179.log",
+      "sha256": "38770ed13d2678a0243693a29afc989f200c32c252a4263c5c8ae02cefa1bdea",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/180.log",
+      "sha256": "1d62b4862646d2216c5af9cab7ef11575818f0bab1d37cd68900ec86e5ed18b5",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/181.log",
+      "sha256": "a56cd7823c521e3ffa808801b46cf3f438264be435116985a557ce89f43e85b9",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/182.log",
+      "sha256": "7683a8eeace0ff3aacc444270a82135648c6691a218c2b2f099542ab2d69959f",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/183.log",
+      "sha256": "7246f11fd1f171d9ed3800cd4a039e156fb6ba03f9ae36b5befd4afc76fe18a7",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/184.log",
+      "sha256": "e9cdeeb589eedfcdcc6d07435ecffb15de4225ad42d1aee8863f5b2280cad424",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/185.log",
+      "sha256": "9cbf735c9727f89f8403c1b875616ba80426bf0e5585fd033b6f5a60cb59ff2d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/186.log",
+      "sha256": "5bea819d20a9ce1d1ab9ac5e78be5c48349c12ed0592870492affab52d2778de",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/187.log",
+      "sha256": "5b9906679db28b1f4d50abeaf16a67c839b8571155f443d362208b04041a89a6",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/188.log",
+      "sha256": "4a3978c4b638721de8b67144fe8937a917016f3a2209278fdf3ec3b9fb625543",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/189.log",
+      "sha256": "1a5e29bbbe5b607f01b0273eb32a5df818f09c6d1188801f39924f3a4835eb1a",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/190.log",
+      "sha256": "7e0c0aa3b1b033c5d8eb1310762816a25bc93477d0e83b5c29ed9390c32c47ac",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/191.log",
+      "sha256": "f1d0680df81532cbd1a0a445694e69275993a882eaf993e01c4f649f77915daf",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/192.log",
+      "sha256": "932129bdf39646ec2b931e3ec1eaaa4acdc9f34f8b6a963e2bbd9aa686ba4c8d",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/193.log",
+      "sha256": "ad30975546fc2b3e3e9ab380a158e730520879739fbade58096e00636f600bd5",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/194.log",
+      "sha256": "8cbe61e03089eaf40f8ac8813b53d80a0c0ed16e25e7116334a73974b88c56be",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/195.log",
+      "sha256": "166f1fc199576720a97bafc9bd88c5d2b3ac2f779b045ea55ef74605d2ef6b23",
+      "bytes": 21
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/196.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/197.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/198.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/199.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/200.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/201.log",
+      "sha256": "a8695f4b66de027eb1480a5761d582ea03afdca54be79d2696e027ea393eeac4",
+      "bytes": 20
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/202.log",
+      "sha256": "988eb7d2271c181dadb30e55fa00ac272a61b2673a78779b71b92d95858b3f1f",
+      "bytes": 27
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/203.log",
+      "sha256": "d52135a2cfb08859a5a0fcd94252c8534246e71970322c7d3faff2f0cef70358",
+      "bytes": 11343
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/204.log",
+      "sha256": "68f5f43db3ad02ecab418b1a111920e41a505742ff5eaff4cb37ae0a4e05fce0",
+      "bytes": 11343
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/205.log",
+      "sha256": "be499d4f9644c48163c2d36d4fd0a0c4005a2f0f8cb43321a9d3888fa608ca8d",
+      "bytes": 11343
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/activity.json",
+      "sha256": "00bc064ebf515088f58e59643e168f2eeeeb6f28ef678079606f0f93b6af19f4",
+      "bytes": 47
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/example-1.cpp",
+      "sha256": "119fc093a965a9265c09451b43e9cfa9b57170c9b2384ddce587ae553b848982",
+      "bytes": 404
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-1.json",
+      "sha256": "0eb046af1c7ea58444b810a2cdedb77ce24f5f5900a6fa60bfe79281dd11623d",
+      "bytes": 2712
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-1.raw.json",
+      "sha256": "387ca07b3f1b6e8460dc426511408a5227a95afe13ce3ad509afc6c9487107b3",
+      "bytes": 31282508
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-2.json",
+      "sha256": "6b5ac14c824d3acf6a8132c008ed729344ccbe13226d542ac906878e22e87101",
+      "bytes": 2716
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-2.raw.json",
+      "sha256": "ba1e9d5f6617e210fc22b53d5955cc74e692f951f9942808fa868420b5199144",
+      "bytes": 31282512
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-3.json",
+      "sha256": "8880014ebea0d91ac5cc944600f62b383fcc4651561a064bf30b72c3b019338e",
+      "bytes": 2716
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/official-point_add_range_sum-3.raw.json",
+      "sha256": "a664122be8cad9f03aeea65c4f12e82b77191adf8578d4436f1d0dc656dca001",
+      "bytes": 31282512
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/report.json",
+      "sha256": "a43c4c71489c1c299376abafc3fcc902103ec7e3a6d4af32c1c12da7112483ff",
+      "bytes": 147702
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/source-snapshot/.verify-helper/config.toml",
+      "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+      "bytes": 144
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/source-snapshot/blueberry/data-structure/dynamic-fenwick-tree-2d.hpp",
+      "sha256": "402e676360cef0769e1ea935bdc43defcef4a16f056f302025d91ef884e6cf42",
+      "bytes": 4740
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/source-snapshot/blueberry/data-structure/dynamic-fenwick-tree.hpp",
+      "sha256": "34ae81541b179c2dd2bc24e7573d2f5540deb37622f91eb9152ae76c2c3a5126",
+      "bytes": 2448
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/source-snapshot/docs/data-structure/dynamic-fenwick-tree.md",
+      "sha256": "8d001d92142b321b9ac00548dbd12976f5497f97fb18daccff07880503e08663",
+      "bytes": 11177
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/source-snapshot/scripts/check_docs.py",
+      "sha256": "7c0c0e4e62ff347b3117f4300e76583af3c74bc4adb5e29276762bdd8a4e4b6c",
+      "bytes": 6078
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/source-snapshot/scripts/verify_with_metrics.py",
+      "sha256": "943f6d2f19295a7ca9b2b67a840a06a6e8aed02429d82f9b6ddde1a394a7742c",
+      "bytes": 21045
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/source-snapshot/tests/random/dynamic-fenwick-get.cpp",
+      "sha256": "0a6be162163a812a3d1a6676b11f4e12eff95c243acf57441148832a47fc6cd0",
+      "bytes": 9423
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/source-snapshot/tests/random/dynamic-fenwick-tree.cpp",
+      "sha256": "b37ffbb494af1857033185316be43d3c75cfd1b2792f1f59974954d441513558",
+      "bytes": 4849
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/source-snapshot/verify/data-structure/dynamic-point-add-range-sum.test.cpp",
+      "sha256": "63cdd54a015459d76366d2ca5ff047e2bd3dedfdb93fe216fbe4dbe8039c468d",
+      "bytes": 658
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/summary.json",
+      "sha256": "9084da6ee2e2953aba70308229577bb813a61441f0a420d4998eb6343ffe5f6f",
+      "bytes": 9307
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/final/validation-driver.py",
+      "sha256": "8dd507476a46376ca4998cb78b0516ef47a1375abf31f9ccfa8124802992dc93",
+      "bytes": 17885
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/focused-console.log",
+      "sha256": "193bf095b89af5494cd8292a47a5e3ce894c0d3cae5bde0051d2196d5b913dfa",
+      "bytes": 14487
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/preparation/dataset.json",
+      "sha256": "65f6de3d94bba4927fc4d28ec9a5d37b9e0a60fa2a125152cc47cc0f3aaf307d",
+      "bytes": 6382
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/preparation/report.json",
+      "sha256": "56f4e7af1cd62554eed52fe769e42a9caea55b06d9129c671d7c2c535f9a126a",
+      "bytes": 655
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks/make-check.log",
+      "sha256": "1f55fd17f7e19f510e64da0b979b79f3758041876cd61bd1b27034ffbe1df579",
+      "bytes": 16402
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks/results.json",
+      "sha256": "4038350849228fbde919486aa1a6b3d59ea4c602fcad494a6eb4d8d50ac36f98",
+      "bytes": 1421
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks/runner.py",
+      "sha256": "4e7a6e93b435743931f9fec33ecc1b3a240d46b437ac917ec68b3745d5253ac3",
+      "bytes": 3065
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/docs-publication-gate.log",
+      "sha256": "9777187369a19ac767385164aaf1e3b94b8c39cf7be3bc12a07f54ab3596cc10",
+      "bytes": 17278
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/jekyll.log",
+      "sha256": "1ce19e2326dfdee3565efeea171b39414b30e0909f3f2218bb9e4c1bd54855ae",
+      "bytes": 461
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/make-check.log",
+      "sha256": "65915e9360e05c914f62a70c93396f05a0bdd49df9f659c8b1041f0903be947e",
+      "bytes": 40455
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/results.json",
+      "sha256": "d0f0c9b3ecdb6c167c22772fc19055681fcb57a7cab79c6036b484802a04a520",
+      "bytes": 3246
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/runner.py",
+      "sha256": "549dcca086574466f82587672891d553a8ba1dc12b6811a48f597d88f32f73f8",
+      "bytes": 3239
+    },
+    {
+      "path": ".verification/point-access-tuning/dynamic-fenwick/root-checks-resume/site-preflight-without-metrics.log",
+      "sha256": "3acc26efadb6be979b07d5aaf39229010099d777c2d399c696e8bab5e2a2ac92",
+      "bytes": 80
+    },
+    {
+      "path": ".verify-helper/config.toml",
+      "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+      "bytes": 144
+    },
+    {
+      "path": ".verify-helper/docs/static/_data/library_verification.json",
+      "sha256": "9dde0ddc9a8185b4ac6f85c9f7d7355224397e290614db3837e875574acb2ee4",
+      "bytes": 67812
+    },
+    {
+      "path": "benchmark/point-access-performance-summary.py",
+      "sha256": "46a2aa6ba860dd70571301a49696604f598d16e86fd97e3b886d5a3cc43504a6",
+      "bytes": 7255
+    },
+    {
+      "path": "benchmark/point-access-performance.cpp",
+      "sha256": "35a013d3b2bb5e606e91388696856d28331d87358aacf8856fc76363ceac663a",
+      "bytes": 14273
+    },
+    {
+      "path": "benchmark/point-access-performance.py",
+      "sha256": "6cd9808dc3c751b153cc78eefe172d9d67335247adba80de1e084ce8f47c768f",
+      "bytes": 17379
+    },
+    {
+      "path": "benchmark/representative-dense.hpp",
+      "sha256": "a3df87a4657ee4f614e31a9269853ca2968a485c92a9d57d9fea5b8a0e11835e",
+      "bytes": 12817
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/baseline-disjoint-set-union.hpp.txt",
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+      "bytes": 1631
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/baseline-dynamic-fenwick-tree.hpp.txt",
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+      "bytes": 2261
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/baseline-fenwick-tree.hpp.txt",
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+      "bytes": 2153
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/baseline-persistent-segment-tree.hpp.txt",
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+      "bytes": 2999
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/baseline-segment-tree.hpp.txt",
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+      "bytes": 2076
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/candidate-disjoint-set-union.hpp.txt",
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+      "bytes": 1631
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/candidate-dynamic-fenwick-tree.hpp.txt",
+      "sha256": "34ae81541b179c2dd2bc24e7573d2f5540deb37622f91eb9152ae76c2c3a5126",
+      "bytes": 2448
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/candidate-fenwick-tree.hpp.txt",
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+      "bytes": 2153
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/candidate-persistent-segment-tree.hpp.txt",
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+      "bytes": 2999
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/candidate-segment-tree.hpp.txt",
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+      "bytes": 2076
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/candidate.patch",
+      "sha256": "7ab2db7f76c35d0744507e33257aeb5c0d2007edefdf3cd24cd2ce7472627166",
+      "bytes": 562
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/compile.json",
+      "sha256": "69f5da4c5b6b730dccecd633a8115614f425d982fa41fdcc0fd14df10f4486cf",
+      "bytes": 7115
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/correctness-gate.json",
+      "sha256": "0913c54a2e0c4e2fb188d8a4aced83211ab939d86d63fbb12ed7a162584e301e",
+      "bytes": 289
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/correctness-in-progress.json",
+      "sha256": "603baad54e60f7f1f6675b62769d4df802fc156f5cc0b8ef99b0acd2059f590f",
+      "bytes": 30435
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/correctness.json",
+      "sha256": "603baad54e60f7f1f6675b62769d4df802fc156f5cc0b8ef99b0acd2059f590f",
+      "bytes": 30435
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/diagnostics-in-progress.json",
+      "sha256": "26eadf05000ab29a31a7628db9c0288d9c0617eb819b867debab5d8d351d004a",
+      "bytes": 17789
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/diagnostics.json",
+      "sha256": "242d4ae7d61b2fe9a7d0c523cc4fca2d1dbbe2a1c5caade6d7d07a879cc95870",
+      "bytes": 19346
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/prepared.json",
+      "sha256": "aa580f70654674a25fa90f438bacca89b585f72b7a40b8b3b3605058d070b9d7",
+      "bytes": 14667
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/quiet-processes.txt",
+      "sha256": "45cf5dfd1d9dbc6f91e166b8a3ea383737663612dfb03ce615188b42a3846916",
+      "bytes": 8112
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/raw.json",
+      "sha256": "2890be0872709b618a4f127ceeaf290219dc53ca0628107d34d782fe1568060e",
+      "bytes": 113536
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/results.json",
+      "sha256": "fefa14c59cb9a9135a28026fe61809affb992f3e842a3a1c896de5618b0322b2",
+      "bytes": 25598
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-assert/runner-amendment.json",
+      "sha256": "ed138f76ddce5c6d8faf7b088caa44f256c22e086624a8443dd0bbd3b091e413",
+      "bytes": 541
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-final-code-report.md",
+      "sha256": "effca46a9c872c3f89d9fc19d909b1de50386701e8a8eca13299cb67ade8f423",
+      "bytes": 10558
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-host-limits.json",
+      "sha256": "b0aa162a0108ce6f09d0fc8e9ffc01cf6221170b78988016ef67aa034969c214",
+      "bytes": 557
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/baseline-disjoint-set-union.hpp.txt",
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+      "bytes": 1631
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/baseline-dynamic-fenwick-tree.hpp.txt",
+      "sha256": "fce3529c6dd2611f5c9dfcda6869729b6abbdb80cc526c0a5a693b5918ed4ca7",
+      "bytes": 2261
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/baseline-fenwick-tree.hpp.txt",
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+      "bytes": 2153
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/baseline-persistent-segment-tree.hpp.txt",
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+      "bytes": 2999
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/baseline-segment-tree.hpp.txt",
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+      "bytes": 2076
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/candidate-disjoint-set-union.hpp.txt",
+      "sha256": "a11d3d6af5f404fd1ae7c48099ec050f96091698f0b34b35407f317474405889",
+      "bytes": 1631
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/candidate-dynamic-fenwick-tree.hpp.txt",
+      "sha256": "34ae81541b179c2dd2bc24e7573d2f5540deb37622f91eb9152ae76c2c3a5126",
+      "bytes": 2448
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/candidate-fenwick-tree.hpp.txt",
+      "sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+      "bytes": 2153
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/candidate-persistent-segment-tree.hpp.txt",
+      "sha256": "219f41291160e30f60957a97bc7766d3ec7f9c07f4f4506968a0e6c38002066a",
+      "bytes": 2999
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/candidate-segment-tree.hpp.txt",
+      "sha256": "dce0400d6739b3333d66e2109a207b23db3cc4a3bfe4d34c4b2b6de7bf2800b7",
+      "bytes": 2076
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/candidate.patch",
+      "sha256": "7ab2db7f76c35d0744507e33257aeb5c0d2007edefdf3cd24cd2ce7472627166",
+      "bytes": 562
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/compile.json",
+      "sha256": "b64da418dc34137d597abca4a74a5a36f43a473d735eaca74f2da352c1bae1b9",
+      "bytes": 7241
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/correctness-gate.json",
+      "sha256": "924785d5ab9e8634fd53a58d36520f749c6b2f502022a10017a7ebbd599029f6",
+      "bytes": 289
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/correctness-in-progress.json",
+      "sha256": "e84903dda314c5bed81e501b1041bff26de6a09b8d667a6a5f6befdd71d73e97",
+      "bytes": 30435
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/correctness.json",
+      "sha256": "e84903dda314c5bed81e501b1041bff26de6a09b8d667a6a5f6befdd71d73e97",
+      "bytes": 30435
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/diagnostics-in-progress.json",
+      "sha256": "efc43f0b65ddeb5a997ae74648f29b85954718a10f0e76f9bab335828b07f960",
+      "bytes": 17789
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/diagnostics.json",
+      "sha256": "48dcca6cbbe7df0505be07722b2795d07681cf438b41c894d7f298125838bd99",
+      "bytes": 19346
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/prepared.json",
+      "sha256": "ac49e3b7112c33c5311733ae1aba490df03975fae38a1a4425c2000f091ee000",
+      "bytes": 14816
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/quiet-processes.txt",
+      "sha256": "bca10aaac17a1047c17ac513f6544f111f095b4fb703e8a21a8ce2c9ed1eaed3",
+      "bytes": 8112
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/raw.json",
+      "sha256": "9e745c36be8be357f769f0933ca48583ba03be6baee11991ebb115520cbc0dc6",
+      "bytes": 113520
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/results.json",
+      "sha256": "f83fff9c9df7066cdfff3757bcb66e063860eafa7e114f3f7190f54dfa6dc7a0",
+      "bytes": 25593
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-release/runner-amendment.json",
+      "sha256": "52cdeb0472af3de4713b6250ce46eb589cbcb07a1be9b28a0c606869a0d7f2a1",
+      "bytes": 541
+    },
+    {
+      "path": "benchmark/results/point-access-performance/dynamic-fenwick-stage-comparisons.csv",
+      "sha256": "23bad9b44244c2a1aa22695ac58d1aa408dbe8423cd652cb32ff1d883f36cd13",
+      "bytes": 15148
+    },
+    {
+      "path": "benchmark/results/point-access-performance/plan.md",
+      "sha256": "62be305af266fc43fc1acb07987b530454370a2ca2dd6882bc48d3b0bd80485e",
+      "bytes": 5077
+    },
+    {
+      "path": "benchmark/results/point-access-performance/preparation-runner.py.txt",
+      "sha256": "7c84d40bc37b90bd6fbf687782ccccf1081d8eff51bd7f197d356e99481ee782",
+      "bytes": 16863
+    },
+    {
+      "path": "blueberry/data-structure/dynamic-fenwick-tree-2d.hpp",
+      "sha256": "402e676360cef0769e1ea935bdc43defcef4a16f056f302025d91ef884e6cf42",
+      "bytes": 4740
+    },
+    {
+      "path": "blueberry/data-structure/dynamic-fenwick-tree.hpp",
+      "sha256": "34ae81541b179c2dd2bc24e7573d2f5540deb37622f91eb9152ae76c2c3a5126",
+      "bytes": 2448
+    },
+    {
+      "path": "docs/data-structure/dynamic-fenwick-tree.md",
+      "sha256": "8d001d92142b321b9ac00548dbd12976f5497f97fb18daccff07880503e08663",
+      "bytes": 11177
+    },
+    {
+      "path": "docs/verification-gaps.md",
+      "sha256": "49eab43a297040bfcbe67758ca7c8ec5a73f0a5d350f1b6c7ead4a4c79de475c",
+      "bytes": 62379
+    },
+    {
+      "path": "scripts/check_docs.py",
+      "sha256": "7c0c0e4e62ff347b3117f4300e76583af3c74bc4adb5e29276762bdd8a4e4b6c",
+      "bytes": 6078
+    },
+    {
+      "path": "scripts/verify_with_metrics.py",
+      "sha256": "943f6d2f19295a7ca9b2b67a840a06a6e8aed02429d82f9b6ddde1a394a7742c",
+      "bytes": 21045
+    },
+    {
+      "path": "tests/random/dynamic-fenwick-get.cpp",
+      "sha256": "0a6be162163a812a3d1a6676b11f4e12eff95c243acf57441148832a47fc6cd0",
+      "bytes": 9423
+    },
+    {
+      "path": "tests/random/dynamic-fenwick-tree.cpp",
+      "sha256": "b37ffbb494af1857033185316be43d3c75cfd1b2792f1f59974954d441513558",
+      "bytes": 4849
+    },
+    {
+      "path": "verify/data-structure/dynamic-point-add-range-sum.test.cpp",
+      "sha256": "63cdd54a015459d76366d2ca5ff047e2bd3dedfdb93fe216fbe4dbe8039c468d",
+      "bytes": 658
+    }
+  ],
+  "raw_official_logs_policy": "Original oj JSON and normalized samples are both retained byte-for-byte; no deletion or rewriting of the original raw JSON.",
+  "packaging_status": "Pending exact commit and explicit local packaging signal; prior archives remain immutable."
+}
