@@ -476,6 +476,13 @@
 - 専用ドライバ: [verify/graph/shortest-path.test.cpp](../verify/graph/shortest-path.test.cpp) / [問題](https://judge.yosupo.jp/problem/shortest_path)
 - 関連ローカルテスト: [tests/random/dijkstra.cpp](../tests/random/dijkstra.cpp)
 
+## Dominator Tree
+
+[blueberry/graph/dominator-tree.hpp](../blueberry/graph/dominator-tree.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/graph/dominator-tree.test.cpp](../verify/graph/dominator-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/dominatortree)
+- 関連ローカルテスト: [tests/random/dominator-tree.cpp](../tests/random/dominator-tree.cpp)
+
 ## Dynamic Top Tree
 
 [blueberry/graph/dynamic-top-tree.hpp](../blueberry/graph/dynamic-top-tree.hpp) — **専用verifyドライバあり**
@@ -500,6 +507,13 @@
 - 専用ドライバ: [verify/graph/eulerian-trail-undirected.test.cpp](../verify/graph/eulerian-trail-undirected.test.cpp) / [問題](https://judge.yosupo.jp/problem/eulerian_trail_undirected)
 - 関連ローカルテスト: [tests/random/graph-expansion.cpp](../tests/random/graph-expansion.cpp)
 
+## General Matching
+
+[blueberry/graph/general-matching.hpp](../blueberry/graph/general-matching.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/graph/general-matching.test.cpp](../verify/graph/general-matching.test.cpp) / [問題](https://judge.yosupo.jp/problem/general_matching)
+- 関連ローカルテスト: [tests/random/general-matching.cpp](../tests/random/general-matching.cpp)
+
 ## Heavy Light Decomposition
 
 [blueberry/graph/heavy-light-decomposition.hpp](../blueberry/graph/heavy-light-decomposition.hpp) — **専用verifyドライバあり**
@@ -515,6 +529,7 @@
 [blueberry/graph/hopcroft-karp.hpp](../blueberry/graph/hopcroft-karp.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/graph/bipartite-matching.test.cpp](../verify/graph/bipartite-matching.test.cpp) / [問題](https://judge.yosupo.jp/problem/bipartitematching)
+- 関連ローカルテスト: [tests/random/general-matching.cpp](../tests/random/general-matching.cpp)
 - 関連ローカルテスト: [tests/random/graph-expansion.cpp](../tests/random/graph-expansion.cpp)
 
 ## Linear LCA

@@ -30,7 +30,7 @@ uf.rollback(saved);
 | Algebra | いろいろなモノイド（区間等差数列加算、affine・二乗和、反転・転倒数、最大部分配列、括弧列、関数合成、最大値と個数） |
 | Data Structure | Sparse Table / Disjoint Sparse Table / Sqrt Tree, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix / Weighted Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie / Persistent Binary Trie, Aggregate Queue / Deque, Persistent Queue, Static Range Distinct, Rectangle Union Area, Static Range Inversions, Static Range Mode |
 | Geometry | Convex Hull（整数座標、重複・共線対応、反時計回りの頂点列） |
-| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest, Rooted Tree Isomorphism, Clique Enumeration, Maximum Independent Set |
+| Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, General Matching, Dominator Tree, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest, Rooted Tree Isomorphism, Clique Enumeration, Maximum Independent Set |
 | Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers, Multipoint Evaluation, Polynomial Interpolation, Sample Point Shift |
 | String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP, Count Subsequences, Longest Common Substring |
 | Utility | Fast I/O（整数・128bit・文字列・浮動小数点、通常ファイル・pipe・対話入力） |
@@ -77,6 +77,8 @@ uf.rollback(saved);
 | 動的な列の挿入・削除・反転・区間作用 | [Implicit Treap](docs/data-structure/implicit-treap.md): `insert`, `erase`, `reverse`, `apply` |
 | 過去の配列を残して一点更新 | [Persistent Segment Tree](docs/data-structure/persistent-segment-tree.md): `set(version,p,x)`, `prod(version,l,r)` |
 | 最大二部マッチング・最小頂点被覆 | [Hopcroft–Karp](docs/graph/hopcroft-karp.md): `pairs`, `min_vertex_cover` |
+| 一般グラフの最大個数マッチング | [General Matching](docs/graph/general-matching.md): `general_matching(n, edges)` |
+| 始点から必ず通る頂点・直接支配頂点 | [Dominator Tree](docs/graph/dominator-tree.md): `dominator_tree(graph, root)` |
 | 二重頂点連結成分・block-cut forest | [Biconnected Components](docs/graph/biconnected-components.md): `groups`, `block_cut_tree` |
 | 全辺を一度ずつ通る経路 | [Eulerian Trail](docs/graph/eulerian-trail.md): `exists`, `vertices`, `edges` |
 | 64bit素数判定・素因数分解 | [Factorize](docs/math/factorize.md): `is_prime`, `factorize` |

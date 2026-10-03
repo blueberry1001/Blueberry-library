@@ -17,5 +17,7 @@ Dijkstraには負辺を渡せません。LCAとHLDは連結な木を前提とし
 | 橋・関節点・二辺連結成分 | Low Link | 無向グラフ。多重辺・自己ループも扱える |
 | 各頂点を根にした木DP | Rerooting DP | 木。結合順序と頂点・辺の変換を指定する |
 | 最大二部matching・最小頂点被覆 | Hopcroft–Karp | 二部グラフ。左右の頂点番号を別々に指定 |
+| 一般グラフの最大個数マッチング | General Matching | 無向グラフ。奇閉路・平行辺・自己ループに対応 |
+| 始点から必ず通る頂点・直接支配頂点 | Dominator Tree | 有向グラフ。到達不能な頂点も区別する |
 | 二重頂点連結成分・block-cut forest | Biconnected Components | 自己ループのない無向多重グラフ |
 | 全辺を一度ずつ通る経路 | Eulerian Trail | 有向・無向、多重辺・自己ループ、始点指定に対応 |
