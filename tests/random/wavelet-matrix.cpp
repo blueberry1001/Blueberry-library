@@ -45,8 +45,9 @@ void check(const vector<T>& a, mt19937_64& rng, unsigned long long seed,
     const int freq = static_cast<int>(count(sorted.begin(), sorted.end(), x));
     const int between = static_cast<int>(lower_bound(sorted.begin(), sorted.end(), y) -
                                          lower_bound(sorted.begin(), sorted.end(), x));
-    const optional<T> prev = less == 0 ? nullopt : optional<T>(sorted[less - 1]);
-    const optional<T> next = less == r - l ? nullopt : optional<T>(sorted[less]);
+    optional<T> prev, next;
+    if (less > 0) prev.emplace(sorted[less - 1]);
+    if (less < r - l) next.emplace(sorted[less]);
     auto require = [&](bool ok, const char* operation, auto expected, auto actual) {
       if (ok) return;
       cerr << "seed=" << seed << " operation=" << operation << " l=" << l << " r=" << r
