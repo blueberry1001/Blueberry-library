@@ -1,0 +1,3314 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-03T11:08:58.929502+00:00",
+  "succeeded": true,
+  "scope": "Final FastIO verifier only: eight builds/example checks and nineteen official cases three times. Header/random/sanitizer results remain in the unchanged prior focused report.",
+  "base_head": "82f6cb427df64aa4a92e0849d7d4632cb9c51283",
+  "source_sha256": {
+    "verify/graph/offline-dynamic-component-sum.test.cpp": "22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39",
+    "blueberry/graph/offline-dynamic-component-sum.hpp": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+    "blueberry/utility/fast-io.hpp": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+    "blueberry/data-structure/rollback-union-find.hpp": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+    "tests/random/offline-dynamic-component-sum.cpp": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a"
+  },
+  "protected_files_sha256": {
+    "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/focused/report.json": "7669ed8a8f69d755dbd0f2da36475c1004480c6ae7c1bf6769edc725864b3f31",
+    "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/root-base.json": "4ca2371ce332912cc57ef8cebd8cf276151c9c6fc7d7ebba03b9a488d50168ee",
+    "/workspace/Blueberry-library/.verification/current.json": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab"
+  },
+  "dataset_report": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/report.json",
+  "dataset_report_sha256": "5f8dd5a1ca7c9ed5302639a75731db9763d411b2571b5cee65bb18dde06743a8",
+  "dataset_files_sha256": {
+    "dense_00.in": "c2c1038909dd89987e27b597c7bb3485d5fc5b5b2c35f98ca13dc2e636d152b4",
+    "dense_01.in": "bf8ce300478932ade00490555ab04e156421f92d7e89739add437ed5b0144a1e",
+    "dense_02.in": "5104b0e5d9e48761b74c499ed03c2acb41ec19f867c4e911e421b9264c840085",
+    "example_00.in": "5b020dc52e849c966fb908c55ece6e6548a12e773b3de75504a6ab00e2569dd2",
+    "link_and_cut_00.in": "5025cf22ab6e7755aeac4f16311fa9fd03f15a0442db3371431ca8151eada376",
+    "max_random_00.in": "0bc85acaa0808143e41e3aa962a0bceae9cf988daff7e763f2a137daf1dcee5d",
+    "max_random_01.in": "055c7dfacfd3d70f153cdfe5c547ef010412ccdd610e117e04611f81990b0233",
+    "max_random_02.in": "aaed249369f95511a90201f8c4efc641560f2d51e2753a34daedde2c3b480c20",
+    "random_00.in": "96472f7f9ec7e0fe6657b1a15fd43d331baeec5f249a0a3b5b91fdfe279fe29e",
+    "random_01.in": "89ad7a7b772b30ede6ce7a1dc58ae14626f25110d44d76d484d1a6cbb83dff36",
+    "random_02.in": "1c897e5636aff5077bb3b9473b65e5468c9f27b58399f134c524524d8f1cc199",
+    "random_03.in": "a34c0ee1dd60a2bff0505844643018e332988f9d0c3985accb74e6495ecbb808",
+    "random_04.in": "9d9fbd8b7ed301889694f745687f3e7371ff3e63bd01fbfc7a685c932d606e0b",
+    "small_00.in": "896f5d2a5c4bf9bada27b306513b8a1f56caff12e0fcd44b996a12e07ad85ab4",
+    "small_01.in": "5294ecd3abe7bb538873424fe38561bf9ec9c2551c4389dfe3158dc7e0aa6761",
+    "small_02.in": "e3c489dce553c18b01962e30e905b4418f6a0a1a35f8b7a5cacc8a1a4a2957b1",
+    "uv_swapped_00.in": "dd78e3e727f858e5a8d882b6d6e196d586baa2252dc0da0dab83e74472b9652d",
+    "uv_swapped_01.in": "bc5bf1e86a912b47aa1d6354d8dc8c0c7e5ebf31c862ad3c066724b97d6d9b53",
+    "uv_swapped_02.in": "c9f7889de6e8f30b0ae9142bc67d17be1bbee232ae21d793a7182868b33177ad",
+    "dense_00.out": "5d4e826a1924b61e5fd995db1701792062a9e5475627d82989779eee54be6d08",
+    "dense_01.out": "df18b45eae3807e4eae98b0ee69dcbf4771ea76202ba9a875b5e28c35dad62bb",
+    "dense_02.out": "1bff45c30307ae7771c6e64fcae1cbf6f2bec81648aac3c6ffdfcf09e70bacaa",
+    "example_00.out": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+    "link_and_cut_00.out": "89d46d9b514748b0ce0973a09bc8691cfabc822c0e43468310687ef2f521278b",
+    "max_random_00.out": "418130bd409ccac9226959dca95f89869ee27557511f994fdaac1f464394dfd9",
+    "max_random_01.out": "114a2d8e0ca0956106b41d4364475ae1b3e24e53adafede3dd3b1e9d2feb4805",
+    "max_random_02.out": "9e1a7acab9838cc4dc6fdbeda30d55a6697b6431f87f6a0b4879fc80f6607b11",
+    "random_00.out": "c4baa9b34ef67dc0b9fcb11d02ef2509a79604389f16bd3cd8316bbe7b422ec6",
+    "random_01.out": "7563a6bc0a0fac768a506b68ba4026b33bbafd8e49baa3b9f5e728a59a0004b8",
+    "random_02.out": "2b32b742610ce62e47820db4eacf03684b1b7b4dc9eece43ad7be58fe1cb9a09",
+    "random_03.out": "9c74d78240765260c2ed668a0a80c22712475656bb8d1d8aab585826348c5228",
+    "random_04.out": "86ffc6fba24a55ce81101030aeb0d5933c9198acfb52fc9bba29dd0064f58f06",
+    "small_00.out": "8dd73b1a9d0e0c9153f7f9c87292d43a40d50e7b114ca1484644c4d3ac603220",
+    "small_01.out": "f4abe1bf92b6b2f15dc6a067d7d1b372ee3a402120aff6404efdc062a4eca462",
+    "small_02.out": "0c336202b079d9c54f8b2122ff65a5e49524d190d2075aaee249cf1463e361ef",
+    "uv_swapped_00.out": "09c23c137d41e9960f13cacebe000cb0a909ba1d1fd2b45fa4d1ec142cbc92ea",
+    "uv_swapped_01.out": "3a807e9fe0400b9173d1084ac721fc7ee9942e1ce5c6b7394569b5c7cd6ac560",
+    "uv_swapped_02.out": "30b3f6c17380b62632a1c6815c65856a5003ffe45c867e9840059d79022e81b4"
+  },
+  "upstream_revision": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+  "checker": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+  "checker_sha256": "9ecf0eff5d00d720381175a604cedeb2c9b20f4184da1f1adfeba8260f46af28",
+  "compilers": {
+    "g++": {
+      "path": "/usr/bin/g++",
+      "version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "launcher_sha256": "6b3696e4dcb85e1c949c732a02befa50e3983ecf94ce7e8e58d9d503b954b79d"
+    },
+    "clang++": {
+      "path": "/tmp/blueberry-setup/bin/clang++",
+      "version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+      "launcher_sha256": "37f14681661fceec5e491a68aa346f9722595e6877956685a2f75ed64b9e0f1f"
+    }
+  },
+  "binary_sha256": {
+    "bin/gpp-gnupp20-assert": "329eb29a3d77a0bdf94fc10b42030407ddda47ba73c038508534dd190194cf56",
+    "bin/gpp-gnupp20-release": "61c24ff8bb80b8237cd329772fd73a7846cf24c46afbd7166ee0e9172df72015",
+    "bin/gpp-gnupp23-assert": "d42a238c2f4725acb443a6226a774eb9183c4d82ef9646125380caa64f7a50f5",
+    "bin/gpp-gnupp23-release": "d8e1cdd35d3373334bada3671e3b5774cb89cb0933a2e385446f77a43ecc5ac1",
+    "bin/clangpp-gnupp20-assert": "f98f1b0894c20fbc8790ec40904ce6972c9712f0a533eeafbfa031f36306f58c",
+    "bin/clangpp-gnupp20-release": "c20f711152cae6f81607d7618b3283e70b9b24546df023e45c3b7bd847f455eb",
+    "bin/clangpp-gnupp23-assert": "f98f1b0894c20fbc8790ec40904ce6972c9712f0a533eeafbfa031f36306f58c",
+    "bin/clangpp-gnupp23-release": "c20f711152cae6f81607d7618b3283e70b9b24546df023e45c3b7bd847f455eb"
+  },
+  "steps": [
+    {
+      "kind": "compile",
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I",
+        "/workspace/Blueberry-library",
+        "/workspace/Blueberry-library/verify/graph/offline-dynamic-component-sum.test.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:08:59.142176+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/000-compile.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 1.318880793001881,
+      "finished_at": "2026-10-03T11:09:00.461441+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:00.462979+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/001-smoke-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/gpp-gnupp20-assert-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.004059156999574043,
+      "finished_at": "2026-10-03T11:09:00.467376+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/gpp-gnupp20-assert-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:00.467878+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/002-smoke-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0036057360011909623,
+      "finished_at": "2026-10-03T11:09:00.471858+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "compile",
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I",
+        "/workspace/Blueberry-library",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/verify/graph/offline-dynamic-component-sum.test.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-release"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:00.473766+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/003-compile.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 1.3174932350011659,
+      "finished_at": "2026-10-03T11:09:01.791567+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-release"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:01.792634+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/004-smoke-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/gpp-gnupp20-release-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.0038691689987899736,
+      "finished_at": "2026-10-03T11:09:01.796858+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/gpp-gnupp20-release-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:01.797245+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/005-smoke-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003600440002628602,
+      "finished_at": "2026-10-03T11:09:01.801337+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "compile",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I",
+        "/workspace/Blueberry-library",
+        "/workspace/Blueberry-library/verify/graph/offline-dynamic-component-sum.test.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp23-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:01.802964+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/006-compile.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 1.418497570000909,
+      "finished_at": "2026-10-03T11:09:03.221785+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp23-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:03.222871+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/007-smoke-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/gpp-gnupp23-assert-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.004303015000914456,
+      "finished_at": "2026-10-03T11:09:03.227779+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/gpp-gnupp23-assert-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:03.228334+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/008-smoke-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003532341001118766,
+      "finished_at": "2026-10-03T11:09:03.232247+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "compile",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I",
+        "/workspace/Blueberry-library",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/verify/graph/offline-dynamic-component-sum.test.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp23-release"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:03.233810+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/009-compile.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 1.5184316320010112,
+      "finished_at": "2026-10-03T11:09:04.752638+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp23-release"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:04.753973+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/010-smoke-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/gpp-gnupp23-release-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.004279934997612145,
+      "finished_at": "2026-10-03T11:09:04.758734+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/gpp-gnupp23-release-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:04.759221+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/011-smoke-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003551685000275029,
+      "finished_at": "2026-10-03T11:09:04.763172+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "compile",
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I",
+        "/workspace/Blueberry-library",
+        "/workspace/Blueberry-library/verify/graph/offline-dynamic-component-sum.test.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/clangpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:04.826530+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/012-compile.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 1.3186675139986619,
+      "finished_at": "2026-10-03T11:09:06.145711+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/clangpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:06.147053+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/013-smoke-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/clangpp-gnupp20-assert-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.00441217500338098,
+      "finished_at": "2026-10-03T11:09:06.151976+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/clangpp-gnupp20-assert-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:06.152633+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/014-smoke-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.004144340000493685,
+      "finished_at": "2026-10-03T11:09:06.157264+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "compile",
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I",
+        "/workspace/Blueberry-library",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/verify/graph/offline-dynamic-component-sum.test.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/clangpp-gnupp20-release"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:06.159544+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/015-compile.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 1.3694049149999046,
+      "finished_at": "2026-10-03T11:09:07.529510+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/clangpp-gnupp20-release"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:07.530681+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/016-smoke-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/clangpp-gnupp20-release-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.004045503999805078,
+      "finished_at": "2026-10-03T11:09:07.536026+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/clangpp-gnupp20-release-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:07.536507+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/017-smoke-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003794379001192283,
+      "finished_at": "2026-10-03T11:09:07.540968+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "compile",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I",
+        "/workspace/Blueberry-library",
+        "/workspace/Blueberry-library/verify/graph/offline-dynamic-component-sum.test.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/clangpp-gnupp23-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:07.544341+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/018-compile.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 1.3733454380017065,
+      "finished_at": "2026-10-03T11:09:08.918225+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/clangpp-gnupp23-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:08.921007+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/019-smoke-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/clangpp-gnupp23-assert-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.004542826998658711,
+      "finished_at": "2026-10-03T11:09:08.926222+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/clangpp-gnupp23-assert-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:08.926906+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/020-smoke-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003795683998760069,
+      "finished_at": "2026-10-03T11:09:08.931482+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "compile",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I",
+        "/workspace/Blueberry-library",
+        "-DNDEBUG",
+        "/workspace/Blueberry-library/verify/graph/offline-dynamic-component-sum.test.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/clangpp-gnupp23-release"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:08.934925+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/021-compile.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 1.4217180300001928,
+      "finished_at": "2026-10-03T11:09:10.357966+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/clangpp-gnupp23-release"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.359513+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/022-smoke-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/clangpp-gnupp23-release-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.0039022230012051295,
+      "finished_at": "2026-10-03T11:09:10.363947+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "smoke-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/clangpp-gnupp23-release-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.364514+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/023-smoke-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003629923998232698,
+      "finished_at": "2026-10-03T11:09:10.368651+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.370254+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/024-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-dense_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "5d4e826a1924b61e5fd995db1701792062a9e5475627d82989779eee54be6d08",
+      "seconds": 0.1658055029984098,
+      "finished_at": "2026-10-03T11:09:10.536653+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-dense_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.537633+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/025-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.031935264996718615,
+      "finished_at": "2026-10-03T11:09:10.570127+00:00",
+      "log_sha256": "d3d60332959320a66b2ce6ee5d7fa93e341b9acece48bfdd600267bee4def9da"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.572967+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/026-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-dense_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "df18b45eae3807e4eae98b0ee69dcbf4771ea76202ba9a875b5e28c35dad62bb",
+      "seconds": 0.1651828319991182,
+      "finished_at": "2026-10-03T11:09:10.738740+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-dense_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.739444+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/027-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03189142999690375,
+      "finished_at": "2026-10-03T11:09:10.771918+00:00",
+      "log_sha256": "d1fc6ff4011b0cec5a6aa37d58522bbc8a518b22183b4d4e2f422f2a6d67490f"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.774261+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/028-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-dense_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "1bff45c30307ae7771c6e64fcae1cbf6f2bec81648aac3c6ffdfcf09e70bacaa",
+      "seconds": 0.11506896299761138,
+      "finished_at": "2026-10-03T11:09:10.889942+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-dense_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.890752+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/029-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.031915440999000566,
+      "finished_at": "2026-10-03T11:09:10.923436+00:00",
+      "log_sha256": "ad948d4d5ef1ed2bce619005cd520a22ff6212388c0805fc1580c04896af563d"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.927062+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/030-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.0038617760001216084,
+      "finished_at": "2026-10-03T11:09:10.931987+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.932609+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/031-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003630274997703964,
+      "finished_at": "2026-10-03T11:09:10.937090+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:10.939629+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/032-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/link_and_cut_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-link_and_cut_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "89d46d9b514748b0ce0973a09bc8691cfabc822c0e43468310687ef2f521278b",
+      "seconds": 0.2647905650010216,
+      "finished_at": "2026-10-03T11:09:11.205105+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/link_and_cut_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-link_and_cut_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/link_and_cut_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.206229+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/033-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0077473550009017345,
+      "finished_at": "2026-10-03T11:09:11.214829+00:00",
+      "log_sha256": "36fe7127238eaef24d3af69e74c5bb6027e16d118ad4e6b4b5e10fe830ec7ac2"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.216276+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/034-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-max_random_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "418130bd409ccac9226959dca95f89869ee27557511f994fdaac1f464394dfd9",
+      "seconds": 0.11497656800202094,
+      "finished_at": "2026-10-03T11:09:11.331902+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-max_random_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.332874+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/035-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0318427630008955,
+      "finished_at": "2026-10-03T11:09:11.365535+00:00",
+      "log_sha256": "a1a4a0a9c4708ab359322fb45bce909dbc7fb2c7c3787b040a6bbabae8f77b48"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.367788+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/036-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-max_random_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "114a2d8e0ca0956106b41d4364475ae1b3e24e53adafede3dd3b1e9d2feb4805",
+      "seconds": 0.1150951609997719,
+      "finished_at": "2026-10-03T11:09:11.483721+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-max_random_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.484725+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/037-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03195548899748246,
+      "finished_at": "2026-10-03T11:09:11.517579+00:00",
+      "log_sha256": "ea813d8f20b115d7b2e368ce7884ac61d7486abfc9cc95f7ab51df21eeea7353"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.520320+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/038-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-max_random_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "9e1a7acab9838cc4dc6fdbeda30d55a6697b6431f87f6a0b4879fc80f6607b11",
+      "seconds": 0.11482205400170642,
+      "finished_at": "2026-10-03T11:09:11.636336+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-max_random_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.637272+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/039-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03185975199812674,
+      "finished_at": "2026-10-03T11:09:11.670039+00:00",
+      "log_sha256": "be07b8e41d1091d7fdeef9cad69802c1036b92e5a58ca6244ab8bb12935530c7"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.673273+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/040-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "c4baa9b34ef67dc0b9fcb11d02ef2509a79604389f16bd3cd8316bbe7b422ec6",
+      "seconds": 0.11490180900000269,
+      "finished_at": "2026-10-03T11:09:11.789170+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.790583+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/041-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03224844700162066,
+      "finished_at": "2026-10-03T11:09:11.823796+00:00",
+      "log_sha256": "598039ebb7990b1c5d47bdc326a5c5cd4ebfbd8a81b6cb7b8197603d8fa07046"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.826492+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/042-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "7563a6bc0a0fac768a506b68ba4026b33bbafd8e49baa3b9f5e728a59a0004b8",
+      "seconds": 0.11516585999925155,
+      "finished_at": "2026-10-03T11:09:11.942540+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.943767+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/043-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.01612260800175136,
+      "finished_at": "2026-10-03T11:09:11.960823+00:00",
+      "log_sha256": "baab96278ebdfeff3895abf0a049874784841e689ef1dfd0f4a386b7044a0563"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.963475+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/044-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "2b32b742610ce62e47820db4eacf03684b1b7b4dc9eece43ad7be58fe1cb9a09",
+      "seconds": 0.0323373930004891,
+      "finished_at": "2026-10-03T11:09:11.997228+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:11.998194+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/045-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.01580226299847709,
+      "finished_at": "2026-10-03T11:09:12.014917+00:00",
+      "log_sha256": "0b20b02ac6fc485e8af138d456b189d3a4c431e6cbbaf53990b64cda3f6275b9"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.017128+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/046-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_03.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_03.actual",
+      "returncode": 0,
+      "stdout_sha256": "9c74d78240765260c2ed668a0a80c22712475656bb8d1d8aab585826348c5228",
+      "seconds": 0.06458795100115822,
+      "finished_at": "2026-10-03T11:09:12.082704+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_03.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_03.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_03.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.083665+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/047-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.015799668999534333,
+      "finished_at": "2026-10-03T11:09:12.100457+00:00",
+      "log_sha256": "531c823fb3572aad5ea37d16509bfb883030a479a6dbecd7da8752c75018c04d"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.102754+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/048-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_04.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_04.actual",
+      "returncode": 0,
+      "stdout_sha256": "86ffc6fba24a55ce81101030aeb0d5933c9198acfb52fc9bba29dd0064f58f06",
+      "seconds": 0.06432029900315683,
+      "finished_at": "2026-10-03T11:09:12.168064+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_04.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-random_04.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_04.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.169181+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/049-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.015742352999950526,
+      "finished_at": "2026-10-03T11:09:12.185872+00:00",
+      "log_sha256": "6d2256fcb6c2fadd6ebd95eb7ec110d0b0bb91782550b38f8194d29ad07af736"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.188479+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/050-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-small_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "8dd73b1a9d0e0c9153f7f9c87292d43a40d50e7b114ca1484644c4d3ac603220",
+      "seconds": 0.003720100001373794,
+      "finished_at": "2026-10-03T11:09:12.193158+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-small_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.194166+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/051-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0036782649985980242,
+      "finished_at": "2026-10-03T11:09:12.198845+00:00",
+      "log_sha256": "0c3e6e754c6c9425ab6542302ab56026680ec185c13a1186d0b5569f76f1d6f7"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.201035+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/052-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-small_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "f4abe1bf92b6b2f15dc6a067d7d1b372ee3a402120aff6404efdc062a4eca462",
+      "seconds": 0.0036461950003285892,
+      "finished_at": "2026-10-03T11:09:12.205927+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-small_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.206830+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/053-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003616459001932526,
+      "finished_at": "2026-10-03T11:09:12.211430+00:00",
+      "log_sha256": "17e4f6be2a2eb1b3ee8a2ba15f65a14c102de3e278fa5f7caf9856b58eeafc42"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.213697+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/054-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-small_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "0c336202b079d9c54f8b2122ff65a5e49524d190d2075aaee249cf1463e361ef",
+      "seconds": 0.003679723999084672,
+      "finished_at": "2026-10-03T11:09:12.218366+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-small_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.219358+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/055-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0035757139994530007,
+      "finished_at": "2026-10-03T11:09:12.223935+00:00",
+      "log_sha256": "691130c6528e4138a76c41022a2c55ab08b1383dbc4243a7d27a072b29685d27"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.226079+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/056-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-uv_swapped_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "09c23c137d41e9960f13cacebe000cb0a909ba1d1fd2b45fa4d1ec142cbc92ea",
+      "seconds": 0.11507446199902915,
+      "finished_at": "2026-10-03T11:09:12.342228+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-uv_swapped_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.343368+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/057-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03187475899903802,
+      "finished_at": "2026-10-03T11:09:12.376598+00:00",
+      "log_sha256": "b0975e5a3d8478a8e22b1c2ec2594925515f98b77d2ab13762e681c06d37ea6b"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.381623+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/058-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-uv_swapped_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "3a807e9fe0400b9173d1084ac721fc7ee9942e1ce5c6b7394569b5c7cd6ac560",
+      "seconds": 0.16532925399951637,
+      "finished_at": "2026-10-03T11:09:12.548021+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-uv_swapped_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.549353+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/059-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03190197300136788,
+      "finished_at": "2026-10-03T11:09:12.583115+00:00",
+      "log_sha256": "2826e4c4d7daad36ceef6dba919f92b855c1fbcf533126769d693fdd43030efa"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.585873+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/060-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-uv_swapped_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "30b3f6c17380b62632a1c6815c65856a5003ffe45c867e9840059d79022e81b4",
+      "seconds": 0.11497539099946152,
+      "finished_at": "2026-10-03T11:09:12.701767+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat1-uv_swapped_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.702851+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/061-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.031808445000933716,
+      "finished_at": "2026-10-03T11:09:12.735637+00:00",
+      "log_sha256": "0cf2e831c266640b8b96717e5df4c639059098b585302bd77110d23209424646"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.738848+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/062-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-dense_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "5d4e826a1924b61e5fd995db1701792062a9e5475627d82989779eee54be6d08",
+      "seconds": 0.1654669159979676,
+      "finished_at": "2026-10-03T11:09:12.905340+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-dense_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.906764+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/063-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.031984329001716105,
+      "finished_at": "2026-10-03T11:09:12.939982+00:00",
+      "log_sha256": "d3d60332959320a66b2ce6ee5d7fa93e341b9acece48bfdd600267bee4def9da"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:12.943802+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/064-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-dense_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "df18b45eae3807e4eae98b0ee69dcbf4771ea76202ba9a875b5e28c35dad62bb",
+      "seconds": 0.16585112500251853,
+      "finished_at": "2026-10-03T11:09:13.110678+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-dense_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.111940+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/065-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03195181800037972,
+      "finished_at": "2026-10-03T11:09:13.144911+00:00",
+      "log_sha256": "d1fc6ff4011b0cec5a6aa37d58522bbc8a518b22183b4d4e2f422f2a6d67490f"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.147976+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/066-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-dense_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "1bff45c30307ae7771c6e64fcae1cbf6f2bec81648aac3c6ffdfcf09e70bacaa",
+      "seconds": 0.11505815200143843,
+      "finished_at": "2026-10-03T11:09:13.264035+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-dense_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.265189+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/067-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03221478100022068,
+      "finished_at": "2026-10-03T11:09:13.298570+00:00",
+      "log_sha256": "ad948d4d5ef1ed2bce619005cd520a22ff6212388c0805fc1580c04896af563d"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.301695+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/068-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.004189928997220704,
+      "finished_at": "2026-10-03T11:09:13.306902+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.308209+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/069-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003807148001214955,
+      "finished_at": "2026-10-03T11:09:13.313088+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.315436+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/070-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/link_and_cut_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-link_and_cut_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "89d46d9b514748b0ce0973a09bc8691cfabc822c0e43468310687ef2f521278b",
+      "seconds": 0.26520801600054256,
+      "finished_at": "2026-10-03T11:09:13.581906+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/link_and_cut_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-link_and_cut_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/link_and_cut_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.583505+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/071-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.007966481000039494,
+      "finished_at": "2026-10-03T11:09:13.592799+00:00",
+      "log_sha256": "36fe7127238eaef24d3af69e74c5bb6027e16d118ad4e6b4b5e10fe830ec7ac2"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.596282+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/072-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-max_random_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "418130bd409ccac9226959dca95f89869ee27557511f994fdaac1f464394dfd9",
+      "seconds": 0.11497136599791702,
+      "finished_at": "2026-10-03T11:09:13.712437+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-max_random_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.713930+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/073-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.033373962996847695,
+      "finished_at": "2026-10-03T11:09:13.749601+00:00",
+      "log_sha256": "a1a4a0a9c4708ab359322fb45bce909dbc7fb2c7c3787b040a6bbabae8f77b48"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.752928+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/074-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-max_random_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "114a2d8e0ca0956106b41d4364475ae1b3e24e53adafede3dd3b1e9d2feb4805",
+      "seconds": 0.11556339800154092,
+      "finished_at": "2026-10-03T11:09:13.870053+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-max_random_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.871765+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/075-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03214627399938763,
+      "finished_at": "2026-10-03T11:09:13.905262+00:00",
+      "log_sha256": "ea813d8f20b115d7b2e368ce7884ac61d7486abfc9cc95f7ab51df21eeea7353"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:13.909220+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/076-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-max_random_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "9e1a7acab9838cc4dc6fdbeda30d55a6697b6431f87f6a0b4879fc80f6607b11",
+      "seconds": 0.16666544600229827,
+      "finished_at": "2026-10-03T11:09:14.077237+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-max_random_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.079652+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/077-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03228814199974295,
+      "finished_at": "2026-10-03T11:09:14.113971+00:00",
+      "log_sha256": "be07b8e41d1091d7fdeef9cad69802c1036b92e5a58ca6244ab8bb12935530c7"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.117804+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/078-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "c4baa9b34ef67dc0b9fcb11d02ef2509a79604389f16bd3cd8316bbe7b422ec6",
+      "seconds": 0.11527475899856654,
+      "finished_at": "2026-10-03T11:09:14.234547+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.236001+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/079-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03218492700034403,
+      "finished_at": "2026-10-03T11:09:14.275825+00:00",
+      "log_sha256": "598039ebb7990b1c5d47bdc326a5c5cd4ebfbd8a81b6cb7b8197603d8fa07046"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.280475+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/080-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "7563a6bc0a0fac768a506b68ba4026b33bbafd8e49baa3b9f5e728a59a0004b8",
+      "seconds": 0.0649330230007763,
+      "finished_at": "2026-10-03T11:09:14.347105+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.349056+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/081-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0160070710007858,
+      "finished_at": "2026-10-03T11:09:14.366532+00:00",
+      "log_sha256": "baab96278ebdfeff3895abf0a049874784841e689ef1dfd0f4a386b7044a0563"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.370178+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/082-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "2b32b742610ce62e47820db4eacf03684b1b7b4dc9eece43ad7be58fe1cb9a09",
+      "seconds": 0.03231811599835055,
+      "finished_at": "2026-10-03T11:09:14.403853+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.405419+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/083-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0158443990003434,
+      "finished_at": "2026-10-03T11:09:14.423350+00:00",
+      "log_sha256": "0b20b02ac6fc485e8af138d456b189d3a4c431e6cbbaf53990b64cda3f6275b9"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.426470+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/084-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_03.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_03.actual",
+      "returncode": 0,
+      "stdout_sha256": "9c74d78240765260c2ed668a0a80c22712475656bb8d1d8aab585826348c5228",
+      "seconds": 0.06471181300003082,
+      "finished_at": "2026-10-03T11:09:14.493482+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_03.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_03.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_03.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.494782+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/085-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.015755060001538368,
+      "finished_at": "2026-10-03T11:09:14.511775+00:00",
+      "log_sha256": "531c823fb3572aad5ea37d16509bfb883030a479a6dbecd7da8752c75018c04d"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.514836+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/086-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_04.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_04.actual",
+      "returncode": 0,
+      "stdout_sha256": "86ffc6fba24a55ce81101030aeb0d5933c9198acfb52fc9bba29dd0064f58f06",
+      "seconds": 0.06463867200000095,
+      "finished_at": "2026-10-03T11:09:14.580749+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_04.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-random_04.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_04.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.582222+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/087-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.01576838599794428,
+      "finished_at": "2026-10-03T11:09:14.599478+00:00",
+      "log_sha256": "6d2256fcb6c2fadd6ebd95eb7ec110d0b0bb91782550b38f8194d29ad07af736"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.603502+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/088-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-small_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "8dd73b1a9d0e0c9153f7f9c87292d43a40d50e7b114ca1484644c4d3ac603220",
+      "seconds": 0.0036642560007749125,
+      "finished_at": "2026-10-03T11:09:14.608893+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-small_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.610242+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/089-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0035210040005040355,
+      "finished_at": "2026-10-03T11:09:14.615289+00:00",
+      "log_sha256": "0c3e6e754c6c9425ab6542302ab56026680ec185c13a1186d0b5569f76f1d6f7"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.617960+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/090-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-small_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "f4abe1bf92b6b2f15dc6a067d7d1b372ee3a402120aff6404efdc062a4eca462",
+      "seconds": 0.0036368050023156684,
+      "finished_at": "2026-10-03T11:09:14.622942+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-small_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.624203+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/091-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003615461002482334,
+      "finished_at": "2026-10-03T11:09:14.629172+00:00",
+      "log_sha256": "17e4f6be2a2eb1b3ee8a2ba15f65a14c102de3e278fa5f7caf9856b58eeafc42"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.631962+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/092-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-small_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "0c336202b079d9c54f8b2122ff65a5e49524d190d2075aaee249cf1463e361ef",
+      "seconds": 0.004614196997863473,
+      "finished_at": "2026-10-03T11:09:14.638365+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-small_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.640439+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/093-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003946357999666361,
+      "finished_at": "2026-10-03T11:09:14.645799+00:00",
+      "log_sha256": "691130c6528e4138a76c41022a2c55ab08b1383dbc4243a7d27a072b29685d27"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.650818+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/094-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-uv_swapped_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "09c23c137d41e9960f13cacebe000cb0a909ba1d1fd2b45fa4d1ec142cbc92ea",
+      "seconds": 0.11521505700147827,
+      "finished_at": "2026-10-03T11:09:14.767345+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-uv_swapped_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.768963+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/095-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.031807190000108676,
+      "finished_at": "2026-10-03T11:09:14.802625+00:00",
+      "log_sha256": "b0975e5a3d8478a8e22b1c2ec2594925515f98b77d2ab13762e681c06d37ea6b"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.806515+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/096-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-uv_swapped_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "3a807e9fe0400b9173d1084ac721fc7ee9942e1ce5c6b7394569b5c7cd6ac560",
+      "seconds": 0.16526669200175093,
+      "finished_at": "2026-10-03T11:09:14.973228+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-uv_swapped_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:14.975052+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/097-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03199940500053344,
+      "finished_at": "2026-10-03T11:09:15.008646+00:00",
+      "log_sha256": "2826e4c4d7daad36ceef6dba919f92b855c1fbcf533126769d693fdd43030efa"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.012992+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/098-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-uv_swapped_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "30b3f6c17380b62632a1c6815c65856a5003ffe45c867e9840059d79022e81b4",
+      "seconds": 0.11560617400027695,
+      "finished_at": "2026-10-03T11:09:15.130280+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat2-uv_swapped_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.136067+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/099-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03254663400002755,
+      "finished_at": "2026-10-03T11:09:15.173471+00:00",
+      "log_sha256": "0cf2e831c266640b8b96717e5df4c639059098b585302bd77110d23209424646"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.177208+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/100-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-dense_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "5d4e826a1924b61e5fd995db1701792062a9e5475627d82989779eee54be6d08",
+      "seconds": 0.16521452800225234,
+      "finished_at": "2026-10-03T11:09:15.344024+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-dense_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.345803+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/101-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03189538399965386,
+      "finished_at": "2026-10-03T11:09:15.379171+00:00",
+      "log_sha256": "d3d60332959320a66b2ce6ee5d7fa93e341b9acece48bfdd600267bee4def9da"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.383592+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/102-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-dense_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "df18b45eae3807e4eae98b0ee69dcbf4771ea76202ba9a875b5e28c35dad62bb",
+      "seconds": 0.16528195700084325,
+      "finished_at": "2026-10-03T11:09:15.550409+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-dense_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.552057+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/103-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03203007800038904,
+      "finished_at": "2026-10-03T11:09:15.586739+00:00",
+      "log_sha256": "d1fc6ff4011b0cec5a6aa37d58522bbc8a518b22183b4d4e2f422f2a6d67490f"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.590849+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/104-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-dense_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "1bff45c30307ae7771c6e64fcae1cbf6f2bec81648aac3c6ffdfcf09e70bacaa",
+      "seconds": 0.11508744100137847,
+      "finished_at": "2026-10-03T11:09:15.707629+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-dense_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/dense_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.709207+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/105-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.031940065000526374,
+      "finished_at": "2026-10-03T11:09:15.742811+00:00",
+      "log_sha256": "ad948d4d5ef1ed2bce619005cd520a22ff6212388c0805fc1580c04896af563d"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.747052+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/106-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-example_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "seconds": 0.004088934998435434,
+      "finished_at": "2026-10-03T11:09:15.752781+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-example_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/example_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.754526+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/107-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0037189389986451715,
+      "finished_at": "2026-10-03T11:09:15.759731+00:00",
+      "log_sha256": "49d55e1819784834edfb749e4dbf50d702ccdc98843f63d86ed5a1cb7d704d81"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.763558+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/108-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/link_and_cut_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-link_and_cut_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "89d46d9b514748b0ce0973a09bc8691cfabc822c0e43468310687ef2f521278b",
+      "seconds": 0.21515335400181357,
+      "finished_at": "2026-10-03T11:09:15.980322+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/link_and_cut_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-link_and_cut_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/link_and_cut_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.982174+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/109-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.007837151999410708,
+      "finished_at": "2026-10-03T11:09:15.992311+00:00",
+      "log_sha256": "36fe7127238eaef24d3af69e74c5bb6027e16d118ad4e6b4b5e10fe830ec7ac2"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:15.995975+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/110-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-max_random_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "418130bd409ccac9226959dca95f89869ee27557511f994fdaac1f464394dfd9",
+      "seconds": 0.11510975599958329,
+      "finished_at": "2026-10-03T11:09:16.112718+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-max_random_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.114568+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/111-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.031959880001522833,
+      "finished_at": "2026-10-03T11:09:16.148449+00:00",
+      "log_sha256": "a1a4a0a9c4708ab359322fb45bce909dbc7fb2c7c3787b040a6bbabae8f77b48"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.153231+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/112-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-max_random_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "114a2d8e0ca0956106b41d4364475ae1b3e24e53adafede3dd3b1e9d2feb4805",
+      "seconds": 0.1652486350030813,
+      "finished_at": "2026-10-03T11:09:16.320282+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-max_random_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.322491+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/113-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.032102089000545675,
+      "finished_at": "2026-10-03T11:09:16.357013+00:00",
+      "log_sha256": "ea813d8f20b115d7b2e368ce7884ac61d7486abfc9cc95f7ab51df21eeea7353"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.361504+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/114-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-max_random_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "9e1a7acab9838cc4dc6fdbeda30d55a6697b6431f87f6a0b4879fc80f6607b11",
+      "seconds": 0.11501779500031262,
+      "finished_at": "2026-10-03T11:09:16.478158+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-max_random_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/max_random_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.480268+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/115-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.032119270999828586,
+      "finished_at": "2026-10-03T11:09:16.514455+00:00",
+      "log_sha256": "be07b8e41d1091d7fdeef9cad69802c1036b92e5a58ca6244ab8bb12935530c7"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.518976+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/116-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "c4baa9b34ef67dc0b9fcb11d02ef2509a79604389f16bd3cd8316bbe7b422ec6",
+      "seconds": 0.1149924210003519,
+      "finished_at": "2026-10-03T11:09:16.635616+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.637547+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/117-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.015761271999508608,
+      "finished_at": "2026-10-03T11:09:16.654999+00:00",
+      "log_sha256": "598039ebb7990b1c5d47bdc326a5c5cd4ebfbd8a81b6cb7b8197603d8fa07046"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.658950+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/118-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "7563a6bc0a0fac768a506b68ba4026b33bbafd8e49baa3b9f5e728a59a0004b8",
+      "seconds": 0.06451552500220714,
+      "finished_at": "2026-10-03T11:09:16.725085+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.726865+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/119-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.015720372000942007,
+      "finished_at": "2026-10-03T11:09:16.744301+00:00",
+      "log_sha256": "baab96278ebdfeff3895abf0a049874784841e689ef1dfd0f4a386b7044a0563"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.748424+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/120-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "2b32b742610ce62e47820db4eacf03684b1b7b4dc9eece43ad7be58fe1cb9a09",
+      "seconds": 0.03222712700153352,
+      "finished_at": "2026-10-03T11:09:16.783026+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.785057+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/121-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.007640833999175811,
+      "finished_at": "2026-10-03T11:09:16.795011+00:00",
+      "log_sha256": "0b20b02ac6fc485e8af138d456b189d3a4c431e6cbbaf53990b64cda3f6275b9"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.799077+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/122-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_03.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_03.actual",
+      "returncode": 0,
+      "stdout_sha256": "9c74d78240765260c2ed668a0a80c22712475656bb8d1d8aab585826348c5228",
+      "seconds": 0.06470237300163717,
+      "finished_at": "2026-10-03T11:09:16.865602+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_03.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_03.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_03.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.867700+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/123-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.015868533999309875,
+      "finished_at": "2026-10-03T11:09:16.885530+00:00",
+      "log_sha256": "531c823fb3572aad5ea37d16509bfb883030a479a6dbecd7da8752c75018c04d"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.890325+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/124-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_04.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_04.actual",
+      "returncode": 0,
+      "stdout_sha256": "86ffc6fba24a55ce81101030aeb0d5933c9198acfb52fc9bba29dd0064f58f06",
+      "seconds": 0.06429265800034045,
+      "finished_at": "2026-10-03T11:09:16.956660+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_04.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-random_04.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/random_04.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.958822+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/125-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.015799020999111235,
+      "finished_at": "2026-10-03T11:09:16.976599+00:00",
+      "log_sha256": "6d2256fcb6c2fadd6ebd95eb7ec110d0b0bb91782550b38f8194d29ad07af736"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.980533+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/126-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-small_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "8dd73b1a9d0e0c9153f7f9c87292d43a40d50e7b114ca1484644c4d3ac603220",
+      "seconds": 0.003668274999654386,
+      "finished_at": "2026-10-03T11:09:16.985938+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-small_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.988219+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/127-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003528765999362804,
+      "finished_at": "2026-10-03T11:09:16.993665+00:00",
+      "log_sha256": "0c3e6e754c6c9425ab6542302ab56026680ec185c13a1186d0b5569f76f1d6f7"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:16.997155+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/128-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-small_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "f4abe1bf92b6b2f15dc6a067d7d1b372ee3a402120aff6404efdc062a4eca462",
+      "seconds": 0.003634345001046313,
+      "finished_at": "2026-10-03T11:09:17.002606+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-small_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:17.004763+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/129-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.003699349999806145,
+      "finished_at": "2026-10-03T11:09:17.010476+00:00",
+      "log_sha256": "17e4f6be2a2eb1b3ee8a2ba15f65a14c102de3e278fa5f7caf9856b58eeafc42"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:17.014505+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/130-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-small_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "0c336202b079d9c54f8b2122ff65a5e49524d190d2075aaee249cf1463e361ef",
+      "seconds": 0.0036887820024276152,
+      "finished_at": "2026-10-03T11:09:17.020537+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-small_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/small_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:17.022351+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/131-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.0038960229976510163,
+      "finished_at": "2026-10-03T11:09:17.028104+00:00",
+      "log_sha256": "691130c6528e4138a76c41022a2c55ab08b1383dbc4243a7d27a072b29685d27"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:17.032115+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/132-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_00.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-uv_swapped_00.actual",
+      "returncode": 0,
+      "stdout_sha256": "09c23c137d41e9960f13cacebe000cb0a909ba1d1fd2b45fa4d1ec142cbc92ea",
+      "seconds": 0.11568053799783229,
+      "finished_at": "2026-10-03T11:09:17.149720+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_00.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-uv_swapped_00.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_00.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:17.152057+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/133-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03196078999826568,
+      "finished_at": "2026-10-03T11:09:17.186270+00:00",
+      "log_sha256": "b0975e5a3d8478a8e22b1c2ec2594925515f98b77d2ab13762e681c06d37ea6b"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:17.191671+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/134-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_01.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-uv_swapped_01.actual",
+      "returncode": 0,
+      "stdout_sha256": "3a807e9fe0400b9173d1084ac721fc7ee9942e1ce5c6b7394569b5c7cd6ac560",
+      "seconds": 0.11506328500036034,
+      "finished_at": "2026-10-03T11:09:17.308734+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_01.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-uv_swapped_01.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_01.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:17.311029+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/135-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03245658400192042,
+      "finished_at": "2026-10-03T11:09:17.345557+00:00",
+      "log_sha256": "2826e4c4d7daad36ceef6dba919f92b855c1fbcf533126769d693fdd43030efa"
+    },
+    {
+      "kind": "official-solve",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/bin/gpp-gnupp20-assert"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:17.350688+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/136-official-solve.log",
+      "status": "passed",
+      "stdin": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_02.in",
+      "stdout": "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-uv_swapped_02.actual",
+      "returncode": 0,
+      "stdout_sha256": "30b3f6c17380b62632a1c6815c65856a5003ffe45c867e9840059d79022e81b4",
+      "seconds": 0.11501351799961412,
+      "finished_at": "2026-10-03T11:09:17.467585+00:00",
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "kind": "official-check",
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/source/graph/dynamic_graph_vertex_add_component_sum/checker",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_02.in",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/final-driver/actual/repeat3-uv_swapped_02.actual",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/datasets/cases/uv_swapped_02.out"
+      ],
+      "cwd": "/workspace/Blueberry-library",
+      "started_at": "2026-10-03T11:09:17.469790+00:00",
+      "timeout_seconds": 180,
+      "log": "logs/137-official-check.log",
+      "status": "passed",
+      "returncode": 0,
+      "seconds": 0.03220028799842112,
+      "finished_at": "2026-10-03T11:09:17.504113+00:00",
+      "log_sha256": "0cf2e831c266640b8b96717e5df4c639059098b585302bd77110d23209424646"
+    }
+  ],
+  "smoke": [
+    {
+      "label": "gpp-gnupp20-assert",
+      "case": "example_00",
+      "repeat": null,
+      "status": "accepted",
+      "actual": "actual/gpp-gnupp20-assert-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/001-smoke-solve.log",
+      "checker_log": "logs/002-smoke-check.log"
+    },
+    {
+      "label": "gpp-gnupp20-release",
+      "case": "example_00",
+      "repeat": null,
+      "status": "accepted",
+      "actual": "actual/gpp-gnupp20-release-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/004-smoke-solve.log",
+      "checker_log": "logs/005-smoke-check.log"
+    },
+    {
+      "label": "gpp-gnupp23-assert",
+      "case": "example_00",
+      "repeat": null,
+      "status": "accepted",
+      "actual": "actual/gpp-gnupp23-assert-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/007-smoke-solve.log",
+      "checker_log": "logs/008-smoke-check.log"
+    },
+    {
+      "label": "gpp-gnupp23-release",
+      "case": "example_00",
+      "repeat": null,
+      "status": "accepted",
+      "actual": "actual/gpp-gnupp23-release-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/010-smoke-solve.log",
+      "checker_log": "logs/011-smoke-check.log"
+    },
+    {
+      "label": "clangpp-gnupp20-assert",
+      "case": "example_00",
+      "repeat": null,
+      "status": "accepted",
+      "actual": "actual/clangpp-gnupp20-assert-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/013-smoke-solve.log",
+      "checker_log": "logs/014-smoke-check.log"
+    },
+    {
+      "label": "clangpp-gnupp20-release",
+      "case": "example_00",
+      "repeat": null,
+      "status": "accepted",
+      "actual": "actual/clangpp-gnupp20-release-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/016-smoke-solve.log",
+      "checker_log": "logs/017-smoke-check.log"
+    },
+    {
+      "label": "clangpp-gnupp23-assert",
+      "case": "example_00",
+      "repeat": null,
+      "status": "accepted",
+      "actual": "actual/clangpp-gnupp23-assert-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/019-smoke-solve.log",
+      "checker_log": "logs/020-smoke-check.log"
+    },
+    {
+      "label": "clangpp-gnupp23-release",
+      "case": "example_00",
+      "repeat": null,
+      "status": "accepted",
+      "actual": "actual/clangpp-gnupp23-release-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/022-smoke-solve.log",
+      "checker_log": "logs/023-smoke-check.log"
+    }
+  ],
+  "official": [
+    {
+      "label": "repeat1",
+      "case": "dense_00",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-dense_00.actual",
+      "actual_sha256": "5d4e826a1924b61e5fd995db1701792062a9e5475627d82989779eee54be6d08",
+      "solve_log": "logs/024-official-solve.log",
+      "checker_log": "logs/025-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "dense_01",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-dense_01.actual",
+      "actual_sha256": "df18b45eae3807e4eae98b0ee69dcbf4771ea76202ba9a875b5e28c35dad62bb",
+      "solve_log": "logs/026-official-solve.log",
+      "checker_log": "logs/027-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "dense_02",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-dense_02.actual",
+      "actual_sha256": "1bff45c30307ae7771c6e64fcae1cbf6f2bec81648aac3c6ffdfcf09e70bacaa",
+      "solve_log": "logs/028-official-solve.log",
+      "checker_log": "logs/029-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "example_00",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/030-official-solve.log",
+      "checker_log": "logs/031-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "link_and_cut_00",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-link_and_cut_00.actual",
+      "actual_sha256": "89d46d9b514748b0ce0973a09bc8691cfabc822c0e43468310687ef2f521278b",
+      "solve_log": "logs/032-official-solve.log",
+      "checker_log": "logs/033-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "max_random_00",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-max_random_00.actual",
+      "actual_sha256": "418130bd409ccac9226959dca95f89869ee27557511f994fdaac1f464394dfd9",
+      "solve_log": "logs/034-official-solve.log",
+      "checker_log": "logs/035-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "max_random_01",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-max_random_01.actual",
+      "actual_sha256": "114a2d8e0ca0956106b41d4364475ae1b3e24e53adafede3dd3b1e9d2feb4805",
+      "solve_log": "logs/036-official-solve.log",
+      "checker_log": "logs/037-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "max_random_02",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-max_random_02.actual",
+      "actual_sha256": "9e1a7acab9838cc4dc6fdbeda30d55a6697b6431f87f6a0b4879fc80f6607b11",
+      "solve_log": "logs/038-official-solve.log",
+      "checker_log": "logs/039-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "random_00",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-random_00.actual",
+      "actual_sha256": "c4baa9b34ef67dc0b9fcb11d02ef2509a79604389f16bd3cd8316bbe7b422ec6",
+      "solve_log": "logs/040-official-solve.log",
+      "checker_log": "logs/041-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "random_01",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-random_01.actual",
+      "actual_sha256": "7563a6bc0a0fac768a506b68ba4026b33bbafd8e49baa3b9f5e728a59a0004b8",
+      "solve_log": "logs/042-official-solve.log",
+      "checker_log": "logs/043-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "random_02",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-random_02.actual",
+      "actual_sha256": "2b32b742610ce62e47820db4eacf03684b1b7b4dc9eece43ad7be58fe1cb9a09",
+      "solve_log": "logs/044-official-solve.log",
+      "checker_log": "logs/045-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "random_03",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-random_03.actual",
+      "actual_sha256": "9c74d78240765260c2ed668a0a80c22712475656bb8d1d8aab585826348c5228",
+      "solve_log": "logs/046-official-solve.log",
+      "checker_log": "logs/047-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "random_04",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-random_04.actual",
+      "actual_sha256": "86ffc6fba24a55ce81101030aeb0d5933c9198acfb52fc9bba29dd0064f58f06",
+      "solve_log": "logs/048-official-solve.log",
+      "checker_log": "logs/049-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "small_00",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-small_00.actual",
+      "actual_sha256": "8dd73b1a9d0e0c9153f7f9c87292d43a40d50e7b114ca1484644c4d3ac603220",
+      "solve_log": "logs/050-official-solve.log",
+      "checker_log": "logs/051-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "small_01",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-small_01.actual",
+      "actual_sha256": "f4abe1bf92b6b2f15dc6a067d7d1b372ee3a402120aff6404efdc062a4eca462",
+      "solve_log": "logs/052-official-solve.log",
+      "checker_log": "logs/053-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "small_02",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-small_02.actual",
+      "actual_sha256": "0c336202b079d9c54f8b2122ff65a5e49524d190d2075aaee249cf1463e361ef",
+      "solve_log": "logs/054-official-solve.log",
+      "checker_log": "logs/055-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "uv_swapped_00",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-uv_swapped_00.actual",
+      "actual_sha256": "09c23c137d41e9960f13cacebe000cb0a909ba1d1fd2b45fa4d1ec142cbc92ea",
+      "solve_log": "logs/056-official-solve.log",
+      "checker_log": "logs/057-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "uv_swapped_01",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-uv_swapped_01.actual",
+      "actual_sha256": "3a807e9fe0400b9173d1084ac721fc7ee9942e1ce5c6b7394569b5c7cd6ac560",
+      "solve_log": "logs/058-official-solve.log",
+      "checker_log": "logs/059-official-check.log"
+    },
+    {
+      "label": "repeat1",
+      "case": "uv_swapped_02",
+      "repeat": 1,
+      "status": "accepted",
+      "actual": "actual/repeat1-uv_swapped_02.actual",
+      "actual_sha256": "30b3f6c17380b62632a1c6815c65856a5003ffe45c867e9840059d79022e81b4",
+      "solve_log": "logs/060-official-solve.log",
+      "checker_log": "logs/061-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "dense_00",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-dense_00.actual",
+      "actual_sha256": "5d4e826a1924b61e5fd995db1701792062a9e5475627d82989779eee54be6d08",
+      "solve_log": "logs/062-official-solve.log",
+      "checker_log": "logs/063-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "dense_01",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-dense_01.actual",
+      "actual_sha256": "df18b45eae3807e4eae98b0ee69dcbf4771ea76202ba9a875b5e28c35dad62bb",
+      "solve_log": "logs/064-official-solve.log",
+      "checker_log": "logs/065-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "dense_02",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-dense_02.actual",
+      "actual_sha256": "1bff45c30307ae7771c6e64fcae1cbf6f2bec81648aac3c6ffdfcf09e70bacaa",
+      "solve_log": "logs/066-official-solve.log",
+      "checker_log": "logs/067-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "example_00",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/068-official-solve.log",
+      "checker_log": "logs/069-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "link_and_cut_00",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-link_and_cut_00.actual",
+      "actual_sha256": "89d46d9b514748b0ce0973a09bc8691cfabc822c0e43468310687ef2f521278b",
+      "solve_log": "logs/070-official-solve.log",
+      "checker_log": "logs/071-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "max_random_00",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-max_random_00.actual",
+      "actual_sha256": "418130bd409ccac9226959dca95f89869ee27557511f994fdaac1f464394dfd9",
+      "solve_log": "logs/072-official-solve.log",
+      "checker_log": "logs/073-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "max_random_01",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-max_random_01.actual",
+      "actual_sha256": "114a2d8e0ca0956106b41d4364475ae1b3e24e53adafede3dd3b1e9d2feb4805",
+      "solve_log": "logs/074-official-solve.log",
+      "checker_log": "logs/075-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "max_random_02",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-max_random_02.actual",
+      "actual_sha256": "9e1a7acab9838cc4dc6fdbeda30d55a6697b6431f87f6a0b4879fc80f6607b11",
+      "solve_log": "logs/076-official-solve.log",
+      "checker_log": "logs/077-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "random_00",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-random_00.actual",
+      "actual_sha256": "c4baa9b34ef67dc0b9fcb11d02ef2509a79604389f16bd3cd8316bbe7b422ec6",
+      "solve_log": "logs/078-official-solve.log",
+      "checker_log": "logs/079-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "random_01",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-random_01.actual",
+      "actual_sha256": "7563a6bc0a0fac768a506b68ba4026b33bbafd8e49baa3b9f5e728a59a0004b8",
+      "solve_log": "logs/080-official-solve.log",
+      "checker_log": "logs/081-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "random_02",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-random_02.actual",
+      "actual_sha256": "2b32b742610ce62e47820db4eacf03684b1b7b4dc9eece43ad7be58fe1cb9a09",
+      "solve_log": "logs/082-official-solve.log",
+      "checker_log": "logs/083-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "random_03",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-random_03.actual",
+      "actual_sha256": "9c74d78240765260c2ed668a0a80c22712475656bb8d1d8aab585826348c5228",
+      "solve_log": "logs/084-official-solve.log",
+      "checker_log": "logs/085-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "random_04",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-random_04.actual",
+      "actual_sha256": "86ffc6fba24a55ce81101030aeb0d5933c9198acfb52fc9bba29dd0064f58f06",
+      "solve_log": "logs/086-official-solve.log",
+      "checker_log": "logs/087-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "small_00",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-small_00.actual",
+      "actual_sha256": "8dd73b1a9d0e0c9153f7f9c87292d43a40d50e7b114ca1484644c4d3ac603220",
+      "solve_log": "logs/088-official-solve.log",
+      "checker_log": "logs/089-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "small_01",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-small_01.actual",
+      "actual_sha256": "f4abe1bf92b6b2f15dc6a067d7d1b372ee3a402120aff6404efdc062a4eca462",
+      "solve_log": "logs/090-official-solve.log",
+      "checker_log": "logs/091-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "small_02",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-small_02.actual",
+      "actual_sha256": "0c336202b079d9c54f8b2122ff65a5e49524d190d2075aaee249cf1463e361ef",
+      "solve_log": "logs/092-official-solve.log",
+      "checker_log": "logs/093-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "uv_swapped_00",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-uv_swapped_00.actual",
+      "actual_sha256": "09c23c137d41e9960f13cacebe000cb0a909ba1d1fd2b45fa4d1ec142cbc92ea",
+      "solve_log": "logs/094-official-solve.log",
+      "checker_log": "logs/095-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "uv_swapped_01",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-uv_swapped_01.actual",
+      "actual_sha256": "3a807e9fe0400b9173d1084ac721fc7ee9942e1ce5c6b7394569b5c7cd6ac560",
+      "solve_log": "logs/096-official-solve.log",
+      "checker_log": "logs/097-official-check.log"
+    },
+    {
+      "label": "repeat2",
+      "case": "uv_swapped_02",
+      "repeat": 2,
+      "status": "accepted",
+      "actual": "actual/repeat2-uv_swapped_02.actual",
+      "actual_sha256": "30b3f6c17380b62632a1c6815c65856a5003ffe45c867e9840059d79022e81b4",
+      "solve_log": "logs/098-official-solve.log",
+      "checker_log": "logs/099-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "dense_00",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-dense_00.actual",
+      "actual_sha256": "5d4e826a1924b61e5fd995db1701792062a9e5475627d82989779eee54be6d08",
+      "solve_log": "logs/100-official-solve.log",
+      "checker_log": "logs/101-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "dense_01",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-dense_01.actual",
+      "actual_sha256": "df18b45eae3807e4eae98b0ee69dcbf4771ea76202ba9a875b5e28c35dad62bb",
+      "solve_log": "logs/102-official-solve.log",
+      "checker_log": "logs/103-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "dense_02",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-dense_02.actual",
+      "actual_sha256": "1bff45c30307ae7771c6e64fcae1cbf6f2bec81648aac3c6ffdfcf09e70bacaa",
+      "solve_log": "logs/104-official-solve.log",
+      "checker_log": "logs/105-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "example_00",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-example_00.actual",
+      "actual_sha256": "d254bc94d70f88ecddde7acc92d0362b25486991dae998c4d13e3b9779c5b835",
+      "solve_log": "logs/106-official-solve.log",
+      "checker_log": "logs/107-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "link_and_cut_00",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-link_and_cut_00.actual",
+      "actual_sha256": "89d46d9b514748b0ce0973a09bc8691cfabc822c0e43468310687ef2f521278b",
+      "solve_log": "logs/108-official-solve.log",
+      "checker_log": "logs/109-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "max_random_00",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-max_random_00.actual",
+      "actual_sha256": "418130bd409ccac9226959dca95f89869ee27557511f994fdaac1f464394dfd9",
+      "solve_log": "logs/110-official-solve.log",
+      "checker_log": "logs/111-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "max_random_01",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-max_random_01.actual",
+      "actual_sha256": "114a2d8e0ca0956106b41d4364475ae1b3e24e53adafede3dd3b1e9d2feb4805",
+      "solve_log": "logs/112-official-solve.log",
+      "checker_log": "logs/113-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "max_random_02",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-max_random_02.actual",
+      "actual_sha256": "9e1a7acab9838cc4dc6fdbeda30d55a6697b6431f87f6a0b4879fc80f6607b11",
+      "solve_log": "logs/114-official-solve.log",
+      "checker_log": "logs/115-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "random_00",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-random_00.actual",
+      "actual_sha256": "c4baa9b34ef67dc0b9fcb11d02ef2509a79604389f16bd3cd8316bbe7b422ec6",
+      "solve_log": "logs/116-official-solve.log",
+      "checker_log": "logs/117-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "random_01",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-random_01.actual",
+      "actual_sha256": "7563a6bc0a0fac768a506b68ba4026b33bbafd8e49baa3b9f5e728a59a0004b8",
+      "solve_log": "logs/118-official-solve.log",
+      "checker_log": "logs/119-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "random_02",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-random_02.actual",
+      "actual_sha256": "2b32b742610ce62e47820db4eacf03684b1b7b4dc9eece43ad7be58fe1cb9a09",
+      "solve_log": "logs/120-official-solve.log",
+      "checker_log": "logs/121-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "random_03",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-random_03.actual",
+      "actual_sha256": "9c74d78240765260c2ed668a0a80c22712475656bb8d1d8aab585826348c5228",
+      "solve_log": "logs/122-official-solve.log",
+      "checker_log": "logs/123-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "random_04",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-random_04.actual",
+      "actual_sha256": "86ffc6fba24a55ce81101030aeb0d5933c9198acfb52fc9bba29dd0064f58f06",
+      "solve_log": "logs/124-official-solve.log",
+      "checker_log": "logs/125-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "small_00",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-small_00.actual",
+      "actual_sha256": "8dd73b1a9d0e0c9153f7f9c87292d43a40d50e7b114ca1484644c4d3ac603220",
+      "solve_log": "logs/126-official-solve.log",
+      "checker_log": "logs/127-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "small_01",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-small_01.actual",
+      "actual_sha256": "f4abe1bf92b6b2f15dc6a067d7d1b372ee3a402120aff6404efdc062a4eca462",
+      "solve_log": "logs/128-official-solve.log",
+      "checker_log": "logs/129-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "small_02",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-small_02.actual",
+      "actual_sha256": "0c336202b079d9c54f8b2122ff65a5e49524d190d2075aaee249cf1463e361ef",
+      "solve_log": "logs/130-official-solve.log",
+      "checker_log": "logs/131-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "uv_swapped_00",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-uv_swapped_00.actual",
+      "actual_sha256": "09c23c137d41e9960f13cacebe000cb0a909ba1d1fd2b45fa4d1ec142cbc92ea",
+      "solve_log": "logs/132-official-solve.log",
+      "checker_log": "logs/133-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "uv_swapped_01",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-uv_swapped_01.actual",
+      "actual_sha256": "3a807e9fe0400b9173d1084ac721fc7ee9942e1ce5c6b7394569b5c7cd6ac560",
+      "solve_log": "logs/134-official-solve.log",
+      "checker_log": "logs/135-official-check.log"
+    },
+    {
+      "label": "repeat3",
+      "case": "uv_swapped_02",
+      "repeat": 3,
+      "status": "accepted",
+      "actual": "actual/repeat3-uv_swapped_02.actual",
+      "actual_sha256": "30b3f6c17380b62632a1c6815c65856a5003ffe45c867e9840059d79022e81b4",
+      "solve_log": "logs/136-official-solve.log",
+      "checker_log": "logs/137-official-check.log"
+    }
+  ],
+  "environment": {
+    "CPLUS_INCLUDE_PATH": "/workspace/Blueberry-library/.deps/ac-library:/tmp/blueberry-setup/boost/usr/include",
+    "CPATH": "",
+    "LD_LIBRARY_PATH": ""
+  },
+  "source_unchanged": true,
+  "protected_evidence_unchanged": true,
+  "datasets_unchanged": true,
+  "binaries_unchanged": true,
+  "finished_at": "2026-10-03T11:09:17.603149+00:00",
+  "counts": {
+    "compile": 8,
+    "smoke-solve": 8,
+    "smoke-check": 8,
+    "official-solve": 57,
+    "official-check": 57
+  },
+  "passed_steps": 138,
+  "official_accepted": 57,
+  "smoke_accepted": 8
+}

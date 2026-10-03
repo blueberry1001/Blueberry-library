@@ -1,0 +1,24 @@
+{
+  "variant": "Synthetic final header with only update assignment reverted; not exact historical header",
+  "command": [
+    "g++",
+    "-std=gnu++20",
+    "-Wall",
+    "-Wextra",
+    "-Wshadow",
+    "-Werror",
+    "-fsyntax-only",
+    "-I/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/before-copy-only-include",
+    "-I.",
+    "/workspace/Blueberry-library/tests/random/offline-dynamic-component-sum.cpp"
+  ],
+  "status": 1,
+  "seconds": 1.4892046519998985,
+  "expected_status": "nonzero: deleted CopyOnly move assignment",
+  "expected_rejection_confirmed": true,
+  "synthetic_variant_sha256": "d1a79fa78db38c68b5b9b2db6cb0739edb0dc5dac57ac4744d1fb7fbc37fd196",
+  "fixed_header_sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+  "source_sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+  "patch": "synthetic-old-expression.patch",
+  "log": "before-copy-only-expected-rejection.log"
+}

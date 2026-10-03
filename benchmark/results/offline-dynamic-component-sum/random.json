@@ -1,0 +1,487 @@
+{
+  "head": "82f6cb427df64aa4a92e0849d7d4632cb9c51283",
+  "source_sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+  "header_sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+  "environment_setup": "source /tmp/blueberry-setup/env.sh",
+  "compilers": {
+    "g++": "g++ (Debian 14.2.0-19) 14.2.0",
+    "clang++": "Debian clang version 19.1.7 (3+b1)"
+  },
+  "steps": [
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/offline-dynamic-component-sum.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-assert"
+      ],
+      "status": 0,
+      "seconds": 6.0310010479988705,
+      "log": "g++-gnu++20-assert-compile.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-assert",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.03337275400190265,
+      "log": "g++-gnu++20-assert-seed1.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-assert",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.03239505799865583,
+      "log": "g++-gnu++20-assert-seed2.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-assert",
+        "17"
+      ],
+      "status": 0,
+      "seconds": 0.03182418200231041,
+      "log": "g++-gnu++20-assert-seed17.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-assert",
+        "123456789"
+      ],
+      "status": 0,
+      "seconds": 0.03180837599938968,
+      "log": "g++-gnu++20-assert-seed123456789.log"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/offline-dynamic-component-sum.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-release",
+        "-DNDEBUG"
+      ],
+      "status": 0,
+      "seconds": 7.487266267999075,
+      "log": "g++-gnu++20-release-compile.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-release",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.032101487999170786,
+      "log": "g++-gnu++20-release-seed1.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-release",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.03194658600114053,
+      "log": "g++-gnu++20-release-seed2.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-release",
+        "17"
+      ],
+      "status": 0,
+      "seconds": 0.03194769300171174,
+      "log": "g++-gnu++20-release-seed17.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++20-release",
+        "123456789"
+      ],
+      "status": 0,
+      "seconds": 0.03187609299857286,
+      "log": "g++-gnu++20-release-seed123456789.log"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/offline-dynamic-component-sum.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-assert"
+      ],
+      "status": 0,
+      "seconds": 6.585501781999483,
+      "log": "g++-gnu++23-assert-compile.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-assert",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.03277595899999142,
+      "log": "g++-gnu++23-assert-seed1.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-assert",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.03206472600140842,
+      "log": "g++-gnu++23-assert-seed2.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-assert",
+        "17"
+      ],
+      "status": 0,
+      "seconds": 0.03189374000066891,
+      "log": "g++-gnu++23-assert-seed17.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-assert",
+        "123456789"
+      ],
+      "status": 0,
+      "seconds": 0.0318278900012956,
+      "log": "g++-gnu++23-assert-seed123456789.log"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/offline-dynamic-component-sum.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-release",
+        "-DNDEBUG"
+      ],
+      "status": 0,
+      "seconds": 9.187126892997185,
+      "log": "g++-gnu++23-release-compile.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-release",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.03184038600011263,
+      "log": "g++-gnu++23-release-seed1.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-release",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.031769623998116,
+      "log": "g++-gnu++23-release-seed2.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-release",
+        "17"
+      ],
+      "status": 0,
+      "seconds": 0.03181767400019453,
+      "log": "g++-gnu++23-release-seed17.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/g++-gnu++23-release",
+        "123456789"
+      ],
+      "status": 0,
+      "seconds": 0.03179324899974745,
+      "log": "g++-gnu++23-release-seed123456789.log"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/offline-dynamic-component-sum.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-assert"
+      ],
+      "status": 0,
+      "seconds": 6.696853274002933,
+      "log": "clang++-gnu++20-assert-compile.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-assert",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.03194483900006162,
+      "log": "clang++-gnu++20-assert-seed1.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-assert",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.031936010000208626,
+      "log": "clang++-gnu++20-assert-seed2.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-assert",
+        "17"
+      ],
+      "status": 0,
+      "seconds": 0.03187509599956684,
+      "log": "clang++-gnu++20-assert-seed17.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-assert",
+        "123456789"
+      ],
+      "status": 0,
+      "seconds": 0.031828307000978384,
+      "log": "clang++-gnu++20-assert-seed123456789.log"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/offline-dynamic-component-sum.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-release",
+        "-DNDEBUG"
+      ],
+      "status": 0,
+      "seconds": 5.2845127590007905,
+      "log": "clang++-gnu++20-release-compile.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-release",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.03182324299996253,
+      "log": "clang++-gnu++20-release-seed1.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-release",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.0352338749980845,
+      "log": "clang++-gnu++20-release-seed2.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-release",
+        "17"
+      ],
+      "status": 0,
+      "seconds": 0.03205607999916538,
+      "log": "clang++-gnu++20-release-seed17.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++20-release",
+        "123456789"
+      ],
+      "status": 0,
+      "seconds": 0.03213339200010523,
+      "log": "clang++-gnu++20-release-seed123456789.log"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/offline-dynamic-component-sum.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-assert"
+      ],
+      "status": 0,
+      "seconds": 5.997949960001279,
+      "log": "clang++-gnu++23-assert-compile.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-assert",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.03213684700313024,
+      "log": "clang++-gnu++23-assert-seed1.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-assert",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.03193172700048308,
+      "log": "clang++-gnu++23-assert-seed2.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-assert",
+        "17"
+      ],
+      "status": 0,
+      "seconds": 0.03195726199919591,
+      "log": "clang++-gnu++23-assert-seed17.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-assert",
+        "123456789"
+      ],
+      "status": 0,
+      "seconds": 0.031963106001057895,
+      "log": "clang++-gnu++23-assert-seed123456789.log"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "/workspace/Blueberry-library/tests/random/offline-dynamic-component-sum.cpp",
+        "-o",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-release",
+        "-DNDEBUG"
+      ],
+      "status": 0,
+      "seconds": 5.178324496999267,
+      "log": "clang++-gnu++23-release-compile.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-release",
+        "1"
+      ],
+      "status": 0,
+      "seconds": 0.03209061100278632,
+      "log": "clang++-gnu++23-release-seed1.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-release",
+        "2"
+      ],
+      "status": 0,
+      "seconds": 0.03187698599867872,
+      "log": "clang++-gnu++23-release-seed2.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-release",
+        "17"
+      ],
+      "status": 0,
+      "seconds": 0.0318556600032025,
+      "log": "clang++-gnu++23-release-seed17.log"
+    },
+    {
+      "command": [
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/random/clang++-gnu++23-release",
+        "123456789"
+      ],
+      "status": 0,
+      "seconds": 0.03188117999889073,
+      "log": "clang++-gnu++23-release-seed123456789.log"
+    }
+  ],
+  "prior_attempt": "../random-before-copy-only/results.json",
+  "regression": "regression.json",
+  "source_unchanged": true,
+  "header_unchanged": true,
+  "complete": true,
+  "runs": {
+    "clang++-gnu++20-assert-seed1.log": "seed=1\noffline dynamic component sum: 2942 BFS answers, 2522 solves, 100147 checks passed",
+    "clang++-gnu++20-assert-seed123456789.log": "seed=123456789\noffline dynamic component sum: 2824 BFS answers, 2523 solves, 97763 checks passed",
+    "clang++-gnu++20-assert-seed17.log": "seed=17\noffline dynamic component sum: 2827 BFS answers, 2513 solves, 98255 checks passed",
+    "clang++-gnu++20-assert-seed2.log": "seed=2\noffline dynamic component sum: 2904 BFS answers, 2555 solves, 101747 checks passed",
+    "clang++-gnu++20-release-seed1.log": "seed=1\noffline dynamic component sum: 2942 BFS answers, 2522 solves, 100147 checks passed",
+    "clang++-gnu++20-release-seed123456789.log": "seed=123456789\noffline dynamic component sum: 2824 BFS answers, 2523 solves, 97763 checks passed",
+    "clang++-gnu++20-release-seed17.log": "seed=17\noffline dynamic component sum: 2827 BFS answers, 2513 solves, 98255 checks passed",
+    "clang++-gnu++20-release-seed2.log": "seed=2\noffline dynamic component sum: 2904 BFS answers, 2555 solves, 101747 checks passed",
+    "clang++-gnu++23-assert-seed1.log": "seed=1\noffline dynamic component sum: 2942 BFS answers, 2522 solves, 100147 checks passed",
+    "clang++-gnu++23-assert-seed123456789.log": "seed=123456789\noffline dynamic component sum: 2824 BFS answers, 2523 solves, 97763 checks passed",
+    "clang++-gnu++23-assert-seed17.log": "seed=17\noffline dynamic component sum: 2827 BFS answers, 2513 solves, 98255 checks passed",
+    "clang++-gnu++23-assert-seed2.log": "seed=2\noffline dynamic component sum: 2904 BFS answers, 2555 solves, 101747 checks passed",
+    "clang++-gnu++23-release-seed1.log": "seed=1\noffline dynamic component sum: 2942 BFS answers, 2522 solves, 100147 checks passed",
+    "clang++-gnu++23-release-seed123456789.log": "seed=123456789\noffline dynamic component sum: 2824 BFS answers, 2523 solves, 97763 checks passed",
+    "clang++-gnu++23-release-seed17.log": "seed=17\noffline dynamic component sum: 2827 BFS answers, 2513 solves, 98255 checks passed",
+    "clang++-gnu++23-release-seed2.log": "seed=2\noffline dynamic component sum: 2904 BFS answers, 2555 solves, 101747 checks passed",
+    "g++-gnu++20-assert-seed1.log": "seed=1\noffline dynamic component sum: 2942 BFS answers, 2522 solves, 100147 checks passed",
+    "g++-gnu++20-assert-seed123456789.log": "seed=123456789\noffline dynamic component sum: 2824 BFS answers, 2523 solves, 97763 checks passed",
+    "g++-gnu++20-assert-seed17.log": "seed=17\noffline dynamic component sum: 2827 BFS answers, 2513 solves, 98255 checks passed",
+    "g++-gnu++20-assert-seed2.log": "seed=2\noffline dynamic component sum: 2904 BFS answers, 2555 solves, 101747 checks passed",
+    "g++-gnu++20-release-seed1.log": "seed=1\noffline dynamic component sum: 2942 BFS answers, 2522 solves, 100147 checks passed",
+    "g++-gnu++20-release-seed123456789.log": "seed=123456789\noffline dynamic component sum: 2824 BFS answers, 2523 solves, 97763 checks passed",
+    "g++-gnu++20-release-seed17.log": "seed=17\noffline dynamic component sum: 2827 BFS answers, 2513 solves, 98255 checks passed",
+    "g++-gnu++20-release-seed2.log": "seed=2\noffline dynamic component sum: 2904 BFS answers, 2555 solves, 101747 checks passed",
+    "g++-gnu++23-assert-seed1.log": "seed=1\noffline dynamic component sum: 2942 BFS answers, 2522 solves, 100147 checks passed",
+    "g++-gnu++23-assert-seed123456789.log": "seed=123456789\noffline dynamic component sum: 2824 BFS answers, 2523 solves, 97763 checks passed",
+    "g++-gnu++23-assert-seed17.log": "seed=17\noffline dynamic component sum: 2827 BFS answers, 2513 solves, 98255 checks passed",
+    "g++-gnu++23-assert-seed2.log": "seed=2\noffline dynamic component sum: 2904 BFS answers, 2555 solves, 101747 checks passed",
+    "g++-gnu++23-release-seed1.log": "seed=1\noffline dynamic component sum: 2942 BFS answers, 2522 solves, 100147 checks passed",
+    "g++-gnu++23-release-seed123456789.log": "seed=123456789\noffline dynamic component sum: 2824 BFS answers, 2523 solves, 97763 checks passed",
+    "g++-gnu++23-release-seed17.log": "seed=17\noffline dynamic component sum: 2827 BFS answers, 2513 solves, 98255 checks passed",
+    "g++-gnu++23-release-seed2.log": "seed=2\noffline dynamic component sum: 2904 BFS answers, 2555 solves, 101747 checks passed"
+  }
+}

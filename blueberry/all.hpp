@@ -107,6 +107,7 @@
 #include "blueberry/data-structure/partially-retroactive-priority-queue.hpp"
 #include "blueberry/graph/link-cut-tree.hpp"
 #include "blueberry/graph/euler-tour-tree.hpp"
+#include "blueberry/graph/offline-dynamic-component-sum.hpp"
 #include "blueberry/graph/static-top-tree.hpp"
 #include "blueberry/graph/dynamic-top-tree.hpp"
 #include "blueberry/graph/dominator-tree.hpp"

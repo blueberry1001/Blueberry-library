@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+"""Validate only the final FastIO driver; preserve prior focused evidence."""
+from collections import Counter
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import time
+
+ROOT = Path('/workspace/Blueberry-library')
+BASE = ROOT / '.verification/offline-dynamic-connectivity'
+OUT = BASE / 'final-driver'
+SOURCES = {
+    'verify/graph/offline-dynamic-component-sum.test.cpp': '22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39',
+    'blueberry/graph/offline-dynamic-component-sum.hpp': '7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9',
+    'blueberry/utility/fast-io.hpp': '1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845',
+    'blueberry/data-structure/rollback-union-find.hpp': '9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6',
+    'tests/random/offline-dynamic-component-sum.cpp': '75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a',
+}
+
+def sha(path):
+    h = hashlib.sha256()
+    with Path(path).open('rb') as f:
+        for block in iter(lambda: f.read(1024 * 1024), b''):
+            h.update(block)
+    return h.hexdigest()
+
+def now():
+    return datetime.now(timezone.utc).isoformat()
+
+def main():
+    OUT.mkdir(parents=True, exist_ok=False)
+    for name in ('bin', 'logs', 'actual'):
+        (OUT / name).mkdir()
+    shutil.copyfile(__file__, OUT / 'runner.py')
+    protected = [BASE / 'focused/report.json', BASE / 'root-base.json', ROOT / '.verification/current.json']
+    protected_hashes = {str(p): sha(p) for p in protected}
+    data_path = BASE / 'datasets/report.json'
+    data = json.loads(data_path.read_text())
+    checker, cases_dir = Path(data['checker_path']), Path(data['dataset_directory'])
+    dataset_hashes = data['generated_files_sha256']
+    cases = sorted(cases_dir.glob('*.in'))
+    report = {'schema_version': 1, 'started_at': now(), 'succeeded': False,
+        'scope': 'Final FastIO verifier only: eight builds/example checks and nineteen official cases three times. Header/random/sanitizer results remain in the unchanged prior focused report.',
+        'base_head': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+        'source_sha256': SOURCES, 'protected_files_sha256': protected_hashes,
+        'dataset_report': str(data_path), 'dataset_report_sha256': sha(data_path),
+        'dataset_files_sha256': dataset_hashes, 'upstream_revision': data['upstream_revision'],
+        'checker': str(checker), 'checker_sha256': data['checker_sha256'],
+        'compilers': {}, 'binary_sha256': {}, 'steps': [], 'smoke': [], 'official': [],
+        'environment': {k: os.environ.get(k, '') for k in ('CPLUS_INCLUDE_PATH', 'CPATH', 'LD_LIBRARY_PATH')}}
+
+    def save():
+        (OUT / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
+
+    def unchanged():
+        for path, expected in SOURCES.items():
+            if sha(ROOT / path) != expected:
+                raise RuntimeError('Source identity differs: ' + path)
+        for path, expected in protected_hashes.items():
+            if sha(path) != expected:
+                raise RuntimeError('Preserved evidence changed: ' + path)
+
+    def run(kind, command, *, stdin=None, stdout=None):
+        log = OUT / 'logs' / (f'{len(report["steps"]):03d}-' + kind + '.log')
+        row = {'kind': kind, 'command': [str(x) for x in command], 'cwd': str(ROOT),
+               'started_at': now(), 'timeout_seconds': 180, 'log': str(log.relative_to(OUT)), 'status': 'running'}
+        if stdin:
+            row['stdin'] = str(stdin)
+        if stdout:
+            row['stdout'] = str(stdout)
+        report['steps'].append(row)
+        save()
+        start = time.monotonic()
+        try:
+            with log.open('wb') as stream:
+                inf = Path(stdin).open('rb') if stdin else None
+                outf = Path(stdout).open('wb') if stdout else None
+                try:
+                    result = subprocess.run(row['command'], cwd=ROOT, stdin=inf, stdout=outf or stream,
+                                            stderr=stream, timeout=180, check=False)
+                finally:
+                    if inf: inf.close()
+                    if outf: outf.close()
+            row['returncode'] = result.returncode
+            row['status'] = 'passed' if result.returncode == 0 else 'failed'
+            if stdout:
+                row['stdout_sha256'] = sha(stdout)
+            if result.returncode:
+                raise RuntimeError('Failed final driver check; see ' + str(log))
+        except Exception as exc:
+            row['status'], row['error'] = 'failed', str(exc)
+            raise
+        finally:
+            row['seconds'] = time.monotonic() - start
+            row['finished_at'], row['log_sha256'] = now(), sha(log)
+            save()
+        return row
+
+    def judge(binary, case, label, group, repeat=None):
+        actual = OUT / 'actual' / (label + '-' + case.stem + '.actual')
+        solve = run(group + '-solve', [binary], stdin=case, stdout=actual)
+        verdict = run(group + '-check', [checker, case, actual, case.with_suffix('.out')])
+        report[group].append({'label': label, 'case': case.stem, 'repeat': repeat, 'status': 'accepted',
+            'actual': str(actual.relative_to(OUT)), 'actual_sha256': sha(actual),
+            'solve_log': solve['log'], 'checker_log': verdict['log']})
+        save()
+
+    try:
+        unchanged()
+        if not data['succeeded'] or data['upstream_revision'] != '1814c4e5205517e368bb57a8d1127eb961cfeaae' or data['case_count'] != 19 or len(cases) != 19:
+            raise RuntimeError('Unexpected official dataset identity')
+        if set(p.name for p in cases_dir.iterdir()) != set(dataset_hashes):
+            raise RuntimeError('Official dataset inventory differs')
+        for name, expected in dataset_hashes.items():
+            if sha(cases_dir / name) != expected:
+                raise RuntimeError('Official case differs: ' + name)
+        if sha(checker) != data['checker_sha256']:
+            raise RuntimeError('Official checker differs')
+        official_binary = None
+        for cxx, major in [('g++', '14.2'), ('clang++', '19.1')]:
+            executable = shutil.which(cxx)
+            version = subprocess.check_output([cxx, '--version'], text=True)
+            if not executable or major not in version:
+                raise RuntimeError('Unexpected compiler: ' + cxx)
+            report['compilers'][cxx] = {'path': executable, 'version': version, 'launcher_sha256': sha(executable)}
+            for standard in ('gnu++20', 'gnu++23'):
+                for mode in ('assert', 'release'):
+                    unchanged()
+                    tag = cxx.replace('+', 'p') + '-' + standard.replace('+', 'p') + '-' + mode
+                    print('START ' + tag, flush=True)
+                    binary = OUT / 'bin' / tag
+                    command = [cxx, '-std=' + standard, '-O2', '-Wall', '-Wextra', '-Wshadow', '-Werror', '-I', str(ROOT)]
+                    if mode == 'release': command.append('-DNDEBUG')
+                    run('compile', command + [ROOT / 'verify/graph/offline-dynamic-component-sum.test.cpp', '-o', binary])
+                    report['binary_sha256'][str(binary.relative_to(OUT))] = sha(binary)
+                    judge(binary, cases_dir / 'example_00.in', tag, 'smoke')
+                    if (cxx, standard, mode) == ('g++', 'gnu++20', 'assert'):
+                        official_binary = binary
+        for repeat in range(1, 4):
+            for case in cases:
+                judge(official_binary, case, 'repeat' + str(repeat), 'official', repeat)
+            print('PASS official repeat ' + str(repeat), flush=True)
+        unchanged()
+        if sha(data_path) != report['dataset_report_sha256'] or sha(checker) != data['checker_sha256']:
+            raise RuntimeError('Dataset report/checker changed')
+        for name, expected in dataset_hashes.items():
+            if sha(cases_dir / name) != expected:
+                raise RuntimeError('Official case changed: ' + name)
+        for name, expected in report['binary_sha256'].items():
+            if sha(OUT / name) != expected:
+                raise RuntimeError('Binary changed: ' + name)
+        report['source_unchanged'] = report['protected_evidence_unchanged'] = True
+        report['datasets_unchanged'] = report['binaries_unchanged'] = report['succeeded'] = True
+    except Exception as exc:
+        report['failure'] = str(exc)
+        raise
+    finally:
+        report['finished_at'] = now()
+        report['counts'] = dict(Counter(row['kind'] for row in report['steps']))
+        report['passed_steps'] = sum(row['status'] == 'passed' for row in report['steps'])
+        report['official_accepted'], report['smoke_accepted'] = len(report['official']), len(report['smoke'])
+        save()
+        print(json.dumps({'succeeded': report['succeeded'], 'passed_steps': report['passed_steps'],
+                          'official_accepted': report['official_accepted'], 'smoke_accepted': report['smoke_accepted'],
+                          'report': str(OUT / 'report.json')}, indent=2), flush=True)
+
+if __name__ == '__main__':
+    main()

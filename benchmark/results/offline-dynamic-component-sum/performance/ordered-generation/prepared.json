@@ -1,0 +1,319 @@
+{
+  "head": "82f6cb427df64aa4a92e0849d7d4632cb9c51283",
+  "source_sha256": {
+    "benchmark/offline-dynamic-component-sum.cpp": "4325934fe5bb1739cc8bde757a7de3272b78f1b4bc57fd797f298e17700c5d5d",
+    "blueberry/graph/offline-dynamic-component-sum.hpp": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+    "blueberry/data-structure/rollback-union-find.hpp": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+    "blueberry/utility/fast-io.hpp": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845"
+  },
+  "runner_sha256": "ec713ddd6d34b9e97c71921fb142281c8c8c6a8981ff12edbdd8e8356e9cd299",
+  "control_sha256": "5b9735c66e13bc24edb87d9516a16646a0d7c2620f013e7ef7407c4d0b98ef6b",
+  "cells": [
+    [
+      "long",
+      300000,
+      300000
+    ],
+    [
+      "churn",
+      300000,
+      300000
+    ],
+    [
+      "updates",
+      300000,
+      300000
+    ],
+    [
+      "cyclic",
+      4096,
+      300000
+    ]
+  ],
+  "entries": [
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "allocation": false,
+      "binary": ".verification/offline-dynamic-connectivity/performance/ordered-generation/gpp-release",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot",
+        "-DNDEBUG"
+      ],
+      "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "compile": {
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot",
+          "-DNDEBUG",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot/benchmark/offline-dynamic-component-sum.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/gpp-release"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "elapsed_seconds": 4.201185418001842
+      },
+      "sha256": "d897c4cca15ae4a8fe09ccf9ec089c873df0e40bba14634ef9967024d67526ca",
+      "check": {
+        "command": [
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/gpp-release",
+          "check"
+        ],
+        "returncode": 0,
+        "stdout": "{\"BFS_cases\":217,\"repeat_solve_and_append\":true}\n",
+        "stderr": "",
+        "elapsed_seconds": 0.021690746001695516
+      }
+    },
+    {
+      "compiler": "g++",
+      "mode": "release",
+      "allocation": true,
+      "binary": ".verification/offline-dynamic-connectivity/performance/ordered-generation/gpp-release-allocation",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot",
+        "-DNDEBUG",
+        "-DODC_ALLOCATIONS",
+        "-Wno-mismatched-new-delete"
+      ],
+      "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "compile": {
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot",
+          "-DNDEBUG",
+          "-DODC_ALLOCATIONS",
+          "-Wno-mismatched-new-delete",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot/benchmark/offline-dynamic-component-sum.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/gpp-release-allocation"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "elapsed_seconds": 4.170029672997771
+      },
+      "sha256": "7b2ce1872db92460e6280dc4cc391c4d14f30c39e201d5aefee337e09aedcfc3",
+      "check": {
+        "command": [
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/gpp-release-allocation",
+          "check"
+        ],
+        "returncode": 0,
+        "stdout": "{\"BFS_cases\":217,\"repeat_solve_and_append\":true}\n",
+        "stderr": "",
+        "elapsed_seconds": 0.021256591997371288
+      }
+    },
+    {
+      "compiler": "g++",
+      "mode": "assert",
+      "allocation": false,
+      "binary": ".verification/offline-dynamic-connectivity/performance/ordered-generation/gpp-assert",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot"
+      ],
+      "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0\nCopyright (C) 2024 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "compile": {
+        "command": [
+          "g++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot/benchmark/offline-dynamic-component-sum.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/gpp-assert"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "elapsed_seconds": 4.386350600998412
+      },
+      "sha256": "2960081d6e3ffe942737817b3017596d5cae97c7e03a0e2b6dd9195fcb5b181d",
+      "check": {
+        "command": [
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/gpp-assert",
+          "check"
+        ],
+        "returncode": 0,
+        "stdout": "{\"BFS_cases\":217,\"repeat_solve_and_append\":true}\n",
+        "stderr": "",
+        "elapsed_seconds": 0.022446725000918377
+      }
+    },
+    {
+      "compiler": "clang++",
+      "mode": "release",
+      "allocation": false,
+      "binary": ".verification/offline-dynamic-connectivity/performance/ordered-generation/clangpp-release",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot",
+        "-DNDEBUG"
+      ],
+      "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+      "compile": {
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot",
+          "-DNDEBUG",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot/benchmark/offline-dynamic-component-sum.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/clangpp-release"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "elapsed_seconds": 3.941598483001144
+      },
+      "sha256": "ac8e109cdcef06dd6c5e7c195ec3cf0fa6b8def0509b3ea316720c1cf3540023",
+      "check": {
+        "command": [
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/clangpp-release",
+          "check"
+        ],
+        "returncode": 0,
+        "stdout": "{\"BFS_cases\":217,\"repeat_solve_and_append\":true}\n",
+        "stderr": "",
+        "elapsed_seconds": 0.022446843999205157
+      }
+    },
+    {
+      "compiler": "clang++",
+      "mode": "assert",
+      "allocation": false,
+      "binary": ".verification/offline-dynamic-connectivity/performance/ordered-generation/clangpp-assert",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-I",
+        "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot"
+      ],
+      "compiler_version": "Debian clang version 19.1.7 (3+b1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /tmp/blueberry-setup/clang-19/usr/lib/llvm-19/bin\n",
+      "compile": {
+        "command": [
+          "clang++",
+          "-std=gnu++20",
+          "-O2",
+          "-Wall",
+          "-Wextra",
+          "-I",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/snapshot/benchmark/offline-dynamic-component-sum.cpp",
+          "-o",
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/clangpp-assert"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": "",
+        "elapsed_seconds": 4.023951526000019
+      },
+      "sha256": "aeb2dbe442b0cd0e06e13ff1bcef864bc443496d7e0322fe9e9d5ababf42bb3e",
+      "check": {
+        "command": [
+          "/workspace/Blueberry-library/.verification/offline-dynamic-connectivity/performance/ordered-generation/clangpp-assert",
+          "check"
+        ],
+        "returncode": 0,
+        "stdout": "{\"BFS_cases\":217,\"repeat_solve_and_append\":true}\n",
+        "stderr": "",
+        "elapsed_seconds": 0.021709913002268877
+      }
+    }
+  ],
+  "large_checks": [
+    {
+      "workload": "long",
+      "n": 300000,
+      "q": 300000,
+      "data": {
+        "input_hash": 9549120387037105271,
+        "output_hash": 9154516373488503867,
+        "queries": 100000
+      }
+    },
+    {
+      "workload": "churn",
+      "n": 300000,
+      "q": 300000,
+      "data": {
+        "input_hash": 719685904802528044,
+        "output_hash": 17623313699272443551,
+        "queries": 120000
+      }
+    },
+    {
+      "workload": "updates",
+      "n": 300000,
+      "q": 300000,
+      "data": {
+        "input_hash": 7269781095949089492,
+        "output_hash": 12179678734954902119,
+        "queries": 30000
+      }
+    },
+    {
+      "workload": "cyclic",
+      "n": 4096,
+      "q": 300000,
+      "data": {
+        "input_hash": 11355136004482019254,
+        "output_hash": 10464515151259656747,
+        "queries": 59808
+      }
+    }
+  ],
+  "environment": {
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+    "cpu_quota": "400000 100000",
+    "processes": "    PID %CPU COMMAND\n      1  0.0 tail\n      2  0.0 caas-prefix-tra\n    198  0.0 dockerd\n    249  0.0 containerd\n    469  0.0 codex\n   1938  0.0 dpkg-deb\n   1939  0.0 dpkg-deb\n   3452  0.0 git\n   3457  0.0 git\n   3481  0.0 git\n   3491  0.0 git\n   3496  0.0 git\n   3519  0.0 git\n   3546  0.0 git\n   3551  0.0 git\n   3574  0.0 git\n   3579  0.0 git\n   3601  0.0 git\n   3606  0.0 git\n   3626  0.0 git\n   3631  0.0 git\n   3648  0.0 git\n   3653  0.0 git\n   3658  0.0 git\n   3684  0.0 git\n   3689  0.0 git\n   3701  0.0 git\n   3706  0.0 git\n   3724  0.0 git\n   3742  0.0 git\n   3763  0.0 git\n   3768  0.0 git\n   3856  0.0 git\n   3876  0.0 git\n   3881  0.0 git\n   3892  0.0 git\n   3898  0.0 git\n   3921  0.0 git\n   3926  0.0 git\n   3965  0.0 git\n   3970  0.0 git\n   3980  0.0 git\n   3990  0.0 git\n   4000  0.0 git\n   4010  0.0 git\n   4020  0.0 git\n   4033  0.0 git\n   4038  0.0 git\n   4377  0.0 git\n   4382  0.0 git\n   4452  0.0 git\n   4687  0.0 git\n   4704  0.0 git\n   6989  0.0 git\n   7026  0.0 git\n   7031  0.0 git\n   7055  0.0 git\n   7065  0.0 git\n   7070  0.0 git\n   7093  0.0 git\n   7114  0.0 git\n   7119  0.0 git\n   7142  0.0 git\n   7147  0.0 git\n   7169  0.0 git\n   7174  0.0 git\n   7194  0.0 git\n   7199  0.0 git\n   7216  0.0 git\n   7221  0.0 git\n   7226  0.0 git\n   7252  0.0 git\n   7257  0.0 git\n   7269  0.0 git\n   7274  0.0 git\n   7292  0.0 git\n   7310  0.0 git\n   7331  0.0 git\n   7337  0.0 git\n   7446  0.0 git\n   7466  0.0 git\n   7471  0.0 git\n   7482  0.0 git\n   7488  0.0 git\n   7511  0.0 git\n   7516  0.0 git\n   7558  0.0 git\n   7563  0.0 git\n   7575  0.0 git\n   7585  0.0 git\n   7595  0.0 git\n   7605  0.0 git\n   7615  0.0 git\n   7628  0.0 git\n   7633  0.0 git\n   7742  0.0 git\n   7981  0.0 git\n   8088  0.0 git\n   8093  0.0 git\n   8790  0.0 git\n   9146  0.0 git\n   9574  0.0 git\n  10462  0.0 git\n  11257  0.0 git\n  11659  0.0 git\n  12048  0.0 git\n  12510  0.0 git\n  12899  0.0 git\n  13379  0.0 git\n  13673  0.0 git\n  14199  0.0 git\n  14443  0.0 git\n  14448  0.0 git\n  14642  0.0 git\n  14927  0.0 git\n  14948  0.0 git\n  14954  0.0 git\n  14978  0.0 git\n  14988  0.0 git\n  14994  0.0 git\n  15021  0.0 git\n  15041  0.0 git\n  15046  0.0 git\n  15069  0.0 git\n  15075  0.0 git\n  15097  0.0 git\n  15102  0.0 git\n  15123  0.0 git\n  15128  0.0 git\n  15145  0.0 git\n  15150  0.0 git\n  15155  0.0 git\n  15182  0.0 git\n  15187  0.0 git\n  15199  0.0 git\n  15205  0.0 git\n  15223  0.0 git\n  15242  0.0 git\n  15263  0.0 git\n  15268  0.0 git\n  15367  0.0 git\n  15387  0.0 git\n  15392  0.0 git\n  15403  0.0 git\n  15410  0.0 git\n  15437  0.0 git\n  15442  0.0 git\n  15484  0.0 git\n  15489  0.0 git\n  15499  0.0 git\n  15510  0.0 git\n  15521  0.0 git\n  15532  0.0 git\n  15543  0.0 git\n  15557  0.0 git\n  15564  0.0 git\n  15565  0.0 git\n  15771  0.0 git\n  15934  0.0 git\n  16155  0.0 git\n  16160  0.0 git\n  18009  0.0 git\n  19094  0.0 git\n  19408  0.0 git\n  20197  0.0 git\n  21319  0.0 git\n  22276  0.0 git\n  23069  0.0 git\n  23473  0.0 git\n  24613  0.0 git\n  25036  0.0 git\n  25822  0.0 git\n  26642  0.0 git\n  27255  0.0 git\n  27759  0.0 git\n  28265  0.0 git\n  29041  0.0 git\n  29388  0.0 git\n  29880  0.0 git\n  30245  0.0 git\n  30543  0.0 git\n  30886  0.0 git\n  31087  0.0 git\n  31304  0.0 git\n  31608  0.0 git\n  31938  0.0 git\n  32318  0.0 git\n  33282  0.0 git\n  33817  0.0 git\n  34027  0.0 git\n  34198  0.0 git\n  34377  0.0 git\n  34723  0.0 git\n  35029  0.0 git\n  35168  0.0 git\n  35307  0.0 git\n  35511  0.0 git\n  35725  0.0 git\n  35860  0.0 git\n  36110  0.0 git\n  36256  0.0 git\n  36440  0.0 git\n  36659  0.0 git\n  36818  0.0 git\n  36971  0.0 git\n  37091  0.0 git\n  37246  0.0 git\n  37425  0.0 git\n  37583  0.0 git\n  37838  0.0 git\n  37971  0.0 git\n  38166  0.0 git\n  38371  0.0 git\n  38526  0.0 git\n  38662  0.0 git\n  38774  0.0 git\n  38908  0.0 git\n  39087  0.0 git\n  39242  0.0 git\n  39350  0.0 git\n  39506  0.0 git\n  39717  0.0 git\n  39828  0.0 git\n  40008  0.0 git\n  40178  0.0 git\n  40408  0.0 git\n  40536  0.0 git\n  40707  0.0 git\n  40884  0.0 git\n  41054  0.0 git\n  41232  0.0 git\n  41358  0.0 git\n  41489  0.0 git\n  41504  0.0 git\n  41673  0.0 git\n  41817  0.0 git\n  42003  0.0 git\n  42208  0.0 git\n  42314  0.0 git\n  42424  0.0 git\n  42582  0.0 git\n  42677  0.0 git\n  42871  0.0 git\n  43125  0.0 git\n  43257  0.0 git\n  43466  0.0 git\n  43706  0.0 git\n  43782  0.0 git\n  43933  0.0 git\n  44124  0.0 git\n  44358  0.0 git\n  44715  0.0 git\n  44850  0.0 git\n  45002  0.0 git\n  45158  0.0 git\n  45339  0.0 git\n  45585  0.0 git\n  45739  0.0 git\n  45937  0.0 git\n  46044  0.0 git\n  46501  0.0 git\n  46618  0.0 git\n  48522  0.0 git\n  49701  0.0 git\n  50438  0.0 git\n  52471  0.0 git\n  54687  0.0 git\n  54692  0.0 git\n  54716  0.0 git\n  54726  0.0 git\n  54731  0.0 git\n  54754  0.0 git\n  54773  0.0 git\n  54778  0.0 git\n  54801  0.0 git\n  54806  0.0 git\n  54828  0.0 git\n  54833  0.0 git\n  54853  0.0 git\n  54858  0.0 git\n  54876  0.0 git\n  54884  0.0 git\n  54890  0.0 git\n  54917  0.0 git\n  54922  0.0 git\n  54935  0.0 git\n  54943  0.0 git\n  54965  0.0 git\n  54983  0.0 git\n  55004  0.0 git\n  55009  0.0 git\n  55097  0.0 git\n  55117  0.0 git\n  55122  0.0 git\n  55133  0.0 git\n  55139  0.0 git\n  55162  0.0 git\n  55167  0.0 git\n  55206  0.0 git\n  55211  0.0 git\n  55221  0.0 git\n  55231  0.0 git\n  55241  0.0 git\n  55251  0.0 git\n  55261  0.0 git\n  55274  0.0 git\n  55279  0.0 git\n  55568  0.0 git\n  55573  0.0 git\n  61395  0.0 git\n  61435  0.0 git\n  62622  0.0 git\n  68994  0.0 git\n  69031  0.0 git\n  69036  0.0 git\n  69041  0.0 git\n  71600  0.0 git\n  71605  0.0 git\n  71630  0.0 git\n  71640  0.0 git\n  71645  0.0 git\n  71668  0.0 git\n  71687  0.0 git\n  71692  0.0 git\n  71716  0.0 git\n  71721  0.0 git\n  71743  0.0 git\n  71748  0.0 git\n  71769  0.0 git\n  71774  0.0 git\n  71791  0.0 git\n  71796  0.0 git\n  71801  0.0 git\n  71828  0.0 git\n  71833  0.0 git\n  71845  0.0 git\n  71850  0.0 git\n  71868  0.0 git\n  71887  0.0 git\n  71908  0.0 git\n  71913  0.0 git\n  72003  0.0 git\n  72023  0.0 git\n  72028  0.0 git\n  72039  0.0 git\n  72045  0.0 git\n  72069  0.0 git\n  72074  0.0 git\n  72113  0.0 git\n  72121  0.0 git\n  72131  0.0 git\n  72141  0.0 git\n  72151  0.0 git\n  72161  0.0 git\n  72171  0.0 git\n  72184  0.0 git\n  72189  0.0 git\n  72492  0.0 git\n  72497  0.0 git\n  73661  0.0 git\n  73666  0.0 git\n  73690  0.0 git\n  73700  0.0 git\n  73705  0.0 git\n  73728  0.0 git\n  73746  0.0 git\n  73751  0.0 git\n  73774  0.0 git\n  73779  0.0 git\n  73801  0.0 git\n  73806  0.0 git\n  73826  0.0 git\n  73831  0.0 git\n  73848  0.0 git\n  73853  0.0 git\n  73858  0.0 git\n  73884  0.0 git\n  73889  0.0 git\n  73901  0.0 git\n  73906  0.0 git\n  73924  0.0 git\n  73942  0.0 git\n  73963  0.0 git\n  73968  0.0 git\n  74056  0.0 git\n  74076  0.0 git\n  74081  0.0 git\n  74092  0.0 git\n  74098  0.0 git\n  74121  0.0 git\n  74126  0.0 git\n  74165  0.0 git\n  74170  0.0 git\n  74180  0.0 git\n  74190  0.0 git\n  74200  0.0 git\n  74210  0.0 git\n  74220  0.0 git\n  74233  0.0 git\n  74238  0.0 git\n  74392  0.0 git\n  74397  0.0 git\n  79619  0.0 git\n  80558  0.0 git\n  80563  0.0 git\n  80587  0.0 git\n  80597  0.0 git\n  80602  0.0 git\n  80625  0.0 git\n  80643  0.0 git\n  80648  0.0 git\n  80671  0.0 git\n  80676  0.0 git\n  80698  0.0 git\n  80703  0.0 git\n  80723  0.0 git\n  80728  0.0 git\n  80745  0.0 git\n  80750  0.0 git\n  80755  0.0 git\n  80781  0.0 git\n  80786  0.0 git\n  80798  0.0 git\n  80803  0.0 git\n  80821  0.0 git\n  80839  0.0 git\n  80860  0.0 git\n  80865  0.0 git\n  80953  0.0 git\n  80973  0.0 git\n  80978  0.0 git\n  80989  0.0 git\n  80995  0.0 git\n  81018  0.0 git\n  81023  0.0 git\n  81062  0.0 git\n  81067  0.0 git\n  81077  0.0 git\n  81087  0.0 git\n  81097  0.0 git\n  81107  0.0 git\n  81117  0.0 git\n  81130  0.0 git\n  81135  0.0 git\n  81330  0.0 git\n  81335  0.0 git\n  88304  0.0 git\n  90041  0.0 git\n  98678  0.0 git\n  98683  0.0 git\n  98707  0.0 git\n  98717  0.0 git\n  98722  0.0 git\n  98745  0.0 git\n  98763  0.0 git\n  98768  0.0 git\n  98791  0.0 git\n  98796  0.0 git\n  98818  0.0 git\n  98823  0.0 git\n  98843  0.0 git\n  98848  0.0 git\n  98865  0.0 git\n  98870  0.0 git\n  98875  0.0 git\n  98901  0.0 git\n  98906  0.0 git\n  98918  0.0 git\n  98923  0.0 git\n  98941  0.0 git\n  98959  0.0 git\n  98980  0.0 git\n  98985  0.0 git\n  99073  0.0 git\n  99093  0.0 git\n  99098  0.0 git\n  99109  0.0 git\n  99115  0.0 git\n  99138  0.0 git\n  99143  0.0 git\n  99182  0.0 git\n  99187  0.0 git\n  99197  0.0 git\n  99207  0.0 git\n  99217  0.0 git\n  99227  0.0 git\n  99237  0.0 git\n  99250  0.0 git\n  99255  0.0 git\n  99516  0.0 git\n  99521  0.0 git\n 109328  0.0 git\n 110566  0.0 git\n 110850  0.0 git\n 110855  0.0 git\n 110879  0.0 git\n 110889  0.0 git\n 110894  0.0 git\n 110917  0.0 git\n 110935  0.0 git\n 110940  0.0 git\n 110963  0.0 git\n 110968  0.0 git\n 110990  0.0 git\n 110995  0.0 git\n 111015  0.0 git\n 111020  0.0 git\n 111037  0.0 git\n 111042  0.0 git\n 111047  0.0 git\n 111073  0.0 git\n 111078  0.0 git\n 111090  0.0 git\n 111095  0.0 git\n 111113  0.0 git\n 111131  0.0 git\n 111152  0.0 git\n 111157  0.0 git\n 111245  0.0 git\n 111265  0.0 git\n 111270  0.0 git\n 111281  0.0 git\n 111287  0.0 git\n 111310  0.0 git\n 111315  0.0 git\n 111354  0.0 git\n 111359  0.0 git\n 111369  0.0 git\n 111379  0.0 git\n 111389  0.0 git\n 111399  0.0 git\n 111409  0.0 git\n 111422  0.0 git\n 111427  0.0 git\n 111615  0.0 git\n 111620  0.0 git\n 117110  0.0 git\n 119833  0.0 git\n 120764  0.0 git\n 120769  0.0 git\n 120793  0.0 git\n 120803  0.0 git\n 120808  0.0 git\n 120831  0.0 git\n 120849  0.0 git\n 120854  0.0 git\n 120877  0.0 git\n 120882  0.0 git\n 120904  0.0 git\n 120909  0.0 git\n 120929  0.0 git\n 120934  0.0 git\n 120951  0.0 git\n 120956  0.0 git\n 120961  0.0 git\n 120987  0.0 git\n 120992  0.0 git\n 121004  0.0 git\n 121009  0.0 git\n 121027  0.0 git\n 121045  0.0 git\n 121069  0.0 git\n 121074  0.0 git\n 121165  0.0 git\n 121185  0.0 git\n 121190  0.0 git\n 121201  0.0 git\n 121207  0.0 git\n 121230  0.0 git\n 121235  0.0 git\n 121274  0.0 git\n 121279  0.0 git\n 121289  0.0 git\n 121299  0.0 git\n 121309  0.0 git\n 121319  0.0 git\n 121329  0.0 git\n 121342  0.0 git\n 121347  0.0 git\n 121570  0.0 git\n 121575  0.0 git\n 126172  0.0 git\n 128332  0.0 git\n 129485  0.0 git\n 129490  0.0 git\n 129514  0.0 git\n 129524  0.0 git\n 129529  0.0 git\n 129552  0.0 git\n 129570  0.0 git\n 129575  0.0 git\n 129598  0.0 git\n 129603  0.0 git\n 129625  0.0 git\n 129630  0.0 git\n 129650  0.0 git\n 129655  0.0 git\n 129672  0.0 git\n 129677  0.0 git\n 129682  0.0 git\n 129708  0.0 git\n 129713  0.0 git\n 129725  0.0 git\n 129730  0.0 git\n 129748  0.0 git\n 129766  0.0 git\n 129787  0.0 git\n 129792  0.0 git\n 129880  0.0 git\n 129900  0.0 git\n 129905  0.0 git\n 129916  0.0 git\n 129922  0.0 git\n 129945  0.0 git\n 129950  0.0 git\n 129989  0.0 git\n 129994  0.0 git\n 130004  0.0 git\n 130014  0.0 git\n 130024  0.0 git\n 130034  0.0 git\n 130044  0.0 git\n 130057  0.0 git\n 130062  0.0 git\n 130210  0.0 git\n 130215  0.0 git\n 134505  6.2 codex-linux-san\n 134510  0.0 bwrap\n 134511  7.1 codex\n 134513 53.8 python3\n 134519  100 ps\n",
+    "caveat": "Shared host, unpinned. Sample ranges are not confidence intervals."
+  },
+  "io_input": {
+    "path": ".verification/offline-dynamic-connectivity/performance/ordered-generation/churn.in",
+    "sha256": "deac4a876bdf23dec2591e720f25c5994bf6cd53ee313cbd633a0b52f5feaef9"
+  },
+  "small_checks_sha256": "2a6e16c7a847827dde6e878f167a95f696424d05b2a4f477881ee9542118dd3e"
+}

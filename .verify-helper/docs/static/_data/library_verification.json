@@ -144,6 +144,10 @@
           "problem": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum"
         },
         {
+          "path": "verify/graph/offline-dynamic-component-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum"
+        },
+        {
           "path": "verify/utility/fast-io-128bit.test.cpp",
           "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
         },
@@ -761,9 +765,15 @@
           "problem": "https://judge.yosupo.jp/problem/persistent_unionfind"
         }
       ],
-      "indirect": [],
+      "indirect": [
+        {
+          "path": "verify/graph/offline-dynamic-component-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum"
+        }
+      ],
       "random_tests": [
-        "tests/data_structure_random_test.cpp"
+        "tests/data_structure_random_test.cpp",
+        "tests/random/offline-dynamic-component-sum.cpp"
       ],
       "ignored": [],
       "note": {},
@@ -1550,6 +1560,24 @@
       "label": "専用verifyドライバあり"
     },
     {
+      "path": "blueberry/graph/offline-dynamic-component-sum.hpp",
+      "name": "Offline Dynamic Component Sum",
+      "direct": [
+        {
+          "path": "verify/graph/offline-dynamic-component-sum.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/offline-dynamic-component-sum.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
       "path": "blueberry/graph/rerooting.hpp",
       "name": "Rerooting DP",
       "direct": [
@@ -2246,6 +2274,6 @@
   "counts": {
     "partial": 2,
     "missing": 3,
-    "direct": 103
+    "direct": 104
   }
 }

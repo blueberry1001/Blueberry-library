@@ -1,0 +1,34 @@
+{
+  "command": [
+    "make",
+    "check",
+    "CXX=g++",
+    "CXX_STANDARD=gnu++20",
+    "COMPILE_JOBS=2"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 446.96268327299913,
+  "log_sha256": "eef9b0d643442112c6b967c7118a6636d41855cfcf068421899313afe3e3b355",
+  "initial_manifest_sha256": "8d951766d1b6a75b440884a724c504889f6eb7e4b112335b56656be4b8274cc8",
+  "source_changes_during_run": {
+    "blueberry/graph/offline-dynamic-component-sum.hpp": {
+      "at_start": "0baa49987bf8e56470fbd80fca3381be995a7b091f13d492d9dfc1306e437268",
+      "at_end": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9"
+    },
+    "tests/random/offline-dynamic-component-sum.cpp": {
+      "at_start": "a163acba571ecfe27af37a1ddef63773dd39348798da924ab497ce3c2d31296e",
+      "at_end": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a"
+    }
+  },
+  "qualification": "Initial manifest was captured before review fixes to the new header and test. Full make check passed; the final changed header/test were separately covered by focused frozen validation and the independent random matrix. The API documentation did not change after this snapshot and was additionally recompiled with GCC and Clang. Do not treat the initial manifest as a frozen final-revision run.",
+  "counts": {
+    "unit_tests": 99,
+    "library_docs": 109,
+    "doc_examples": 114,
+    "headers": 110,
+    "verify_drivers": 147,
+    "random_targets": 57,
+    "random_seeds_per_target": 20
+  },
+  "global_report_sha256_after": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab"
+}

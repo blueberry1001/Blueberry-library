@@ -65,6 +65,7 @@
 - 専用ドライバ: [verify/geometry/static-convex-hull.test.cpp](../verify/geometry/static-convex-hull.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_convex_hull)
 - 専用ドライバ: [verify/graph/link-cut-tree-composite.test.cpp](../verify/graph/link-cut-tree-composite.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite)
 - 専用ドライバ: [verify/graph/link-cut-tree.test.cpp](../verify/graph/link-cut-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum)
+- 専用ドライバ: [verify/graph/offline-dynamic-component-sum.test.cpp](../verify/graph/offline-dynamic-component-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum)
 - 専用ドライバ: [verify/utility/fast-io-128bit.test.cpp](../verify/utility/fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
 - 専用ドライバ: [verify/utility/fast-io.test.cpp](../verify/utility/fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
 - 関連ローカルテスト: [tests/random/fast-io.cpp](../tests/random/fast-io.cpp)
@@ -299,7 +300,9 @@
 [blueberry/data-structure/rollback-union-find.hpp](../blueberry/data-structure/rollback-union-find.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/data-structure/persistent-unionfind.test.cpp](../verify/data-structure/persistent-unionfind.test.cpp) / [問題](https://judge.yosupo.jp/problem/persistent_unionfind)
+- 間接利用: [verify/graph/offline-dynamic-component-sum.test.cpp](../verify/graph/offline-dynamic-component-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum)
 - 関連ローカルテスト: [tests/data_structure_random_test.cpp](../tests/data_structure_random_test.cpp)
+- 関連ローカルテスト: [tests/random/offline-dynamic-component-sum.cpp](../tests/random/offline-dynamic-component-sum.cpp)
 
 ## Segment Tree Beats
 
@@ -596,6 +599,13 @@
 
 - 専用ドライバ: [verify/graph/minimum-spanning-forest.test.cpp](../verify/graph/minimum-spanning-forest.test.cpp) / [問題](https://judge.yosupo.jp/problem/minimum_spanning_tree)
 - 関連ローカルテスト: [tests/random/graph_batch_three.cpp](../tests/random/graph_batch_three.cpp)
+
+## Offline Dynamic Component Sum
+
+[blueberry/graph/offline-dynamic-component-sum.hpp](../blueberry/graph/offline-dynamic-component-sum.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/graph/offline-dynamic-component-sum.test.cpp](../verify/graph/offline-dynamic-component-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum)
+- 関連ローカルテスト: [tests/random/offline-dynamic-component-sum.cpp](../tests/random/offline-dynamic-component-sum.cpp)
 
 ## Rerooting DP
 

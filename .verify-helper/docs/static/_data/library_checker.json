@@ -23,8 +23,8 @@
   ],
   "total": 253,
   "counts": {
-    "missing": 129,
-    "verify": 117,
+    "missing": 128,
+    "verify": 118,
     "acl": 7
   },
   "statuses": [
@@ -1310,10 +1310,21 @@
       "title": "Dynamic Graph Vertex Add Component Sum",
       "category": "Graph",
       "url": "https://judge.yosupo.jp/problem/dynamic_graph_vertex_add_component_sum",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/data-structure/rollback-union-find.hpp",
+          "name": "Rollback Union Find"
+        },
+        {
+          "path": "blueberry/graph/offline-dynamic-component-sum.hpp",
+          "name": "Offline Dynamic Component Sum"
+        }
+      ],
+      "verifies": [
+        "verify/graph/offline-dynamic-component-sum.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""

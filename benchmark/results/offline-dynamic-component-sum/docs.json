@@ -1,0 +1,1239 @@
+{
+  "schema_version": 1,
+  "scope": "Final reviewed work-branch documentation and site preflight; work-branch source synchronization authorized, global official gate unresolved",
+  "created_at": "2026-10-03T11:16:34.394703+00:00",
+  "attempts": [
+    {
+      "source": ".verification/offline-dynamic-connectivity/docs/initial/report.json",
+      "sha256": "757f1710cf8e8766178eaf3aed03459f4d39c2eebe703639e3409018ab7daeae",
+      "bytes": 9269,
+      "report": {
+        "schema_version": 1,
+        "phase": "initial",
+        "scope": "Local WIP documentation generation/render and preflight; publication metrics remain blocked",
+        "head": "82f6cb427df64aa4a92e0849d7d4632cb9c51283",
+        "started_at": "2026-10-03T11:13:52.805108+00:00",
+        "source_before": {
+          "blueberry/graph/offline-dynamic-component-sum.hpp": {
+            "sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+            "bytes": 6283
+          },
+          "blueberry/data-structure/rollback-union-find.hpp": {
+            "sha256": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+            "bytes": 1944
+          },
+          "blueberry/utility/fast-io.hpp": {
+            "sha256": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+            "bytes": 7650
+          },
+          "blueberry/all.hpp": {
+            "sha256": "5deb634fec86448ea50c67705321e00e541b07e85c3bafc83ad92bb57aef1e6d",
+            "bytes": 5666
+          },
+          "docs/graph/offline-dynamic-component-sum.md": {
+            "sha256": "5f1607378e33febf0d0f47d7116f9a7a593d9cbf7fd450a3fd66b02710ffe0f9",
+            "bytes": 16868
+          },
+          "docs/development/offline-dynamic-component-sum.md": {
+            "sha256": "5b10b73fb0b7a52ecb2f13261866b8b8b82c14b51ceb956660d3d20f1c3d9f96",
+            "bytes": 15052
+          },
+          "tests/random/offline-dynamic-component-sum.cpp": {
+            "sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+            "bytes": 14519
+          },
+          "verify/graph/offline-dynamic-component-sum.test.cpp": {
+            "sha256": "22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39",
+            "bytes": 873
+          },
+          "benchmark/offline-dynamic-component-sum-validate.py": {
+            "sha256": "bec3a3e204b113f7e6ff40df3ed14250af660b0ede0c1c3c19e3675d16b35519",
+            "bytes": 15667
+          },
+          ".verify-helper/docs/static/_data/libraries.yml": {
+            "sha256": "48779dfb526f677e659b5aa0adc3126e161210a6f7b77f0de47fd25f9862f114",
+            "bytes": 30808
+          },
+          ".verify-helper/docs/static/_data/library_checker.json": {
+            "sha256": "86066a6c250e7d7679e6895e30028611dd2eb1b8e17ea9042c672e626a528857",
+            "bytes": 127982
+          },
+          ".verify-helper/docs/static/_data/library_verification.json": {
+            "sha256": "875fd8401fab415a4e1e347cba69e93484506a25a4f4d75211e9e51e800414d0",
+            "bytes": 70396
+          },
+          "docs/verification-gaps.md": {
+            "sha256": "e0418cf34d807532b7aaee02be05e79f0c2f2edca18cd72eafa892de03ee2d54",
+            "bytes": 65111
+          },
+          "docs/library-checker-checklist.md": {
+            "sha256": "090deb6b0dbba3b3e63bbd9215dfed4b7e34824ff8fed31e0a94f31ee033594d",
+            "bytes": 58102
+          },
+          "scripts/generate_docs.py": {
+            "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+            "bytes": 2382
+          },
+          "scripts/publish_metrics.py": {
+            "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+            "bytes": 1167
+          },
+          "scripts/check_site.py": {
+            "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+            "bytes": 11780
+          },
+          "Makefile": {
+            "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+            "bytes": 2677
+          },
+          ".verify-helper/config.toml": {
+            "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+            "bytes": 144
+          },
+          "/tmp/blueberry-setup/pages-document-plugins.yml": {
+            "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+            "bytes": 462
+          }
+        },
+        "current_report_before": {
+          "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+          "bytes": 207054
+        },
+        "stages": [
+          {
+            "name": "make-docs",
+            "argv": [
+              "make",
+              "docs"
+            ],
+            "environment_overrides": {},
+            "started_at": "2026-10-03T11:13:52.807672+00:00",
+            "finished_at": "2026-10-03T11:14:16.292629+00:00",
+            "elapsed_seconds": 23.484977145999437,
+            "exit_code": 2,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/initial/make-docs.log",
+              "sha256": "37006a73a20db70607c83daa1d2fbc090499c0c586c593f9c144eda59e10d3e3",
+              "bytes": 17734
+            },
+            "expected_existing_publication_gate_rejection": true
+          },
+          {
+            "name": "jekyll",
+            "argv": [
+              "jekyll",
+              "build",
+              "--source",
+              ".verify-helper/markdown",
+              "--destination",
+              ".build/site",
+              "--config",
+              ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+            ],
+            "environment_overrides": {
+              "JEKYLL_ENV": "production"
+            },
+            "started_at": "2026-10-03T11:14:16.293781+00:00",
+            "finished_at": "2026-10-03T11:14:39.862625+00:00",
+            "elapsed_seconds": 23.56899761800014,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/initial/jekyll.log",
+              "sha256": "2e68393c3f0575a51812daea00309a13f04fcd1051fbd0e442164d0f4ca1ef76",
+              "bytes": 461
+            }
+          },
+          {
+            "name": "site-preflight-without-metrics",
+            "argv": [
+              "python3",
+              "scripts/check_site.py",
+              "--without-metrics"
+            ],
+            "environment_overrides": {},
+            "started_at": "2026-10-03T11:14:39.863743+00:00",
+            "finished_at": "2026-10-03T11:14:40.305477+00:00",
+            "elapsed_seconds": 0.4417571179983497,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/initial/site-preflight-without-metrics.log",
+              "sha256": "e312f7b46e12344767d0a0287fd29c22c5257fa29c100f7db3f9b7461ad40c11",
+              "bytes": 80
+            }
+          }
+        ],
+        "runner": {
+          "path": ".verification/offline-dynamic-connectivity/docs/initial/runner.py",
+          "sha256": "ad8f4f6e9808f9f9db05c862bfd9d47d2274d07a1fff8a99d257248be1596e91",
+          "bytes": 3597
+        },
+        "source_after": {
+          "blueberry/graph/offline-dynamic-component-sum.hpp": {
+            "sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+            "bytes": 6283
+          },
+          "blueberry/data-structure/rollback-union-find.hpp": {
+            "sha256": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+            "bytes": 1944
+          },
+          "blueberry/utility/fast-io.hpp": {
+            "sha256": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+            "bytes": 7650
+          },
+          "blueberry/all.hpp": {
+            "sha256": "5deb634fec86448ea50c67705321e00e541b07e85c3bafc83ad92bb57aef1e6d",
+            "bytes": 5666
+          },
+          "docs/graph/offline-dynamic-component-sum.md": {
+            "sha256": "5f1607378e33febf0d0f47d7116f9a7a593d9cbf7fd450a3fd66b02710ffe0f9",
+            "bytes": 16868
+          },
+          "docs/development/offline-dynamic-component-sum.md": {
+            "sha256": "5b10b73fb0b7a52ecb2f13261866b8b8b82c14b51ceb956660d3d20f1c3d9f96",
+            "bytes": 15052
+          },
+          "tests/random/offline-dynamic-component-sum.cpp": {
+            "sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+            "bytes": 14519
+          },
+          "verify/graph/offline-dynamic-component-sum.test.cpp": {
+            "sha256": "22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39",
+            "bytes": 873
+          },
+          "benchmark/offline-dynamic-component-sum-validate.py": {
+            "sha256": "bec3a3e204b113f7e6ff40df3ed14250af660b0ede0c1c3c19e3675d16b35519",
+            "bytes": 15667
+          },
+          ".verify-helper/docs/static/_data/libraries.yml": {
+            "sha256": "48779dfb526f677e659b5aa0adc3126e161210a6f7b77f0de47fd25f9862f114",
+            "bytes": 30808
+          },
+          ".verify-helper/docs/static/_data/library_checker.json": {
+            "sha256": "86066a6c250e7d7679e6895e30028611dd2eb1b8e17ea9042c672e626a528857",
+            "bytes": 127982
+          },
+          ".verify-helper/docs/static/_data/library_verification.json": {
+            "sha256": "875fd8401fab415a4e1e347cba69e93484506a25a4f4d75211e9e51e800414d0",
+            "bytes": 70396
+          },
+          "docs/verification-gaps.md": {
+            "sha256": "e0418cf34d807532b7aaee02be05e79f0c2f2edca18cd72eafa892de03ee2d54",
+            "bytes": 65111
+          },
+          "docs/library-checker-checklist.md": {
+            "sha256": "090deb6b0dbba3b3e63bbd9215dfed4b7e34824ff8fed31e0a94f31ee033594d",
+            "bytes": 58102
+          },
+          "scripts/generate_docs.py": {
+            "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+            "bytes": 2382
+          },
+          "scripts/publish_metrics.py": {
+            "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+            "bytes": 1167
+          },
+          "scripts/check_site.py": {
+            "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+            "bytes": 11780
+          },
+          "Makefile": {
+            "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+            "bytes": 2677
+          },
+          ".verify-helper/config.toml": {
+            "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+            "bytes": 144
+          },
+          "/tmp/blueberry-setup/pages-document-plugins.yml": {
+            "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+            "bytes": 462
+          }
+        },
+        "source_unchanged": true,
+        "current_report_after": {
+          "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+          "bytes": 207054
+        },
+        "current_report_unchanged": true,
+        "finished_at": "2026-10-03T11:14:40.308176+00:00"
+      }
+    },
+    {
+      "source": ".verification/offline-dynamic-connectivity/docs/final-render/report.json",
+      "sha256": "a846f9d98cfed6b77dce134fd09538c7d78534cf8a902529e045bef028722dba",
+      "bytes": 9307,
+      "report": {
+        "schema_version": 1,
+        "phase": "final-render",
+        "scope": "Local WIP documentation generation/render and preflight; publication metrics remain blocked",
+        "head": "82f6cb427df64aa4a92e0849d7d4632cb9c51283",
+        "started_at": "2026-10-03T11:15:11.389814+00:00",
+        "source_before": {
+          "blueberry/graph/offline-dynamic-component-sum.hpp": {
+            "sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+            "bytes": 6283
+          },
+          "blueberry/data-structure/rollback-union-find.hpp": {
+            "sha256": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+            "bytes": 1944
+          },
+          "blueberry/utility/fast-io.hpp": {
+            "sha256": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+            "bytes": 7650
+          },
+          "blueberry/all.hpp": {
+            "sha256": "5deb634fec86448ea50c67705321e00e541b07e85c3bafc83ad92bb57aef1e6d",
+            "bytes": 5666
+          },
+          "docs/graph/offline-dynamic-component-sum.md": {
+            "sha256": "5f1607378e33febf0d0f47d7116f9a7a593d9cbf7fd450a3fd66b02710ffe0f9",
+            "bytes": 16868
+          },
+          "docs/development/offline-dynamic-component-sum.md": {
+            "sha256": "9b0cbd45b4cfadde4a8292227acdef7fcaa8babab3feef3eee94c1a9db6e1eb5",
+            "bytes": 15699
+          },
+          "tests/random/offline-dynamic-component-sum.cpp": {
+            "sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+            "bytes": 14519
+          },
+          "verify/graph/offline-dynamic-component-sum.test.cpp": {
+            "sha256": "22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39",
+            "bytes": 873
+          },
+          "benchmark/offline-dynamic-component-sum-validate.py": {
+            "sha256": "bec3a3e204b113f7e6ff40df3ed14250af660b0ede0c1c3c19e3675d16b35519",
+            "bytes": 15667
+          },
+          ".verify-helper/docs/static/_data/libraries.yml": {
+            "sha256": "48779dfb526f677e659b5aa0adc3126e161210a6f7b77f0de47fd25f9862f114",
+            "bytes": 30808
+          },
+          ".verify-helper/docs/static/_data/library_checker.json": {
+            "sha256": "86066a6c250e7d7679e6895e30028611dd2eb1b8e17ea9042c672e626a528857",
+            "bytes": 127982
+          },
+          ".verify-helper/docs/static/_data/library_verification.json": {
+            "sha256": "875fd8401fab415a4e1e347cba69e93484506a25a4f4d75211e9e51e800414d0",
+            "bytes": 70396
+          },
+          "docs/verification-gaps.md": {
+            "sha256": "e0418cf34d807532b7aaee02be05e79f0c2f2edca18cd72eafa892de03ee2d54",
+            "bytes": 65111
+          },
+          "docs/library-checker-checklist.md": {
+            "sha256": "090deb6b0dbba3b3e63bbd9215dfed4b7e34824ff8fed31e0a94f31ee033594d",
+            "bytes": 58102
+          },
+          "scripts/generate_docs.py": {
+            "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+            "bytes": 2382
+          },
+          "scripts/publish_metrics.py": {
+            "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+            "bytes": 1167
+          },
+          "scripts/check_site.py": {
+            "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+            "bytes": 11780
+          },
+          "Makefile": {
+            "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+            "bytes": 2677
+          },
+          ".verify-helper/config.toml": {
+            "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+            "bytes": 144
+          },
+          "/tmp/blueberry-setup/pages-document-plugins.yml": {
+            "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+            "bytes": 462
+          }
+        },
+        "current_report_before": {
+          "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+          "bytes": 207054
+        },
+        "stages": [
+          {
+            "name": "regenerate-documents",
+            "argv": [
+              "python3",
+              "scripts/generate_docs.py",
+              "-j",
+              "2"
+            ],
+            "environment_overrides": {},
+            "started_at": "2026-10-03T11:15:11.391976+00:00",
+            "finished_at": "2026-10-03T11:15:34.579055+00:00",
+            "elapsed_seconds": 23.187102899999445,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/final-render/regenerate-documents.log",
+              "sha256": "2d25e55aa5dad0a8c9d317f57350e0fd1c9a8b3a7548638238d2da5baa533540",
+              "bytes": 17042
+            }
+          },
+          {
+            "name": "jekyll",
+            "argv": [
+              "jekyll",
+              "build",
+              "--source",
+              ".verify-helper/markdown",
+              "--destination",
+              ".build/site",
+              "--config",
+              ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+            ],
+            "environment_overrides": {
+              "JEKYLL_ENV": "production"
+            },
+            "started_at": "2026-10-03T11:15:34.579716+00:00",
+            "finished_at": "2026-10-03T11:15:57.252521+00:00",
+            "elapsed_seconds": 22.67298260700045,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/final-render/jekyll.log",
+              "sha256": "ed7d30f181926e2f1ab646ebd1f18c8cbf65fffa54b0ce88635f6bfdf78828f8",
+              "bytes": 461
+            }
+          },
+          {
+            "name": "site-preflight-without-metrics",
+            "argv": [
+              "python3",
+              "scripts/check_site.py",
+              "--without-metrics"
+            ],
+            "environment_overrides": {},
+            "started_at": "2026-10-03T11:15:57.253722+00:00",
+            "finished_at": "2026-10-03T11:15:57.730398+00:00",
+            "elapsed_seconds": 0.47669773799862014,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/final-render/site-preflight-without-metrics.log",
+              "sha256": "e312f7b46e12344767d0a0287fd29c22c5257fa29c100f7db3f9b7461ad40c11",
+              "bytes": 80
+            }
+          }
+        ],
+        "runner": {
+          "path": ".verification/offline-dynamic-connectivity/docs/final-render/runner.py",
+          "sha256": "ad8f4f6e9808f9f9db05c862bfd9d47d2274d07a1fff8a99d257248be1596e91",
+          "bytes": 3597
+        },
+        "source_after": {
+          "blueberry/graph/offline-dynamic-component-sum.hpp": {
+            "sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+            "bytes": 6283
+          },
+          "blueberry/data-structure/rollback-union-find.hpp": {
+            "sha256": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+            "bytes": 1944
+          },
+          "blueberry/utility/fast-io.hpp": {
+            "sha256": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+            "bytes": 7650
+          },
+          "blueberry/all.hpp": {
+            "sha256": "5deb634fec86448ea50c67705321e00e541b07e85c3bafc83ad92bb57aef1e6d",
+            "bytes": 5666
+          },
+          "docs/graph/offline-dynamic-component-sum.md": {
+            "sha256": "5f1607378e33febf0d0f47d7116f9a7a593d9cbf7fd450a3fd66b02710ffe0f9",
+            "bytes": 16868
+          },
+          "docs/development/offline-dynamic-component-sum.md": {
+            "sha256": "9b0cbd45b4cfadde4a8292227acdef7fcaa8babab3feef3eee94c1a9db6e1eb5",
+            "bytes": 15699
+          },
+          "tests/random/offline-dynamic-component-sum.cpp": {
+            "sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+            "bytes": 14519
+          },
+          "verify/graph/offline-dynamic-component-sum.test.cpp": {
+            "sha256": "22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39",
+            "bytes": 873
+          },
+          "benchmark/offline-dynamic-component-sum-validate.py": {
+            "sha256": "bec3a3e204b113f7e6ff40df3ed14250af660b0ede0c1c3c19e3675d16b35519",
+            "bytes": 15667
+          },
+          ".verify-helper/docs/static/_data/libraries.yml": {
+            "sha256": "48779dfb526f677e659b5aa0adc3126e161210a6f7b77f0de47fd25f9862f114",
+            "bytes": 30808
+          },
+          ".verify-helper/docs/static/_data/library_checker.json": {
+            "sha256": "86066a6c250e7d7679e6895e30028611dd2eb1b8e17ea9042c672e626a528857",
+            "bytes": 127982
+          },
+          ".verify-helper/docs/static/_data/library_verification.json": {
+            "sha256": "875fd8401fab415a4e1e347cba69e93484506a25a4f4d75211e9e51e800414d0",
+            "bytes": 70396
+          },
+          "docs/verification-gaps.md": {
+            "sha256": "e0418cf34d807532b7aaee02be05e79f0c2f2edca18cd72eafa892de03ee2d54",
+            "bytes": 65111
+          },
+          "docs/library-checker-checklist.md": {
+            "sha256": "090deb6b0dbba3b3e63bbd9215dfed4b7e34824ff8fed31e0a94f31ee033594d",
+            "bytes": 58102
+          },
+          "scripts/generate_docs.py": {
+            "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+            "bytes": 2382
+          },
+          "scripts/publish_metrics.py": {
+            "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+            "bytes": 1167
+          },
+          "scripts/check_site.py": {
+            "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+            "bytes": 11780
+          },
+          "Makefile": {
+            "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+            "bytes": 2677
+          },
+          ".verify-helper/config.toml": {
+            "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+            "bytes": 144
+          },
+          "/tmp/blueberry-setup/pages-document-plugins.yml": {
+            "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+            "bytes": 462
+          }
+        },
+        "source_unchanged": true,
+        "current_report_after": {
+          "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+          "bytes": 207054
+        },
+        "current_report_unchanged": true,
+        "finished_at": "2026-10-03T11:15:57.732143+00:00"
+      }
+    },
+    {
+      "source": ".verification/offline-dynamic-connectivity/docs/review-cleared-render/report.json",
+      "sha256": "e6a33dd21c558aa0e69c4dd8507de46c3c563052205fbc19575945ac4cacb150",
+      "bytes": 9359,
+      "report": {
+        "schema_version": 1,
+        "phase": "review-cleared-render",
+        "scope": "Local reviewed branch documentation render and preflight; global publication metrics remain blocked",
+        "head": "82f6cb427df64aa4a92e0849d7d4632cb9c51283",
+        "started_at": "2026-10-03T11:18:19.466747+00:00",
+        "source_before": {
+          "blueberry/graph/offline-dynamic-component-sum.hpp": {
+            "sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+            "bytes": 6283
+          },
+          "blueberry/data-structure/rollback-union-find.hpp": {
+            "sha256": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+            "bytes": 1944
+          },
+          "blueberry/utility/fast-io.hpp": {
+            "sha256": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+            "bytes": 7650
+          },
+          "blueberry/all.hpp": {
+            "sha256": "5deb634fec86448ea50c67705321e00e541b07e85c3bafc83ad92bb57aef1e6d",
+            "bytes": 5666
+          },
+          "docs/graph/offline-dynamic-component-sum.md": {
+            "sha256": "5f1607378e33febf0d0f47d7116f9a7a593d9cbf7fd450a3fd66b02710ffe0f9",
+            "bytes": 16868
+          },
+          "docs/development/offline-dynamic-component-sum.md": {
+            "sha256": "6af214dbe2dd28c88798e28e483af1968a6a8c2dec3704529a6af54224c9b013",
+            "bytes": 15745
+          },
+          "tests/random/offline-dynamic-component-sum.cpp": {
+            "sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+            "bytes": 14519
+          },
+          "verify/graph/offline-dynamic-component-sum.test.cpp": {
+            "sha256": "22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39",
+            "bytes": 873
+          },
+          "benchmark/offline-dynamic-component-sum-validate.py": {
+            "sha256": "bec3a3e204b113f7e6ff40df3ed14250af660b0ede0c1c3c19e3675d16b35519",
+            "bytes": 15667
+          },
+          ".verify-helper/docs/static/_data/libraries.yml": {
+            "sha256": "48779dfb526f677e659b5aa0adc3126e161210a6f7b77f0de47fd25f9862f114",
+            "bytes": 30808
+          },
+          ".verify-helper/docs/static/_data/library_checker.json": {
+            "sha256": "86066a6c250e7d7679e6895e30028611dd2eb1b8e17ea9042c672e626a528857",
+            "bytes": 127982
+          },
+          ".verify-helper/docs/static/_data/library_verification.json": {
+            "sha256": "875fd8401fab415a4e1e347cba69e93484506a25a4f4d75211e9e51e800414d0",
+            "bytes": 70396
+          },
+          "docs/verification-gaps.md": {
+            "sha256": "e0418cf34d807532b7aaee02be05e79f0c2f2edca18cd72eafa892de03ee2d54",
+            "bytes": 65111
+          },
+          "docs/library-checker-checklist.md": {
+            "sha256": "090deb6b0dbba3b3e63bbd9215dfed4b7e34824ff8fed31e0a94f31ee033594d",
+            "bytes": 58102
+          },
+          "scripts/generate_docs.py": {
+            "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+            "bytes": 2382
+          },
+          "scripts/publish_metrics.py": {
+            "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+            "bytes": 1167
+          },
+          "scripts/check_site.py": {
+            "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+            "bytes": 11780
+          },
+          "Makefile": {
+            "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+            "bytes": 2677
+          },
+          ".verify-helper/config.toml": {
+            "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+            "bytes": 144
+          },
+          "/tmp/blueberry-setup/pages-document-plugins.yml": {
+            "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+            "bytes": 462
+          }
+        },
+        "current_report_before": {
+          "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+          "bytes": 207054
+        },
+        "stages": [
+          {
+            "name": "regenerate-documents",
+            "argv": [
+              "python3",
+              "scripts/generate_docs.py",
+              "-j",
+              "2"
+            ],
+            "environment_overrides": {},
+            "started_at": "2026-10-03T11:18:19.468876+00:00",
+            "finished_at": "2026-10-03T11:18:42.926360+00:00",
+            "elapsed_seconds": 23.457577758999832,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/review-cleared-render/regenerate-documents.log",
+              "sha256": "2d25e55aa5dad0a8c9d317f57350e0fd1c9a8b3a7548638238d2da5baa533540",
+              "bytes": 17042
+            }
+          },
+          {
+            "name": "jekyll",
+            "argv": [
+              "jekyll",
+              "build",
+              "--source",
+              ".verify-helper/markdown",
+              "--destination",
+              ".build/site",
+              "--config",
+              ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+            ],
+            "environment_overrides": {
+              "JEKYLL_ENV": "production"
+            },
+            "started_at": "2026-10-03T11:18:42.928438+00:00",
+            "finished_at": "2026-10-03T11:19:07.600052+00:00",
+            "elapsed_seconds": 24.67177922799965,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/review-cleared-render/jekyll.log",
+              "sha256": "21274a0f78aa6dc1b08e81f533d94b4219a596603a9f8f249b68a2d0ec892eeb",
+              "bytes": 460
+            }
+          },
+          {
+            "name": "site-preflight-without-metrics",
+            "argv": [
+              "python3",
+              "scripts/check_site.py",
+              "--without-metrics"
+            ],
+            "environment_overrides": {},
+            "started_at": "2026-10-03T11:19:07.603148+00:00",
+            "finished_at": "2026-10-03T11:19:08.116756+00:00",
+            "elapsed_seconds": 0.5136523539986229,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/review-cleared-render/site-preflight-without-metrics.log",
+              "sha256": "e312f7b46e12344767d0a0287fd29c22c5257fa29c100f7db3f9b7461ad40c11",
+              "bytes": 80
+            }
+          }
+        ],
+        "runner": {
+          "path": ".verification/offline-dynamic-connectivity/docs/review-cleared-render/runner.py",
+          "sha256": "4f66c01b08ef96adeb7c964b6f91b708ab0d4cd9f3576a2e63d95a59f014dea1",
+          "bytes": 3604
+        },
+        "source_after": {
+          "blueberry/graph/offline-dynamic-component-sum.hpp": {
+            "sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+            "bytes": 6283
+          },
+          "blueberry/data-structure/rollback-union-find.hpp": {
+            "sha256": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+            "bytes": 1944
+          },
+          "blueberry/utility/fast-io.hpp": {
+            "sha256": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+            "bytes": 7650
+          },
+          "blueberry/all.hpp": {
+            "sha256": "5deb634fec86448ea50c67705321e00e541b07e85c3bafc83ad92bb57aef1e6d",
+            "bytes": 5666
+          },
+          "docs/graph/offline-dynamic-component-sum.md": {
+            "sha256": "5f1607378e33febf0d0f47d7116f9a7a593d9cbf7fd450a3fd66b02710ffe0f9",
+            "bytes": 16868
+          },
+          "docs/development/offline-dynamic-component-sum.md": {
+            "sha256": "6af214dbe2dd28c88798e28e483af1968a6a8c2dec3704529a6af54224c9b013",
+            "bytes": 15745
+          },
+          "tests/random/offline-dynamic-component-sum.cpp": {
+            "sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+            "bytes": 14519
+          },
+          "verify/graph/offline-dynamic-component-sum.test.cpp": {
+            "sha256": "22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39",
+            "bytes": 873
+          },
+          "benchmark/offline-dynamic-component-sum-validate.py": {
+            "sha256": "bec3a3e204b113f7e6ff40df3ed14250af660b0ede0c1c3c19e3675d16b35519",
+            "bytes": 15667
+          },
+          ".verify-helper/docs/static/_data/libraries.yml": {
+            "sha256": "48779dfb526f677e659b5aa0adc3126e161210a6f7b77f0de47fd25f9862f114",
+            "bytes": 30808
+          },
+          ".verify-helper/docs/static/_data/library_checker.json": {
+            "sha256": "86066a6c250e7d7679e6895e30028611dd2eb1b8e17ea9042c672e626a528857",
+            "bytes": 127982
+          },
+          ".verify-helper/docs/static/_data/library_verification.json": {
+            "sha256": "875fd8401fab415a4e1e347cba69e93484506a25a4f4d75211e9e51e800414d0",
+            "bytes": 70396
+          },
+          "docs/verification-gaps.md": {
+            "sha256": "e0418cf34d807532b7aaee02be05e79f0c2f2edca18cd72eafa892de03ee2d54",
+            "bytes": 65111
+          },
+          "docs/library-checker-checklist.md": {
+            "sha256": "090deb6b0dbba3b3e63bbd9215dfed4b7e34824ff8fed31e0a94f31ee033594d",
+            "bytes": 58102
+          },
+          "scripts/generate_docs.py": {
+            "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+            "bytes": 2382
+          },
+          "scripts/publish_metrics.py": {
+            "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+            "bytes": 1167
+          },
+          "scripts/check_site.py": {
+            "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+            "bytes": 11780
+          },
+          "Makefile": {
+            "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+            "bytes": 2677
+          },
+          ".verify-helper/config.toml": {
+            "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+            "bytes": 144
+          },
+          "/tmp/blueberry-setup/pages-document-plugins.yml": {
+            "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+            "bytes": 462
+          }
+        },
+        "source_unchanged": true,
+        "current_report_after": {
+          "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+          "bytes": 207054
+        },
+        "current_report_unchanged": true,
+        "finished_at": "2026-10-03T11:19:08.122220+00:00"
+      }
+    },
+    {
+      "source": ".verification/offline-dynamic-connectivity/docs/source-sync-status-render/report.json",
+      "sha256": "8d56e1dc32e4c54b88337718bf5593529eec2f0515ac0234a4c3dd3dfd5d4245",
+      "bytes": 9827,
+      "report": {
+        "schema_version": 1,
+        "phase": "source-sync-status-render",
+        "scope": "Source-sync authorization status render; no official rerun or global metrics change",
+        "head": "82f6cb427df64aa4a92e0849d7d4632cb9c51283",
+        "started_at": "2026-10-03T11:21:37.417998+00:00",
+        "source_before": {
+          "blueberry/graph/offline-dynamic-component-sum.hpp": {
+            "sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+            "bytes": 6283
+          },
+          "blueberry/data-structure/rollback-union-find.hpp": {
+            "sha256": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+            "bytes": 1944
+          },
+          "blueberry/utility/fast-io.hpp": {
+            "sha256": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+            "bytes": 7650
+          },
+          "blueberry/all.hpp": {
+            "sha256": "5deb634fec86448ea50c67705321e00e541b07e85c3bafc83ad92bb57aef1e6d",
+            "bytes": 5666
+          },
+          "docs/graph/offline-dynamic-component-sum.md": {
+            "sha256": "5f1607378e33febf0d0f47d7116f9a7a593d9cbf7fd450a3fd66b02710ffe0f9",
+            "bytes": 16868
+          },
+          "docs/development/offline-dynamic-component-sum.md": {
+            "sha256": "e4736db169f1596eb192e40e913a2e98dd0af77d0b4817b16ce74c0300c87e56",
+            "bytes": 15861
+          },
+          "tests/random/offline-dynamic-component-sum.cpp": {
+            "sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+            "bytes": 14519
+          },
+          "verify/graph/offline-dynamic-component-sum.test.cpp": {
+            "sha256": "22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39",
+            "bytes": 873
+          },
+          "benchmark/offline-dynamic-component-sum-validate.py": {
+            "sha256": "bec3a3e204b113f7e6ff40df3ed14250af660b0ede0c1c3c19e3675d16b35519",
+            "bytes": 15667
+          },
+          ".verify-helper/docs/static/_data/libraries.yml": {
+            "sha256": "48779dfb526f677e659b5aa0adc3126e161210a6f7b77f0de47fd25f9862f114",
+            "bytes": 30808
+          },
+          ".verify-helper/docs/static/_data/library_checker.json": {
+            "sha256": "86066a6c250e7d7679e6895e30028611dd2eb1b8e17ea9042c672e626a528857",
+            "bytes": 127982
+          },
+          ".verify-helper/docs/static/_data/library_verification.json": {
+            "sha256": "875fd8401fab415a4e1e347cba69e93484506a25a4f4d75211e9e51e800414d0",
+            "bytes": 70396
+          },
+          "docs/verification-gaps.md": {
+            "sha256": "e0418cf34d807532b7aaee02be05e79f0c2f2edca18cd72eafa892de03ee2d54",
+            "bytes": 65111
+          },
+          "docs/library-checker-checklist.md": {
+            "sha256": "090deb6b0dbba3b3e63bbd9215dfed4b7e34824ff8fed31e0a94f31ee033594d",
+            "bytes": 58102
+          },
+          "scripts/generate_docs.py": {
+            "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+            "bytes": 2382
+          },
+          "scripts/publish_metrics.py": {
+            "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+            "bytes": 1167
+          },
+          "scripts/check_site.py": {
+            "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+            "bytes": 11780
+          },
+          "Makefile": {
+            "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+            "bytes": 2677
+          },
+          ".verify-helper/config.toml": {
+            "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+            "bytes": 144
+          },
+          "/tmp/blueberry-setup/pages-document-plugins.yml": {
+            "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+            "bytes": 462
+          }
+        },
+        "current_report_before": {
+          "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+          "bytes": 207054
+        },
+        "stages": [
+          {
+            "name": "refresh-generated-development-document",
+            "argv": [
+              "python3",
+              "-c",
+              "from pathlib import Path; import hashlib,shutil; s=Path('docs/development/offline-dynamic-component-sum.md'); d=Path('.verify-helper/markdown/docs/development/offline-dynamic-component-sum.md'); assert hashlib.sha256(d.read_bytes()).hexdigest()=='6af214dbe2dd28c88798e28e483af1968a6a8c2dec3704529a6af54224c9b013'; shutil.copyfile(s,d); assert s.read_bytes()==d.read_bytes(); print('Refreshed exactly one generated development Markdown document from current source.')"
+            ],
+            "environment_overrides": {},
+            "started_at": "2026-10-03T11:21:37.419896+00:00",
+            "finished_at": "2026-10-03T11:21:37.451294+00:00",
+            "elapsed_seconds": 0.031411673000548035,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/source-sync-status-render/refresh-generated-development-document.log",
+              "sha256": "165798ab0c7f781b7fd76e485e83d68db06c89c01e98db25f1919998f77a3b93",
+              "bytes": 83
+            }
+          },
+          {
+            "name": "jekyll",
+            "argv": [
+              "jekyll",
+              "build",
+              "--source",
+              ".verify-helper/markdown",
+              "--destination",
+              ".build/site",
+              "--config",
+              ".verify-helper/markdown/_config.yml,/tmp/blueberry-setup/pages-document-plugins.yml"
+            ],
+            "environment_overrides": {
+              "JEKYLL_ENV": "production"
+            },
+            "started_at": "2026-10-03T11:21:37.451792+00:00",
+            "finished_at": "2026-10-03T11:22:00.252866+00:00",
+            "elapsed_seconds": 22.80116204499791,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/source-sync-status-render/jekyll.log",
+              "sha256": "01d96b7808ca7671c919f97bd207dacd6cdbdbea170f6d013fd503b011cdfb48",
+              "bytes": 461
+            }
+          },
+          {
+            "name": "site-preflight-without-metrics",
+            "argv": [
+              "python3",
+              "scripts/check_site.py",
+              "--without-metrics"
+            ],
+            "environment_overrides": {},
+            "started_at": "2026-10-03T11:22:00.254152+00:00",
+            "finished_at": "2026-10-03T11:22:00.726316+00:00",
+            "elapsed_seconds": 0.4721870139983366,
+            "exit_code": 0,
+            "log": {
+              "path": ".verification/offline-dynamic-connectivity/docs/source-sync-status-render/site-preflight-without-metrics.log",
+              "sha256": "e312f7b46e12344767d0a0287fd29c22c5257fa29c100f7db3f9b7461ad40c11",
+              "bytes": 80
+            }
+          }
+        ],
+        "runner": {
+          "path": ".verification/offline-dynamic-connectivity/docs/source-sync-status-render/runner.py",
+          "sha256": "1e24fa18ce43024768bfb315bbded2886c24e404647b967025dc1fc129d4a7c3",
+          "bytes": 3993
+        },
+        "source_after": {
+          "blueberry/graph/offline-dynamic-component-sum.hpp": {
+            "sha256": "7d54e1694d42da12503677a76f853197fc592ae351e60d6cf916cbb2694e6be9",
+            "bytes": 6283
+          },
+          "blueberry/data-structure/rollback-union-find.hpp": {
+            "sha256": "9c00de087d9aacb9e83db234fb3c0f63d70b8e5dac68ab0f274e0b13cfef4cc6",
+            "bytes": 1944
+          },
+          "blueberry/utility/fast-io.hpp": {
+            "sha256": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845",
+            "bytes": 7650
+          },
+          "blueberry/all.hpp": {
+            "sha256": "5deb634fec86448ea50c67705321e00e541b07e85c3bafc83ad92bb57aef1e6d",
+            "bytes": 5666
+          },
+          "docs/graph/offline-dynamic-component-sum.md": {
+            "sha256": "5f1607378e33febf0d0f47d7116f9a7a593d9cbf7fd450a3fd66b02710ffe0f9",
+            "bytes": 16868
+          },
+          "docs/development/offline-dynamic-component-sum.md": {
+            "sha256": "e4736db169f1596eb192e40e913a2e98dd0af77d0b4817b16ce74c0300c87e56",
+            "bytes": 15861
+          },
+          "tests/random/offline-dynamic-component-sum.cpp": {
+            "sha256": "75159cfbe547ea52fbbf594f469955d8a5ae4cc98e1756079275aac03501309a",
+            "bytes": 14519
+          },
+          "verify/graph/offline-dynamic-component-sum.test.cpp": {
+            "sha256": "22416a1061a571a84b8d41486a06cb62a83c82b8530c2690e2669457aa319f39",
+            "bytes": 873
+          },
+          "benchmark/offline-dynamic-component-sum-validate.py": {
+            "sha256": "bec3a3e204b113f7e6ff40df3ed14250af660b0ede0c1c3c19e3675d16b35519",
+            "bytes": 15667
+          },
+          ".verify-helper/docs/static/_data/libraries.yml": {
+            "sha256": "48779dfb526f677e659b5aa0adc3126e161210a6f7b77f0de47fd25f9862f114",
+            "bytes": 30808
+          },
+          ".verify-helper/docs/static/_data/library_checker.json": {
+            "sha256": "86066a6c250e7d7679e6895e30028611dd2eb1b8e17ea9042c672e626a528857",
+            "bytes": 127982
+          },
+          ".verify-helper/docs/static/_data/library_verification.json": {
+            "sha256": "875fd8401fab415a4e1e347cba69e93484506a25a4f4d75211e9e51e800414d0",
+            "bytes": 70396
+          },
+          "docs/verification-gaps.md": {
+            "sha256": "e0418cf34d807532b7aaee02be05e79f0c2f2edca18cd72eafa892de03ee2d54",
+            "bytes": 65111
+          },
+          "docs/library-checker-checklist.md": {
+            "sha256": "090deb6b0dbba3b3e63bbd9215dfed4b7e34824ff8fed31e0a94f31ee033594d",
+            "bytes": 58102
+          },
+          "scripts/generate_docs.py": {
+            "sha256": "8fe9dc8fcb4acbd294462e0a9b694d0b7164e67e8fca589fe21e9139c96776e2",
+            "bytes": 2382
+          },
+          "scripts/publish_metrics.py": {
+            "sha256": "4e9fd15e2a6c35dd9ac3f283afa201c4c2bf6502835bcae718b5c0fe9e65290b",
+            "bytes": 1167
+          },
+          "scripts/check_site.py": {
+            "sha256": "f5c5eb07bfe5221a85bff347c230cd6c432b7427f8303a6df0478595146e6ab6",
+            "bytes": 11780
+          },
+          "Makefile": {
+            "sha256": "b3400dc17e42826f730e8e1cea897ae80acb717b58f65e4883582fdb85ead4ee",
+            "bytes": 2677
+          },
+          ".verify-helper/config.toml": {
+            "sha256": "3497c65589811682bd4334634356bcc079ca129abf0821de2543ff6d6068313d",
+            "bytes": 144
+          },
+          "/tmp/blueberry-setup/pages-document-plugins.yml": {
+            "sha256": "60ef3ca4571bb8b485abf6dd3218a6db18648360d416eba4c2d7485266afe533",
+            "bytes": 462
+          }
+        },
+        "source_unchanged": true,
+        "current_report_after": {
+          "sha256": "7b58eabfe5eaa6a3202ebb427f206f481a4380735e258fc2df28c1ba5b287bab",
+          "bytes": 207054
+        },
+        "current_report_unchanged": true,
+        "finished_at": "2026-10-03T11:22:00.728688+00:00"
+      }
+    }
+  ],
+  "logs": [
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/initial/make-docs.log",
+      "sha256": "37006a73a20db70607c83daa1d2fbc090499c0c586c593f9c144eda59e10d3e3",
+      "bytes": 17734,
+      "encoding": "utf-8",
+      "text": "CPLUS_INCLUDE_PATH=\"/workspace/Blueberry-library/.deps/ac-library:/workspace/Blueberry-library/.deps/ac-library:/tmp/blueberry-setup/boost/usr/include\" python3 scripts/generate_docs.py -j 2\n/tmp/blueberry-setup/venv/lib/python3.12/site-packages/onlinejudge_verify/documentation/main.py:6: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.\n  import pkg_resources\n/workspace/Blueberry-library/blueberry/geometry/furthest-pair.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/geometry/convex-hull.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/algebra/monoids.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/aggregate-deque.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/aggregate-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/binary-trie.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/disjoint-set-union.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/disjoint-sparse-table.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/double-ended-priority-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dual-segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-fenwick-tree-2d.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-fenwick-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-li-chao-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-sqrt-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/fast-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/fenwick-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/implicit-treap.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/kd-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/li-chao-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/linear-rmq.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/offline-fenwick-tree-2d.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/ordered-multiset.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/ordered-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/partially-retroactive-priority-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-array.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-binary-trie.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/potential-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/range-parallel-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/range-sort-range-product.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/rectangle-union.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/rollback-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/segment-tree-beats.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/skew-heap.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/slope-trick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/sparse-table.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/splay-slope-trick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/sqrt-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-distinct.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/wavelet-matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-inversions.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-lis.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-mode.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/weighted-wavelet-matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/assignment.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/biconnected-components.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/cartesian-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/centroid-decomposition.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/clique-enumeration.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/complement-components.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/contour-query.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/count-spanning-trees.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/cycle-detection.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dijkstra.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dynamic-top-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/euler-tour-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/eulerian-trail.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/heavy-light-decomposition.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/hopcroft-karp.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/linear-lca.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/link-cut-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/low-link.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/lowest-common-ancestor.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/maximum-independent-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/minimum-spanning-forest.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/rerooting.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/rooted-tree-isomorphism.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/static-top-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/topological-sort.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/tree-diameter.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/triangle-enumeration.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/offline-dynamic-component-sum.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/general-matching.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dominator-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/bitwise-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/discrete-log.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/divisor-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/enumerate-quotients.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/factorize.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/formal-power-series.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/fraction.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/kth-root-integer.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/linear-recurrence.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/longest-increasing-subsequence.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/mod-sqrt.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/montmort.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/multipoint-evaluation.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/polynomial-interpolation.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/polynomial-product.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/prime-sieve.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/sample-point-shift.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/stirling-second.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/subset-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/taylor-shift.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/aho-corasick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/count-subsequences.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/eertree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/longest-common-substring.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/lyndon-factorization.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/manacher.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/prefix-function.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/suffix-automaton.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/z-algorithm.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/utility/fast-io.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/geometry/closest-pair.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/all.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\npython3 scripts/publish_metrics.py\nTraceback (most recent call last):\n  File \"/workspace/Blueberry-library/scripts/publish_metrics.py\", line 17, in <module>\n    validate_publication_report(report, expected, revision)\n  File \"/workspace/Blueberry-library/scripts/verify_with_metrics.py\", line 302, in validate_publication_report\n    raise ValueError(\"do not publish unsupported or failed measurements\")\nValueError: do not publish unsupported or failed measurements\nmake: *** [Makefile:59: docs] Error 1\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/initial/jekyll.log",
+      "sha256": "2e68393c3f0575a51812daea00309a13f04fcd1051fbd0e442164d0f4ca1ef76",
+      "bytes": 461,
+      "encoding": "utf-8",
+      "text": "Configuration file: /workspace/Blueberry-library/.verify-helper/markdown/_config.yml\nConfiguration file: /tmp/blueberry-setup/pages-document-plugins.yml\n            Source: /workspace/Blueberry-library/.verify-helper/markdown\n       Destination: /workspace/Blueberry-library/.build/site\n Incremental build: disabled. Enable with --incremental\n      Generating... \n                    done in 23.006 seconds.\n Auto-regeneration: disabled. Use --watch to enable.\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/initial/site-preflight-without-metrics.log",
+      "sha256": "e312f7b46e12344767d0a0287fd29c22c5257fa29c100f7db3f9b7461ad40c11",
+      "bytes": 80,
+      "encoding": "utf-8",
+      "text": "PASS: 7 categories, 109 API pages, footer and navigation (before verification).\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/final-render/regenerate-documents.log",
+      "sha256": "2d25e55aa5dad0a8c9d317f57350e0fd1c9a8b3a7548638238d2da5baa533540",
+      "bytes": 17042,
+      "encoding": "utf-8",
+      "text": "/tmp/blueberry-setup/venv/lib/python3.12/site-packages/onlinejudge_verify/documentation/main.py:6: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.\n  import pkg_resources\n/workspace/Blueberry-library/blueberry/geometry/furthest-pair.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/geometry/convex-hull.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/algebra/monoids.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/aggregate-deque.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/aggregate-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/binary-trie.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/disjoint-set-union.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/disjoint-sparse-table.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/double-ended-priority-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dual-segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-fenwick-tree-2d.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-fenwick-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-li-chao-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-sqrt-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/fast-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/fenwick-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/implicit-treap.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/kd-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/li-chao-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/linear-rmq.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/offline-fenwick-tree-2d.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/ordered-multiset.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/ordered-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/partially-retroactive-priority-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-array.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-binary-trie.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/potential-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/range-parallel-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/range-sort-range-product.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/rectangle-union.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/rollback-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/segment-tree-beats.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/skew-heap.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/slope-trick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/sparse-table.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/splay-slope-trick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/sqrt-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-distinct.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/wavelet-matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-inversions.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-lis.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-mode.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/weighted-wavelet-matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/assignment.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/biconnected-components.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/cartesian-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/centroid-decomposition.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/clique-enumeration.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/complement-components.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/contour-query.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/count-spanning-trees.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/cycle-detection.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dijkstra.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dynamic-top-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/euler-tour-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/eulerian-trail.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/heavy-light-decomposition.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/hopcroft-karp.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/linear-lca.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/link-cut-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/low-link.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/lowest-common-ancestor.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/maximum-independent-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/minimum-spanning-forest.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/rerooting.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/rooted-tree-isomorphism.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/static-top-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/topological-sort.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/tree-diameter.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/triangle-enumeration.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/offline-dynamic-component-sum.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/general-matching.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dominator-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/bitwise-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/discrete-log.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/divisor-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/enumerate-quotients.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/factorize.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/formal-power-series.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/fraction.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/kth-root-integer.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/linear-recurrence.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/longest-increasing-subsequence.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/mod-sqrt.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/montmort.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/multipoint-evaluation.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/polynomial-interpolation.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/polynomial-product.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/prime-sieve.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/sample-point-shift.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/stirling-second.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/subset-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/taylor-shift.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/aho-corasick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/count-subsequences.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/eertree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/longest-common-substring.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/lyndon-factorization.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/manacher.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/prefix-function.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/suffix-automaton.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/z-algorithm.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/utility/fast-io.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/geometry/closest-pair.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/all.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/final-render/jekyll.log",
+      "sha256": "ed7d30f181926e2f1ab646ebd1f18c8cbf65fffa54b0ce88635f6bfdf78828f8",
+      "bytes": 461,
+      "encoding": "utf-8",
+      "text": "Configuration file: /workspace/Blueberry-library/.verify-helper/markdown/_config.yml\nConfiguration file: /tmp/blueberry-setup/pages-document-plugins.yml\n            Source: /workspace/Blueberry-library/.verify-helper/markdown\n       Destination: /workspace/Blueberry-library/.build/site\n Incremental build: disabled. Enable with --incremental\n      Generating... \n                    done in 22.239 seconds.\n Auto-regeneration: disabled. Use --watch to enable.\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/final-render/site-preflight-without-metrics.log",
+      "sha256": "e312f7b46e12344767d0a0287fd29c22c5257fa29c100f7db3f9b7461ad40c11",
+      "bytes": 80,
+      "encoding": "utf-8",
+      "text": "PASS: 7 categories, 109 API pages, footer and navigation (before verification).\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/review-cleared-render/regenerate-documents.log",
+      "sha256": "2d25e55aa5dad0a8c9d317f57350e0fd1c9a8b3a7548638238d2da5baa533540",
+      "bytes": 17042,
+      "encoding": "utf-8",
+      "text": "/tmp/blueberry-setup/venv/lib/python3.12/site-packages/onlinejudge_verify/documentation/main.py:6: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.\n  import pkg_resources\n/workspace/Blueberry-library/blueberry/geometry/furthest-pair.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/geometry/convex-hull.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/algebra/monoids.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/aggregate-deque.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/aggregate-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/binary-trie.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/disjoint-set-union.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/disjoint-sparse-table.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/double-ended-priority-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dual-segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-fenwick-tree-2d.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-fenwick-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-li-chao-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/dynamic-sqrt-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/fast-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/fenwick-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/implicit-treap.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/kd-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/li-chao-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/linear-rmq.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/offline-fenwick-tree-2d.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/ordered-multiset.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/ordered-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/partially-retroactive-priority-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-array.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-binary-trie.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-queue.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/persistent-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/potential-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/range-parallel-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/range-sort-range-product.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/rectangle-union.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/rollback-union-find.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/segment-tree-beats.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/segment-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/skew-heap.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/slope-trick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/sparse-table.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/splay-slope-trick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/sqrt-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-distinct.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/wavelet-matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-inversions.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-lis.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/static-range-mode.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/data-structure/weighted-wavelet-matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/assignment.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/biconnected-components.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/cartesian-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/centroid-decomposition.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/clique-enumeration.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/complement-components.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/contour-query.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/count-spanning-trees.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/matrix.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/cycle-detection.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dijkstra.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dynamic-top-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/euler-tour-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/eulerian-trail.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/heavy-light-decomposition.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/hopcroft-karp.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/linear-lca.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/link-cut-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/low-link.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/lowest-common-ancestor.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/maximum-independent-set.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/minimum-spanning-forest.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/rerooting.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/rooted-tree-isomorphism.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/static-top-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/topological-sort.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/tree-diameter.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/triangle-enumeration.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/offline-dynamic-component-sum.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/general-matching.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/graph/dominator-tree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/bitwise-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/discrete-log.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/divisor-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/enumerate-quotients.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/factorize.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/formal-power-series.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/fraction.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/kth-root-integer.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/linear-recurrence.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/longest-increasing-subsequence.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/mod-sqrt.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/montmort.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/multipoint-evaluation.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/polynomial-interpolation.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/polynomial-product.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/prime-sieve.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/sample-point-shift.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/stirling-second.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/subset-convolution.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/math/taylor-shift.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/aho-corasick.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/count-subsequences.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/eertree.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/longest-common-substring.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/lyndon-factorization.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/manacher.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/prefix-function.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/suffix-automaton.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/string/z-algorithm.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/utility/fast-io.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/geometry/closest-pair.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n/workspace/Blueberry-library/blueberry/all.hpp:1:9: warning: #pragma once in main file\n    1 | #pragma once\n      |         ^~~~\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/review-cleared-render/jekyll.log",
+      "sha256": "21274a0f78aa6dc1b08e81f533d94b4219a596603a9f8f249b68a2d0ec892eeb",
+      "bytes": 460,
+      "encoding": "utf-8",
+      "text": "Configuration file: /workspace/Blueberry-library/.verify-helper/markdown/_config.yml\nConfiguration file: /tmp/blueberry-setup/pages-document-plugins.yml\n            Source: /workspace/Blueberry-library/.verify-helper/markdown\n       Destination: /workspace/Blueberry-library/.build/site\n Incremental build: disabled. Enable with --incremental\n      Generating... \n                    done in 24.18 seconds.\n Auto-regeneration: disabled. Use --watch to enable.\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/review-cleared-render/site-preflight-without-metrics.log",
+      "sha256": "e312f7b46e12344767d0a0287fd29c22c5257fa29c100f7db3f9b7461ad40c11",
+      "bytes": 80,
+      "encoding": "utf-8",
+      "text": "PASS: 7 categories, 109 API pages, footer and navigation (before verification).\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/source-sync-status-render/refresh-generated-development-document.log",
+      "sha256": "165798ab0c7f781b7fd76e485e83d68db06c89c01e98db25f1919998f77a3b93",
+      "bytes": 83,
+      "encoding": "utf-8",
+      "text": "Refreshed exactly one generated development Markdown document from current source.\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/source-sync-status-render/jekyll.log",
+      "sha256": "01d96b7808ca7671c919f97bd207dacd6cdbdbea170f6d013fd503b011cdfb48",
+      "bytes": 461,
+      "encoding": "utf-8",
+      "text": "Configuration file: /workspace/Blueberry-library/.verify-helper/markdown/_config.yml\nConfiguration file: /tmp/blueberry-setup/pages-document-plugins.yml\n            Source: /workspace/Blueberry-library/.verify-helper/markdown\n       Destination: /workspace/Blueberry-library/.build/site\n Incremental build: disabled. Enable with --incremental\n      Generating... \n                    done in 22.269 seconds.\n Auto-regeneration: disabled. Use --watch to enable.\n"
+    },
+    {
+      "path": ".verification/offline-dynamic-connectivity/docs/source-sync-status-render/site-preflight-without-metrics.log",
+      "sha256": "e312f7b46e12344767d0a0287fd29c22c5257fa29c100f7db3f9b7461ad40c11",
+      "bytes": 80,
+      "encoding": "utf-8",
+      "text": "PASS: 7 categories, 109 API pages, footer and navigation (before verification).\n"
+    }
+  ],
+  "between_attempts": {
+    "changed_sources": [
+      "docs/development/offline-dynamic-component-sum.md"
+    ],
+    "reason": "After initial commands completed, replace pending documentation status with observed results and correct the recorded official compiler mode to assert-enabled. Regenerate documents and rerender to verify the final prose. No library/API/test/verifier changes."
+  },
+  "rendered_pages": [
+    {
+      "path": ".build/site/blueberry/graph/offline-dynamic-component-sum.hpp.html",
+      "sha256": "8c285b6a43fbb472525f7082c474f0d705bbeb2d1eccb4db998cdeb47d0c7866",
+      "bytes": 141503
+    },
+    {
+      "path": ".build/site/docs/development/offline-dynamic-component-sum.html",
+      "sha256": "94971aaaddf70a69143f34a9ff4c8c94e5656d3a09c20356948596b94022772d",
+      "bytes": 23669
+    }
+  ],
+  "rendered_checks": {
+    "api_seven_operation_blocks": true,
+    "api_multiset_contract": true,
+    "api_nonconsuming_solve": true,
+    "api_copy_only_no_zero_contract": true,
+    "development_final_driver": true,
+    "development_docs_gate": true,
+    "development_site_without_metrics": true,
+    "development_precommit_guard": true,
+    "development_blocker_retained": true,
+    "development_no_pending_status": true,
+    "source_sync_authorization_rendered": true,
+    "reviewed_branch_and_publication_limits_rendered": true,
+    "old_push_prohibition_absent": true,
+    "generated_development_document_matches_source": true
+  },
+  "site_counts": {
+    "categories": 7,
+    "api_pages": 109
+  },
+  "final_source_unchanged": true,
+  "global_verification_report_unchanged": true,
+  "make_docs_succeeded": false,
+  "existing_publication_gate_rejected": true,
+  "final_jekyll_succeeded": true,
+  "final_preflight_without_metrics_succeeded": true,
+  "full_official_verified": false,
+  "full_site_metrics_verified": false,
+  "integration_status": "Independent reviews and scoped validation complete; branch separate from integrated82f6; source work-branch push authorized for PC sync, main merge and publication prohibited. This report does not attest that a push occurred.",
+  "note": "All earlier reports/logs remain unchanged. Later render phases do not rerun publication metrics and do not convert the initial make-docs exit2 to success. Authorized development-report status edits are recorded separately; final refresh replaces exactly its generated Markdown copy and verifies rendered text.",
+  "review_status_update": {
+    "source": "Parent confirmed final independent reviews clear and authorized exact one-line status replacement.",
+    "changed_sources": [
+      "docs/development/offline-dynamic-component-sum.md"
+    ],
+    "previous_aggregate": {
+      "path": ".verification/offline-dynamic-connectivity/docs/pre-review-status-aggregate.json",
+      "sha256": "5918220ef04a58414f2eedea837526256d95cdcdb5aba4ce675385b877913cd5",
+      "bytes": 62386
+    },
+    "previous_rendered_pages": [
+      {
+        "path": ".build/site/blueberry/graph/offline-dynamic-component-sum.hpp.html",
+        "sha256": "8c285b6a43fbb472525f7082c474f0d705bbeb2d1eccb4db998cdeb47d0c7866",
+        "bytes": 141503
+      },
+      {
+        "path": ".build/site/docs/development/offline-dynamic-component-sum.html",
+        "sha256": "007f9eeccd2edbc0b2291331536aca5c360f7355b58a7d5e6703e3e8e86d92f1",
+        "bytes": 23507
+      }
+    ],
+    "previous_rendered_checks": {
+      "api_seven_operation_blocks": true,
+      "api_multiset_contract": true,
+      "api_nonconsuming_solve": true,
+      "api_copy_only_no_zero_contract": true,
+      "development_final_driver": true,
+      "development_docs_gate": true,
+      "development_site_without_metrics": true,
+      "development_precommit_guard": true,
+      "development_wip_status": true,
+      "development_blocker_retained": true,
+      "development_no_pending_status": true
+    },
+    "note": "Historical reports retain their original WIP wording. Only development-report status changed for this render; no make check or official verification was repeated."
+  },
+  "updated_at": "2026-10-03T11:23:04.225898+00:00",
+  "source_sync_authorization_update": {
+    "source": "Parent relayed latest user authorization to push source work branches for PC synchronization; main merge/force push/deployment remain prohibited.",
+    "changed_sources": [
+      "docs/development/offline-dynamic-component-sum.md"
+    ],
+    "previous_aggregate": {
+      "path": ".verification/offline-dynamic-connectivity/docs/pre-source-sync-status-aggregate.json",
+      "sha256": "ccfcdd542d84f426698cf95adc0360179950f0231ce3d42b9ef08b62f7b7a97d",
+      "bytes": 94038
+    },
+    "previous_rendered_pages": [
+      {
+        "path": ".build/site/blueberry/graph/offline-dynamic-component-sum.hpp.html",
+        "sha256": "8c285b6a43fbb472525f7082c474f0d705bbeb2d1eccb4db998cdeb47d0c7866",
+        "bytes": 141503
+      },
+      {
+        "path": ".build/site/docs/development/offline-dynamic-component-sum.html",
+        "sha256": "fdced015d77ecff7ee68017bd76d44eca724b4d21eeb72318d4147202d6b3a3c",
+        "bytes": 23553
+      }
+    ],
+    "previous_rendered_checks": {
+      "api_seven_operation_blocks": true,
+      "api_multiset_contract": true,
+      "api_nonconsuming_solve": true,
+      "api_copy_only_no_zero_contract": true,
+      "development_final_driver": true,
+      "development_docs_gate": true,
+      "development_site_without_metrics": true,
+      "development_precommit_guard": true,
+      "development_blocker_retained": true,
+      "development_no_pending_status": true,
+      "development_reviewed_local_status": true,
+      "stale_review_pending_status_absent": true
+    },
+    "note": "Only two authorized development-report sentences changed. Refreshed one generated development Markdown page after checking its old hash and its new byte identity with source, then rerendered and ran site preflight. No official or make-check rerun and no push performed by this validator."
+  }
+}
