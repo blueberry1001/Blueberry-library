@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <limits>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -21,8 +22,7 @@ class HeavyLightDecomposition {
         root_(root),
         parent_(n_, -1),
         depth_(n_, -1),
-        subtree_size_(n_),
-        heavy_(n_, -1),
+        subtree_size_(n_, 1),
         head_(n_, -1),
         in_(n_, -1),
         out_(n_, -1),
@@ -30,15 +30,18 @@ class HeavyLightDecomposition {
     assert(n_ > 0);
     assert(0 <= root && root < n_);
 
-    std::vector<int> order;
-    order.reserve(n_);
-    std::vector<int> stack{root};
+    // vertex_at_ temporarily stores DFS order; it is filled with HLD order below.
+    std::vector<int> heavy(n_, -1);
+    std::vector<int> stack;
+    stack.reserve(n_);
+    stack.push_back(root);
+    int count = 0;
     parent_[root] = root;
     depth_[root] = 0;
     while (!stack.empty()) {
       const int v = stack.back();
       stack.pop_back();
-      order.push_back(v);
+      vertex_at_[count++] = v;
       for (const int to : tree[v]) {
         assert(0 <= to && to < n_);
         if (depth_[to] != -1) continue;
@@ -47,31 +50,30 @@ class HeavyLightDecomposition {
         stack.push_back(to);
       }
     }
-    assert(static_cast<int>(order.size()) == n_);
+    assert(count == n_);
 
-    for (auto it = order.rbegin(); it != order.rend(); ++it) {
-      const int v = *it;
-      subtree_size_[v] = 1;
-      for (const int to : tree[v]) {
-        if (parent_[to] != v) continue;
-        subtree_size_[v] += subtree_size_[to];
-        if (heavy_[v] == -1 || subtree_size_[heavy_[v]] < subtree_size_[to]) {
-          heavy_[v] = to;
-        }
+    // Reversed DFS order visits a parent's children in adjacency-list order,
+    // preserving the first-largest-child tie rule without scanning edges again.
+    for (int i = n_ - 1; i > 0; --i) {
+      const int v = vertex_at_[i];
+      const int p = parent_[v];
+      subtree_size_[p] += subtree_size_[v];
+      if (heavy[p] == -1 || subtree_size_[heavy[p]] < subtree_size_[v]) {
+        heavy[p] = v;
       }
     }
 
     int timer = 0;
-    std::vector<int> chain_starts{root};
-    while (!chain_starts.empty()) {
-      const int start = chain_starts.back();
-      chain_starts.pop_back();
-      for (int v = start; v != -1; v = heavy_[v]) {
+    stack.push_back(root);
+    while (!stack.empty()) {
+      const int start = stack.back();
+      stack.pop_back();
+      for (int v = start; v != -1; v = heavy[v]) {
         head_[v] = start;
         in_[v] = timer;
         vertex_at_[timer++] = v;
         for (const int to : tree[v]) {
-          if (parent_[to] == v && to != heavy_[v]) chain_starts.push_back(to);
+          if (parent_[to] == v && to != heavy[v]) stack.push_back(to);
         }
       }
     }
@@ -120,7 +122,7 @@ class HeavyLightDecomposition {
   int edge_index(int u, int v) const {
     check_vertex(u);
     check_vertex(v);
-    assert(parent_[u] == v || parent_[v] == u);
+    assert(u != v && (parent_[u] == v || parent_[v] == u));
     return depth_[u] < depth_[v] ? in_[v] : in_[u];
   }
 
@@ -138,9 +140,15 @@ class HeavyLightDecomposition {
   int lca(int u, int v) const {
     check_vertex(u);
     check_vertex(v);
-    while (head_[u] != head_[v]) {
-      if (depth_[head_[u]] < depth_[head_[v]]) std::swap(u, v);
-      u = parent_[head_[u]];
+    int uh = head_[u], vh = head_[v];
+    while (uh != vh) {
+      if (depth_[uh] > depth_[vh]) {
+        u = parent_[uh];
+        uh = head_[u];
+      } else {
+        v = parent_[vh];
+        vh = head_[v];
+      }
     }
     return depth_[u] < depth_[v] ? u : v;
   }
@@ -159,7 +167,7 @@ class HeavyLightDecomposition {
 
   int distance(int u, int v) const {
     const int ancestor = lca(u, v);
-    return depth_[u] + depth_[v] - 2 * depth_[ancestor];
+    return (depth_[u] - depth_[ancestor]) + (depth_[v] - depth_[ancestor]);
   }
 
   int jump(int u, int v, int distance) const {
@@ -222,23 +230,31 @@ class HeavyLightDecomposition {
 
   template <class F>
   void path_query_impl(int u, int v, F& f, bool edge) const {
-    if (head_[u] == head_[v]) {
-      if (in_[u] <= in_[v]) {
-        const int left = in_[u] + static_cast<int>(edge);
-        if (left <= in_[v]) invoke(f, left, in_[v] + 1, false);
+    struct Interval { int left, right; };
+    // Each light edge at least halves the remaining subtree. Since N fits int,
+    // this bound accommodates every possible v-side suffix, without allocation.
+    Interval suffix[std::numeric_limits<unsigned int>::digits];
+    int suffix_size = 0;
+    while (head_[u] != head_[v]) {
+      if (in_[u] > in_[v]) {
+        invoke(f, in_[head_[u]], in_[u] + 1, true);
+        u = parent_[head_[u]];
       } else {
-        const int left = in_[v] + static_cast<int>(edge);
-        if (left <= in_[u]) invoke(f, left, in_[u] + 1, true);
+        const int head = head_[v];
+        suffix[suffix_size++] = {in_[head], in_[v] + 1};
+        v = parent_[head];
       }
-      return;
     }
-    if (depth_[head_[u]] >= depth_[head_[v]]) {
-      invoke(f, in_[head_[u]], in_[u] + 1, true);
-      path_query_impl(parent_[head_[u]], v, f, edge);
+    if (in_[u] <= in_[v]) {
+      const int left = in_[u] + static_cast<int>(edge);
+      if (left <= in_[v]) invoke(f, left, in_[v] + 1, false);
     } else {
-      const int head = head_[v];
-      path_query_impl(u, parent_[head], f, edge);
-      invoke(f, in_[head], in_[v] + 1, false);
+      const int left = in_[v] + static_cast<int>(edge);
+      if (left <= in_[u]) invoke(f, left, in_[u] + 1, true);
+    }
+    while (suffix_size > 0) {
+      const auto [left, right] = suffix[--suffix_size];
+      invoke(f, left, right, false);
     }
   }
 
@@ -249,7 +265,6 @@ class HeavyLightDecomposition {
   std::vector<int> parent_;
   std::vector<int> depth_;
   std::vector<int> subtree_size_;
-  std::vector<int> heavy_;
   std::vector<int> head_;
   std::vector<int> in_;
   std::vector<int> out_;

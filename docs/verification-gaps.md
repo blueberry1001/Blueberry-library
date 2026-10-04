@@ -546,6 +546,7 @@
 - 専用ドライバ: [verify/graph/heavy-light-decomposition-path.test.cpp](../verify/graph/heavy-light-decomposition-path.test.cpp) / [問題](https://judge.yosupo.jp/problem/vertex_add_path_sum)
 - 専用ドライバ: [verify/graph/heavy-light-decomposition-subtree.test.cpp](../verify/graph/heavy-light-decomposition-subtree.test.cpp) / [問題](https://judge.yosupo.jp/problem/vertex_add_subtree_sum)
 - 専用ドライバ: [verify/graph/jump-on-tree.test.cpp](../verify/graph/jump-on-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/jump_on_tree)
+- 関連ローカルテスト: [tests/random/heavy-light-decomposition.cpp](../tests/random/heavy-light-decomposition.cpp)
 - 関連ローカルテスト: [tests/tree_random.cpp](../tests/tree_random.cpp)
 
 ## Hopcroft–Karp

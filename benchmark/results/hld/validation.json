@@ -1,0 +1,231 @@
+{
+  "schema_version": 1,
+  "candidate": "final candidate 2",
+  "base_commit": "0dfa0e6c0f1de890feef2af80ae2a3e182ea8f55",
+  "branch": "perf/hld-api-2026-10-04",
+  "header_path": "blueberry/graph/heavy-light-decomposition.hpp",
+  "header_sha256": "2cd350a1c36e66b5aef013b0cc730f1e9c15485bf9339756c49d43b483a57a05",
+  "new_test_path": "tests/random/heavy-light-decomposition.cpp",
+  "new_test_sha256": "2d0fc92edad5247f7358b19e017cb03d230ba0555ec8db00f49ad3f508cba950",
+  "passed": true,
+  "header_unchanged": true,
+  "source_inputs_unchanged": true,
+  "compiler_versions": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)"
+  },
+  "network_isolation": "unshare -Urn",
+  "header_compiles": 8,
+  "verifier_compiles": 16,
+  "runtime_compiles": 9,
+  "total_compiles_passed": 33,
+  "new_test_runs": 26,
+  "existing_tree_runs": 4,
+  "sanitizer_runs": 2,
+  "total_runtime_runs_passed": 32,
+  "failures": 0,
+  "missing_logs": [],
+  "runtime_matrix": [
+    {
+      "compiler": "g++",
+      "standard": "gnu++20",
+      "source": "tests/random/heavy-light-decomposition.cpp",
+      "source_sha256": "2d0fc92edad5247f7358b19e017cb03d230ba0555ec8db00f49ad3f508cba950",
+      "sanitizers": false,
+      "seeds": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "passed": true,
+      "compile_log": ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.compile.log",
+      "run_logs": [
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-1.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-2.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-3.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-4.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-5.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-6.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-7.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-8.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-9.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-10.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-11.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-12.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-13.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-14.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-15.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-16.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-17.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-18.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-19.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-hld.seed-20.log"
+      ],
+      "max_runtime_seconds": 0.3238633529999788
+    },
+    {
+      "compiler": "g++",
+      "standard": "gnu++20",
+      "source": "tests/tree_random.cpp",
+      "source_sha256": "833671c3a4ae59df7c17610a4b72dfca2ed6704272c4d6a5d99671a664d65c62",
+      "sanitizers": false,
+      "seeds": [
+        null
+      ],
+      "passed": true,
+      "compile_log": ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-tree.compile.log",
+      "run_logs": [
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc20-tree.seed-None.log"
+      ],
+      "max_runtime_seconds": 0.17604967700026464
+    },
+    {
+      "compiler": "g++",
+      "standard": "gnu++23",
+      "source": "tests/random/heavy-light-decomposition.cpp",
+      "source_sha256": "2d0fc92edad5247f7358b19e017cb03d230ba0555ec8db00f49ad3f508cba950",
+      "sanitizers": false,
+      "seeds": [
+        1,
+        20261004
+      ],
+      "passed": true,
+      "compile_log": ".verification/hld-tests/runtime-matrix-final-candidate2/gcc23-hld.compile.log",
+      "run_logs": [
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc23-hld.seed-1.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc23-hld.seed-20261004.log"
+      ],
+      "max_runtime_seconds": 0.27567932500005554
+    },
+    {
+      "compiler": "g++",
+      "standard": "gnu++23",
+      "source": "tests/tree_random.cpp",
+      "source_sha256": "833671c3a4ae59df7c17610a4b72dfca2ed6704272c4d6a5d99671a664d65c62",
+      "sanitizers": false,
+      "seeds": [
+        null
+      ],
+      "passed": true,
+      "compile_log": ".verification/hld-tests/runtime-matrix-final-candidate2/gcc23-tree.compile.log",
+      "run_logs": [
+        ".verification/hld-tests/runtime-matrix-final-candidate2/gcc23-tree.seed-None.log"
+      ],
+      "max_runtime_seconds": 0.17330741999967358
+    },
+    {
+      "compiler": "clang++",
+      "standard": "gnu++20",
+      "source": "tests/random/heavy-light-decomposition.cpp",
+      "source_sha256": "2d0fc92edad5247f7358b19e017cb03d230ba0555ec8db00f49ad3f508cba950",
+      "sanitizers": false,
+      "seeds": [
+        1,
+        20261004
+      ],
+      "passed": true,
+      "compile_log": ".verification/hld-tests/runtime-matrix-final-candidate2/clang20-hld.compile.log",
+      "run_logs": [
+        ".verification/hld-tests/runtime-matrix-final-candidate2/clang20-hld.seed-1.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/clang20-hld.seed-20261004.log"
+      ],
+      "max_runtime_seconds": 0.2230881670002418
+    },
+    {
+      "compiler": "clang++",
+      "standard": "gnu++20",
+      "source": "tests/tree_random.cpp",
+      "source_sha256": "833671c3a4ae59df7c17610a4b72dfca2ed6704272c4d6a5d99671a664d65c62",
+      "sanitizers": false,
+      "seeds": [
+        null
+      ],
+      "passed": true,
+      "compile_log": ".verification/hld-tests/runtime-matrix-final-candidate2/clang20-tree.compile.log",
+      "run_logs": [
+        ".verification/hld-tests/runtime-matrix-final-candidate2/clang20-tree.seed-None.log"
+      ],
+      "max_runtime_seconds": 0.17175759599967932
+    },
+    {
+      "compiler": "clang++",
+      "standard": "gnu++23",
+      "source": "tests/random/heavy-light-decomposition.cpp",
+      "source_sha256": "2d0fc92edad5247f7358b19e017cb03d230ba0555ec8db00f49ad3f508cba950",
+      "sanitizers": false,
+      "seeds": [
+        1,
+        20261004
+      ],
+      "passed": true,
+      "compile_log": ".verification/hld-tests/runtime-matrix-final-candidate2/clang23-hld.compile.log",
+      "run_logs": [
+        ".verification/hld-tests/runtime-matrix-final-candidate2/clang23-hld.seed-1.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/clang23-hld.seed-20261004.log"
+      ],
+      "max_runtime_seconds": 0.2706939350000539
+    },
+    {
+      "compiler": "clang++",
+      "standard": "gnu++23",
+      "source": "tests/tree_random.cpp",
+      "source_sha256": "833671c3a4ae59df7c17610a4b72dfca2ed6704272c4d6a5d99671a664d65c62",
+      "sanitizers": false,
+      "seeds": [
+        null
+      ],
+      "passed": true,
+      "compile_log": ".verification/hld-tests/runtime-matrix-final-candidate2/clang23-tree.compile.log",
+      "run_logs": [
+        ".verification/hld-tests/runtime-matrix-final-candidate2/clang23-tree.seed-None.log"
+      ],
+      "max_runtime_seconds": 0.17409501700012697
+    },
+    {
+      "compiler": "clang++",
+      "standard": "gnu++20",
+      "source": "tests/random/heavy-light-decomposition.cpp",
+      "source_sha256": "2d0fc92edad5247f7358b19e017cb03d230ba0555ec8db00f49ad3f508cba950",
+      "sanitizers": true,
+      "seeds": [
+        1,
+        20261004
+      ],
+      "passed": true,
+      "compile_log": ".verification/hld-tests/runtime-matrix-final-candidate2/clang20-hld-sanitizers.compile.log",
+      "run_logs": [
+        ".verification/hld-tests/runtime-matrix-final-candidate2/clang20-hld-sanitizers.seed-1.log",
+        ".verification/hld-tests/runtime-matrix-final-candidate2/clang20-hld-sanitizers.seed-20261004.log"
+      ],
+      "max_runtime_seconds": 1.7830025419998492
+    }
+  ],
+  "header_verifier_summary": ".verification/hld-tests/compile-matrix-final-candidate2/summary.json",
+  "header_verifier_commands": ".verification/hld-tests/compile-matrix-final-candidate2/commands.txt",
+  "runtime_summary": ".verification/hld-tests/runtime-matrix-final-candidate2/full-summary.json",
+  "runtime_runner": ".verification/hld-tests/run_runtime_matrix_final_candidate2.py full",
+  "new_test_seed1_coverage": {
+    "ordered_path_pairs": 86618,
+    "trees": 1629,
+    "checks": 9467637
+  },
+  "scope": "Focused correctness, compilation and sanitizers; official judge execution and performance evidence are separate",
+  "prior_evidence_preserved": true
+}

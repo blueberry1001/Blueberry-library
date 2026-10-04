@@ -1,0 +1,41 @@
+{
+  "baseline_revision": "0dfa0e6c0f1de890feef2af80ae2a3e182ea8f55",
+  "branch": "perf/hld-api-2026-10-04",
+  "header": "blueberry/graph/heavy-light-decomposition.hpp",
+  "header_sha256": {
+    "baseline": "48c08be91e8ef6a563fad7e17453d69b4cf53452ee576cdd3942c54d0c3820d8",
+    "candidate2": "2cd350a1c36e66b5aef013b0cc730f1e9c15485bf9339756c49d43b483a57a05",
+    "unchanged_during_test": true
+  },
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "flags": ["-std=c++20", "-O2", "-Wall", "-Wextra", "-Werror", "-pedantic"],
+  "assertions": "enabled",
+  "seed": 20261004,
+  "outcome": "PASS",
+  "counts": {
+    "generated_trees": 400,
+    "adjacency_orders_per_tree": 2,
+    "forms_per_order": 2,
+    "constructions": 1600,
+    "ordered_vertex_pairs": 1225456,
+    "path_calls": 9803648,
+    "nested_move_only_callbacks": 14788
+  },
+  "coverage": [
+    "Exact parent/depth/subtree_size/head/in/out/vertex_at layout",
+    "Exact two- and three-argument path callback intervals and directions in vertex/edge modes",
+    "Shuffled labeled star/path/balanced/random trees, arbitrary roots, undirected and directed parent-child forms",
+    "LCA, distance, ancestry, edge_index, kth, jump, subtree and single-vertex queries",
+    "Move-only callbacks passed as lvalues and temporaries; nested queries on the same HLD"
+  ],
+  "local_evidence": {
+    "directory": ".verification/hld-audit-final",
+    "source": ".verification/hld-audit-final/differential.cpp",
+    "baseline_header": ".verification/hld-audit-final/baseline.hpp",
+    "rerun_script": ".verification/hld-audit-final/run-differential.sh",
+    "environment": ".verification/hld-audit-final/differential-environment.txt",
+    "result": ".verification/hld-audit-final/differential-result.txt",
+    "input_hashes": ".verification/hld-audit-final/differential-input-sha256.txt",
+    "output_hashes": ".verification/hld-audit-final/differential-output-sha256.txt"
+  }
+}
