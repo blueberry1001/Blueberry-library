@@ -1,0 +1,72 @@
+{
+  "revision": "13d9146f67667993784342f2a9cd9a7f793a8948",
+  "scope": "Whole-repository local checks; subsequent changes only document these results and link the standalone benchmark.",
+  "source_sha256": {
+    "blueberry/graph/heavy-light-decomposition.hpp": "2cd350a1c36e66b5aef013b0cc730f1e9c15485bf9339756c49d43b483a57a05",
+    "tests/random/heavy-light-decomposition.cpp": "2d0fc92edad5247f7358b19e017cb03d230ba0555ec8db00f49ad3f508cba950",
+    "docs/graph/heavy-light-decomposition.md": "3a1ec80f8804a4bc53e2b8c9288271c3a3f32a908296a2eb6fdd2ce961163df9"
+  },
+  "environment": {
+    "platform": "WSL2 Ubuntu",
+    "compiler": "GCC 13.3.0",
+    "network": "disabled with unshare -Urn",
+    "temporary_directory": ".verification/hld-final-preflight/tmp",
+    "free_space_abort_threshold_bytes": 5368709120,
+    "timeout_seconds": 2400
+  },
+  "make_check": {
+    "command": [
+      "make", "check", "CXX=g++", "CXX_STANDARD=gnu++20",
+      "COMPILE_JOBS=2", "RANDOM_RUNS=20", "CPPFLAGS=-isystem .deps/ac-library"
+    ],
+    "status": "passed",
+    "exit_code": 0,
+    "elapsed_seconds": 968.6454761719997,
+    "unit_tests": 99,
+    "library_docs": 109,
+    "doc_examples": 117,
+    "header_compiles": 110,
+    "verify_compiles": 147,
+    "random_programs": 58,
+    "seeds_per_random_program": 20,
+    "seeds": "1..20",
+    "start_free_bytes": 39811432448,
+    "end_free_bytes": 39691862016,
+    "log": ".verification/hld-final-preflight/make-check.log",
+    "log_sha256": "795116aaad63a7bf580dd9d235edc9625139675fa3fe465e6d9b5cc4fad27769"
+  },
+  "docs_structure": {
+    "command": ["python3", "-B", "scripts/check_docs.py", "--structure-only"],
+    "status": "passed",
+    "exit_code": 0,
+    "library_docs": 109,
+    "log": ".verification/hld-final-preflight/docs-structure.log"
+  },
+  "coverage": {
+    "command": ["python3", "-B", "scripts/library_checker_coverage.py", "--check"],
+    "status": "passed",
+    "exit_code": 0,
+    "published_problems": 253,
+    "missing": 128,
+    "verify": 118,
+    "acl": 7,
+    "log": ".verification/hld-final-preflight/coverage.log"
+  },
+  "registration_audit": {
+    "status": "passed",
+    "hld_random_discovered": true,
+    "random_programs": 58,
+    "benchmark": "Standalone snapshot comparison runner linked from benchmark/README.md; deliberately separate from the single-result common manifest.",
+    "verification_plan": {
+      "base": "0dfa0e6c0f1de890feef2af80ae2a3e182ea8f55",
+      "head": "13d9146f67667993784342f2a9cd9a7f793a8948",
+      "mode": "full",
+      "compile_required": true,
+      "selected_verify": 147,
+      "total_verify": 147,
+      "reason_prefix": "harness/toolchain/config or unclassified changes",
+      "note": "Planning only; no whole-repository official verification was run."
+    }
+  },
+  "not_run": ["whole-repository make verify", "make docs", "Jekyll build"]
+}

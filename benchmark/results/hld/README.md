@@ -142,10 +142,13 @@ path は u 側を直ちに列挙し、v 側の区間を局所配列に積んで�
   この実行時間は改善率の比較には使っていない。
 - [ドキュメント検証](docs-validation.json): 全109ページの構造検査と、HLD の4つの使用例を
   GCC/Clang、GNU++20/23でコンパイル・実行。追加テストの検証一覧も再生成し、coverage check が成功。
+- [全体のローカル確認](preflight.json): GCC/GNU++20 の `make check` が成功。
+  unit test 99件、全109ページの117使用例、110ヘッダ・147 verify のコンパイル、
+  58本の random test 各20 seedを確認した。HLD の追加テストも通常の検証対象に含まれる。
 
 新しい random test は seed 1 で1,629構築・86,618頂点対を調べる。
 小さいラベル付き木の全探索、任意の根、親→子リストと無向リスト、辺・部分木の空区間、
 ACL と組み合わせた辺更新、20万頂点の鎖を含む。
 個別ログは各 JSON に記載したローカル `.verification/` 以下に保持した。
-今回の検証は HLD に絞っており、全体の `make check` / `make verify` / `make docs`、
-Jekyll build は実行していない。push・PR・公開も行っていない。
+全体の `make check` は約969秒で完了し、終了時の空き容量は約37.0 GiBだった。
+HLD の公式4問題以外を含む全体の `make verify`、`make docs`、Jekyll build は実行していない。

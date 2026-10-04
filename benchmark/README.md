@@ -30,6 +30,14 @@ between repetitions. It records raw samples, median, min/max, and median absolut
 in the same group must emit the same checksum. Ratios are only formed inside one workload and flag
 set.
 
+## HLD before/after comparison
+
+[HLD construction and path queries](results/hld/README.md) compares an immutable Git baseline
+with the current header on chain, star, balanced and random trees. Run
+`python3 benchmark/hld.py --name hld-local --cpu 2` from the repository root on Linux/WSL.
+This standalone runner prepares both header snapshots and records multiple operation timings;
+it is separate from the common manifest's single-result targets.
+
 ## Library Checker research
 
 ```console
