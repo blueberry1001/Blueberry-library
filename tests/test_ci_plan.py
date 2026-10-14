@@ -202,6 +202,21 @@ class CiPlanTests(unittest.TestCase):
         self.assertEqual((plan["selected_verify"], plan["repeats"]), ([], 1))
         self.assertEqual(json.loads((self.root / "ci-doc-examples.json").read_text()), [])
 
+    def test_publication_push_verifies_all_even_for_docs_only_with_explicit_base(self):
+        self.write("README.md", "documentation-only publication\n")
+        self.commit()
+        output = self.root / "ci-plan.json"
+        script = Path(__file__).resolve().parents[1] / "scripts/plan_verification.py"
+        subprocess.run([sys.executable, str(script), "--repo", str(self.root),
+                        "--base", self.base, "--event-name", "push",
+                        "--output", str(output)], check=True, stdout=subprocess.PIPE)
+        plan = json.loads(output.read_text())
+        self.assertEqual((plan["mode"], plan["repeats"]), ("full", 3))
+        self.assertEqual(plan["selected_verify"], ["verify/a.test.cpp", "verify/b.test.cpp"])
+        self.assertTrue(plan["compile_required"])
+        self.assertIsNone(json.loads((self.root / "ci-doc-examples.json").read_text()))
+        validate_plan(plan, self.root)
+
 
 class UnitSelectionTests(unittest.TestCase):
     def test_only_known_cpp_integrations_are_removed(self):

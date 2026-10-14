@@ -187,5 +187,13 @@ for row in metrics["results"]:
     assert metrics["generated_at"] in content, "Missing measured data on verify page"
     if row["status"] == "not_selected":
         assert "今回未実行" in content, "Unselected verify must not look measured"
+    if row["status"] == "passed":
+        assert 'data-verification-status="TEST_ACCEPTED"' in content, (
+            row["path"], "Successful measurement must render an accepted verification heading")
+if selected == expected:
+    for header in headers:
+        content = (SITE / f"{header}.html").read_text()
+        assert not re.search(r'data-verification-status="LIBRARY_(?:ALL|SOME)_WA"', content), (
+            header, "Full successful verification must not render a failed library heading")
 print(f"PASS: {len(categories)} categories, {len(headers)} API pages, {len(selected)} measured verifies, "
       f"{len(paths) - len(selected)} intentionally unselected, footer and navigation.")
