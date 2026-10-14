@@ -1,4 +1,4 @@
-<h1>{{ page.data._verificationStatusIcon }} {{ page.title | escape }}
+<h1 data-verification-status="{{ page.data.verificationStatus | escape }}">{{ page.data._verificationStatusIcon }} {{ page.title | escape }}
 {% if page.title != page.data.path %}<br><small>{{ page.data.path | escape }}</small>{% endif %}</h1>
 <ul>
   <li><a href="{{ site.github.repository_url }}/blob/{{ site.github.default_branch | default: 'main' }}/{{ page.data.path }}">GitHubでソースを開く</a></li>
