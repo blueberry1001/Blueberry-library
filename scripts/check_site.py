@@ -19,6 +19,9 @@ assert not any('/atcoder/' in href or '/verify/' in href for href in home_links)
 assert "Verification Files" not in home
 assert 'class="site-hero"' in home
 assert 'class="site-nav"' in home
+assert '<main id="main-content">' in home
+assert re.search(r'<details class="library-files" id="library-files">', home)
+assert 'site-hero__eyebrow' not in home and 'class="library-summary"' not in home
 assert 'data-catalog-search' in home and 'data-catalog-controls hidden' in home
 assert 'data-catalog-empty hidden' in home and 'id="library-catalog"' in home
 assert "calc(100% - 300px)" not in home, "Upstream inline sidebar CSS returned"
@@ -63,6 +66,7 @@ recipes = json.loads((ROOT / '.verify-helper/docs/static/_data/monoids.yml').rea
 for recipe in recipes:
     article = re.search(r'<article\b[^>]*\bid="' + re.escape(recipe['id']) + r'"[^>]*>(.*?)</article>', monoids, re.S)
     assert article, recipe['id']
+    assert 'data-linked-details' in article[1] and '<summary>' in article[1], recipe['id']
     if recipe.get('code'):
         code = re.search(r'<pre><code\b[^>]*>(.*?)</code></pre>', article[1], re.S)
         assert code and html.unescape(code[1]).rstrip('\n') == recipe['code'].rstrip('\n'), (recipe['id'], 'copy text differs')

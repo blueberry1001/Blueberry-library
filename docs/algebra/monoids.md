@@ -15,12 +15,14 @@ ACLに渡すモノイドの定義集です。必要な例を一つコピーし�
 {% assign definition_anchor = recipe.id %}
 {% if recipe.api and recipe.api != '' %}{% assign definition_anchor = recipe.api | split: '<' | first | downcase %}{% endif %}
 <article data-monoid-definition id="{{ definition_anchor | escape }}">
-  <h2>{{ recipe.title | escape }}</h2>
+  <details class="monoid-recipe" data-linked-details>
+  <summary><strong>{{ recipe.title | escape }}</strong></summary>
   {% if recipe.nonconstant_cost %}<p>{{ recipe.nonconstant_cost | escape }}</p>{% endif %}
   {% if recipe.note %}<p><code>{{ recipe.note | escape }}</code></p>{% endif %}
   <pre><code class="language-cpp">{{ recipe.code | escape }}</code></pre>
   {% if recipe.caveat and recipe.caveat != '' %}<p>{{ recipe.caveat | escape }}</p>{% endif %}
   {% if recipe.problem_url and recipe.problem_url != '' %}<p>応用問題: <a href="{{ recipe.problem_url | escape }}">{{ recipe.problem | escape }}</a>{{ recipe.problem_note | escape }}</p>{% endif %}
+  </details>
 </article>
 {% endif %}
 {% endfor %}

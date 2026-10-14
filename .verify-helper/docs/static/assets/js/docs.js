@@ -37,6 +37,9 @@ function openLinkedOperation(hash = window.location.hash) {
     const viewer = target?.closest("[data-source-viewer]");
     if (viewer?.querySelector("[data-source-toggle]")) setSourceBundled(viewer, id !== "unbundled");
   }
+  // A recipe's public anchor stays on its article for existing links.
+  const linkedDetails = target?.querySelector?.("details[data-linked-details]");
+  if (linkedDetails) linkedDetails.open = true;
   while (target) {
     if (target instanceof HTMLDetailsElement) target.open = true;
     target = target.parentElement;
@@ -56,6 +59,8 @@ function filterCatalog(catalog) {
   });
   catalog.querySelector("[data-catalog-count]").textContent = `${visible} / ${rows.length} 件`;
   catalog.querySelector("[data-catalog-empty]").hidden = visible !== 0;
+  const reset = catalog.querySelector("[data-catalog-reset]");
+  if (reset) reset.hidden = words.length === 0 && category === "";
 }
 
 async function copyCode(code, status) {

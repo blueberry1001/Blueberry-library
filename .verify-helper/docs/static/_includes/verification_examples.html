@@ -2,7 +2,6 @@
 {% if page.data.verifiedWith.size > 0 %}
 <section class="verification-examples" aria-label="検証コード">
 <h2 id="verification-examples">検証コード</h2>
-<p>ソースを開くと、このライブラリを使った問題の解き方を確認できます。</p>
 {% for item in page.data._extendedVerifiedWith %}
   {% if item.path == 'verify/utility/all-headers.test.cpp' and page.data.path != 'blueberry/all.hpp' %}{% continue %}{% endif %}
   {% assign example = nil %}
