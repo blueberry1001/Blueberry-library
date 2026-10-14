@@ -11,21 +11,21 @@ documentation_of: //blueberry/data-structure/persistent-binary-trie.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentBinaryTrie<UInt, Bits> t` | O(1) | [開く](#constructor) |
-| `PersistentBinaryTrie` | O(M) | [開く](#copy-constructor) |
-| `operator=` | O(M + D) | [開く](#copy-assignment) |
-| `PersistentBinaryTrie` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
-| `t.size` | O(1) | [開く](#size) |
-| `t.empty` | O(1) | [開く](#empty) |
-| `t.insert` | 償却 O(B) | [開く](#insert) |
-| `t.erase` | 償却 O(B) | [開く](#erase) |
-| `t.count` | O(B) | [開く](#count) |
-| `t.rank` | O(B) | [開く](#rank) |
-| `t.kth` | O(B) | [開く](#kth) |
-| `t.xor_min` | O(B) | [開く](#xor-min) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`PersistentBinaryTrie<UInt, Bits> t`](#constructor) | O(1) |
+| [`PersistentBinaryTrie`](#copy-constructor) | O(M) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`PersistentBinaryTrie`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+| [`t.size`](#size) | O(1) |
+| [`t.empty`](#empty) | O(1) |
+| [`t.insert`](#insert) | 償却 O(B) |
+| [`t.erase`](#erase) | 償却 O(B) |
+| [`t.count`](#count) | O(B) |
+| [`t.rank`](#rank) | O(B) |
+| [`t.kth`](#kth) | O(B) |
+| [`t.xor_min`](#xor-min) | O(B) |
 
 <!-- library-implementation -->
 

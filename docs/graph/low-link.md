@@ -11,16 +11,16 @@ documentation_of: //blueberry/graph/low-link.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LowLink` | O(N+M) | [開く](#construct) |
-| `graph.size` | O(1) | [開く](#size) |
-| `graph.is_bridge` | O(1) | [開く](#is-bridge) |
-| `graph.is_articulation` | O(1) | [開く](#is-articulation) |
-| `graph.bridges` | O(1) | [開く](#bridges) |
-| `graph.articulation_points` | O(1) | [開く](#articulation-points) |
-| `graph.component` | O(1) | [開く](#component) |
-| `graph.groups` | O(N) | [開く](#groups) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`LowLink`](#construct) | O(N+M) |
+| [`graph.size`](#size) | O(1) |
+| [`graph.is_bridge`](#is-bridge) | O(1) |
+| [`graph.is_articulation`](#is-articulation) | O(1) |
+| [`graph.bridges`](#bridges) | O(1) |
+| [`graph.articulation_points`](#articulation-points) | O(1) |
+| [`graph.component`](#component) | O(1) |
+| [`graph.groups`](#groups) | O(N) |
 
 <!-- library-implementation -->
 

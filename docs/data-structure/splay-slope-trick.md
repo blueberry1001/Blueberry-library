@@ -11,31 +11,31 @@ documentation_of: //blueberry/data-structure/splay-slope-trick.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SplaySlopeTrick` | O(1) | [開く](#default) |
-| `SplaySlopeTrick` | O(1) | [開く](#linear) |
-| `from_points` | O(N log(N+1)) | [開く](#from-points) |
-| `SplaySlopeTrick` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M) | [開く](#move-assignment) |
-| `~SplaySlopeTrick` | O(K) | [開く](#destructor) |
-| `empty` | O(1) | [開く](#empty) |
-| `size` | O(1) | [開く](#size) |
-| `domain` | O(1) | [開く](#domain) |
-| `eval` | O(log(K+1)) 償却 | [開く](#eval) |
-| `min` | O(log(K+1)) 償却 | [開く](#min) |
-| `argmin` | O(log(K+1)) 償却 | [開く](#argmin) |
-| `add_const` | O(1) | [開く](#add-const) |
-| `add_linear` | O(1) | [開く](#add-linear) |
-| `add_x_minus_a` | O(log(K+1)) 償却 | [開く](#add-right) |
-| `add_a_minus_x` | O(log(K+1)) 償却 | [開く](#add-left) |
-| `add_abs` | O(log(K+1)) 償却 | [開く](#add-abs) |
-| `shift` | O(1) | [開く](#shift) |
-| `restrict` | O(log(K+1) + D) 償却 | [開く](#restrict) |
-| `merge` | O((K+M+1) log(K+M+2)) 償却 | [開く](#merge) |
-| `convolve_segment` | O(log(K+1)) 償却 | [開く](#convolve-segment) |
-| `convolve` | O((K+M+1) log(K+M+2)) 償却 | [開く](#convolve) |
-| `clear` | O(K) | [開く](#clear) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`SplaySlopeTrick`](#default) | O(1) |
+| [`SplaySlopeTrick`](#linear) | O(1) |
+| [`from_points`](#from-points) | O(N log(N+1)) |
+| [`SplaySlopeTrick`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+| [`~SplaySlopeTrick`](#destructor) | O(K) |
+| [`empty`](#empty) | O(1) |
+| [`size`](#size) | O(1) |
+| [`domain`](#domain) | O(1) |
+| [`eval`](#eval) | O(log(K+1)) 償却 |
+| [`min`](#min) | O(log(K+1)) 償却 |
+| [`argmin`](#argmin) | O(log(K+1)) 償却 |
+| [`add_const`](#add-const) | O(1) |
+| [`add_linear`](#add-linear) | O(1) |
+| [`add_x_minus_a`](#add-right) | O(log(K+1)) 償却 |
+| [`add_a_minus_x`](#add-left) | O(log(K+1)) 償却 |
+| [`add_abs`](#add-abs) | O(log(K+1)) 償却 |
+| [`shift`](#shift) | O(1) |
+| [`restrict`](#restrict) | O(log(K+1) + D) 償却 |
+| [`merge`](#merge) | O((K+M+1) log(K+M+2)) 償却 |
+| [`convolve_segment`](#convolve-segment) | O(log(K+1)) 償却 |
+| [`convolve`](#convolve) | O((K+M+1) log(K+M+2)) 償却 |
+| [`clear`](#clear) | O(K) |
 
 <!-- library-implementation -->
 

@@ -11,16 +11,16 @@ documentation_of: //blueberry/data-structure/disjoint-set-union.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DisjointSetUnion` | O(N) | [開く](#construct) |
-| `dsu.leader` | 償却 O(α(N)) | [開く](#leader) |
-| `dsu.merge` | 償却 O(α(N)) | [開く](#merge) |
-| `dsu.same` | 償却 O(α(N)) | [開く](#same) |
-| `dsu.component_size` | 償却 O(α(N)) | [開く](#component-size) |
-| `dsu.comp_size` | 償却 O(α(N)) | [開く](#comp-size) |
-| `dsu.size` | O(1) | [開く](#size) |
-| `dsu.groups` | O(N α(N)) | [開く](#groups) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`DisjointSetUnion`](#construct) | O(N) |
+| [`dsu.leader`](#leader) | 償却 O(α(N)) |
+| [`dsu.merge`](#merge) | 償却 O(α(N)) |
+| [`dsu.same`](#same) | 償却 O(α(N)) |
+| [`dsu.component_size`](#component-size) | 償却 O(α(N)) |
+| [`dsu.comp_size`](#comp-size) | 償却 O(α(N)) |
+| [`dsu.size`](#size) | O(1) |
+| [`dsu.groups`](#groups) | O(N α(N)) |
 
 以下の詳細には返り値・使用例・注意点をまとめています。
 

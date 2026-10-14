@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/triangle-enumeration.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `enumerate_triangles` | O(N+M√M) + callback | [開く](#enumerate) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`enumerate_triangles`](#enumerate) | O(N+M√M) + callback |
 
 <!-- library-implementation -->
 

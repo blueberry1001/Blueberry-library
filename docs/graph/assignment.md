@@ -11,9 +11,9 @@ N 行 M 列 (N ≤ M) の費用行列で、各行へ異なる列を割り当て�
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `assignment` | O(N²M) | [開く](#solve) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`assignment`](#solve) | O(N²M) |
 
 <!-- library-implementation -->
 

@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/longest-increasing-subsequence.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `longest_increasing_subsequence` | O(N log(N+1)) | [開く](#lis) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`longest_increasing_subsequence`](#lis) | O(N log(N+1)) |
 
 <!-- library-implementation -->
 

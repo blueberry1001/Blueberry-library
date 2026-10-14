@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/subset-convolution.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `subset_convolution` | O(N(1+K)²) | [開く](#convolution) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`subset_convolution`](#convolution) | O(N(1+K)²) |
 
 <!-- library-implementation -->
 

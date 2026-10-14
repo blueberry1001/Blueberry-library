@@ -11,30 +11,30 @@ documentation_of: //blueberry/math/formal-power-series.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `FormalPowerSeries<Mint>` | O(N) | [開く](#construct) |
-| `f.pre`, `f.rev` | O(N) | [開く](#pre-rev) |
-| `f.shrink` | 償却 O(N) | [開く](#shrink) |
-| `f +=/-= g`, `f + g`, `f - g`, `-f` | O(max(N, M)) | [開く](#add-sub) |
-| `f +=/-= scalar`, `f + scalar`, `f - scalar` | O(1) / O(N) | [開く](#scalar-add-sub) |
-| `f *= scalar`, `f /= scalar`, `f * scalar`, `f / scalar` | O(N) | [開く](#scalar) |
-| `f *= g`, `f * g` | O(M(N+M)) | [開く](#multiply) |
-| `f /= g`, `f / g`, `f %= g`, `f % g`, `f.div_mod` | O(M(N+M)) | [開く](#divide) |
-| `f *= sparse`, `f * sparse` | O(NS) | [開く](#sparse) |
-| `f /= sparse`, `f / sparse` | O(NS + S log S) | [開く](#sparse) |
-| `f <<= d`, `f >>= d`, `f << d`, `f >> d` | O(N+d) | [開く](#shift) |
-| `f.dot` | O(min(N, M)) | [開く](#dot) |
-| `f.eval`, `f` | O(N) | [開く](#eval) |
-| `f.multiply`, `f.divide` | O(N) | [開く](#factor) |
-| `f.diff`, `f.integral` | O(N) / O(N log mod) | [開く](#calculus) |
-| `f.inv` | O(M(N)) | [開く](#inv) |
-| `f.log` | O(M(N)) | [開く](#log) |
-| `f.sqrt`, `f.sqrt_with` | O(M(N) log N) | [開く](#sqrt) |
-| `f.exp` | O(M(N) log N) | [開く](#exp) |
-| `f.pow` | O(M(N) log N) | [開く](#pow) |
-| `f.mod_pow` | O(M(N+D) + M(D) log(k+1)) | [開く](#mod-pow) |
-| `f[i]`, `f.size`, range-for/iterators | O(1) | [開く](#vector-interface) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`FormalPowerSeries<Mint>`](#construct) | O(N) |
+| [`f.pre`, `f.rev`](#pre-rev) | O(N) |
+| [`f.shrink`](#shrink) | 償却 O(N) |
+| [`f +=/-= g`, `f + g`, `f - g`, `-f`](#add-sub) | O(max(N, M)) |
+| [`f +=/-= scalar`, `f + scalar`, `f - scalar`](#scalar-add-sub) | O(1) / O(N) |
+| [`f *= scalar`, `f /= scalar`, `f * scalar`, `f / scalar`](#scalar) | O(N) |
+| [`f *= g`, `f * g`](#multiply) | O(M(N+M)) |
+| [`f /= g`, `f / g`, `f %= g`, `f % g`, `f.div_mod`](#divide) | O(M(N+M)) |
+| [`f *= sparse`, `f * sparse`](#sparse) | O(NS) |
+| [`f /= sparse`, `f / sparse`](#sparse) | O(NS + S log S) |
+| [`f <<= d`, `f >>= d`, `f << d`, `f >> d`](#shift) | O(N+d) |
+| [`f.dot`](#dot) | O(min(N, M)) |
+| [`f.eval`, `f`](#eval) | O(N) |
+| [`f.multiply`, `f.divide`](#factor) | O(N) |
+| [`f.diff`, `f.integral`](#calculus) | O(N) / O(N log mod) |
+| [`f.inv`](#inv) | O(M(N)) |
+| [`f.log`](#log) | O(M(N)) |
+| [`f.sqrt`, `f.sqrt_with`](#sqrt) | O(M(N) log N) |
+| [`f.exp`](#exp) | O(M(N) log N) |
+| [`f.pow`](#pow) | O(M(N) log N) |
+| [`f.mod_pow`](#mod-pow) | O(M(N+D) + M(D) log(k+1)) |
+| [`f[i]`, `f.size`, range-for/iterators](#vector-interface) | O(1) |
 
 以下の詳細では、返り値、使用例、境界条件をまとめています。例は必要なヘッダと有効な
 `f`・`g` が既にある前提です。

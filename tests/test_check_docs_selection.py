@@ -20,7 +20,7 @@ SOURCE = "#include <cassert>\nint main() { assert(1 == 1); }"
 def page(header, source=SOURCE):
     return (
         f"documentation_of: //{header}\n## 概要\n短い概要。\n## 操作一覧\n"
-        "| 操作 | 計算量 | 詳細 |\n| --- | --- | --- |\n| `get` | O(1) | [開く](#get) |\n"
+        "| 操作 | 計算量 |\n| --- | --- |\n| [`get`](#get) | O(1) |\n"
         "<!-- library-implementation -->\n## 概要・前提\n## 最小使用例\n"
         "{% raw %}\n```cpp\n" + source + "\n```\n{% endraw %}\n"
         '<details class="api-operation" id="get" markdown="1">\n'

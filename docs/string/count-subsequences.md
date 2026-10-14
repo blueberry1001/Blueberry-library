@@ -11,9 +11,9 @@ documentation_of: //blueberry/string/count-subsequences.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Count` | O(N log(N+1)) | [開く](#count) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`Count`](#count) | O(N log(N+1)) |
 
 <!-- library-implementation -->
 

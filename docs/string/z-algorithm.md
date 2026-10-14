@@ -11,9 +11,9 @@ documentation_of: //blueberry/string/z-algorithm.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `z_algorithm` | O(N) | [開く](#z-algorithm) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`z_algorithm`](#z-algorithm) | O(N) |
 
 <!-- library-implementation -->
 

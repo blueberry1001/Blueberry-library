@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/rooted-tree-isomorphism.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `rooted_tree_isomorphism` | O(N log(N+1)) | [開く](#classify) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`rooted_tree_isomorphism`](#classify) | O(N log(N+1)) |
 
 <!-- library-implementation -->
 

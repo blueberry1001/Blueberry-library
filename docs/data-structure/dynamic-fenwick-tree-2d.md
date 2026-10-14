@@ -11,21 +11,21 @@ documentation_of: //blueberry/data-structure/dynamic-fenwick-tree-2d.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DynamicFenwickTree2D<T,Coord> tree` | O(1) | [開く](#default) |
-| `DynamicFenwickTree2D<T,Coord>` | O(1) | [開く](#construct) |
-| `DynamicFenwickTree2D<T,Coord>`（コピー構築） | O(1+S) | [開く](#copy-construct) |
-| `tree = other` → tree の参照（コピー代入） | O(1+S+S_old) | [開く](#copy-assign) |
-| `DynamicFenwickTree2D<T,Coord>`（移動構築） | O(1) | [開く](#move-construct) |
-| `std::move` → tree の参照（移動代入） | O(1+S_old) | [開く](#move-assign) |
-| `tree.height` | O(1) | [開く](#height) |
-| `tree.width` | O(1) | [開く](#width) |
-| `tree.add` | 平均・償却 O(LH) | [開く](#add) |
-| `tree.pref` | 平均 O(LH) | [開く](#pref) |
-| `tree.sum` | 平均 O(LH) | [開く](#sum) |
-| `tree.get` | 平均 O(LH) | [開く](#get) |
-| `tree.~DynamicFenwickTree2D` | O(1+S) | [開く](#destroy) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`DynamicFenwickTree2D<T,Coord> tree`](#default) | O(1) |
+| [`DynamicFenwickTree2D<T,Coord>`](#construct) | O(1) |
+| [`DynamicFenwickTree2D<T,Coord>`（コピー構築）](#copy-construct) | O(1+S) |
+| [`tree = other` → tree の参照（コピー代入）](#copy-assign) | O(1+S+S_old) |
+| [`DynamicFenwickTree2D<T,Coord>`（移動構築）](#move-construct) | O(1) |
+| [`std::move` → tree の参照（移動代入）](#move-assign) | O(1+S_old) |
+| [`tree.height`](#height) | O(1) |
+| [`tree.width`](#width) | O(1) |
+| [`tree.add`](#add) | 平均・償却 O(LH) |
+| [`tree.pref`](#pref) | 平均 O(LH) |
+| [`tree.sum`](#sum) | 平均 O(LH) |
+| [`tree.get`](#get) | 平均 O(LH) |
+| [`tree.~DynamicFenwickTree2D`](#destroy) | O(1+S) |
 
 <!-- library-implementation -->
 

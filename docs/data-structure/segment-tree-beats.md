@@ -9,26 +9,28 @@ documentation_of: //blueberry/data-structure/segment-tree-beats.hpp
 
 区間の上限制限・下限制限・加算と、和・最小値・最大値を扱います。
 
+添字は0-index、区間は `[l,r)` です。
+
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SegmentTreeBeats` | O(N) | [開く](#construct) |
-| `SegmentTreeBeats`（コピー構築） | O(N) | [開く](#copy-construct) |
-| `operator=`（コピー代入） | O(N + Ndst) | [開く](#copy-assign) |
-| `SegmentTreeBeats`（移動構築） | O(1) | [開く](#move-construct) |
-| `operator=`（移動代入） | O(Ndst) | [開く](#move-assign) |
-| `~SegmentTreeBeats` | O(N) | [開く](#destruct) |
-| `tree.size` | O(1) | [開く](#size) |
-| `tree.chmin` | 償却 O(log²(N+1)) | [開く](#chmin) |
-| `tree.chmax` | 償却 O(log²(N+1)) | [開く](#chmax) |
-| `tree.add` | O(log(N+1)) | [開く](#add) |
-| `tree.prod` | O(log(N+1)) | [開く](#prod) |
-| `tree.min` | O(log(N+1)) | [開く](#min) |
-| `tree.max` | O(log(N+1)) | [開く](#max) |
-| `tree.all_prod` | O(1) | [開く](#all-prod) |
-| `tree.get` | O(log(N+1)) | [開く](#get) |
-| `tree.set` | O(log(N+1)) | [開く](#set) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`SegmentTreeBeats`](#construct) | O(N) |
+| [`SegmentTreeBeats`（コピー構築）](#copy-construct) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N + Ndst) |
+| [`SegmentTreeBeats`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Ndst) |
+| [`~SegmentTreeBeats`](#destruct) | O(N) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.chmin`](#chmin) | 償却 O(log²(N+1)) |
+| [`tree.chmax`](#chmax) | 償却 O(log²(N+1)) |
+| [`tree.add`](#add) | O(log(N+1)) |
+| [`tree.prod`](#prod) | O(log(N+1)) |
+| [`tree.min`](#min) | O(log(N+1)) |
+| [`tree.max`](#max) | O(log(N+1)) |
+| [`tree.all_prod`](#all-prod) | O(1) |
+| [`tree.get`](#get) | O(log(N+1)) |
+| [`tree.set`](#set) | O(log(N+1)) |
 
 <!-- library-implementation -->
 

@@ -11,9 +11,9 @@ Kruskal 法と ACL dsu で無向重み付きグラフの最小全域森を求め
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `minimum_spanning_forest` | O(N+M log(M+1)) | [開く](#forest) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`minimum_spanning_forest`](#forest) | O(N+M log(M+1)) |
 
 <!-- library-implementation -->
 

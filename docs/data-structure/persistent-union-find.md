@@ -11,20 +11,20 @@ documentation_of: //blueberry/data-structure/persistent-union-find.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentUnionFind` | O(1) | [開く](#constructor) |
-| `object.size` | O(1) | [開く](#size) |
-| `object.versions` | O(1) | [開く](#versions) |
-| `object.leader` | O(log²(N+1)) | [開く](#leader) |
-| `object.same` | O(log²(N+1)) | [開く](#same) |
-| `object.comp_size` | O(log²(N+1)) | [開く](#comp-size) |
-| `object.components` | O(1) | [開く](#components) |
-| `object.merge` | 償却 O(log²(N+1)) | [開く](#merge) |
-| `Type` | O(M) | [開く](#copy-constructor) |
-| `Type` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M + D) | [開く](#copy-assignment) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`PersistentUnionFind`](#constructor) | O(1) |
+| [`object.size`](#size) | O(1) |
+| [`object.versions`](#versions) | O(1) |
+| [`object.leader`](#leader) | O(log²(N+1)) |
+| [`object.same`](#same) | O(log²(N+1)) |
+| [`object.comp_size`](#comp-size) | O(log²(N+1)) |
+| [`object.components`](#components) | O(1) |
+| [`object.merge`](#merge) | 償却 O(log²(N+1)) |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
 
 <!-- library-implementation -->
 

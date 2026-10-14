@@ -11,9 +11,9 @@ N=f.size()。
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `taylor_shift` | O(N log(N+1)) | [開く](#compute) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`taylor_shift`](#compute) | O(N log(N+1)) |
 
 <!-- library-implementation -->
 

@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/maximum-independent-set.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `maximum_independent_set` | O(M + 2^(ceil(N/2))) | [開く](#solve) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`maximum_independent_set`](#solve) | O(M + 2^(ceil(N/2))) |
 
 <!-- library-implementation -->
 

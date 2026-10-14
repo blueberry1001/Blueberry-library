@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/discrete-log.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `discrete_log` | 期待 O(sqrt(m)+log(m)) | [開く](#log) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`discrete_log`](#log) | 期待 O(sqrt(m)+log(m)) |
 
 <!-- library-implementation -->
 

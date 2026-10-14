@@ -11,21 +11,21 @@ documentation_of: //blueberry/data-structure/ordered-set.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `OrderedSet` | O(1) | [開く](#construct) |
-| `size` | O(1) | [開く](#size) |
-| `empty` | O(1) | [開く](#empty) |
-| `insert` | 期待・償却 O(log(N+1)) | [開く](#insert) |
-| `erase` | 期待・償却 O(log(N+1)) | [開く](#erase) |
-| `contains` | 期待 O(log(N+1)) | [開く](#contains) |
-| `rank` | 期待 O(log(N+1)) | [開く](#rank) |
-| `kth` | 期待 O(log(N+1)) | [開く](#kth) |
-| `lower_bound` | 期待 O(log(N+1)) | [開く](#lower-bound) |
-| `upper_bound` | 期待 O(log(N+1)) | [開く](#upper-bound) |
-| `floor` | 期待 O(log(N+1)) | [開く](#floor) |
-| `OrderedSet`（コピー構築） | O(M) | [開く](#copy) |
-| `OrderedSet`（移動構築） | O(1) ※代入先解放 O(M) | [開く](#move) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`OrderedSet`](#construct) | O(1) |
+| [`size`](#size) | O(1) |
+| [`empty`](#empty) | O(1) |
+| [`insert`](#insert) | 期待・償却 O(log(N+1)) |
+| [`erase`](#erase) | 期待・償却 O(log(N+1)) |
+| [`contains`](#contains) | 期待 O(log(N+1)) |
+| [`rank`](#rank) | 期待 O(log(N+1)) |
+| [`kth`](#kth) | 期待 O(log(N+1)) |
+| [`lower_bound`](#lower-bound) | 期待 O(log(N+1)) |
+| [`upper_bound`](#upper-bound) | 期待 O(log(N+1)) |
+| [`floor`](#floor) | 期待 O(log(N+1)) |
+| [`OrderedSet`（コピー構築）](#copy) | O(M) |
+| [`OrderedSet`（移動構築）](#move) | O(1) ※代入先解放 O(M) |
 
 <!-- library-implementation -->
 

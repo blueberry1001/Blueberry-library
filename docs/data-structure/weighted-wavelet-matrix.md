@@ -11,19 +11,19 @@ documentation_of: //blueberry/data-structure/weighted-wavelet-matrix.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `WM` | O(1) | [開く](#default-constructor) |
-| `WM` | O(N log(N+1)) | [開く](#constructor) |
-| `WM` | O(N L) | [開く](#copy-constructor) |
-| `WM` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(N L + M H) | [開く](#copy-assignment) |
-| `operator=` | O(1 + M H) | [開く](#move-assignment) |
-| `wm.size` | O(1) | [開く](#size) |
-| `wm.add` | O(L log(N+1)) | [開く](#add) |
-| `wm.sum` | O(log(N+1)) | [開く](#sum-all) |
-| `wm.sum` | O(L log(N+1)) | [開く](#sum-upper) |
-| `wm.sum` | O(L log(N+1)) | [開く](#sum-range) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`WM`](#default-constructor) | O(1) |
+| [`WM`](#constructor) | O(N log(N+1)) |
+| [`WM`](#copy-constructor) | O(N L) |
+| [`WM`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(N L + M H) |
+| [`operator=`](#move-assignment) | O(1 + M H) |
+| [`wm.size`](#size) | O(1) |
+| [`wm.add`](#add) | O(L log(N+1)) |
+| [`wm.sum`](#sum-all) | O(log(N+1)) |
+| [`wm.sum`](#sum-upper) | O(L log(N+1)) |
+| [`wm.sum`](#sum-range) | O(L log(N+1)) |
 
 <!-- library-implementation -->
 

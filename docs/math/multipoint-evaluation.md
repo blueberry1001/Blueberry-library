@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/multipoint-evaluation.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `multipoint_evaluation` | O(K log² K) | [開く](#evaluate) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`multipoint_evaluation`](#evaluate) | O(K log² K) |
 
 <!-- library-implementation -->
 

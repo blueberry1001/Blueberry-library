@@ -11,27 +11,27 @@ documentation_of: //blueberry/data-structure/slope-trick.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SlopeTrick` | O(1) | [開く](#constructor) |
-| `SlopeTrick` | O(N) | [開く](#copy-constructor) |
-| `operator=` | O(N + M) | [開く](#copy-assignment) |
-| `SlopeTrick` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M) | [開く](#move-assignment) |
-| `size` | O(1) | [開く](#size) |
-| `T` | O(1) | [開く](#min) |
-| `argmin` | O(1) | [開く](#argmin) |
-| `add_const` | O(1) | [開く](#add-const) |
-| `add_x_minus_a` | 償却 O(log(N+1)) | [開く](#add-right) |
-| `add_a_minus_x` | 償却 O(log(N+1)) | [開く](#add-left) |
-| `add_abs` | 償却 O(log(N+1)) | [開く](#add-abs) |
-| `shift` | O(1) | [開く](#shift) |
-| `shift` | O(1) | [開く](#window) |
-| `prefix_min` | O(K) | [開く](#prefix) |
-| `suffix_min` | O(K) | [開く](#suffix) |
-| `T` | O(N log(N+1)) | [開く](#eval) |
-| `merge` | 償却 O(min(N,M) log(N+M+1)) | [開く](#merge) |
-| `clear` | O(N) | [開く](#clear) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`SlopeTrick`](#constructor) | O(1) |
+| [`SlopeTrick`](#copy-constructor) | O(N) |
+| [`operator=`](#copy-assignment) | O(N + M) |
+| [`SlopeTrick`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+| [`size`](#size) | O(1) |
+| [`T`](#min) | O(1) |
+| [`argmin`](#argmin) | O(1) |
+| [`add_const`](#add-const) | O(1) |
+| [`add_x_minus_a`](#add-right) | 償却 O(log(N+1)) |
+| [`add_a_minus_x`](#add-left) | 償却 O(log(N+1)) |
+| [`add_abs`](#add-abs) | 償却 O(log(N+1)) |
+| [`shift`](#shift) | O(1) |
+| [`shift`](#window) | O(1) |
+| [`prefix_min`](#prefix) | O(K) |
+| [`suffix_min`](#suffix) | O(K) |
+| [`T`](#eval) | O(N log(N+1)) |
+| [`merge`](#merge) | 償却 O(min(N,M) log(N+M+1)) |
+| [`clear`](#clear) | O(N) |
 
 <!-- library-implementation -->
 

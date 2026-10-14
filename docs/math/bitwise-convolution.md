@@ -11,11 +11,11 @@ documentation_of: //blueberry/math/bitwise-convolution.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `bitwise_convolution_and` | O(N(1+K)) | [開く](#and) |
-| `bitwise_convolution_or` | O(N(1+K)) | [開く](#or) |
-| `bitwise_convolution_xor` | O(N(1+K)) | [開く](#xor) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`bitwise_convolution_and`](#and) | O(N(1+K)) |
+| [`bitwise_convolution_or`](#or) | O(N(1+K)) |
+| [`bitwise_convolution_xor`](#xor) | O(N(1+K)) |
 
 <!-- library-implementation -->
 

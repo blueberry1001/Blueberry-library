@@ -11,16 +11,16 @@ documentation_of: //blueberry/data-structure/potential-union-find.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PotentialUnionFind` | O(N) | [開く](#construct) |
-| `size` | O(1) | [開く](#size) |
-| `leader` | 償却 O(α(N)) | [開く](#leader) |
-| `same` | 償却 O(α(N)) | [開く](#same) |
-| `comp_size` | 償却 O(α(N)) | [開く](#comp-size) |
-| `merge` | 償却 O(α(N)) | [開く](#merge) |
-| `diff` | 償却 O(α(N)) | [開く](#diff) |
-| `PotentialUnionFind` | コピー O(N)、ムーブ O(1) ※代入先解放 O(N) | [開く](#copy-move) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`PotentialUnionFind`](#construct) | O(N) |
+| [`size`](#size) | O(1) |
+| [`leader`](#leader) | 償却 O(α(N)) |
+| [`same`](#same) | 償却 O(α(N)) |
+| [`comp_size`](#comp-size) | 償却 O(α(N)) |
+| [`merge`](#merge) | 償却 O(α(N)) |
+| [`diff`](#diff) | 償却 O(α(N)) |
+| [`PotentialUnionFind`](#copy-move) | コピー O(N)、ムーブ O(1) ※代入先解放 O(N) |
 
 <!-- library-implementation -->
 

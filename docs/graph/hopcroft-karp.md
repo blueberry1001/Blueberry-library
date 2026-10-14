@@ -11,14 +11,14 @@ documentation_of: //blueberry/graph/hopcroft-karp.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `HopcroftKarp` | O((V+M)√V) | [開く](#construct) |
-| `matching.size` | O(1) | [開く](#size) |
-| `matching.left_match` | O(1) | [開く](#left-match) |
-| `matching.right_match` | O(1) | [開く](#right-match) |
-| `matching.pairs` | O(L) | [開く](#pairs) |
-| `matching.min_vertex_cover` | O(V+M) | [開く](#cover) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`HopcroftKarp`](#construct) | O((V+M)√V) |
+| [`matching.size`](#size) | O(1) |
+| [`matching.left_match`](#left-match) | O(1) |
+| [`matching.right_match`](#right-match) | O(1) |
+| [`matching.pairs`](#pairs) | O(L) |
+| [`matching.min_vertex_cover`](#cover) | O(V+M) |
 
 <!-- library-implementation -->
 

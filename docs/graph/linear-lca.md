@@ -11,17 +11,17 @@ documentation_of: //blueberry/graph/linear-lca.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LinearLCA` | O(N) | [開く](#constructor) |
-| `LinearLCA` | O(N) | [開く](#copy-constructor) |
-| `operator=` | O(N) + D | [開く](#copy-assignment) |
-| `LinearLCA` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
-| `size` | O(1) | [開く](#size) |
-| `depth` | O(1) | [開く](#depth) |
-| `lca` | O(1) | [開く](#lca) |
-| `distance` | O(1) | [開く](#distance) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`LinearLCA`](#constructor) | O(N) |
+| [`LinearLCA`](#copy-constructor) | O(N) |
+| [`operator=`](#copy-assignment) | O(N) + D |
+| [`LinearLCA`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+| [`size`](#size) | O(1) |
+| [`depth`](#depth) | O(1) |
+| [`lca`](#lca) | O(1) |
+| [`distance`](#distance) | O(1) |
 
 <!-- library-implementation -->
 

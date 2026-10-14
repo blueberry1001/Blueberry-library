@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/montmort.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `montmort` | O(n+1) | [開く](#compute) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`montmort`](#compute) | O(n+1) |
 
 <!-- library-implementation -->
 

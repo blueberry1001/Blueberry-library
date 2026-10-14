@@ -11,19 +11,19 @@ documentation_of: //blueberry/data-structure/persistent-queue.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentQueue<T>` | O(1) | [開く](#op-0) |
-| `q.versions` | O(1) | [開く](#op-1) |
-| `q.size` | O(1) | [開く](#op-2) |
-| `q.empty` | O(1) | [開く](#op-3) |
-| `q.push` | O(1) 償却 | [開く](#op-4) |
-| `q.pop` | O(1) 償却 | [開く](#op-5) |
-| `q.front` | O(log(N+1)) 最悪 | [開く](#op-6) |
-| `PersistentQueue` | O(Q) | [開く](#value-0) |
-| `PersistentQueue` | O(1) | [開く](#value-1) |
-| `operator=` | O(Q) + O(旧状態の破棄) | [開く](#value-2) |
-| `operator=` | O(1) + O(旧状態の破棄) | [開く](#value-3) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`PersistentQueue<T>`](#op-0) | O(1) |
+| [`q.versions`](#op-1) | O(1) |
+| [`q.size`](#op-2) | O(1) |
+| [`q.empty`](#op-3) | O(1) |
+| [`q.push`](#op-4) | O(1) 償却 |
+| [`q.pop`](#op-5) | O(1) 償却 |
+| [`q.front`](#op-6) | O(log(N+1)) 最悪 |
+| [`PersistentQueue`](#value-0) | O(Q) |
+| [`PersistentQueue`](#value-1) | O(1) |
+| [`operator=`](#value-2) | O(Q) + O(旧状態の破棄) |
+| [`operator=`](#value-3) | O(1) + O(旧状態の破棄) |
 
 <!-- library-implementation -->
 

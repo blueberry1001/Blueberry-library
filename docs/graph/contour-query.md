@@ -11,24 +11,24 @@ documentation_of: //blueberry/graph/contour-query.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `ContourQuery<T>` | O(N log(N+1)) | [開く](#query-constructor) |
-| `ContourQuery<T>` | O(N log(N+1)) | [開く](#query-copy-constructor) |
-| `operator=` | O(N log(N+1)) + D | [開く](#query-copy-assignment) |
-| `ContourQuery<T>` | O(1) | [開く](#query-move-constructor) |
-| `operator=` | O(1 + D) | [開く](#query-move-assignment) |
-| `ContourQuery<T>::size` | O(1) | [開く](#query-size) |
-| `ContourQuery<T>::add` | O(log²(N+1)) | [開く](#query-add) |
-| `ContourQuery<T>::sum` | O(log²(N+1)) | [開く](#query-sum) |
-| `ContourAdd<T>` | O(N log(N+1)) | [開く](#add-constructor) |
-| `ContourAdd<T>` | O(N log(N+1)) | [開く](#add-copy-constructor) |
-| `operator=` | O(N log(N+1)) + D | [開く](#add-copy-assignment) |
-| `ContourAdd<T>` | O(1) | [開く](#add-move-constructor) |
-| `operator=` | O(1 + D) | [開く](#add-move-assignment) |
-| `ContourAdd<T>::size` | O(1) | [開く](#add-size) |
-| `ContourAdd<T>::add` | O(log²(N+1)) | [開く](#add-add) |
-| `ContourAdd<T>::get` | O(log²(N+1)) | [開く](#add-get) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`ContourQuery<T>`](#query-constructor) | O(N log(N+1)) |
+| [`ContourQuery<T>`](#query-copy-constructor) | O(N log(N+1)) |
+| [`operator=`](#query-copy-assignment) | O(N log(N+1)) + D |
+| [`ContourQuery<T>`](#query-move-constructor) | O(1) |
+| [`operator=`](#query-move-assignment) | O(1 + D) |
+| [`ContourQuery<T>::size`](#query-size) | O(1) |
+| [`ContourQuery<T>::add`](#query-add) | O(log²(N+1)) |
+| [`ContourQuery<T>::sum`](#query-sum) | O(log²(N+1)) |
+| [`ContourAdd<T>`](#add-constructor) | O(N log(N+1)) |
+| [`ContourAdd<T>`](#add-copy-constructor) | O(N log(N+1)) |
+| [`operator=`](#add-copy-assignment) | O(N log(N+1)) + D |
+| [`ContourAdd<T>`](#add-move-constructor) | O(1) |
+| [`operator=`](#add-move-assignment) | O(1 + D) |
+| [`ContourAdd<T>::size`](#add-size) | O(1) |
+| [`ContourAdd<T>::add`](#add-add) | O(log²(N+1)) |
+| [`ContourAdd<T>::get`](#add-get) | O(log²(N+1)) |
 
 <!-- library-implementation -->
 

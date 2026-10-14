@@ -11,9 +11,9 @@ documentation_of: //blueberry/data-structure/rectangle-union.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Area` | O(N log(N+1)) | [開く](#op-0) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`Area`](#op-0) | O(N log(N+1)) |
 
 <!-- library-implementation -->
 

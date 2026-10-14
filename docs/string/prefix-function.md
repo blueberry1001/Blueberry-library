@@ -11,10 +11,10 @@ documentation_of: //blueberry/string/prefix-function.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `prefix_function` | O(N) | [開く](#prefix) |
-| `kmp_search` | O(N+M+1) | [開く](#search) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`prefix_function`](#prefix) | O(N) |
+| [`kmp_search`](#search) | O(N+M+1) |
 
 <!-- library-implementation -->
 

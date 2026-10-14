@@ -11,19 +11,19 @@ documentation_of: //blueberry/data-structure/skew-heap.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SkewHeap` | O(1) | [開く](#default) |
-| `SkewHeap` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M) | [開く](#move-assignment) |
-| `~SkewHeap` | O(N) | [開く](#destructor) |
-| `size` | O(1) | [開く](#size) |
-| `empty` | O(1) | [開く](#empty) |
-| `top` | O(1) | [開く](#top) |
-| `push` | O(log(N+1)) 償却 | [開く](#push) |
-| `pop` | O(log(N+1)) 償却 | [開く](#pop) |
-| `meld` | O(log(N+M+1)) 償却 | [開く](#meld) |
-| `clear` | O(N) | [開く](#clear) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`SkewHeap`](#default) | O(1) |
+| [`SkewHeap`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+| [`~SkewHeap`](#destructor) | O(N) |
+| [`size`](#size) | O(1) |
+| [`empty`](#empty) | O(1) |
+| [`top`](#top) | O(1) |
+| [`push`](#push) | O(log(N+1)) 償却 |
+| [`pop`](#pop) | O(log(N+1)) 償却 |
+| [`meld`](#meld) | O(log(N+M+1)) 償却 |
+| [`clear`](#clear) | O(N) |
 
 <!-- library-implementation -->
 

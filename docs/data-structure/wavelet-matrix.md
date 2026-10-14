@@ -9,21 +9,23 @@ documentation_of: //blueberry/data-structure/wavelet-matrix.hpp
 
 静的配列の区間 k 番目・頻度・前後要素を求める、ACL にないデータ構造です。
 
+添字区間は `0 <= l <= r <= N`、値は更新できません。
+
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `WaveletMatrix<T> wm` | O(1) | [開く](#default) |
-| `WaveletMatrix<T>` | O(N log(N+1)) | [開く](#construct) |
-| `wm.size` | O(1) | [開く](#size) |
-| `wm.get` | O(L) | [開く](#get) |
-| `wm.kth_smallest` | O(L) | [開く](#kth-smallest) |
-| `wm.kth_largest` | O(L) | [開く](#kth-largest) |
-| `wm.count` | O(L) | [開く](#count) |
-| `wm.range_freq` | O(L) | [開く](#freq-upper) |
-| `wm.range_freq` | O(L) | [開く](#freq-range) |
-| `wm.prev_value` | O(L) | [開く](#prev) |
-| `wm.next_value` | O(L) | [開く](#next) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`WaveletMatrix<T> wm`](#default) | O(1) |
+| [`WaveletMatrix<T>`](#construct) | O(N log(N+1)) |
+| [`wm.size`](#size) | O(1) |
+| [`wm.get`](#get) | O(L) |
+| [`wm.kth_smallest`](#kth-smallest) | O(L) |
+| [`wm.kth_largest`](#kth-largest) | O(L) |
+| [`wm.count`](#count) | O(L) |
+| [`wm.range_freq`](#freq-upper) | O(L) |
+| [`wm.range_freq`](#freq-range) | O(L) |
+| [`wm.prev_value`](#prev) | O(L) |
+| [`wm.next_value`](#next) | O(L) |
 
 <!-- library-implementation -->
 

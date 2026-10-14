@@ -11,20 +11,20 @@ documentation_of: //blueberry/data-structure/persistent-array.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentArray<T>` | O(1) | [開く](#default) |
-| `PersistentArray<T>` | O(1) | [開く](#fill) |
-| `PersistentArray<T>` | O(N) | [開く](#vector) |
-| `object.size` | O(1) | [開く](#size) |
-| `object.versions` | O(1) | [開く](#versions) |
-| `object.fork` | 償却 O(1) | [開く](#fork) |
-| `object.get` | O(log(N+1)) | [開く](#get) |
-| `object.set` | 償却 O(log(N+1)) | [開く](#set) |
-| `Type` | O(M) | [開く](#copy-constructor) |
-| `Type` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M + D) | [開く](#copy-assignment) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`PersistentArray<T>`](#default) | O(1) |
+| [`PersistentArray<T>`](#fill) | O(1) |
+| [`PersistentArray<T>`](#vector) | O(N) |
+| [`object.size`](#size) | O(1) |
+| [`object.versions`](#versions) | O(1) |
+| [`object.fork`](#fork) | 償却 O(1) |
+| [`object.get`](#get) | O(log(N+1)) |
+| [`object.set`](#set) | 償却 O(log(N+1)) |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
 
 <!-- library-implementation -->
 

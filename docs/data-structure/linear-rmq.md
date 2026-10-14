@@ -11,17 +11,17 @@ documentation_of: //blueberry/data-structure/linear-rmq.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LinearRMQ` | O(1 + N) | [開く](#constructor) |
-| `LinearRMQ` | O(1 + N) | [開く](#copy-constructor) |
-| `operator=` | O(1 + N) + D | [開く](#copy-assignment) |
-| `LinearRMQ` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
-| `size` | O(1) | [開く](#size) |
-| `T` | O(1) | [開く](#get) |
-| `argmin` | O(1) | [開く](#argmin) |
-| `T` | O(1) | [開く](#prod) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`LinearRMQ`](#constructor) | O(1 + N) |
+| [`LinearRMQ`](#copy-constructor) | O(1 + N) |
+| [`operator=`](#copy-assignment) | O(1 + N) + D |
+| [`LinearRMQ`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+| [`size`](#size) | O(1) |
+| [`T`](#get) | O(1) |
+| [`argmin`](#argmin) | O(1) |
+| [`T`](#prod) | O(1) |
 
 <!-- library-implementation -->
 

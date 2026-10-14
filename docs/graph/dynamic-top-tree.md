@@ -9,24 +9,24 @@ documentation_of: //blueberry/graph/dynamic-top-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DynamicTopTree` | O(N) | [開く](#construct) |
-| `size` | O(1) | [開く](#size) |
-| `V` | O(1) | [開く](#get) |
-| `set` | 償却 O(log²(N+1)) | [開く](#set) |
-| `same` | 償却 O(log²(N+1)) | [開く](#same) |
-| `link` | 償却 O(log²(N+1)) | [開く](#link) |
-| `cut` | 償却 O(log²(N+1)) | [開く](#cut) |
-| `evert` | 償却 O(log²(N+1)) | [開く](#evert) |
-| `leader` | 償却 O(log²(N+1)) | [開く](#leader) |
-| `Path` | 償却 O(log²(N+1)) | [開く](#all-prod) |
-| `Path` | 償却 O(log²(N+1)) | [開く](#prod) |
-| `Path` | 償却 O(log²(N+1)) | [開く](#subtree-prod) |
-| `DynamicTopTree`（コピー構築） | O(N) | [開く](#copy) |
-| `operator=`（コピー代入） | O(N+D) | [開く](#copy-assign) |
-| `DynamicTopTree`（移動構築） | O(1) | [開く](#move) |
-| `operator=`（移動代入） | O(D) | [開く](#move-assign) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`DynamicTopTree`](#construct) | O(N) |
+| [`size`](#size) | O(1) |
+| [`V`](#get) | O(1) |
+| [`set`](#set) | 償却 O(log²(N+1)) |
+| [`same`](#same) | 償却 O(log²(N+1)) |
+| [`link`](#link) | 償却 O(log²(N+1)) |
+| [`cut`](#cut) | 償却 O(log²(N+1)) |
+| [`evert`](#evert) | 償却 O(log²(N+1)) |
+| [`leader`](#leader) | 償却 O(log²(N+1)) |
+| [`Path`](#all-prod) | 償却 O(log²(N+1)) |
+| [`Path`](#prod) | 償却 O(log²(N+1)) |
+| [`Path`](#subtree-prod) | 償却 O(log²(N+1)) |
+| [`DynamicTopTree`（コピー構築）](#copy) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N+D) |
+| [`DynamicTopTree`（移動構築）](#move) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(D) |
 
 <!-- library-implementation -->
 

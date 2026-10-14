@@ -9,14 +9,16 @@ documentation_of: //blueberry/data-structure/sparse-table.hpp
 
 更新のない配列に対する `min`・`max`・`gcd` などの区間クエリを扱います。
 
+演算には結合則と冪等性が必要です。
+
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SparseTable<T,` | O(N log N) | [開く](#construct) |
-| `table.prod` | O(1) | [開く](#prod) |
-| `table.product` | O(1) | [開く](#product) |
-| `table.size` | O(1) | [開く](#size) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`SparseTable<T,`](#construct) | O(N log N) |
+| [`table.prod`](#prod) | O(1) |
+| [`table.product`](#product) | O(1) |
+| [`table.size`](#size) | O(1) |
 
 以下の操作を開くと、返り値・使用例・注意点を確認できます。断片の例は必要なヘッダと
 有効な `table` がある前提です。

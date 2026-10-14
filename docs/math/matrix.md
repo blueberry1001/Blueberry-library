@@ -9,34 +9,36 @@ documentation_of: //blueberry/math/matrix.hpp
 
 体上の行列式・逆行列・階数・連立一次方程式を扱います。
 
+要素の添字は0-indexedです。
+
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Matrix<T> a` | O(1) | [開く](#default) |
-| `Matrix<T>` | O(nm+1) | [開く](#construct) |
-| `Matrix<T>`（コピー構築） | O(nm+1) | [開く](#copy-construct) |
-| `operator=`（コピー代入） | O(nm+n_old m_old+1) | [開く](#copy-assign) |
-| `Matrix<T>`（移動構築） | O(1) | [開く](#move-construct) |
-| `operator=`（移動代入） | O(n_old m_old+1) | [開く](#move-assign) |
-| `a.~Matrix` | O(nm+1) | [開く](#destroy) |
-| `a.rows` | O(1) | [開く](#rows) |
-| `a.cols` | O(1) | [開く](#cols) |
-| `operator()` | O(1) | [開く](#element) |
-| `operator()` | O(1) | [開く](#const-element) |
-| `a.det` | O(n³+n²+1) | [開く](#det) |
-| `a.inv` | O(n³+n²+1) | [開く](#inverse) |
-| `a.rank` | O(nm min(n,m)+nm+1) | [開く](#rank) |
-| `a.solve` | O(n(m+1)min(n,m)+n(m+1)+m(d+1)+1) | [開く](#solve) |
-| `LinearSystem<T> solution` | O(1) | [開く](#result-default) |
-| `LinearSystem<T> solution{particular, basis}` | O(B+1) | [開く](#result-aggregate) |
-| `LinearSystem<T>`（コピー構築） | O(B+1) | [開く](#result-copy) |
-| `operator=`（コピー代入） | O(B_old+B+1) | [開く](#result-copy-assign) |
-| `LinearSystem<T>`（移動構築） | O(1) | [開く](#result-move) |
-| `operator=`（移動代入） | O(B_old+1) | [開く](#result-move-assign) |
-| `solution.~LinearSystem` | O(B+1) | [開く](#result-destroy) |
-| `vector<T> solution.particular` | 参照取得 O(1)、コピー O(m) | [開く](#particular) |
-| `vector<vector<T>> solution.basis` | 参照取得 O(1)、コピー O(md) | [開く](#basis) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`Matrix<T> a`](#default) | O(1) |
+| [`Matrix<T>`](#construct) | O(nm+1) |
+| [`Matrix<T>`（コピー構築）](#copy-construct) | O(nm+1) |
+| [`operator=`（コピー代入）](#copy-assign) | O(nm+n_old m_old+1) |
+| [`Matrix<T>`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(n_old m_old+1) |
+| [`a.~Matrix`](#destroy) | O(nm+1) |
+| [`a.rows`](#rows) | O(1) |
+| [`a.cols`](#cols) | O(1) |
+| [`operator()`](#element) | O(1) |
+| [`operator()`](#const-element) | O(1) |
+| [`a.det`](#det) | O(n³+n²+1) |
+| [`a.inv`](#inverse) | O(n³+n²+1) |
+| [`a.rank`](#rank) | O(nm min(n,m)+nm+1) |
+| [`a.solve`](#solve) | O(n(m+1)min(n,m)+n(m+1)+m(d+1)+1) |
+| [`LinearSystem<T> solution`](#result-default) | O(1) |
+| [`LinearSystem<T> solution{particular, basis}`](#result-aggregate) | O(B+1) |
+| [`LinearSystem<T>`（コピー構築）](#result-copy) | O(B+1) |
+| [`operator=`（コピー代入）](#result-copy-assign) | O(B_old+B+1) |
+| [`LinearSystem<T>`（移動構築）](#result-move) | O(1) |
+| [`operator=`（移動代入）](#result-move-assign) | O(B_old+1) |
+| [`solution.~LinearSystem`](#result-destroy) | O(B+1) |
+| [`vector<T> solution.particular`](#particular) | 参照取得 O(1)、コピー O(m) |
+| [`vector<vector<T>> solution.basis`](#basis) | 参照取得 O(1)、コピー O(md) |
 
 <!-- library-implementation -->
 

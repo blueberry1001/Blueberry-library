@@ -11,18 +11,18 @@ documentation_of: //blueberry/data-structure/kd-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `KDTree` | 平均 O(N log(N+1)) | [開く](#constructor) |
-| `KDTree` | O(1 + N) | [開く](#copy-constructor) |
-| `operator=` | O(1 + N) + D | [開く](#copy-assignment) |
-| `KDTree` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
-| `size` | O(1) | [開く](#size) |
-| `S` | O(1) | [開く](#get) |
-| `set` | O(log(N+1)) | [開く](#set) |
-| `S` | O(sqrt(N)+1) | [開く](#prod) |
-| `S` | O(1) | [開く](#all-prod) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`KDTree`](#constructor) | 平均 O(N log(N+1)) |
+| [`KDTree`](#copy-constructor) | O(1 + N) |
+| [`operator=`](#copy-assignment) | O(1 + N) + D |
+| [`KDTree`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+| [`size`](#size) | O(1) |
+| [`S`](#get) | O(1) |
+| [`set`](#set) | O(log(N+1)) |
+| [`S`](#prod) | O(sqrt(N)+1) |
+| [`S`](#all-prod) | O(1) |
 
 <!-- library-implementation -->
 

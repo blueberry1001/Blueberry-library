@@ -11,17 +11,17 @@ documentation_of: //blueberry/data-structure/dynamic-li-chao-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DynamicLiChaoTree<T>` | O(1) | [開く](#constructor) |
-| `DynamicLiChaoTree<T>` | O(Ksrc + 1) | [開く](#copy-constructor) |
-| `operator=` | O(Ksrc + Kold + 1) | [開く](#copy-assignment) |
-| `DynamicLiChaoTree<T>` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(Kold + 1) | [開く](#move-assignment) |
-| `tree.~DynamicLiChaoTree` | O(K + 1) | [開く](#destructor) |
-| `tree.add_line` | 償却 O(H + 1) | [開く](#add-line) |
-| `tree.add_segment` | 償却 O(H² + 1) | [開く](#add-segment) |
-| `tree.query` | 最悪 O(H + 1) | [開く](#query) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`DynamicLiChaoTree<T>`](#constructor) | O(1) |
+| [`DynamicLiChaoTree<T>`](#copy-constructor) | O(Ksrc + 1) |
+| [`operator=`](#copy-assignment) | O(Ksrc + Kold + 1) |
+| [`DynamicLiChaoTree<T>`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(Kold + 1) |
+| [`tree.~DynamicLiChaoTree`](#destructor) | O(K + 1) |
+| [`tree.add_line`](#add-line) | 償却 O(H + 1) |
+| [`tree.add_segment`](#add-segment) | 償却 O(H² + 1) |
+| [`tree.query`](#query) | 最悪 O(H + 1) |
 
 <!-- library-implementation -->
 

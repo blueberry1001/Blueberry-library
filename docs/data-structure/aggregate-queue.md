@@ -11,22 +11,22 @@ documentation_of: //blueberry/data-structure/aggregate-queue.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `AggregateQueue<S,` | O(1) | [開く](#construct) |
-| `AggregateQueue`（コピー構築） | O(N) | [開く](#copy-construct) |
-| `operator=`（コピー代入） | O(N + Ndst) | [開く](#copy-assign) |
-| `AggregateQueue`（移動構築） | O(1) | [開く](#move-construct) |
-| `operator=`（移動代入） | O(Ndst) | [開く](#move-assign) |
-| `~AggregateQueue` | O(N) | [開く](#destruct) |
-| `tree.size` | O(1) | [開く](#size) |
-| `tree.empty` | O(1) | [開く](#empty) |
-| `tree.push` | 償却 O(1) | [開く](#push) |
-| `tree.pop` | 償却 O(1) | [開く](#pop) |
-| `tree.front` | O(1) | [開く](#front) |
-| `tree.back` | O(1) | [開く](#back) |
-| `tree.prod` | O(1) | [開く](#prod) |
-| `tree.clear` | O(N) | [開く](#clear) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`AggregateQueue<S,`](#construct) | O(1) |
+| [`AggregateQueue`（コピー構築）](#copy-construct) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N + Ndst) |
+| [`AggregateQueue`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Ndst) |
+| [`~AggregateQueue`](#destruct) | O(N) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.empty`](#empty) | O(1) |
+| [`tree.push`](#push) | 償却 O(1) |
+| [`tree.pop`](#pop) | 償却 O(1) |
+| [`tree.front`](#front) | O(1) |
+| [`tree.back`](#back) | O(1) |
+| [`tree.prod`](#prod) | O(1) |
+| [`tree.clear`](#clear) | O(N) |
 
 <!-- library-implementation -->
 

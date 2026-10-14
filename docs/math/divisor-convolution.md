@@ -11,14 +11,14 @@ ACLにはない添字の約数・倍数変換。
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `divisor_zeta` | O(N log log(N+2)) | [開く](#divisor_zeta) |
-| `divisor_mobius` | O(N log log(N+2)) | [開く](#divisor_mobius) |
-| `multiple_zeta` | O(N log log(N+2)) | [開く](#multiple_zeta) |
-| `multiple_mobius` | O(N log log(N+2)) | [開く](#multiple_mobius) |
-| `gcd_convolution` | O(N log log(N+2)) | [開く](#gcd_convolution) |
-| `lcm_convolution` | O(N log log(N+2)) | [開く](#lcm_convolution) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`divisor_zeta`](#divisor_zeta) | O(N log log(N+2)) |
+| [`divisor_mobius`](#divisor_mobius) | O(N log log(N+2)) |
+| [`multiple_zeta`](#multiple_zeta) | O(N log log(N+2)) |
+| [`multiple_mobius`](#multiple_mobius) | O(N log log(N+2)) |
+| [`gcd_convolution`](#gcd_convolution) | O(N log log(N+2)) |
+| [`lcm_convolution`](#lcm_convolution) | O(N log log(N+2)) |
 
 <!-- library-implementation -->
 

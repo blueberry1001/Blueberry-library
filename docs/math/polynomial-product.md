@@ -11,9 +11,9 @@ K個の多項式を昇べき順の係数列で渡し、積を返す。
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `polynomial_product` | O((D+K) log(D+2) log(K+2)) | [開く](#compute) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`polynomial_product`](#compute) | O((D+K) log(D+2) log(K+2)) |
 
 <!-- library-implementation -->
 

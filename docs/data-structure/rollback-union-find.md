@@ -11,21 +11,21 @@ documentation_of: //blueberry/data-structure/rollback-union-find.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `RollbackUnionFind` | O(N) | [開く](#construct) |
-| `uf.leader` | O(log N) | [開く](#leader) |
-| `uf.merge` | 償却 O(log(N+1)) | [開く](#merge) |
-| `uf.same` | O(log N) | [開く](#same) |
-| `uf.component_size` | O(log N) | [開く](#component-size) |
-| `uf.comp_size` | O(log N) | [開く](#comp-size) |
-| `uf.components` | O(1) | [開く](#components) |
-| `uf.size` | O(1) | [開く](#size) |
-| `uf.state` | O(1) | [開く](#state) |
-| `uf.snapshot` | O(1) | [開く](#snapshot) |
-| `uf.undo` | O(1) | [開く](#undo) |
-| `uf.rollback` | O(取り消し数) | [開く](#rollback-state) |
-| `uf.rollback` | O(取り消し数) | [開く](#rollback-snapshot) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`RollbackUnionFind`](#construct) | O(N) |
+| [`uf.leader`](#leader) | O(log N) |
+| [`uf.merge`](#merge) | 償却 O(log(N+1)) |
+| [`uf.same`](#same) | O(log N) |
+| [`uf.component_size`](#component-size) | O(log N) |
+| [`uf.comp_size`](#comp-size) | O(log N) |
+| [`uf.components`](#components) | O(1) |
+| [`uf.size`](#size) | O(1) |
+| [`uf.state`](#state) | O(1) |
+| [`uf.snapshot`](#snapshot) | O(1) |
+| [`uf.undo`](#undo) | O(1) |
+| [`uf.rollback`](#rollback-state) | O(取り消し数) |
+| [`uf.rollback`](#rollback-snapshot) | O(取り消し数) |
 
 <!-- library-implementation -->
 

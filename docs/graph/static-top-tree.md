@@ -9,17 +9,17 @@ documentation_of: //blueberry/graph/static-top-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `StaticTopTree` | O(N log(N+1)) | [開く](#construct) |
-| `size` | O(1) | [開く](#size) |
-| `V` | O(1) | [開く](#get) |
-| `set` | O(log(N+1)) | [開く](#set) |
-| `Path` | O(1) | [開く](#all-prod) |
-| `StaticTopTree`（コピー構築） | O(N) | [開く](#copy) |
-| `operator=`（コピー代入） | O(N+D) | [開く](#copy-assign) |
-| `StaticTopTree`（移動構築） | O(1) | [開く](#move) |
-| `operator=`（移動代入） | O(D) | [開く](#move-assign) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`StaticTopTree`](#construct) | O(N log(N+1)) |
+| [`size`](#size) | O(1) |
+| [`V`](#get) | O(1) |
+| [`set`](#set) | O(log(N+1)) |
+| [`Path`](#all-prod) | O(1) |
+| [`StaticTopTree`（コピー構築）](#copy) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N+D) |
+| [`StaticTopTree`（移動構築）](#move) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(D) |
 
 <!-- library-implementation -->
 

@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/topological-sort.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `topological_sort` | O(N+M) | [開く](#sort) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`topological_sort`](#sort) | O(N+M) |
 
 <!-- library-implementation -->
 

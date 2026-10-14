@@ -12,31 +12,31 @@ documentation_of: //blueberry/graph/heavy-light-decomposition.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `HLD` | O(N) | [開く](#construct) |
-| `hld.size` | O(1) | [開く](#size) |
-| `hld.root` | O(1) | [開く](#root) |
-| `hld.parent` | O(1) | [開く](#parent) |
-| `hld.depth` | O(1) | [開く](#depth) |
-| `hld.subtree_size` | O(1) | [開く](#subtree-size) |
-| `hld.head` | O(1) | [開く](#head) |
-| `hld.in` | O(1) | [開く](#in) |
-| `hld.out` | O(1) | [開く](#out) |
-| `hld.vertex_at` | O(1) | [開く](#vertex-at) |
-| `hld.edge_index` | O(1) | [開く](#edge-index) |
-| `hld.subtree_range` | O(1) | [開く](#subtree-range) |
-| `hld.is_ancestor` | O(1) | [開く](#is-ancestor) |
-| `hld.lca` | O(log N) | [開く](#lca) |
-| `hld.kth_ancestor` | O(log N) | [開く](#kth-ancestor) |
-| `hld.kth` | O(log N) | [開く](#kth) |
-| `hld.distance` | O(log N) | [開く](#distance) |
-| `hld.jump` | O(log N) | [開く](#jump) |
-| `hld.path_query` | O(log N) callbacks | [開く](#path-query) |
-| `hld.vertex_query` | O(log N) callbacks | [開く](#vertex-path-query) |
-| `hld.edge_query` | O(log N) callbacks | [開く](#edge-query) |
-| `hld.vertex_query` | O(1) callback | [開く](#single-vertex-query) |
-| `hld.subtree_query` | O(1) callback | [開く](#subtree-query) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`HLD`](#construct) | O(N) |
+| [`hld.size`](#size) | O(1) |
+| [`hld.root`](#root) | O(1) |
+| [`hld.parent`](#parent) | O(1) |
+| [`hld.depth`](#depth) | O(1) |
+| [`hld.subtree_size`](#subtree-size) | O(1) |
+| [`hld.head`](#head) | O(1) |
+| [`hld.in`](#in) | O(1) |
+| [`hld.out`](#out) | O(1) |
+| [`hld.vertex_at`](#vertex-at) | O(1) |
+| [`hld.edge_index`](#edge-index) | O(1) |
+| [`hld.subtree_range`](#subtree-range) | O(1) |
+| [`hld.is_ancestor`](#is-ancestor) | O(1) |
+| [`hld.lca`](#lca) | O(log N) |
+| [`hld.kth_ancestor`](#kth-ancestor) | O(log N) |
+| [`hld.kth`](#kth) | O(log N) |
+| [`hld.distance`](#distance) | O(log N) |
+| [`hld.jump`](#jump) | O(log N) |
+| [`hld.path_query`](#path-query) | O(log N) callbacks |
+| [`hld.vertex_query`](#vertex-path-query) | O(log N) callbacks |
+| [`hld.edge_query`](#edge-query) | O(log N) callbacks |
+| [`hld.vertex_query`](#single-vertex-query) | O(1) callback |
+| [`hld.subtree_query`](#subtree-query) | O(1) callback |
 
 <!-- library-implementation -->
 

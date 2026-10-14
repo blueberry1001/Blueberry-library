@@ -11,13 +11,13 @@ documentation_of: //blueberry/data-structure/offline-fenwick-tree-2d.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `OfflineFenwickTree2D<T,` | O(P log(P+1) + N log²(N+1)) | [開く](#construct) |
-| `bit.size` | O(1) | [開く](#size) |
-| `bit.add` | O(log²(N+1)) | [開く](#add) |
-| `bit.pref` | O(log²(N+1)) | [開く](#pref) |
-| `bit.sum` | O(log²(N+1)) | [開く](#sum) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`OfflineFenwickTree2D<T,`](#construct) | O(P log(P+1) + N log²(N+1)) |
+| [`bit.size`](#size) | O(1) |
+| [`bit.add`](#add) | O(log²(N+1)) |
+| [`bit.pref`](#pref) | O(log²(N+1)) |
+| [`bit.sum`](#sum) | O(log²(N+1)) |
 
 <!-- library-implementation -->
 

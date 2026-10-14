@@ -11,9 +11,9 @@ n要素集合をk個の非空集合に分割する個数S(n,k)を、k=0..nの順
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `stirling_second` | O(n log(n+2)) | [開く](#compute) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`stirling_second`](#compute) | O(n log(n+2)) |
 
 <!-- library-implementation -->
 

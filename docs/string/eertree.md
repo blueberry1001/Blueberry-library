@@ -11,18 +11,18 @@ documentation_of: //blueberry/string/eertree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Eertree<σ,First>` | O(σ)、予約領域O(σR) | [開く](#constructor) |
-| `Eertree<σ,First>` | O(σN) | [開く](#from-string) |
-| `tree.size` | O(1) | [開く](#size) |
-| `tree.add` | 償却O(σ)、最悪O(σN) | [開く](#add) |
-| `tree.suffix` | O(1) | [開く](#suffix) |
-| `tree.length` | O(1) | [開く](#length) |
-| `tree.parent` | O(1) | [開く](#parent) |
-| `tree.link` | O(1) | [開く](#link) |
-| `tree.count` | O(D)、追加メモリO(D) | [開く](#count) |
-| `Eertree` | コピーO(σD+N)、ムーブO(1) ※代入先解放を除く | [開く](#copy-move) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`Eertree<σ,First>`](#constructor) | O(σ)、予約領域O(σR) |
+| [`Eertree<σ,First>`](#from-string) | O(σN) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.add`](#add) | 償却O(σ)、最悪O(σN) |
+| [`tree.suffix`](#suffix) | O(1) |
+| [`tree.length`](#length) | O(1) |
+| [`tree.parent`](#parent) | O(1) |
+| [`tree.link`](#link) | O(1) |
+| [`tree.count`](#count) | O(D)、追加メモリO(D) |
+| [`Eertree`](#copy-move) | コピーO(σD+N)、ムーブO(1) ※代入先解放を除く |
 
 <!-- library-implementation -->
 

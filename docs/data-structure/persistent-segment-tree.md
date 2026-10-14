@@ -11,18 +11,18 @@ documentation_of: //blueberry/data-structure/persistent-segment-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentSegmentTree` | O(1) | [開く](#construct-size) |
-| `PersistentSegmentTree` | O(N) | [開く](#construct-array) |
-| `size` | O(1) | [開く](#size) |
-| `versions` | O(1) | [開く](#versions) |
-| `set` | 償却 O(log(N+1)) | [開く](#set) |
-| `apply` | 償却 O(log(N+1)) | [開く](#apply) |
-| `T` | O(log(N+1)) | [開く](#get) |
-| `T` | O(log(N+1)) | [開く](#prod) |
-| `T` | O(1) | [開く](#all-prod) |
-| `PersistentSegmentTree` | コピー O(N+U log(N+1)+V)、ムーブ O(1) ※代入先解放を除く | [開く](#copy-move) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`PersistentSegmentTree`](#construct-size) | O(1) |
+| [`PersistentSegmentTree`](#construct-array) | O(N) |
+| [`size`](#size) | O(1) |
+| [`versions`](#versions) | O(1) |
+| [`set`](#set) | 償却 O(log(N+1)) |
+| [`apply`](#apply) | 償却 O(log(N+1)) |
+| [`T`](#get) | O(log(N+1)) |
+| [`T`](#prod) | O(log(N+1)) |
+| [`T`](#all-prod) | O(1) |
+| [`PersistentSegmentTree`](#copy-move) | コピー O(N+U log(N+1)+V)、ムーブ O(1) ※代入先解放を除く |
 
 <!-- library-implementation -->
 

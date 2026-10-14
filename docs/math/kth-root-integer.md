@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/kth-root-integer.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `kth_root_integer` | O(k ceil(B/k)) | [開く](#root) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`kth_root_integer`](#root) | O(k ceil(B/k)) |
 
 <!-- library-implementation -->
 

@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/mod-sqrt.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `mod_sqrt` | O(z log p + log² p)、追加O(1) | [開く](#mod-sqrt) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`mod_sqrt`](#mod-sqrt) | O(z log p + log² p)、追加O(1) |
 
 <!-- library-implementation -->
 

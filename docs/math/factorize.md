@@ -11,10 +11,10 @@ documentation_of: //blueberry/math/factorize.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `is_prime` | O(log n)、0/1はO(1) | [開く](#is-prime) |
-| `factorize` | 最悪時間保証なし、各rho探索の期待更新回数O(sqrt p) | [開く](#factorize) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`is_prime`](#is-prime) | O(log n)、0/1はO(1) |
+| [`factorize`](#factorize) | 最悪時間保証なし、各rho探索の期待更新回数O(sqrt p) |
 
 <!-- library-implementation -->
 

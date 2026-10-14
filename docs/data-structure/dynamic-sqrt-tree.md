@@ -11,19 +11,19 @@ documentation_of: //blueberry/data-structure/dynamic-sqrt-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Tree tree` | O(1) | [開く](#default-constructor) |
-| `Tree` | O(N L(N)) | [開く](#constructor) |
-| `Tree` | O(N L(N)) | [開く](#copy-constructor) |
-| `operator=` | O(N L(N) + M L(M)) | [開く](#copy-assignment) |
-| `Tree` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M L(M)) | [開く](#move-assignment) |
-| `tree.size` | O(1) | [開く](#size) |
-| `tree.get` | O(1) | [開く](#get) |
-| `tree.set` | O(√N) | [開く](#set) |
-| `tree.prod` | O(1) | [開く](#prod) |
-| `tree.all_prod` | O(1) | [開く](#all-prod) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`Tree tree`](#default-constructor) | O(1) |
+| [`Tree`](#constructor) | O(N L(N)) |
+| [`Tree`](#copy-constructor) | O(N L(N)) |
+| [`operator=`](#copy-assignment) | O(N L(N) + M L(M)) |
+| [`Tree`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M L(M)) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.get`](#get) | O(1) |
+| [`tree.set`](#set) | O(√N) |
+| [`tree.prod`](#prod) | O(1) |
+| [`tree.all_prod`](#all-prod) | O(1) |
 
 <!-- library-implementation -->
 

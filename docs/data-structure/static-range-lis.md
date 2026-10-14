@@ -11,16 +11,16 @@ documentation_of: //blueberry/data-structure/static-range-lis.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `StaticRangeLIS<T>` | O(1) | [開く](#default) |
-| `StaticRangeLIS<T>` | O(N log²(N+1)) | [開く](#vector) |
-| `object.size` | O(1) | [開く](#size) |
-| `object.lis` | O(log(N+1)) | [開く](#lis) |
-| `Type` | O(M) | [開く](#copy-constructor) |
-| `Type` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M + D) | [開く](#copy-assignment) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`StaticRangeLIS<T>`](#default) | O(1) |
+| [`StaticRangeLIS<T>`](#vector) | O(N log²(N+1)) |
+| [`object.size`](#size) | O(1) |
+| [`object.lis`](#lis) | O(log(N+1)) |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
 
 <!-- library-implementation -->
 

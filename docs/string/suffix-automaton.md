@@ -11,25 +11,25 @@ documentation_of: //blueberry/string/suffix-automaton.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SuffixAutomaton<Symbol` | O(1) | [開く](#default) |
-| `SuffixAutomaton<Symbol>` | O(N log(σ+1)) | [開く](#range-constructor) |
-| `SuffixAutomaton<Symbol>` | O(N log(σ+1)) | [開く](#view-constructor) |
-| `object.size` | O(1) | [開く](#size) |
-| `object.states` | O(1) | [開く](#states) |
-| `object.distinct_substrings` | O(1) | [開く](#distinct) |
-| `object.append` | 償却 O(log(σ+1)) | [開く](#append) |
-| `object.contains` | O(P log(σ+1)) | [開く](#contains-range) |
-| `object.count` | O(N + P log(σ+1)) | [開く](#count-range) |
-| `object.longest_common_substring` | O(P log(σ+1)) | [開く](#longest_common_substring-range) |
-| `object.contains` | O(P log(σ+1)) | [開く](#contains-view) |
-| `object.count` | O(N + P log(σ+1)) | [開く](#count-view) |
-| `object.longest_common_substring` | O(P log(σ+1)) | [開く](#longest_common_substring-view) |
-| `Type` | O(M) | [開く](#copy-constructor) |
-| `Type` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M + D) | [開く](#copy-assignment) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`SuffixAutomaton<Symbol`](#default) | O(1) |
+| [`SuffixAutomaton<Symbol>`](#range-constructor) | O(N log(σ+1)) |
+| [`SuffixAutomaton<Symbol>`](#view-constructor) | O(N log(σ+1)) |
+| [`object.size`](#size) | O(1) |
+| [`object.states`](#states) | O(1) |
+| [`object.distinct_substrings`](#distinct) | O(1) |
+| [`object.append`](#append) | 償却 O(log(σ+1)) |
+| [`object.contains`](#contains-range) | O(P log(σ+1)) |
+| [`object.count`](#count-range) | O(N + P log(σ+1)) |
+| [`object.longest_common_substring`](#longest_common_substring-range) | O(P log(σ+1)) |
+| [`object.contains`](#contains-view) | O(P log(σ+1)) |
+| [`object.count`](#count-view) | O(N + P log(σ+1)) |
+| [`object.longest_common_substring`](#longest_common_substring-view) | O(P log(σ+1)) |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
 
 <!-- library-implementation -->
 

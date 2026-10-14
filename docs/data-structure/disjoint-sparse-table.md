@@ -9,13 +9,15 @@ documentation_of: //blueberry/data-structure/disjoint-sparse-table.hpp
 
 **集約演算はコンストラクタに渡した `op` で決まる。
 
+区間は `[l,r)`、空区間は扱いません。
+
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DisjointSparseTable<T,` | O(N log(N+1)) | [開く](#constructor) |
-| `table.prod` | O(1) | [開く](#prod) |
-| `table.size` | O(1) | [開く](#size) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`DisjointSparseTable<T,`](#constructor) | O(N log(N+1)) |
+| [`table.prod`](#prod) | O(1) |
+| [`table.size`](#size) | O(1) |
 
 <!-- library-implementation -->
 

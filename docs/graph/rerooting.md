@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/rerooting.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `rerooting` | O(N) | [開く](#rerooting) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`rerooting`](#rerooting) | O(N) |
 
 <!-- library-implementation -->
 

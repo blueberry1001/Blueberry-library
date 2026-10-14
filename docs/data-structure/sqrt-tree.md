@@ -11,14 +11,14 @@ documentation_of: //blueberry/data-structure/sqrt-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Tree tree` | O(1) | [開く](#default-constructor) |
-| `Tree` | O(N L) | [開く](#constructor) |
-| `tree.size` | O(1) | [開く](#size) |
-| `tree.get` | O(1) | [開く](#get) |
-| `tree.prod` | O(1) | [開く](#prod) |
-| `tree.all_prod` | O(1) | [開く](#all-prod) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`Tree tree`](#default-constructor) | O(1) |
+| [`Tree`](#constructor) | O(N L) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.get`](#get) | O(1) |
+| [`tree.prod`](#prod) | O(1) |
+| [`tree.all_prod`](#all-prod) | O(1) |
 
 <!-- library-implementation -->
 

@@ -11,21 +11,21 @@ documentation_of: //blueberry/data-structure/dual-segment-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DualSegmentTree` | O(1) | [開く](#default) |
-| `DualSegmentTree` | O(N) | [開く](#vector) |
-| `DualSegmentTree` | O(N) | [開く](#fill) |
-| `DualSegmentTree` | O(N) | [開く](#copy-constructor) |
-| `operator=` | O(N + M) | [開く](#copy-assignment) |
-| `DualSegmentTree` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M) | [開く](#move-assignment) |
-| `size` | O(1) | [開く](#size) |
-| `S` | O(log(N+1)) | [開く](#get) |
-| `set` | O(log(N+1)) | [開く](#set) |
-| `apply` | O(log(N+1)) | [開く](#point-apply) |
-| `apply` | O(log(N+1)) | [開く](#range-apply) |
-| `get_all` | O(N) | [開く](#get-all) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`DualSegmentTree`](#default) | O(1) |
+| [`DualSegmentTree`](#vector) | O(N) |
+| [`DualSegmentTree`](#fill) | O(N) |
+| [`DualSegmentTree`](#copy-constructor) | O(N) |
+| [`operator=`](#copy-assignment) | O(N + M) |
+| [`DualSegmentTree`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+| [`size`](#size) | O(1) |
+| [`S`](#get) | O(log(N+1)) |
+| [`set`](#set) | O(log(N+1)) |
+| [`apply`](#point-apply) | O(log(N+1)) |
+| [`apply`](#range-apply) | O(log(N+1)) |
+| [`get_all`](#get-all) | O(N) |
 
 <!-- library-implementation -->
 

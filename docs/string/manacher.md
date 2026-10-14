@@ -11,9 +11,9 @@ documentation_of: //blueberry/string/manacher.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `blueberry::manacher` | 最悪 O(N) 時間、O(N) メモリ | [開く](#manacher) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`blueberry::manacher`](#manacher) | 最悪 O(N) 時間、O(N) メモリ |
 
 <!-- library-implementation -->
 

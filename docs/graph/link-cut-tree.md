@@ -9,22 +9,22 @@ documentation_of: //blueberry/graph/link-cut-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LinkCutTree` | O(N) | [開く](#construct) |
-| `evert` | 償却 O(log(N+1)) | [開く](#evert) |
-| `leader` | 償却 O(log(N+1)) | [開く](#leader) |
-| `size` | O(1) | [開く](#size) |
-| `same` | 償却 O(log(N+1)) | [開く](#same) |
-| `link` | 償却 O(log(N+1)) | [開く](#link) |
-| `cut` | 償却 O(log(N+1)) | [開く](#cut) |
-| `S` | O(1) | [開く](#get) |
-| `set` | 償却 O(log(N+1)) | [開く](#set) |
-| `S` | 償却 O(log(N+1)) | [開く](#prod) |
-| `LinkCutTree`（コピー構築） | O(N) | [開く](#copy) |
-| `operator=`（コピー代入） | O(N+D) | [開く](#copy-assign) |
-| `LinkCutTree`（移動構築） | O(1) | [開く](#move) |
-| `operator=`（移動代入） | O(D) | [開く](#move-assign) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`LinkCutTree`](#construct) | O(N) |
+| [`evert`](#evert) | 償却 O(log(N+1)) |
+| [`leader`](#leader) | 償却 O(log(N+1)) |
+| [`size`](#size) | O(1) |
+| [`same`](#same) | 償却 O(log(N+1)) |
+| [`link`](#link) | 償却 O(log(N+1)) |
+| [`cut`](#cut) | 償却 O(log(N+1)) |
+| [`S`](#get) | O(1) |
+| [`set`](#set) | 償却 O(log(N+1)) |
+| [`S`](#prod) | 償却 O(log(N+1)) |
+| [`LinkCutTree`（コピー構築）](#copy) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N+D) |
+| [`LinkCutTree`（移動構築）](#move) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(D) |
 
 <!-- library-implementation -->
 

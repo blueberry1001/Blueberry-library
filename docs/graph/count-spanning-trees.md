@@ -11,10 +11,10 @@ Matrix-Tree 定理と既存の Matrix<T>::det() を組み合わせ、無向全�
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `T` | O(N³+M) | [開く](#undirected) |
-| `T` | O(N³+M) | [開く](#directed) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`T`](#undirected) | O(N³+M) |
+| [`T`](#directed) | O(N³+M) |
 
 <!-- library-implementation -->
 

@@ -9,19 +9,21 @@ documentation_of: //blueberry/data-structure/fenwick-tree.hpp
 
 一点加算と区間和を扱う Fenwick Tree です。
 
+添字は `[0,N)`、区間は `[l,r)` です。
+
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `FenwickTree<T>` | O(N) | [開く](#construct-size) |
-| `FenwickTree<T>` | O(N) | [開く](#construct-values) |
-| `bit.add` | O(log N) | [開く](#add) |
-| `bit.prefix_sum` | O(log N) | [開く](#prefix-sum) |
-| `bit.pref` | O(log N) | [開く](#pref) |
-| `bit.sum` | O(log N) | [開く](#sum) |
-| `bit.get` | O(log N) | [開く](#get) |
-| `bit.size` | O(1) | [開く](#size) |
-| `bit.lower_bound` | O(log N) | [開く](#lower-bound) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`FenwickTree<T>`](#construct-size) | O(N) |
+| [`FenwickTree<T>`](#construct-values) | O(N) |
+| [`bit.add`](#add) | O(log N) |
+| [`bit.prefix_sum`](#prefix-sum) | O(log N) |
+| [`bit.pref`](#pref) | O(log N) |
+| [`bit.sum`](#sum) | O(log N) |
+| [`bit.get`](#get) | O(log N) |
+| [`bit.size`](#size) | O(1) |
+| [`bit.lower_bound`](#lower-bound) | O(log N) |
 
 <!-- library-implementation -->
 

@@ -11,12 +11,12 @@ Eratosthenesの篩で上限以下の素数を前計算します。
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PrimeSieve` | O(N log log N) | [開く](#construct) |
-| `sieve.is_prime` | O(1) | [開く](#is-prime) |
-| `sieve.primes` | O(1) access | [開く](#primes) |
-| `sieve.limit` | O(1) | [開く](#limit) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`PrimeSieve`](#construct) | O(N log log N) |
+| [`sieve.is_prime`](#is-prime) | O(1) |
+| [`sieve.primes`](#primes) | O(1) access |
+| [`sieve.limit`](#limit) | O(1) |
 
 <!-- library-implementation -->
 

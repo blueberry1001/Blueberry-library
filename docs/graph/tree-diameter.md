@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/tree-diameter.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `tree_diameter` | O(N) | [開く](#diameter) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`tree_diameter`](#diameter) | O(N) |
 
 <!-- library-implementation -->
 

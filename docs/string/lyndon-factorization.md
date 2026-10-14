@@ -11,9 +11,9 @@ documentation_of: //blueberry/string/lyndon-factorization.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `lyndon_factorization` | O(N) | [開く](#factorization) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`lyndon_factorization`](#factorization) | O(N) |
 
 <!-- library-implementation -->
 

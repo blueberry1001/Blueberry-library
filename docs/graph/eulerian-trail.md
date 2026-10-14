@@ -11,12 +11,12 @@ documentation_of: //blueberry/graph/eulerian-trail.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `EulerianTrail<Directed>` | O(N+M) | [開く](#construct) |
-| `trail.exists` | O(1) | [開く](#exists) |
-| `trail.vertices` | O(1) | [開く](#vertices) |
-| `trail.edges` | O(1) | [開く](#edges) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`EulerianTrail<Directed>`](#construct) | O(N+M) |
+| [`trail.exists`](#exists) | O(1) |
+| [`trail.vertices`](#vertices) | O(1) |
+| [`trail.edges`](#edges) | O(1) |
 
 <!-- library-implementation -->
 

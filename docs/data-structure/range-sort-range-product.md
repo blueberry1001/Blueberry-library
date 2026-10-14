@@ -11,20 +11,20 @@ documentation_of: //blueberry/data-structure/range-sort-range-product.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `RangeSortRangeProduct<S,op,e,Key>` | O(1) | [開く](#default) |
-| `RangeSortRangeProduct<S,op,e,Key>` | O(N log(N+1)) | [開く](#vector) |
-| `object.size` | O(1) | [開く](#size) |
-| `object.get` | O(log(N+1)+W) | [開く](#get) |
-| `object.set` | O(log(N+1)+W) | [開く](#set) |
-| `object.prod` | O(log(N+1)+W) | [開く](#prod) |
-| `object.all_prod` | O(1) | [開く](#all-prod) |
-| `object.sort` | 償却 O(log(N+1)+W) | [開く](#sort) |
-| `Type` | O(M) | [開く](#copy-constructor) |
-| `Type` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M + D) | [開く](#copy-assignment) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`RangeSortRangeProduct<S,op,e,Key>`](#default) | O(1) |
+| [`RangeSortRangeProduct<S,op,e,Key>`](#vector) | O(N log(N+1)) |
+| [`object.size`](#size) | O(1) |
+| [`object.get`](#get) | O(log(N+1)+W) |
+| [`object.set`](#set) | O(log(N+1)+W) |
+| [`object.prod`](#prod) | O(log(N+1)+W) |
+| [`object.all_prod`](#all-prod) | O(1) |
+| [`object.sort`](#sort) | 償却 O(log(N+1)+W) |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
 
 <!-- library-implementation -->
 

@@ -36,12 +36,13 @@ def collect_examples(root):
             assert heading in text, (document, heading)
         details = re.findall(r'<details class="api-operation" id="([^"]+)" markdown="1">(.*?)</details>', text, re.S)
         ids = [identifier for identifier, _ in details]
-        links = re.findall(r"\[開く\]\(#([^)]*)\)", text)
+        links = re.findall(r"\[[^\n]*?\]\(#([^)]*)\)", quick)
         if definitions:
             assert "recipe.code | escape" in text and "data-monoid-definition" in text, document
             assert "## 操作一覧" not in text and not details, document
         else:
             assert "## 概要" in quick and "## 操作一覧" in quick, document
+            assert "| 操作 | 計算量 |" in quick and "| 詳細 |" not in quick, document
             assert "## 概要・前提" in reference and "## 最小使用例" in reference, document
             assert details and len(ids) == len(set(ids)) and set(links) == set(ids), document
         for identifier, body in details:

@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/clique-enumeration.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `enumerate_cliques` | O((N+M)log(N+1) + C(D+1)² log(N+1)) + callback | [開く](#enumerate) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`enumerate_cliques`](#enumerate) | O((N+M)log(N+1) + C(D+1)² log(N+1)) + callback |
 
 <!-- library-implementation -->
 

@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/polynomial-interpolation.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `polynomial_interpolation` | O(N log²(N+1)+N log mod) | [開く](#interpolate) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`polynomial_interpolation`](#interpolate) | O(N log²(N+1)+N log mod) |
 
 <!-- library-implementation -->
 

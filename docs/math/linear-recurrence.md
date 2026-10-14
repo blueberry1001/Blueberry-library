@@ -12,10 +12,10 @@ documentation_of: //blueberry/math/linear-recurrence.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `berlekamp_massey` | O(N²) | [開く](#berlekamp-massey) |
-| `Mint` | O(M(d) log(k+1))、k&lt;dはO(1) | [開く](#kth) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`berlekamp_massey`](#berlekamp-massey) | O(N²) |
+| [`Mint`](#kth) | O(M(d) log(k+1))、k&lt;dはO(1) |
 
 <!-- library-implementation -->
 

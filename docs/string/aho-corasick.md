@@ -11,17 +11,17 @@ documentation_of: //blueberry/string/aho-corasick.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `AhoCorasick<σ,First>` | O(σ)、予約領域O(σR) | [開く](#constructor) |
-| `ac.size` | O(1) | [開く](#size) |
-| `ac.add` | 償却O(σL) | [開く](#add) |
-| `ac.build` | 初回O(σV)、以後O(1) | [開く](#build) |
-| `ac.parent` | O(1) | [開く](#parent) |
-| `ac.link` | O(1) | [開く](#link) |
-| `ac.next` | O(1) | [開く](#next) |
-| `ac.count` | O(M+V)、追加メモリO(V) | [開く](#count) |
-| `AhoCorasick` | コピーO(σV)、ムーブO(1) ※代入先解放を除く | [開く](#copy-move) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`AhoCorasick<σ,First>`](#constructor) | O(σ)、予約領域O(σR) |
+| [`ac.size`](#size) | O(1) |
+| [`ac.add`](#add) | 償却O(σL) |
+| [`ac.build`](#build) | 初回O(σV)、以後O(1) |
+| [`ac.parent`](#parent) | O(1) |
+| [`ac.link`](#link) | O(1) |
+| [`ac.next`](#next) | O(1) |
+| [`ac.count`](#count) | O(M+V)、追加メモリO(V) |
+| [`AhoCorasick`](#copy-move) | コピーO(σV)、ムーブO(1) ※代入先解放を除く |
 
 <!-- library-implementation -->
 

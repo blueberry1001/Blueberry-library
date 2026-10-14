@@ -11,24 +11,24 @@ documentation_of: //blueberry/utility/fast-io.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `FastInput<Interactive>` | O(1) | [開く](#input-construct) |
-| `in.read`（整数） | O(d) | [開く](#read-integer) |
-| `in.read` | O(d) | [開く](#read-bool) |
-| `in.read` | O(読み飛ばす空白数+1) | [開く](#read-char) |
-| `in.read` | O(d)、再確保を含む償却 | [開く](#read-string) |
-| `in.read`（浮動小数点） | O(d)+標準変換関数の費用 | [開く](#read-float) |
-| `in.read` | 各readの合計 | [開く](#read-many) |
-| `FastOutput` | O(1) | [開く](#output-construct) |
-| `out.~FastOutput` | O(b) | [開く](#output-destroy) |
-| `out.write` | 償却O(1)、buffer排出時O(b) | [開く](#write-char) |
-| `out.write` | 償却O(1) | [開く](#write-bool) |
-| `out.write` | 償却O(d) | [開く](#write-string) |
-| `out.write`（整数） | 償却O(d) | [開く](#write-integer) |
-| `out.write`（浮動小数点） | 標準変換関数の費用+償却O(d) | [開く](#write-float) |
-| `out.writeln` | 各writeと区切りの合計、償却 | [開く](#writeln) |
-| `out.flush` | O(b) | [開く](#flush) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`FastInput<Interactive>`](#input-construct) | O(1) |
+| [`in.read`（整数）](#read-integer) | O(d) |
+| [`in.read`](#read-bool) | O(d) |
+| [`in.read`](#read-char) | O(読み飛ばす空白数+1) |
+| [`in.read`](#read-string) | O(d)、再確保を含む償却 |
+| [`in.read`（浮動小数点）](#read-float) | O(d)+標準変換関数の費用 |
+| [`in.read`](#read-many) | 各readの合計 |
+| [`FastOutput`](#output-construct) | O(1) |
+| [`out.~FastOutput`](#output-destroy) | O(b) |
+| [`out.write`](#write-char) | 償却O(1)、buffer排出時O(b) |
+| [`out.write`](#write-bool) | 償却O(1) |
+| [`out.write`](#write-string) | 償却O(d) |
+| [`out.write`（整数）](#write-integer) | 償却O(d) |
+| [`out.write`（浮動小数点）](#write-float) | 標準変換関数の費用+償却O(d) |
+| [`out.writeln`](#writeln) | 各writeと区切りの合計、償却 |
+| [`out.flush`](#flush) | O(b) |
 
 <!-- library-implementation -->
 

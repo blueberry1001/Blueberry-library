@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/enumerate-quotients.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `enumerate_quotients` | O(sqrt(n)) | [開く](#enumerate) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`enumerate_quotients`](#enumerate) | O(sqrt(n)) |
 
 <!-- library-implementation -->
 

@@ -9,19 +9,21 @@ documentation_of: //blueberry/data-structure/segment-tree.hpp
 
 モノイドの一点更新・区間積を扱います。
 
+区間は `[l,r)`、演算は結合則と単位元を満たす必要があります。
+
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SegmentTree<S,` | O(N) | [開く](#construct-size) |
-| `SegmentTree<S,` | O(N) | [開く](#construct-values) |
-| `seg.set` | O(log N) | [開く](#set) |
-| `seg.get` | O(1) | [開く](#get) |
-| `seg.product` | O(log N) | [開く](#product) |
-| `seg.prod` | O(log N) | [開く](#prod) |
-| `seg.all_product` | O(1) | [開く](#all-product) |
-| `seg.all_prod` | O(1) | [開く](#all-prod) |
-| `seg.size` | O(1) | [開く](#size) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`SegmentTree<S,`](#construct-size) | O(N) |
+| [`SegmentTree<S,`](#construct-values) | O(N) |
+| [`seg.set`](#set) | O(log N) |
+| [`seg.get`](#get) | O(1) |
+| [`seg.product`](#product) | O(log N) |
+| [`seg.prod`](#prod) | O(log N) |
+| [`seg.all_product`](#all-product) | O(1) |
+| [`seg.all_prod`](#all-prod) | O(1) |
+| [`seg.size`](#size) | O(1) |
 
 <!-- library-implementation -->
 

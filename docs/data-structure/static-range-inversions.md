@@ -11,9 +11,9 @@ documentation_of: //blueberry/data-structure/static-range-inversions.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `static_range_inversions` | O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1) log(N+1)) | [開く](#static-range-inversions) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`static_range_inversions`](#static-range-inversions) | O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1) log(N+1)) |
 
 <!-- library-implementation -->
 

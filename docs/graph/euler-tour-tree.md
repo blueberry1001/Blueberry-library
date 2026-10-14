@@ -9,21 +9,21 @@ documentation_of: //blueberry/graph/euler-tour-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `EulerTourTree` | O(N) | [開く](#construct) |
-| `size` | O(1) | [開く](#size) |
-| `same` | 償却 O(log(N+1)) | [開く](#same) |
-| `link` | 償却 O(log(N+1)) | [開く](#link) |
-| `cut` | 償却 O(log(N+1)) | [開く](#cut) |
-| `set` | 償却 O(log(N+1)) | [開く](#set) |
-| `S` | 償却 O(log(N+1)) | [開く](#get) |
-| `S` | 償却 O(log(N+1)) | [開く](#prod) |
-| `apply` | 償却 O(log(N+1)) | [開く](#apply) |
-| `EulerTourTree`（コピー構築） | O(N) | [開く](#copy) |
-| `operator=`（コピー代入） | O(N+D) | [開く](#copy-assign) |
-| `EulerTourTree`（移動構築） | O(1) | [開く](#move) |
-| `operator=`（移動代入） | O(D) | [開く](#move-assign) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`EulerTourTree`](#construct) | O(N) |
+| [`size`](#size) | O(1) |
+| [`same`](#same) | 償却 O(log(N+1)) |
+| [`link`](#link) | 償却 O(log(N+1)) |
+| [`cut`](#cut) | 償却 O(log(N+1)) |
+| [`set`](#set) | 償却 O(log(N+1)) |
+| [`S`](#get) | 償却 O(log(N+1)) |
+| [`S`](#prod) | 償却 O(log(N+1)) |
+| [`apply`](#apply) | 償却 O(log(N+1)) |
+| [`EulerTourTree`（コピー構築）](#copy) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N+D) |
+| [`EulerTourTree`（移動構築）](#move) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(D) |
 
 <!-- library-implementation -->
 

@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/cartesian-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `cartesian_tree` | O(N) | [開く](#tree) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`cartesian_tree`](#tree) | O(N) |
 
 <!-- library-implementation -->
 

@@ -11,24 +11,24 @@ documentation_of: //blueberry/data-structure/aggregate-deque.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `AggregateDeque<S,` | O(1) | [開く](#construct) |
-| `AggregateDeque`（コピー構築） | O(N) | [開く](#copy-construct) |
-| `operator=`（コピー代入） | O(N + Ndst) | [開く](#copy-assign) |
-| `AggregateDeque`（移動構築） | O(1) | [開く](#move-construct) |
-| `operator=`（移動代入） | O(Ndst) | [開く](#move-assign) |
-| `~AggregateDeque` | O(N) | [開く](#destruct) |
-| `tree.size` | O(1) | [開く](#size) |
-| `tree.empty` | O(1) | [開く](#empty) |
-| `tree.push_front` | 償却 O(1) | [開く](#push-front) |
-| `tree.pop_front` | 償却 O(1) | [開く](#pop-front) |
-| `tree.push_back` | 償却 O(1) | [開く](#push-back) |
-| `tree.pop_back` | 償却 O(1) | [開く](#pop-back) |
-| `tree.front` | O(1) | [開く](#front) |
-| `tree.back` | O(1) | [開く](#back) |
-| `tree.prod` | O(1) | [開く](#prod) |
-| `tree.clear` | O(N) | [開く](#clear) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`AggregateDeque<S,`](#construct) | O(1) |
+| [`AggregateDeque`（コピー構築）](#copy-construct) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N + Ndst) |
+| [`AggregateDeque`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Ndst) |
+| [`~AggregateDeque`](#destruct) | O(N) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.empty`](#empty) | O(1) |
+| [`tree.push_front`](#push-front) | 償却 O(1) |
+| [`tree.pop_front`](#pop-front) | 償却 O(1) |
+| [`tree.push_back`](#push-back) | 償却 O(1) |
+| [`tree.pop_back`](#pop-back) | 償却 O(1) |
+| [`tree.front`](#front) | O(1) |
+| [`tree.back`](#back) | O(1) |
+| [`tree.prod`](#prod) | O(1) |
+| [`tree.clear`](#clear) | O(N) |
 
 <!-- library-implementation -->
 

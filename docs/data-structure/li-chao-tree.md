@@ -11,13 +11,13 @@ documentation_of: //blueberry/data-structure/li-chao-tree.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LiChaoTree<T>` | O(M log(M + 1)) | [開く](#constructor) |
-| `tree.size` | O(1) | [開く](#size) |
-| `tree.add_line` | O(log(N + 1)) | [開く](#add-line) |
-| `tree.add_segment` | O(log²(N + 1)) | [開く](#add-segment) |
-| `tree.query` | O(log(N + 1)) | [開く](#query) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`LiChaoTree<T>`](#constructor) | O(M log(M + 1)) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.add_line`](#add-line) | O(log(N + 1)) |
+| [`tree.add_segment`](#add-segment) | O(log²(N + 1)) |
+| [`tree.query`](#query) | O(log(N + 1)) |
 
 <!-- library-implementation -->
 

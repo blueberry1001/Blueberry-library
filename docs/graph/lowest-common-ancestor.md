@@ -11,20 +11,20 @@ documentation_of: //blueberry/graph/lowest-common-ancestor.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LowestCommonAncestor` | O(N log N) | [開く](#construct-doubling) |
-| `lca.lca` | O(log N) | [開く](#lca-doubling) |
-| `lca.kth_ancestor` | O(log N) | [開く](#kth-ancestor) |
-| `lca.kth` | O(log N) | [開く](#kth) |
-| `lca.distance` | O(log N) | [開く](#distance-doubling) |
-| `lca.depth` | O(1) | [開く](#depth-doubling) |
-| `lca.size` | O(1) | [開く](#size-doubling) |
-| `LowestCommonAncestorRMQ` | O(N log N) | [開く](#construct-rmq) |
-| `lca.lca` | O(1) | [開く](#lca-rmq) |
-| `lca.distance` | O(1) | [開く](#distance-rmq) |
-| `lca.depth` | O(1) | [開く](#depth-rmq) |
-| `lca.size` | O(1) | [開く](#size-rmq) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`LowestCommonAncestor`](#construct-doubling) | O(N log N) |
+| [`lca.lca`](#lca-doubling) | O(log N) |
+| [`lca.kth_ancestor`](#kth-ancestor) | O(log N) |
+| [`lca.kth`](#kth) | O(log N) |
+| [`lca.distance`](#distance-doubling) | O(log N) |
+| [`lca.depth`](#depth-doubling) | O(1) |
+| [`lca.size`](#size-doubling) | O(1) |
+| [`LowestCommonAncestorRMQ`](#construct-rmq) | O(N log N) |
+| [`lca.lca`](#lca-rmq) | O(1) |
+| [`lca.distance`](#distance-rmq) | O(1) |
+| [`lca.depth`](#depth-rmq) | O(1) |
+| [`lca.size`](#size-rmq) | O(1) |
 
 <!-- library-implementation -->
 

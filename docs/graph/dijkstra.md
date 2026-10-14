@@ -11,17 +11,17 @@ documentation_of: //blueberry/graph/dijkstra.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `WeightedEdge<Cost>{to, cost}` | O(1) | [開く](#edge) |
-| `edge.to` | O(1) access | [開く](#edge-to) |
-| `edge.cost` | O(1) access | [開く](#edge-cost) |
-| `ShortestPathResult<Cost>{distance, parent, infinity}` | O(V) copy / O(1) move | [開く](#result) |
-| `ShortestPathResult<Cost>::distance` | O(1) access | [開く](#distance) |
-| `ShortestPathResult<Cost>::parent` | O(1) access | [開く](#parent) |
-| `ShortestPathResult<Cost>::infinity` | O(1) access | [開く](#infinity) |
-| `result.path_to` | O(V) | [開く](#path-to) |
-| `dijkstra` | O(V + E log(E+1)) | [開く](#dijkstra) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`WeightedEdge<Cost>{to, cost}`](#edge) | O(1) |
+| [`edge.to`](#edge-to) | O(1) access |
+| [`edge.cost`](#edge-cost) | O(1) access |
+| [`ShortestPathResult<Cost>{distance, parent, infinity}`](#result) | O(V) copy / O(1) move |
+| [`ShortestPathResult<Cost>::distance`](#distance) | O(1) access |
+| [`ShortestPathResult<Cost>::parent`](#parent) | O(1) access |
+| [`ShortestPathResult<Cost>::infinity`](#infinity) | O(1) access |
+| [`result.path_to`](#path-to) | O(V) |
+| [`dijkstra`](#dijkstra) | O(V + E log(E+1)) |
 
 <!-- library-implementation -->
 

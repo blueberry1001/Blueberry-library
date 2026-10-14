@@ -11,9 +11,9 @@ documentation_of: //blueberry/math/sample-point-shift.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `sample_point_shift` | O(K log K+log mod) | [開く](#shift) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`sample_point_shift`](#shift) | O(K log K+log mod) |
 
 <!-- library-implementation -->
 

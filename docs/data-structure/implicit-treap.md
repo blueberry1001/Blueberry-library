@@ -11,26 +11,26 @@ documentation_of: //blueberry/data-structure/implicit-treap.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `ImplicitTreap` | O(N) | [開く](#construct) |
-| `Tree`（コピー構築） | O(H) | [開く](#copy-construct) |
-| `operator=`（コピー代入） | O(H + Hdst) | [開く](#copy-assign) |
-| `Tree`（移動構築） | O(1) | [開く](#move-construct) |
-| `operator=`（移動代入） | O(Hdst) | [開く](#move-assign) |
-| `tree.~Tree` | O(H) | [開く](#destruct) |
-| `tree.size` | O(1) | [開く](#size) |
-| `tree.empty` | O(1) | [開く](#empty) |
-| `tree.clear` | O(H) | [開く](#clear) |
-| `tree.insert` | 期待・償却 O(log(N+1)) | [開く](#insert) |
-| `tree.erase` | 期待・償却 O(log(N+1)) | [開く](#erase) |
-| `tree.get` | 期待 O(log(N+1)) | [開く](#get) |
-| `tree.set` | 期待・償却 O(log(N+1)) | [開く](#set) |
-| `tree.prod` | 期待・償却 O(log(N+1)) | [開く](#prod) |
-| `tree.all_prod` | O(1) | [開く](#all-prod) |
-| `tree.reverse` | 期待・償却 O(log(N+1)) | [開く](#reverse) |
-| `tree.apply` | 期待・償却 O(log(N+1)) | [開く](#apply) |
-| `tree.to_vector` | O(N) | [開く](#to-vector) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`ImplicitTreap`](#construct) | O(N) |
+| [`Tree`（コピー構築）](#copy-construct) | O(H) |
+| [`operator=`（コピー代入）](#copy-assign) | O(H + Hdst) |
+| [`Tree`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Hdst) |
+| [`tree.~Tree`](#destruct) | O(H) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.empty`](#empty) | O(1) |
+| [`tree.clear`](#clear) | O(H) |
+| [`tree.insert`](#insert) | 期待・償却 O(log(N+1)) |
+| [`tree.erase`](#erase) | 期待・償却 O(log(N+1)) |
+| [`tree.get`](#get) | 期待 O(log(N+1)) |
+| [`tree.set`](#set) | 期待・償却 O(log(N+1)) |
+| [`tree.prod`](#prod) | 期待・償却 O(log(N+1)) |
+| [`tree.all_prod`](#all-prod) | O(1) |
+| [`tree.reverse`](#reverse) | 期待・償却 O(log(N+1)) |
+| [`tree.apply`](#apply) | 期待・償却 O(log(N+1)) |
+| [`tree.to_vector`](#to-vector) | O(N) |
 
 <!-- library-implementation -->
 

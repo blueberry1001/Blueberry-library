@@ -11,21 +11,21 @@ documentation_of: //blueberry/data-structure/partially-retroactive-priority-queu
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PartiallyRetroactivePriorityQueue<T>` | O(M) | [開く](#constructor) |
-| `object.time_slots` | O(1) | [開く](#time-slots) |
-| `object.size` | O(1) | [開く](#size) |
-| `object.empty` | O(1) | [開く](#empty) |
-| `object.has_op` | O(1) | [開く](#has-op) |
-| `object.min` | O(1) | [開く](#min) |
-| `object.insert_op` | O(log(M+1)) | [開く](#insert-op) |
-| `object.pop_op` | O(log(M+1)) | [開く](#pop-op) |
-| `object.erase_op` | O(log(M+1)) | [開く](#erase-op) |
-| `Type` | O(M) | [開く](#copy-constructor) |
-| `Type` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M + D) | [開く](#copy-assignment) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`PartiallyRetroactivePriorityQueue<T>`](#constructor) | O(M) |
+| [`object.time_slots`](#time-slots) | O(1) |
+| [`object.size`](#size) | O(1) |
+| [`object.empty`](#empty) | O(1) |
+| [`object.has_op`](#has-op) | O(1) |
+| [`object.min`](#min) | O(1) |
+| [`object.insert_op`](#insert-op) | O(log(M+1)) |
+| [`object.pop_op`](#pop-op) | O(log(M+1)) |
+| [`object.erase_op`](#erase-op) | O(log(M+1)) |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
 
 <!-- library-implementation -->
 

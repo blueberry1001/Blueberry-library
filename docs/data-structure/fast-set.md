@@ -11,24 +11,24 @@ documentation_of: //blueberry/data-structure/fast-set.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `FastSet` | O(1) | [開く](#default) |
-| `FastSet` | O(W) | [開く](#universe) |
-| `FastSet` | O(U) | [開く](#bits) |
-| `FastSet` | O(W) | [開く](#copy-constructor) |
-| `operator=` | O(W + V) | [開く](#copy-assignment) |
-| `FastSet` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(1 + V) | [開く](#move-assignment) |
-| `size` | O(1) | [開く](#size) |
-| `universe_size` | O(1) | [開く](#universe-size) |
-| `empty` | O(1) | [開く](#empty) |
-| `contains` | O(1) | [開く](#contains) |
-| `insert` | O(H) | [開く](#insert) |
-| `erase` | O(H) | [開く](#erase) |
-| `next` | O(H) | [開く](#next) |
-| `prev` | O(H) | [開く](#prev) |
-| `clear` | O(W) | [開く](#clear) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`FastSet`](#default) | O(1) |
+| [`FastSet`](#universe) | O(W) |
+| [`FastSet`](#bits) | O(U) |
+| [`FastSet`](#copy-constructor) | O(W) |
+| [`operator=`](#copy-assignment) | O(W + V) |
+| [`FastSet`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + V) |
+| [`size`](#size) | O(1) |
+| [`universe_size`](#universe-size) | O(1) |
+| [`empty`](#empty) | O(1) |
+| [`contains`](#contains) | O(1) |
+| [`insert`](#insert) | O(H) |
+| [`erase`](#erase) | O(H) |
+| [`next`](#next) | O(H) |
+| [`prev`](#prev) | O(H) |
+| [`clear`](#clear) | O(W) |
 
 <!-- library-implementation -->
 

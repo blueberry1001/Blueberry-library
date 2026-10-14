@@ -11,9 +11,9 @@ documentation_of: //blueberry/string/longest-common-substring.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `longest_common_substring` | O(N) | [開く](#longest-common-substring) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`longest_common_substring`](#longest-common-substring) | O(N) |
 
 <!-- library-implementation -->
 

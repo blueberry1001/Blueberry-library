@@ -11,11 +11,11 @@ documentation_of: //blueberry/graph/biconnected-components.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `BiconnectedComponents` | O(N+M) | [開く](#construct) |
-| `blocks.groups` | O(1) | [開く](#groups) |
-| `blocks.block_cut_tree` | O(N+M) | [開く](#forest) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`BiconnectedComponents`](#construct) | O(N+M) |
+| [`blocks.groups`](#groups) | O(1) |
+| [`blocks.block_cut_tree`](#forest) | O(N+M) |
 
 <!-- library-implementation -->
 

@@ -11,22 +11,22 @@ documentation_of: //blueberry/data-structure/range-parallel-union-find.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `RangeParallelUnionFind` | O(N log(N+1)) | [開く](#constructor) |
-| `object.size` | O(1) | [開く](#size) |
-| `object.components` | O(1) | [開く](#components) |
-| `object.leader` | 償却 O(α(N)) | [開く](#leader) |
-| `object.same` | 償却 O(α(N)) | [開く](#same) |
-| `object.comp_size` | 償却 O(α(N)) | [開く](#comp-size) |
-| `object.merge` | 償却 O(α(N)) | [開く](#merge) |
-| `object.merge` | 償却 O(α(N)) | [開く](#merge-callback) |
-| `object.range_merge` | O(K log(N+1)) | [開く](#range-merge) |
-| `object.range_merge` | O(K log(N+1)) | [開く](#range-callback) |
-| `Type` | O(M) | [開く](#copy-constructor) |
-| `Type` | O(1) | [開く](#move-constructor) |
-| `operator=` | O(M + D) | [開く](#copy-assignment) |
-| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`RangeParallelUnionFind`](#constructor) | O(N log(N+1)) |
+| [`object.size`](#size) | O(1) |
+| [`object.components`](#components) | O(1) |
+| [`object.leader`](#leader) | 償却 O(α(N)) |
+| [`object.same`](#same) | 償却 O(α(N)) |
+| [`object.comp_size`](#comp-size) | 償却 O(α(N)) |
+| [`object.merge`](#merge) | 償却 O(α(N)) |
+| [`object.merge`](#merge-callback) | 償却 O(α(N)) |
+| [`object.range_merge`](#range-merge) | O(K log(N+1)) |
+| [`object.range_merge`](#range-callback) | O(K log(N+1)) |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
 
 <!-- library-implementation -->
 

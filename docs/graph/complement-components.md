@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/complement-components.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `complement_components` | O(N+M) | [開く](#components) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`complement_components`](#components) | O(N+M) |
 
 <!-- library-implementation -->
 

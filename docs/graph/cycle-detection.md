@@ -11,9 +11,9 @@ documentation_of: //blueberry/graph/cycle-detection.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `find_cycle<Directed>` | O(N+M) | [開く](#find-cycle) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`find_cycle<Directed>`](#find-cycle) | O(N+M) |
 
 <!-- library-implementation -->
 

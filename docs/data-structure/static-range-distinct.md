@@ -11,16 +11,16 @@ documentation_of: //blueberry/data-structure/static-range-distinct.hpp
 
 ## 操作一覧
 
-| 操作 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `StaticRangeDistinct<T>` | O(1) | [開く](#op-0) |
-| `StaticRangeDistinct<T>` | O(N log(N+1)) | [開く](#op-1) |
-| `d.size` | O(1) | [開く](#op-2) |
-| `d.count` | O(log(N+1)) | [開く](#op-3) |
-| `StaticRangeDistinct` | O(N log(N+1)) | [開く](#value-0) |
-| `StaticRangeDistinct` | O(1) | [開く](#value-1) |
-| `operator=` | O(N log(N+1)) + O(旧状態の破棄) | [開く](#value-2) |
-| `operator=` | O(1) + O(旧状態の破棄) | [開く](#value-3) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`StaticRangeDistinct<T>`](#op-0) | O(1) |
+| [`StaticRangeDistinct<T>`](#op-1) | O(N log(N+1)) |
+| [`d.size`](#op-2) | O(1) |
+| [`d.count`](#op-3) | O(log(N+1)) |
+| [`StaticRangeDistinct`](#value-0) | O(N log(N+1)) |
+| [`StaticRangeDistinct`](#value-1) | O(1) |
+| [`operator=`](#value-2) | O(N log(N+1)) + O(旧状態の破棄) |
+| [`operator=`](#value-3) | O(1) + O(旧状態の破棄) |
 
 <!-- library-implementation -->
 
