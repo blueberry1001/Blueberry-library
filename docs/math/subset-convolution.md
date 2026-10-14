@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/subset-convolution.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+集合の要素数ごとの zeta 変換（ranked transform）で、`c[S] = Σ_{A⊆S} a[A] b[S\A]` を計算します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `subset_convolution` | O(N(1+K)²) | [開く](#convolution) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 集合の要素数ごとの zeta 変換（ranked transform）で、`c[S] = Σ_{A⊆S} a[A] b[S\A]` を計算します。添字は集合の bit mask です。AND/OR 畳み込みと異なり、積に使う二集合の共通部分は空です。ACL の通常の多項式 convolution は再実装しません。
@@ -33,12 +45,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<T> subset_convolution(const vector<T>& a, const vector<T>& b)` | O(N(1+K)²) | [開く](#convolution) |
 
 <details class="api-operation" id="convolution" markdown="1">
 <summary><code>vector&lt;T&gt; subset_convolution(const vector&lt;T&gt;&amp; a, const vector&lt;T&gt;&amp; b)</code> — O(N(1+K)²)</summary>

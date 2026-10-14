@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/discrete-log.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+`1 <= m <= INT32_MAX`。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `discrete_log` | 期待 O(sqrt(m)+log(m)) | [開く](#log) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `1 <= m <= INT32_MAX`。任意の int64_t の a,b を正規化し、a^x = b (mod m) を満たす最小の非負整数 x を返す。解なしは std::nullopt。合成数法・非互いに素の底にも対応する。0^0=1 とする。ACLの inv_mod を再利用し、ACLにない gcd 除去と baby-step giant-step を追加する。ハッシュの期待時間 O(sqrt(m)+log(m))、最悪 O(m+log(m))、追加メモリ O(sqrt(m))。
@@ -21,12 +33,6 @@ assert(!blueberry::discrete_log(2, 3, 8));
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::optional<std::int64_t> discrete_log(std::int64_t a, std::int64_t b, std::int64_t m)` | 期待 O(sqrt(m)+log(m)) | [開く](#log) |
 
 <details class="api-operation" id="log" markdown="1">
 <summary><code>std::optional&lt;std::int64_t&gt; discrete_log(std::int64_t a, std::int64_t b, std::int64_t m)</code> — 期待 O(sqrt(m)+log(m))</summary>

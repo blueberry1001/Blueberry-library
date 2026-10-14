@@ -3,6 +3,33 @@ title: Dynamic Top Tree
 documentation_of: //blueberry/graph/dynamic-top-tree.hpp
 ---
 
+## 概要
+
+辺の link/cut と全木・部分木の DP を扱う、頂点ベースの動的 rake/compress 構造です。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `DynamicTopTree` | O(N) | [開く](#construct) |
+| `size` | O(1) | [開く](#size) |
+| `V` | O(1) | [開く](#get) |
+| `set` | 償却 O(log²(N+1)) | [開く](#set) |
+| `same` | 償却 O(log²(N+1)) | [開く](#same) |
+| `link` | 償却 O(log²(N+1)) | [開く](#link) |
+| `cut` | 償却 O(log²(N+1)) | [開く](#cut) |
+| `evert` | 償却 O(log²(N+1)) | [開く](#evert) |
+| `leader` | 償却 O(log²(N+1)) | [開く](#leader) |
+| `Path` | 償却 O(log²(N+1)) | [開く](#all-prod) |
+| `Path` | 償却 O(log²(N+1)) | [開く](#prod) |
+| `Path` | 償却 O(log²(N+1)) | [開く](#subtree-prod) |
+| `DynamicTopTree`（コピー構築） | O(N) | [開く](#copy) |
+| `operator=`（コピー代入） | O(N+D) | [開く](#copy-assign) |
+| `DynamicTopTree`（移動構築） | O(1) | [開く](#move) |
+| `operator=`（移動代入） | O(D) | [開く](#move-assign) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::DynamicTopTree<V, Path, Point, add_vertex, add_edge, compress, rake, point_identity>` は
@@ -63,27 +90,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DynamicTopTree(const vector<V>& values = {})` | O(N) | [開く](#construct) |
-| `int size() const` | O(1) | [開く](#size) |
-| `V get(int v) const` | O(1) | [開く](#get) |
-| `void set(int v, const V& x)` | 償却 O(log²(N+1)) | [開く](#set) |
-| `bool same(int u, int v)` | 償却 O(log²(N+1)) | [開く](#same) |
-| `bool link(int u, int v)` | 償却 O(log²(N+1)) | [開く](#link) |
-| `bool cut(int u, int v)` | 償却 O(log²(N+1)) | [開く](#cut) |
-| `void evert(int v)` | 償却 O(log²(N+1)) | [開く](#evert) |
-| `int leader(int v)` | 償却 O(log²(N+1)) | [開く](#leader) |
-| `Path all_prod(int root)` | 償却 O(log²(N+1)) | [開く](#all-prod) |
-| `Path prod(int u, int v)` | 償却 O(log²(N+1)) | [開く](#prod) |
-| `Path subtree_prod(int v, int parent = -1)` | 償却 O(log²(N+1)) | [開く](#subtree-prod) |
-| `DynamicTopTree(const DynamicTopTree& other)` | O(N) | [開く](#copy) |
-| `DynamicTopTree& operator=(const DynamicTopTree& other)` | O(N+D) | [開く](#copy-assign) |
-| `DynamicTopTree(DynamicTopTree&& other)` | O(1) | [開く](#move) |
-| `DynamicTopTree& operator=(DynamicTopTree&& other)` | O(D) | [開く](#move-assign) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>DynamicTopTree(const vector&lt;V&gt;&amp; values = {})</code> — O(N)</summary>

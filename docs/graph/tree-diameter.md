@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/tree-diameter.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+非負重みの木の直径長と頂点列を二回の非再帰走査で求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `tree_diameter` | O(N) | [開く](#diameter) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 非負重みの木の直径長と頂点列を二回の非再帰走査で求めます。ACLには木の直径APIがありません。
@@ -26,12 +38,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `pair<T, vector<int>> tree_diameter(const vector<vector<pair<int,T>>>& graph)` | O(N) | [開く](#diameter) |
 
 <details class="api-operation" id="diameter" markdown="1">
 <summary><code>tree_diameter(graph)</code> — O(N)</summary>

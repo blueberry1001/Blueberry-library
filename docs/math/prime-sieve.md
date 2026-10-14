@@ -5,6 +5,21 @@ documentation_of: //blueberry/math/prime-sieve.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+Eratosthenesの篩で上限以下の素数を前計算します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `PrimeSieve` | O(N log log N) | [開く](#construct) |
+| `sieve.is_prime` | O(1) | [開く](#is-prime) |
+| `sieve.primes` | O(1) access | [開く](#primes) |
+| `sieve.limit` | O(1) | [開く](#limit) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 Eratosthenesの篩で上限以下の素数を前計算します。上限を $N$ とすると構築は
@@ -26,15 +41,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PrimeSieve sieve(limit)` | O(N log log N) | [開く](#construct) |
-| `bool sieve.is_prime(x) const` | O(1) | [開く](#is-prime) |
-| `const vector<int>& sieve.primes() const` | O(1) access | [開く](#primes) |
-| `int sieve.limit() const` | O(1) | [開く](#limit) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>PrimeSieve sieve(limit)</code> — O(N log log N)</summary>

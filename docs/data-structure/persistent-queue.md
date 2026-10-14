@@ -5,6 +5,28 @@ documentation_of: //blueberry/data-structure/persistent-queue.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+任意の過去版から分岐できる永続FIFOです。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `PersistentQueue<T>` | O(1) | [開く](#op-0) |
+| `q.versions` | O(1) | [開く](#op-1) |
+| `q.size` | O(1) | [開く](#op-2) |
+| `q.empty` | O(1) | [開く](#op-3) |
+| `q.push` | O(1) 償却 | [開く](#op-4) |
+| `q.pop` | O(1) 償却 | [開く](#op-5) |
+| `q.front` | O(log(N+1)) 最悪 | [開く](#op-6) |
+| `PersistentQueue` | O(Q) | [開く](#value-0) |
+| `PersistentQueue` | O(1) | [開く](#value-1) |
+| `operator=` | O(Q) + O(旧状態の破棄) | [開く](#value-2) |
+| `operator=` | O(1) + O(旧状態の破棄) | [開く](#value-3) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 任意の過去版から分岐できる永続FIFOです。ACLには永続queueがないため追加します。版0は空で、push/popは連番の新しい版を返します。Qを累積更新数、Nを参照版までのappend経路長とし、メモリはO(Q)。親と1本のskip linkで先頭を探索します。Tはコピー可能で、既定構築や大小比較は不要です。以下の計算量はTのコピーをO(1)とします。版数はINT_MAX以下。オブジェクトは全版を所有し、入力への参照を保持せず、戻り値もコピーです。
@@ -23,22 +45,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentQueue<T>()` | O(1) | [開く](#op-0) |
-| `int q.versions() const` | O(1) | [開く](#op-1) |
-| `int q.size(int v) const` | O(1) | [開く](#op-2) |
-| `bool q.empty(int v) const` | O(1) | [開く](#op-3) |
-| `int q.push(int v, const T& value)` | O(1) 償却 | [開く](#op-4) |
-| `int q.pop(int v)` | O(1) 償却 | [開く](#op-5) |
-| `T q.front(int v) const` | O(log(N+1)) 最悪 | [開く](#op-6) |
-| `PersistentQueue(const PersistentQueue& other)` | O(Q) | [開く](#value-0) |
-| `PersistentQueue(PersistentQueue&& other)` | O(1) | [開く](#value-1) |
-| `PersistentQueue& operator=(const PersistentQueue& other)` | O(Q) + O(旧状態の破棄) | [開く](#value-2) |
-| `PersistentQueue& operator=(PersistentQueue&& other)` | O(1) + O(旧状態の破棄) | [開く](#value-3) |
 
 <details class="api-operation" id="op-0" markdown="1">
 <summary><code>PersistentQueue&lt;T&gt;()</code> — O(1)</summary>

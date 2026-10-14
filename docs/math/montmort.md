@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/montmort.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+完全順列数D(0),...,D(n)を法modで返す。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `montmort` | O(n+1) | [開く](#compute) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 完全順列数D(0),...,D(n)を法modで返す。D(0)=1、D(1)=0。n=0も1要素返す。mod=1はすべて0。ACLにない任意法の数列生成で、除算や逆元を使わない。
@@ -23,12 +35,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::vector<std::uint32_t> montmort(int n, std::uint32_t mod)` | O(n+1) | [開く](#compute) |
 
 <details class="api-operation" id="compute" markdown="1">
 <summary><code>std::vector&lt;std::uint32_t&gt; montmort(int n, std::uint32_t mod)</code> — O(n+1)</summary>

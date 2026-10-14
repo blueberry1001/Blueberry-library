@@ -5,6 +5,36 @@ documentation_of: //blueberry/data-structure/slope-trick.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+実数全域で定義された、下に有界な区分線形凸関数を保持する。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `SlopeTrick` | O(1) | [開く](#constructor) |
+| `SlopeTrick` | O(N) | [開く](#copy-constructor) |
+| `operator=` | O(N + M) | [開く](#copy-assignment) |
+| `SlopeTrick` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(M) | [開く](#move-assignment) |
+| `size` | O(1) | [開く](#size) |
+| `T` | O(1) | [開く](#min) |
+| `argmin` | O(1) | [開く](#argmin) |
+| `add_const` | O(1) | [開く](#add-const) |
+| `add_x_minus_a` | 償却 O(log(N+1)) | [開く](#add-right) |
+| `add_a_minus_x` | 償却 O(log(N+1)) | [開く](#add-left) |
+| `add_abs` | 償却 O(log(N+1)) | [開く](#add-abs) |
+| `shift` | O(1) | [開く](#shift) |
+| `shift` | O(1) | [開く](#window) |
+| `prefix_min` | O(K) | [開く](#prefix) |
+| `suffix_min` | O(K) | [開く](#suffix) |
+| `T` | O(N log(N+1)) | [開く](#eval) |
+| `merge` | 償却 O(min(N,M) log(N+M+1)) | [開く](#merge) |
+| `clear` | O(N) | [開く](#clear) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::SlopeTrick<T = long long>` は実数全域で定義された、下に有界な区分線形凸関数を保持する。
@@ -36,31 +66,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 N は要素数（slope trick は保持する折れ点数）、M はコピー・結合相手または置換前の保持量。型のコピー・演算・比較は O(1) とする。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SlopeTrick(T constant = T(0))` | O(1) | [開く](#constructor) |
-| `SlopeTrick(const SlopeTrick& other)` | O(N) | [開く](#copy-constructor) |
-| `SlopeTrick& operator=(const SlopeTrick& other)` | O(N + M) | [開く](#copy-assignment) |
-| `SlopeTrick(SlopeTrick&& other)` | O(1) | [開く](#move-constructor) |
-| `SlopeTrick& operator=(SlopeTrick&& other)` | O(M) | [開く](#move-assignment) |
-| `std::size_t size() const` | O(1) | [開く](#size) |
-| `T min() const` | O(1) | [開く](#min) |
-| `std::pair<std::optional<T>, std::optional<T>> argmin() const` | O(1) | [開く](#argmin) |
-| `void add_const(const T& c)` | O(1) | [開く](#add-const) |
-| `void add_x_minus_a(const T& a)` | 償却 O(log(N+1)) | [開く](#add-right) |
-| `void add_a_minus_x(const T& a)` | 償却 O(log(N+1)) | [開く](#add-left) |
-| `void add_abs(const T& a)` | 償却 O(log(N+1)) | [開く](#add-abs) |
-| `void shift(const T& dx)` | O(1) | [開く](#shift) |
-| `void shift(const T& l, const T& r)` | O(1) | [開く](#window) |
-| `void prefix_min()` | O(K) | [開く](#prefix) |
-| `void suffix_min()` | O(K) | [開く](#suffix) |
-| `T eval(const T& x) const` | O(N log(N+1)) | [開く](#eval) |
-| `void merge(SlopeTrick& other)` | 償却 O(min(N,M) log(N+M+1)) | [開く](#merge) |
-| `void clear()` | O(N) | [開く](#clear) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>SlopeTrick(T constant = T(0))</code> — O(1)</summary>

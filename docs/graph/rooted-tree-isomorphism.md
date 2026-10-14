@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/rooted-tree-isomorphism.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+根付き木の各頂点を根とする部分木を、子の順序を無視した同型類に分類します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `rooted_tree_isomorphism` | O(N log(N+1)) | [開く](#classify) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 根付き木の各頂点を根とする部分木を、子の順序を無視した同型類に分類します。ACLにはありません。
@@ -28,12 +40,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<int> rooted_tree_isomorphism(const vector<int>& parent)` | O(N log(N+1)) | [開く](#classify) |
 
 <details class="api-operation" id="classify" markdown="1">
 <summary><code>rooted_tree_isomorphism(parent)</code> — O(N log(N+1))</summary>

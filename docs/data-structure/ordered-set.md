@@ -5,6 +5,30 @@ documentation_of: //blueberry/data-structure/ordered-set.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+オンラインで未知のキーを追加・削除できる順序集合。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `OrderedSet` | O(1) | [開く](#construct) |
+| `size` | O(1) | [開く](#size) |
+| `empty` | O(1) | [開く](#empty) |
+| `insert` | 期待・償却 O(log(N+1)) | [開く](#insert) |
+| `erase` | 期待・償却 O(log(N+1)) | [開く](#erase) |
+| `contains` | 期待 O(log(N+1)) | [開く](#contains) |
+| `rank` | 期待 O(log(N+1)) | [開く](#rank) |
+| `kth` | 期待 O(log(N+1)) | [開く](#kth) |
+| `lower_bound` | 期待 O(log(N+1)) | [開く](#lower-bound) |
+| `upper_bound` | 期待 O(log(N+1)) | [開く](#upper-bound) |
+| `floor` | 期待 O(log(N+1)) | [開く](#floor) |
+| `OrderedSet`（コピー構築） | O(M) | [開く](#copy) |
+| `OrderedSet`（移動構築） | O(1) ※代入先解放 O(M) | [開く](#move) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 オンラインで未知のキーを追加・削除できる順序集合。ACL にない順位・k 番目・前後検索を提供する。`OrderedSet<Key,Compare=std::less<Key>>`。重複は保持しない。重複キーや順位区間の集約には [Ordered Multiset]({{ '/blueberry/data-structure/ordered-multiset.hpp.html' | relative_url }})、並び順を変える列には [Implicit Treap]({{ '/blueberry/data-structure/implicit-treap.hpp.html' | relative_url }}) を使う。
@@ -31,24 +55,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `OrderedSet(Compare compare={})` | O(1) | [開く](#construct) |
-| `int size() const` | O(1) | [開く](#size) |
-| `bool empty() const` | O(1) | [開く](#empty) |
-| `bool insert(const Key& x)` | 期待・償却 O(log(N+1)) | [開く](#insert) |
-| `bool erase(const Key& x)` | 期待・償却 O(log(N+1)) | [開く](#erase) |
-| `bool contains(const Key& x) const` | 期待 O(log(N+1)) | [開く](#contains) |
-| `int rank(const Key& x) const` | 期待 O(log(N+1)) | [開く](#rank) |
-| `std::optional<Key> kth(int k) const` | 期待 O(log(N+1)) | [開く](#kth) |
-| `std::optional<Key> lower_bound(const Key& x) const` | 期待 O(log(N+1)) | [開く](#lower-bound) |
-| `std::optional<Key> upper_bound(const Key& x) const` | 期待 O(log(N+1)) | [開く](#upper-bound) |
-| `std::optional<Key> floor(const Key& x) const` | 期待 O(log(N+1)) | [開く](#floor) |
-| `OrderedSet(const OrderedSet&); operator=(const OrderedSet&)` | O(M) | [開く](#copy) |
-| `OrderedSet(OrderedSet&&); operator=(OrderedSet&&)` | O(1) ※代入先解放 O(M) | [開く](#move) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>OrderedSet(Compare compare={})</code> — O(1)</summary>

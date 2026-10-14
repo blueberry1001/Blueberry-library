@@ -5,6 +5,18 @@ documentation_of: //blueberry/data-structure/static-range-mode.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+静的配列の複数区間の最頻値と頻度を一括計算する。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `static_range_mode` | O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1)) | [開く](#static-range-mode) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 静的配列の複数区間の最頻値と頻度を一括計算する。ACLにない操作をMo順序と頻度別連結リストで実装。
@@ -27,12 +39,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<pair<int,int>> static_range_mode(const vector<T>& a, const vector<pair<int,int>>& queries)` | O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1)) | [開く](#static-range-mode) |
 
 <details class="api-operation" id="static-range-mode" markdown="1">
 <summary><code>vector&lt;pair&lt;int,int&gt;&gt; static_range_mode(a, queries)</code> — O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1))</summary>

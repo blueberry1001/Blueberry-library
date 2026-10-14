@@ -5,6 +5,19 @@ documentation_of: //blueberry/math/factorize.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+`uint64_t` 全域の素数判定と素因数分解です。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `is_prime` | O(log n)、0/1はO(1) | [開く](#is-prime) |
+| `factorize` | 最悪時間保証なし、各rho探索の期待更新回数O(sqrt p) | [開く](#factorize) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `uint64_t` 全域の素数判定と素因数分解です。ACLの公開APIにはなく、
@@ -38,13 +51,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `bool is_prime(uint64_t n)` | O(log n)、0/1はO(1) | [開く](#is-prime) |
-| `vector<uint64_t> factorize(uint64_t n)` | 最悪時間保証なし、各rho探索の期待更新回数O(sqrt p) | [開く](#factorize) |
 
 <details class="api-operation" id="is-prime" markdown="1">
 <summary><code>bool is_prime(uint64_t n)</code> — O(log n)</summary>

@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/polynomial-product.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+K個の多項式を昇べき順の係数列で渡し、積を返す。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `polynomial_product` | O((D+K) log(D+2) log(K+2)) | [開く](#compute) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 K個の多項式を昇べき順の係数列で渡し、積を返す。Dは非空因子の次数（末尾ゼロを含む長さ-1）の総和。空の因子リストは {1}、空の因子がある場合は空のゼロ多項式。末尾ゼロを削除しない。
@@ -25,12 +37,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::vector<Mint> polynomial_product(std::vector<std::vector<Mint>> factors)` | O((D+K) log(D+2) log(K+2)) | [開く](#compute) |
 
 <details class="api-operation" id="compute" markdown="1">
 <summary><code>std::vector&lt;Mint&gt; polynomial_product(std::vector&lt;std::vector&lt;Mint&gt;&gt; factors)</code> — O((D+K) log(D+2) log(K+2))</summary>

@@ -3,6 +3,31 @@ title: Link-Cut Tree
 documentation_of: //blueberry/graph/link-cut-tree.hpp
 ---
 
+## 概要
+
+辺の接続・切断と頂点値のパス積を扱う動的森です。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `LinkCutTree` | O(N) | [開く](#construct) |
+| `evert` | 償却 O(log(N+1)) | [開く](#evert) |
+| `leader` | 償却 O(log(N+1)) | [開く](#leader) |
+| `size` | O(1) | [開く](#size) |
+| `same` | 償却 O(log(N+1)) | [開く](#same) |
+| `link` | 償却 O(log(N+1)) | [開く](#link) |
+| `cut` | 償却 O(log(N+1)) | [開く](#cut) |
+| `S` | O(1) | [開く](#get) |
+| `set` | 償却 O(log(N+1)) | [開く](#set) |
+| `S` | 償却 O(log(N+1)) | [開く](#prod) |
+| `LinkCutTree`（コピー構築） | O(N) | [開く](#copy) |
+| `operator=`（コピー代入） | O(N+D) | [開く](#copy-assign) |
+| `LinkCutTree`（移動構築） | O(1) | [開く](#move) |
+| `operator=`（移動代入） | O(D) | [開く](#move-assign) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::LinkCutTree<S, op, e>` は辺の接続・切断と頂点値のパス積を扱う動的森です。
@@ -38,25 +63,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LinkCutTree(const vector<S>& values = {})` | O(N) | [開く](#construct) |
-| `void evert(int v)` | 償却 O(log(N+1)) | [開く](#evert) |
-| `int leader(int v)` | 償却 O(log(N+1)) | [開く](#leader) |
-| `int size() const` | O(1) | [開く](#size) |
-| `bool same(int u, int v)` | 償却 O(log(N+1)) | [開く](#same) |
-| `bool link(int u, int v)` | 償却 O(log(N+1)) | [開く](#link) |
-| `bool cut(int u, int v)` | 償却 O(log(N+1)) | [開く](#cut) |
-| `S get(int v) const` | O(1) | [開く](#get) |
-| `void set(int v, const S& x)` | 償却 O(log(N+1)) | [開く](#set) |
-| `S prod(int u, int v)` | 償却 O(log(N+1)) | [開く](#prod) |
-| `LinkCutTree(const LinkCutTree& other)` | O(N) | [開く](#copy) |
-| `LinkCutTree& operator=(const LinkCutTree& other)` | O(N+D) | [開く](#copy-assign) |
-| `LinkCutTree(LinkCutTree&& other)` | O(1) | [開く](#move) |
-| `LinkCutTree& operator=(LinkCutTree&& other)` | O(D) | [開く](#move-assign) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>LinkCutTree(const vector&lt;S&gt;&amp; values = {})</code> — O(N)</summary>

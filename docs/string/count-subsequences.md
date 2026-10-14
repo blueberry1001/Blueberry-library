@@ -5,6 +5,18 @@ documentation_of: //blueberry/string/count-subsequences.hpp
 
 [カテゴリへ戻る]({{ '/categories/string.html' | relative_url }})
 
+## 概要
+
+数列や文字列の、空でない相異なる部分列を数えます。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `Count` | O(N log(N+1)) | [開く](#count) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 数列や文字列の、空でない相異なる部分列を数えます。同じ値の並びは一度だけ数えます。
@@ -29,12 +41,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Count count_subsequences<Count>(const Sequence& sequence)` | O(N log(N+1)) | [開く](#count) |
 
 <details class="api-operation" id="count" markdown="1">
 <summary><code>Count count_subsequences&lt;Count&gt;(const Sequence&amp; sequence)</code> — O(N log(N+1))</summary>

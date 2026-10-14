@@ -5,6 +5,29 @@ documentation_of: //blueberry/graph/lowest-common-ancestor.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+静的な根付き木の最小共通祖先（LCA）・深さ・辺数距離を求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `LowestCommonAncestor` | O(N log N) | [開く](#construct-doubling) |
+| `lca.lca` | O(log N) | [開く](#lca-doubling) |
+| `lca.kth_ancestor` | O(log N) | [開く](#kth-ancestor) |
+| `lca.kth` | O(log N) | [開く](#kth) |
+| `lca.distance` | O(log N) | [開く](#distance-doubling) |
+| `lca.depth` | O(1) | [開く](#depth-doubling) |
+| `lca.size` | O(1) | [開く](#size-doubling) |
+| `LowestCommonAncestorRMQ` | O(N log N) | [開く](#construct-rmq) |
+| `lca.lca` | O(1) | [開く](#lca-rmq) |
+| `lca.distance` | O(1) | [開く](#distance-rmq) |
+| `lca.depth` | O(1) | [開く](#depth-rmq) |
+| `lca.size` | O(1) | [開く](#size-rmq) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 静的な根付き木の最小共通祖先（LCA）・深さ・辺数距離を求めます。
@@ -32,24 +55,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 ここで N は頂点数です。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LowestCommonAncestor lca(tree, root = 0)` | O(N log N) | [開く](#construct-doubling) |
-| `int lca.lca(u, v) const` | O(log N) | [開く](#lca-doubling) |
-| `int lca.kth_ancestor(v, k) const` | O(log N) | [開く](#kth-ancestor) |
-| `int lca.kth(v, k) const` | O(log N) | [開く](#kth) |
-| `int lca.distance(u, v) const` | O(log N) | [開く](#distance-doubling) |
-| `int lca.depth(v) const` | O(1) | [開く](#depth-doubling) |
-| `int lca.size() const` | O(1) | [開く](#size-doubling) |
-| `LowestCommonAncestorRMQ lca(tree, root = 0)` | O(N log N) | [開く](#construct-rmq) |
-| `int lca.lca(u, v) const` | O(1) | [開く](#lca-rmq) |
-| `int lca.distance(u, v) const` | O(1) | [開く](#distance-rmq) |
-| `int lca.depth(v) const` | O(1) | [開く](#depth-rmq) |
-| `int lca.size() const` | O(1) | [開く](#size-rmq) |
 
 <details class="api-operation" id="construct-doubling" markdown="1">
 <summary><code>LowestCommonAncestor lca(tree, root = 0)</code> — O(N log N)</summary>

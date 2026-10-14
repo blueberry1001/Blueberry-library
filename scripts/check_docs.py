@@ -24,6 +24,11 @@ def collect_examples(root):
         document = root / ("docs/" + header.removeprefix("blueberry/").removesuffix(".hpp") + ".md")
         text = document.read_text(encoding="utf-8")
         assert f"documentation_of: //{header}" in text, document
+        marker = "<!-- library-implementation -->"
+        assert text.count(marker) == 1, (document, "Place the implementation once after the quick reference")
+        quick, reference = text.split(marker)
+        assert "```cpp" not in quick and '<details class="api-operation"' not in quick, document
+        assert "|" in quick and "O(" in quick, (document, "Include a quick operation/complexity table")
         # The monoid cookbook intentionally documents definitions rather than
         # repeating a public-operation reference for every recipe.
         definitions = header == "blueberry/algebra/monoids.hpp"
@@ -36,6 +41,8 @@ def collect_examples(root):
             assert "recipe.code | escape" in text and "data-monoid-definition" in text, document
             assert "## 操作一覧" not in text and not details, document
         else:
+            assert "## 概要" in quick and "## 操作一覧" in quick, document
+            assert "## 概要・前提" in reference and "## 最小使用例" in reference, document
             assert details and len(ids) == len(set(ids)) and set(links) == set(ids), document
         for identifier, body in details:
             assert "<summary>" in body and "O(" in body and "注意点:" in body, (document, identifier)

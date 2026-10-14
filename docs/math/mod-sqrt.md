@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/mod-sqrt.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+素数 $p$ に対して $x^2\equiv a\pmod p$ を解き、存在すれば最小の非負の根を返します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `mod_sqrt` | O(z log p + log² p)、追加O(1) | [開く](#mod-sqrt) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 素数 $p$ に対して $x^2\equiv a\pmod p$ を解き、存在すれば最小の非負の根を返します。
@@ -31,12 +43,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `optional<int64_t> mod_sqrt(int64_t a, int64_t prime_mod)` | O(z log p + log² p)、追加O(1) | [開く](#mod-sqrt) |
 
 <details class="api-operation" id="mod-sqrt" markdown="1">
 <summary><code>optional&lt;int64_t&gt; mod_sqrt(int64_t a, int64_t prime_mod)</code> — O(z log p + log² p)</summary>

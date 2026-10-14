@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/stirling-second.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+n要素集合をk個の非空集合に分割する個数S(n,k)を、k=0..nの順に返す。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `stirling_second` | O(n log(n+2)) | [開く](#compute) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 n要素集合をk個の非空集合に分割する個数S(n,k)を、k=0..nの順に返す。n=0の結果は {1}。包含排除をACL畳み込みに変換し、各i^nは二分累乗で計算する。
@@ -25,12 +37,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::vector<Mint> stirling_second(int n)` | O(n log(n+2)) | [開く](#compute) |
 
 <details class="api-operation" id="compute" markdown="1">
 <summary><code>std::vector&lt;Mint&gt; stirling_second(int n)</code> — O(n log(n+2))</summary>

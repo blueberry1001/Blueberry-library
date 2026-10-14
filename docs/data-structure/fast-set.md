@@ -5,6 +5,33 @@ documentation_of: //blueberry/data-structure/fast-set.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+固定整数宇宙 `[0, U)` の集合。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `FastSet` | O(1) | [開く](#default) |
+| `FastSet` | O(W) | [開く](#universe) |
+| `FastSet` | O(U) | [開く](#bits) |
+| `FastSet` | O(W) | [開く](#copy-constructor) |
+| `operator=` | O(W + V) | [開く](#copy-assignment) |
+| `FastSet` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(1 + V) | [開く](#move-assignment) |
+| `size` | O(1) | [開く](#size) |
+| `universe_size` | O(1) | [開く](#universe-size) |
+| `empty` | O(1) | [開く](#empty) |
+| `contains` | O(1) | [開く](#contains) |
+| `insert` | O(H) | [開く](#insert) |
+| `erase` | O(H) | [開く](#erase) |
+| `next` | O(H) | [開く](#next) |
+| `prev` | O(H) | [開く](#prev) |
+| `clear` | O(W) | [開く](#clear) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::FastSet` は固定整数宇宙 `[0, U)` の集合。64-bit 語の非空状態を階層化し、
@@ -40,28 +67,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 W はコピー元の保持語数、V は代入先の旧保持語数。型のコピー・演算・比較は O(1) とする。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `FastSet()` | O(1) | [開く](#default) |
-| `FastSet(int universe)` | O(W) | [開く](#universe) |
-| `FastSet(const std::string& bits)` | O(U) | [開く](#bits) |
-| `FastSet(const FastSet& other)` | O(W) | [開く](#copy-constructor) |
-| `FastSet& operator=(const FastSet& other)` | O(W + V) | [開く](#copy-assignment) |
-| `FastSet(FastSet&& other)` | O(1) | [開く](#move-constructor) |
-| `FastSet& operator=(FastSet&& other)` | O(1 + V) | [開く](#move-assignment) |
-| `int size() const` | O(1) | [開く](#size) |
-| `int universe_size() const` | O(1) | [開く](#universe-size) |
-| `bool empty() const` | O(1) | [開く](#empty) |
-| `bool contains(int x) const` | O(1) | [開く](#contains) |
-| `bool insert(int x)` | O(H) | [開く](#insert) |
-| `bool erase(int x)` | O(H) | [開く](#erase) |
-| `int next(int x) const` | O(H) | [開く](#next) |
-| `int prev(int x) const` | O(H) | [開く](#prev) |
-| `void clear()` | O(W) | [開く](#clear) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>FastSet()</code> — O(1)</summary>

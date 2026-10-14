@@ -5,6 +5,23 @@ documentation_of: //blueberry/graph/hopcroft-karp.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+左右の頂点集合が既知の二部グラフについて、最大マッチングと最小頂点被覆を求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `HopcroftKarp` | O((V+M)√V) | [開く](#construct) |
+| `matching.size` | O(1) | [開く](#size) |
+| `matching.left_match` | O(1) | [開く](#left-match) |
+| `matching.right_match` | O(1) | [開く](#right-match) |
+| `matching.pairs` | O(L) | [開く](#pairs) |
+| `matching.min_vertex_cover` | O(V+M) | [開く](#cover) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 左右の頂点集合が既知の二部グラフについて、最大マッチングと最小頂点被覆を求めます。
@@ -39,17 +56,6 @@ int main() {
 ```
 {% endraw %}
 
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `HopcroftKarp matching(L, R, edges)` | O((V+M)√V) | [開く](#construct) |
-| `int matching.size() const` | O(1) | [開く](#size) |
-| `int matching.left_match(u) const` | O(1) | [開く](#left-match) |
-| `int matching.right_match(v) const` | O(1) | [開く](#right-match) |
-| `vector<pair<int,int>> matching.pairs() const` | O(L) | [開く](#pairs) |
-| `pair<vector<int>,vector<int>> matching.min_vertex_cover() const` | O(V+M) | [開く](#cover) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>HopcroftKarp matching(L, R, edges)</code> — O((V+M)√V)</summary>

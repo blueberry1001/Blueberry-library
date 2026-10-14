@@ -5,6 +5,33 @@ documentation_of: //blueberry/data-structure/segment-tree-beats.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+区間の上限制限・下限制限・加算と、和・最小値・最大値を扱います。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `SegmentTreeBeats` | O(N) | [開く](#construct) |
+| `SegmentTreeBeats`（コピー構築） | O(N) | [開く](#copy-construct) |
+| `operator=`（コピー代入） | O(N + Ndst) | [開く](#copy-assign) |
+| `SegmentTreeBeats`（移動構築） | O(1) | [開く](#move-construct) |
+| `operator=`（移動代入） | O(Ndst) | [開く](#move-assign) |
+| `~SegmentTreeBeats` | O(N) | [開く](#destruct) |
+| `tree.size` | O(1) | [開く](#size) |
+| `tree.chmin` | 償却 O(log²(N+1)) | [開く](#chmin) |
+| `tree.chmax` | 償却 O(log²(N+1)) | [開く](#chmax) |
+| `tree.add` | O(log(N+1)) | [開く](#add) |
+| `tree.prod` | O(log(N+1)) | [開く](#prod) |
+| `tree.min` | O(log(N+1)) | [開く](#min) |
+| `tree.max` | O(log(N+1)) | [開く](#max) |
+| `tree.all_prod` | O(1) | [開く](#all-prod) |
+| `tree.get` | O(log(N+1)) | [開く](#get) |
+| `tree.set` | O(log(N+1)) | [開く](#set) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 区間の上限制限・下限制限・加算と、和・最小値・最大値を扱います。単純な遅延作用として表せないchmin/chmaxを、最大・第2最大・最小・第2最小の情報で処理します。ACLの通常のlazy_segtreeとは対象が異なります。型は `blueberry::SegmentTreeBeats`、値・和の公開型はlong longです。
@@ -38,27 +65,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SegmentTreeBeats(const vector<long long>& values = {})` | O(N) | [開く](#construct) |
-| `SegmentTreeBeats(const SegmentTreeBeats& other)` | O(N) | [開く](#copy-construct) |
-| `SegmentTreeBeats& operator=(const SegmentTreeBeats& other)` | O(N + Ndst) | [開く](#copy-assign) |
-| `SegmentTreeBeats(SegmentTreeBeats&& other)` | O(1) | [開く](#move-construct) |
-| `SegmentTreeBeats& operator=(SegmentTreeBeats&& other)` | O(Ndst) | [開く](#move-assign) |
-| `~SegmentTreeBeats()` | O(N) | [開く](#destruct) |
-| `int tree.size() const` | O(1) | [開く](#size) |
-| `void tree.chmin(int l, int r, long long x)` | 償却 O(log²(N+1)) | [開く](#chmin) |
-| `void tree.chmax(int l, int r, long long x)` | 償却 O(log²(N+1)) | [開く](#chmax) |
-| `void tree.add(int l, int r, long long x)` | O(log(N+1)) | [開く](#add) |
-| `long long tree.prod(int l, int r)` | O(log(N+1)) | [開く](#prod) |
-| `optional<long long> tree.min(int l, int r)` | O(log(N+1)) | [開く](#min) |
-| `optional<long long> tree.max(int l, int r)` | O(log(N+1)) | [開く](#max) |
-| `long long tree.all_prod() const` | O(1) | [開く](#all-prod) |
-| `long long tree.get(int p)` | O(log(N+1)) | [開く](#get) |
-| `void tree.set(int p, long long x)` | O(log(N+1)) | [開く](#set) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>SegmentTreeBeats(const vector&lt;long long&gt;&amp; values = {})</code> — O(N)</summary>

@@ -5,6 +5,25 @@ documentation_of: //blueberry/graph/low-link.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+無向グラフの橋・関節点・二辺連結成分を一度に求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `LowLink` | O(N+M) | [開く](#construct) |
+| `graph.size` | O(1) | [開く](#size) |
+| `graph.is_bridge` | O(1) | [開く](#is-bridge) |
+| `graph.is_articulation` | O(1) | [開く](#is-articulation) |
+| `graph.bridges` | O(1) | [開く](#bridges) |
+| `graph.articulation_points` | O(1) | [開く](#articulation-points) |
+| `graph.component` | O(1) | [開く](#component) |
+| `graph.groups` | O(N) | [開く](#groups) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 無向グラフの橋・関節点・二辺連結成分を一度に求めます。ACLの有向グラフ用SCCとは異なる機能です。
@@ -41,21 +60,10 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 計算量は最悪計算量です。`bridges()` と `articulation_points()` は内部vectorへのconst参照を返し、
 要素をコピーしません。参照はオブジェクトの破棄・代入・移動まで有効です。`groups()` は独立した値を返します。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LowLink graph(n, edges)` | O(N+M) | [開く](#construct) |
-| `int graph.size()` | O(1) | [開く](#size) |
-| `bool graph.is_bridge(edge_id)` | O(1) | [開く](#is-bridge) |
-| `bool graph.is_articulation(v)` | O(1) | [開く](#is-articulation) |
-| `const vector<int>& graph.bridges()` | O(1) | [開く](#bridges) |
-| `const vector<int>& graph.articulation_points()` | O(1) | [開く](#articulation-points) |
-| `int graph.component(v)` | O(1) | [開く](#component) |
-| `vector<vector<int>> graph.groups()` | O(N) | [開く](#groups) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>LowLink graph(int n, const vector&lt;pair&lt;int,int&gt;&gt;&amp; edges)</code> — O(N+M)</summary>

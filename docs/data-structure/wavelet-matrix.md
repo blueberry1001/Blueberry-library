@@ -5,6 +5,28 @@ documentation_of: //blueberry/data-structure/wavelet-matrix.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+静的配列の区間 k 番目・頻度・前後要素を求める、ACL にないデータ構造です。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `WaveletMatrix<T> wm` | O(1) | [開く](#default) |
+| `WaveletMatrix<T>` | O(N log(N+1)) | [開く](#construct) |
+| `wm.size` | O(1) | [開く](#size) |
+| `wm.get` | O(L) | [開く](#get) |
+| `wm.kth_smallest` | O(L) | [開く](#kth-smallest) |
+| `wm.kth_largest` | O(L) | [開く](#kth-largest) |
+| `wm.count` | O(L) | [開く](#count) |
+| `wm.range_freq` | O(L) | [開く](#freq-upper) |
+| `wm.range_freq` | O(L) | [開く](#freq-range) |
+| `wm.prev_value` | O(L) | [開く](#prev) |
+| `wm.next_value` | O(L) | [開く](#next) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 静的配列の区間 k 番目・頻度・前後要素を求める、ACL にないデータ構造です。
@@ -53,23 +75,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下の操作例は最小使用例の `wm` を前提とします。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `WaveletMatrix<T> wm` | O(1) | [開く](#default) |
-| `WaveletMatrix<T> wm(const std::vector<T>& a)` | O(N log(N+1)) | [開く](#construct) |
-| `int wm.size() const` | O(1) | [開く](#size) |
-| `T wm.get(int p) const` | O(L) | [開く](#get) |
-| `T wm.kth_smallest(int l, int r, int k) const` | O(L) | [開く](#kth-smallest) |
-| `T wm.kth_largest(int l, int r, int k) const` | O(L) | [開く](#kth-largest) |
-| `int wm.count(int l, int r, const T& x) const` | O(L) | [開く](#count) |
-| `int wm.range_freq(int l, int r, const T& upper) const` | O(L) | [開く](#freq-upper) |
-| `int wm.range_freq(int l, int r, const T& lower, const T& upper) const` | O(L) | [開く](#freq-range) |
-| `std::optional<T> wm.prev_value(int l, int r, const T& upper) const` | O(L) | [開く](#prev) |
-| `std::optional<T> wm.next_value(int l, int r, const T& lower) const` | O(L) | [開く](#next) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>WaveletMatrix&lt;T&gt; wm</code> — O(1)</summary>

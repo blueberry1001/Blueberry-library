@@ -5,6 +5,18 @@ documentation_of: //blueberry/string/longest-common-substring.hpp
 
 [カテゴリへ戻る]({{ '/categories/string.html' | relative_url }})
 
+## 概要
+
+2文字列の最長共通**連続**部分文字列を求める。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `longest_common_substring` | O(N) | [開く](#longest-common-substring) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 2文字列の最長共通**連続**部分文字列を求める。ACLのsuffix arrayとLCPを利用する薄いラッパー。
@@ -26,12 +38,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `array<int,4> longest_common_substring(string_view s, string_view t)` | O(N) | [開く](#longest-common-substring) |
 
 <details class="api-operation" id="longest-common-substring" markdown="1">
 <summary><code>array&lt;int,4&gt; longest_common_substring(string_view s, string_view t)</code> — O(N)</summary>

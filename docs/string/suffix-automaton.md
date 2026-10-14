@@ -5,6 +5,34 @@ documentation_of: //blueberry/string/suffix-automaton.hpp
 
 [カテゴリへ戻る]({{ '/categories/string.html' | relative_url }})
 
+## 概要
+
+オンライン末尾追加・部分文字列検索・出現回数・異なる部分文字列数・最長共通部分文字列を扱います。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `SuffixAutomaton<Symbol` | O(1) | [開く](#default) |
+| `SuffixAutomaton<Symbol>` | O(N log(σ+1)) | [開く](#range-constructor) |
+| `SuffixAutomaton<Symbol>` | O(N log(σ+1)) | [開く](#view-constructor) |
+| `object.size` | O(1) | [開く](#size) |
+| `object.states` | O(1) | [開く](#states) |
+| `object.distinct_substrings` | O(1) | [開く](#distinct) |
+| `object.append` | 償却 O(log(σ+1)) | [開く](#append) |
+| `object.contains` | O(P log(σ+1)) | [開く](#contains-range) |
+| `object.count` | O(N + P log(σ+1)) | [開く](#count-range) |
+| `object.longest_common_substring` | O(P log(σ+1)) | [開く](#longest_common_substring-range) |
+| `object.contains` | O(P log(σ+1)) | [開く](#contains-view) |
+| `object.count` | O(N + P log(σ+1)) | [開く](#count-view) |
+| `object.longest_common_substring` | O(P log(σ+1)) | [開く](#longest_common_substring-view) |
+| `Type` | O(M) | [開く](#copy-constructor) |
+| `Type` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(M + D) | [開く](#copy-assignment) |
+| `operator=` | O(1 + D) | [開く](#move-assignment) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `SuffixAutomaton<Symbol = char>` はオンライン末尾追加・部分文字列検索・出現回数・異なる部分文字列数・最長共通部分文字列を扱います。
@@ -34,29 +62,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SuffixAutomaton<Symbol = char>()` | O(1) | [開く](#default) |
-| `SuffixAutomaton<Symbol>(const Range& text)` | O(N log(σ+1)) | [開く](#range-constructor) |
-| `SuffixAutomaton<Symbol>(basic_string_view<Symbol> text)` | O(N log(σ+1)) | [開く](#view-constructor) |
-| `int object.size() const` | O(1) | [開く](#size) |
-| `int object.states() const` | O(1) | [開く](#states) |
-| `long long object.distinct_substrings() const` | O(1) | [開く](#distinct) |
-| `void object.append(const Symbol& c)` | 償却 O(log(σ+1)) | [開く](#append) |
-| `bool object.contains(const Range& pattern) const` | O(P log(σ+1)) | [開く](#contains-range) |
-| `int object.count(const Range& pattern) const` | O(N + P log(σ+1)) | [開く](#count-range) |
-| `tuple<int,int,int> object.longest_common_substring(const Range& pattern) const` | O(P log(σ+1)) | [開く](#longest_common_substring-range) |
-| `bool object.contains(basic_string_view<Symbol> pattern) const` | O(P log(σ+1)) | [開く](#contains-view) |
-| `int object.count(basic_string_view<Symbol> pattern) const` | O(N + P log(σ+1)) | [開く](#count-view) |
-| `tuple<int,int,int> object.longest_common_substring(basic_string_view<Symbol> pattern) const` | O(P log(σ+1)) | [開く](#longest_common_substring-view) |
-| `Type(const Type& other)` | O(M) | [開く](#copy-constructor) |
-| `Type(Type&& other)` | O(1) | [開く](#move-constructor) |
-| `Type& object.operator=(const Type& other)` | O(M + D) | [開く](#copy-assignment) |
-| `Type& object.operator=(Type&& other)` | O(1 + D) | [開く](#move-assignment) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>SuffixAutomaton&lt;Symbol = char&gt;()</code> — O(1)</summary>

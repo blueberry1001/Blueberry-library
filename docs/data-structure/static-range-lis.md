@@ -5,6 +5,25 @@ documentation_of: //blueberry/data-structure/static-range-lis.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+静的な列の任意の半開区間の**狭義**最長増加部分列の長さを返します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `StaticRangeLIS<T>` | O(1) | [開く](#default) |
+| `StaticRangeLIS<T>` | O(N log²(N+1)) | [開く](#vector) |
+| `object.size` | O(1) | [開く](#size) |
+| `object.lis` | O(log(N+1)) | [開く](#lis) |
+| `Type` | O(M) | [開く](#copy-constructor) |
+| `Type` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(M + D) | [開く](#copy-assignment) |
+| `operator=` | O(1 + D) | [開く](#move-assignment) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `StaticRangeLIS<T>` は静的な列の任意の半開区間の**狭義**最長増加部分列の長さを返します。
@@ -35,20 +54,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `StaticRangeLIS<T>()` | O(1) | [開く](#default) |
-| `StaticRangeLIS<T>(const vector<T>& values)` | O(N log²(N+1)) | [開く](#vector) |
-| `int object.size() const` | O(1) | [開く](#size) |
-| `int object.lis(int l, int r) const` | O(log(N+1)) | [開く](#lis) |
-| `Type(const Type& other)` | O(M) | [開く](#copy-constructor) |
-| `Type(Type&& other)` | O(1) | [開く](#move-constructor) |
-| `Type& object.operator=(const Type& other)` | O(M + D) | [開く](#copy-assignment) |
-| `Type& object.operator=(Type&& other)` | O(1 + D) | [開く](#move-assignment) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>StaticRangeLIS&lt;T&gt;()</code> — O(1)</summary>

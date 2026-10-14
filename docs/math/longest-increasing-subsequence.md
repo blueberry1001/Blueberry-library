@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/longest-increasing-subsequence.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+厳密増加部分列の最長解を添字列で復元する。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `longest_increasing_subsequence` | O(N log(N+1)) | [開く](#lis) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 厳密増加部分列の最長解を添字列で復元する。ACL にない列アルゴリズム。
@@ -24,12 +36,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::vector<int> longest_increasing_subsequence(const std::vector<T>& values)` | O(N log(N+1)) | [開く](#lis) |
 
 <details class="api-operation" id="lis" markdown="1">
 <summary><code>std::vector&lt;int&gt; longest_increasing_subsequence(const std::vector&lt;T&gt;&amp; values)</code> — O(N log(N+1))</summary>

@@ -5,6 +5,30 @@ documentation_of: //blueberry/data-structure/dynamic-fenwick-tree-2d.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+整数領域 `[0,n) × [0,m)` で **未知の座標へのオンライン点加算** と半開長方形の和を扱う。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `DynamicFenwickTree2D<T,Coord> tree` | O(1) | [開く](#default) |
+| `DynamicFenwickTree2D<T,Coord>` | O(1) | [開く](#construct) |
+| `DynamicFenwickTree2D<T,Coord>`（コピー構築） | O(1+S) | [開く](#copy-construct) |
+| `tree = other` → tree の参照（コピー代入） | O(1+S+S_old) | [開く](#copy-assign) |
+| `DynamicFenwickTree2D<T,Coord>`（移動構築） | O(1) | [開く](#move-construct) |
+| `std::move` → tree の参照（移動代入） | O(1+S_old) | [開く](#move-assign) |
+| `tree.height` | O(1) | [開く](#height) |
+| `tree.width` | O(1) | [開く](#width) |
+| `tree.add` | 平均・償却 O(LH) | [開く](#add) |
+| `tree.pref` | 平均 O(LH) | [開く](#pref) |
+| `tree.sum` | 平均 O(LH) | [開く](#sum) |
+| `tree.get` | 平均 O(LH) | [開く](#get) |
+| `tree.~DynamicFenwickTree2D` | O(1+S) | [開く](#destroy) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 整数領域 `[0,n) × [0,m)` で **未知の座標へのオンライン点加算** と半開長方形の和を扱う。
@@ -59,24 +83,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DynamicFenwickTree2D<T,Coord> tree` | O(1) | [開く](#default) |
-| `DynamicFenwickTree2D<T,Coord> tree(n,m)` | O(1) | [開く](#construct) |
-| `DynamicFenwickTree2D<T,Coord> copy(other)` | O(1+S) | [開く](#copy-construct) |
-| `tree = other` → tree の参照 | O(1+S+S_old) | [開く](#copy-assign) |
-| `DynamicFenwickTree2D<T,Coord> moved(std::move(other))` | O(1) | [開く](#move-construct) |
-| `tree = std::move(other)` → tree の参照 | O(1+S_old) | [開く](#move-assign) |
-| `Coord tree.height() const` | O(1) | [開く](#height) |
-| `Coord tree.width() const` | O(1) | [開く](#width) |
-| `void tree.add(Coord x, Coord y, const T& value)` | 平均・償却 O(LH) | [開く](#add) |
-| `T tree.pref(Coord x, Coord y) const` | 平均 O(LH) | [開く](#pref) |
-| `T tree.sum(Coord left, Coord down, Coord right, Coord up) const` | 平均 O(LH) | [開く](#sum) |
-| `T tree.get(Coord x, Coord y) const` | 平均 O(LH) | [開く](#get) |
-| `tree.~DynamicFenwickTree2D()` | O(1+S) | [開く](#destroy) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>DynamicFenwickTree2D&lt;T,Coord&gt; tree</code> — O(1)</summary>

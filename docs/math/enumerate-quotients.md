@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/enumerate-quotients.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+`0 <= n <= INT64_MAX` の floor(n/i), 1<=i<=n の相異なる正の値を昇順に列挙する。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `enumerate_quotients` | O(sqrt(n)) | [開く](#enumerate) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `0 <= n <= INT64_MAX` の floor(n/i), 1<=i<=n の相異なる正の値を昇順に列挙する。ACLにはない演算。時間・返り値込みメモリ O(sqrt(n))、vector の拡張を含む総時間である。巨大な n では結果自体が数十億要素になり得るので、利用できるメモリを確認する。
@@ -20,12 +32,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::vector<std::int64_t> enumerate_quotients(std::int64_t n)` | O(sqrt(n)) | [開く](#enumerate) |
 
 <details class="api-operation" id="enumerate" markdown="1">
 <summary><code>std::vector&lt;std::int64_t&gt; enumerate_quotients(std::int64_t n)</code> — O(sqrt(n))</summary>

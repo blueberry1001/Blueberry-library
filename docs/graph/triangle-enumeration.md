@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/triangle-enumeration.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+単純無向グラフの三角形を重複なく列挙します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `enumerate_triangles` | O(N+M√M) + callback | [開く](#enumerate) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 単純無向グラフの三角形を重複なく列挙します。ACLには対応機能がありません。N頂点、M辺、端点 [0,N)、N,M ≤ INT_MAX。
@@ -25,12 +37,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `void enumerate_triangles(int n, const vector<pair<int,int>>& edges, Callback&& emit)` | O(N+M√M) + callback | [開く](#enumerate) |
 
 <details class="api-operation" id="enumerate" markdown="1">
 <summary><code>enumerate_triangles(n, edges, emit)</code> — O(N+M√M) + callback</summary>

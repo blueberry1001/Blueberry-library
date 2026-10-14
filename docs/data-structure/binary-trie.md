@@ -5,6 +5,32 @@ documentation_of: //blueberry/data-structure/binary-trie.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+固定bit長の符号なし整数の多重集合です。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `BinaryTrie<UInt,` | O(1) | [開く](#construct) |
+| `BinaryTrie`（コピー構築） | O(H) | [開く](#copy-construct) |
+| `operator=`（コピー代入） | O(H + Hdst) | [開く](#copy-assign) |
+| `BinaryTrie`（移動構築） | O(1) | [開く](#move-construct) |
+| `operator=`（移動代入） | O(Hdst) | [開く](#move-assign) |
+| `~BinaryTrie` | O(H) | [開く](#destruct) |
+| `tree.size` | O(1) | [開く](#size) |
+| `tree.empty` | O(1) | [開く](#empty) |
+| `tree.insert` | 償却 O(B) | [開く](#insert) |
+| `tree.erase` | 償却 O(B) | [開く](#erase) |
+| `tree.count` | O(B) | [開く](#count) |
+| `tree.rank` | O(B) | [開く](#rank) |
+| `tree.kth` | O(B) | [開く](#kth) |
+| `tree.xor_min` | O(B) | [開く](#xor-min) |
+| `tree.clear` | O(H) | [開く](#clear) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 固定bit長の符号なし整数の多重集合です。最小XOR値、重複込みの順位とk番目を扱います。ACLには対応する構造がありません。`BinaryTrie<UInt = uint32_t, Bits = numeric_limits<UInt>::digits>` を使います。UIntはbool以外の符号なし整数型、1<=Bits<=UIntの値bit数です。格納値と問合せ値は `[0,2^Bits)`。Bitsが型の全幅と等しくても、幅と同じbit数のshiftは行いません。
@@ -36,26 +62,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `BinaryTrie<UInt, Bits>()` | O(1) | [開く](#construct) |
-| `BinaryTrie(const BinaryTrie& other)` | O(H) | [開く](#copy-construct) |
-| `BinaryTrie& operator=(const BinaryTrie& other)` | O(H + Hdst) | [開く](#copy-assign) |
-| `BinaryTrie(BinaryTrie&& other)` | O(1) | [開く](#move-construct) |
-| `BinaryTrie& operator=(BinaryTrie&& other)` | O(Hdst) | [開く](#move-assign) |
-| `~BinaryTrie()` | O(H) | [開く](#destruct) |
-| `int tree.size() const` | O(1) | [開く](#size) |
-| `bool tree.empty() const` | O(1) | [開く](#empty) |
-| `void tree.insert(UInt x)` | 償却 O(B) | [開く](#insert) |
-| `bool tree.erase(UInt x)` | 償却 O(B) | [開く](#erase) |
-| `int tree.count(UInt x) const` | O(B) | [開く](#count) |
-| `int tree.rank(UInt x) const` | O(B) | [開く](#rank) |
-| `optional<UInt> tree.kth(int k) const` | O(B) | [開く](#kth) |
-| `optional<UInt> tree.xor_min(UInt x) const` | O(B) | [開く](#xor-min) |
-| `void tree.clear()` | O(H) | [開く](#clear) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>BinaryTrie&lt;UInt, Bits&gt;()</code> — O(1)</summary>

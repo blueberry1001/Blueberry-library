@@ -19,9 +19,10 @@ SOURCE = "#include <cassert>\nint main() { assert(1 == 1); }"
 
 def page(header, source=SOURCE):
     return (
-        f"documentation_of: //{header}\n## 概要・前提\n## 最小使用例\n"
+        f"documentation_of: //{header}\n## 概要\n短い概要。\n## 操作一覧\n"
+        "| 操作 | 計算量 | 詳細 |\n| --- | --- | --- |\n| `get` | O(1) | [開く](#get) |\n"
+        "<!-- library-implementation -->\n## 概要・前提\n## 最小使用例\n"
         "{% raw %}\n```cpp\n" + source + "\n```\n{% endraw %}\n"
-        "## 操作一覧\n[開く](#get)\n"
         '<details class="api-operation" id="get" markdown="1">\n'
         "<summary>get — O(1)</summary>\n注意点: bounds\n"
         "{% raw %}\n```cpp\nget();\n```\n{% endraw %}\n</details>\n"
@@ -91,6 +92,18 @@ class CheckDocsSelectionTest(unittest.TestCase):
         for args in (["--structure-only"], ["--paths-file", self.selection(["docs/test/b.md"])]):
             with self.subTest(args=args), self.assertRaises(AssertionError):
                 self.run_main(args)
+
+    def test_implementation_precedes_examples_and_api_details(self):
+        document = page("blueberry/test/a.hpp")
+        for broken in (
+            document.replace("<!-- library-implementation -->", ""),
+            document.replace("<!-- library-implementation -->", "<!-- library-implementation -->" * 2),
+            document.replace("<!-- library-implementation -->", "").replace("## 最小使用例", "## 最小使用例\n<!-- library-implementation -->"),
+        ):
+            with self.subTest(document=broken):
+                self.write("docs/test/a.md", broken)
+                with self.assertRaises(AssertionError):
+                    self.run_main(["--structure-only"])
 
     def test_summary_template_brackets_must_be_html_escaped(self):
         document = page("blueberry/test/a.hpp")

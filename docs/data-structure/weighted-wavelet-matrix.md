@@ -5,6 +5,28 @@ documentation_of: //blueberry/data-structure/weighted-wavelet-matrix.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+固定した値列 `a` に対し、重み `w[p]` の一点加算と、添字区間・値域を指定した重み和を扱います。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `WM` | O(1) | [開く](#default-constructor) |
+| `WM` | O(N log(N+1)) | [開く](#constructor) |
+| `WM` | O(N L) | [開く](#copy-constructor) |
+| `WM` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(N L + M H) | [開く](#copy-assignment) |
+| `operator=` | O(1 + M H) | [開く](#move-assignment) |
+| `wm.size` | O(1) | [開く](#size) |
+| `wm.add` | O(L log(N+1)) | [開く](#add) |
+| `wm.sum` | O(log(N+1)) | [開く](#sum-all) |
+| `wm.sum` | O(L log(N+1)) | [開く](#sum-upper) |
+| `wm.sum` | O(L log(N+1)) | [開く](#sum-range) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 固定した値列 `a` に対し、重み `w[p]` の一点加算と、添字区間・値域を指定した重み和を扱います。
@@ -40,23 +62,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 `WM` は `blueberry::WeightedWaveletMatrix<Value, Weight = long long>` です。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `WM()` | O(1) | [開く](#default-constructor) |
-| `WM(const vector<Value>& a, const vector<Weight>& w)` | O(N log(N+1)) | [開く](#constructor) |
-| `WM(const WM& other)` | O(N L) | [開く](#copy-constructor) |
-| `WM(WM&& other)` | O(1) | [開く](#move-constructor) |
-| `WM& wm.operator=(const WM& other)` | O(N L + M H) | [開く](#copy-assignment) |
-| `WM& wm.operator=(WM&& other)` | O(1 + M H) | [開く](#move-assignment) |
-| `int wm.size() const` | O(1) | [開く](#size) |
-| `void wm.add(int p, const Weight& delta)` | O(L log(N+1)) | [開く](#add) |
-| `Weight wm.sum(int l, int r) const` | O(log(N+1)) | [開く](#sum-all) |
-| `Weight wm.sum(int l, int r, const Value& upper) const` | O(L log(N+1)) | [開く](#sum-upper) |
-| `Weight wm.sum(int l, int r, const Value& low, const Value& upper) const` | O(L log(N+1)) | [開く](#sum-range) |
 
 <details class="api-operation" id="default-constructor" markdown="1">
 <summary><code>WM()</code> — O(1)</summary>

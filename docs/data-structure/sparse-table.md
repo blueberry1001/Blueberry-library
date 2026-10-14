@@ -5,6 +5,24 @@ documentation_of: //blueberry/data-structure/sparse-table.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+更新のない配列に対する `min`・`max`・`gcd` などの区間クエリを扱います。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `SparseTable<T,` | O(N log N) | [開く](#construct) |
+| `table.prod` | O(1) | [開く](#prod) |
+| `table.product` | O(1) | [開く](#product) |
+| `table.size` | O(1) | [開く](#size) |
+
+以下の操作を開くと、返り値・使用例・注意点を確認できます。断片の例は必要なヘッダと
+有効な `table` がある前提です。
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 更新のない配列に対する `min`・`max`・`gcd` などの区間クエリを扱います。
@@ -30,18 +48,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SparseTable<T, Op> table(values, op)` | O(N log N) | [開く](#construct) |
-| `T table.prod(l, r) const` | O(1) | [開く](#prod) |
-| `T table.product(l, r) const` | O(1) | [開く](#product) |
-| `int table.size() const` | O(1) | [開く](#size) |
-
-以下の操作を開くと、返り値・使用例・注意点を確認できます。断片の例は必要なヘッダと
-有効な `table` がある前提です。
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>SparseTable&lt;T, Op&gt; table(values, op)</code> — O(N log N)</summary>

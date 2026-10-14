@@ -5,6 +5,20 @@ documentation_of: //blueberry/math/linear-recurrence.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+有限の数列から最小次数の線形漸化式を見つけるBerlekamp–Masseyと、
+与えた漸化式の $k$ 番目を求めるBostan–Moriです。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `berlekamp_massey` | O(N²) | [開く](#berlekamp-massey) |
+| `Mint` | O(M(d) log(k+1))、k&lt;dはO(1) | [開く](#kth) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 有限の数列から最小次数の線形漸化式を見つけるBerlekamp–Masseyと、
@@ -41,13 +55,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<Mint> berlekamp_massey(const vector<Mint>& sequence)` | O(N²) | [開く](#berlekamp-massey) |
-| `Mint linear_recurrence_kth(const vector<Mint>& initial, const vector<Mint>& coefficients, uint64_t k)` | O(M(d) log(k+1))、k&lt;dはO(1) | [開く](#kth) |
 
 <details class="api-operation" id="berlekamp-massey" markdown="1">
 <summary><code>vector&lt;Mint&gt; berlekamp_massey(sequence)</code> — O(N²)</summary>

@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/rerooting.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+木の全頂点をそれぞれ根としたDPを一度に計算します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `rerooting` | O(N) | [開く](#rerooting) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 木の全頂点をそれぞれ根としたDPを一度に計算します。ACLにない全方位木DPの機能です。
@@ -47,14 +59,10 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 公開APIは次の関数だけです。入力・callbackへの参照を返り値に保持しません。
 返り値は頂点順の独立したvectorで、呼び出し終了後も保持できます。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<T> rerooting(n, edges, identity, merge, add_vertex, transfer)` | O(N) | [開く](#rerooting) |
 
 <details class="api-operation" id="rerooting" markdown="1">
 <summary><code>vector&lt;T&gt; rerooting(int n, const vector&lt;pair&lt;int,int&gt;&gt;&amp; edges, T identity, Merge merge, AddVertex add_vertex, Transfer transfer)</code> — O(N)</summary>

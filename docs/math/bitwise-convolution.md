@@ -5,6 +5,20 @@ documentation_of: //blueberry/math/bitwise-convolution.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+添字の AND・OR・XOR を組合せ演算とする畳み込みを計算します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `bitwise_convolution_and` | O(N(1+K)) | [開く](#and) |
+| `bitwise_convolution_or` | O(N(1+K)) | [開く](#or) |
+| `bitwise_convolution_xor` | O(N(1+K)) | [開く](#xor) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 添字の AND・OR・XOR を組合せ演算とする畳み込みを計算します。通常の多項式畳み込みを扱う ACL `convolution` とは別の演算です。係数には ACL modint を利用できます。
@@ -35,14 +49,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<T> bitwise_convolution_and(vector<T> a, vector<T> b)` | O(N(1+K)) | [開く](#and) |
-| `vector<T> bitwise_convolution_or(vector<T> a, vector<T> b)` | O(N(1+K)) | [開く](#or) |
-| `vector<T> bitwise_convolution_xor(vector<T> a, vector<T> b)` | O(N(1+K)) | [開く](#xor) |
 
 <details class="api-operation" id="and" markdown="1">
 <summary><code>vector&lt;T&gt; bitwise_convolution_and(vector&lt;T&gt; a, vector&lt;T&gt; b)</code> — O(N(1+K))</summary>

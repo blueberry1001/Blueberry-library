@@ -5,6 +5,27 @@ documentation_of: //blueberry/data-structure/kd-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+事前登録した2次元点の点代入・矩形集約を行う。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `KDTree` | 平均 O(N log(N+1)) | [開く](#constructor) |
+| `KDTree` | O(1 + N) | [開く](#copy-constructor) |
+| `operator=` | O(1 + N) + D | [開く](#copy-assignment) |
+| `KDTree` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| `size` | O(1) | [開く](#size) |
+| `S` | O(1) | [開く](#get) |
+| `set` | O(log(N+1)) | [開く](#set) |
+| `S` | O(sqrt(N)+1) | [開く](#prod) |
+| `S` | O(1) | [開く](#all-prod) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::KDTree<Coord, S, op, e>` は事前登録した2次元点の点代入・矩形集約を行う。構築後に新しい座標を追加したり、点の位置を移動したりしない。同じ座標も入力順の異なる ID として保持する。
@@ -34,21 +55,6 @@ int main(){
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `KDTree(const std::vector<std::pair<Coord,Coord>>& points, const std::vector<S>& values)` | 平均 O(N log(N+1)) | [開く](#constructor) |
-| `KDTree copy(const KDTree& other)` | O(1 + N) | [開く](#copy-constructor) |
-| `KDTree& operator=(const KDTree& other)` | O(1 + N) + D | [開く](#copy-assignment) |
-| `KDTree moved(KDTree&& other)` | O(1) | [開く](#move-constructor) |
-| `KDTree& operator=(KDTree&& other)` | O(1 + D) | [開く](#move-assignment) |
-| `int size() const` | O(1) | [開く](#size) |
-| `S get(int p) const` | O(1) | [開く](#get) |
-| `void set(int p, const S& value)` | O(log(N+1)) | [開く](#set) |
-| `S prod(Coord xl, Coord yl, Coord xr, Coord yr) const` | O(sqrt(N)+1) | [開く](#prod) |
-| `S all_prod() const` | O(1) | [開く](#all-prod) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>KDTree(const std::vector&lt;std::pair&lt;Coord,Coord&gt;&gt;&amp; points, const std::vector&lt;S&gt;&amp; values)</code> — 平均 O(N log(N+1))</summary>

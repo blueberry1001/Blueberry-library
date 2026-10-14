@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/assignment.hpp
 
 [カテゴリへ戻る]({{ "/categories/graph.html" | relative_url }})
 
+## 概要
+
+N 行 M 列 (N ≤ M) の費用行列で、各行へ異なる列を割り当て、総費用を最小化します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `assignment` | O(N²M) | [開く](#solve) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 N 行 M 列 (N ≤ M) の費用行列で、各行へ異なる列を割り当て、総費用を最小化します。ACL にはない矩形割当です。T は符号付き整数型を想定し、比較・加減算・numeric_limits<T>::max() を使います。全ての中間値（費用差、ポテンシャル、slack、総和）が T に収まり、有限の slack が max() 未満であることが必要です。禁止辺・無限大・浮動小数点の誤差処理は提供しません。入力は変更せず、補助メモリ O(N+M)、時間 O(N²M) 最悪です。N=0 は費用 0 と空配列を返します。各行の長さは等しく、N,M < INT_MAX が必要です。
@@ -22,12 +34,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `pair<T, vector<int>> assignment(const vector<vector<T>>& cost)` | O(N²M) | [開く](#solve) |
 
 <details class="api-operation" id="solve" markdown="1">
 <summary><code>pair&lt;T, vector&lt;int&gt;&gt; assignment(const vector&lt;vector&lt;T&gt;&gt;& cost)</code> — O(N²M)</summary>

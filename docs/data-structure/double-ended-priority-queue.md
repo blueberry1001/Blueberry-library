@@ -5,6 +5,32 @@ documentation_of: //blueberry/data-structure/double-ended-priority-queue.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+配列上の min-max heap。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `DoubleEndedPriorityQueue` | O(1) | [開く](#default) |
+| `DoubleEndedPriorityQueue` | O(N) | [開く](#vector) |
+| `DoubleEndedPriorityQueue` | O(N) | [開く](#copy-constructor) |
+| `operator=` | O(N + M) | [開く](#copy-assignment) |
+| `DoubleEndedPriorityQueue` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(M) | [開く](#move-assignment) |
+| `size` | O(1) | [開く](#size) |
+| `empty` | O(1) | [開く](#empty) |
+| `min` | O(1) | [開く](#min) |
+| `max` | O(1) | [開く](#max) |
+| `push` | O(log(N+1)) 償却 | [開く](#push) |
+| `pop_min` | O(log(N+1)) | [開く](#pop-min) |
+| `pop_max` | O(log(N+1)) | [開く](#pop-max) |
+| `clear` | O(N) | [開く](#clear) |
+| `reserve` | O(N) | [開く](#reserve) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::DoubleEndedPriorityQueue<T, Compare = std::less<T>>` は配列上の min-max heap。
@@ -33,27 +59,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 N は要素数（slope trick は保持する折れ点数）、M はコピー・結合相手または置換前の保持量。型のコピー・演算・比較は O(1) とする。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DoubleEndedPriorityQueue(Compare compare = {})` | O(1) | [開く](#default) |
-| `DoubleEndedPriorityQueue(const std::vector<T>& values, Compare compare = {})` | O(N) | [開く](#vector) |
-| `DoubleEndedPriorityQueue(const DoubleEndedPriorityQueue& other)` | O(N) | [開く](#copy-constructor) |
-| `DoubleEndedPriorityQueue& operator=(const DoubleEndedPriorityQueue& other)` | O(N + M) | [開く](#copy-assignment) |
-| `DoubleEndedPriorityQueue(DoubleEndedPriorityQueue&& other)` | O(1) | [開く](#move-constructor) |
-| `DoubleEndedPriorityQueue& operator=(DoubleEndedPriorityQueue&& other)` | O(M) | [開く](#move-assignment) |
-| `std::size_t size() const` | O(1) | [開く](#size) |
-| `bool empty() const` | O(1) | [開く](#empty) |
-| `const T& min() const` | O(1) | [開く](#min) |
-| `const T& max() const` | O(1) | [開く](#max) |
-| `void push(const T& value)` | O(log(N+1)) 償却 | [開く](#push) |
-| `void pop_min()` | O(log(N+1)) | [開く](#pop-min) |
-| `void pop_max()` | O(log(N+1)) | [開く](#pop-max) |
-| `void clear()` | O(N) | [開く](#clear) |
-| `void reserve(std::size_t capacity)` | O(N) | [開く](#reserve) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>DoubleEndedPriorityQueue(Compare compare = {})</code> — O(1)</summary>

@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/kth-root-integer.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+`0 <= n <= UINT64_MAX`, `1 <= k <= INT_MAX`。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `kth_root_integer` | O(k ceil(B/k)) | [開く](#root) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `0 <= n <= UINT64_MAX`, `1 <= k <= INT_MAX`。厳密な floor(n^(1/k)) を整数演算だけで返す。ACLにはない演算。B = bit_width(n)、時間 O(k ceil(B/k))（k=1 と k>=64 は O(1)）、追加メモリ O(1)。割り算で積の上限を確認するためオーバーフローしない。
@@ -20,12 +32,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::uint64_t kth_root_integer(std::uint64_t n, int k)` | O(k ceil(B/k)) | [開く](#root) |
 
 <details class="api-operation" id="root" markdown="1">
 <summary><code>std::uint64_t kth_root_integer(std::uint64_t n, int k)</code> — O(k ceil(B/k))</summary>

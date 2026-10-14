@@ -5,6 +5,29 @@ documentation_of: //blueberry/data-structure/persistent-union-find.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+任意の過去版からオンラインに分岐できる Union Find です。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `PersistentUnionFind` | O(1) | [開く](#constructor) |
+| `object.size` | O(1) | [開く](#size) |
+| `object.versions` | O(1) | [開く](#versions) |
+| `object.leader` | O(log²(N+1)) | [開く](#leader) |
+| `object.same` | O(log²(N+1)) | [開く](#same) |
+| `object.comp_size` | O(log²(N+1)) | [開く](#comp-size) |
+| `object.components` | O(1) | [開く](#components) |
+| `object.merge` | 償却 O(log²(N+1)) | [開く](#merge) |
+| `Type` | O(M) | [開く](#copy-constructor) |
+| `Type` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(M + D) | [開く](#copy-assignment) |
+| `operator=` | O(1 + D) | [開く](#move-assignment) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `PersistentUnionFind` は任意の過去版からオンラインに分岐できる Union Find です。ACL DSU は非永続なので対象が異なります。
@@ -30,24 +53,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentUnionFind(int n = 0)` | O(1) | [開く](#constructor) |
-| `int object.size() const` | O(1) | [開く](#size) |
-| `int object.versions() const` | O(1) | [開く](#versions) |
-| `int object.leader(int version, int p) const` | O(log²(N+1)) | [開く](#leader) |
-| `bool object.same(int version, int a, int b) const` | O(log²(N+1)) | [開く](#same) |
-| `int object.comp_size(int version, int p) const` | O(log²(N+1)) | [開く](#comp-size) |
-| `int object.components(int version) const` | O(1) | [開く](#components) |
-| `int object.merge(int version, int a, int b)` | 償却 O(log²(N+1)) | [開く](#merge) |
-| `Type(const Type& other)` | O(M) | [開く](#copy-constructor) |
-| `Type(Type&& other)` | O(1) | [開く](#move-constructor) |
-| `Type& object.operator=(const Type& other)` | O(M + D) | [開く](#copy-assignment) |
-| `Type& object.operator=(Type&& other)` | O(1 + D) | [開く](#move-assignment) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>PersistentUnionFind(int n = 0)</code> — O(1)</summary>

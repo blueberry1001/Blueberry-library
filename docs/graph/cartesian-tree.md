@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/cartesian-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+配列の inorder 順を保つ min Cartesian tree の親配列。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `cartesian_tree` | O(N) | [開く](#tree) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 配列の inorder 順を保つ min Cartesian tree の親配列。ACL にない線形木構築。
@@ -24,12 +36,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::vector<int> cartesian_tree(const std::vector<T>& values)` | O(N) | [開く](#tree) |
 
 <details class="api-operation" id="tree" markdown="1">
 <summary><code>std::vector&lt;int&gt; cartesian_tree(const std::vector&lt;T&gt;&amp; values)</code> — O(N)</summary>

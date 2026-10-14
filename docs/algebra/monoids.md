@@ -5,6 +5,18 @@ documentation_of: //blueberry/algebra/monoids.hpp
 
 **[操作から検索する・共通の使い方を見る]({{ '/monoids.html' | relative_url }})**
 
+ACLに渡すモノイドの定義集です。
+
+## 定義一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| `op`, `e`, `mapping`, `composition`, `id` | 原則 O(1)。例外は各定義に記載 |
+
+<!-- library-implementation -->
+
+## 使い方・前提
+
 ACLに渡すモノイドの定義集です。必要な例を一つコピーして使えます。
 セグ木には `S, op, e`、遅延セグ木にはさらに `F, mapping, composition, id` を渡します。
 `composition(f, g)` は `g` の後に `f` を適用します。整数は中間計算まで型の範囲に収めてください。

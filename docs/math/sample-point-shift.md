@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/sample-point-shift.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+次数 N 未満の多項式の `y[i]=f(i)` から `f(start),...,f(start+count-1)` を求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `sample_point_shift` | O(K log K+log mod) | [開く](#shift) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 次数 N 未満の多項式の `y[i]=f(i)` から `f(start),...,f(start+count-1)` を求めます。
@@ -30,12 +42,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<Mint> sample_point_shift(const vector<Mint>& y, Mint start, int count)` | O(K log K+log mod) | [開く](#shift) |
 
 <details class="api-operation" id="shift" markdown="1">
 <summary><code>vector&lt;Mint&gt; sample_point_shift(y, start, count)</code> — O(K log K+log mod)</summary>

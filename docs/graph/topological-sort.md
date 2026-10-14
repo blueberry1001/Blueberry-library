@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/topological-sort.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+有向グラフをKahn法でトポロジカルソートし、閉路があればnulloptを返します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `topological_sort` | O(N+M) | [開く](#sort) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 有向グラフをKahn法でトポロジカルソートし、閉路があればnulloptを返します。ACLのSCCで代用可能ですが、この単一操作はより短く使えます。
@@ -24,12 +36,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `optional<vector<int>> topological_sort(const vector<vector<int>>& graph)` | O(N+M) | [開く](#sort) |
 
 <details class="api-operation" id="sort" markdown="1">
 <summary><code>topological_sort(graph)</code> — O(N+M)</summary>

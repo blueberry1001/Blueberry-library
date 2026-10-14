@@ -5,6 +5,26 @@ documentation_of: //blueberry/data-structure/fenwick-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+一点加算と区間和を扱う Fenwick Tree です。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `FenwickTree<T>` | O(N) | [開く](#construct-size) |
+| `FenwickTree<T>` | O(N) | [開く](#construct-values) |
+| `bit.add` | O(log N) | [開く](#add) |
+| `bit.prefix_sum` | O(log N) | [開く](#prefix-sum) |
+| `bit.pref` | O(log N) | [開く](#pref) |
+| `bit.sum` | O(log N) | [開く](#sum) |
+| `bit.get` | O(log N) | [開く](#get) |
+| `bit.size` | O(1) | [開く](#size) |
+| `bit.lower_bound` | O(log N) | [開く](#lower-bound) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 一点加算と区間和を扱う Fenwick Tree です。要素数を $N$ とすると、構築は $O(N)$、
@@ -29,20 +49,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `FenwickTree<T> bit(n)` | O(N) | [開く](#construct-size) |
-| `FenwickTree<T> bit(values)` | O(N) | [開く](#construct-values) |
-| `void bit.add(i, value)` | O(log N) | [開く](#add) |
-| `T bit.prefix_sum(r)` | O(log N) | [開く](#prefix-sum) |
-| `T bit.pref(r)` | O(log N) | [開く](#pref) |
-| `T bit.sum(l, r)` | O(log N) | [開く](#sum) |
-| `T bit.get(i)` | O(log N) | [開く](#get) |
-| `int bit.size()` | O(1) | [開く](#size) |
-| `int bit.lower_bound(target)` | O(log N) | [開く](#lower-bound) |
 
 <details class="api-operation" id="construct-size" markdown="1">
 <summary><code>FenwickTree&lt;T&gt; bit(n)</code> — O(N)</summary>

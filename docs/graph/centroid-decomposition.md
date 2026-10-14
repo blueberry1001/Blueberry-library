@@ -5,6 +5,30 @@ documentation_of: //blueberry/graph/centroid-decomposition.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+通常の重心分解と、各頂点から重心祖先への距離・枝 ID を保持する。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `CentroidDecomposition` | O(N log(N+1)) | [開く](#constructor) |
+| `CentroidDecomposition` | O(N log(N+1)) | [開く](#copy-constructor) |
+| `operator=` | O(N log(N+1)) + D | [開く](#copy-assignment) |
+| `CentroidDecomposition` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| `size` | O(1) | [開く](#size) |
+| `parent` | O(1) | [開く](#parent) |
+| `ancestors` | O(1) | [開く](#ancestors) |
+| `Entry{int centroid, int distance, int branch}` | O(1) | [開く](#entry) |
+| `int Entry::centroid` | O(1) | [開く](#centroid-field) |
+| `int Entry::distance` | O(1) | [開く](#distance-field) |
+| `int Entry::branch` | O(1) | [開く](#branch-field) |
+| `centroid_decomposition_thirds` | O(N log(N+1) + C) | [開く](#thirds) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::CentroidDecomposition` は通常の重心分解と、各頂点から重心祖先への距離・枝 ID を保持する。`centroid_decomposition_thirds(tree, callback)` は1/3重心分解の実頂点・仮想頂点版を行う。
@@ -38,24 +62,6 @@ int main(){
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `CentroidDecomposition(const std::vector<std::vector<int>>& tree)` | O(N log(N+1)) | [開く](#constructor) |
-| `CentroidDecomposition copy(const CentroidDecomposition& other)` | O(N log(N+1)) | [開く](#copy-constructor) |
-| `CentroidDecomposition& operator=(const CentroidDecomposition& other)` | O(N log(N+1)) + D | [開く](#copy-assignment) |
-| `CentroidDecomposition moved(CentroidDecomposition&& other)` | O(1) | [開く](#move-constructor) |
-| `CentroidDecomposition& operator=(CentroidDecomposition&& other)` | O(1 + D) | [開く](#move-assignment) |
-| `int size() const` | O(1) | [開く](#size) |
-| `int parent(int v) const` | O(1) | [開く](#parent) |
-| `const std::vector<Entry>& ancestors(int v) const` | O(1) | [開く](#ancestors) |
-| `Entry{int centroid, int distance, int branch}` | O(1) | [開く](#entry) |
-| `int Entry::centroid` | O(1) | [開く](#centroid-field) |
-| `int Entry::distance` | O(1) | [開く](#distance-field) |
-| `int Entry::branch` | O(1) | [開く](#branch-field) |
-| `void centroid_decomposition_thirds(const std::vector<std::vector<int>>& tree, F callback)` | O(N log(N+1) + C) | [開く](#thirds) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>CentroidDecomposition(const std::vector&lt;std::vector&lt;int&gt;&gt;&amp; tree)</code> — O(N log(N+1))</summary>

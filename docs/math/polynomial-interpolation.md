@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/polynomial-interpolation.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+異なる N 点を通る次数 N 未満の多項式を復元します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `polynomial_interpolation` | O(N log²(N+1)+N log mod) | [開く](#interpolate) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 異なる N 点を通る次数 N 未満の多項式を復元します。ACLにはない補間演算をACL畳み込みと既存FPSで実装します。
@@ -29,12 +41,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<Mint> polynomial_interpolation(const vector<Mint>& x, const vector<Mint>& y)` | O(N log²(N+1)+N log mod) | [開く](#interpolate) |
 
 <details class="api-operation" id="interpolate" markdown="1">
 <summary><code>vector&lt;Mint&gt; polynomial_interpolation(x, y)</code> — O(N log²(N+1)+N log mod)</summary>

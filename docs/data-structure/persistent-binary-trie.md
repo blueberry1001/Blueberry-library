@@ -5,6 +5,30 @@ documentation_of: //blueberry/data-structure/persistent-binary-trie.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+過去の任意の版から分岐して挿入・削除できる、符号なし整数の永続多重集合です。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `PersistentBinaryTrie<UInt, Bits> t` | O(1) | [開く](#constructor) |
+| `PersistentBinaryTrie` | O(M) | [開く](#copy-constructor) |
+| `operator=` | O(M + D) | [開く](#copy-assignment) |
+| `PersistentBinaryTrie` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(1 + D) | [開く](#move-assignment) |
+| `t.size` | O(1) | [開く](#size) |
+| `t.empty` | O(1) | [開く](#empty) |
+| `t.insert` | 償却 O(B) | [開く](#insert) |
+| `t.erase` | 償却 O(B) | [開く](#erase) |
+| `t.count` | O(B) | [開く](#count) |
+| `t.rank` | O(B) | [開く](#rank) |
+| `t.kth` | O(B) | [開く](#kth) |
+| `t.xor_min` | O(B) | [開く](#xor-min) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 過去の任意の版から分岐して挿入・削除できる、符号なし整数の永続多重集合です。
@@ -44,24 +68,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentBinaryTrie<UInt, Bits> t` | O(1) | [開く](#constructor) |
-| `PersistentBinaryTrie t(other)` | O(M) | [開く](#copy-constructor) |
-| `t.operator=(other)` | O(M + D) | [開く](#copy-assignment) |
-| `PersistentBinaryTrie t(std::move(other))` | O(1) | [開く](#move-constructor) |
-| `t.operator=(std::move(other))` | O(1 + D) | [開く](#move-assignment) |
-| `int t.size(int version)` | O(1) | [開く](#size) |
-| `bool t.empty(int version)` | O(1) | [開く](#empty) |
-| `int t.insert(int version, UInt x)` | 償却 O(B) | [開く](#insert) |
-| `int t.erase(int version, UInt x)` | 償却 O(B) | [開く](#erase) |
-| `int t.count(int version, UInt x)` | O(B) | [開く](#count) |
-| `int t.rank(int version, UInt x)` | O(B) | [開く](#rank) |
-| `std::optional<UInt> t.kth(int version, int k)` | O(B) | [開く](#kth) |
-| `std::optional<UInt> t.xor_min(int version, UInt x)` | O(B) | [開く](#xor-min) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>PersistentBinaryTrie&lt;UInt, Bits&gt; t</code> — O(1)</summary>

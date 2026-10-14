@@ -5,6 +5,26 @@ documentation_of: //blueberry/string/aho-corasick.hpp
 
 [カテゴリへ戻る]({{ '/categories/string.html' | relative_url }})
 
+## 概要
+
+複数パターンをTrieへ登録し、本文中の重なる出現もまとめて数えます。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `AhoCorasick<σ,First>` | O(σ)、予約領域O(σR) | [開く](#constructor) |
+| `ac.size` | O(1) | [開く](#size) |
+| `ac.add` | 償却O(σL) | [開く](#add) |
+| `ac.build` | 初回O(σV)、以後O(1) | [開く](#build) |
+| `ac.parent` | O(1) | [開く](#parent) |
+| `ac.link` | O(1) | [開く](#link) |
+| `ac.next` | O(1) | [開く](#next) |
+| `ac.count` | O(M+V)、追加メモリO(V) | [開く](#count) |
+| `AhoCorasick` | コピーO(σV)、ムーブO(1) ※代入先解放を除く | [開く](#copy-move) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 複数パターンをTrieへ登録し、本文中の重なる出現もまとめて数えます。ACLのZ Algorithmや
@@ -40,20 +60,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `AhoCorasick<σ,First> ac(int reserve_nodes = 0)` | O(σ)、予約領域O(σR) | [開く](#constructor) |
-| `int ac.size()` | O(1) | [開く](#size) |
-| `int ac.add(string_view pattern)` | 償却O(σL) | [開く](#add) |
-| `void ac.build()` | 初回O(σV)、以後O(1) | [開く](#build) |
-| `int ac.parent(int v)` | O(1) | [開く](#parent) |
-| `int ac.link(int v)` | O(1) | [開く](#link) |
-| `int ac.next(int v, char c)` | O(1) | [開く](#next) |
-| `vector<long long> ac.count(string_view text)` | O(M+V)、追加メモリO(V) | [開く](#count) |
-| `AhoCorasick(other); operator=(other)` | コピーO(σV)、ムーブO(1) ※代入先解放を除く | [開く](#copy-move) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>AhoCorasick&lt;σ,First&gt; ac(int reserve_nodes = 0)</code> — O(σ)</summary>

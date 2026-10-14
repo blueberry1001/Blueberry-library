@@ -5,6 +5,38 @@ documentation_of: //blueberry/data-structure/ordered-multiset.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+キー順の多重集合に、重複込みの順位取得と順位区間のmonoid集約を加えます。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `OrderedMultiset` | O(1) | [開く](#construct) |
+| `Tree`（コピー構築） | O(H) | [開く](#copy-construct) |
+| `operator=`（コピー代入） | O(H + Hdst) | [開く](#copy-assign) |
+| `Tree`（移動構築） | O(1) | [開く](#move-construct) |
+| `operator=`（移動代入） | O(Hdst) | [開く](#move-assign) |
+| `tree.~Tree` | O(H) | [開く](#destruct) |
+| `tree.size` | O(1) | [開く](#size) |
+| `tree.empty` | O(1) | [開く](#empty) |
+| `tree.clear` | O(H) | [開く](#clear) |
+| `tree.insert` | 期待・償却 O(log(N+1)) | [開く](#insert) |
+| `tree.erase` | 期待・償却 O(log(N+1)) | [開く](#erase) |
+| `tree.erase_kth` | 期待・償却 O(log(N+1)) | [開く](#erase-kth) |
+| `tree.contains` | 期待 O(log(N+1)) | [開く](#contains) |
+| `tree.count` | 期待 O(log(N+1)) | [開く](#count) |
+| `tree.rank` | 期待 O(log(N+1)) | [開く](#rank) |
+| `tree.kth` | 期待 O(log(N+1)) | [開く](#kth) |
+| `tree.lower_bound` | 期待 O(log(N+1)) | [開く](#lower-bound) |
+| `tree.upper_bound` | 期待 O(log(N+1)) | [開く](#upper-bound) |
+| `tree.floor` | 期待 O(log(N+1)) | [開く](#floor) |
+| `tree.prod` | 期待 O(log(N+1)) | [開く](#prod) |
+| `tree.all_prod` | O(1) | [開く](#all-prod) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 キー順の多重集合に、重複込みの順位取得と順位区間のmonoid集約を加えます。旧 `blueberry/implicit_treap.hpp` の実際の用途の移行先です。位置で並びを管理する `ImplicitTreap`、重複を持たない `OrderedSet` と使い分けます。ACLには対応するオンライン順序付き多重集合はありません。
@@ -41,32 +73,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `OrderedMultiset(Compare compare = {}, uint64_t seed = 0x243f6a8885a308d3ULL)` | O(1) | [開く](#construct) |
-| `Tree copy(const Tree& other)` | O(H) | [開く](#copy-construct) |
-| `Tree& tree.operator=(const Tree& other)` | O(H + Hdst) | [開く](#copy-assign) |
-| `Tree moved(Tree&& other)` | O(1) | [開く](#move-construct) |
-| `Tree& tree.operator=(Tree&& other)` | O(Hdst) | [開く](#move-assign) |
-| `tree.~Tree()` | O(H) | [開く](#destruct) |
-| `int tree.size() const` | O(1) | [開く](#size) |
-| `bool tree.empty() const` | O(1) | [開く](#empty) |
-| `void tree.clear()` | O(H) | [開く](#clear) |
-| `void tree.insert(const T& value)` | 期待・償却 O(log(N+1)) | [開く](#insert) |
-| `bool tree.erase(const T& value)` | 期待・償却 O(log(N+1)) | [開く](#erase) |
-| `void tree.erase_kth(int k)` | 期待・償却 O(log(N+1)) | [開く](#erase-kth) |
-| `bool tree.contains(const T& value) const` | 期待 O(log(N+1)) | [開く](#contains) |
-| `int tree.count(const T& value) const` | 期待 O(log(N+1)) | [開く](#count) |
-| `int tree.rank(const T& value) const` | 期待 O(log(N+1)) | [開く](#rank) |
-| `optional<T> tree.kth(int k) const` | 期待 O(log(N+1)) | [開く](#kth) |
-| `optional<T> tree.lower_bound(const T& value) const` | 期待 O(log(N+1)) | [開く](#lower-bound) |
-| `optional<T> tree.upper_bound(const T& value) const` | 期待 O(log(N+1)) | [開く](#upper-bound) |
-| `optional<T> tree.floor(const T& value) const` | 期待 O(log(N+1)) | [開く](#floor) |
-| `T tree.prod(int l, int r) const` | 期待 O(log(N+1)) | [開く](#prod) |
-| `T tree.all_prod() const` | O(1) | [開く](#all-prod) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>OrderedMultiset(Compare compare = {}, uint64_t seed = 0x243f6a8885a308d3ULL)</code> — O(1)</summary>

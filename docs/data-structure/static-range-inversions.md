@@ -5,6 +5,18 @@ documentation_of: //blueberry/data-structure/static-range-inversions.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+静的配列の複数区間について転倒数を一括計算する。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `static_range_inversions` | O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1) log(N+1)) | [開く](#static-range-inversions) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 静的配列の複数区間について転倒数を一括計算する。ACL Fenwick treeとMo順序を組み合わせる。
@@ -26,12 +38,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<long long> static_range_inversions(const vector<T>& a, const vector<pair<int,int>>& queries)` | O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1) log(N+1)) | [開く](#static-range-inversions) |
 
 <details class="api-operation" id="static-range-inversions" markdown="1">
 <summary><code>vector&lt;long long&gt; static_range_inversions(a, queries)</code> — O(N log(N+1) + Q log(Q+1) + (N+Q) sqrt(N+1) log(N+1))</summary>

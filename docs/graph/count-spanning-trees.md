@@ -5,6 +5,19 @@ documentation_of: //blueberry/graph/count-spanning-trees.hpp
 
 [カテゴリへ戻る]({{ "/categories/graph.html" | relative_url }})
 
+## 概要
+
+Matrix-Tree 定理と既存の Matrix<T>::det() を組み合わせ、無向全域木または根から外向きに到達する有向全域木を数えます。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `T` | O(N³+M) | [開く](#undirected) |
+| `T` | O(N³+M) | [開く](#directed) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 Matrix-Tree 定理と既存の Matrix<T>::det() を組み合わせ、無向全域木または根から外向きに到達する有向全域木を数えます。ACL の modint と併用します。T は厳密な体（例: 素数法の modint）で、整数除算や誤差を含む実数消去には対応しません。N 頂点 M 辺で最悪 O(N³+M) 時間、O(N²) 補助メモリ。辺は (u,v)、番号は [0,N)、N は int に収まること。多重辺は区別して数え、自己ループは無視します。返り値の算術は T に従い、modint なら法で割った余りです。入力は変更しません。
@@ -24,13 +37,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `T count_spanning_trees<T>(int n, const vector<pair<int,int>>& edges)` | O(N³+M) | [開く](#undirected) |
-| `T count_directed_spanning_trees<T>(int n, const vector<pair<int,int>>& edges, int root)` | O(N³+M) | [開く](#directed) |
 
 <details class="api-operation" id="undirected" markdown="1">
 <summary><code>T count_spanning_trees&lt;T&gt;(int n, const vector&lt;pair&lt;int,int&gt;&gt;& edges)</code> — O(N³+M)</summary>

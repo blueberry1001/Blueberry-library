@@ -5,6 +5,30 @@ documentation_of: //blueberry/data-structure/partially-retroactive-priority-queu
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+過去の insert/delete-min 操作を追加・削除し、その変更を反映した**現在**の最小値を取得します。
+
+## 操作一覧
+
+| 操作 | 計算量 | 詳細 |
+| --- | --- | --- |
+| `PartiallyRetroactivePriorityQueue<T>` | O(M) | [開く](#constructor) |
+| `object.time_slots` | O(1) | [開く](#time-slots) |
+| `object.size` | O(1) | [開く](#size) |
+| `object.empty` | O(1) | [開く](#empty) |
+| `object.has_op` | O(1) | [開く](#has-op) |
+| `object.min` | O(1) | [開く](#min) |
+| `object.insert_op` | O(log(M+1)) | [開く](#insert-op) |
+| `object.pop_op` | O(log(M+1)) | [開く](#pop-op) |
+| `object.erase_op` | O(log(M+1)) | [開く](#erase-op) |
+| `Type` | O(M) | [開く](#copy-constructor) |
+| `Type` | O(1) | [開く](#move-constructor) |
+| `operator=` | O(M + D) | [開く](#copy-assignment) |
+| `operator=` | O(1 + D) | [開く](#move-assignment) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `PartiallyRetroactivePriorityQueue<T>` は過去の insert/delete-min 操作を追加・削除し、その変更を反映した**現在**の最小値を取得します。
@@ -36,25 +60,9 @@ int main(){
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PartiallyRetroactivePriorityQueue<T>(int slots=0)` | O(M) | [開く](#constructor) |
-| `int object.time_slots() const` | O(1) | [開く](#time-slots) |
-| `int object.size() const` | O(1) | [開く](#size) |
-| `bool object.empty() const` | O(1) | [開く](#empty) |
-| `bool object.has_op(int t) const` | O(1) | [開く](#has-op) |
-| `optional<T> object.min() const` | O(1) | [開く](#min) |
-| `bool object.insert_op(int t, const T& value)` | O(log(M+1)) | [開く](#insert-op) |
-| `bool object.pop_op(int t)` | O(log(M+1)) | [開く](#pop-op) |
-| `bool object.erase_op(int t)` | O(log(M+1)) | [開く](#erase-op) |
-| `Type(const Type& other)` | O(M) | [開く](#copy-constructor) |
-| `Type(Type&& other)` | O(1) | [開く](#move-constructor) |
-| `Type& object.operator=(const Type& other)` | O(M + D) | [開く](#copy-assignment) |
-| `Type& object.operator=(Type&& other)` | O(1 + D) | [開く](#move-assignment) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>PartiallyRetroactivePriorityQueue&lt;T&gt;(int slots=0)</code> — O(M)</summary>
