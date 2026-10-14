@@ -1,5 +1,6 @@
 """Generated-page cleanup and correctness of copyable documentation code."""
 import importlib.util
+import json
 import os
 import shlex
 import subprocess
@@ -14,6 +15,76 @@ SPEC = importlib.util.spec_from_file_location(
     "generate_docs", Path(__file__).resolve().parents[1] / "scripts/generate_docs.py")
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
+
+
+class DocumentationStatusTest(unittest.TestCase):
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        self.verifier = self.root / "verify/example.test.cpp"
+        self.verifier.parent.mkdir()
+        self.verifier.write_text("// verifier")
+        (self.root / ".verification").mkdir()
+
+    def report(self, revision="head", rows=None):
+        report = {"schema": 1, "revision": revision, "results": rows or [
+            {"path": "verify/example.test.cpp", "status": "failed"}]}
+        (self.root / ".verification/current.json").write_text(json.dumps(report))
+
+    def statuses(self, verified=False):
+        class Marker:
+            def is_verified(self, path):
+                return verified
+
+            def is_failed(self, path):
+                return True  # Upstream treats absent and stale records as failure.
+
+        marker = Marker()
+        failed = MODULE.current_failed_verifiers(self.root, "head")
+        with MODULE.documentation_marker_statuses(Marker, failed, self.root):
+            result = (marker.is_verified(self.verifier), marker.is_failed(self.verifier))
+            self.assertEqual(result, (marker.is_verified(Path("verify/example.test.cpp")),
+                                      marker.is_failed(Path("verify/example.test.cpp"))))
+        self.assertTrue(marker.is_failed(self.verifier))  # Patch remains docs-only.
+        self.assertEqual(marker.is_verified(self.verifier), verified)
+        return result
+
+    def test_valid_cached_pass_remains_verified(self):
+        self.assertEqual(self.statuses(verified=True), (True, False))
+
+    def test_no_evidence_waits_instead_of_reporting_failure(self):
+        self.assertEqual(self.statuses(), (False, False))
+
+    def test_stale_failure_report_is_not_failure_evidence(self):
+        self.report(revision="old-head")
+        self.assertEqual(self.statuses(), (False, False))
+
+    def test_current_failure_is_reported(self):
+        self.report()
+        self.assertEqual(self.statuses(), (False, True))
+
+    def test_current_failure_overrides_cached_pass(self):
+        self.report()
+        self.assertEqual(self.statuses(verified=True), (False, True))
+
+    def test_corrupt_report_waits_and_remains_untouched(self):
+        path = self.root / ".verification/current.json"
+        for content in ("{", "[]", '{"schema":1,"revision":"head","results":[null]}'):
+            with self.subTest(content=content):
+                path.write_text(content)
+                self.assertEqual(self.statuses(), (False, False))
+                self.assertEqual(path.read_text(), content)
+
+    def test_unknown_unselected_or_invalid_paths_cannot_claim_failure(self):
+        for name, status in (("verify/example.test.cpp", "not_selected"),
+                             ("verify/missing.test.cpp", "failed"),
+                             ("../verify/example.test.cpp", "failed"),
+                             (str(self.verifier), "failed"),
+                             ("verify\\example.test.cpp", "failed")):
+            with self.subTest(path=name, status=status):
+                self.report(rows=[{"path": name, "status": status}])
+                self.assertEqual(self.statuses(), (False, False))
 
 
 class GeneratedDocumentationTest(unittest.TestCase):
