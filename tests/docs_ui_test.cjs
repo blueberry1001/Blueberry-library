@@ -41,6 +41,10 @@ vm.runInContext(fs.readFileSync(path.join(__dirname, "../.verify-helper/docs/sta
 context.openLinkedOperation();
 assert.equal(inner.open, true, "deep links reveal the nearest closed operation");
 assert.equal(outer.open, true, "deep links reveal all closed ancestor details");
+const recipe = new Details();
+nodes.set("recipe", { querySelector: () => recipe, parentElement: null });
+context.openLinkedOperation("#recipe");
+assert.equal(recipe.open, true, "existing recipe article anchors reveal their code disclosure");
 context.window.location.hash = "#%broken";
 assert.doesNotThrow(() => context.openLinkedOperation());
 
@@ -89,6 +93,7 @@ const rows = [
 });
 const count = new Element();
 const empty = new Element();
+const reset = new Element();
 const search = { value: "  ＬＣＡ  木 " };
 const category = { value: "" };
 const catalog = {
@@ -98,11 +103,13 @@ const catalog = {
     "[data-catalog-category]": category,
     "[data-catalog-count]": count,
     "[data-catalog-empty]": empty,
+    "[data-catalog-reset]": reset,
   })[selector],
 };
 context.filterCatalog(catalog);
 assert.deepEqual(rows.map(row => row.hidden), [true, false, true], "all words match normalized aliases");
 assert.equal(count.textContent, "1 / 3 件");
+assert.equal(reset.hidden, false, "reset is available when a search is active");
 category.value = "math";
 context.filterCatalog(catalog);
 assert.equal(empty.hidden, false, "a category/query intersection can be empty");
@@ -113,6 +120,7 @@ category.value = "";
 context.filterCatalog(catalog);
 assert.deepEqual(rows.map(row => row.hidden), [false, false, false]);
 assert.equal(empty.hidden, true);
+assert.equal(reset.hidden, true, "unfiltered catalogs omit the unnecessary reset action");
 search.value = "<script>";
 context.filterCatalog(catalog);
 assert.equal(empty.hidden, false, "queries are plain text, not HTML or regex");

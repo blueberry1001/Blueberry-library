@@ -2,25 +2,32 @@
 {% if include.category %}{% assign entries = entries | where: 'category', include.category %}{% endif %}
 <div class="library-catalog" data-catalog>
   <div class="catalog-controls" data-catalog-controls hidden>
-    <label for="library-search">名前・用途から探す <small>（<kbd>/</kbd> で検索へ）</small></label>
-    <input id="library-search" data-catalog-search type="search" placeholder="例: LCA、区間 頻度、回文" autocomplete="off" aria-controls="library-results">
-    <label for="library-category">カテゴリ</label>
+    <div class="catalog-search-field"><label for="library-search">名前・用途で検索 <small><kbd>/</kbd></small></label>
+    <input id="library-search" data-catalog-search type="search" placeholder="例: LCA、区間 頻度、回文" autocomplete="off" aria-controls="library-results"></div>
+    <div class="catalog-category-field"><label for="library-category">カテゴリ</label>
     <select id="library-category" data-catalog-category aria-controls="library-results">
       <option value="">すべて</option>
       {% assign categories = entries | map: 'category' | uniq %}
       {% for category in categories %}<option value="{{ category | escape }}">{{ category | escape }}</option>{% endfor %}
-    </select>
+    </select></div>
     <button type="button" data-catalog-reset>条件をクリア</button>
     <span data-catalog-count role="status" aria-live="polite"></span>
   </div>
+  {% unless include.category %}
+  <nav class="catalog-categories" aria-label="カテゴリ別の使い方">
+  {% assign category_ids = 'algebra,data-structure,graph,math,string,utility' | split: ',' %}
+  {% assign category_titles = 'Algebra,Data Structure,Graph,Math,String,Utility' | split: ',' %}
+  {% for category in category_ids %}<a href="{{ '/categories/' | append: category | append: '.html' | relative_url }}">{{ category_titles[forloop.index0] }}</a>{% endfor %}
+  </nav>
+  {% endunless %}
   <p data-catalog-empty hidden>一致するライブラリがありません。キーワードを短くするか、条件をクリアしてください。</p>
   <table id="library-results">
-    <thead><tr><th scope="col">ライブラリ</th><th scope="col">用途</th><th scope="col">位置づけ</th></tr></thead>
+    <thead><tr><th scope="col">ライブラリ</th><th scope="col">用途</th></tr></thead>
     <tbody>
     {% for item in entries %}
       <tr data-library data-category="{{ item.category | escape }}" data-keywords="{{ item.path | escape }} {{ item.aliases | join: ' ' | escape }}">
         <td><a href="{{ item.path | append: '.html' | relative_url }}">{{ item.name | escape }}</a></td>
-        <td>{{ item.description | escape }}</td><td>{{ item.role | escape }}</td>
+        <td>{{ item.description | escape }}{% if item.role contains '互換' %}<small class="catalog-role">{{ item.role | escape }}</small>{% endif %}</td>
       </tr>
     {% endfor %}
     </tbody>

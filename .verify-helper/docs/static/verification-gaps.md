@@ -5,7 +5,6 @@ title: ライブラリごとのverify状況
 
 {% assign verification = site.data.library_verification %}
 <h1>verify対象・検証が不足しているライブラリ</h1>
-<p>ライブラリ側から、専用verifyドライバの不足と次に確認する操作をまとめています。問題側から探す場合は<a href="{{ '/library-checker.html' | relative_url }}">Library Checker対応表</a>を利用してください。</p>
 <p><strong>「未登録」は対応問題が存在しないという意味ではありません。</strong>調査済みの範囲と今後の作業を注記します。専用ドライバありも、全APIの網羅や現在のACを保証しません。<a href="{{ '/benchmarks.html' | relative_url }}">実行結果</a>は別に確認できます。</p>
 <p>専用verify未登録: <strong>{{ verification.counts.missing | default: 0 }}</strong> · 主機能の一部に公式verifyなし: <strong>{{ verification.counts.partial | default: 0 }}</strong> · 依存先としてのみ利用: <strong>{{ verification.counts.indirect | default: 0 }}</strong> · 専用ドライバあり: <strong>{{ verification.counts.direct | default: 0 }}</strong></p>
 <p>全ヘッダをincludeするだけのA+Bは除外しています。「関連ローカルテスト」はinclude関係で集めた境界・ランダムテスト等で、全操作の網羅を意味しません。明示的に無効化されたverifyは成功扱いにしません。</p>

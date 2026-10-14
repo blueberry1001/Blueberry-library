@@ -2,7 +2,9 @@
 layout: page
 ---
 <h1>{{ page.title }}</h1>
-{{ content }}
 <h2>収録ライブラリ</h2>
 {% include library_catalog.html category=page.category %}
-<p>各リンク先の「操作一覧」では呼び出し方と計算量を確認できます。操作の詳細を開くと使用例・返り値・注意点が表示されます。</p>
+<details class="category-guide" markdown="1">
+<summary>使い分け</summary>
+{{ content }}
+</details>

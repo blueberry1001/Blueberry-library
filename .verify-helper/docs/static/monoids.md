@@ -5,9 +5,7 @@ title: いろいろなモノイド
 
 # いろいろなモノイド
 
-欲しい操作を選んで、`S`・`F`と演算をコピーするための定義集です。
-木にはACLを使います。Blueberryのヘッダは不要です。
-各コードは独立しているので、使いたいものを一つコピーしてください。
+使いたい操作を開き、`S`・`F`と演算をコピーしてください。各コードは独立してACLで使えます。
 
 <details markdown="1">
 <summary>共通の使い方（ACLへの渡し方・初期化・注意点）</summary>
@@ -58,22 +56,22 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
 
 <div class="library-catalog" data-catalog>
   <div class="catalog-controls" data-catalog-controls hidden>
-    <label for="monoid-search">操作・答え・別名で検索（<kbd>/</kbd> で移動）</label>
-    <input id="monoid-search" data-catalog-search type="search" placeholder="例: 等差数列、反転 転倒数、DP、二乗和" autocomplete="off" aria-controls="monoid-results">
-    <label for="monoid-kind">載せる構造</label>
+    <div class="catalog-search-field"><label for="monoid-search">操作で検索 <small><kbd>/</kbd></small></label>
+    <input id="monoid-search" data-catalog-search type="search" placeholder="例: 等差数列、反転 転倒数、DP、二乗和" autocomplete="off" aria-controls="monoid-results"></div>
+    <div class="catalog-category-field"><label for="monoid-kind">載せる構造</label>
     <select id="monoid-kind" data-catalog-category aria-controls="monoid-results">
       <option value="">すべて</option><option value="segtree">セグ木</option><option value="lazy">遅延セグ木</option><option value="beats">Beats</option>
-    </select>
+    </select></div>
     <button type="button" data-catalog-reset>条件をクリア</button>
     <span data-catalog-count role="status" aria-live="polite"></span>
   </div>
-  <p>空白区切りは AND 検索。英字の大文字・全角も正規化します。</p>
   <noscript><p>JavaScript が無効のため全レシピを表示しています。見出しとブラウザ内検索で探せます。</p></noscript>
   <p data-catalog-empty hidden>一致するレシピがありません。キーワードを減らすか条件をクリアしてください。</p>
   <div id="monoid-results">
   {% for recipe in site.data.monoids %}
     <article data-library data-category="{{ recipe.kind | escape }}" data-keywords="{{ recipe.keywords | escape }}" id="{{ recipe.id | escape }}">
-      <h3>{{ recipe.title | escape }}</h3>
+      <details class="monoid-recipe" data-linked-details>
+      <summary><strong>{{ recipe.title | escape }}</strong><span>{% if recipe.kind == 'lazy' %}遅延セグ木{% elsif recipe.kind == 'beats' %}Beats{% else %}セグ木{% endif %}</span></summary>
       {% if recipe.nonconstant_cost %}<p>{{ recipe.nonconstant_cost | escape }}</p>{% endif %}
       {% if recipe.note %}<p><code>{{ recipe.note | escape }}</code></p>{% endif %}
       {% if recipe.caveat != '' %}<p>{{ recipe.caveat | escape }}</p>{% endif %}
@@ -83,6 +81,7 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
       <p>子へ降りる判定が必要なので、通常の ACL <code>lazy_segtree</code> に <code>mapping</code> を渡すだけでは扱えません。<a href="{{ '/blueberry/data-structure/segment-tree-beats.hpp.html' | relative_url }}">Segment Tree Beats</a> を使います。</p>
       {% endif %}
       {% if recipe.problem_url != '' %}<p>応用問題: <a href="{{ recipe.problem_url | escape }}">{{ recipe.problem | escape }}</a>{{ recipe.problem_note | escape }}</p>{% endif %}
+      </details>
     </article>
   {% endfor %}
   </div>
