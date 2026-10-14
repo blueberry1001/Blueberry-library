@@ -2,7 +2,16 @@
 layout: page
 ---
 {% include document_header.html %}
-{{ content }}
-{% include verification_examples.html %}
+{% assign documentation_sections = content | split: '<!-- library-implementation -->' %}
+{% if documentation_sections.size > 1 %}
+<div class="library-brief">{{ documentation_sections | first }}</div>
 {% include document_body.html %}
+<div class="library-details">
+{% for part in documentation_sections offset:1 %}{{ part }}{% endfor %}
+</div>
+{% else %}
+{{ content }}
+{% include document_body.html %}
+{% endif %}
+{% include verification_examples.html %}
 {% include document_footer.html %}

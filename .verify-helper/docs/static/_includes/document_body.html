@@ -1,23 +1,4 @@
-{% assign groups = '_extendedDependsOn,_extendedRequiredBy,_extendedVerifiedWith' | split: ',' %}
-{% assign headings = 'Depends on,Required by,Verified with' | split: ',' %}
-<details class="source-relations-details"><summary>依存関係・検証ファイル</summary>
-<div class="source-relations">
-{% for group in groups %}
-  {% assign entries = page.data[group] %}
-  {% if entries.size > 0 %}
-  <h2>{{ headings[forloop.index0] }}</h2>
-  <ul>
-    {% for item in entries %}
-    <li><a href="{{ item.path | append: '.html' | relative_url }}">{{ item.icon }} {{ item.title | escape }}{% if item.title != item.path %} <small>({{ item.path | escape }})</small>{% endif %}</a></li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-{% endfor %}
-</div>
-<p class="operation-caption">最終更新: {{ page.data.timestamp | escape }}</p>
-</details>
-
-<h2 id="source-code">ソースコード</h2>
+<h2 id="source-code">実装</h2>
 <div data-source-viewer>
 {% if page.data.bundledCode %}
 <div class="code-actions source-actions" data-source-actions hidden>

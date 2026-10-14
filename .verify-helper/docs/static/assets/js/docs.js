@@ -61,6 +61,41 @@ function filterCatalog(catalog) {
   catalog.querySelector("[data-catalog-empty]").hidden = visible !== 0;
   const reset = catalog.querySelector("[data-catalog-reset]");
   if (reset) reset.hidden = words.length === 0 && category === "";
+  const choices = catalog.querySelectorAll("[data-catalog-choice]");
+  choices.forEach((choice) => {
+    if (choice.dataset.catalogChoice === category) choice.setAttribute("aria-current", "true");
+    else choice.removeAttribute("aria-current");
+  });
+  const guide = catalog.querySelector("[data-catalog-category-guide]");
+  if (guide) {
+    const selected = Array.from(choices).find(choice => choice.dataset.catalogChoice === category);
+    guide.hidden = !category || !selected;
+    if (!guide.hidden) catalog.querySelector("[data-catalog-guide-link]").setAttribute("href", selected.getAttribute("href"));
+  }
+}
+
+function initializeCatalog(catalog) {
+  const search = catalog.querySelector("[data-catalog-search]");
+  const category = catalog.querySelector("[data-catalog-category]");
+  catalog.querySelector("[data-catalog-controls]").hidden = false;
+  const choices = catalog.querySelectorAll("[data-catalog-choice]");
+  if (choices.length) category.parentElement.hidden = true;
+  choices.forEach(choice => choice.addEventListener("click", (event) => {
+    // Leave modified clicks available for opening the category guide in another tab.
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    category.value = choice.dataset.catalogChoice;
+    filterCatalog(catalog);
+  }));
+  search.addEventListener("input", () => filterCatalog(catalog));
+  category.addEventListener("change", () => filterCatalog(catalog));
+  catalog.querySelector("[data-catalog-reset]").addEventListener("click", () => {
+    search.value = "";
+    category.value = "";
+    filterCatalog(catalog);
+    search.focus();
+  });
+  filterCatalog(catalog);
 }
 
 async function copyCode(code, status) {
@@ -101,20 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
     controls.append(button, status);
     code.parentElement.before(controls);
   });
-  document.querySelectorAll("[data-catalog]").forEach((catalog) => {
-    const search = catalog.querySelector("[data-catalog-search]");
-    const category = catalog.querySelector("[data-catalog-category]");
-    catalog.querySelector("[data-catalog-controls]").hidden = false;
-    search.addEventListener("input", () => filterCatalog(catalog));
-    category.addEventListener("change", () => filterCatalog(catalog));
-    catalog.querySelector("[data-catalog-reset]").addEventListener("click", () => {
-      search.value = "";
-      category.value = "";
-      filterCatalog(catalog);
-      search.focus();
-    });
-    filterCatalog(catalog);
-  });
+  document.querySelectorAll("[data-catalog]").forEach(initializeCatalog);
   document.addEventListener("keydown", (event) => {
     if (event.key !== "/" || event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
     if (event.target.closest("input, textarea, select, [contenteditable]:not([contenteditable='false'])")) return;
