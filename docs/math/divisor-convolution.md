@@ -5,6 +5,23 @@ documentation_of: //blueberry/math/divisor-convolution.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+ACLにはない添字の約数・倍数変換。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`divisor_zeta`](#divisor_zeta) | O(N log log(N+2)) |
+| [`divisor_mobius`](#divisor_mobius) | O(N log log(N+2)) |
+| [`multiple_zeta`](#multiple_zeta) | O(N log log(N+2)) |
+| [`multiple_mobius`](#multiple_mobius) | O(N log log(N+2)) |
+| [`gcd_convolution`](#gcd_convolution) | O(N log log(N+2)) |
+| [`lcm_convolution`](#lcm_convolution) | O(N log log(N+2)) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 ACLにはない添字の約数・倍数変換。N はvectorの長さ、添字1以上を扱う。
@@ -31,18 +48,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 すべて `template<class T>` の関数。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `void divisor_zeta(std::vector<T>& a)` | O(N log log(N+2)) | [開く](#divisor_zeta) |
-| `void divisor_mobius(std::vector<T>& a)` | O(N log log(N+2)) | [開く](#divisor_mobius) |
-| `void multiple_zeta(std::vector<T>& a)` | O(N log log(N+2)) | [開く](#multiple_zeta) |
-| `void multiple_mobius(std::vector<T>& a)` | O(N log log(N+2)) | [開く](#multiple_mobius) |
-| `std::vector<T> gcd_convolution(std::vector<T> a, std::vector<T> b)` | O(N log log(N+2)) | [開く](#gcd_convolution) |
-| `std::vector<T> lcm_convolution(std::vector<T> a, std::vector<T> b)` | O(N log log(N+2)) | [開く](#lcm_convolution) |
 
 <details class="api-operation" id="divisor_zeta" markdown="1">
 <summary><code>void divisor_zeta(std::vector&lt;T&gt;&amp; a)</code> — O(N log log(N+2))</summary>

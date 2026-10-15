@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/taylor-shift.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+N=f.size()。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`taylor_shift`](#compute) | O(N log(N+1)) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 N=f.size()。昇べき順の係数から f(x+c) の係数を同じ長さで返す。空入力は空、末尾のゼロも保持する。入力を変更しない。
@@ -25,12 +37,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::vector<Mint> taylor_shift(const std::vector<Mint>& f, Mint c)` | O(N log(N+1)) | [開く](#compute) |
 
 <details class="api-operation" id="compute" markdown="1">
 <summary><code>std::vector&lt;Mint&gt; taylor_shift(const std::vector&lt;Mint&gt;& f, Mint c)</code> — O(N log(N+1))</summary>

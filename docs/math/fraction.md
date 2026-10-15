@@ -5,6 +5,50 @@ documentation_of: //blueberry/math/fraction.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+正確な比較と四則演算を行う `blueberry::Fraction`。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Fraction`](#construct) | O(log B) |
+| [`a.num`](#num) | O(1) |
+| [`a.den`](#den) | O(1) |
+| [`Fraction +a`](#unary-plus) | O(1) |
+| [`Fraction -a`](#unary-minus) | O(1) |
+| [`Fraction a + b`](#add) | O(log B) |
+| [`Fraction a - b`](#subtract) | O(log B) |
+| [`Fraction a * b`](#multiply) | O(log B) |
+| [`Fraction a / b`](#divide) | O(log B) |
+| [`bool a == b`](#equal) | O(1) |
+| [`bool a != b`](#not-equal) | O(1) |
+| [`bool a < b`](#less) | O(1) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Fraction`（コピー構築）](#copy) | O(1) |
+| [`Fraction`（移動構築）](#move) | O(1) |
+| [`operator=`（コピー代入）](#copy-assign) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(1) |
+| [`Fraction& a += b`](#add-assign) | O(log B) |
+| [`Fraction& a -= b`](#subtract-assign) | O(log B) |
+| [`Fraction& a *= b`](#multiply-assign) | O(log B) |
+| [`Fraction& a /= b`](#divide-assign) | O(log B) |
+| [`bool a > b`](#greater) | O(1) |
+| [`bool a <= b`](#less-equal) | O(1) |
+| [`bool a >= b`](#greater-equal) | O(1) |
+| [`ostream& out << a`](#stream) | O(log B) |
+| [`a.~Fraction`（通常は自動）](#destruct) | O(1) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 正確な比較と四則演算を行う `blueberry::Fraction`。ACL にない有理数の値型です。
@@ -47,38 +91,10 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下の断片では `using blueberry::Fraction;` を前提とします。
 整数は `Fraction(n)` に変換されるため、`a + 2`、`2 * a`、`a == 0` も使えます。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Fraction a(int64_t n = 0, int64_t d = 1)` | O(log B) | [開く](#construct) |
-| `Fraction a(const Fraction& b)` | O(1) | [開く](#copy) |
-| `Fraction a(Fraction&& b)` | O(1) | [開く](#move) |
-| `Fraction& a.operator=(const Fraction& b)` | O(1) | [開く](#copy-assign) |
-| `Fraction& a.operator=(Fraction&& b)` | O(1) | [開く](#move-assign) |
-| `int64_t a.num() const` | O(1) | [開く](#num) |
-| `int64_t a.den() const` | O(1) | [開く](#den) |
-| `Fraction +a` | O(1) | [開く](#unary-plus) |
-| `Fraction -a` | O(1) | [開く](#unary-minus) |
-| `Fraction a + b` | O(log B) | [開く](#add) |
-| `Fraction a - b` | O(log B) | [開く](#subtract) |
-| `Fraction a * b` | O(log B) | [開く](#multiply) |
-| `Fraction a / b` | O(log B) | [開く](#divide) |
-| `Fraction& a += b` | O(log B) | [開く](#add-assign) |
-| `Fraction& a -= b` | O(log B) | [開く](#subtract-assign) |
-| `Fraction& a *= b` | O(log B) | [開く](#multiply-assign) |
-| `Fraction& a /= b` | O(log B) | [開く](#divide-assign) |
-| `bool a == b` | O(1) | [開く](#equal) |
-| `bool a != b` | O(1) | [開く](#not-equal) |
-| `bool a < b` | O(1) | [開く](#less) |
-| `bool a > b` | O(1) | [開く](#greater) |
-| `bool a <= b` | O(1) | [開く](#less-equal) |
-| `bool a >= b` | O(1) | [開く](#greater-equal) |
-| `ostream& out << a` | O(log B) | [開く](#stream) |
-| `a.~Fraction()`（通常は自動） | O(1) | [開く](#destruct) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>Fraction a(int64_t n = 0, int64_t d = 1)</code> — O(log B)</summary>

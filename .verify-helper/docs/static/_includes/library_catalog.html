@@ -14,11 +14,14 @@
     <span data-catalog-count role="status" aria-live="polite"></span>
   </div>
   {% unless include.category %}
-  <nav class="catalog-categories" aria-label="カテゴリ別の使い方">
+  <nav class="catalog-categories" aria-label="カテゴリで絞り込む">
+  <a href="#library-results" data-catalog-choice="">すべて</a>
   {% assign category_ids = 'algebra,data-structure,graph,math,string,utility' | split: ',' %}
   {% assign category_titles = 'Algebra,Data Structure,Graph,Math,String,Utility' | split: ',' %}
-  {% for category in category_ids %}<a href="{{ '/categories/' | append: category | append: '.html' | relative_url }}">{{ category_titles[forloop.index0] }}</a>{% endfor %}
+  {% assign available_categories = entries | map: 'category' | uniq %}
+  {% for category in category_ids %}{% if available_categories contains category %}<a href="{{ '/categories/' | append: category | append: '.html' | relative_url }}" data-catalog-choice="{{ category | escape }}">{{ category_titles[forloop.index0] }}</a>{% endif %}{% endfor %}
   </nav>
+  <p class="catalog-category-guide" data-catalog-category-guide hidden><a data-catalog-guide-link>このカテゴリの使い分けを見る</a></p>
   {% endunless %}
   <p data-catalog-empty hidden>一致するライブラリがありません。キーワードを短くするか、条件をクリアしてください。</p>
   <table id="library-results">

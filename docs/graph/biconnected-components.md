@@ -5,6 +5,20 @@ documentation_of: //blueberry/graph/biconnected-components.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+自己ループのない無向多重グラフを二重頂点連結成分（block）へ分解し、block-cut forestを構築します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`BiconnectedComponents`](#construct) | O(N+M) |
+| [`blocks.groups`](#groups) | O(1) |
+| [`blocks.block_cut_tree`](#forest) | O(N+M) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 自己ループのない無向多重グラフを二重頂点連結成分（block）へ分解し、block-cut forestを構築します。
@@ -37,14 +51,6 @@ int main() {
 ```
 {% endraw %}
 
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `BiconnectedComponents blocks(n, edges)` | O(N+M) | [開く](#construct) |
-| `const vector<vector<int>>& blocks.groups() const` | O(1) | [開く](#groups) |
-| `vector<vector<int>> blocks.block_cut_tree() const` | O(N+M) | [開く](#forest) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>BiconnectedComponents blocks(n, edges)</code> — O(N+M)</summary>

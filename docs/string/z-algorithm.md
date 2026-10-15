@@ -5,6 +5,18 @@ documentation_of: //blueberry/string/z-algorithm.hpp
 
 [カテゴリへ戻る]({{ '/categories/string.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+列 `s` の各位置から始まる接尾辞と `s` 全体の最長共通接頭辞長を求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`z_algorithm`](#z-algorithm) | O(N) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 列 `s` の各位置から始まる接尾辞と `s` 全体の最長共通接頭辞長を求めます。長さを $N$ とすると
@@ -25,12 +37,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<int> z_algorithm(sequence)` | O(N) | [開く](#z-algorithm) |
 
 <details class="api-operation" id="z-algorithm" markdown="1">
 <summary><code>vector&lt;int&gt; z_algorithm(sequence)</code> — O(N)</summary>

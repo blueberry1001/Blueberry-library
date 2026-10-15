@@ -5,6 +5,29 @@ documentation_of: //blueberry/data-structure/range-sort-range-product.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+キーによる区間ソートと一点置換、任意区間のモノイド積を扱います。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`RangeSortRangeProduct<S,op,e,Key>`](#default) | O(1) |
+| [`RangeSortRangeProduct<S,op,e,Key>`](#vector) | O(N log(N+1)) |
+| [`object.size`](#size) | O(1) |
+| [`object.get`](#get) | O(log(N+1)+W) |
+| [`object.set`](#set) | O(log(N+1)+W) |
+| [`object.prod`](#prod) | O(log(N+1)+W) |
+| [`object.all_prod`](#all-prod) | O(1) |
+| [`object.sort`](#sort) | 償却 O(log(N+1)+W) |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `RangeSortRangeProduct<S, op, e, Key=unsigned>` はキーによる区間ソートと一点置換、任意区間のモノイド積を扱います。
@@ -38,24 +61,9 @@ int main(){
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `RangeSortRangeProduct<S,op,e,Key>()` | O(1) | [開く](#default) |
-| `RangeSortRangeProduct<S,op,e,Key>(const vector<pair<Key,S>>& values)` | O(N log(N+1)) | [開く](#vector) |
-| `int object.size() const` | O(1) | [開く](#size) |
-| `pair<Key,S> object.get(int p) const` | O(log(N+1)+W) | [開く](#get) |
-| `void object.set(int p, Key key, const S& value)` | O(log(N+1)+W) | [開く](#set) |
-| `S object.prod(int l, int r)` | O(log(N+1)+W) | [開く](#prod) |
-| `S object.all_prod() const` | O(1) | [開く](#all-prod) |
-| `void object.sort(int l, int r, bool descending=false)` | 償却 O(log(N+1)+W) | [開く](#sort) |
-| `Type(const Type& other)` | O(M) | [開く](#copy-constructor) |
-| `Type(Type&& other)` | O(1) | [開く](#move-constructor) |
-| `Type& object.operator=(const Type& other)` | O(M + D) | [開く](#copy-assignment) |
-| `Type& object.operator=(Type&& other)` | O(1 + D) | [開く](#move-assignment) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>RangeSortRangeProduct&lt;S,op,e,Key&gt;()</code> — O(1)</summary>

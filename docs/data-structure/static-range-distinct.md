@@ -5,6 +5,25 @@ documentation_of: //blueberry/data-structure/static-range-distinct.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+不変配列の半開区間に現れる異なる値の個数をオンラインで返します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`StaticRangeDistinct<T>`](#op-0) | O(1) |
+| [`StaticRangeDistinct<T>`](#op-1) | O(N log(N+1)) |
+| [`d.size`](#op-2) | O(1) |
+| [`d.count`](#op-3) | O(log(N+1)) |
+| [`StaticRangeDistinct`](#value-0) | O(N log(N+1)) |
+| [`StaticRangeDistinct`](#value-1) | O(1) |
+| [`operator=`](#value-2) | O(N log(N+1)) + O(旧状態の破棄) |
+| [`operator=`](#value-3) | O(1) + O(旧状態の破棄) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 不変配列の半開区間に現れる異なる値の個数をオンラインで返します。同値性はTのoperator<が定めるstrict weak orderingで判断し、コピーと比較をO(1)とします。Nは配列長でINT_MAX未満。直前の同値要素の位置をWaveletMatrixに格納し、構築O(N log(N+1))、保持メモリO(N log(N+1)) bits + O(N) words。入力への参照を保持せず、空入力も許可。ACL単体にはこの用途のAPIがありません。
@@ -23,19 +42,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `StaticRangeDistinct<T>()` | O(1) | [開く](#op-0) |
-| `StaticRangeDistinct<T>(const std::vector<T>& a)` | O(N log(N+1)) | [開く](#op-1) |
-| `int d.size() const` | O(1) | [開く](#op-2) |
-| `int d.count(int l, int r) const` | O(log(N+1)) | [開く](#op-3) |
-| `StaticRangeDistinct(const StaticRangeDistinct& other)` | O(N log(N+1)) | [開く](#value-0) |
-| `StaticRangeDistinct(StaticRangeDistinct&& other)` | O(1) | [開く](#value-1) |
-| `StaticRangeDistinct& operator=(const StaticRangeDistinct& other)` | O(N log(N+1)) + O(旧状態の破棄) | [開く](#value-2) |
-| `StaticRangeDistinct& operator=(StaticRangeDistinct&& other)` | O(1) + O(旧状態の破棄) | [開く](#value-3) |
 
 <details class="api-operation" id="op-0" markdown="1">
 <summary><code>StaticRangeDistinct&lt;T&gt;()</code> — O(1)</summary>

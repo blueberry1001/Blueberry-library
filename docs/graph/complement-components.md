@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/complement-components.hpp
 
 [カテゴリへ戻る]({{ "/categories/graph.html" | relative_url }})
 
+## 概要
+
+無向グラフの補グラフを明示的に構築せず連結成分を列挙します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`complement_components`](#components) | O(N+M) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 無向グラフの補グラフを明示的に構築せず連結成分を列挙します。ACL に補グラフ専用の探索はありません。N 頂点、隣接リスト総長 M として最悪 O(N+M) 時間、入力を除き O(N) メモリです。隣接リストは両方向に登録し、各頂点番号は [0,N)、N < INT_MAX が必要です。自己ループ・重複辺は無視されます（重複も M に数えます）。空グラフは空の成分配列です。入力を変更しません。
@@ -23,12 +35,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<vector<int>> complement_components(const vector<vector<int>>& graph)` | O(N+M) | [開く](#components) |
 
 <details class="api-operation" id="components" markdown="1">
 <summary><code>vector&lt;vector&lt;int&gt;&gt; complement_components(const vector&lt;vector&lt;int&gt;&gt;& graph)</code> — O(N+M)</summary>

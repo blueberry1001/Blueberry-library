@@ -5,6 +5,18 @@ documentation_of: //blueberry/string/lyndon-factorization.hpp
 
 [カテゴリへ戻る]({{ '/categories/string.html' | relative_url }})
 
+## 概要
+
+列を辞書順で非増加なLyndon語へ一意に分解します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`lyndon_factorization`](#factorization) | O(N) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 列を辞書順で非増加なLyndon語へ一意に分解します。Lyndon語は、非空で、どの非自明な巡回シフトよりも
@@ -30,12 +42,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<int> lyndon_factorization(const Sequence& sequence)` | O(N) | [開く](#factorization) |
 
 <details class="api-operation" id="factorization" markdown="1">
 <summary><code>std::vector&lt;int&gt; lyndon_factorization(const Sequence&amp; sequence)</code> — O(N)</summary>

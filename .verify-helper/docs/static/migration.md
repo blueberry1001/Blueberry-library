@@ -147,3 +147,19 @@ int main() {
 {% endraw %}
 
 各新ライブラリのページで型の条件、計算量、空入力・境界の扱い、対応する公式 verify を確認してください。
+
+## モノイド一覧と競プロ用テンプレート
+
+モノイドの定義は[モノイド一覧]({{ '/monoids.html' | relative_url }})に集約しました。
+独立ライブラリとしての掲載とAlgebraカテゴリは外しました。互換用の
+`blueberry/algebra/monoids.hpp` と `blueberry/all.hpp` からの読込みは維持しています。
+
+WSLの個人用 `blueberrytemplate.h` は次の入口へ整理しました。
+
+- `blueberry/utility/contest-helpers.hpp`: `chmin`、`chmax`、整数除算・二分探索・圧縮など。
+- `blueberry/math/combinations.hpp`: `Combinations<Mint>` による階乗・二項係数・順列数。
+- `blueberry/utility/contest-template.hpp`: 型別名・反復マクロ・入出力を使う場合の任意読込み。
+
+テンプレートはmain関数や自動のI/O設定を定義しません。main内で `init_io()` を呼びます。
+マクロと名前空間への影響を限定するため、`all.hpp` に任意読込みのテンプレートは含めません。
+元の関数との対応と変更点は各入口のページで確認してください。

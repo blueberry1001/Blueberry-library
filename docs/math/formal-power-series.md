@@ -5,6 +5,50 @@ documentation_of: //blueberry/math/formal-power-series.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+係数を次数の昇順に保持する形式的冪級数（FPS）です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`FormalPowerSeries<Mint>`](#construct) | O(N) |
+| [`f.pre`, `f.rev`](#pre-rev) | O(N) |
+| [`f +=/-= g`, `f + g`, `f - g`, `-f`](#add-sub) | O(max(N, M)) |
+| [`f *= g`, `f * g`](#multiply) | O(M(N+M)) |
+| [`f /= g`, `f / g`, `f %= g`, `f % g`, `f.div_mod`](#divide) | O(M(N+M)) |
+| [`f.diff`, `f.integral`](#calculus) | O(N) / O(N log mod) |
+| [`f.inv`](#inv) | O(M(N)) |
+| [`f.log`](#log) | O(M(N)) |
+| [`f.sqrt`, `f.sqrt_with`](#sqrt) | O(M(N) log N) |
+| [`f.exp`](#exp) | O(M(N) log N) |
+| [`f.pow`](#pow) | O(M(N) log N) |
+| [`f.eval`, `f`](#eval) | O(N) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`f.shrink`](#shrink) | 償却 O(N) |
+| [`f +=/-= scalar`, `f + scalar`, `f - scalar`](#scalar-add-sub) | O(1) / O(N) |
+| [`f *= scalar`, `f /= scalar`, `f * scalar`, `f / scalar`](#scalar) | O(N) |
+| [`f *= sparse`, `f * sparse`](#sparse) | O(NS) |
+| [`f /= sparse`, `f / sparse`](#sparse) | O(NS + S log S) |
+| [`f <<= d`, `f >>= d`, `f << d`, `f >> d`](#shift) | O(N+d) |
+| [`f.dot`](#dot) | O(min(N, M)) |
+| [`f.multiply`, `f.divide`](#factor) | O(N) |
+| [`f.mod_pow`](#mod-pow) | O(M(N+D) + M(D) log(k+1)) |
+| [`f[i]`, `f.size`, range-for/iterators](#vector-interface) | O(1) |
+
+</details>
+
+以下の詳細では、返り値、使用例、境界条件をまとめています。例は必要なヘッダと有効な
+`f`・`g` が既にある前提です。
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 係数を次数の昇順に保持する形式的冪級数（FPS）です。`Mint` は ACL の
@@ -51,38 +95,10 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 `N` は保持する項数、`S` は疎級数の項数、`M(N)` は長さ `N` の畳み込みの計算量です。
 `std::vector` から継承した添字・イテレータ・`size()` なども利用できます。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `FormalPowerSeries<Mint> f(n) / f(values)` | O(N) | [開く](#construct) |
-| `f.pre(n)`, `f.rev(n)` | O(N) | [開く](#pre-rev) |
-| `f.shrink()` | 償却 O(N) | [開く](#shrink) |
-| `f +=/-= g`, `f + g`, `f - g`, `-f` | O(max(N, M)) | [開く](#add-sub) |
-| `f +=/-= scalar`, `f + scalar`, `f - scalar` | O(1) / O(N) | [開く](#scalar-add-sub) |
-| `f *= scalar`, `f /= scalar`, `f * scalar`, `f / scalar` | O(N) | [開く](#scalar) |
-| `f *= g`, `f * g` | O(M(N+M)) | [開く](#multiply) |
-| `f /= g`, `f / g`, `f %= g`, `f % g`, `f.div_mod(g)` | O(M(N+M)) | [開く](#divide) |
-| `f *= sparse`, `f * sparse` | O(NS) | [開く](#sparse) |
-| `f /= sparse`, `f / sparse` | O(NS + S log S) | [開く](#sparse) |
-| `f <<= d`, `f >>= d`, `f << d`, `f >> d` | O(N+d) | [開く](#shift) |
-| `f.dot(g)` | O(min(N, M)) | [開く](#dot) |
-| `f.eval(x)`, `f(x)` | O(N) | [開く](#eval) |
-| `f.multiply(d, c)`, `f.divide(d, c)` | O(N) | [開く](#factor) |
-| `f.diff()`, `f.integral()` | O(N) / O(N log mod) | [開く](#calculus) |
-| `f.inv(n)` | O(M(N)) | [開く](#inv) |
-| `f.log(n)` | O(M(N)) | [開く](#log) |
-| `f.sqrt(n)`, `f.sqrt_with(root, n)` | O(M(N) log N) | [開く](#sqrt) |
-| `f.exp(n)` | O(M(N) log N) | [開く](#exp) |
-| `f.pow(k, n)` | O(M(N) log N) | [開く](#pow) |
-| `f.mod_pow(k, modulus)` | O(M(N+D) + M(D) log(k+1)) | [開く](#mod-pow) |
-| `f[i]`, `f.size()`, range-for/iterators | O(1) | [開く](#vector-interface) |
-
-以下の詳細では、返り値、使用例、境界条件をまとめています。例は必要なヘッダと有効な
-`f`・`g` が既にある前提です。
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>FormalPowerSeries&lt;Mint&gt; f(n) / f(values)</code> — O(N)</summary>

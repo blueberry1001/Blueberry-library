@@ -3,6 +3,39 @@ title: Link-Cut Tree
 documentation_of: //blueberry/graph/link-cut-tree.hpp
 ---
 
+## 概要
+
+辺の接続・切断と頂点値のパス積を扱う動的森です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`LinkCutTree`](#construct) | O(N) |
+| [`evert`](#evert) | 償却 O(log(N+1)) |
+| [`leader`](#leader) | 償却 O(log(N+1)) |
+| [`size`](#size) | O(1) |
+| [`same`](#same) | 償却 O(log(N+1)) |
+| [`link`](#link) | 償却 O(log(N+1)) |
+| [`cut`](#cut) | 償却 O(log(N+1)) |
+| [`S`](#get) | O(1) |
+| [`set`](#set) | 償却 O(log(N+1)) |
+| [`S`](#prod) | 償却 O(log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`LinkCutTree`（コピー構築）](#copy) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N+D) |
+| [`LinkCutTree`（移動構築）](#move) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(D) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::LinkCutTree<S, op, e>` は辺の接続・切断と頂点値のパス積を扱う動的森です。
@@ -38,25 +71,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LinkCutTree(const vector<S>& values = {})` | O(N) | [開く](#construct) |
-| `void evert(int v)` | 償却 O(log(N+1)) | [開く](#evert) |
-| `int leader(int v)` | 償却 O(log(N+1)) | [開く](#leader) |
-| `int size() const` | O(1) | [開く](#size) |
-| `bool same(int u, int v)` | 償却 O(log(N+1)) | [開く](#same) |
-| `bool link(int u, int v)` | 償却 O(log(N+1)) | [開く](#link) |
-| `bool cut(int u, int v)` | 償却 O(log(N+1)) | [開く](#cut) |
-| `S get(int v) const` | O(1) | [開く](#get) |
-| `void set(int v, const S& x)` | 償却 O(log(N+1)) | [開く](#set) |
-| `S prod(int u, int v)` | 償却 O(log(N+1)) | [開く](#prod) |
-| `LinkCutTree(const LinkCutTree& other)` | O(N) | [開く](#copy) |
-| `LinkCutTree& operator=(const LinkCutTree& other)` | O(N+D) | [開く](#copy-assign) |
-| `LinkCutTree(LinkCutTree&& other)` | O(1) | [開く](#move) |
-| `LinkCutTree& operator=(LinkCutTree&& other)` | O(D) | [開く](#move-assign) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>LinkCutTree(const vector&lt;S&gt;&amp; values = {})</code> — O(N)</summary>

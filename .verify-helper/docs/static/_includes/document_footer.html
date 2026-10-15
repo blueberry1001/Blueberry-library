@@ -1,0 +1,39 @@
+<section class="document-references" id="document-references" aria-label="関連情報">
+{% for family in site.data.comparisons %}
+{% if family.headers contains page.data.path %}{% include library_comparison.html family=family.id %}{% endif %}
+{% endfor %}
+<div class="document-meta">
+<ul>
+  <li><a href="{{ site.github.repository_url }}/blob/{{ site.github.default_branch | default: 'main' }}/{{ page.data.path }}">GitHubでソースを開く</a></li>
+  {% if page.data.attributes.PROBLEM %}
+  <li>検証問題: <a href="{{ page.data.attributes.PROBLEM }}">{{ page.data.attributes.PROBLEM | escape }}</a></li>
+  {% endif %}
+  {% if page.data._isVerificationFailed %}
+  <li><a href="{{ site.github.repository_url }}/actions">検証エラーのログ</a></li>
+  {% endif %}
+  {% for link in page.data.attributes.links %}
+  {% if link != page.data.attributes.PROBLEM %}<li><a href="{{ link }}">{{ link | escape }}</a></li>{% endif %}
+  {% endfor %}
+</ul>
+</div>
+{% assign groups = '_extendedDependsOn,_extendedRequiredBy,_extendedVerifiedWith' | split: ',' %}
+{% assign headings = '依存するヘッダ,このヘッダを使うライブラリ,検証ファイル' | split: ',' %}
+<details class="source-relations-details"><summary>依存関係・検証ファイル</summary>
+<div class="source-relations">
+{% for group in groups %}
+  {% assign entries = page.data[group] %}
+  {% if entries.size > 0 %}
+  <h2>{{ headings[forloop.index0] }}</h2>
+  <ul>
+    {% for item in entries %}
+    <li><a href="{{ item.path | append: '.html' | relative_url }}">{{ item.icon }} {{ item.title | escape }}{% if item.title != item.path %} <small>({{ item.path | escape }})</small>{% endif %}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+{% endfor %}
+</div>
+<p class="operation-caption">最終更新: {{ page.data.timestamp | escape }}</p>
+</details>
+
+</section>
+<p class="document-back"><a href="{{ '/' | relative_url }}">ライブラリ一覧へ戻る</a></p>

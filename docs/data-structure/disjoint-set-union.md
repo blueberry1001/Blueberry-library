@@ -5,6 +5,27 @@ documentation_of: //blueberry/data-structure/disjoint-set-union.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+互いに素な集合を併合し、同じ集合かどうかを判定します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`DisjointSetUnion`](#construct) | O(N) |
+| [`dsu.leader`](#leader) | 償却 O(α(N)) |
+| [`dsu.merge`](#merge) | 償却 O(α(N)) |
+| [`dsu.same`](#same) | 償却 O(α(N)) |
+| [`dsu.component_size`](#component-size) | 償却 O(α(N)) |
+| [`dsu.comp_size`](#comp-size) | 償却 O(α(N)) |
+| [`dsu.size`](#size) | O(1) |
+| [`dsu.groups`](#groups) | O(N α(N)) |
+
+以下の詳細には返り値・使用例・注意点をまとめています。
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 互いに素な集合を併合し、同じ集合かどうかを判定します。要素数を $N$ とすると、
@@ -26,21 +47,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DisjointSetUnion dsu(n)` | O(N) | [開く](#construct) |
-| `int dsu.leader(v)` | 償却 O(α(N)) | [開く](#leader) |
-| `bool dsu.merge(u, v)` | 償却 O(α(N)) | [開く](#merge) |
-| `bool dsu.same(u, v)` | 償却 O(α(N)) | [開く](#same) |
-| `int dsu.component_size(v)` | 償却 O(α(N)) | [開く](#component-size) |
-| `int dsu.comp_size(v)` | 償却 O(α(N)) | [開く](#comp-size) |
-| `int dsu.size()` | O(1) | [開く](#size) |
-| `vector<vector<int>> dsu.groups()` | O(N α(N)) | [開く](#groups) |
-
-以下の詳細には返り値・使用例・注意点をまとめています。
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>DisjointSetUnion dsu(n)</code> — O(N)</summary>

@@ -5,6 +5,38 @@ documentation_of: //blueberry/data-structure/rollback-union-find.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+変更履歴を保存し、過去の状態へ戻せる Union Find です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`RollbackUnionFind`](#construct) | O(N) |
+| [`uf.leader`](#leader) | O(log N) |
+| [`uf.merge`](#merge) | 償却 O(log(N+1)) |
+| [`uf.same`](#same) | O(log N) |
+| [`uf.component_size`](#component-size) | O(log N) |
+| [`uf.comp_size`](#comp-size) | O(log N) |
+| [`uf.components`](#components) | O(1) |
+| [`uf.size`](#size) | O(1) |
+| [`uf.state`](#state) | O(1) |
+| [`uf.snapshot`](#snapshot) | O(1) |
+| [`uf.undo`](#undo) | O(1) |
+| [`uf.rollback`](#rollback-state) | O(取り消し数) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`uf.rollback`](#rollback-snapshot) | O(取り消し数) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 変更履歴を保存し、過去の状態へ戻せる Union Find です。経路圧縮は行わず union by size
@@ -30,24 +62,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `RollbackUnionFind uf(n)` | O(N) | [開く](#construct) |
-| `int uf.leader(v) const` | O(log N) | [開く](#leader) |
-| `bool uf.merge(u, v)` | 償却 O(log(N+1)) | [開く](#merge) |
-| `bool uf.same(u, v) const` | O(log N) | [開く](#same) |
-| `int uf.component_size(v) const` | O(log N) | [開く](#component-size) |
-| `int uf.comp_size(v) const` | O(log N) | [開く](#comp-size) |
-| `int uf.components() const` | O(1) | [開く](#components) |
-| `int uf.size() const` | O(1) | [開く](#size) |
-| `int uf.state() const` | O(1) | [開く](#state) |
-| `void uf.snapshot()` | O(1) | [開く](#snapshot) |
-| `void uf.undo()` | O(1) | [開く](#undo) |
-| `void uf.rollback(state)` | O(取り消し数) | [開く](#rollback-state) |
-| `void uf.rollback()` | O(取り消し数) | [開く](#rollback-snapshot) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>RollbackUnionFind uf(n)</code> — O(N)</summary>

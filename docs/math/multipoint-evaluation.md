@@ -5,6 +5,18 @@ documentation_of: //blueberry/math/multipoint-evaluation.hpp
 
 [カテゴリへ戻る]({{ '/categories/math.html' | relative_url }})
 
+## 概要
+
+多項式の値を任意の点でまとめて求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`multipoint_evaluation`](#evaluate) | O(K log² K) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 多項式の値を任意の点でまとめて求めます。ACLにはない積木・剰余木を既存FPSとACL畳み込みで実装しています。
@@ -29,12 +41,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<Mint> multipoint_evaluation(const vector<Mint>& f, const vector<Mint>& x)` | O(K log² K) | [開く](#evaluate) |
 
 <details class="api-operation" id="evaluate" markdown="1">
 <summary><code>vector&lt;Mint&gt; multipoint_evaluation(f, x)</code> — O(K log² K)</summary>

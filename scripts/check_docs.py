@@ -10,6 +10,8 @@ import subprocess
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
+# Kept for supported API compatibility; definitions live in the monoid cookbook.
+COMPATIBILITY_HEADERS = {"blueberry/algebra/monoids.hpp"}
 
 
 def collect_examples(root):
@@ -18,12 +20,18 @@ def collect_examples(root):
     headers = re.findall(r"^  path: (.+)$", catalog.read_text(encoding="utf-8"), re.M)
     expected = {p.relative_to(root).as_posix() for p in (root / "blueberry").glob("*/*.hpp")}
     assert len(headers) == len(set(headers)), "Duplicate catalog entries"
-    assert set(headers) == expected, "Register every modern header in libraries.yml"
+    assert set(headers) == expected - COMPATIBILITY_HEADERS, "Register every modern header in libraries.yml"
+    documented_headers = headers + sorted(expected & COMPATIBILITY_HEADERS)
     examples = []
-    for header in headers:
+    for header in documented_headers:
         document = root / ("docs/" + header.removeprefix("blueberry/").removesuffix(".hpp") + ".md")
         text = document.read_text(encoding="utf-8")
         assert f"documentation_of: //{header}" in text, document
+        marker = "<!-- library-implementation -->"
+        assert text.count(marker) == 1, (document, "Place the implementation once after the quick reference")
+        quick, reference = text.split(marker)
+        assert "```cpp" not in quick and '<details class="api-operation"' not in quick, document
+        assert "|" in quick and "O(" in quick, (document, "Include a quick operation/complexity table")
         # The monoid cookbook intentionally documents definitions rather than
         # repeating a public-operation reference for every recipe.
         definitions = header == "blueberry/algebra/monoids.hpp"
@@ -31,11 +39,17 @@ def collect_examples(root):
             assert heading in text, (document, heading)
         details = re.findall(r'<details class="api-operation" id="([^"]+)" markdown="1">(.*?)</details>', text, re.S)
         ids = [identifier for identifier, _ in details]
-        links = re.findall(r"\[開く\]\(#([^)]*)\)", text)
+        links = re.findall(r"\[[^\n]*?\]\(#([^)]*)\)", quick)
         if definitions:
             assert "recipe.code | escape" in text and "data-monoid-definition" in text, document
             assert "## 操作一覧" not in text and not details, document
         else:
+            assert "## 概要" in quick and "## 操作一覧" in quick, document
+            assert "| 操作 | 計算量 |" in quick and "| 詳細 |" not in quick, document
+            primary = quick.split('<details class="extra-operations"', 1)[0]
+            primary_rows = re.findall(r"^\|.*\]\(#[^)]*\).*\|$", primary, re.M)
+            assert len(primary_rows) <= 12, (document, "Keep the primary quick table to at most 12 rows")
+            assert "## 概要・前提" in reference and "## 最小使用例" in reference, document
             assert details and len(ids) == len(set(ids)) and set(links) == set(ids), document
         for identifier, body in details:
             assert "<summary>" in body and "O(" in body and "注意点:" in body, (document, identifier)
@@ -58,7 +72,7 @@ def collect_examples(root):
         for index, block in enumerate(blocks):
             assert "int main()" in block and "assert(" in block, (guide, index)
             examples.append((path, f"{path} example {index + 1}", block))
-    return headers, examples
+    return documented_headers, examples
 
 
 def selected_paths(root, paths_file, examples):

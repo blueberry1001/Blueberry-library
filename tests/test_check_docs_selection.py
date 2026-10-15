@@ -19,9 +19,10 @@ SOURCE = "#include <cassert>\nint main() { assert(1 == 1); }"
 
 def page(header, source=SOURCE):
     return (
-        f"documentation_of: //{header}\n## 概要・前提\n## 最小使用例\n"
+        f"documentation_of: //{header}\n## 概要\n短い概要。\n## 操作一覧\n"
+        "| 操作 | 計算量 |\n| --- | --- |\n| [`get`](#get) | O(1) |\n"
+        "<!-- library-implementation -->\n## 概要・前提\n## 最小使用例\n"
         "{% raw %}\n```cpp\n" + source + "\n```\n{% endraw %}\n"
-        "## 操作一覧\n[開く](#get)\n"
         '<details class="api-operation" id="get" markdown="1">\n'
         "<summary>get — O(1)</summary>\n注意点: bounds\n"
         "{% raw %}\n```cpp\nget();\n```\n{% endraw %}\n</details>\n"
@@ -55,6 +56,29 @@ class CheckDocsSelectionTest(unittest.TestCase):
     def run_main(self, args):
         with contextlib.redirect_stdout(io.StringIO()):
             return check_docs.main(args)
+
+    def test_compatibility_monoids_still_require_documentation_without_catalog_listing(self):
+        header = "blueberry/algebra/monoids.hpp"
+        self.write(header, "#pragma once\n")
+        definition_page = (
+            "documentation_of: //" + header + "\n## 概要\n"
+            "| 定義 | 計算量 |\n| --- | --- |\n| monoid | O(1) |\n"
+            "<!-- library-implementation -->\n"
+            "{{ recipe.code | escape }} data-monoid-definition\n"
+            "{% raw %}\n```cpp\n" + SOURCE + "\n```\n{% endraw %}\n"
+        )
+        self.write("docs/algebra/monoids.md", definition_page)
+        documented, examples = check_docs.collect_examples(self.root)
+        self.assertIn(header, documented)
+        self.assertIn("docs/algebra/monoids.md", {path for path, _, _ in examples})
+        (self.root / "docs/algebra/monoids.md").unlink()
+        with self.assertRaises(FileNotFoundError):
+            check_docs.collect_examples(self.root)
+
+    def test_unregistered_new_header_is_not_treated_as_compatibility(self):
+        self.write("blueberry/algebra/new.hpp", "#pragma once\n")
+        with self.assertRaisesRegex(AssertionError, "Register every modern header"):
+            check_docs.collect_examples(self.root)
 
     def test_default_compiles_every_example_once(self):
         with patch.object(check_docs, "compile_examples") as compile_examples:
@@ -91,6 +115,30 @@ class CheckDocsSelectionTest(unittest.TestCase):
         for args in (["--structure-only"], ["--paths-file", self.selection(["docs/test/b.md"])]):
             with self.subTest(args=args), self.assertRaises(AssertionError):
                 self.run_main(args)
+
+    def test_implementation_precedes_examples_and_api_details(self):
+        document = page("blueberry/test/a.hpp")
+        for broken in (
+            document.replace("<!-- library-implementation -->", ""),
+            document.replace("<!-- library-implementation -->", "<!-- library-implementation -->" * 2),
+            document.replace("<!-- library-implementation -->", "").replace("## 最小使用例", "## 最小使用例\n<!-- library-implementation -->"),
+        ):
+            with self.subTest(document=broken):
+                self.write("docs/test/a.md", broken)
+                with self.assertRaises(AssertionError):
+                    self.run_main(["--structure-only"])
+
+    def test_long_quick_tables_require_native_disclosure(self):
+        document = page("blueberry/test/a.hpp")
+        row = "| [`get`](#get) | O(1) |\n"
+        self.write("docs/test/a.md", document.replace(row, row * 13))
+        with self.assertRaisesRegex(AssertionError, "at most 12 rows"):
+            self.run_main(["--structure-only"])
+        folded = ('<details class="extra-operations" markdown="1">\n'
+                  '<summary>その他の操作・型</summary>\n\n'
+                  '| 操作 | 計算量 |\n| --- | --- |\n' + row * 12 + '\n</details>\n')
+        self.write("docs/test/a.md", document.replace(row, row + folded))
+        self.run_main(["--structure-only"])
 
     def test_summary_template_brackets_must_be_html_escaped(self):
         document = page("blueberry/test/a.hpp")

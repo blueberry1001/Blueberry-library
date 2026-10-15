@@ -5,6 +5,28 @@ documentation_of: //blueberry/data-structure/segment-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+モノイドの一点更新・区間積を扱います。
+
+区間は `[l,r)`、演算は結合則と単位元を満たす必要があります。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`SegmentTree<S,`](#construct-size) | O(N) |
+| [`SegmentTree<S,`](#construct-values) | O(N) |
+| [`seg.set`](#set) | O(log N) |
+| [`seg.get`](#get) | O(1) |
+| [`seg.product`](#product) | O(log N) |
+| [`seg.prod`](#prod) | O(log N) |
+| [`seg.all_product`](#all-product) | O(1) |
+| [`seg.all_prod`](#all-prod) | O(1) |
+| [`seg.size`](#size) | O(1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 モノイドの一点更新・区間積を扱います。要素数を $N$ とし、演算 `op` は結合則を満たし、
@@ -28,20 +50,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SegmentTree<S, Op> seg(n, op, identity)` | O(N) | [開く](#construct-size) |
-| `SegmentTree<S, Op> seg(values, op, identity)` | O(N) | [開く](#construct-values) |
-| `void seg.set(i, value)` | O(log N) | [開く](#set) |
-| `const S& seg.get(i) const` | O(1) | [開く](#get) |
-| `S seg.product(l, r) const` | O(log N) | [開く](#product) |
-| `S seg.prod(l, r) const` | O(log N) | [開く](#prod) |
-| `const S& seg.all_product() const` | O(1) | [開く](#all-product) |
-| `const S& seg.all_prod() const` | O(1) | [開く](#all-prod) |
-| `int seg.size() const` | O(1) | [開く](#size) |
 
 <details class="api-operation" id="construct-size" markdown="1">
 <summary><code>SegmentTree&lt;S, Op&gt; seg(n, op, identity)</code> — O(N)</summary>

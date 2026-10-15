@@ -5,6 +5,28 @@ documentation_of: //blueberry/data-structure/skew-heap.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+所有権付き meldable heap。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`SkewHeap`](#default) | O(1) |
+| [`SkewHeap`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+| [`~SkewHeap`](#destructor) | O(N) |
+| [`size`](#size) | O(1) |
+| [`empty`](#empty) | O(1) |
+| [`top`](#top) | O(1) |
+| [`push`](#push) | O(log(N+1)) 償却 |
+| [`pop`](#pop) | O(log(N+1)) 償却 |
+| [`meld`](#meld) | O(log(N+M+1)) 償却 |
+| [`clear`](#clear) | O(N) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::SkewHeap<T, Compare = std::less<T>>` は所有権付き meldable heap。
@@ -33,23 +55,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 N は要素数（slope trick は保持する折れ点数）、M はコピー・結合相手または置換前の保持量。型のコピー・演算・比較は O(1) とする。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SkewHeap(Compare compare = {})` | O(1) | [開く](#default) |
-| `SkewHeap(SkewHeap&& other)` | O(1) | [開く](#move-constructor) |
-| `SkewHeap& operator=(SkewHeap&& other)` | O(M) | [開く](#move-assignment) |
-| `~SkewHeap()` | O(N) | [開く](#destructor) |
-| `std::size_t size() const` | O(1) | [開く](#size) |
-| `bool empty() const` | O(1) | [開く](#empty) |
-| `const T& top() const` | O(1) | [開く](#top) |
-| `void push(const T& value)` | O(log(N+1)) 償却 | [開く](#push) |
-| `void pop()` | O(log(N+1)) 償却 | [開く](#pop) |
-| `void meld(SkewHeap& other)` | O(log(N+M+1)) 償却 | [開く](#meld) |
-| `void clear()` | O(N) | [開く](#clear) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>SkewHeap(Compare compare = {})</code> — O(1)</summary>

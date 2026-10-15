@@ -287,7 +287,10 @@ def main() -> None:
             event = json.loads(args.event_path.read_text())
         except (OSError, ValueError):
             pass  # Missing event context cannot lead to skipped verification.
-    full = args.full or args.event_name == "workflow_dispatch"
+    # Published pages need fresh markers for every verifier. A successful
+    # affected/empty run does not prove that the timestamp cache survived.
+    # Only main receives push events in verify.yml; PRs remain selective.
+    full = args.full or args.event_name in ("push", "workflow_dispatch")
     candidate = args.base or event_base(args.repo, args.event_name, event, args.head)
     if args.base or full:
         base, evidence = candidate, {"reason": "explicit base/full run"}

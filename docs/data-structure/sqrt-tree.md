@@ -5,6 +5,23 @@ documentation_of: //blueberry/data-structure/sqrt-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+更新のない配列のモノイド区間積を最悪 O(1) で返す。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Tree tree`](#default-constructor) | O(1) |
+| [`Tree`](#constructor) | O(N L) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.get`](#get) | O(1) |
+| [`tree.prod`](#prod) | O(1) |
+| [`tree.all_prod`](#all-prod) | O(1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::SqrtTree<S, op, e>` は更新のない配列のモノイド区間積を最悪 O(1) で返す。
@@ -51,18 +68,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下 `Tree = blueberry::SqrtTree<S, op, e>`。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Tree tree` | O(1) | [開く](#default-constructor) |
-| `Tree tree(const std::vector<S>& values)` | O(N L) | [開く](#constructor) |
-| `int tree.size()` | O(1) | [開く](#size) |
-| `S tree.get(int p)` | O(1) | [開く](#get) |
-| `S tree.prod(int l, int r)` | O(1) | [開く](#prod) |
-| `S tree.all_prod()` | O(1) | [開く](#all-prod) |
 
 <details class="api-operation" id="default-constructor" markdown="1">
 <summary><code>Tree tree</code> — O(1)</summary>

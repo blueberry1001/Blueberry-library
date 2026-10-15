@@ -5,6 +5,21 @@ documentation_of: //blueberry/graph/eulerian-trail.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+有向・無向多重グラフで、すべての辺をちょうど一度使うオイラー路を求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`EulerianTrail<Directed>`](#construct) | O(N+M) |
+| [`trail.exists`](#exists) | O(1) |
+| [`trail.vertices`](#vertices) | O(1) |
+| [`trail.edges`](#edges) | O(1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 有向・無向多重グラフで、すべての辺をちょうど一度使うオイラー路を求めます。
@@ -41,15 +56,6 @@ int main() {
 ```
 {% endraw %}
 
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `EulerianTrail<Directed> trail(n, edges, start = -1)` | O(N+M) | [開く](#construct) |
-| `bool trail.exists() const` | O(1) | [開く](#exists) |
-| `const vector<int>& trail.vertices() const` | O(1) | [開く](#vertices) |
-| `const vector<int>& trail.edges() const` | O(1) | [開く](#edges) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>EulerianTrail&lt;Directed&gt; trail(n, edges, start = -1)</code> — O(N+M)</summary>

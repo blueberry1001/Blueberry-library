@@ -5,6 +5,18 @@ documentation_of: //blueberry/string/manacher.hpp
 
 [カテゴリへ戻る]({{ '/categories/string.html' | relative_url }})
 
+## 概要
+
+文字と文字間を中心とする最長回文の**長さ**をまとめて求める。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`blueberry::manacher`](#manacher) | 最悪 O(N) 時間、O(N) メモリ |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 文字と文字間を中心とする最長回文の**長さ**をまとめて求める。
@@ -40,12 +52,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::vector<int> p = blueberry::manacher(const Sequence& sequence)` | 最悪 O(N) 時間、O(N) メモリ | [開く](#manacher) |
 
 <details class="api-operation" id="manacher" markdown="1">
 <summary><code>std::vector&lt;int&gt; blueberry::manacher(const Sequence&amp; sequence)</code> — 最悪 O(N)</summary>

@@ -5,6 +5,26 @@ documentation_of: //blueberry/graph/dijkstra.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+非負辺重みのグラフに対する単一始点最短路です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`WeightedEdge<Cost>{to, cost}`](#edge) | O(1) |
+| [`edge.to`](#edge-to) | O(1) access |
+| [`edge.cost`](#edge-cost) | O(1) access |
+| [`ShortestPathResult<Cost>{distance, parent, infinity}`](#result) | O(V) copy / O(1) move |
+| [`ShortestPathResult<Cost>::distance`](#distance) | O(1) access |
+| [`ShortestPathResult<Cost>::parent`](#parent) | O(1) access |
+| [`ShortestPathResult<Cost>::infinity`](#infinity) | O(1) access |
+| [`result.path_to`](#path-to) | O(V) |
+| [`dijkstra`](#dijkstra) | O(V + E log(E+1)) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 非負辺重みのグラフに対する単一始点最短路です。頂点数を $V$、辺数を $E$ とすると、
@@ -33,20 +53,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `WeightedEdge<Cost>{to, cost}` | O(1) | [開く](#edge) |
-| `edge.to` | O(1) access | [開く](#edge-to) |
-| `edge.cost` | O(1) access | [開く](#edge-cost) |
-| `ShortestPathResult<Cost>{distance, parent, infinity}` | O(V) copy / O(1) move | [開く](#result) |
-| `ShortestPathResult<Cost>::distance` | O(1) access | [開く](#distance) |
-| `ShortestPathResult<Cost>::parent` | O(1) access | [開く](#parent) |
-| `ShortestPathResult<Cost>::infinity` | O(1) access | [開く](#infinity) |
-| `vector<int> result.path_to(target)` | O(V) | [開く](#path-to) |
-| `dijkstra(graph, source, infinity)` | O(V + E log(E+1)) | [開く](#dijkstra) |
 
 <details class="api-operation" id="edge" markdown="1">
 <summary><code>WeightedEdge&lt;Cost&gt;{to, cost}</code> — O(1)</summary>

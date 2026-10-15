@@ -5,6 +5,39 @@ documentation_of: //blueberry/data-structure/range-parallel-union-find.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+同じ長さの2区間について対応頂点同士をまとめて併合します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`RangeParallelUnionFind`](#constructor) | O(N log(N+1)) |
+| [`object.size`](#size) | O(1) |
+| [`object.components`](#components) | O(1) |
+| [`object.leader`](#leader) | 償却 O(α(N)) |
+| [`object.same`](#same) | 償却 O(α(N)) |
+| [`object.comp_size`](#comp-size) | 償却 O(α(N)) |
+| [`object.merge`](#merge) | 償却 O(α(N)) |
+| [`object.merge`](#merge-callback) | 償却 O(α(N)) |
+| [`object.range_merge`](#range-merge) | O(K log(N+1)) |
+| [`object.range_merge`](#range-callback) | O(K log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `RangeParallelUnionFind` は同じ長さの2区間について対応頂点同士をまとめて併合します。通常のACL DSUを各2冪長に配置する拡張です。
@@ -32,26 +65,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `RangeParallelUnionFind(int n = 0)` | O(N log(N+1)) | [開く](#constructor) |
-| `int object.size() const` | O(1) | [開く](#size) |
-| `int object.components() const` | O(1) | [開く](#components) |
-| `int object.leader(int p)` | 償却 O(α(N)) | [開く](#leader) |
-| `bool object.same(int a, int b)` | 償却 O(α(N)) | [開く](#same) |
-| `int object.comp_size(int p)` | 償却 O(α(N)) | [開く](#comp-size) |
-| `void object.merge(int a, int b)` | 償却 O(α(N)) | [開く](#merge) |
-| `void object.merge(int a, int b, F callback)` | 償却 O(α(N)) | [開く](#merge-callback) |
-| `void object.range_merge(int a, int b, int length)` | O(K log(N+1)) | [開く](#range-merge) |
-| `void object.range_merge(int a, int b, int length, F callback)` | O(K log(N+1)) | [開く](#range-callback) |
-| `Type(const Type& other)` | O(M) | [開く](#copy-constructor) |
-| `Type(Type&& other)` | O(1) | [開く](#move-constructor) |
-| `Type& object.operator=(const Type& other)` | O(M + D) | [開く](#copy-assignment) |
-| `Type& object.operator=(Type&& other)` | O(1 + D) | [開く](#move-assignment) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>RangeParallelUnionFind(int n = 0)</code> — O(N log(N+1))</summary>

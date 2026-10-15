@@ -1,10 +1,4 @@
 {
-  "blueberry/algebra/monoids.hpp": {
-    "partial": true,
-    "reason": "AffineSumとAffineCompositionはACLの木に載せた専用Library Checkerドライバで検証します。",
-    "limits": "IndexAffineSum、AffineSumSquares、BinaryFlipInversions、MaxSubarray、Bracket、MaxCountは境界・ランダム・愚直比較で検証します。案内ページの問題リンクは公式ケース検証済みを意味しません。",
-    "next": "各レシピの作用合成・単位元・空区間・非可換順序を固定seedで比較し、追加の公式問題に対応する場合は専用ドライバを増やす。"
-  },
   "blueberry/utility/fast-io.hpp": {
     "partial": true,
     "reason": "Many A + Bと128bit版の専用verifyで整数入出力を検証します。",
@@ -35,5 +29,17 @@
     "limits": "通常のpriority queue問題だけでは過去操作の編集を検証できず、専用の公式verifyは未登録です。任意の過去時点の問い合わせは提供しない部分retroactive版です。",
     "next": "操作履歴を毎回再実行する愚直解で、過去への挿入・削除・不正操作拒否を比較する。",
     "issue": "https://github.com/blueberry1001/Blueberry-library/issues/28"
+  },
+  "blueberry/utility/contest-helpers.hpp": {
+    "partial": true,
+    "reason": "128bitの変換は専用入出力verifyの依存先として検証します。補助関数全体は境界・固定seedのランダムテストで検証します。",
+    "limits": "整数除算・二分探索・圧縮・二部判定・Fillなどは公式の専用問題ではなくローカル検査です。",
+    "next": "型の前提と整数端点のテストを維持し、対応する公式問題がある操作には専用ドライバを追加する。"
+  },
+  "blueberry/utility/contest-template.hpp": {
+    "partial": true,
+    "reason": "Many A + B (128bit)でinit_io・scan・printと128bit入出力を直接検証します。",
+    "limits": "型別名・マクロ・乱数・入れ子のコンテナ入出力はローカルテストです。ACLを含む任意読込みの単一翻訳単位用テンプレートです。",
+    "next": "マクロ境界と入出力の固定seed検査を維持する。"
   }
 }

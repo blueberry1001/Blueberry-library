@@ -5,6 +5,26 @@ documentation_of: //blueberry/graph/linear-lca.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+静的な無向木の LCA と辺数距離を O(1) で返す。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`LinearLCA`](#constructor) | O(N) |
+| [`LinearLCA`](#copy-constructor) | O(N) |
+| [`operator=`](#copy-assignment) | O(N) + D |
+| [`LinearLCA`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+| [`size`](#size) | O(1) |
+| [`depth`](#depth) | O(1) |
+| [`lca`](#lca) | O(1) |
+| [`distance`](#distance) | O(1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::LinearLCA` は静的な無向木の LCA と辺数距離を O(1) で返す。N 頂点、`1 <= N <= INT_MAX/2`、隣接リストは各無向辺を両方向に1回ずつ含む連結・閉路なしの木とする。根を指定でき、頂点は `[0,N)`。
@@ -26,20 +46,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LinearLCA(const std::vector<std::vector<int>>& tree, int root = 0)` | O(N) | [開く](#constructor) |
-| `LinearLCA copy(const LinearLCA& other)` | O(N) | [開く](#copy-constructor) |
-| `LinearLCA& operator=(const LinearLCA& other)` | O(N) + D | [開く](#copy-assignment) |
-| `LinearLCA moved(LinearLCA&& other)` | O(1) | [開く](#move-constructor) |
-| `LinearLCA& operator=(LinearLCA&& other)` | O(1 + D) | [開く](#move-assignment) |
-| `int size() const` | O(1) | [開く](#size) |
-| `int depth(int v) const` | O(1) | [開く](#depth) |
-| `int lca(int u, int v) const` | O(1) | [開く](#lca) |
-| `int distance(int u, int v) const` | O(1) | [開く](#distance) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>LinearLCA(const std::vector&lt;std::vector&lt;int&gt;&gt;&amp; tree, int root = 0)</code> — O(N)</summary>

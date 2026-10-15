@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/cycle-detection.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+有向・無向グラフから単純閉路を1つ探し、入力の辺番号を巡回順で返します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`find_cycle<Directed>`](#find-cycle) | O(N+M) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 有向・無向グラフから単純閉路を1つ探し、入力の辺番号を巡回順で返します。ACLには閉路の辺列復元APIがありません。
@@ -25,12 +37,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<int> find_cycle<Directed>(int n, const vector<pair<int,int>>& edges)` | O(N+M) | [開く](#find-cycle) |
 
 <details class="api-operation" id="find-cycle" markdown="1">
 <summary><code>find_cycle&lt;Directed&gt;(n, edges)</code> — O(N+M)</summary>

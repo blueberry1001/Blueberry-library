@@ -5,6 +5,22 @@ documentation_of: //blueberry/data-structure/disjoint-sparse-table.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+**集約演算はコンストラクタに渡した `op` で決まる。
+
+区間は `[l,r)`、空区間は扱いません。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`DisjointSparseTable<T,`](#constructor) | O(N log(N+1)) |
+| [`table.prod`](#prod) | O(1) |
+| [`table.size`](#size) | O(1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 **集約演算はコンストラクタに渡した `op` で決まる。** 区間和は `x + y`、区間最小値は `std::min(x, y)` を指定する。
@@ -37,14 +53,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DisjointSparseTable<T, Op>(const std::vector<T>& values, Op op)` | O(N log(N+1)) | [開く](#constructor) |
-| `T table.prod(int left, int right) const` | O(1) | [開く](#prod) |
-| `int table.size() const` | O(1) | [開く](#size) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>DisjointSparseTable&lt;T, Op&gt;(const std::vector&lt;T&gt;&amp; values, Op op)</code> — O(N log(N+1))</summary>

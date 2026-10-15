@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/maximum-independent-set.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+単純無向グラフの最大独立集合を半分全列挙で厳密に求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`maximum_independent_set`](#solve) | O(M + 2^(ceil(N/2))) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 単純無向グラフの最大独立集合を半分全列挙で厳密に求めます。ACLにはありません。
@@ -25,12 +37,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `vector<int> maximum_independent_set(int n, const vector<pair<int,int>>& edges)` | O(M + 2^(ceil(N/2))) | [開く](#solve) |
 
 <details class="api-operation" id="solve" markdown="1">
 <summary><code>maximum_independent_set(n, edges)</code> — O(M + 2^(ceil(N/2)))</summary>

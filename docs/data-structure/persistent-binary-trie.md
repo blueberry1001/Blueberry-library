@@ -5,6 +5,38 @@ documentation_of: //blueberry/data-structure/persistent-binary-trie.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+過去の任意の版から分岐して挿入・削除できる、符号なし整数の永続多重集合です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`PersistentBinaryTrie<UInt, Bits> t`](#constructor) | O(1) |
+| [`t.size`](#size) | O(1) |
+| [`t.empty`](#empty) | O(1) |
+| [`t.insert`](#insert) | 償却 O(B) |
+| [`t.erase`](#erase) | 償却 O(B) |
+| [`t.count`](#count) | O(B) |
+| [`t.rank`](#rank) | O(B) |
+| [`t.kth`](#kth) | O(B) |
+| [`t.xor_min`](#xor-min) | O(B) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`PersistentBinaryTrie`](#copy-constructor) | O(M) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`PersistentBinaryTrie`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 過去の任意の版から分岐して挿入・削除できる、符号なし整数の永続多重集合です。
@@ -44,24 +76,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentBinaryTrie<UInt, Bits> t` | O(1) | [開く](#constructor) |
-| `PersistentBinaryTrie t(other)` | O(M) | [開く](#copy-constructor) |
-| `t.operator=(other)` | O(M + D) | [開く](#copy-assignment) |
-| `PersistentBinaryTrie t(std::move(other))` | O(1) | [開く](#move-constructor) |
-| `t.operator=(std::move(other))` | O(1 + D) | [開く](#move-assignment) |
-| `int t.size(int version)` | O(1) | [開く](#size) |
-| `bool t.empty(int version)` | O(1) | [開く](#empty) |
-| `int t.insert(int version, UInt x)` | 償却 O(B) | [開く](#insert) |
-| `int t.erase(int version, UInt x)` | 償却 O(B) | [開く](#erase) |
-| `int t.count(int version, UInt x)` | O(B) | [開く](#count) |
-| `int t.rank(int version, UInt x)` | O(B) | [開く](#rank) |
-| `std::optional<UInt> t.kth(int version, int k)` | O(B) | [開く](#kth) |
-| `std::optional<UInt> t.xor_min(int version, UInt x)` | O(B) | [開く](#xor-min) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>PersistentBinaryTrie&lt;UInt, Bits&gt; t</code> — O(1)</summary>

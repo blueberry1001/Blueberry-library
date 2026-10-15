@@ -25,10 +25,21 @@ assert 'site-hero__eyebrow' not in home and 'class="library-summary"' not in hom
 assert 'data-catalog-search' in home and 'data-catalog-controls hidden' in home
 assert 'data-catalog-empty hidden' in home and 'id="library-catalog"' in home
 assert "calc(100% - 300px)" not in home, "Upstream inline sidebar CSS returned"
-assert home.index("</section>") < home.index("<footer>"), "Footer must follow the content"
-categories = ("algebra", "data-structure", "graph", "math", "string", "utility")
+assert "This project is maintained by" not in home
+assert "Hosted on GitHub Pages" not in home
+assert "<footer>" not in home, "Unneeded theme footer returned"
+assert 'class="skip-link"' in home, "Keyboard users need a direct route to content"
+assert 'data-catalog-choice=""' in home, "All categories must remain selectable"
+assert 'data-catalog-choice="algebra"' not in home, "Empty compatibility category leaked onto homepage"
+assert not any(href.endswith('/blueberry/algebra/monoids.hpp.html') for href in home_links), (
+    "Compatibility monoids belong on the monoid page")
+catalog_script = (SITE / "assets/js/docs.js").read_text()
+assert 'event.preventDefault()' in catalog_script and 'choice.dataset.catalogChoice' in catalog_script, (
+    "Category selection must filter the catalog without navigating away")
+categories = ("data-structure", "graph", "math", "string", "utility")
 for category in categories:
     assert f"/Blueberry-library/categories/{category}.html" in home
+    assert f'data-catalog-choice="{category}"' in home, (category, "missing same-page category choice")
     content = (SITE / "categories" / f"{category}.html").read_text()
     assert "収録ライブラリ" in content and f"/blueberry/{category}/" in content
     assert 'data-catalog-search' in content, (category, "missing catalog search")
@@ -64,6 +75,8 @@ assert not re.search(r'<article\b[^>]*data-library[^>]*\bhidden\b', monoids)
 assert 'JavaScript' in monoids and '共通の使い方' in monoids
 recipes = json.loads((ROOT / '.verify-helper/docs/static/_data/monoids.yml').read_text())
 for recipe in recipes:
+    if not recipe.get('code'):
+        continue
     article = re.search(r'<article\b[^>]*\bid="' + re.escape(recipe['id']) + r'"[^>]*>(.*?)</article>', monoids, re.S)
     assert article, recipe['id']
     assert 'data-linked-details' in article[1] and '<summary>' in article[1], recipe['id']
@@ -73,6 +86,7 @@ for recipe in recipes:
         assert '<em>' not in article[1], (recipe['id'], 'formula interpreted as emphasis')
 assert sum(bool(recipe.get('code')) for recipe in recipes) == 30
 assert '使う例' not in monoids and '操作一覧' not in monoids
+assert '応用問題:' not in monoids and 'id="beats"' not in monoids, 'Only monoid definitions belong in the cookbook'
 assert 'href=""' not in monoids, "Recipes without example problems must not render empty links"
 for href in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', monoids):
     assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("monoids", href)
@@ -92,6 +106,9 @@ assert len(catalog_rows) == len(headers), "Search catalog must contain every mod
 for header in headers:
     assert sum(f'/{header}.html' in row for row in catalog_rows) == 1, (header, "missing or duplicate search result")
 assert not re.search(r'<tr data-library\b[^>]*\bhidden\b', home), "Catalog must work without JavaScript"
+compatibility_monoids = SITE / 'blueberry/algebra/monoids.hpp.html'
+assert compatibility_monoids.is_file(), "Removing a catalog entry must preserve its supported source page"
+assert (SITE / 'blueberry/all.hpp.html').is_file(), "The umbrella include page must remain available"
 for header in headers:
     content = (SITE / f"{header}.html").read_text()
     # Hand-written API prose is rendered under the header URL, not docs/*.md.
@@ -110,6 +127,26 @@ for header in headers:
         assert target.is_file(), (header, href, "broken API documentation link")
     assert 'assets/js/copy-button.js' not in content, (header, "upstream controls duplicate copy buttons and bundle unrelated examples")
     assert 'id="bundled-source"' in content, (header, "missing bundled source")
+    assert 'class="library-brief"' in content and 'class="library-details"' in content, (
+        header, "Library docs must separate quick reference from complete API details")
+    positions = [content.index(token) for token in (
+        'class="library-brief"', 'id="source-code"', 'data-source-viewer',
+        'class="library-details"', 'id="document-references"')]
+    assert positions == sorted(positions), (header, "Expected brief → implementation → details → references")
+    assert '<!-- library-implementation -->' not in content, (header, "Implementation split marker leaked into rendered docs")
+    before_source = content[:content.index('id="source-code"')]
+    assert 'class="api-operation"' not in before_source, (header, "Full API documentation must follow the copyable implementation")
+    assert not re.search(r'<details\b[^>]*(?:class="(?:api-operation|extra-operations)"|class="source-relations-details")[^>]*\bopen\b', content), (
+        header, "Supplementary operations and relationships must start collapsed")
+    assert content.index('id="document-references"') < content.index('class="source-relations"'), (
+        header, "Source relationships belong in the final reference section")
+    if 'class="verification-examples"' in content:
+        assert content.index('class="library-details"') < content.index('class="verification-examples"'), (
+            header, "Verify source examples must follow the documentation details")
+    brief = re.search(r'<div class="library-brief">(.*?)</div>\s*<h2 id="source-code">', content, re.S)
+    assert brief and '<table>' in brief[1], (header, "Missing compact operation reference")
+    for table_header in re.findall(r'<thead>(.*?)</thead>', brief[1], re.S):
+        assert len(re.findall(r'<th\b', table_header)) == 2, (header, "Quick reference needs only operation and complexity")
     relations = re.search(r'<div class="source-relations">(.*?)</div>', content, re.S)
     assert relations, (header, "missing source relationships")
     for link in re.findall(r'href="([^"]+)"', relations[1]):
@@ -187,5 +224,13 @@ for row in metrics["results"]:
     assert metrics["generated_at"] in content, "Missing measured data on verify page"
     if row["status"] == "not_selected":
         assert "今回未実行" in content, "Unselected verify must not look measured"
+    if row["status"] == "passed":
+        assert 'data-verification-status="TEST_ACCEPTED"' in content, (
+            row["path"], "Successful measurement must render an accepted verification heading")
+if selected == expected:
+    for header in headers:
+        content = (SITE / f"{header}.html").read_text()
+        assert not re.search(r'data-verification-status="LIBRARY_(?:ALL|SOME)_WA"', content), (
+            header, "Full successful verification must not render a failed library heading")
 print(f"PASS: {len(categories)} categories, {len(headers)} API pages, {len(selected)} measured verifies, "
       f"{len(paths) - len(selected)} intentionally unselected, footer and navigation.")

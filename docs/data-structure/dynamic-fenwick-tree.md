@@ -5,6 +5,38 @@ documentation_of: //blueberry/data-structure/dynamic-fenwick-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+事前の座標登録なしで、巨大な整数区間 `[0,n)` に点加算・区間和・重み付き探索を行う。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`DynamicFenwickTree<T,Coord> tree`](#default) | O(1) |
+| [`DynamicFenwickTree<T,Coord>`](#construct) | O(1) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.add`](#add) | 平均・償却 O(L) |
+| [`tree.pref`](#pref) | 平均 O(L) |
+| [`tree.sum`](#sum) | 平均 O(L) |
+| [`tree.get`](#get) | 平均 O(L) |
+| [`tree.lower_bound`](#lower-bound) | 平均 O(L) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`DynamicFenwickTree<T,Coord>`（コピー構築）](#copy-construct) | O(1+S) |
+| [`tree = other` → tree の参照（コピー代入）](#copy-assign) | O(1+S+S_old) |
+| [`DynamicFenwickTree<T,Coord>`（移動構築）](#move-construct) | O(1) |
+| [`std::move` → tree の参照（移動代入）](#move-assign) | O(1+S_old) |
+| [`tree.~DynamicFenwickTree`](#destroy) | O(1+S) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 事前の座標登録なしで、巨大な整数区間 `[0,n)` に点加算・区間和・重み付き探索を行う。
@@ -46,24 +78,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DynamicFenwickTree<T,Coord> tree` | O(1) | [開く](#default) |
-| `DynamicFenwickTree<T,Coord> tree(n)` | O(1) | [開く](#construct) |
-| `DynamicFenwickTree<T,Coord> copy(other)` | O(1+S) | [開く](#copy-construct) |
-| `tree = other` → tree の参照 | O(1+S+S_old) | [開く](#copy-assign) |
-| `DynamicFenwickTree<T,Coord> moved(std::move(other))` | O(1) | [開く](#move-construct) |
-| `tree = std::move(other)` → tree の参照 | O(1+S_old) | [開く](#move-assign) |
-| `Coord tree.size() const` | O(1) | [開く](#size) |
-| `void tree.add(Coord p, const T& value)` | 平均・償却 O(L) | [開く](#add) |
-| `T tree.pref(Coord r) const` | 平均 O(L) | [開く](#pref) |
-| `T tree.sum(Coord l, Coord r) const` | 平均 O(L) | [開く](#sum) |
-| `T tree.get(Coord p) const` | 平均 O(L) | [開く](#get) |
-| `Coord tree.lower_bound(T weight) const` | 平均 O(L) | [開く](#lower-bound) |
-| `tree.~DynamicFenwickTree()` | O(1+S) | [開く](#destroy) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>DynamicFenwickTree&lt;T,Coord&gt; tree</code> — O(1)</summary>

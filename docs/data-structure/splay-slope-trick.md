@@ -5,6 +5,48 @@ documentation_of: //blueberry/data-structure/splay-slope-trick.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+有限の閉区間上の一般の区分線形凸関数を保持する。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`SplaySlopeTrick`](#default) | O(1) |
+| [`SplaySlopeTrick`](#linear) | O(1) |
+| [`from_points`](#from-points) | O(N log(N+1)) |
+| [`empty`](#empty) | O(1) |
+| [`size`](#size) | O(1) |
+| [`domain`](#domain) | O(1) |
+| [`eval`](#eval) | O(log(K+1)) 償却 |
+| [`min`](#min) | O(log(K+1)) 償却 |
+| [`argmin`](#argmin) | O(log(K+1)) 償却 |
+| [`add_const`](#add-const) | O(1) |
+| [`add_linear`](#add-linear) | O(1) |
+| [`add_x_minus_a`](#add-right) | O(log(K+1)) 償却 |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`SplaySlopeTrick`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+| [`~SplaySlopeTrick`](#destructor) | O(K) |
+| [`add_a_minus_x`](#add-left) | O(log(K+1)) 償却 |
+| [`add_abs`](#add-abs) | O(log(K+1)) 償却 |
+| [`shift`](#shift) | O(1) |
+| [`restrict`](#restrict) | O(log(K+1) + D) 償却 |
+| [`merge`](#merge) | O((K+M+1) log(K+M+2)) 償却 |
+| [`convolve_segment`](#convolve-segment) | O(log(K+1)) 償却 |
+| [`convolve`](#convolve) | O((K+M+1) log(K+M+2)) 償却 |
+| [`clear`](#clear) | O(K) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::SplaySlopeTrick<T = long long>` は有限の閉区間上の一般の区分線形凸関数を保持する。
@@ -42,35 +84,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 K は現在の内部折れ点数、N は from_points の入力点数、M は結合相手または代入先の旧内部折れ点数。型のコピー・演算・比較は O(1) とする。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `SplaySlopeTrick()` | O(1) | [開く](#default) |
-| `SplaySlopeTrick(const T& l, const T& r, const T& a = T(0), const T& b = T(0))` | O(1) | [開く](#linear) |
-| `static SplaySlopeTrick from_points(const std::vector<std::pair<T,T>>& points)` | O(N log(N+1)) | [開く](#from-points) |
-| `SplaySlopeTrick(SplaySlopeTrick&& other)` | O(1) | [開く](#move-constructor) |
-| `SplaySlopeTrick& operator=(SplaySlopeTrick&& other)` | O(M) | [開く](#move-assignment) |
-| `~SplaySlopeTrick()` | O(K) | [開く](#destructor) |
-| `bool empty() const` | O(1) | [開く](#empty) |
-| `std::size_t size() const` | O(1) | [開く](#size) |
-| `std::optional<std::pair<T,T>> domain() const` | O(1) | [開く](#domain) |
-| `std::optional<T> eval(const T& x)` | O(log(K+1)) 償却 | [開く](#eval) |
-| `std::optional<T> min()` | O(log(K+1)) 償却 | [開く](#min) |
-| `std::optional<std::pair<T,T>> argmin()` | O(log(K+1)) 償却 | [開く](#argmin) |
-| `void add_const(const T& value)` | O(1) | [開く](#add-const) |
-| `void add_linear(const T& a, const T& b)` | O(1) | [開く](#add-linear) |
-| `void add_x_minus_a(const T& a, const T& weight = T(1))` | O(log(K+1)) 償却 | [開く](#add-right) |
-| `void add_a_minus_x(const T& a, const T& weight = T(1))` | O(log(K+1)) 償却 | [開く](#add-left) |
-| `void add_abs(const T& a, const T& weight = T(1))` | O(log(K+1)) 償却 | [開く](#add-abs) |
-| `void shift(const T& dx, const T& dy = T(0))` | O(1) | [開く](#shift) |
-| `void restrict(const T& l, const T& r)` | O(log(K+1) + D) 償却 | [開く](#restrict) |
-| `void merge(SplaySlopeTrick& other)` | O((K+M+1) log(K+M+2)) 償却 | [開く](#merge) |
-| `void convolve_segment(const T& l, const T& r, const T& a, const T& b)` | O(log(K+1)) 償却 | [開く](#convolve-segment) |
-| `void convolve(SplaySlopeTrick& other)` | O((K+M+1) log(K+M+2)) 償却 | [開く](#convolve) |
-| `void clear()` | O(K) | [開く](#clear) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>SplaySlopeTrick()</code> — O(1)</summary>

@@ -5,6 +5,18 @@ documentation_of: //blueberry/graph/clique-enumeration.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }})
 
+## 概要
+
+単純無向グラフの空でないクリークをすべて列挙します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`enumerate_cliques`](#enumerate) | O((N+M)log(N+1) + C(D+1)² log(N+1)) + callback |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 単純無向グラフの空でないクリークをすべて列挙します。ACLにはありません。
@@ -28,12 +40,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `void enumerate_cliques(int n, const vector<pair<int,int>>& edges, Callback&& emit)` | O((N+M)log(N+1) + C(D+1)² log(N+1)) + callback | [開く](#enumerate) |
 
 <details class="api-operation" id="enumerate" markdown="1">
 <summary><code>enumerate_cliques(n, edges, emit)</code> — O((N+M)log(N+1) + C(D+1)² log(N+1)) + callback</summary>

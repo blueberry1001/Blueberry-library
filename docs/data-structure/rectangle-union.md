@@ -5,6 +5,18 @@ documentation_of: //blueberry/data-structure/rectangle-union.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+軸平行矩形の和集合の面積をx方向の走査と被覆長segment treeで求めます。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Area`](#op-0) | O(N log(N+1)) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 軸平行矩形の和集合の面積をx方向の走査と被覆長segment treeで求めます。各矩形は{left,bottom,right,top}。Nは矩形数、N<=INT_MAX/8。時間O(N log(N+1))、追加メモリO(N)。空入力・幅または高さ0の矩形の寄与は0。Coordは比較可能な整数型、Areaは座標・差・積・面積の全中間値が収まる整数型を指定してください。Areaの既定値はlong long。座標の差を取る前にAreaへ変換します。負座標・重複・接触・包含を許可。浮動小数の誤差モデルは保証しません。ACLの汎用木と異なり、矩形集合を直接受け取る専用処理です。
@@ -24,12 +36,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Area rectangle_union_area<Area=long long, Coord>(const std::vector<std::array<Coord,4>>& rectangles)` | O(N log(N+1)) | [開く](#op-0) |
 
 <details class="api-operation" id="op-0" markdown="1">
 <summary><code>Area rectangle_union_area&lt;Area=long long, Coord&gt;(const std::vector&lt;std::array&lt;Coord,4&gt;&gt;&amp; rectangles)</code> — O(N log(N+1))</summary>

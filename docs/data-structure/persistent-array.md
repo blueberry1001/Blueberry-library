@@ -5,6 +5,29 @@ documentation_of: //blueberry/data-structure/persistent-array.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+集約演算を要求しない完全永続配列です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`PersistentArray<T>`](#default) | O(1) |
+| [`PersistentArray<T>`](#fill) | O(1) |
+| [`PersistentArray<T>`](#vector) | O(N) |
+| [`object.size`](#size) | O(1) |
+| [`object.versions`](#versions) | O(1) |
+| [`object.fork`](#fork) | 償却 O(1) |
+| [`object.get`](#get) | O(log(N+1)) |
+| [`object.set`](#set) | 償却 O(log(N+1)) |
+| [`Type`](#copy-constructor) | O(M) |
+| [`Type`](#move-constructor) | O(1) |
+| [`operator=`](#copy-assignment) | O(M + D) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `PersistentArray<T>` は集約演算を要求しない完全永続配列です。任意の版への一点代入が新しい版番号を返します。
@@ -31,24 +54,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentArray<T>()` | O(1) | [開く](#default) |
-| `PersistentArray<T>(int n, const T& initial = T{})` | O(1) | [開く](#fill) |
-| `PersistentArray<T>(const vector<T>& a)` | O(N) | [開く](#vector) |
-| `int object.size() const` | O(1) | [開く](#size) |
-| `int object.versions() const` | O(1) | [開く](#versions) |
-| `int object.fork(int version)` | 償却 O(1) | [開く](#fork) |
-| `T object.get(int version, int p) const` | O(log(N+1)) | [開く](#get) |
-| `int object.set(int version, int p, const T& value)` | 償却 O(log(N+1)) | [開く](#set) |
-| `Type(const Type& other)` | O(M) | [開く](#copy-constructor) |
-| `Type(Type&& other)` | O(1) | [開く](#move-constructor) |
-| `Type& object.operator=(const Type& other)` | O(M + D) | [開く](#copy-assignment) |
-| `Type& object.operator=(Type&& other)` | O(1 + D) | [開く](#move-assignment) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>PersistentArray&lt;T&gt;()</code> — O(1)</summary>

@@ -5,6 +5,26 @@ documentation_of: //blueberry/data-structure/dynamic-li-chao-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+整数領域 `[low, high)` 上で、直線・線分の追加と最小値取得をオンラインで処理します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`DynamicLiChaoTree<T>`](#constructor) | O(1) |
+| [`DynamicLiChaoTree<T>`](#copy-constructor) | O(Ksrc + 1) |
+| [`operator=`](#copy-assignment) | O(Ksrc + Kold + 1) |
+| [`DynamicLiChaoTree<T>`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(Kold + 1) |
+| [`tree.~DynamicLiChaoTree`](#destructor) | O(K + 1) |
+| [`tree.add_line`](#add-line) | 償却 O(H + 1) |
+| [`tree.add_segment`](#add-segment) | 償却 O(H² + 1) |
+| [`tree.query`](#query) | 最悪 O(H + 1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::DynamicLiChaoTree<T = long long>` は整数領域 `[low, high)` 上で、直線・線分の追加と最小値取得をオンラインで処理します。座標の事前登録は不要で、挿入順・傾きの順序は自由です。ACLには対応する機能がありません。クエリ座標が事前に分かる場合は、座標数に依存する [Li Chao Tree]({{ '/blueberry/data-structure/li-chao-tree.hpp.html' | relative_url }}) も利用できます。座標領域の変更、直線の削除、最大値の直接取得は提供しません。
@@ -41,21 +61,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 Ksrc はコピー元、Kold は代入前の代入先のノード数です。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DynamicLiChaoTree<T> tree(T low, T high)` | O(1) | [開く](#constructor) |
-| `DynamicLiChaoTree<T> copy(const DynamicLiChaoTree& other)` | O(Ksrc + 1) | [開く](#copy-constructor) |
-| `DynamicLiChaoTree& tree.operator=(const DynamicLiChaoTree& other)` | O(Ksrc + Kold + 1) | [開く](#copy-assignment) |
-| `DynamicLiChaoTree<T> moved(DynamicLiChaoTree&& other)` | O(1) | [開く](#move-constructor) |
-| `DynamicLiChaoTree& tree.operator=(DynamicLiChaoTree&& other)` | O(Kold + 1) | [開く](#move-assignment) |
-| `tree.~DynamicLiChaoTree()` | O(K + 1) | [開く](#destructor) |
-| `void tree.add_line(T a, T b)` | 償却 O(H + 1) | [開く](#add-line) |
-| `void tree.add_segment(T l, T r, T a, T b)` | 償却 O(H² + 1) | [開く](#add-segment) |
-| `std::optional<T> tree.query(T x) const` | 最悪 O(H + 1) | [開く](#query) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>DynamicLiChaoTree&lt;T&gt; tree(T low, T high)</code> — O(1)</summary>

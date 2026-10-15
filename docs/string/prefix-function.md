@@ -5,6 +5,19 @@ documentation_of: //blueberry/string/prefix-function.hpp
 
 [カテゴリへ戻る]({{ '/categories/string.html' | relative_url }})
 
+## 概要
+
+接頭辞の最長 proper border と全一致位置を求める。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`prefix_function`](#prefix) | O(N) |
+| [`kmp_search`](#search) | O(N+M+1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 接頭辞の最長 proper border と全一致位置を求める。ACL の Z algorithm と異なる情報を提供する。
@@ -26,13 +39,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `std::vector<int> prefix_function(const Sequence& sequence)` | O(N) | [開く](#prefix) |
-| `std::vector<int> kmp_search(const Text& text, const Pattern& pattern)` | O(N+M+1) | [開く](#search) |
 
 <details class="api-operation" id="prefix" markdown="1">
 <summary><code>std::vector&lt;int&gt; prefix_function(const Sequence&amp; sequence)</code> — O(N)</summary>

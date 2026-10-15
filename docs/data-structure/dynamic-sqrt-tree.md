@@ -5,6 +5,28 @@ documentation_of: //blueberry/data-structure/dynamic-sqrt-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+配列の点代入と区間モノイド積を扱う。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Tree tree`](#default-constructor) | O(1) |
+| [`Tree`](#constructor) | O(N L(N)) |
+| [`Tree`](#copy-constructor) | O(N L(N)) |
+| [`operator=`](#copy-assignment) | O(N L(N) + M L(M)) |
+| [`Tree`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M L(M)) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.get`](#get) | O(1) |
+| [`tree.set`](#set) | O(√N) |
+| [`tree.prod`](#prod) | O(1) |
+| [`tree.all_prod`](#all-prod) | O(1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::DynamicSqrtTree<S, op, e>` は配列の点代入と区間モノイド積を扱う。
@@ -59,24 +81,10 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 以下 `Tree = blueberry::DynamicSqrtTree<S, op, e>`。
 代入では N は代入元、M は代入前の代入先の要素数。すべて最悪計算量で、償却表記ではない。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Tree tree` | O(1) | [開く](#default-constructor) |
-| `Tree tree(const std::vector<S>& values)` | O(N L(N)) | [開く](#constructor) |
-| `Tree copy(const Tree& other)` | O(N L(N)) | [開く](#copy-constructor) |
-| `Tree& tree.operator=(const Tree& other)` | O(N L(N) + M L(M)) | [開く](#copy-assignment) |
-| `Tree moved(Tree&& other)` | O(1) | [開く](#move-constructor) |
-| `Tree& tree.operator=(Tree&& other)` | O(M L(M)) | [開く](#move-assignment) |
-| `int tree.size() const` | O(1) | [開く](#size) |
-| `S tree.get(int p) const` | O(1) | [開く](#get) |
-| `void tree.set(int p, const S& value)` | O(√N) | [開く](#set) |
-| `S tree.prod(int l, int r) const` | O(1) | [開く](#prod) |
-| `S tree.all_prod() const` | O(1) | [開く](#all-prod) |
 
 <details class="api-operation" id="default-constructor" markdown="1">
 <summary><code>Tree tree</code> — O(1)</summary>

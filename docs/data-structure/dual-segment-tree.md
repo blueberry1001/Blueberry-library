@@ -5,6 +5,38 @@ documentation_of: //blueberry/data-structure/dual-segment-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+範囲作用・一点取得に特化。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`DualSegmentTree`](#default) | O(1) |
+| [`DualSegmentTree`](#vector) | O(N) |
+| [`DualSegmentTree`](#fill) | O(N) |
+| [`size`](#size) | O(1) |
+| [`S`](#get) | O(log(N+1)) |
+| [`set`](#set) | O(log(N+1)) |
+| [`apply`](#point-apply) | O(log(N+1)) |
+| [`apply`](#range-apply) | O(log(N+1)) |
+| [`get_all`](#get-all) | O(N) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`DualSegmentTree`](#copy-constructor) | O(N) |
+| [`operator=`](#copy-assignment) | O(N + M) |
+| [`DualSegmentTree`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::DualSegmentTree<S, F, mapping, composition, id>` は範囲作用・一点取得に特化。
@@ -38,25 +70,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 N は要素数（slope trick は保持する折れ点数）、M はコピー・結合相手または置換前の保持量。型のコピー・演算・比較は O(1) とする。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `DualSegmentTree()` | O(1) | [開く](#default) |
-| `DualSegmentTree(const std::vector<S>& values)` | O(N) | [開く](#vector) |
-| `DualSegmentTree(int n, const S& value)` | O(N) | [開く](#fill) |
-| `DualSegmentTree(const DualSegmentTree& other)` | O(N) | [開く](#copy-constructor) |
-| `DualSegmentTree& operator=(const DualSegmentTree& other)` | O(N + M) | [開く](#copy-assignment) |
-| `DualSegmentTree(DualSegmentTree&& other)` | O(1) | [開く](#move-constructor) |
-| `DualSegmentTree& operator=(DualSegmentTree&& other)` | O(M) | [開く](#move-assignment) |
-| `int size() const` | O(1) | [開く](#size) |
-| `S get(int p)` | O(log(N+1)) | [開く](#get) |
-| `void set(int p, const S& value)` | O(log(N+1)) | [開く](#set) |
-| `void apply(int p, const F& f)` | O(log(N+1)) | [開く](#point-apply) |
-| `void apply(int l, int r, const F& f)` | O(log(N+1)) | [開く](#range-apply) |
-| `std::vector<S> get_all()` | O(N) | [開く](#get-all) |
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>DualSegmentTree()</code> — O(1)</summary>

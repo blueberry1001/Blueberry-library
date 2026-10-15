@@ -14,6 +14,8 @@ class Element {
     this.listeners = {};
   }
   setAttribute(name, value) { this.attributes[name] = value; }
+  getAttribute(name) { return this.attributes[name]; }
+  removeAttribute(name) { delete this.attributes[name]; }
   addEventListener(name, listener) { this.listeners[name] = listener; }
   closest() { return this.viewer || null; }
 }
@@ -97,7 +99,7 @@ const reset = new Element();
 const search = { value: "  ＬＣＡ  木 " };
 const category = { value: "" };
 const catalog = {
-  querySelectorAll: () => rows,
+  querySelectorAll: selector => selector === "[data-library]" ? rows : [],
   querySelector: (selector) => ({
     "[data-catalog-search]": search,
     "[data-catalog-category]": category,
@@ -132,7 +134,7 @@ const recipeRows = recipes.map(recipe => {
   row.dataset = { category: recipe.kind, keywords: recipe.keywords };
   return row;
 });
-const recipeCatalog = { ...catalog, querySelectorAll: () => recipeRows };
+const recipeCatalog = { ...catalog, querySelectorAll: selector => selector === "[data-library]" ? recipeRows : [] };
 for (const [query, kind, expected] of [
   ["等差数列", "lazy", ["ap"]],
   ["区間等差数列加算", "lazy", ["ap"]],
@@ -152,6 +154,48 @@ context.filterCatalog(recipeCatalog);
 assert.equal(recipeRows.every(row => !row.hidden), true, "clearing filters restores every recipe");
 assert.equal(new Set(recipes.map(recipe => recipe.id)).size, recipes.length, "recipe anchors are unique");
 
+// Category choices filter on the current page, retain every choice, and keep guides optional.
+const categoryChoices = ["", "graph", "math"].map(value => {
+  const choice = new Element(value);
+  choice.dataset.catalogChoice = value;
+  choice.setAttribute("href", value ? `/categories/${value}.html` : "#library-results");
+  return choice;
+});
+const categoryGuide = new Element();
+const categoryGuideLink = new Element();
+const catalogControls = new Element();
+const interactiveSearch = Object.assign(new Element(), { value: "", focus() { this.focused = true; } });
+const interactiveCategory = Object.assign(new Element("", new Element()), { value: "" });
+const interactiveCatalog = {
+  querySelectorAll: selector => selector === "[data-library]" ? rows : categoryChoices,
+  querySelector: selector => ({
+    "[data-catalog-search]": interactiveSearch, "[data-catalog-category]": interactiveCategory,
+    "[data-catalog-controls]": catalogControls, "[data-catalog-count]": count,
+    "[data-catalog-empty]": empty, "[data-catalog-reset]": reset,
+    "[data-catalog-category-guide]": categoryGuide, "[data-catalog-guide-link]": categoryGuideLink,
+  })[selector],
+};
+context.initializeCatalog(interactiveCatalog);
+assert.equal(categoryChoices[0].attributes["aria-current"], "true");
+assert.equal(interactiveCategory.parentElement.hidden, true, "homepage uses one category control");
+let prevented = false;
+categoryChoices[1].listeners.click({ preventDefault() { prevented = true; } });
+assert.equal(prevented, true, "ordinary category clicks stay on the homepage");
+assert.deepEqual(rows.map(row => row.hidden), [true, false, true]);
+assert.equal(categoryChoices[1].attributes["aria-current"], "true");
+assert.equal(categoryChoices.every(choice => !choice.hidden), true, "other categories stay available");
+assert.equal(categoryGuideLink.attributes.href, "/categories/graph.html");
+categoryChoices[2].listeners.click({ preventDefault() {} });
+assert.deepEqual(rows.map(row => row.hidden), [true, true, false], "switch categories without navigation");
+prevented = false;
+categoryChoices[1].listeners.click({ ctrlKey: true, preventDefault() { prevented = true; } });
+assert.equal(prevented, false, "modified click may open a category guide in another tab");
+reset.listeners.click();
+assert.equal(categoryChoices[0].attributes["aria-current"], "true");
+assert.equal(categoryGuide.hidden, true);
+assert.equal(interactiveSearch.focused, true);
+assert.equal(rows.every(row => !row.hidden), true, "reset restores every library");
+
 (async () => {
   const code = new Element("int main() {\n  assert(1 < 2);\n}\n");
   const status = new Element();
@@ -162,5 +206,5 @@ assert.equal(new Set(recipes.map(recipe => recipe.id)).size, recipes.length, "re
   await context.copyCode(code, status);
   assert.equal(selected, code, "clipboard denial selects the exact source for manual copy");
   assert.match(status.textContent, /選択/);
-  console.log("PASS: catalog filtering, source toggle/copy/anchors, nested anchors, clipboard success and fallback");
+  console.log("PASS: catalog filtering/category switching, source toggle/copy/anchors, nested anchors, clipboard success and fallback");
 })().catch(error => { console.error(error); process.exitCode = 1; });

@@ -3,6 +3,38 @@ title: Euler Tour Tree
 documentation_of: //blueberry/graph/euler-tour-tree.hpp
 ---
 
+## 概要
+
+動的森の部分木積・部分木作用を扱います。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`EulerTourTree`](#construct) | O(N) |
+| [`size`](#size) | O(1) |
+| [`same`](#same) | 償却 O(log(N+1)) |
+| [`link`](#link) | 償却 O(log(N+1)) |
+| [`cut`](#cut) | 償却 O(log(N+1)) |
+| [`set`](#set) | 償却 O(log(N+1)) |
+| [`S`](#get) | 償却 O(log(N+1)) |
+| [`S`](#prod) | 償却 O(log(N+1)) |
+| [`apply`](#apply) | 償却 O(log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`EulerTourTree`（コピー構築）](#copy) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N+D) |
+| [`EulerTourTree`（移動構築）](#move) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(D) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::EulerTourTree<S, op, e, F, mapping, composition, id>` は動的森の部分木積・部分木作用を扱います。
@@ -41,24 +73,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `EulerTourTree(const vector<S>& values = {})` | O(N) | [開く](#construct) |
-| `int size() const` | O(1) | [開く](#size) |
-| `bool same(int u, int v)` | 償却 O(log(N+1)) | [開く](#same) |
-| `bool link(int u, int v)` | 償却 O(log(N+1)) | [開く](#link) |
-| `bool cut(int u, int v)` | 償却 O(log(N+1)) | [開く](#cut) |
-| `void set(int v, const S& x)` | 償却 O(log(N+1)) | [開く](#set) |
-| `S get(int v)` | 償却 O(log(N+1)) | [開く](#get) |
-| `S prod(int v, int parent = -1)` | 償却 O(log(N+1)) | [開く](#prod) |
-| `void apply(int v, int parent, const F& f)` | 償却 O(log(N+1)) | [開く](#apply) |
-| `EulerTourTree(const EulerTourTree& other)` | O(N) | [開く](#copy) |
-| `EulerTourTree& operator=(const EulerTourTree& other)` | O(N+D) | [開く](#copy-assign) |
-| `EulerTourTree(EulerTourTree&& other)` | O(1) | [開く](#move) |
-| `EulerTourTree& operator=(EulerTourTree&& other)` | O(D) | [開く](#move-assign) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>EulerTourTree(const vector&lt;S&gt;&amp; values = {})</code> — O(N)</summary>

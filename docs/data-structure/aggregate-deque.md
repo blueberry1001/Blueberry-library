@@ -5,6 +5,41 @@ documentation_of: //blueberry/data-structure/aggregate-deque.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+両端キューの全要素を先頭から末尾への順序で集約します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`AggregateDeque<S,`](#construct) | O(1) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.empty`](#empty) | O(1) |
+| [`tree.push_front`](#push-front) | 償却 O(1) |
+| [`tree.pop_front`](#pop-front) | 償却 O(1) |
+| [`tree.push_back`](#push-back) | 償却 O(1) |
+| [`tree.pop_back`](#pop-back) | 償却 O(1) |
+| [`tree.front`](#front) | O(1) |
+| [`tree.back`](#back) | O(1) |
+| [`tree.prod`](#prod) | O(1) |
+| [`tree.clear`](#clear) | O(N) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`AggregateDeque`（コピー構築）](#copy-construct) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N + Ndst) |
+| [`AggregateDeque`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Ndst) |
+| [`~AggregateDeque`](#destruct) | O(N) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 両端キューの全要素を先頭から末尾への順序で集約します。`AggregateDeque<S, op, e>` のopは結合的な `S op(S,S)`、eは両側単位元 `S e()` です。可換性・逆元は不要です。ACLの固定長segment treeより短い操作列で、端点の挿入削除と全体集約を扱います。
@@ -35,27 +70,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `AggregateDeque<S, op, e>()` | O(1) | [開く](#construct) |
-| `AggregateDeque(const AggregateDeque& other)` | O(N) | [開く](#copy-construct) |
-| `AggregateDeque& operator=(const AggregateDeque& other)` | O(N + Ndst) | [開く](#copy-assign) |
-| `AggregateDeque(AggregateDeque&& other)` | O(1) | [開く](#move-construct) |
-| `AggregateDeque& operator=(AggregateDeque&& other)` | O(Ndst) | [開く](#move-assign) |
-| `~AggregateDeque()` | O(N) | [開く](#destruct) |
-| `int tree.size() const` | O(1) | [開く](#size) |
-| `bool tree.empty() const` | O(1) | [開く](#empty) |
-| `void tree.push_front(const S& value)` | 償却 O(1) | [開く](#push-front) |
-| `void tree.pop_front()` | 償却 O(1) | [開く](#pop-front) |
-| `void tree.push_back(const S& value)` | 償却 O(1) | [開く](#push-back) |
-| `void tree.pop_back()` | 償却 O(1) | [開く](#pop-back) |
-| `S tree.front() const` | O(1) | [開く](#front) |
-| `S tree.back() const` | O(1) | [開く](#back) |
-| `S tree.prod() const` | O(1) | [開く](#prod) |
-| `void tree.clear()` | O(N) | [開く](#clear) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>AggregateDeque&lt;S, op, e&gt;()</code> — O(1)</summary>

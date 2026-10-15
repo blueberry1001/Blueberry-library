@@ -5,6 +5,22 @@ documentation_of: //blueberry/data-structure/offline-fenwick-tree-2d.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+更新する座標を先に列挙できる場合の、点加算・矩形和です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`OfflineFenwickTree2D<T,`](#construct) | O(P log(P+1) + N log²(N+1)) |
+| [`bit.size`](#size) | O(1) |
+| [`bit.add`](#add) | O(log²(N+1)) |
+| [`bit.pref`](#pref) | O(log²(N+1)) |
+| [`bit.sum`](#sum) | O(log²(N+1)) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 更新する座標を先に列挙できる場合の、点加算・矩形和です。ACLの1次元Fenwick Treeを
@@ -39,16 +55,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `OfflineFenwickTree2D<T, Coord> bit(points)` | O(P log(P+1) + N log²(N+1)) | [開く](#construct) |
-| `int bit.size()` | O(1) | [開く](#size) |
-| `void bit.add(x, y, value)` | O(log²(N+1)) | [開く](#add) |
-| `T bit.pref(x, y)` | O(log²(N+1)) | [開く](#pref) |
-| `T bit.sum(left, down, right, up)` | O(log²(N+1)) | [開く](#sum) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>OfflineFenwickTree2D&lt;T, Coord&gt; bit(vector&lt;pair&lt;Coord, Coord&gt;&gt; points)</code> — O(P log(P+1) + N log²(N+1))</summary>

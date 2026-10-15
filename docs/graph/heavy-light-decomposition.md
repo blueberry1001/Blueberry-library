@@ -5,6 +5,49 @@ documentation_of: //blueberry/graph/heavy-light-decomposition.hpp
 
 [カテゴリへ戻る]({{ '/categories/graph.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+静的な根付き木をHeavy-Light Decomposition（HLD）し、頂点・辺のパスを O(log N) 個の半開区間に、
+部分木を1個の半開区間に変換します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`HLD`](#construct) | O(N) |
+| [`hld.size`](#size) | O(1) |
+| [`hld.root`](#root) | O(1) |
+| [`hld.parent`](#parent) | O(1) |
+| [`hld.depth`](#depth) | O(1) |
+| [`hld.subtree_size`](#subtree-size) | O(1) |
+| [`hld.head`](#head) | O(1) |
+| [`hld.in`](#in) | O(1) |
+| [`hld.out`](#out) | O(1) |
+| [`hld.vertex_at`](#vertex-at) | O(1) |
+| [`hld.edge_index`](#edge-index) | O(1) |
+| [`hld.subtree_range`](#subtree-range) | O(1) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`hld.is_ancestor`](#is-ancestor) | O(1) |
+| [`hld.lca`](#lca) | O(log N) |
+| [`hld.kth_ancestor`](#kth-ancestor) | O(log N) |
+| [`hld.kth`](#kth) | O(log N) |
+| [`hld.distance`](#distance) | O(log N) |
+| [`hld.jump`](#jump) | O(log N) |
+| [`hld.path_query`](#path-query) | O(log N) callbacks |
+| [`hld.vertex_query`](#vertex-path-query) | O(log N) callbacks |
+| [`hld.edge_query`](#edge-query) | O(log N) callbacks |
+| [`hld.vertex_query`](#single-vertex-query) | O(1) callback |
+| [`hld.subtree_query`](#subtree-query) | O(1) callback |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 静的な根付き木をHeavy-Light Decomposition（HLD）し、頂点・辺のパスを O(log N) 個の半開区間に、
@@ -46,35 +89,9 @@ int main() {
 ```
 {% endraw %}
 
-## 操作一覧
+## 操作の補足
 
 ここで N は頂点数です。区間callback自身の処理時間は表の計算量に含めません。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `HLD hld(tree, root = 0)` | O(N) | [開く](#construct) |
-| `int hld.size() const` | O(1) | [開く](#size) |
-| `int hld.root() const` | O(1) | [開く](#root) |
-| `int hld.parent(v) const` | O(1) | [開く](#parent) |
-| `int hld.depth(v) const` | O(1) | [開く](#depth) |
-| `int hld.subtree_size(v) const` | O(1) | [開く](#subtree-size) |
-| `int hld.head(v) const` | O(1) | [開く](#head) |
-| `int hld.in(v) const` | O(1) | [開く](#in) |
-| `int hld.out(v) const` | O(1) | [開く](#out) |
-| `int hld.vertex_at(position) const` | O(1) | [開く](#vertex-at) |
-| `int hld.edge_index(u, v) const` | O(1) | [開く](#edge-index) |
-| `pair<int,int> hld.subtree_range(v, edge = false) const` | O(1) | [開く](#subtree-range) |
-| `bool hld.is_ancestor(a, v) const` | O(1) | [開く](#is-ancestor) |
-| `int hld.lca(u, v) const` | O(log N) | [開く](#lca) |
-| `int hld.kth_ancestor(v, k) const` | O(log N) | [開く](#kth-ancestor) |
-| `int hld.kth(v, k) const` | O(log N) | [開く](#kth) |
-| `int hld.distance(u, v) const` | O(log N) | [開く](#distance) |
-| `int hld.jump(u, v, k) const` | O(log N) | [開く](#jump) |
-| `hld.path_query(u, v, f, edge = false) const` | O(log N) callbacks | [開く](#path-query) |
-| `hld.vertex_query(u, v, f) const` | O(log N) callbacks | [開く](#vertex-path-query) |
-| `hld.edge_query(u, v, f) const` | O(log N) callbacks | [開く](#edge-query) |
-| `hld.vertex_query(v, f) const` | O(1) callback | [開く](#single-vertex-query) |
-| `hld.subtree_query(v, f, edge = false) const` | O(1) callback | [開く](#subtree-query) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>HLD hld(tree, root = 0)</code> — O(N)</summary>

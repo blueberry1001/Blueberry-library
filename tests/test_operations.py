@@ -44,7 +44,11 @@ class OperationFinderTest(unittest.TestCase):
                     self.assertTrue(entry[facet])
                     self.assertEqual(len(entry[facet]), len(set(entry[facet])))
                     self.assertLessEqual(set(entry[facet]), allowed)
-                if entry["source"] == "acl":
+                if entry["url"].startswith("/monoids.html#"):
+                    recipe = recipes[entry["url"].split("#", 1)[1]]
+                    self.assertTrue(recipe.get("code"), "Recommendation must link to a copyable definition")
+                    self.assertEqual(entry["headers"], [], "Copied monoids do not require a library header")
+                elif entry["source"] == "acl":
                     self.assertEqual(entry["headers"], [])
                     self.assertTrue(entry["url"].startswith("https://atcoder.github.io/ac-library/"))
                 else:
@@ -54,12 +58,7 @@ class OperationFinderTest(unittest.TestCase):
                         self.assertTrue((ROOT / header).is_file())
                         doc = ROOT / ("docs/" + header.removeprefix("blueberry/").removesuffix(".hpp") + ".md")
                         self.assertIn("documentation_of: //" + header, doc.read_text(encoding="utf-8"))
-                    if entry["url"].startswith("/monoids.html#"):
-                        recipe = recipes[entry["url"].split("#", 1)[1]]
-                        self.assertTrue(recipe.get("code"), "Recommendation must link to a copyable recipe")
-                        self.assertEqual(entry["headers"], ["blueberry/algebra/monoids.hpp"])
-                    else:
-                        self.assertEqual(entry["url"], "/" + entry["headers"][0] + ".html")
+                    self.assertEqual(entry["url"], "/" + entry["headers"][0] + ".html")
                 if entry["source"] == "combination":
                     self.assertTrue(entry["external_url"].startswith("https://atcoder.github.io/ac-library/"))
                 else:

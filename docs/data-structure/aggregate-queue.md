@@ -5,6 +5,39 @@ documentation_of: //blueberry/data-structure/aggregate-queue.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+キューの全要素を先頭から末尾への順序で集約します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`AggregateQueue<S,`](#construct) | O(1) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.empty`](#empty) | O(1) |
+| [`tree.push`](#push) | 償却 O(1) |
+| [`tree.pop`](#pop) | 償却 O(1) |
+| [`tree.front`](#front) | O(1) |
+| [`tree.back`](#back) | O(1) |
+| [`tree.prod`](#prod) | O(1) |
+| [`tree.clear`](#clear) | O(N) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`AggregateQueue`（コピー構築）](#copy-construct) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N + Ndst) |
+| [`AggregateQueue`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Ndst) |
+| [`~AggregateQueue`](#destruct) | O(N) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 キューの全要素を先頭から末尾への順序で集約します。`AggregateQueue<S, op, e>` のopは結合的な `S op(S,S)`、eは両側単位元 `S e()` です。可換性・逆元は不要です。ACLの固定長segment treeより短い操作列で、端点の挿入削除と全体集約を扱います。
@@ -35,25 +68,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `AggregateQueue<S, op, e>()` | O(1) | [開く](#construct) |
-| `AggregateQueue(const AggregateQueue& other)` | O(N) | [開く](#copy-construct) |
-| `AggregateQueue& operator=(const AggregateQueue& other)` | O(N + Ndst) | [開く](#copy-assign) |
-| `AggregateQueue(AggregateQueue&& other)` | O(1) | [開く](#move-construct) |
-| `AggregateQueue& operator=(AggregateQueue&& other)` | O(Ndst) | [開く](#move-assign) |
-| `~AggregateQueue()` | O(N) | [開く](#destruct) |
-| `int tree.size() const` | O(1) | [開く](#size) |
-| `bool tree.empty() const` | O(1) | [開く](#empty) |
-| `void tree.push(const S& value)` | 償却 O(1) | [開く](#push) |
-| `void tree.pop()` | 償却 O(1) | [開く](#pop) |
-| `S tree.front() const` | O(1) | [開く](#front) |
-| `S tree.back() const` | O(1) | [開く](#back) |
-| `S tree.prod() const` | O(1) | [開く](#prod) |
-| `void tree.clear()` | O(N) | [開く](#clear) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>AggregateQueue&lt;S, op, e&gt;()</code> — O(1)</summary>

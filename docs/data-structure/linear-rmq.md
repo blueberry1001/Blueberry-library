@@ -5,6 +5,26 @@ documentation_of: //blueberry/data-structure/linear-rmq.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+静的配列の最小値・最小位置を返す。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`LinearRMQ`](#constructor) | O(1 + N) |
+| [`LinearRMQ`](#copy-constructor) | O(1 + N) |
+| [`operator=`](#copy-assignment) | O(1 + N) + D |
+| [`LinearRMQ`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+| [`size`](#size) | O(1) |
+| [`T`](#get) | O(1) |
+| [`argmin`](#argmin) | O(1) |
+| [`T`](#prod) | O(1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::LinearRMQ<T, Compare = std::less<T>>` は静的配列の最小値・最小位置を返す。N 要素、`0 <= N <= INT_MAX`。比較は const 呼び出し可能な strict weak ordering、T と比較器はコピー可能とする。既定の比較は最小値、`std::greater<T>` なら最大値。同値は常に最左位置を返す。
@@ -29,20 +49,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `LinearRMQ(const std::vector<T>& values = {}, Compare compare = Compare{})` | O(1 + N) | [開く](#constructor) |
-| `LinearRMQ copy(const LinearRMQ& other)` | O(1 + N) | [開く](#copy-constructor) |
-| `LinearRMQ& operator=(const LinearRMQ& other)` | O(1 + N) + D | [開く](#copy-assignment) |
-| `LinearRMQ moved(LinearRMQ&& other)` | O(1) | [開く](#move-constructor) |
-| `LinearRMQ& operator=(LinearRMQ&& other)` | O(1 + D) | [開く](#move-assignment) |
-| `int size() const` | O(1) | [開く](#size) |
-| `T get(int p) const` | O(1) | [開く](#get) |
-| `int argmin(int l, int r) const` | O(1) | [開く](#argmin) |
-| `T prod(int l, int r) const` | O(1) | [開く](#prod) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>LinearRMQ(const std::vector&lt;T&gt;&amp; values = {}, Compare compare = Compare{})</code> — O(1 + N)</summary>

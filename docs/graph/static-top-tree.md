@@ -3,6 +3,26 @@ title: Static Top Tree
 documentation_of: //blueberry/graph/static-top-tree.hpp
 ---
 
+## 概要
+
+固定された根付き木の DP を頂点更新後 O(log N) で再計算します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`StaticTopTree`](#construct) | O(N log(N+1)) |
+| [`size`](#size) | O(1) |
+| [`V`](#get) | O(1) |
+| [`set`](#set) | O(log(N+1)) |
+| [`Path`](#all-prod) | O(1) |
+| [`StaticTopTree`（コピー構築）](#copy) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N+D) |
+| [`StaticTopTree`（移動構築）](#move) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(D) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::StaticTopTree<V, Path, Point, add_vertex, add_edge, compress, rake, point_identity>` は固定された根付き木の DP を頂点更新後 O(log N) で再計算します。
@@ -55,20 +75,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `StaticTopTree(const vector<vector<int>>& tree, const vector<V>& values, int root = 0)` | O(N log(N+1)) | [開く](#construct) |
-| `int size() const` | O(1) | [開く](#size) |
-| `V get(int v) const` | O(1) | [開く](#get) |
-| `void set(int v, const V& x)` | O(log(N+1)) | [開く](#set) |
-| `Path all_prod() const` | O(1) | [開く](#all-prod) |
-| `StaticTopTree(const StaticTopTree& other)` | O(N) | [開く](#copy) |
-| `StaticTopTree& operator=(const StaticTopTree& other)` | O(N+D) | [開く](#copy-assign) |
-| `StaticTopTree(StaticTopTree&& other)` | O(1) | [開く](#move) |
-| `StaticTopTree& operator=(StaticTopTree&& other)` | O(D) | [開く](#move-assign) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>StaticTopTree(const vector&lt;vector&lt;int&gt;&gt;&amp; tree, const vector&lt;V&gt;&amp; values, int root = 0)</code> — O(N log(N+1))</summary>

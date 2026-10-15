@@ -5,6 +5,27 @@ documentation_of: //blueberry/data-structure/persistent-segment-tree.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }})
 
+## 概要
+
+過去の配列を保ったまま任意の版から一点更新で分岐する永続 Segment Tree。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`PersistentSegmentTree`](#construct-size) | O(1) |
+| [`PersistentSegmentTree`](#construct-array) | O(N) |
+| [`size`](#size) | O(1) |
+| [`versions`](#versions) | O(1) |
+| [`set`](#set) | 償却 O(log(N+1)) |
+| [`apply`](#apply) | 償却 O(log(N+1)) |
+| [`T`](#get) | O(log(N+1)) |
+| [`T`](#prod) | O(log(N+1)) |
+| [`T`](#all-prod) | O(1) |
+| [`PersistentSegmentTree`](#copy-move) | コピー O(N+U log(N+1)+V)、ムーブ O(1) ※代入先解放を除く |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 過去の配列を保ったまま任意の版から一点更新で分岐する永続 Segment Tree。ACL の通常 segtree にない履歴を提供する。`PersistentSegmentTree<T,Op>` は結合的な op と両側単位元 identity を必要とし、非可換演算にも対応する。範囲は 0 始まりの半開区間。`apply` は一点で `op(old,value)` を適用する。遅延区間更新・版間の区間コピーは提供しない。
@@ -34,21 +55,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `PersistentSegmentTree(int n, Op op, T identity)` | O(1) | [開く](#construct-size) |
-| `PersistentSegmentTree(const std::vector<T>& a, Op op, T identity)` | O(N) | [開く](#construct-array) |
-| `int size() const` | O(1) | [開く](#size) |
-| `int versions() const` | O(1) | [開く](#versions) |
-| `int set(int version, int p, const T& value)` | 償却 O(log(N+1)) | [開く](#set) |
-| `int apply(int version, int p, const T& value)` | 償却 O(log(N+1)) | [開く](#apply) |
-| `T get(int version, int p) const` | O(log(N+1)) | [開く](#get) |
-| `T prod(int version, int l, int r) const` | O(log(N+1)) | [開く](#prod) |
-| `T all_prod(int version) const` | O(1) | [開く](#all-prod) |
-| `PersistentSegmentTree(other); operator=(other)` | コピー O(N+U log(N+1)+V)、ムーブ O(1) ※代入先解放を除く | [開く](#copy-move) |
 
 <details class="api-operation" id="construct-size" markdown="1">
 <summary><code>PersistentSegmentTree(int n, Op op, T identity)</code> — O(1)</summary>

@@ -5,6 +5,27 @@ documentation_of: //blueberry/string/eertree.hpp
 
 [カテゴリへ戻る]({{ '/categories/string.html' | relative_url }})
 
+## 概要
+
+文字を末尾へ追加しながら、異なる回文部分文字列を1ノードずつ管理する回文木です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Eertree<σ,First>`](#constructor) | O(σ)、予約領域O(σR) |
+| [`Eertree<σ,First>`](#from-string) | O(σN) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.add`](#add) | 償却O(σ)、最悪O(σN) |
+| [`tree.suffix`](#suffix) | O(1) |
+| [`tree.length`](#length) | O(1) |
+| [`tree.parent`](#parent) | O(1) |
+| [`tree.link`](#link) | O(1) |
+| [`tree.count`](#count) | O(D)、追加メモリO(D) |
+| [`Eertree`](#copy-move) | コピーO(σD+N)、ムーブO(1) ※代入先解放を除く |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 文字を末尾へ追加しながら、異なる回文部分文字列を1ノードずつ管理する回文木です。
@@ -38,21 +59,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `Eertree<σ,First> tree(int reserve_length = 0)` | O(σ)、予約領域O(σR) | [開く](#constructor) |
-| `Eertree<σ,First> tree(string_view text)` | O(σN) | [開く](#from-string) |
-| `int tree.size()` | O(1) | [開く](#size) |
-| `int tree.add(char c)` | 償却O(σ)、最悪O(σN) | [開く](#add) |
-| `int tree.suffix()` | O(1) | [開く](#suffix) |
-| `int tree.length(int v)` | O(1) | [開く](#length) |
-| `int tree.parent(int v)` | O(1) | [開く](#parent) |
-| `int tree.link(int v)` | O(1) | [開く](#link) |
-| `vector<long long> tree.count()` | O(D)、追加メモリO(D) | [開く](#count) |
-| `Eertree(other); operator=(other)` | コピーO(σD+N)、ムーブO(1) ※代入先解放を除く | [開く](#copy-move) |
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>Eertree&lt;σ,First&gt; tree(int reserve_length = 0)</code> — O(σ)</summary>

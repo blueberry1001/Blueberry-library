@@ -5,6 +5,43 @@ documentation_of: //blueberry/data-structure/implicit-treap.hpp
 
 [カテゴリへ戻る]({{ '/categories/data-structure.html' | relative_url }}) · [共通ガイド]({{ '/guide.html' | relative_url }})
 
+## 概要
+
+挿入・削除で長さが変わる列を、位置をキーとするtreapで管理します。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`ImplicitTreap`](#construct) | O(N) |
+| [`tree.size`](#size) | O(1) |
+| [`tree.empty`](#empty) | O(1) |
+| [`tree.clear`](#clear) | O(H) |
+| [`tree.insert`](#insert) | 期待・償却 O(log(N+1)) |
+| [`tree.erase`](#erase) | 期待・償却 O(log(N+1)) |
+| [`tree.get`](#get) | 期待 O(log(N+1)) |
+| [`tree.set`](#set) | 期待・償却 O(log(N+1)) |
+| [`tree.prod`](#prod) | 期待・償却 O(log(N+1)) |
+| [`tree.all_prod`](#all-prod) | O(1) |
+| [`tree.reverse`](#reverse) | 期待・償却 O(log(N+1)) |
+| [`tree.apply`](#apply) | 期待・償却 O(log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Tree`（コピー構築）](#copy-construct) | O(H) |
+| [`operator=`（コピー代入）](#copy-assign) | O(H + Hdst) |
+| [`Tree`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Hdst) |
+| [`tree.~Tree`](#destruct) | O(H) |
+| [`tree.to_vector`](#to-vector) | O(N) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 挿入・削除で長さが変わる列を、位置をキーとするtreapで管理します。ACLの固定長segtree/lazy_segtreeと異なり、位置への挿入・削除と区間反転を扱います。旧 `blueberry/implicit_treap.hpp` のキー順集合とは別のデータ構造です。
@@ -43,29 +80,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `ImplicitTreap(const vector<S>& values = {}, uint64_t seed = 0x243f6a8885a308d3ULL)` | O(N) | [開く](#construct) |
-| `Tree copy(const Tree& other)` | O(H) | [開く](#copy-construct) |
-| `Tree& tree.operator=(const Tree& other)` | O(H + Hdst) | [開く](#copy-assign) |
-| `Tree moved(Tree&& other)` | O(1) | [開く](#move-construct) |
-| `Tree& tree.operator=(Tree&& other)` | O(Hdst) | [開く](#move-assign) |
-| `tree.~Tree()` | O(H) | [開く](#destruct) |
-| `int tree.size() const` | O(1) | [開く](#size) |
-| `bool tree.empty() const` | O(1) | [開く](#empty) |
-| `void tree.clear()` | O(H) | [開く](#clear) |
-| `void tree.insert(int p, const S& value)` | 期待・償却 O(log(N+1)) | [開く](#insert) |
-| `void tree.erase(int p)` | 期待・償却 O(log(N+1)) | [開く](#erase) |
-| `S tree.get(int p)` | 期待 O(log(N+1)) | [開く](#get) |
-| `void tree.set(int p, const S& value)` | 期待・償却 O(log(N+1)) | [開く](#set) |
-| `S tree.prod(int l, int r)` | 期待・償却 O(log(N+1)) | [開く](#prod) |
-| `S tree.all_prod() const` | O(1) | [開く](#all-prod) |
-| `void tree.reverse(int l, int r)` | 期待・償却 O(log(N+1)) | [開く](#reverse) |
-| `void tree.apply(int l, int r, const F& action)` | 期待・償却 O(log(N+1)) | [開く](#apply) |
-| `vector<S> tree.to_vector()` | O(N) | [開く](#to-vector) |
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>ImplicitTreap(const vector&lt;S&gt;&amp; values = {}, uint64_t seed = 0x243f6a8885a308d3ULL)</code> — O(N)</summary>

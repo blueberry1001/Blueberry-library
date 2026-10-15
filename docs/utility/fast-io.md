@@ -5,6 +5,41 @@ documentation_of: //blueberry/utility/fast-io.hpp
 
 [カテゴリへ戻る]({{ '/categories/utility.html' | relative_url }})
 
+## 概要
+
+`blueberry::FastInput<Interactive = false>` / `blueberry::FastOutput`は、借用した`FILE*`に対する入出力です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`FastInput<Interactive>`](#input-construct) | O(1) |
+| [`in.read`（整数）](#read-integer) | O(d) |
+| [`in.read`](#read-bool) | O(d) |
+| [`in.read`](#read-char) | O(読み飛ばす空白数+1) |
+| [`in.read`](#read-string) | O(d)、再確保を含む償却 |
+| [`in.read`（浮動小数点）](#read-float) | O(d)+標準変換関数の費用 |
+| [`in.read`](#read-many) | 各readの合計 |
+| [`FastOutput`](#output-construct) | O(1) |
+| [`out.write`](#write-char) | 償却O(1)、buffer排出時O(b) |
+| [`out.write`](#write-bool) | 償却O(1) |
+| [`out.write`](#write-string) | 償却O(d) |
+| [`out.write`（整数）](#write-integer) | 償却O(d) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`out.~FastOutput`](#output-destroy) | O(b) |
+| [`out.write`（浮動小数点）](#write-float) | 標準変換関数の費用+償却O(d) |
+| [`out.writeln`](#writeln) | 各writeと区切りの合計、償却 |
+| [`out.flush`](#flush) | O(b) |
+
+</details>
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 `blueberry::FastInput<Interactive = false>` / `blueberry::FastOutput`は、借用した`FILE*`に対する入出力です。
@@ -65,29 +100,10 @@ int main() {
 通常のFastInputのままflushだけ追加しても、短い応答を待つ対話には対応できません。
 `writeln`自体はflushしません。
 
-## 操作一覧
+## 操作の補足
 
 文字数dは入力なら読み飛ばす空白も含めた消費文字数、出力なら出力の長さ、bはその時点の未出力buffer長（最大64 KiB）です。
 stdio・OSのI/O待ち時間は、文字数に対する計算量とは別です。
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `FastInput<Interactive> in(FILE* f = stdin)` | O(1) | [開く](#input-construct) |
-| `bool in.read(T& x)`（整数） | O(d) | [開く](#read-integer) |
-| `bool in.read(bool& x)` | O(d) | [開く](#read-bool) |
-| `bool in.read(char& x)` | O(読み飛ばす空白数+1) | [開く](#read-char) |
-| `bool in.read(std::string& x)` | O(d)、再確保を含む償却 | [開く](#read-string) |
-| `bool in.read(T& x)`（浮動小数点） | O(d)+標準変換関数の費用 | [開く](#read-float) |
-| `bool in.read(T& x, U& y, Rest&... rest)` | 各readの合計 | [開く](#read-many) |
-| `FastOutput out(FILE* f = stdout)` | O(1) | [開く](#output-construct) |
-| `out.~FastOutput()` | O(b) | [開く](#output-destroy) |
-| `bool out.write(char x)` | 償却O(1)、buffer排出時O(b) | [開く](#write-char) |
-| `bool out.write(bool x)` | 償却O(1) | [開く](#write-bool) |
-| `bool out.write(std::string_view x)` | 償却O(d) | [開く](#write-string) |
-| `bool out.write(T x)`（整数） | 償却O(d) | [開く](#write-integer) |
-| `bool out.write(T x)`（浮動小数点） | 標準変換関数の費用+償却O(d) | [開く](#write-float) |
-| `bool out.writeln(const Args&... values)` | 各writeと区切りの合計、償却 | [開く](#writeln) |
-| `bool out.flush()` | O(b) | [開く](#flush) |
 
 <details class="api-operation" id="input-construct" markdown="1">
 <summary><code>FastInput&lt;Interactive = false&gt;(FILE* file = stdin)</code> — O(1)</summary>
