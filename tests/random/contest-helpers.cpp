@@ -35,7 +35,7 @@ void combinations() {
       for (int k = 1; k <= n; ++k) pascal[n][k] = (pascal[n - 1][k - 1] + pascal[n - 1][k]) % prime;
       for (int k = -1; k <= n + 1; ++k) {
         const int expected = k < 0 || k > n ? 0 : pascal[n][k];
-        check(comb.C(n, k).val() == expected, "C " + std::to_string(prime) + " " + std::to_string(n) + " " + std::to_string(k),
+        check(comb.C(n, k) == M(expected), "C " + std::to_string(prime) + " " + std::to_string(n) + " " + std::to_string(k),
               std::to_string(expected), std::to_string(comb.C(n, k).val()));
         M permutation = 1;
         if (k < 0 || k > n) permutation = 0;

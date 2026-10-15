@@ -63,6 +63,8 @@ stream は vector<pair>、pair<vector,int>、vector<vector>、deque<pair<deque,i
 GCC/Clang、gnu++20/23 の 4 組合せを区別し、入力 hash・upstream revision・各 case の実行/判定結果を残す。
 make test / make verify / make docs の全体確認と catalog 登録は統合担当の作業で、この focused report の成功結果で置き換えない。
 
+初期のfocused検証・比較測定は environment.json に記録したユーザー側の `/home/blueberry/lib/acl` を使用した。CIは別の固定版 `864245a00b00dd008d1abfdc239618fdb7d139da` を使う。両者では modint::val() の符号が異なるため、Pascal比較は値をmodintへ変換して比較する形にした。固定版・ユーザー版それぞれでGCC/Clang・gnu++20/23の8コンパイルとseed 1〜5の40実行が成功した。追加記録 `validation-pinned-and-personal-acl.json` にテストとヘッダのhash・compiler・コマンドを残す。以前の測定・失敗ログは保持し、異なるACLでの性能を同一測定として扱わない。性能の再計測はしていない。
+
 ## Fastest 調査と採用判断
 
 2026-10-15 の公開 REST API で [223248](https://judge.yosupo.jp/submission/223248) と [196412](https://judge.yosupo.jp/submission/196412) を調査した。
