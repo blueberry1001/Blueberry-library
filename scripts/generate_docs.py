@@ -5,6 +5,7 @@ verification-helper 5.6.0 otherwise analyzes excluded Python tooling before it
 filters pages. Those scripts are not C++ library entries and importlab may time out.
 """
 import argparse
+import hashlib
 from contextlib import contextmanager
 import json
 from pathlib import Path
@@ -80,6 +81,18 @@ def prune_removed_sources(basedir):
     return removed
 
 
+def write_original_template_data(basedir):
+    """Expose the untouched downloadable bytes to Liquid without parsing C++."""
+    basedir = Path(basedir)
+    original = (basedir / '.verify-helper/docs/static/assets/code/blueberrytemplate.h').read_bytes()
+    data = {"code": original.decode('utf-8'), "sha256": hashlib.sha256(original).hexdigest(),
+            "bytes": len(original)}
+    destination = basedir / '.verify-helper/markdown/_data/original_template.json'
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(json.dumps(data, ensure_ascii=False) + '\n', encoding='utf-8')
+    return data
+
+
 def main():
     import onlinejudge_verify.config as config
     import onlinejudge_verify.documentation.configure as configure
@@ -105,6 +118,7 @@ def main():
     with patch.object(configure, "_find_source_code_paths", included_sources), \
             documentation_marker_statuses(marker_module.VerificationMarker, failed, Path.cwd(), accepted):
         documentation.main(jobs=args.jobs)
+    write_original_template_data(Path.cwd())
     for page in prune_removed_sources(Path.cwd()):
         print(f"Removed obsolete generated source page: {page}")
 

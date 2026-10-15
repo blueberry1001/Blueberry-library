@@ -1,5 +1,8 @@
 # 個人用テンプレートのライブラリ化
 
+元の名前・定義をそのまま使うための [blueberrytemplate.h（原文）]({{ '/blueberrytemplate.html' | relative_url }}) も公開している。
+9,361バイトのWSL原本とバイト単位で一致し、ダウンロードとコピーに対応する。以下は別に作成した整理版の記録である。
+
 2026-10-15、ユーザー所有の `/home/blueberry/lib/blueberrytemplate.h` を調べ、短い記法と既存の検証済み実装を併用できる形へ整理した。
 通常の補助関数は `blueberry/utility/contest-helpers.hpp`、明示 opt-in の短縮記法は `blueberry/utility/contest-template.hpp`、組合せ前計算は `blueberry/math/combinations.hpp`。
 既存の公開 API・古い入口の削除方針は変えていない。

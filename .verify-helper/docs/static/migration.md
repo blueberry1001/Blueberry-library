@@ -154,12 +154,15 @@ int main() {
 独立ライブラリとしての掲載とAlgebraカテゴリは外しました。互換用の
 `blueberry/algebra/monoids.hpp` と `blueberry/all.hpp` からの読込みは維持しています。
 
-WSLの個人用 `blueberrytemplate.h` は次の入口へ整理しました。
+WSLの個人用 [blueberrytemplate.h（原文）]({{ '/blueberrytemplate.html' | relative_url }}) は、
+元のマクロ名・関数名・本文を変えずにコピー・ダウンロードできます。利用側は `void _main()` を定義します。
+
+前回作成した整理版は次の入口です。原文とは一部の名前・定義・使い方が異なります。
 
 - `blueberry/utility/contest-helpers.hpp`: `chmin`、`chmax`、整数除算・二分探索・圧縮など。
 - `blueberry/math/combinations.hpp`: `Combinations<Mint>` による階乗・二項係数・順列数。
 - `blueberry/utility/contest-template.hpp`: 型別名・反復マクロ・入出力を使う場合の任意読込み。
 
-テンプレートはmain関数や自動のI/O設定を定義しません。main内で `init_io()` を呼びます。
+整理版のテンプレートはmain関数や自動のI/O設定を定義しません。main内で `init_io()` を呼びます。
 マクロと名前空間への影響を限定するため、`all.hpp` に任意読込みのテンプレートは含めません。
 元の関数との対応と変更点は各入口のページで確認してください。
