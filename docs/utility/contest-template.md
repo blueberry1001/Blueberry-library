@@ -877,4 +877,4 @@ target = std::move(rng);
 
 ## 出典・検証
 
-元のユーザーテンプレートから用途・短縮名を整理したものです。`templates/contest.cpp.example` を提出用 main の出発点にできます。stream の入れ子・128 bit 最小値・loop macro・乱数境界をテストし、[Many A + B (128 bit)](https://judge.yosupo.jp/problem/many_aplusb_128bit) の公式 verify は init_io/scan/print と signed128 stream 演算を使います。2 translation unit の link は ACL を含まないヘッダについて確認します。対応する既存 API と廃止した spellings は [移行記録](../development/contest-template-import.html) に一覧があります。
+元のユーザーテンプレートから用途・短縮名を整理したものです。`templates/contest.cpp.example` を提出用 main の出発点にできます。stream の入れ子・128 bit 最小値・loop macro・乱数境界をテストし、[Many A + B (128 bit)](https://judge.yosupo.jp/problem/many_aplusb_128bit) の公式 verify は init_io/scan/print と signed128 stream 演算を使います。2 translation unit の link は ACL を含まないヘッダについて確認します。対応する既存 API と廃止した spellings は [移行記録]({{ '/docs/development/contest-template-import.html' | relative_url }}) に一覧があります。

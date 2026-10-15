@@ -227,4 +227,4 @@ target = std::move(copy);
 
 ## 出典・検証
 
-[Library Checker Binomial Coefficient (Prime Mod)](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod) の verify driver と、Pascal 三角形による小さい素数の全数比較を用意しています。前計算アルゴリズムは元ユーザーテンプレートの用途を維持し、ACL の modint と 1 回の inverse に変更しました。性能比較・Fastest 調査の範囲は [移行記録](../development/contest-template-import.html) を参照してください。
+[Library Checker Binomial Coefficient (Prime Mod)](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod) の verify driver と、Pascal 三角形による小さい素数の全数比較を用意しています。前計算アルゴリズムは元ユーザーテンプレートの用途を維持し、ACL の modint と 1 回の inverse に変更しました。性能比較・Fastest 調査の範囲は [移行記録]({{ '/docs/development/contest-template-import.html' | relative_url }}) を参照してください。

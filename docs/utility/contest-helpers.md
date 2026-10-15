@@ -324,4 +324,4 @@ assert(!blueberry::parse128("12x") && !blueberry::parse128(""));
 
 ## 出典・検証
 
-元はユーザー所有の `/home/blueberry/lib/blueberrytemplate.h`。因数分解は既存 [Factorize](../math/factorize.html) に委譲します。新しい高度なアルゴリズムの重複実装は追加していません。`tests/random/contest-helpers.cpp` の境界・固定 seed 比較、GCC/Clang の include/ODR 確認を使います。採否・性能測定は [移行記録](../development/contest-template-import.html) を参照してください。
+元はユーザー所有の `/home/blueberry/lib/blueberrytemplate.h`。因数分解は既存 [Factorize]({{ '/blueberry/math/factorize.hpp.html' | relative_url }}) に委譲します。新しい高度なアルゴリズムの重複実装は追加していません。`tests/random/contest-helpers.cpp` の境界・固定 seed 比較、GCC/Clang の include/ODR 確認を使います。採否・性能測定は [移行記録]({{ '/docs/development/contest-template-import.html' | relative_url }}) を参照してください。

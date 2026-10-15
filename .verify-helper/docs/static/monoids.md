@@ -68,7 +68,7 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
   <noscript><p>JavaScript が無効のため全レシピを表示しています。見出しとブラウザ内検索で探せます。</p></noscript>
   <p data-catalog-empty hidden>一致するレシピがありません。キーワードを減らすか条件をクリアしてください。</p>
   <div id="monoid-results">
-  {% for recipe in site.data.monoids %}{% if recipe.code != '' %}
+  {% for recipe in site.data.monoids %}{% if recipe.code and recipe.code != '' %}
     <article data-library data-category="{{ recipe.kind | escape }}" data-keywords="{{ recipe.keywords | escape }}" id="{{ recipe.id | escape }}">
       <details class="monoid-recipe" data-linked-details>
       <summary><strong>{{ recipe.title | escape }}</strong><span>{% if recipe.kind == 'lazy' %}遅延セグ木{% elsif recipe.kind == 'beats' %}Beats{% else %}セグ木{% endif %}</span></summary>
