@@ -13,6 +13,14 @@ from verify_with_metrics import validate_plan_against_repository, validate_publi
 ROOT = Path(__file__).resolve().parents[1]
 SITE = ROOT / ".build/site"
 home = (SITE / "index.html").read_text()
+# Every page using the shared head must initialize the existing GA4 stream once.
+for page in SITE.rglob("*.html"):
+    content = page.read_text(encoding="utf-8")
+    if '/assets/js/docs.js' not in content:
+        continue  # Redirect pages do not use the site's layout.
+    head = content.split('</head>', 1)[0]
+    assert head.count('https://www.googletagmanager.com/gtag/js?id=G-6NFBCLHFK6') == 1, page
+    assert len(re.findall(r'''gtag\(['"]config['"],\s*['"]G-6NFBCLHFK6['"]\)''', head)) == 1, page
 # The landing page lists only this library, not vendored ACL or verify sources.
 home_links = re.findall(r'href="([^"]+)"', home)
 assert not any('/atcoder/' in href or '/verify/' in href for href in home_links), "ACL/verify leaked onto homepage"
