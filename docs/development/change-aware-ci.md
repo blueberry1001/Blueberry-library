@@ -1,83 +1,62 @@
 # 変更範囲に応じた CI
 
-通常の PR は、変更に依存する Library Checker verifier だけを 1 回実行する。
-main push と `workflow_dispatch` は全 verifier を 3 回実行する。ローカル `make verify` の全件・既定 3 回は変更しない。
-通常 CI の 1 回測定を、3 回のベンチマーク中央値と同じ条件の改善値として扱わない。
+通常のPR・main push・手動実行は、変更の影響を受ける、または成功記録がない
+Library Checker verifierだけを1回実行する。文書/UIだけの変更なら公式verifyは0件。
+手動実行で `full` を有効にした場合だけ、全件を3回測定する。
+ローカル `make verify` は全件・既定3回の測定コマンドとして残す。
 
-## 選択方法と記録
+## 成功記録と選択
 
-`scripts/plan_verification.py` が `.verification/ci-plan.json` に次を記録する。
+`scripts/verification_state.py` は、verifier本体と推移的なローカルincludeのGit blob、
+検証設定、依存ツールのrequirements、ACLの固定commitから内容の指紋を作る。
+実行器のコンパイル・公式checker実行・結果判定部分も構文木で照合し、処理の変更を検出する。
+レポート整形・公開処理・コメントだけの変更では、この実行条件を変えない。
+保存済みACと一致するものを再利用し、不一致・新規・記録欠損の対象を検証する。
+依存解析ができない対象のACは再利用しない。変更が戻った場合も内容で照合する。
+実行済みの失敗記録は古いACより優先し、直前のCIの失敗や中断で未検証の変更を隠さない。
 
-- base / head の commit SHA と Git の変更一覧（rename は旧・新パス）
-- 現在存在する全 verifier と今回選択した verifier
-- 選択理由、C++ compile/random suite の要否、ドキュメント例の対象
-- 基準にした成功済み main workflow の run ID / URL
+成功記録には、実際に検証したrevision・記録時刻・ActionsのURL・入力データのハッシュ・
+コンパイラと測定条件を残す。未実行の対象へ現在のrevisionや測定時間を付け直さない。
+通常の1回測定を、3回のベンチマーク中央値と同条件の改善値として扱わない。
+公式ケースの更新も含めて再検証したい場合は、明示的な全件実行を使う。
 
-PR は base SHA とチェックアウトした merge commit の merge-base を出発点とする。
-そこから、成功済み main の `push` または `workflow_dispatch` のうち、その祖先である commit を基準にする。
-直前の main CI が失敗・キャンセル中なら、さらに前の成功 commit まで変更を遡る。
-これにより、PRの変更が文書だけでも、その前に未検証となった C++ 変更を引き継いで検証する。
-Actions API への読み取り権限・履歴がない場合、直近 100 件に成功済み祖先がない場合は全件を実行する。
+最初の記録 `.verify-helper/verified-state.seed.json` は、成功したPR #40の
+[run 38667911374](https://github.com/blueberry1001/Blueberry-library/actions/runs/38667911374)
+の全143件のartifactから取り込んだ。測定元 `221b0cc` とマージ後 `dd47d59` のGit treeが
+同一であることを確認している。測定元revisionや入力ハッシュをそのまま保持する。
 
-各 verifier からローカル `#include` を推移的に辿り、変更ファイルを含むものを選ぶ。
-引用符の相対 include、リポジトリルート指定、ローカルの山括弧 include を扱う。
-base と head の両方で依存を解析するので、削除・rename 前の依存も失われない。
-条件付き include はすべて依存とみなし、循環 include は訪問済み集合で打ち切る。
-マクロ include、未解決のローカル include、解析失敗は安全側に倒して全件を選ぶ。
+以後の記録は、小さなJSONとしてActions cache・artifactと公開サイトの
+`assets/verification-state.json` に保存する。復元時は新しい記録を優先する。
+公開データを取得できない場合も保存済み/初期記録を内容照合し、証拠のない対象だけを実行する。
+大きな公式テストケースと実行ファイルは永続Actions cacheへ保存しない。
 
-選択 manifest は artifact に保存し、verify job と実行器が HEAD・対象一覧・依存選択を再確認する。
-明示的な空配列は「対象なし」であり、全件実行へのフォールバックには使わない。
-対象外は `not_selected` と表示し、成功・実行済みとは表示しない。
-過去の測定を現在の commit の結果として流用しない。
+## 公開と検査
 
-## 残すチェック
+`ci-plan` artifactにはbase/head・変更一覧・全対象・今回の対象・選択理由・復元した記録を残す。
+verify jobと実行器は対象選択を再計算し、空配列を全件実行へ読み替えない。
+今回の測定は `.verification/current.json`、保存ACは `.verification/state.json` に分ける。
+公開ページは内容が一致する保存ACを表示し、verifyページに元のrevision・時刻・ログを示す。
+今回の失敗は古いACで隠さず、公開前検査で有効な成功記録が全対象にあることを確認する。
 
 | 変更 | compile/random matrix | Library Checker | その他 |
 | --- | --- | --- | --- |
-| ライブラリ・verify・C++ テスト | 全組合せ | 依存する verifier、1 回 | Python/UI、全 docs 例、サイト検査 |
-| ライブラリ文書・guide/migration | 省略 | 対象なし | 変更文書の C++ 例、全 docs 形式、Python/UI、サイト検査 |
-| UI/CSS・公開メタデータ | 省略 | 対象なし | 全 docs 形式、Python/UI、サイト検査 |
-| toolchain・検証 harness・未知のファイル | 全組合せ | 全件、1 回 | 従来の全検査 |
-| main push・手動実行 | 全組合せ | 全件、3 回 | 従来の全検査 |
+| ライブラリ・verify・C++テスト | GCC/Clang × GNU C++20/23 | 内容が変わった対象、1回 | Python/UI・文書例・サイト |
+| 文書/UI・公開処理 | 省略（未検証対象があれば実行） | 有効な保存ACがあれば0件 | Python/UI・変更文書例・サイト |
+| 検証設定・requirements・ACL revision | 全組合せ | 記録が無効になった対象、1回 | Python/UI・文書例・サイト |
+| 手動 `full=true` | 全組合せ | 全件、3回 | 全検査 |
 
-文書例が変更された場合は必要なコンパイルを残す。UI だけの変更では既知の重い C++ 統合テストを省くが、
-Python の測定ロジック・対象選択・UI のテストは残す。新しい未知のテストファイルの変更は全件扱いになる。
-ACL は workflow 内で commit を固定する。依存の revision を変えると workflow 変更として全件検証になる。
+required check名とPagesの公開条件は維持する。planが失敗・中断した場合、
+compile/verifyの先頭guardも失敗し、必須チェックのskipでマージを通さない。
+文書の事前Jekyll buildと公開前サイト検査も継続する。
+全件・3回の成功だけが性能比較のbaselineを更新し、部分検証や空選択では上書きしない。
 
-既存の required check 名 `compile (GCC, gnu++20)` などと `verify` は維持する。
-ジョブ全体を対象外にせず、不要なステップだけを省く。
-plan が失敗・キャンセルされた場合は既存 compile / verify ジョブ内の先頭 guard が失敗するため、
-required job の単なる skipped を利用して通過しない。
-上表の変更範囲による省略はPRだけに適用する。Pages の公開条件、事前 Jekyll 検査、公開前のサイト検査は従来どおり。
-
-### 公開ページの検証状態
-
-verification-helper 5.6.0 は合格タイムスタンプがない対象も失敗として表示する。
-対象0件の差分検証が成功しても、キャッシュの欠損・古い記録によってライブラリの見出しが
-すべて「❌」になる場合がある。main push は文書変更でも全件検証し、同じジョブ内で
-新しい合格記録からページを生成する。キャッシュの状態を公開判定の根拠にしない。
-実際に失敗した場合は公開を停止し、失敗ログを保持する。このためmainの文書変更でも
-全件検証の時間がかかるが、公開サイトの検証状態を再現できる。
-
-## ベンチマーク基準
-
-main 上で成功した全件・3 回測定だけを保存基準にする（main push または手動実行）。
-部分検証・空選択・1 回測定で全件の基準を上書きしない。
-結果がない target に 0 秒を埋めたり、古い計測を新しい revision として合算したりしない。
-
-## ローカルで選択を確認
-
-次のコマンドは manifest を生成するだけで、Library Checker は実行しない。
-明示的 `--base` は開発者のローカル検討用で、Actions API の成功履歴検索を行わない。
+## ローカル確認
 
 ```sh
-python3 scripts/plan_verification.py --base <base-commit> --head HEAD
-python3 scripts/verify_with_metrics.py --plan .verification/ci-plan.json --repeats 1 --timeout 3600
+python3 scripts/restore_verification_state.py --offline
+python3 scripts/plan_verification.py --base <base-commit> --state .verification/previous-state.json
+python3 scripts/verify_with_metrics.py --plan .verification/ci-plan.json --state .verification/previous-state.json --repeats 1 --timeout 3600
 ```
 
-テストは `tests/test_ci_plan.py`。推移的依存、独立 target、削除・rename、空選択、未知の変更、
-解析失敗、manifest 改変、失敗済み前回 push、基準 API エラーを一時 Git リポジトリで検証する。
-
-GitHub のイベント SHA と依存ジョブの挙動は公式の
-[イベント仕様](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows) と
-[workflow 構文](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax) に基づく。
+選択・再利用・改変検出・欠損・失敗の優先順位は `tests/test_ci_plan.py` と
+`tests/test_verification_state.py`、表示は生成文書と公開データのテストで確認する。

@@ -208,10 +208,51 @@ def validate_plan(plan: dict, repo: Path = Path.cwd()) -> None:
     head = revision(Path(repo), "HEAD")
     if plan.get("head_sha") != head:
         raise ValueError("CI plan does not describe checked-out HEAD")
-    expected = build_plan(Path(repo), plan.get("base_sha"), head, force_full=plan["mode"] == "full")
+    if "state_sha256" in plan:
+        state_path = Path(repo) / ".verification/previous-state.json"
+        state = json.loads(state_path.read_text())
+        expected = build_cached_plan(Path(repo), plan.get("base_sha"), head, state,
+                                     force_full=plan["mode"] == "full")
+        if plan["state_sha256"] != expected["state_sha256"]:
+            raise ValueError("saved verification state differs from selection evidence")
+    else:
+        expected = build_plan(Path(repo), plan.get("base_sha"), head, force_full=plan["mode"] == "full")
     for key in ("mode", "all_verify", "selected_verify", "compile_required", "docs_examples"):
         if plan.get(key) != expected[key]:
             raise ValueError(f"CI plan {key} differs from recomputed dependency selection")
+
+
+def build_cached_plan(repo: Path, base_sha: str | None, head_sha: str, state: dict,
+                      force_full: bool = False) -> dict:
+    """Select missing or changed receipts, including changes since a failed push."""
+    if __package__:
+        from .verification_state import valid_successes, state_digest
+    else:
+        from verification_state import valid_successes, state_digest
+    plan = build_plan(repo, base_sha, head_sha, force_full=force_full)
+    plan["state_sha256"] = state_digest(state)
+    if force_full:
+        return plan
+    valid = valid_successes(state, repo, ref=plan["head_sha"])
+    selected = sorted(set(plan["all_verify"]) - set(valid))
+    changed_cpp = any(file_kind(change[key]) == "cpp"
+                      for change in plan["changed_files"]
+                      for key in ("path", "previous_path") if key in change)
+    plan.update(mode="affected", selected_verify=selected,
+                compile_required=bool(selected) or changed_cpp,
+                reason="verify only new/changed dependencies or missing successful receipts",
+                reasons=[f"{len(valid)} unchanged successful receipts reused; {len(selected)} targets selected"])
+    if plan["compile_required"]:
+        plan["docs_examples"] = None
+    else:
+        # Harness/UI changes still run the Python tests, without compiling all C++.
+        current = Snapshot(repo, plan["head_sha"])
+        plan["docs_examples"] = sorted(change["path"] for change in plan["changed_files"]
+            if change["path"] in current.files and (
+                change["path"] in (".verify-helper/docs/static/guide.md", ".verify-helper/docs/static/migration.md") or
+                (change["path"].startswith("docs/") and change["path"].endswith(".md") and
+                 "blueberry/" + change["path"].removeprefix("docs/").removesuffix(".md") + ".hpp" in current.files)))
+    return plan
 
 
 def event_base(repo: Path, event_name: str, event: dict, head: str) -> str | None:
@@ -279,6 +320,7 @@ def main() -> None:
     parser.add_argument("--event-name", default=os.environ.get("GITHUB_EVENT_NAME", ""))
     parser.add_argument("--event-path", type=Path, default=os.environ.get("GITHUB_EVENT_PATH"))
     parser.add_argument("--full", action="store_true")
+    parser.add_argument("--state", type=Path, help="saved successful receipts restored before planning")
     parser.add_argument("--output", type=Path, default=Path(".verification/ci-plan.json"))
     args = parser.parse_args()
     event = {}
@@ -287,16 +329,21 @@ def main() -> None:
             event = json.loads(args.event_path.read_text())
         except (OSError, ValueError):
             pass  # Missing event context cannot lead to skipped verification.
-    # Published pages need fresh markers for every verifier. A successful
-    # affected/empty run does not prove that the timestamp cache survived.
-    # Only main receives push events in verify.yml; PRs remain selective.
-    full = args.full or args.event_name in ("push", "workflow_dispatch")
+    # Repeated full measurements are an explicit maintenance action, not a push default.
+    full = args.full or (args.event_name == "workflow_dispatch" and
+                        event.get("inputs", {}).get("full") in (True, "true"))
     candidate = args.base or event_base(args.repo, args.event_name, event, args.head)
-    if args.base or full:
+    if args.state:
+        base, evidence = candidate, {"reason": "content-validated saved verification receipts"}
+    elif args.base or full:
         base, evidence = candidate, {"reason": "explicit base/full run"}
     else:
         base, evidence = trusted_base(args.repo, candidate)
-    plan = build_plan(args.repo, base, args.head, force_full=full)
+    if args.state:
+        state = json.loads(args.state.read_text())
+        plan = build_cached_plan(args.repo, base, args.head, state, force_full=full)
+    else:
+        plan = build_plan(args.repo, base, args.head, force_full=full)
     plan["event_base_sha"] = candidate
     plan["baseline_evidence"] = evidence
     plan["repeats"] = 3 if full else 1

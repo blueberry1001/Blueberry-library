@@ -32,7 +32,7 @@ class DocumentationStatusTest(unittest.TestCase):
             {"path": "verify/example.test.cpp", "status": "failed"}]}
         (self.root / ".verification/current.json").write_text(json.dumps(report))
 
-    def statuses(self, verified=False):
+    def statuses(self, verified=False, accepted=None):
         class Marker:
             def is_verified(self, path):
                 return verified
@@ -42,7 +42,7 @@ class DocumentationStatusTest(unittest.TestCase):
 
         marker = Marker()
         failed = MODULE.current_failed_verifiers(self.root, "head")
-        with MODULE.documentation_marker_statuses(Marker, failed, self.root):
+        with MODULE.documentation_marker_statuses(Marker, failed, self.root, accepted):
             result = (marker.is_verified(self.verifier), marker.is_failed(self.verifier))
             self.assertEqual(result, (marker.is_verified(Path("verify/example.test.cpp")),
                                       marker.is_failed(Path("verify/example.test.cpp"))))
@@ -67,6 +67,16 @@ class DocumentationStatusTest(unittest.TestCase):
     def test_current_failure_overrides_cached_pass(self):
         self.report()
         self.assertEqual(self.statuses(verified=True), (False, True))
+
+    def test_valid_saved_success_does_not_need_timestamp_cache(self):
+        self.assertEqual(self.statuses(accepted={'verify/example.test.cpp': {}}), (True, False))
+
+    def test_invalidated_saved_success_cannot_fall_back_to_timestamp_cache(self):
+        self.assertEqual(self.statuses(verified=True, accepted={}), (False, False))
+
+    def test_current_failure_overrides_valid_saved_success(self):
+        self.report()
+        self.assertEqual(self.statuses(accepted={'verify/example.test.cpp': {}}), (False, True))
 
     def test_corrupt_report_waits_and_remains_untouched(self):
         path = self.root / ".verification/current.json"
