@@ -8,8 +8,11 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT/"benchmark/results/contest-template-import"
 lines = ["# Contest template import measurements", "", "5 runs, fixed seed12345, WSL2; see environment.json and validation.json for machine/compiler/flags.",
          "Allocation+construction and pre-generated query loop are timed separately. No parse/format time is included in table timings.",
+         "For compression, the build column is the complete compression operation, including rank preparation and remapping; the input-fixture copy is outside the timed region.",
+         "Compression has no query phase: preserved legacy CSV zeros in query_seconds were absent-phase placeholders, not measured zero durations. They are reported as not_applicable/null and shown as — below. Future CSV output leaves that field empty.",
+         "This is a reporting-only correction; timers and preserved measurements are unchanged and no benchmark rerun was performed.",
          "Shared desktop host timings are descriptive, especially small differences; each source/flag/input set is kept separate.", "",
-         "| compiler/revision | variant | build median / min (ms) | query median / min (ms) |", "| --- | --- | ---: | ---: |"]
+         "| compiler/revision | variant | construction or full compression median / min (ms) | query median / min (ms) |", "| --- | --- | ---: | ---: |"]
 summaries = {}
 for compiler in ["g++", "clang++"]:
     for suffix in ["-before-raw", "-raw-candidate", ""]:
@@ -18,14 +21,23 @@ for compiler in ["g++", "clang++"]:
         for row in csv.DictReader(path.open()): grouped.setdefault(row["variant"], []).append(row)
         for name, rows in grouped.items():
             builds = [float(row["build_seconds"])*1000 for row in rows]
-            queries = [float(row["query_seconds"])*1000 for row in rows]
+            compression = name in {"original-map-compress", "sorted-compress"}
+            if compression:
+                assert all(row["query_seconds"] in {"", "0"} for row in rows)
+                queries = None
+            else:
+                queries = [float(row["query_seconds"])*1000 for row in rows]
             assert len(rows) == 5
             assert len({row["checksum"] for row in rows}) == 1
             key = compiler+(suffix or "-final")+"/"+name
             stats = dict(build_median_ms=statistics.median(builds), build_min_ms=min(builds),
-                         query_median_ms=statistics.median(queries), query_min_ms=min(queries))
+                         build_phase="full_compression_operation" if compression else "construction",
+                         query_phase="not_applicable" if compression else "measured",
+                         query_median_ms=None if queries is None else statistics.median(queries),
+                         query_min_ms=None if queries is None else min(queries))
             summaries[key] = stats
-            lines.append(f"| {compiler}{suffix or '-final'} | {name} | {stats['build_median_ms']:.3f} / {stats['build_min_ms']:.3f} | {stats['query_median_ms']:.3f} / {stats['query_min_ms']:.3f} |")
+            query_text = "—" if queries is None else f"{stats['query_median_ms']:.3f} / {stats['query_min_ms']:.3f}"
+            lines.append(f"| {compiler}{suffix or '-final'} | {name} | {stats['build_median_ms']:.3f} / {stats['build_min_ms']:.3f} | {query_text} |")
 lines.extend(["", "Same release flags / official maximum case; 3 runs with official checker after each run:", "",
               "| driver revision | variant | median / min (ms) | peak RSS median (KiB) |", "| --- | --- | ---: | ---: |"])
 for name in ["fastest-local-before-driver-io.json", "fastest-local.json"]:

@@ -65,7 +65,8 @@ int main(int argc, char** argv) {
     const auto done = Clock::now(); benchmark_sink = count;
     auto b = values; const auto fresh = Clock::now(); const int compressed = blueberry::compress(b); const auto finished = Clock::now();
     if (a != b || compressed != count) return 1;
-    cout << "original-map-compress," << a.size() << ",0," << chrono::duration<double>(done-start).count() << ",0," << count << '\n';
-    cout << "sorted-compress," << a.size() << ",0," << chrono::duration<double>(finished-fresh).count() << ",0," << compressed << '\n';
+    // Compression is one full operation; there is no separate query phase.
+    cout << "original-map-compress," << a.size() << ",0," << chrono::duration<double>(done-start).count() << ",," << count << '\n';
+    cout << "sorted-compress," << a.size() << ",0," << chrono::duration<double>(finished-fresh).count() << ",," << compressed << '\n';
   }
 }
