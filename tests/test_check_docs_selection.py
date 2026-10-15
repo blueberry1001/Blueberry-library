@@ -57,6 +57,29 @@ class CheckDocsSelectionTest(unittest.TestCase):
         with contextlib.redirect_stdout(io.StringIO()):
             return check_docs.main(args)
 
+    def test_compatibility_monoids_still_require_documentation_without_catalog_listing(self):
+        header = "blueberry/algebra/monoids.hpp"
+        self.write(header, "#pragma once\n")
+        definition_page = (
+            "documentation_of: //" + header + "\n## 概要\n"
+            "| 定義 | 計算量 |\n| --- | --- |\n| monoid | O(1) |\n"
+            "<!-- library-implementation -->\n"
+            "{{ recipe.code | escape }} data-monoid-definition\n"
+            "{% raw %}\n```cpp\n" + SOURCE + "\n```\n{% endraw %}\n"
+        )
+        self.write("docs/algebra/monoids.md", definition_page)
+        documented, examples = check_docs.collect_examples(self.root)
+        self.assertIn(header, documented)
+        self.assertIn("docs/algebra/monoids.md", {path for path, _, _ in examples})
+        (self.root / "docs/algebra/monoids.md").unlink()
+        with self.assertRaises(FileNotFoundError):
+            check_docs.collect_examples(self.root)
+
+    def test_unregistered_new_header_is_not_treated_as_compatibility(self):
+        self.write("blueberry/algebra/new.hpp", "#pragma once\n")
+        with self.assertRaisesRegex(AssertionError, "Register every modern header"):
+            check_docs.collect_examples(self.root)
+
     def test_default_compiles_every_example_once(self):
         with patch.object(check_docs, "compile_examples") as compile_examples:
             self.run_main([])

@@ -25,8 +25,10 @@ assert 'site-hero__eyebrow' not in home and 'class="library-summary"' not in hom
 assert 'data-catalog-search' in home and 'data-catalog-controls hidden' in home
 assert 'data-catalog-empty hidden' in home and 'id="library-catalog"' in home
 assert "calc(100% - 300px)" not in home, "Upstream inline sidebar CSS returned"
-assert home.index("</section>") < home.index("<footer>"), "Footer must follow the content"
-categories = ("algebra", "data-structure", "graph", "math", "string", "utility")
+assert "This project is maintained by" not in home
+assert "Hosted on GitHub Pages" not in home
+assert "<footer>" not in home, "Unneeded theme footer returned"
+categories = ("data-structure", "graph", "math", "string", "utility")
 for category in categories:
     assert f"/Blueberry-library/categories/{category}.html" in home
     content = (SITE / "categories" / f"{category}.html").read_text()
@@ -64,6 +66,8 @@ assert not re.search(r'<article\b[^>]*data-library[^>]*\bhidden\b', monoids)
 assert 'JavaScript' in monoids and '共通の使い方' in monoids
 recipes = json.loads((ROOT / '.verify-helper/docs/static/_data/monoids.yml').read_text())
 for recipe in recipes:
+    if not recipe.get('code'):
+        continue
     article = re.search(r'<article\b[^>]*\bid="' + re.escape(recipe['id']) + r'"[^>]*>(.*?)</article>', monoids, re.S)
     assert article, recipe['id']
     assert 'data-linked-details' in article[1] and '<summary>' in article[1], recipe['id']
@@ -73,6 +77,7 @@ for recipe in recipes:
         assert '<em>' not in article[1], (recipe['id'], 'formula interpreted as emphasis')
 assert sum(bool(recipe.get('code')) for recipe in recipes) == 30
 assert '使う例' not in monoids and '操作一覧' not in monoids
+assert '応用問題:' not in monoids and 'id="beats"' not in monoids, 'Only monoid definitions belong in the cookbook'
 assert 'href=""' not in monoids, "Recipes without example problems must not render empty links"
 for href in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', monoids):
     assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("monoids", href)

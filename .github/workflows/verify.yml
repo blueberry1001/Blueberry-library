@@ -122,7 +122,7 @@ jobs:
     needs: [plan, compile]
     if: always()
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 150
     permissions:
       contents: read
       pages: write
@@ -220,7 +220,7 @@ jobs:
       - name: Verify libraries
         env:
           CPLUS_INCLUDE_PATH: ${{ github.workspace }}/.deps/ac-library
-        run: python3 scripts/verify_with_metrics.py --plan .verification/ci-plan.json --repeats ${{ needs.plan.outputs.repeats }} --timeout 3600
+        run: python3 scripts/verify_with_metrics.py --plan .verification/ci-plan.json --repeats ${{ needs.plan.outputs.repeats }} --timeout 7200
 
       - name: Upload verification measurements (including failures)
         if: always()

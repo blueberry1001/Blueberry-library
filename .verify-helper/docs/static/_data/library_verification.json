@@ -1,33 +1,6 @@
 {
   "libraries": [
     {
-      "path": "blueberry/algebra/monoids.hpp",
-      "name": "いろいろなモノイド",
-      "direct": [
-        {
-          "path": "verify/algebra/monoid-affine-composition.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/point_set_range_composite"
-        },
-        {
-          "path": "verify/algebra/monoid-affine-sum.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/range_affine_range_sum"
-        }
-      ],
-      "indirect": [],
-      "random_tests": [
-        "tests/random/monoids.cpp"
-      ],
-      "ignored": [],
-      "note": {
-        "partial": true,
-        "reason": "AffineSumとAffineCompositionはACLの木に載せた専用Library Checkerドライバで検証します。",
-        "limits": "IndexAffineSum、AffineSumSquares、BinaryFlipInversions、MaxSubarray、Bracket、MaxCountは境界・ランダム・愚直比較で検証します。案内ページの問題リンクは公式ケース検証済みを意味しません。",
-        "next": "各レシピの作用合成・単位元・空区間・非可換順序を固定seedで比較し、追加の公式問題に対応する場合は専用ドライバを増やす。"
-      },
-      "status": "partial",
-      "label": "主機能の一部に公式verifyなし"
-    },
-    {
       "path": "blueberry/data-structure/partially-retroactive-priority-queue.hpp",
       "name": "Partially Retroactive Priority Queue",
       "direct": [],
@@ -68,8 +41,14 @@
       "path": "blueberry/graph/topological-sort.hpp",
       "name": "Topological Sort",
       "direct": [],
-      "indirect": [],
+      "indirect": [
+        {
+          "path": "verify/utility/contest-template-128bit.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
+        }
+      ],
       "random_tests": [
+        "tests/random/contest-helpers.cpp",
         "tests/random/graph-batch-two.cpp"
       ],
       "ignored": [],
@@ -79,8 +58,54 @@
         "next": "DAGの順序制約・閉路時の返り値を確かめられる問題を選び、専用ドライバを追加する。",
         "issue": "https://github.com/blueberry1001/Blueberry-library/issues/24"
       },
-      "status": "missing",
-      "label": "公式verify未登録"
+      "status": "indirect",
+      "label": "依存先としてのみ利用"
+    },
+    {
+      "path": "blueberry/utility/contest-helpers.hpp",
+      "name": "Contest Helpers",
+      "direct": [],
+      "indirect": [
+        {
+          "path": "verify/utility/contest-template-128bit.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
+        }
+      ],
+      "random_tests": [
+        "tests/random/contest-helpers.cpp"
+      ],
+      "ignored": [],
+      "note": {
+        "partial": true,
+        "reason": "128bitの変換は専用入出力verifyの依存先として検証します。補助関数全体は境界・固定seedのランダムテストで検証します。",
+        "limits": "整数除算・二分探索・圧縮・二部判定・Fillなどは公式の専用問題ではなくローカル検査です。",
+        "next": "型の前提と整数端点のテストを維持し、対応する公式問題がある操作には専用ドライバを追加する。"
+      },
+      "status": "indirect",
+      "label": "依存先としてのみ利用"
+    },
+    {
+      "path": "blueberry/utility/contest-template.hpp",
+      "name": "Contest Template（任意読込み）",
+      "direct": [
+        {
+          "path": "verify/utility/contest-template-128bit.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/contest-helpers.cpp"
+      ],
+      "ignored": [],
+      "note": {
+        "partial": true,
+        "reason": "Many A + B (128bit)でinit_io・scan・printと128bit入出力を直接検証します。",
+        "limits": "型別名・マクロ・乱数・入れ子のコンテナ入出力はローカルテストです。ACLを含む任意読込みの単一翻訳単位用テンプレートです。",
+        "next": "マクロ境界と入出力の固定seed検査を維持する。"
+      },
+      "status": "partial",
+      "label": "主機能の一部に公式verifyなし"
     },
     {
       "path": "blueberry/utility/fast-io.hpp",
@@ -129,6 +154,10 @@
         {
           "path": "verify/graph/link-cut-tree.test.cpp",
           "problem": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum"
+        },
+        {
+          "path": "verify/math/binomial-coefficient-prime-mod.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod"
         },
         {
           "path": "verify/utility/fast-io-128bit.test.cpp",
@@ -1554,6 +1583,29 @@
       "label": "専用verifyドライバあり"
     },
     {
+      "path": "blueberry/math/combinations.hpp",
+      "name": "Combinations",
+      "direct": [
+        {
+          "path": "verify/math/binomial-coefficient-prime-mod.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod"
+        }
+      ],
+      "indirect": [
+        {
+          "path": "verify/utility/contest-template-128bit.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
+        }
+      ],
+      "random_tests": [
+        "tests/random/contest-helpers.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
       "path": "blueberry/math/discrete-log.hpp",
       "name": "Discrete Logarithm",
       "direct": [
@@ -1624,8 +1676,14 @@
           "problem": "https://judge.yosupo.jp/problem/primality_test"
         }
       ],
-      "indirect": [],
+      "indirect": [
+        {
+          "path": "verify/utility/contest-template-128bit.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
+        }
+      ],
       "random_tests": [
+        "tests/random/contest-helpers.cpp",
         "tests/random/math-expansion.cpp"
       ],
       "ignored": [],
@@ -1887,8 +1945,15 @@
           "problem": "https://judge.yosupo.jp/problem/enumerate_primes"
         }
       ],
-      "indirect": [],
-      "random_tests": [],
+      "indirect": [
+        {
+          "path": "verify/utility/contest-template-128bit.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
+        }
+      ],
+      "random_tests": [
+        "tests/random/contest-helpers.cpp"
+      ],
       "ignored": [],
       "note": {},
       "status": "direct",
@@ -2132,8 +2197,9 @@
     }
   ],
   "counts": {
+    "missing": 2,
+    "indirect": 2,
     "partial": 2,
-    "missing": 3,
-    "direct": 98
+    "direct": 99
   }
 }

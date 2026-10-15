@@ -5,17 +5,6 @@
 ドライバの存在・include関係はACや全APIの網羅を意味しません。all.hppのA+Bテストは含めません。
 問題が存在しないという断定ではありません。調査済みの候補・未検証操作・次の作業は注記を参照してください。
 
-## いろいろなモノイド
-
-[blueberry/algebra/monoids.hpp](../blueberry/algebra/monoids.hpp) — **主機能の一部に公式verifyなし**
-
-- 専用ドライバ: [verify/algebra/monoid-affine-composition.test.cpp](../verify/algebra/monoid-affine-composition.test.cpp) / [問題](https://judge.yosupo.jp/problem/point_set_range_composite)
-- 専用ドライバ: [verify/algebra/monoid-affine-sum.test.cpp](../verify/algebra/monoid-affine-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/range_affine_range_sum)
-- 関連ローカルテスト: [tests/random/monoids.cpp](../tests/random/monoids.cpp)
-- AffineSumとAffineCompositionはACLの木に載せた専用Library Checkerドライバで検証します。
-- IndexAffineSum、AffineSumSquares、BinaryFlipInversions、MaxSubarray、Bracket、MaxCountは境界・ランダム・愚直比較で検証します。案内ページの問題リンクは公式ケース検証済みを意味しません。
-- 各レシピの作用合成・単位元・空区間・非可換順序を固定seedで比較し、追加の公式問題に対応する場合は専用ドライバを増やす。
-
 ## Partially Retroactive Priority Queue
 
 [blueberry/data-structure/partially-retroactive-priority-queue.hpp](../blueberry/data-structure/partially-retroactive-priority-queue.hpp) — **公式verify未登録**
@@ -38,13 +27,35 @@
 
 ## Topological Sort
 
-[blueberry/graph/topological-sort.hpp](../blueberry/graph/topological-sort.hpp) — **公式verify未登録**
+[blueberry/graph/topological-sort.hpp](../blueberry/graph/topological-sort.hpp) — **依存先としてのみ利用**
 
+- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
+- 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
 - 関連ローカルテスト: [tests/random/graph-batch-two.cpp](../tests/random/graph-batch-two.cpp)
 - 専用の公式verifyドライバは未登録です。
 - 関連ローカルテストはありますが、公式ジャッジでの専用検証を表すものではありません。
 - DAGの順序制約・閉路時の返り値を確かめられる問題を選び、専用ドライバを追加する。
 - [追跡Issue](https://github.com/blueberry1001/Blueberry-library/issues/24)
+
+## Contest Helpers
+
+[blueberry/utility/contest-helpers.hpp](../blueberry/utility/contest-helpers.hpp) — **依存先としてのみ利用**
+
+- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
+- 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
+- 128bitの変換は専用入出力verifyの依存先として検証します。補助関数全体は境界・固定seedのランダムテストで検証します。
+- 整数除算・二分探索・圧縮・二部判定・Fillなどは公式の専用問題ではなくローカル検査です。
+- 型の前提と整数端点のテストを維持し、対応する公式問題がある操作には専用ドライバを追加する。
+
+## Contest Template（任意読込み）
+
+[blueberry/utility/contest-template.hpp](../blueberry/utility/contest-template.hpp) — **主機能の一部に公式verifyなし**
+
+- 専用ドライバ: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
+- 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
+- Many A + B (128bit)でinit_io・scan・printと128bit入出力を直接検証します。
+- 型別名・マクロ・乱数・入れ子のコンテナ入出力はローカルテストです。ACLを含む任意読込みの単一翻訳単位用テンプレートです。
+- マクロ境界と入出力の固定seed検査を維持する。
 
 ## Fast I/O
 
@@ -61,6 +72,7 @@
 - 専用ドライバ: [verify/data-structure/static-range-lis.test.cpp](../verify/data-structure/static-range-lis.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_lis_query)
 - 専用ドライバ: [verify/graph/link-cut-tree-composite.test.cpp](../verify/graph/link-cut-tree-composite.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite)
 - 専用ドライバ: [verify/graph/link-cut-tree.test.cpp](../verify/graph/link-cut-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum)
+- 専用ドライバ: [verify/math/binomial-coefficient-prime-mod.test.cpp](../verify/math/binomial-coefficient-prime-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod)
 - 専用ドライバ: [verify/utility/fast-io-128bit.test.cpp](../verify/utility/fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
 - 専用ドライバ: [verify/utility/fast-io.test.cpp](../verify/utility/fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
 - 関連ローカルテスト: [tests/random/fast-io.cpp](../tests/random/fast-io.cpp)
@@ -597,6 +609,14 @@
 - 専用ドライバ: [verify/math/bitwise-xor-convolution.test.cpp](../verify/math/bitwise-xor-convolution.test.cpp) / [問題](https://judge.yosupo.jp/problem/bitwise_xor_convolution)
 - 関連ローカルテスト: [tests/random/algebra-expansion.cpp](../tests/random/algebra-expansion.cpp)
 
+## Combinations
+
+[blueberry/math/combinations.hpp](../blueberry/math/combinations.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/math/binomial-coefficient-prime-mod.test.cpp](../verify/math/binomial-coefficient-prime-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod)
+- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
+- 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
+
 ## Discrete Logarithm
 
 [blueberry/math/discrete-log.hpp](../blueberry/math/discrete-log.hpp) — **専用verifyドライバあり**
@@ -625,6 +645,8 @@
 
 - 専用ドライバ: [verify/math/factorize.test.cpp](../verify/math/factorize.test.cpp) / [問題](https://judge.yosupo.jp/problem/factorize)
 - 専用ドライバ: [verify/math/primality-test.test.cpp](../verify/math/primality-test.test.cpp) / [問題](https://judge.yosupo.jp/problem/primality_test)
+- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
+- 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
 - 関連ローカルテスト: [tests/random/math-expansion.cpp](../tests/random/math-expansion.cpp)
 
 ## Formal Power Series
@@ -722,6 +744,8 @@
 [blueberry/math/prime-sieve.hpp](../blueberry/math/prime-sieve.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/math/enumerate-primes.test.cpp](../verify/math/enumerate-primes.test.cpp) / [問題](https://judge.yosupo.jp/problem/enumerate_primes)
+- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
+- 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
 
 ## Sample Point Shift
 

@@ -10,6 +10,8 @@ import subprocess
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
+# Kept for supported API compatibility; definitions live in the monoid cookbook.
+COMPATIBILITY_HEADERS = {"blueberry/algebra/monoids.hpp"}
 
 
 def collect_examples(root):
@@ -18,9 +20,10 @@ def collect_examples(root):
     headers = re.findall(r"^  path: (.+)$", catalog.read_text(encoding="utf-8"), re.M)
     expected = {p.relative_to(root).as_posix() for p in (root / "blueberry").glob("*/*.hpp")}
     assert len(headers) == len(set(headers)), "Duplicate catalog entries"
-    assert set(headers) == expected, "Register every modern header in libraries.yml"
+    assert set(headers) == expected - COMPATIBILITY_HEADERS, "Register every modern header in libraries.yml"
+    documented_headers = headers + sorted(expected & COMPATIBILITY_HEADERS)
     examples = []
-    for header in headers:
+    for header in documented_headers:
         document = root / ("docs/" + header.removeprefix("blueberry/").removesuffix(".hpp") + ".md")
         text = document.read_text(encoding="utf-8")
         assert f"documentation_of: //{header}" in text, document
@@ -66,7 +69,7 @@ def collect_examples(root):
         for index, block in enumerate(blocks):
             assert "int main()" in block and "assert(" in block, (guide, index)
             examples.append((path, f"{path} example {index + 1}", block))
-    return headers, examples
+    return documented_headers, examples
 
 
 def selected_paths(root, paths_file, examples):

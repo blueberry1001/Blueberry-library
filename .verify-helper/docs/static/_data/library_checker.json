@@ -23,8 +23,9 @@
   ],
   "total": 253,
   "counts": {
-    "missing": 134,
+    "missing": 133,
     "verify": 112,
+    "driver": 1,
     "acl": 7
   },
   "statuses": [
@@ -93,11 +94,28 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
+          "path": "blueberry/graph/topological-sort.hpp",
+          "name": "Topological Sort"
+        },
+        {
+          "path": "blueberry/math/combinations.hpp",
+          "name": "Combinations"
+        },
+        {
+          "path": "blueberry/math/factorize.hpp",
+          "name": "Factorize"
+        },
+        {
+          "path": "blueberry/math/prime-sieve.hpp",
+          "name": "Prime Sieve"
+        },
+        {
           "path": "blueberry/utility/fast-io.hpp",
           "name": "Fast I/O"
         }
       ],
       "verifies": [
+        "verify/utility/contest-template-128bit.test.cpp",
         "verify/utility/fast-io-128bit.test.cpp"
       ],
       "ignored_verifies": [],
@@ -405,10 +423,6 @@
       "label": "実装＋verifyあり",
       "headers": [
         {
-          "path": "blueberry/algebra/monoids.hpp",
-          "name": "いろいろなモノイド"
-        },
-        {
           "path": "blueberry/data-structure/dynamic-sqrt-tree.hpp",
           "name": "Dynamic Sqrt Tree"
         },
@@ -559,14 +573,9 @@
       "title": "Range Affine Range Sum",
       "category": "Data Structure",
       "url": "https://judge.yosupo.jp/problem/range_affine_range_sum",
-      "status": "verify",
-      "label": "実装＋verifyあり",
-      "headers": [
-        {
-          "path": "blueberry/algebra/monoids.hpp",
-          "name": "いろいろなモノイド"
-        }
-      ],
+      "status": "driver",
+      "label": "補助verifyのみ",
+      "headers": [],
       "verifies": [
         "verify/algebra/monoid-affine-sum.test.cpp"
       ],
@@ -3103,10 +3112,17 @@
       "title": "Binomial Coefficient (Prime Mod)",
       "category": "Enumerative Combinatorics",
       "url": "https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod",
-      "status": "missing",
-      "label": "未対応",
-      "headers": [],
-      "verifies": [],
+      "status": "verify",
+      "label": "実装＋verifyあり",
+      "headers": [
+        {
+          "path": "blueberry/math/combinations.hpp",
+          "name": "Combinations"
+        }
+      ],
+      "verifies": [
+        "verify/math/binomial-coefficient-prime-mod.test.cpp"
+      ],
       "ignored_verifies": [],
       "note": "",
       "external_url": ""

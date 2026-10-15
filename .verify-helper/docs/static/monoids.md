@@ -1,9 +1,9 @@
 ---
 layout: page
-title: いろいろなモノイド
+title: モノイド一覧
 ---
 
-# いろいろなモノイド
+# モノイド一覧
 
 使いたい操作を開き、`S`・`F`と演算をコピーしてください。各コードは独立してACLで使えます。
 
@@ -60,7 +60,7 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
     <input id="monoid-search" data-catalog-search type="search" placeholder="例: 等差数列、反転 転倒数、DP、二乗和" autocomplete="off" aria-controls="monoid-results"></div>
     <div class="catalog-category-field"><label for="monoid-kind">載せる構造</label>
     <select id="monoid-kind" data-catalog-category aria-controls="monoid-results">
-      <option value="">すべて</option><option value="segtree">セグ木</option><option value="lazy">遅延セグ木</option><option value="beats">Beats</option>
+      <option value="">すべて</option><option value="segtree">セグ木</option><option value="lazy">遅延セグ木</option>
     </select></div>
     <button type="button" data-catalog-reset>条件をクリア</button>
     <span data-catalog-count role="status" aria-live="polite"></span>
@@ -68,7 +68,7 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
   <noscript><p>JavaScript が無効のため全レシピを表示しています。見出しとブラウザ内検索で探せます。</p></noscript>
   <p data-catalog-empty hidden>一致するレシピがありません。キーワードを減らすか条件をクリアしてください。</p>
   <div id="monoid-results">
-  {% for recipe in site.data.monoids %}
+  {% for recipe in site.data.monoids %}{% if recipe.code != '' %}
     <article data-library data-category="{{ recipe.kind | escape }}" data-keywords="{{ recipe.keywords | escape }}" id="{{ recipe.id | escape }}">
       <details class="monoid-recipe" data-linked-details>
       <summary><strong>{{ recipe.title | escape }}</strong><span>{% if recipe.kind == 'lazy' %}遅延セグ木{% elsif recipe.kind == 'beats' %}Beats{% else %}セグ木{% endif %}</span></summary>
@@ -76,14 +76,9 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
       {% if recipe.note %}<p><code>{{ recipe.note | escape }}</code></p>{% endif %}
       {% if recipe.caveat != '' %}<p>{{ recipe.caveat | escape }}</p>{% endif %}
       {% if recipe.code %}<pre><code class="language-cpp">{{ recipe.code | escape }}</code></pre>{% endif %}
-      {% if recipe.id == 'beats' %}
-      <p><code>chmin(x)</code> と区間和には、和・最大値 <code>max1</code>・厳密に二番目の最大値 <code>max2</code>・最大値の個数 <code>cnt</code> を持ちます。<code>max2 &lt; x &lt; max1</code> なら和を <code>(x-max1)*cnt</code> だけ変更し、最大値を <code>x</code> にします。<code>x &gt;= max1</code> は何もせず、それ以外は子へ降ります。</p>
-      <p>子へ降りる判定が必要なので、通常の ACL <code>lazy_segtree</code> に <code>mapping</code> を渡すだけでは扱えません。<a href="{{ '/blueberry/data-structure/segment-tree-beats.hpp.html' | relative_url }}">Segment Tree Beats</a> を使います。</p>
-      {% endif %}
-      {% if recipe.problem_url != '' %}<p>応用問題: <a href="{{ recipe.problem_url | escape }}">{{ recipe.problem | escape }}</a>{{ recipe.problem_note | escape }}</p>{% endif %}
       </details>
     </article>
-  {% endfor %}
+  {% endif %}{% endfor %}
   </div>
 </div>
 
@@ -96,4 +91,3 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
 
 ACL の詳しい使い方は [segtree](https://atcoder.github.io/ac-library/production/document_ja/segtree.html)・
 [lazy_segtree](https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html) を参照してください。
-問題リンクは応用先です。問題ごとの初期化・型・出力形式に合わせて使ってください。
