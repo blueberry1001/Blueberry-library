@@ -117,12 +117,6 @@ uf.rollback(saved);
 カタログにある `blueberry/<category>/*.hpp` と一括入口 `all.hpp` が検証対象です。
 各ページには実行可能な最小例、全公開操作の説明、型や境界条件を載せています。
 
-未検証だった旧ルート直下ヘッダ6個と `fps.hpp` は、2026-09-17 の整備で削除しました。
-オンライン版・多重集合・分数には検証付きの新しい実装があります。
-旧ファイル名、include、APIの対応は[旧版からの移行](https://blueberry1001.github.io/Blueberry-library/migration.html)を参照してください。
-特に旧 `implicit_treap.hpp` はキー順多重集合なので、新しい `OrderedMultiset` が移行先です。
-新 `ImplicitTreap` は位置で扱う動的列です。
-
 詳細な説明・計算量・検証コードは[ドキュメント](https://blueberry1001.github.io/Blueberry-library/)に掲載します。
 ACLとの役割分担や実装・採用基準は[実装方針](IMPLEMENTATION_POLICY.md)にまとめています。
 
@@ -243,3 +237,7 @@ Fastest収集、compiler option matrix、計測条件と現在のStatic RMQ調�
 5. pushするとGitHub Actionsが再検証し、`main` ならGitHub Pagesも更新する。
 
 新しい実装はカテゴリ別ヘッダへ追加し、カタログ・API文書・公式verify・境界テストを揃えます。
+
+## ライセンス
+
+[CC0 1.0 Universal](LICENSE)。

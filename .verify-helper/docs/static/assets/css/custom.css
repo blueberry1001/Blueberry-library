@@ -46,7 +46,7 @@ body > .wrapper > section {
 
 .site-hero { margin: 12px 0 32px; }
 .site-hero h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 8px; }
-.site-hero p { color: var(--muted); margin: 0; }
+.site-license { margin: 40px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: .875rem; }
 
 h1, h2, h3 {
   color: var(--ink);
@@ -307,12 +307,12 @@ th {
 [data-source-viewer] pre { max-height: 40rem; overflow: auto; }
 [data-source-enhanced] .source-fallback-note { display: none; }
 /* Comparisons stay collapsed until requested, including on individual API pages. */
-.comparison-guide, .library-comparison { margin: 1rem 0; padding: .8rem 0; border-top: 1px solid var(--line); background: var(--surface); }
-.comparison-guide > summary, .library-comparison > summary { cursor: pointer; font-weight: 600; line-height: 1.6; }
-.comparison-guide > summary:focus-visible, .library-comparison > summary:focus-visible, .comparison-table:focus-visible { outline: 3px solid #3157d5; outline-offset: 3px; }
+.library-comparison { margin: 1rem 0; padding: .8rem 0; border-top: 1px solid var(--line); background: var(--surface); }
+.library-comparison > summary { cursor: pointer; font-weight: 600; line-height: 1.6; }
+.library-comparison > summary:focus-visible, .comparison-table:focus-visible { outline: 3px solid #3157d5; outline-offset: 3px; }
 .library-comparison[open] > summary { margin-bottom: .8rem; }
 .comparison-table { max-width: 100%; overflow-x: auto; margin-bottom: 1rem; }
-.comparison-table table { margin-bottom: 0; font-size: .9rem; }
+.comparison-table table { display: table; overflow: visible; margin-bottom: 0; font-size: .9rem; }
 .comparison-table th, .comparison-table td { min-width: 8rem; vertical-align: top; }
 .comparison-scroll-hint { display: none; color: var(--muted); font-size: .8rem; }
 @media (max-width: 700px) { .comparison-scroll-hint { display: block; } }

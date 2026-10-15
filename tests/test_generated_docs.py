@@ -104,7 +104,7 @@ class GeneratedDocumentationTest(unittest.TestCase):
             output = root / ".verify-helper/markdown"
             names = ("blueberry/old.hpp.md", "blueberry/math/new.hpp.md",
                      "verify/math/old.test.cpp.md", "verify/math/new.test.cpp.md",
-                     "migration.md", "blueberry/notes.md")
+                     "guide.md", "blueberry/notes.md")
             for name in names:
                 page = output / name
                 page.parent.mkdir(parents=True, exist_ok=True)
@@ -118,6 +118,17 @@ class GeneratedDocumentationTest(unittest.TestCase):
             for name in names:
                 self.assertEqual((output / name).exists(), "old." not in name)
             self.assertEqual(MODULE.prune_removed_sources(root), [])
+
+    def test_retired_migration_page_is_pruned_from_previous_build(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / ".verify-helper/markdown"
+            output.mkdir(parents=True)
+            (output / "migration.md").write_text("retired page")
+            (output / "guide.md").write_text("current guide")
+            self.assertEqual(MODULE.prune_removed_sources(root), ["migration.md"])
+            self.assertFalse((output / "migration.md").exists())
+            self.assertTrue((output / "guide.md").exists())
 
     def test_no_generated_directory_is_a_noop(self):
         with tempfile.TemporaryDirectory() as temporary:

@@ -78,6 +78,12 @@ def prune_removed_sources(basedir):
             if not source.is_file():
                 page.unlink()
                 removed.append(page.relative_to(output).as_posix())
+    retired = output / "migration.md"
+    if retired.exists() and not (basedir / ".verify-helper/docs/static/migration.md").is_file():
+        if not retired.resolve().is_relative_to(output.resolve()):
+            raise ValueError("retired page points outside documentation output")
+        retired.unlink()
+        removed.append("migration.md")
     return removed
 
 

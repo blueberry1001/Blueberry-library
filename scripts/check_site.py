@@ -18,6 +18,11 @@ home_links = re.findall(r'href="([^"]+)"', home)
 assert not any('/atcoder/' in href or '/verify/' in href for href in home_links), "ACL/verify leaked onto homepage"
 assert "Verification Files" not in home
 assert 'class="site-hero"' in home
+assert 'C++20・ヘッダオンリーの競技プログラミング用ライブラリ。' not in home
+assert '標準機能はACLを優先してください。検証コードは' not in home
+assert '<label for="library-search" class="visually-hidden">ライブラリを検索</label>' in home
+assert 'class="site-license"' in home and '>CC0 1.0</a>' in home
+assert 'CC0 1.0 Universal' in (ROOT / 'LICENSE').read_text()
 assert 'class="site-nav"' in home
 nav = re.search(r'<nav class="site-nav".*?</nav>', home, re.S)[0]
 assert '/library-checker.html' in nav.split('<details', 1)[0], "LC coverage needs a direct navigation link"
@@ -54,12 +59,22 @@ for category in categories:
     content = (SITE / "categories" / f"{category}.html").read_text()
     assert "収録ライブラリ" in content and f"/blueberry/{category}/" in content
     assert 'data-catalog-search' in content, (category, "missing catalog search")
-for page in ("guide.html", "migration.html", "benchmarks.html", "assets/js/docs.js", "assets/css/custom.css"):
+for page in ("guide.html", "comparisons.html", "benchmarks.html", "assets/js/docs.js", "assets/css/custom.css"):
     assert (SITE / page).exists(), page
+assert not (SITE / 'migration.html').exists(), "Retired migration page must not survive an incremental build"
+assert '/migration.html' not in nav
+assert '/comparisons.html' in nav.split('<details', 1)[1], "Comparisons belong in the reference menu"
+guide = (SITE / 'guide.html').read_text()
+guide_sections = re.findall(r'<h2\b[^>]*>(.*?)</h2>', guide, re.S)
+assert guide_sections[0] == '必要な機能を探す' and guide_sections[-1] == 'ローカルで使用したい場合'
+for retired_copy in ('検索とキーボード操作', '開発・検証する', '旧ヘッダ', '参照を返すAPI', '経路圧縮'):
+    assert retired_copy not in guide, retired_copy
 
 # Discovery pages must remain usable without JavaScript and have live targets.
 operations = (SITE / "operations.html").read_text()
 coverage = (SITE / "library-checker.html").read_text()
+for retired_copy in ('「verifyあり」は検証コードがある問題です。', '対応状況・データの出典', '開発時の更新方法'):
+    assert retired_copy not in coverage, retired_copy
 inventory = json.loads((ROOT / ".verify-helper/docs/static/_data/library_checker.json").read_text())
 for content, prefix in ((operations, "operation"), (coverage, "coverage")):
     # Kramdown serializes valueless HTML attributes as attr="".
@@ -84,6 +99,8 @@ assert '/Blueberry-library/monoids.html' in home
 assert 'data-catalog-search' in monoids and 'aria-live="polite"' in monoids
 assert not re.search(r'<article\b[^>]*data-library[^>]*\bhidden\b', monoids)
 assert 'JavaScript' in monoids and '共通の使い方' in monoids
+for retired_copy in ('葉と空区間は別', '中間積まで型に収まることが前提です。', '演算が定数時間でない場合はその費用を掛けます。'):
+    assert retired_copy not in monoids, retired_copy
 recipes = json.loads((ROOT / '.verify-helper/docs/static/_data/monoids.yml').read_text())
 assert '<body class="monoid-page">' in monoids and 'class="monoid-columns"' in monoids
 assert re.findall(r'<article\b[^>]*data-library[^>]*\bid="([^"]+)"', monoids) == [recipe['id'] for recipe in recipes if recipe.get('code')], (
@@ -110,9 +127,6 @@ assert 'href=""' not in monoids, "Recipes without example problems must not rend
 for href in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', monoids):
     assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("monoids", href)
 
-migration = (SITE / "migration.html").read_text()
-for link in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', migration):
-    assert (SITE / link.removeprefix('/Blueberry-library/')).is_file(), ("migration", link)
 for obsolete in ("ConvexHulltrick.hpp", "DynamicFenwickTree2D.hpp", "implicit_treap.hpp",
                  "fraction.hpp", "Graph.hpp", "RollbackUnionFind.hpp", "fps.hpp"):
     assert not (ROOT / "blueberry" / obsolete).exists(), (obsolete, "obsolete source restored")
@@ -226,15 +240,18 @@ for source in (ROOT / "verify").rglob("*.test.cpp"):
 # Comparison help must be reachable both from recommendations and each API page.
 import yaml
 comparisons = yaml.safe_load((ROOT / ".verify-helper/docs/static/_data/comparisons.yml").read_text())
-assert 'id="comparison-guide"' in operations
+comparison_page = (SITE / 'comparisons.html').read_text()
+assert 'id="comparison-guide"' not in operations and 'class="library-comparison"' not in operations
 for family in comparisons:
     identifier = f'comparison-{family["id"]}'
-    assert operations.count(f'id="{identifier}"') == 1, identifier
-    assert f'href="#{identifier}"' in operations, (identifier, "no recommendation links")
+    assert comparison_page.count(f'id="{identifier}"') == 1, identifier
+    assert f'href="/Blueberry-library/comparisons.html#{identifier}"' in operations, (identifier, "no recommendation links")
     for header in family["headers"]:
         assert f'id="{identifier}"' in (SITE / f"{header}.html").read_text(), header
-assert "__BASEURL__" not in operations
-assert "U√N + Q" in operations and "速度の分岐点ではありません" in operations
+assert "__BASEURL__" not in comparison_page
+assert "U√N + Q" in comparison_page and "速度の分岐点ではありません" in comparison_page
+for href in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', comparison_page):
+    assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("comparisons", href)
 gap_page = (SITE / "verification-gaps.html").read_text()
 evidence = json.loads((ROOT / ".verify-helper/docs/static/_data/library_verification.json").read_text())
 assert {row["path"] for row in evidence["libraries"]} == set(headers)

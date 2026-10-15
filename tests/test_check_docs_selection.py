@@ -40,8 +40,7 @@ class CheckDocsSelectionTest(unittest.TestCase):
         for name in ("a", "b"):
             self.write(f"blueberry/test/{name}.hpp", "#pragma once\n")
             self.write(f"docs/test/{name}.md", page(f"blueberry/test/{name}.hpp"))
-        for name, count in (("guide", 1), ("migration", 3)):
-            self.write(f".verify-helper/docs/static/{name}.md", ("```cpp\n" + SOURCE + "\n```\n") * count)
+        self.write(".verify-helper/docs/static/guide.md", ("```cpp\n" + SOURCE + "\n```\n") * 3)
         self.root_patch = patch.object(check_docs, "ROOT", self.root)
         self.root_patch.start()
         self.addCleanup(self.root_patch.stop)
@@ -88,8 +87,8 @@ class CheckDocsSelectionTest(unittest.TestCase):
         with patch.object(check_docs, "compile_examples") as compile_examples:
             self.run_main([])
         examples = compile_examples.call_args.args[1]
-        self.assertEqual(len(examples), 6)
-        self.assertEqual(len({label for _, label, _ in examples}), 6)
+        self.assertEqual(len(examples), 5)
+        self.assertEqual(len({label for _, label, _ in examples}), 5)
 
     def test_structure_only_never_launches_compiler(self):
         with patch.object(check_docs.subprocess, "run") as run:
@@ -106,13 +105,13 @@ class CheckDocsSelectionTest(unittest.TestCase):
             self.run_main(["--paths-file", self.selection(["docs/test/b.md"])])
         self.assertEqual([x[0] for x in compile_examples.call_args.args[1]], ["docs/test/b.md"])
 
-    def test_migration_selection_keeps_all_three_examples(self):
-        migration = ".verify-helper/docs/static/migration.md"
+    def test_guide_selection_keeps_all_three_examples(self):
+        guide = ".verify-helper/docs/static/guide.md"
         with patch.object(check_docs, "compile_examples") as compile_examples:
-            self.run_main(["--paths-file", self.selection([migration, migration])])
+            self.run_main(["--paths-file", self.selection([guide, guide])])
         examples = compile_examples.call_args.args[1]
-        self.assertEqual([x[0] for x in examples], [migration] * 3)
-        self.assertEqual([x[1] for x in examples], [f"{migration} example {i}" for i in (1, 2, 3)])
+        self.assertEqual([x[0] for x in examples], [guide] * 3)
+        self.assertEqual([x[1] for x in examples], [f"{guide} example {i}" for i in (1, 2, 3)])
 
     def test_structure_outside_selection_still_fails(self):
         self.write("docs/test/a.md", "broken structure")
@@ -169,7 +168,7 @@ class CheckDocsSelectionTest(unittest.TestCase):
                         self.run_main(["--structure-only"])
 
     def test_unknown_non_document_and_noncanonical_paths_fail(self):
-        for path in ("docs/test/missing.md", "blueberry/test/a.hpp", "docs/test/../test/a.md", "/docs/test/a.md", "docs\\test\\a.md"):
+        for path in ("docs/test/missing.md", "blueberry/test/a.hpp", "docs/test/../test/a.md", "/docs/test/a.md", "docs\\test\\a.md", ".verify-helper/docs/static/migration.md"):
             with self.subTest(path=path), self.assertRaises(ValueError):
                 self.run_main(["--paths-file", self.selection([path])])
 

@@ -14,7 +14,7 @@ layout: default
   <div class="site-more-links">
   <a href="{{ '/blueberrytemplate.html' | relative_url }}">個人用テンプレート</a>
   <a href="{{ '/verification-gaps.html' | relative_url }}">検証・調査状況</a>
-  <a href="{{ '/migration.html' | relative_url }}">旧版からの移行</a>
+  <a href="{{ '/comparisons.html' | relative_url }}">構造の比較</a>
   <a href="{{ '/benchmarks.html' | relative_url }}">verify実行時間</a>
   <a href="https://github.com/blueberry1001/Blueberry-library">GitHub</a>
   </div>
@@ -24,3 +24,4 @@ layout: default
 {{ content }}
 {% if page.data.isVerificationFile %}{% include verification_metrics.html path=page.data.path %}{% endif %}
 </main>
+<p class="site-license"><a rel="license" href="{{ site.github.repository_url }}/blob/main/LICENSE">CC0 1.0</a></p>
