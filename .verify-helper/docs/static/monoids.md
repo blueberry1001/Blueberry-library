@@ -1,6 +1,7 @@
 ---
 layout: page
 title: モノイド一覧
+body_class: monoid-page
 ---
 
 # モノイド一覧
@@ -67,11 +68,16 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
   </div>
   <noscript><p>JavaScript が無効のため全レシピを表示しています。見出しとブラウザ内検索で探せます。</p></noscript>
   <p data-catalog-empty hidden>一致するレシピがありません。キーワードを減らすか条件をクリアしてください。</p>
+  <div class="monoid-columns" aria-hidden="true"><span>更新操作</span><span>取得する値</span><span>使う構造</span></div>
   <div id="monoid-results">
   {% for recipe in site.data.monoids %}{% if recipe.code and recipe.code != '' %}
-    <article data-library data-category="{{ recipe.kind | escape }}" data-keywords="{{ recipe.keywords | escape }}" id="{{ recipe.id | escape }}">
+    <article data-library data-category="{{ recipe.kind | escape }}" data-keywords="{{ recipe.keywords | escape }} {{ recipe.search_aliases | escape }}" id="{{ recipe.id | escape }}">
       <details class="monoid-recipe" data-linked-details>
-      <summary><strong>{{ recipe.title | escape }}</strong><span>{% if recipe.kind == 'lazy' %}遅延セグ木{% elsif recipe.kind == 'beats' %}Beats{% else %}セグ木{% endif %}</span></summary>
+      <summary><span class="monoid-pair">
+        <span class="monoid-update"><span class="visually-hidden">更新：</span>{{ recipe.update_label | escape }}</span>
+        <span class="monoid-query"><span class="visually-hidden">取得：</span>{{ recipe.query_label | escape }}</span>
+        <span class="monoid-kind">{% if recipe.kind == 'lazy' %}遅延セグ木{% else %}セグ木{% endif %}</span>
+      </span></summary>
       {% if recipe.nonconstant_cost %}<p>{{ recipe.nonconstant_cost | escape }}</p>{% endif %}
       {% if recipe.note %}<p><code>{{ recipe.note | escape }}</code></p>{% endif %}
       {% if recipe.caveat != '' %}<p>{{ recipe.caveat | escape }}</p>{% endif %}

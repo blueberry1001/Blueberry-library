@@ -137,6 +137,8 @@ const recipeRows = recipes.map(recipe => {
 });
 const recipeCatalog = { ...catalog, querySelectorAll: selector => selector === "[data-library]" ? recipeRows : [] };
 for (const [query, kind, expected] of [
+  ["一点更新 区間和", "segtree", ["point_sum"]],
+  ["区間加算 区間最大値", "lazy", ["add_max"]],
   ["等差数列", "lazy", ["ap"]],
   ["区間等差数列加算", "lazy", ["ap"]],
   ["最大部分和", "segtree", ["maxsub"]],

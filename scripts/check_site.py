@@ -85,17 +85,25 @@ assert 'data-catalog-search' in monoids and 'aria-live="polite"' in monoids
 assert not re.search(r'<article\b[^>]*data-library[^>]*\bhidden\b', monoids)
 assert 'JavaScript' in monoids and '共通の使い方' in monoids
 recipes = json.loads((ROOT / '.verify-helper/docs/static/_data/monoids.yml').read_text())
+assert '<body class="monoid-page">' in monoids and 'class="monoid-columns"' in monoids
+assert re.findall(r'<article\b[^>]*data-library[^>]*\bid="([^"]+)"', monoids) == [recipe['id'] for recipe in recipes if recipe.get('code')], (
+    "Render the curated monoid order before JavaScript filtering")
 for recipe in recipes:
     if not recipe.get('code'):
         continue
     article = re.search(r'<article\b[^>]*\bid="' + re.escape(recipe['id']) + r'"[^>]*>(.*?)</article>', monoids, re.S)
     assert article, recipe['id']
     assert 'data-linked-details' in article[1] and '<summary>' in article[1], recipe['id']
+    summary = re.search(r'<summary>(.*?)</summary>', article[1], re.S)[1]
+    assert '→' not in summary and 'class="monoid-pair"' in summary, recipe['id']
+    for field, class_name in (('update_label', 'monoid-update'), ('query_label', 'monoid-query')):
+        assert recipe[field] and f'class="{class_name}"' in summary and html.escape(recipe[field]) in summary, recipe['id']
+    assert 'class="monoid-kind"' in summary, recipe['id']
     if recipe.get('code'):
         code = re.search(r'<pre><code\b[^>]*>(.*?)</code></pre>', article[1], re.S)
         assert code and html.unescape(code[1]).rstrip('\n') == recipe['code'].rstrip('\n'), (recipe['id'], 'copy text differs')
         assert '<em>' not in article[1], (recipe['id'], 'formula interpreted as emphasis')
-assert sum(bool(recipe.get('code')) for recipe in recipes) == 30
+assert sum(bool(recipe.get('code')) for recipe in recipes) == 35
 assert '使う例' not in monoids and '操作一覧' not in monoids
 assert '応用問題:' not in monoids and 'id="beats"' not in monoids, 'Only monoid definitions belong in the cookbook'
 assert 'href=""' not in monoids, "Recipes without example problems must not render empty links"
@@ -183,7 +191,7 @@ for header in [*headers, 'blueberry/algebra/monoids.hpp']:
         assert '<a href="#最小使用例">使用例</a>' in unquote(content), (header, "Missing direct route to the usage example")
     if header == 'blueberry/algebra/monoids.hpp':
         assert not api_operations and '操作一覧' not in content
-        assert len(re.findall(r'<article\b[^>]*data-monoid-definition', content)) == 30
+        assert len(re.findall(r'<article\b[^>]*data-monoid-definition', content)) == 35
         for recipe in recipes:
             if not recipe.get('code'):
                 continue
