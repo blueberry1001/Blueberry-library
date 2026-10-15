@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/persistent-segment-tree.hpp
 
 ## 概要
 
-過去の配列を保ったまま任意の版から一点更新で分岐する永続 Segment Tree。
+過去の配列を保ち、任意の版から一点更新で分岐できるSegment Treeです。`PersistentSegmentTree<T, Op>` のopは結合的、identityは両側単位元で、非可換演算も使えます。区間は0始まりの `[l,r)`。applyは一点にop(old,value)を適用します。
+
+Nは配列長、Uは更新回数、V=U+1は版数。全点単位元の長さ構築はO(1)、配列構築はO(N)。更新は償却O(log(N+1))、区間積はO(log(N+1))、メモリはO(N+U log(N+1)+V)です。
 
 ## 操作一覧
 
@@ -26,15 +28,18 @@ documentation_of: //blueberry/data-structure/persistent-segment-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-過去の配列を保ったまま任意の版から一点更新で分岐する永続 Segment Tree。ACL の通常 segtree にない履歴を提供する。`PersistentSegmentTree<T,Op>` は結合的な op と両側単位元 identity を必要とし、非可換演算にも対応する。範囲は 0 始まりの半開区間。`apply` は一点で `op(old,value)` を適用する。遅延区間更新・版間の区間コピーは提供しない。
+## 概要・前提 {#概要前提}
 
-N は配列長、U は更新回数、V=U+1 は版数。長さ構築は O(1)（全点単位元）、配列構築は O(N)。メモリ O(N+U log(N+1)+V)、整数 index のノード数・版数は INT_MAX 以下。N=0 でも版0が存在し、空範囲積は単位元。一点更新の深さは O(log(N+1))。以下の計算量は T のコピーと op が O(1) の場合。文字列などは実際の操作コストを加える。数値オーバーフローは利用側の責任。
+- ACLの通常segtreeにない履歴を提供します。遅延区間更新・版間の区間コピーは提供しません。
+- N=0でも版0が存在し、空区間積は単位元です。一点更新の深さはO(log(N+1))。計算量はTのコピーとopをO(1)とし、文字列等には実際の操作コストを加えてください。数値オーバーフローは利用側で防いでください。
+- ノードを整数indexで参照するappend-onlyの連続領域に保持し、ノード数・版数はINT_MAX以下が必要です。vector再確保時の単発更新は格納ノード数に比例し得ます。
+- 版0は初期版で、更新は末尾に新しい版番号を返します。番号はこのオブジェクトに属し、他オブジェクトから流用できません。過去版は破棄されず、内部再確保でも番号は変わりません。
+- 返り値はコピーで、参照・公開フィールドはありません。コピーは全ノード・版を複製した独立した所有者となり、同じ番号が同じ履歴を指します。ムーブ元には破棄・再代入のみ行ってください。
 
-版番号はこのオブジェクトに属する整数で、0 が初期版。更新が末尾に一つ新しい番号を返す。他オブジェクトの番号を流用してはならない。過去版は破棄されず、内部 vector の再確保でも番号は変わらない。返り値はコピーで、参照・公開フィールドはない。コピーは全ノードと版を複製し、既存番号が同じ履歴を指す独立した所有者になる。ムーブ後は破棄・再代入のみ行う。
-
-ノードは index で参照する append-only の連続領域。各更新の演算数は O(log(N+1)) だが、配列再確保を含む時間は償却 O(log(N+1))（単発最悪は格納ノード数に比例）。
+</details>
 
 ## 最小使用例
 
@@ -212,9 +217,19 @@ assert(copy.get(v, 0) == 99 && tree.get(0, 0) == 2);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[公式 Rectangle Sum](https://judge.yosupo.jp/problem/rectangle_sum) は x 接頭辞ごとの版を作り、過去の二つの版の差から矩形和を求める。[Point Set Range Composite](https://judge.yosupo.jp/problem/point_set_range_composite) で非可換の積順序も検証する。固定 seed の配列コピーを正解とする任意の過去版からの分岐テストを含む。
+## 出典・検証 {#出典検証}
 
-比較資料: [ei1333 のポインタ版](https://ei1333.github.io/library/structure/segment-tree/persistent-segment-tree.hpp.html)、[Nyaan の固定プール版](https://nyaannyaan.github.io/library/segment-tree/persistent-segment-tree.hpp.html)。本実装は可変の index pool を使い、固定巨大領域を要求しない。
-Rectangle Sum Fastest [393934](https://judge.yosupo.jp/submission/393934) の main はオフライン sweep + Fenwick を使う。静的矩形和だけなら効率的だが、任意の版から分岐する API とは用途が違う。永続 range affine の Fastest は範囲コピーと遅延作用を含むため対象外。測定条件と独立したポインタ候補は `benchmark/data-structure-expansion.cpp` と `benchmark/results/lc-expansion-ds/` を参照。
+- [公式 Rectangle Sum](https://judge.yosupo.jp/problem/rectangle_sum) は x 接頭辞ごとの版を作り、過去の二つの版の差から矩形和を求める。
+- [Point Set Range Composite](https://judge.yosupo.jp/problem/point_set_range_composite) で非可換の積順序も検証する。
+- 固定 seed の配列コピーを正解とする任意の過去版からの分岐テストを含む。
+- 比較資料: [ei1333 のポインタ版](https://ei1333.github.io/library/structure/segment-tree/persistent-segment-tree.hpp.html)、[Nyaan の固定プール版](https://nyaannyaan.github.io/library/segment-tree/persistent-segment-tree.hpp.html)。
+- 本実装は可変の index pool を使い、固定巨大領域を要求しない。
+- Rectangle Sum Fastest [393934](https://judge.yosupo.jp/submission/393934) の main はオフライン sweep + Fenwick を使う。
+- 静的矩形和だけなら効率的だが、任意の版から分岐する API とは用途が違う。
+- 永続 range affine の Fastest は範囲コピーと遅延作用を含むため対象外。
+- 測定条件と独立したポインタ候補は `benchmark/data-structure-expansion.cpp` と `benchmark/results/lc-expansion-ds/` を参照。
+
+</details>

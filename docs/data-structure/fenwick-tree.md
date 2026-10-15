@@ -7,9 +7,9 @@ documentation_of: //blueberry/data-structure/fenwick-tree.hpp
 
 ## 概要
 
-一点加算と区間和を扱う Fenwick Tree です。
+一点加算と区間和を扱います。TはT{}を加算単位元とする可換加法群を使います。lower_boundを使う場合は各点を非負に保ってください。
 
-添字は `[0,N)`、区間は `[l,r)` です。
+Nは要素数。構築・メモリはO(N)、add/sum/prefix_sum/pref/get/lower_boundはO(log N)、sizeはO(1)です。添字は `[0,N)`、区間は `[l,r)` です。
 
 ## 操作一覧
 
@@ -27,13 +27,14 @@ documentation_of: //blueberry/data-structure/fenwick-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-一点加算と区間和を扱う Fenwick Tree です。要素数を $N$ とすると、構築は $O(N)$、
-`add`・`sum`・`prefix_sum`・`pref`・`get`・`lower_bound` は $O(\log N)$、`size` は
-$O(1)$ です。区間は半開区間 `[l,r)`、添字は `[0,N)` です。
+## 概要・前提 {#概要前提}
 
-型 `T` の `get` は `+=` と二項 `-` を持つ従来の加法型で利用でき、`-=` は要求しません。
+- getは `+=` と二項 `-` を持つ従来の加法型で利用でき、`-=` は要求しません。
+
+</details>
 
 ## 最小使用例
 

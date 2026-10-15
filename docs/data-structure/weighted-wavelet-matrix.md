@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/weighted-wavelet-matrix.hpp
 
 ## 概要
 
-固定した値列 `a` に対し、重み `w[p]` の一点加算と、添字区間・値域を指定した重み和を扱います。
+固定した値列に対し、重みの一点加算と、添字区間・値域を指定した重み和を扱います。値の変更・挿入・削除はできません。Valueの `<` と `==` は整合する全順序、WeightはWeight{}を加法単位元とする可換群が必要で、負の重みも使えます。
+
+Nは要素数、Sは異なる値の数、L=max(1,ceil(log2(max(1,S))))。構築はO(N log(N+1))、更新・値域付き和はO(L log(N+1))、メモリはO(N L)です。計算量は最悪時間です。
 
 ## 操作一覧
 
@@ -27,22 +29,23 @@ documentation_of: //blueberry/data-structure/weighted-wavelet-matrix.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-固定した値列 `a` に対し、重み `w[p]` の一点加算と、添字区間・値域を指定した重み和を扱います。
-値そのものの変更・挿入・削除はできません。更新しない静的な重み和にも使用できます。
-点群を x 順に並べ、y を値列にすると長方形和になります。将来追加する座標も予め登録し、重み 0 から加算できます。
-既存 `WaveletMatrix` は頻度・順位に、`OfflineFenwickTree2D` は座標指定の更新に適します。
-本実装は添字で更新でき、各段の座標二分探索を rank に置き換えます。
-ACL に同等の Wavelet Matrix はありません。内部には線形構築・const クエリを備えた既存 `FenwickTree` を再利用します。
+## 概要・前提 {#概要前提}
 
-`N` は要素数、`S` は異なる値の個数、`L = max(1, ceil(log2(max(1,S))))` とします。
-構築 O(N log(N+1))、メモリ O(N L)、以下の計算量は最悪時間です。
-`0 <= N <= INT_MAX/2`。空列・重複値を許します。`Value` は `<` と `==` が整合する全順序型です。
-`Weight{}` が加法単位元で、コピー・`+=`・減算が可能な可換群が必要です。負の重みも使えます。
-演算・比較・コピーは O(1) と仮定します。整数の中間和も含め型の範囲内に収めてください。
-値への加減算を行わないため符号付き整数の最小値・最大値も格納できます。
-入力はコピーされ、入力の寿命や変更に依存しません。内部への参照や公開フィールドはありません。
+- 更新しない静的な重み和にも使えます。点群をx順に並べ、yを値列にすると長方形和になります。将来追加する座標もあらかじめ登録し、重み0から加算できます。
+- 頻度・順位には既存WaveletMatrix、座標指定の更新にはOfflineFenwickTree2Dが適します。本実装は添字で更新し、各段の座標二分探索をrankに置き換えます。
+- ACLに同等のWavelet Matrixはありません。内部には線形構築・constクエリを備えた既存FenwickTreeを再利用します。
+- `0 <= N <= INT_MAX/2`。空列・重複値を許します。Weightにはコピー・`+=`・減算が必要です。演算・比較・コピーをO(1)とみなします。
+- 整数の中間和も含めて型の範囲内に収めてください。値自体への加減算はせず、符号付き整数の最小値・最大値も格納できます。
+- 入力をコピーし、入力の寿命・変更に依存しません。内部参照・公開フィールドはありません。
+
+## 操作の補足 {#操作の補足}
+
+- `WM` は `blueberry::WeightedWaveletMatrix<Value, Weight = long long>` です。
+
+</details>
 
 ## 最小使用例
 
@@ -61,10 +64,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-`WM` は `blueberry::WeightedWaveletMatrix<Value, Weight = long long>` です。
 
 <details class="api-operation" id="default-constructor" markdown="1">
 <summary><code>WM()</code> — O(1)</summary>
@@ -236,10 +235,15 @@ moved = std::move(wm);
 
 注意点: ムーブ元は破棄または再代入してから使用してください。自己ムーブ代入後も同じ制限があります。旧要素の破棄を計算量に含みます。
 </details>
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Luzhiled: Wavelet Matrix Rectangle Sum](https://ei1333.github.io/library/structure/wavelet/wavelet-matrix-rectangle-sum.hpp.html): 静的累積和を各段に保持する設計。
 - [maspypy: Wavelet Matrix 2D Range](https://maspypy.github.io/library/ds/wavelet_matrix/wavelet_matrix_2d_range.hpp): x 順整列と可換演算の補助構造で重み更新に対応する設計。
 - 上記を設計比較として参照し、コードは既存 Blueberry の rank 表現を用いて実装しました。
 - [Library Checker: Point Add Rectangle Sum](https://judge.yosupo.jp/problem/point_add_rectangle_sum)、`verify/data-structure/weighted-wavelet-matrix.test.cpp`。
 - `tests/random/weighted-wavelet-matrix.cpp`: 固定 seed、空・同値・64 bit 境界・極値・負重み・更新を愚直解と比較。
+
+</details>

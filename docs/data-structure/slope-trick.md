@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/slope-trick.hpp
 
 ## 概要
 
-実数全域で定義された、下に有界な区分線形凸関数を保持する。
+実数全域の下に有界な区分線形凸関数を保持し、hinge・絶対値の加算や平行移動、prefix/suffix最小化を扱います。`SlopeTrick<T = long long>` は傾きの単位変化を管理し、大きな重みを直接扱う用途には有限定義域のSplaySlopeTrickを使います。
+
+Nは傾き変化の個数で、同じ座標も別に数えます。最小値・最小点区間はO(1)、hinge/絶対値の加算は償却O(log(N+1))、メモリはO(N)です。空heapは定数関数を表します。
 
 ## 操作一覧
 
@@ -43,18 +45,24 @@ documentation_of: //blueberry/data-structure/slope-trick.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::SlopeTrick<T = long long>` は実数全域で定義された、下に有界な区分線形凸関数を保持する。
-2個の priority_queue で傾きの単位変化を管理し、最小値・最小点区間 O(1)、hinge/絶対値の加算 償却 O(log(N+1))。
-大きな重みを回数分追加すると重みに比例して膨らむため、その用途は有限定義域の SplaySlopeTrick を検討する。
-メモリ O(N)、N は傾き変化の個数（同じ座標も別に数える）。加算と減算・順序比較ができる正確な T を使い、
-オーバーフローは利用側で防ぐ。数値 infinity は使わず、argmin の optional の無値が無限端点を表す。
-shift(l,r) は f(x)=min(f_old(y): x-r<=y<=x-l)。prefix_min は y<=x、suffix_min は y>=x の最小化。
-空heapは未定義関数ではなく定数関数。clear/move元/merge元は f(x)=0。
-内部 vector の再確保により、単一の hinge 加算や merge は O(N+M) の移動を追加で要する場合がある。上記は操作列全体の償却評価。
-コピーは独立。eval は非破壊だが O(N log(N+1)) のheapコピー・取り出しを行う。
-単位傾き限定・全実数定義のこの型と、任意重み・有限定義域のsplay版は別の適用範囲。
+## 概要・前提 {#概要前提}
+
+- 2個のpriority_queueを使います。大きな重みを回数分追加すると、重みに比例して保持量が膨らみます。任意重み・有限定義域のsplay版とは適用範囲が異なります。
+- Tは加減算・順序比較が正確にできる型を使い、オーバーフローは利用側で防いでください。数値infinityは使わず、argminのoptionalの無値が無限端点を表します。
+- shift(l,r)は `f(x)=min(f_old(y): x-r<=y<=x-l)`、prefix_minはy<=x、suffix_minはy>=xの最小化です。
+- clear・move元・merge元はf(x)=0です。コピーは独立します。
+- 内部vectorの再確保により、単一のhinge加算やmergeにO(N+M)の移動が追加される場合があります。上記は操作列全体の償却評価です。
+- evalは非破壊ですが、heapのコピー・取り出しにO(N log(N+1))かかります。
+
+## 操作の補足 {#操作の補足}
+
+- Mはコピー・結合相手または置換前の保持量です。
+- 型のコピー・演算・比較をO(1)とします。
+
+</details>
 
 ## 最小使用例
 
@@ -73,10 +81,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-N は要素数（slope trick は保持する折れ点数）、M はコピー・結合相手または置換前の保持量。型のコピー・演算・比較は O(1) とする。
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>SlopeTrick(T constant = T(0))</code> — O(1)</summary>
@@ -363,14 +367,17 @@ tree.clear();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Luzhiled Slope Trick](https://ei1333.github.io/library/structure/others/slope-trick.hpp.html)、
-[Nyaan Slope Trick](https://nyaannyaan.github.io/library/data-structure/slope-trick.hpp.html) を比較し、単位傾き版を独立実装。
-直接対応する Library Checker verifier は現時点でない。`tests/random/slope-tricks.cpp` で
-hinge/絶対値・定数・shift・prefix/suffix最小化・merge・copy/moveを十分広い整数グリッドの愚直DPと比較。
-候補問題 [ABC127 F](https://atcoder.jp/contests/abc127/tasks/abc127_f) は add_abs/add_const/min のみを扱い、
-公開sampleだけではshift等を検証できないため、公式全ケースACを主張しない。
+## 出典・検証 {#出典検証}
 
+- [Luzhiled Slope Trick](https://ei1333.github.io/library/structure/others/slope-trick.hpp.html)、
+  [Nyaan Slope Trick](https://nyaannyaan.github.io/library/data-structure/slope-trick.hpp.html) を比較し、単位傾き版を独立実装。
+- 直接対応する Library Checker verifier は現時点でない。
+- `tests/random/slope-tricks.cpp` で
+  hinge/絶対値・定数・shift・prefix/suffix最小化・merge・copy/moveを十分広い整数グリッドの愚直DPと比較。
+- 候補問題 [ABC127 F](https://atcoder.jp/contests/abc127/tasks/abc127_f) は add_abs/add_const/min のみを扱い、
+  公開sampleだけではshift等を検証できないため、公式全ケースACを主張しない。
 
-
+</details>

@@ -7,7 +7,11 @@ documentation_of: //blueberry/data-structure/implicit-treap.hpp
 
 ## 概要
 
-挿入・削除で長さが変わる列を、位置をキーとするtreapで管理します。
+挿入・削除で長さが変わる列の区間集約・反転・一様な遅延作用を扱います。`ImplicitTreap<S, op, e>` のopは結合的、e()は両側単位元で、非可換演算も使えます。反転は葉の並び順だけを変えます。
+
+作用付きでは合成が結合的で、mappingが単位元を保ちopに分配する必要があります。composition(newer,older)はnewer(older(x))の順で、位置依存の等差数列加算等は対象外です。
+
+Nは要素数、Hはclear以降の最大同時要素数に対応するpool slot数。木の操作は期待O(log(N+1))で、更新・区間操作には償却評価を含みます。構築・全列取得はO(N)、all_prod/size/emptyはO(1)、メモリはO(H)です。
 
 ## 操作一覧
 
@@ -42,19 +46,23 @@ documentation_of: //blueberry/data-structure/implicit-treap.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-挿入・削除で長さが変わる列を、位置をキーとするtreapで管理します。ACLの固定長segtree/lazy_segtreeと異なり、位置への挿入・削除と区間反転を扱います。旧 `blueberry/implicit_treap.hpp` のキー順集合とは別のデータ構造です。
+## 概要・前提 {#概要前提}
 
-`ImplicitTreap<S, op, e>` は通常のmonoid、`ImplicitTreap<S, op, e, F, mapping, composition, id>` は遅延作用付きです。`S op(S,S)` は結合的、`S e()` は両側単位元。非可換でも利用できます。各ノードに正順・逆順の両集約を保持し、reverseでは両者を入れ替えます。反転は**葉の並び順**だけを変え、葉のS内部を書き換えません。
+- ACLの固定長segtree/lazy_segtreeと異なり、位置への挿入・削除と区間反転を扱います。旧 `blueberry/implicit_treap.hpp` のキー順集合とは別の構造です。
+- 遅延作用付きの型は `ImplicitTreap<S, op, e, F, mapping, composition, id>` です。各ノードに正順・逆順の集約を保持し、reverseで入れ替えます。葉のS内部は書き換えません。
+- 作用はACLと同じ `S mapping(F,S)`、`F composition(F newer,F older)`、`F id()` です。全要素に同じように作用する必要があります。区間和へのaffine作用ではSに{sum,length}を含め、葉のlengthを1、eのlengthを0にします。
+- Fの等値比較、S/Fの既定構築は不要です。コピー・ムーブ・代入可能な値型を使ってください。
+- 木の通常操作の最悪はO(N)です。insert/eraseはpool・free-listのvector増設を含め期待・償却O(log(N+1))、単発最悪O(H+N)。set/prod/reverse/applyは作業スタックの増設を含め期待・償却O(log(N+1))、単発最悪O(N)です。
+- op/mapping/copy等をO(1)とみなす計算量です。string等では実際の操作コストが掛かります。中間値を含むop/mapping/compositionのoverflowは呼出側で防いでください。
+- 添字はint、`0 <= N <= INT_MAX`、区間は `[l,r)`。満杯時の追加は禁止です。削除slotとvector容量を再利用し、clearでは容量も解放します。
+- priorityは局所の固定seed擬似乱数で生成し、入力・操作列を再現できますが、敵対的なpriority依存入力に最悪時間保証はありません。split/merge/set/traversalは明示スタックを使い、木の高さに比例するC++再帰を行いません。
+- ノードをvectorと整数indexで所有します。get/prod/to_vectorはlazy伝搬のため非constですが論理値を変えません。返り値は所有値で内部参照・ノードhandleを公開せず、入力vectorの寿命に依存しません。
+- 演算に副作用を持たせないでください。利用者の代数演算やallocationが例外を投げた後の強い例外保証は提供しません。
 
-作用はACLと同じ `S mapping(F,S)`、`F composition(F newer,F older)`、`F id()` です。合成は newer(older(x)) の順。mappingは単位元を保ち、opに分配し、全要素へ同じように作用する必要があります。位置依存の等差数列加算等は対象外です。区間和へのaffine作用では、Sに `{sum,length}` を含め、葉のlengthを1、eのlengthを0にします。Fの等値比較、S/Fのdefault constructorは不要。copy/move/assignment可能な値型を使ってください。
-
-Nを現在の要素数、Hをclear以降の最大同時要素数に対応するpool slot数とします。木の操作は期待 O(log(N+1))、最悪 O(N)。insert/eraseはpool・free-listのvector増設を含め期待・償却 O(log(N+1))、単一呼出しの最悪 O(H+N)です。set/prod/reverse/applyも作業スタックの増設を含め期待・償却 O(log(N+1))（最悪 O(N)）です。構築と全列取得はO(N)、all_prod/size/emptyはO(1)。メモリは削除slotの再利用とvector容量を含めO(H)。clearは容量も解放します。op/mapping/copy等をO(1)とみなした計算量で、string等はその操作コストが掛かります。数値型のop/mapping/compositionにおける中間値を含むoverflowを避ける責任は呼出側にあります。
-
-添字はint、0<=N<=INT_MAX、区間は `[l,r)`。満杯時の追加は禁止です。priorityは局所の擬似乱数で生成します。固定seedなので入力と操作列を再現可能ですが、敵対的なpriority依存入力に対する最悪時間保証はありません。内部split/merge/set/traversalは明示スタックを用い、木の高さに比例するC++再帰を行いません。
-
-ノードはvectorと整数indexで所有し、eraseでslotを再利用します。get/prod/to_vectorはlazy伝搬のためnonconstですが論理的な値を変更しません。返り値は所有値で、内部参照・ノードhandleは公開しません。入力vectorの寿命に依存しません。利用者の代数演算やallocationが例外を投げた後の強い例外保証は提供しません。操作に使う演算は副作用を持たせないでください。
+</details>
 
 ## 最小使用例
 
@@ -365,8 +373,15 @@ auto values = tree.to_vector();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-公式問題: [Dynamic Sequence Range Affine Range Sum](https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum)、[Range Reverse Range Sum](https://judge.yosupo.jp/problem/range_reverse_range_sum)。固定seedのvector oracle、非可換連結、非可換作用合成、コピー・移動・slot再利用もテストします。
+## 出典・検証 {#出典検証}
 
-[Nyaanの反転可能RBST](https://nyaannyaan.github.io/library/rbst/lazy-reversible-rbst.hpp.html)、[CP-Algorithmsのtreap](https://github.com/cp-algorithms/cp-algorithms/blob/main/src/data_structures/treap.md)、公開提出[402977](https://judge.yosupo.jp/submission/402977)・[278236](https://judge.yosupo.jp/submission/278236)の設計を比較しました。Fastestはブロック単位の平衡木、次点は固定配列splayであり、同じtreapの定数倍差ではありません。公開ソースを転記せず、値所有のindex poolと標準的なtreap操作を独立実装しています。
+- 公式問題: [Dynamic Sequence Range Affine Range Sum](https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum)、[Range Reverse Range Sum](https://judge.yosupo.jp/problem/range_reverse_range_sum)。
+- 固定seedのvector oracle、非可換連結、非可換作用合成、コピー・移動・slot再利用もテストします。
+- [Nyaanの反転可能RBST](https://nyaannyaan.github.io/library/rbst/lazy-reversible-rbst.hpp.html)、[CP-Algorithmsのtreap](https://github.com/cp-algorithms/cp-algorithms/blob/main/src/data_structures/treap.md)、公開提出[402977](https://judge.yosupo.jp/submission/402977)・[278236](https://judge.yosupo.jp/submission/278236)の設計を比較しました。
+- Fastestはブロック単位の平衡木、次点は固定配列splayであり、同じtreapの定数倍差ではありません。
+- 公開ソースを転記せず、値所有のindex poolと標準的なtreap操作を独立実装しています。
+
+</details>

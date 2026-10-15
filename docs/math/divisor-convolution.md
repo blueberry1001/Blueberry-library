@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/divisor-convolution.hpp
 
 ## 概要
 
-ACLにはない添字の約数・倍数変換。
+添字の約数・倍数変換とgcd/lcm畳み込みです。Nはvectorの長さで、添字1以上を扱います。ゼータ変換には可換な加算モノイド、逆変換には加法可換群、畳み込みには環を要求します。
+
+各操作は最悪O(N log log(N+2))時間、補助メモリO(N)です。畳み込みは入力コピーと結果を含めてもO(N)メモリです。空入力は空のままです。
 
 ## 操作一覧
 
@@ -22,17 +24,19 @@ ACLにはない添字の約数・倍数変換。
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-ACLにはない添字の約数・倍数変換。N はvectorの長さ、添字1以上を扱う。
-添字0は変換では保持し、畳み込みでは無視して結果を T{} にする。空入力は空のまま。
-ゼータ変換には可換な加算モノイド、逆変換には加法可換群、畳み込みには環を要求する。
-T{} は零元、T は必要な +=, -=, *= とコピーを持つこと。
-整数では中間和・差・積も型の範囲内とする。modint の使用を推奨する。
-各操作は最悪 O(N log log(N+2)) 時間、補助メモリ O(N)（篩）。
-畳み込みは入力コピーと結果を含めても O(N) メモリ。T の演算を O(1) として数える。
-変換は要素だけを書き換え、vector の参照・iteratorを無効化しない。
-畳み込みの引数は値渡しで、通常の呼び出しでは元vectorを変更せず、独立したvectorを返す。
+## 概要・前提 {#概要前提}
+
+- ACLにはない添字の約数・倍数変換です。補助メモリは篩に使います。
+- 添字0は変換では保持し、畳み込みでは無視して結果を `T{}` にします。
+- `T{}` は零元、Tは必要な `+=`、`-=`、`*=` とコピーを持つ型です。Tの演算をO(1)として数えます。
+- 整数では中間和・差・積も型の範囲内とします。modintの使用を推奨します。
+- 変換は要素だけを書き換え、vectorの参照・iteratorを無効化しません。
+- 畳み込みの引数は値渡しで、通常の呼び出しでは元vectorを変更せず、独立したvectorを返します。
+
+</details>
 
 ## 最小使用例
 
@@ -48,9 +52,14 @@ int main() {
 ```
 {% endraw %}
 
-## 操作の補足
+<details class="library-notes" markdown="1">
+<summary>操作例の前提</summary>
 
-すべて `template<class T>` の関数。
+## 操作の補足 {#操作の補足}
+
+- すべて `template<class T>` の関数。
+
+</details>
 
 <details class="api-operation" id="divisor_zeta" markdown="1">
 <summary><code>void divisor_zeta(std::vector&lt;T&gt;&amp; a)</code> — O(N log log(N+2))</summary>
@@ -154,10 +163,15 @@ assert((c == std::vector<int>{0, 1, 8}));
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[Library Checker GCD](https://judge.yosupo.jp/problem/gcd_convolution)、[LCM](https://judge.yosupo.jp/problem/lcm_convolution)。
-変換の逆転・直接和・畳み込みの愚直比較を `tests/random/math-batch-two.cpp` で確認する。
-調査した素数順変換は [Nyaan](https://nyaannyaan.github.io/library/multiplicative-function/divisor-multiple-transform.hpp.html)、[suisen](https://suisen-cp.github.io/cp-library-cpp/library/convolution/gcd_convolution.hpp.html)。
-コードの転記はせず、篩と更新方向を共通化して独立実装した。
-[候補測定]({{ '/docs/development/math-batch-two.html' | relative_url }})。
+## 出典・検証 {#出典検証}
+
+- [Library Checker GCD](https://judge.yosupo.jp/problem/gcd_convolution)、[LCM](https://judge.yosupo.jp/problem/lcm_convolution)。
+  変換の逆転・直接和・畳み込みの愚直比較を `tests/random/math-batch-two.cpp` で確認する。
+  調査した素数順変換は [Nyaan](https://nyaannyaan.github.io/library/multiplicative-function/divisor-multiple-transform.hpp.html)、[suisen](https://suisen-cp.github.io/cp-library-cpp/library/convolution/gcd_convolution.hpp.html)。
+  コードの転記はせず、篩と更新方向を共通化して独立実装した。
+  [候補測定]({{ '/docs/development/math-batch-two.html' | relative_url }})。
+
+</details>

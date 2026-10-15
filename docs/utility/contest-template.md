@@ -6,10 +6,12 @@ documentation_of: //blueberry/utility/contest-template.hpp
 ## 概要
 
 競技用の短い型別名・ループ・入出力を、必要なときだけ追加するヘッダです。
+GNU libstdc++とACLが必要で、単一translation unitの提出用です。
+`all.hpp`には含まれません。`main`と`init_io()`の呼び出しは自分で書きます。
 
-元の名前・定義のまま使う場合は [blueberrytemplate.h（原文）]({{ '/blueberrytemplate.html' | relative_url }}) をコピーしてください。
+Nは要素数、S/Lは入出力のbyte数、V/Eはグラフの頂点/辺数です。操作ごとの計算量は下表に示します。
 
-GNU libstdc++・ACLが必要です。単一translation unitの提出用です。
+元の名前・定義のまま使う場合は[blueberrytemplate.h（原文）]({{ '/blueberrytemplate.html' | relative_url }})をコピーしてください。
 
 ## 操作一覧
 
@@ -77,13 +79,18 @@ GNU libstdc++・ACLが必要です。単一translation unitの提出用です。
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-個人用 blueberrytemplate.h の短い書き方を、必要なときだけ選べるヘッダとして整理しました。GNU libstdc++ の bits/stdc++.h と ACL が必要です。global alias・macro・stream overload が増えるため、通常の all.hpp には含めません。main は利用者が書き、init_io() も明示的に呼びます。自動終了・未呼出しの global 初期化・可変 global table はありません。通常は namespaced Contest Helpers を優先してください。N は要素数、S/L は入出力の byte 数、V/E はグラフの頂点/辺数です。
+## 概要・前提 {#概要前提}
 
-この入口は ACL と同じく単一 translation unit の提出用です。ACL の非 inline 関数定義があるため、複数 cpp から同時に include して link する用途には対応しません。ACL を含まない Contest Helpers と Combinations 自体は複数 translation unit で利用できます。
+- グローバルな型別名・マクロ・stream overloadを追加します。名前空間内の補助関数だけが必要ならContest Helpersを使えます。
+- `bits/stdc++.h`を使用します。自動終了・未呼び出しのグローバル初期化・可変グローバルテーブルはありません。
+- ACLの非inline関数定義があるため、複数cppから同時にincludeしてlinkする用途には対応しません。ACLを含まないContest HelpersとCombinations自体は、複数translation unitで利用できます。
+- `BLUEBERRY_REP1`～`BLUEBERRY_REP4`と`BLUEBERRY_REP_SELECT`は`rep`の展開用内部マクロです。直接呼ばず、同名のマクロを定義しないでください。
+- `Rande`は暗黙のコピー・移動・代入・破棄を利用します。公開フィールドはありません。
 
-`BLUEBERRY_REP1`～`BLUEBERRY_REP4` と `BLUEBERRY_REP_SELECT` は rep の展開用内部マクロです。直接呼ばず、同名のマクロを定義しないでください。Rande は暗黙のコピー・移動・代入・破棄を利用します。利用者向けの公開フィールドはありません。
+</details>
 
 ## 最小使用例
 
@@ -877,6 +884,15 @@ target = std::move(rng);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-元のユーザーテンプレートから用途・短縮名を整理したものです。`templates/contest.cpp.example` を提出用 main の出発点にできます。stream の入れ子・128 bit 最小値・loop macro・乱数境界をテストし、[Many A + B (128 bit)](https://judge.yosupo.jp/problem/many_aplusb_128bit) の公式 verify は init_io/scan/print と signed128 stream 演算を使います。2 translation unit の link は ACL を含まないヘッダについて確認します。対応する既存 API と廃止した spellings は [移行記録]({{ '/docs/development/contest-template-import.html' | relative_url }}) に一覧があります。
+## 出典・検証 {#出典検証}
+
+- 元のユーザーテンプレートから用途・短縮名を整理したものです。`templates/contest.cpp.example`を提出用mainの出発点にできます。
+- streamの入れ子・128bit最小値・loop macro・乱数境界をテストします。
+- [Many A + B (128 bit)](https://judge.yosupo.jp/problem/many_aplusb_128bit)の公式verifyは`init_io/scan/print`とsigned128のstream演算を使います。
+- 2 translation unitのlinkは、ACLを含まないヘッダについて確認します。
+- 既存APIとの対応・廃止した名前は[移行記録]({{ '/docs/development/contest-template-import.html' | relative_url }})を参照してください。
+
+</details>

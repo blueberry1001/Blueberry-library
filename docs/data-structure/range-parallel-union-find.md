@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/range-parallel-union-find.hpp
 
 ## 概要
 
-同じ長さの2区間について対応頂点同士をまとめて併合します。
+同じ長さの2区間について、対応する頂点同士をまとめて併合します。空区間・重なった区間・同じ区間同士にも使えます。実際に異なる成分が併合されたときだけcallback(残る代表,吸収される代表)を呼びます。
+
+Nは頂点数、Qは呼出し数。構築・メモリはO(N log(N+1))、全操作合計はO((N log(N+1)+Q)α(N))です。callbackの時間は別加算で、呼出しは全期間で高々N−1回です。
 
 ## 操作一覧
 
@@ -38,15 +40,21 @@ documentation_of: //blueberry/data-structure/range-parallel-union-find.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`RangeParallelUnionFind` は同じ長さの2区間について対応頂点同士をまとめて併合します。通常のACL DSUを各2冪長に配置する拡張です。
-Nは頂点数、Qは呼出し数。構築・メモリ O(N log(N+1))、全操作合計 O((N log(N+1)+Q) α(N))。
-長さKの単独range_mergeは最悪 O(K log(N+1)) が安全な上限で、各DSU操作の償却を使えば O(K α(N))。
-繰返し同じ大区間を指定しても、併合済みブロックを再帰展開しません。通常のleader/same/comp_sizeは償却 O(α(N))。
-callbackは実際に異なる底辺成分が併合されたときだけ `(残る代表,吸収される代表)` を受け取り、全期間で高々N-1回です。
-callback時間は上記に別加算。callbackから同じUFを変更しないでください。副作用の巻き戻し・例外保証は提供しません。
-0<=N<=INT_MAX。全区間は半開に対応。空入力・長さ0・重なった区間・自分自身への併合も許します。
+## 概要・前提 {#概要前提}
+
+- `RangeParallelUnionFind` はACL DSUを各2冪長に配置します。併合済みブロックは再帰展開せず、同じ大区間の繰返し指定を省略できます。
+- 長さKの単独range_mergeの最悪にはO(K log(N+1))が安全な上限です。DSU操作の償却を使えばO(Kα(N))です。通常のleader/same/comp_sizeは償却O(α(N))です。
+- callbackから同じUFを変更しないでください。副作用の巻き戻し・例外保証は提供しません。
+- `0 <= N <= INT_MAX`。全区間は半開に対応し、空入力・長さ0も許します。
+
+## 操作の補足 {#操作の補足}
+
+- 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
+
+</details>
 
 ## 最小使用例
 
@@ -64,10 +72,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>RangeParallelUnionFind(int n = 0)</code> — O(N log(N+1))</summary>
@@ -279,8 +283,13 @@ Type moved; moved = std::move(object);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [maspypy](https://maspypy.github.io/library/ds/unionfind/parallel_unionfind.hpp) と [MtSaka](https://mtsaka.github.io/library/test/yosupo/data_structure/range_parallel_unionfind.test.cpp) の階層化を調査し、ACL DSUを使って独立実装。
 - `verify/data-structure/range-parallel-unionfind.test.cpp`: [Range Parallel Unionfind](https://judge.yosupo.jp/problem/range_parallel_unionfind)。
 - `tests/random/persistence-and-range-union.cpp`: 重なり・空区間・コールバック成分和・全頂点対を愚直併合と比較。
+
+</details>

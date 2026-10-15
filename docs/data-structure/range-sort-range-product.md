@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/range-sort-range-product.hpp
 
 ## 概要
 
-キーによる区間ソートと一点置換、任意区間のモノイド積を扱います。
+キーによる区間の昇順・降順ソート、一点置換、任意区間のモノイド積を扱います。`RangeSortRangeProduct<S, op, e, Key>` のopは結合的、e()は左右単位元で、非可換演算も使えます。Keyは符号なし整数で、**現在の全キーは互いに異なる**必要があります。
+
+Nは固定要素数、WはKeyのビット数、Qは操作数。構築はO(N log(N+1))、get/set/prodはO(log(N+1)+W)、全操作合計はO((N+Q)(log(N+1)+W))です。sortは初期構築分を含む償却評価で、メモリはO(N)です。
 
 ## 操作一覧
 
@@ -28,17 +30,22 @@ documentation_of: //blueberry/data-structure/range-sort-range-product.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`RangeSortRangeProduct<S, op, e, Key=unsigned>` はキーによる区間ソートと一点置換、任意区間のモノイド積を扱います。
-ACL segtree を各整列ブロックの積に使用し、ブロック内部は branching bit だけを保持する Patricia trie。
-昇順・降順双方の積を保持するため、`op` は非可換でも構いません。`op` は結合的、`e()` は左右単位元で、S はコピー・代入可能。
-Key は bool を除く符号なし整数で、**現在存在する全キーは互いに異なる**必要があります。set で他の要素のキーを使うことは禁止です。
-N は固定要素数、W は Key のビット数、Q は操作数。S の演算・コピーを O(1) とすると構築 O(N log(N+1))、get/set/prod は O(log(N+1)+W)。
-一連の操作の合計は O((N+Q)(log(N+1)+W))。sort はこの初期構築分の費用を含む償却であり、単一呼び出しは最大 O(N(log(N+1)+W))。
-ノードは再利用し、メモリ O(N)。S が文字列等なら保持量と演算の費用を追加してください。
-prod も内部ブロックを分割するため const ではありませんが、論理的な列は不変です。返り値はコピー。入力や返り値の寿命に依存せず、参照は公開しません。
-0<=N<=INT_MAX/2。S の演算の overflow は呼出側が管理します。空列も使用できます。
+## 概要・前提 {#概要前提}
+
+- 既定のKeyはunsignedで、boolは使えません。setで他要素のキーを使うことは禁止です。`0 <= N <= INT_MAX/2` で、空列も使えます。
+- ACL segtreeで各整列ブロックの積を管理し、内部はbranching bitだけを持つPatricia trieです。昇順・降順の両方の積を保持し、ノードを再利用します。
+- Sはコピー・代入可能で、計算量は演算・コピーをO(1)とみなします。文字列等では保持量と演算コストを加えてください。Sの演算のoverflowは呼出側が管理します。
+- sortの単一呼出しは最大O(N(log(N+1)+W))です。
+- prodも内部ブロックを分割するため非constですが、論理的な列は不変です。返り値はコピーで内部参照を公開せず、入力や返り値の寿命に依存しません。
+
+## 操作の補足 {#操作の補足}
+
+- 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
+
+</details>
 
 ## 最小使用例
 
@@ -60,10 +67,6 @@ int main(){
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>RangeSortRangeProduct&lt;S,op,e,Key&gt;()</code> — O(1)</summary>
@@ -245,8 +248,13 @@ Type moved; moved = std::move(object);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [nachia の解説](https://www.mathenachia.blog/range-sort-range-product/) と [公式問題議論](https://github.com/yosupo06/library-checker-problems/issues/818) を比較し、圧縮 trie と ACL segtree の構成で独立実装。
 - `verify/data-structure/range-sort-range-product.test.cpp`: [Point Set Range Sort Range Composite](https://judge.yosupo.jp/problem/point_set_range_sort_range_composite)。
 - `tests/random/range-sort-range-product.cpp`: string 連結による非可換積を通常の配列ソート・一点置換と比較。
+
+</details>

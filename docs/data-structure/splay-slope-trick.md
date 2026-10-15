@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/splay-slope-trick.hpp
 
 ## 概要
 
-有限の閉区間上の一般の区分線形凸関数を保持する。
+有限の閉区間上の区分線形凸関数を保持し、任意の非負重みを持つhingeや畳み込みを扱います。Tは正確な四則演算・比較ができる型が必要です。全実数を扱うpriority_queue版SlopeTrickとは用途が異なります。
+
+Kは内部折れ点数。eval/min/argmin/hinge加算/線分畳み込みは償却O(log(K+1))、単発最悪O(K)、shift/affine加算はO(1)、メモリはO(K+1)です。既定状態は空定義域です。
 
 ## 操作一覧
 
@@ -47,21 +49,25 @@ documentation_of: //blueberry/data-structure/splay-slope-trick.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::SplaySlopeTrick<T = long long>` は有限の閉区間上の一般の区分線形凸関数を保持する。
-各折れ点に正の傾き変化量を持つsplay木を用い、単位傾きに展開せず任意の非負重みを扱う。
-左右端の外は定義域外。全実数上の関数を扱う priority_queue SlopeTrick の置換ではない。
-既定状態は空定義域、`SplaySlopeTrick(l,r,a,b)` は [l,r] 上で ax+b、l==r も有効。
-K は内部折れ点数で、メモリ O(K+1)。eval/min/argmin/hinge加算/線分畳み込みは償却 O(log(K+1))、
-単発のsplay操作は最悪 O(K)。shift/affine加算は O(1)。
-T は正確な四則演算・比較が可能な型を使う。整数型なら from_points の各割り算が割り切れること。
-有理数の傾き・座標・重みには blueberry::Fraction も使える。浮動小数点の誤差吸収や epsilon は提供しない。
-座標×傾き、subtree合計、平行移動など途中の値まで型の範囲内であること。
-コピー構築・コピー代入はdelete。ムーブ元・merge/convolve元は空。自己ムーブ代入は内容維持。
-値・比較・演算は例外を投げない前提。返り値はコピーで外部参照を持たない。
-eval/min/argmin はsplay回転するので非constだが、表す関数は変わらない。
-空定義域・定義域外は optional の無値で区別し、巨大な整数を infinity として使わない。
+## 概要・前提 {#概要前提}
+
+- `SplaySlopeTrick<T = long long>` の各splayノードは正の傾き変化量を持ち、重みを単位傾きに展開しません。
+- `SplaySlopeTrick(l,r,a,b)` は閉区間[l,r]でax+bを表し、l==rも有効です。左右端の外は定義域外です。空定義域・定義域外をoptionalの無値で表し、巨大な整数をinfinityとして使いません。
+- 整数型のfrom_pointsでは各割り算が割り切れる必要があります。有理数の傾き・座標・重みにはblueberry::Fractionも使えます。浮動小数点の誤差吸収やepsilonは提供しません。
+- 座標×傾き、subtree合計、平行移動等の途中の値まで型の範囲内に収めてください。
+- コピー構築・コピー代入はdeleteです。ムーブ元・merge/convolve元は空になり、自己ムーブ代入は内容を維持します。
+- 値・比較・演算は例外を投げない前提です。返り値はコピーで外部参照を持ちません。
+- eval/min/argminはsplay回転のため非constですが、表す関数は変わりません。
+
+## 操作の補足 {#操作の補足}
+
+- K は現在の内部折れ点数、N は from_points の入力点数、M は結合相手または代入先の旧内部折れ点数。
+- 型のコピー・演算・比較は O(1) とする。
+
+</details>
 
 ## 最小使用例
 
@@ -83,10 +89,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-K は現在の内部折れ点数、N は from_points の入力点数、M は結合相手または代入先の旧内部折れ点数。型のコピー・演算・比較は O(1) とする。
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>SplaySlopeTrick()</code> — O(1)</summary>
@@ -433,12 +435,17 @@ tree.clear();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[maspypy Slope Trick Super](https://maspypy.github.io/library/convex/slope_trick/slope_super.hpp)
-の有限定義域・重み付きsplay設計を比較資料とし、専用ノードと所有権管理で独立実装。
-Library Checker [Min Plus Convolution (Convex and Convex)](https://judge.yosupo.jp/problem/min_plus_convolution_convex_convex)
-は整数格子上の畳み込みを検証する。すべての操作を公式問題で検証したとは主張しない。
-`tests/random/slope-tricks.cpp` は重み付きhinge・任意線形項・平行移動・定義域制限・点ごとの和・
-線分/一般畳み込み・最小点plateauを愚直列と比較し、Fractionによる非整数の座標/傾き/重みも確認する。
+## 出典・検証 {#出典検証}
 
+- [maspypy Slope Trick Super](https://maspypy.github.io/library/convex/slope_trick/slope_super.hpp)
+  の有限定義域・重み付きsplay設計を比較資料とし、専用ノードと所有権管理で独立実装。
+- Library Checker [Min Plus Convolution (Convex and Convex)](https://judge.yosupo.jp/problem/min_plus_convolution_convex_convex)
+  は整数格子上の畳み込みを検証する。
+- すべての操作を公式問題で検証したとは主張しない。
+- `tests/random/slope-tricks.cpp` は重み付きhinge・任意線形項・平行移動・定義域制限・点ごとの和・
+  線分/一般畳み込み・最小点plateauを愚直列と比較し、Fractionによる非整数の座標/傾き/重みも確認する。
+
+</details>

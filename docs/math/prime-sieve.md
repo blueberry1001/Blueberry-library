@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/prime-sieve.hpp
 
 ## 概要
 
-Eratosthenesの篩で上限以下の素数を前計算します。
+Eratosthenesの篩で、上限以下の素数を前計算します。
+
+上限をNとして構築O(N log log N)、メモリO(N)です。素数判定・上限取得・素数一覧の参照取得はO(1)です。
 
 ## 操作一覧
 
@@ -20,11 +22,14 @@ Eratosthenesの篩で上限以下の素数を前計算します。
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-Eratosthenesの篩で上限以下の素数を前計算します。上限を $N$ とすると構築は
-$O(N\log\log N)$、メモリは $O(N)$、判定と上限取得は $O(1)$ です。素数一覧の取得は
-列挙した個数を $P$ として参照を返し、列挙自体は構築時に完了しています。
+## 概要・前提 {#概要前提}
+
+- 素数の個数をPとして、一覧の列挙は構築時に完了しています。取得時には参照を返します。
+
+</details>
 
 ## 最小使用例
 

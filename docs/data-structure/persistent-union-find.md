@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/persistent-union-find.hpp
 
 ## 概要
 
-任意の過去版からオンラインに分岐できる Union Find です。
+任意の過去版からオンラインで分岐できるUnion Findです。版0はN個の孤立点で、mergeは同一成分でも新しい版を返します。オフラインの版木DFSにはRollbackUnionFindも使えます。
+
+Nは頂点数、Uはmerge回数。leader/same/comp_size/mergeはO(log²(N+1))、mergeの確保時間は償却評価です。メモリはO(1+U log(N+1))です。
 
 ## 操作一覧
 
@@ -28,15 +30,20 @@ documentation_of: //blueberry/data-structure/persistent-union-find.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`PersistentUnionFind` は任意の過去版からオンラインに分岐できる Union Find です。ACL DSU は非永続なので対象が異なります。
-既存 RollbackUnionFind の版木DFSはオフライン処理向けで、本実装と併存します。
-N は頂点数、U は merge 回数。union-by-size により親鎖 O(log(N+1))、永続配列の1読出し O(log(N+1)) なので、
-leader/same/comp_size/merge は O(log²(N+1))。経路圧縮はしません。メモリ O(1+U log(N+1))。
-merge のノード・版vector再確保は償却計算量、単一更新が保持量に比例する場合があります。
-0<=N<=INT_MAX。頂点は0-indexed。版0はN個の孤立点。各mergeは同一成分でも新しい版を返します。
-版・内部ノード数はINT_MAX未満。版番号は同じオブジェクトでのみ有効、再確保で無効化されません。公開フィールド・内部参照はありません。
+## 概要・前提 {#概要前提}
+
+- ACL DSUは非永続のため対象が異なります。union by sizeで親鎖がO(log(N+1))、永続配列の1読出しがO(log(N+1))となり、経路圧縮はしません。
+- mergeのノード・版vector再確保により、単一更新が保持量に比例する場合があります。
+- `0 <= N <= INT_MAX`、頂点は0-indexedです。版・内部ノード数はINT_MAX未満で、版番号は同じオブジェクト内でのみ有効です。再確保では無効化されません。公開フィールド・内部参照はありません。
+
+## 操作の補足 {#操作の補足}
+
+- 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
+
+</details>
 
 ## 最小使用例
 
@@ -52,10 +59,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>PersistentUnionFind(int n = 0)</code> — O(1)</summary>
@@ -237,8 +240,13 @@ Type moved; moved = std::move(object);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Luzhiled](https://ei1333.github.io/library/structure/union-find/persistent-union-find.hpp.html)、[Nyaan](https://nyaannyaan.github.io/library/data-structure/persistent-union-find.hpp.html) の永続配列方式を比較。コード転用なし。
 - `verify/data-structure/online-persistent-unionfind.test.cpp`: [Persistent Unionfind](https://judge.yosupo.jp/problem/persistent_unionfind) をオンラインに処理。
 - `tests/random/persistence-and-range-union.cpp`: 分岐、同一成分merge、連結性・成分サイズ・成分数を配列コピーと比較。
+
+</details>

@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/persistent-array.hpp
 
 ## 概要
 
-集約演算を要求しない完全永続配列です。
+集約演算を要求しない完全永続配列です。`PersistentArray<T>` は任意の版への一点代入から新しい版を作り、版0が初期配列です。区間積が必要ならPersistentSegmentTreeを使います。
+
+Nは長さ、Uはset回数、Vは版数。get/setはO(log(N+1))、setの確保時間は償却評価です。メモリはO(N+U log(N+1)+V)で、一様初期値の初期ノードはO(1)です。空列でもforkできます。
 
 ## 操作一覧
 
@@ -28,15 +30,22 @@ documentation_of: //blueberry/data-structure/persistent-array.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`PersistentArray<T>` は集約演算を要求しない完全永続配列です。任意の版への一点代入が新しい版番号を返します。
-ACL に永続配列はありません。区間積が必要なら既存 `PersistentSegmentTree` を使い、既存の永続構造の API は変更しません。
-版 0 は初期配列。N は長さ、U は set 回数、V は版数。メモリ O(N + U log(N+1) + V)、一様初期値なら初期ノードは O(1)。
-`T` は既定構築・コピー・代入可能で、演算を要求しません。以下は各 T 操作が O(1) の場合です。
-版は同じオブジェクト内でのみ有効で、更新・再確保によって無効化されません。返り値は値、入力はコピーです。
-版・ノード数は INT_MAX 未満。vector 再確保を伴う更新は償却時間であり、単一更新は保持ノード数に比例し得ます。
-空列では get/set は不可ですが fork は可能です。
+## 概要・前提 {#概要前提}
+
+- ACLに永続配列はありません。既存の永続構造のAPIは変更しません。
+- Tは既定構築・コピー・代入可能で、演算は要求しません。計算量は各T操作がO(1)の場合です。
+- 版は同じオブジェクト内でのみ有効で、更新・再確保で無効化されません。返り値は値、入力はコピーです。
+- 版・ノード数はINT_MAX未満です。vectorの再確保を伴う単一更新は、保持ノード数に比例し得ます。
+- 空列のget/setはできません。
+
+## 操作の補足 {#操作の補足}
+
+- 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
+
+</details>
 
 ## 最小使用例
 
@@ -53,10 +62,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>PersistentArray&lt;T&gt;()</code> — O(1)</summary>
@@ -238,8 +243,13 @@ Type moved; moved = std::move(object);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Luzhiled の永続配列](https://ei1333.github.io/library/structure/others/persistent-array.hpp) と [Nyaan の永続UF](https://nyaannyaan.github.io/library/data-structure/persistent-union-find.hpp.html) を設計比較し、明示的版番号・所有arenaで独立実装。
 - `verify/data-structure/persistent-array.test.cpp`: [Persistent Queue](https://judge.yosupo.jp/problem/persistent_queue) を版ごとの配列添字で実装。
 - `tests/random/persistence-and-range-union.cpp`: 分岐、初期値、空列、fork、コピーを愚直な配列コピーと比較。
+
+</details>

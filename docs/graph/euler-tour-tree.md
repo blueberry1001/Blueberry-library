@@ -5,7 +5,9 @@ documentation_of: //blueberry/graph/euler-tour-tree.hpp
 
 ## 概要
 
-動的森の部分木積・部分木作用を扱います。
+動的森の部分木積・部分木作用を扱います。`op`は可換モノイド、`e()`は単位元とします。パス積にはLink-Cut Treeを使用してください。閉路を持つ一般グラフの動的連結性は対象外です。
+
+Nを固定頂点数とすると、構築O(N)、メモリO(N)です。操作は償却O(log(N+1))、単発最悪O(N)です。
 
 ## 操作一覧
 
@@ -35,19 +37,18 @@ documentation_of: //blueberry/graph/euler-tour-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::EulerTourTree<S, op, e, F, mapping, composition, id>` は動的森の部分木積・部分木作用を扱います。
-各頂点一つと各辺二つの Euler tour 要素を splay sequence に保存します。
-削除した辺ノードは再利用するため、操作回数によらず O(N) メモリです。ACL に動的森はありません。
-パス積には Link-Cut Tree を使用してください。閉路を持つ一般グラフの動的連結性は対象外です。
+## 概要・前提 {#概要前提}
 
-N は固定頂点数、`N <= INT_MAX/3`。空配列も構築できます。`op` は可換モノイド、`e()` は単位元。
-`mapping(f,x,count)` は count 個の頂点の集約 x に f を作用させた結果です。
-`mapping(f,e(),0) == e()`、結合に対する分配性が必要です。
-`composition(f,g)` は g の後に f、`id()` は恒等作用です。F の比較演算は不要です。
-演算・値コピー・破棄が O(1) とした計算量を示します。操作は償却 O(log N)、単発最悪 O(N) です。
-整数の積や集約値が型の範囲に収まること、演算が例外を投げないことは呼び出し側の前提です。
+- 型は`EulerTourTree<S, op, e, F, mapping, composition, id>`です。`N <= INT_MAX/3`とし、空配列も構築できます。
+- `mapping(f,x,count)`はcount個の頂点の集約xにfを作用させた結果です。`mapping(f,e(),0) == e()`と結合に対する分配性が必要です。
+- `composition(f,g)`はgの後にf、`id()`は恒等作用です。Fの比較演算は不要です。
+- 計算量は演算・値コピー・破棄がO(1)の場合です。整数の積や集約値が型の範囲に収まること、演算が例外を投げないことを前提とします。
+- 各頂点一つと各辺二つのEuler tour要素をsplay sequenceに保存します。削除した辺ノードは再利用するため、メモリは操作回数に依存しません。ACLに動的森はありません。
+
+</details>
 
 ## 最小使用例
 
@@ -271,7 +272,10 @@ copy = std::move(moved);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Euler Tour Tree（sotanishy）](https://sotanishy.github.io/cp-library-cpp/tree/euler_tour_tree.hpp.html): Euler tour と部分木の切断・復元の設計を比較。コードの転載はしていません。
 - [Euler Tour Tree（OI Wiki）](https://oi-wiki.org/ds/ett/): 平衡二分木上の巡回列による表現。
@@ -280,3 +284,4 @@ copy = std::move(moved);
 
 ランダム比較では森林の BFS を用いて成分・部分木・点更新を照合します。作用には加算だけでなく順序に依存する affine 作用を使い、composition の順序を検証します。
 
+</details>

@@ -7,7 +7,9 @@ documentation_of: //blueberry/string/suffix-automaton.hpp
 
 ## 概要
 
-オンライン末尾追加・部分文字列検索・出現回数・異なる部分文字列数・最長共通部分文字列を扱います。
+`SuffixAutomaton<Symbol = char>` はオンライン末尾追加・部分文字列検索・出現回数・異なる部分文字列数・最長共通部分文字列を扱います。Symbolの比較には全順序を要求します。出現数照会は追加をまとめた後が適し、appendとcountを交互に繰り返すと合計O(N²)になり得ます。
+
+N=元列長、P=クエリ列長、σ=異なる記号数です。構築合計O(N log(σ+1))、メモリO(N)で、countの集計は初回・append後の最初の存在する非空patternでO(N)再構築します。
 
 ## 操作一覧
 
@@ -41,16 +43,17 @@ documentation_of: //blueberry/string/suffix-automaton.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`SuffixAutomaton<Symbol = char>` はオンライン末尾追加・部分文字列検索・出現回数・異なる部分文字列数・最長共通部分文字列を扱います。
-ACLのsuffix_arrayは静的配列を作る別APIで、末尾追加の本機能を提供しません。既存LCS関数とは用途が異なります。
-Nは元列長、Pはクエリ列長、σは異なる記号数。map遷移を使い、構築合計O(N log(σ+1))、メモリO(N)。
-Symbolはコピー可能で比較が全順序を与え、比較・コピーはO(1)と仮定します。文字列とvectorなどのconst input_rangeを扱います。
-空文字列のcontainsはtrue、countはN+1、distinct_substringsは非空だけを数えます。
-countの集計は初回・append後の最初の存在する非空patternでO(N)再構築します。
-appendとcountを交互に繰り返すと合計O(N²)になり得るため、出現数照会は追加をまとめた後が適します。
-sizeはINT_MAX/2以下。状態参照を公開せず、入力の寿命に依存しません。countはconstでもキャッシュを更新します。
+## 概要・前提 {#概要前提}
+
+- ACLのsuffix_arrayは静的配列を作る別APIで、末尾追加を提供しません。既存LCS関数とは用途が異なります。
+- map遷移を使います。Symbolはコピー可能な型で、比較・コピーはO(1)とします。文字列とvectorなどのconst input_rangeを扱います。
+- 空文字列のcontainsはtrue、countはN+1です。distinct_substringsは非空だけを数えます。
+- sizeはINT_MAX/2以下です。状態参照を公開せず、入力の寿命に依存しません。countはconstでもキャッシュを更新します。
+
+</details>
 
 ## 最小使用例
 
@@ -70,9 +73,14 @@ int main() {
 ```
 {% endraw %}
 
-## 操作の補足
+<details class="library-notes" markdown="1">
+<summary>操作例の前提</summary>
 
-以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
+## 操作の補足 {#操作の補足}
+
+- 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
+
+</details>
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>SuffixAutomaton&lt;Symbol = char&gt;()</code> — O(1)</summary>
@@ -329,9 +337,14 @@ Type moved; moved = std::move(object);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
+
+## 出典・検証 {#出典検証}
 
 - [suisen](https://suisen-cp.github.io/cp-library-cpp/library/string/suffix_automaton.hpp.html) の汎用map遷移と [Nyaan](https://nyaannyaan.github.io/library/string/suffix-automaton.hpp.html) の状態表現を比較し、独立実装。
 - `verify/string/suffix-automaton-substrings.test.cpp`: [Number of Substrings](https://judge.yosupo.jp/problem/number_of_substrings)。
 - `verify/string/suffix-automaton-lcs.test.cpp`: [Longest Common Substring](https://judge.yosupo.jp/problem/longest_common_substring)。
 - `tests/random/suffix-automaton.cpp`: 空・反復・clone・整数alphabet・末尾追加後countを愚直なsubstring集合/走査と比較。
+
+</details>

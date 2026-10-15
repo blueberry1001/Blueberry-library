@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/polynomial-product.hpp
 
 ## 概要
 
-K個の多項式を昇べき順の係数列で渡し、積を返す。
+K個の多項式を昇べき順の係数列で渡し、積を返します。Mintは素数法のACL `static_modint` を使い、必要なNTT長を法がサポートすることが前提です。空の因子リストは{1}、空の因子がある場合は空のゼロ多項式です。
+
+Dを非空因子の次数（末尾ゼロを含む長さ-1）の総和として、最悪時間O((D+K) log(D+2) log(K+2))、メモリO(D+K)です。
 
 ## 操作一覧
 
@@ -17,11 +19,16 @@ K個の多項式を昇べき順の係数列で渡し、積を返す。
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-K個の多項式を昇べき順の係数列で渡し、積を返す。Dは非空因子の次数（末尾ゼロを含む長さ-1）の総和。空の因子リストは {1}、空の因子がある場合は空のゼロ多項式。末尾ゼロを削除しない。
+## 概要・前提 {#概要前提}
 
-MintはACL static_modint、法pは素数。D+1以上の最小の2冪がp-1を割ること。値渡しなのでlvalueはコピー、std::moveなら所有権を移す。隣接ペアを反復して掛ける平衡積木でACL畳み込みを利用する。 メモリは O(D+K)。以下は最悪計算量（償却ではない）。返り値は独立した所有ベクトルで、既存の参照を無効化しない。法演算を除く長さは利用可能なメモリに収まる必要がある。
+- p=Mint::mod()として、D+1以上の最小の2冪がp-1を割ることが必要です。長さは利用可能なメモリに収まる必要があります。
+- 末尾ゼロを削除しません。隣接ペアを反復して掛ける平衡積木でACL畳み込みを使います。
+- 値渡しなのでlvalueはコピー、`std::move` なら所有権を移します。返り値は独立した所有ベクトルで、既存の参照を無効化しません。計算量は償却ではありません。
+
+</details>
 
 ## 最小使用例
 
@@ -55,6 +62,11 @@ auto a = blueberry::polynomial_product<Mint>({{1, 2}, {3, 4}});
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[公式問題](https://judge.yosupo.jp/problem/product_of_polynomial_sequence)、[アルゴリズム比較資料](https://raw.githubusercontent.com/NyaanNyaan/library/master/fps/fps-utility.hpp)を参照し、コードは独立に実装した。候補比較・追加資料・生ログは [開発レポート](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-math.md)。乱数seed付きの愚直比較は `tests/random/math_batch_three.cpp`。
+## 出典・検証 {#出典検証}
+
+- [公式問題](https://judge.yosupo.jp/problem/product_of_polynomial_sequence)、[アルゴリズム比較資料](https://raw.githubusercontent.com/NyaanNyaan/library/master/fps/fps-utility.hpp)を参照し、コードは独立に実装した。候補比較・追加資料・生ログは [開発レポート](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-math.md)。乱数seed付きの愚直比較は `tests/random/math_batch_three.cpp`。
+
+</details>

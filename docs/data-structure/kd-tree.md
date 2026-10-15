@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/kd-tree.hpp
 
 ## 概要
 
-事前登録した2次元点の点代入・矩形集約を行う。
+事前登録した2次元点の点代入と矩形集約を行います。`KDTree<Coord, S, op, e>` のopは可換・結合的、e()は左右単位元です。構築後の座標追加・移動はできず、同じ座標も入力順の異なるIDとして保持します。
+
+Nは点数。構築は平均O(N log(N+1))、点更新はO(log(N+1))、矩形集約は最悪O(sqrt(N)+1)、メモリはO(1+N)です。逆元のない可換モノイドや、固定点の代入が必要な場合に選びます。
 
 ## 操作一覧
 
@@ -26,15 +28,18 @@ documentation_of: //blueberry/data-structure/kd-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::KDTree<Coord, S, op, e>` は事前登録した2次元点の点代入・矩形集約を行う。構築後に新しい座標を追加したり、点の位置を移動したりしない。同じ座標も入力順の異なる ID として保持する。
+## 概要・前提 {#概要前提}
 
-`0 <= N <= INT_MAX/2`。Coord は `<` による全順序（NaN 不可）、S はコピー構築・代入可能。op は可換・結合的、e は左右単位元。空集合・空矩形は e()。座標の加減算はしない。集約のオーバーフロー・演算の閉性は利用者が保証する。
+- `0 <= N <= INT_MAX/2`。Coordの `<` は全順序（NaN不可）、Sはコピー構築・代入可能であることが必要です。空集合・空矩形はe()です。
+- 座標の加減算はしません。集約のオーバーフロー・演算の閉性は利用者が保証してください。比較・op・e・コピー・破棄はO(1)とします。
+- 軸を交互に変えた中央値分割で平衡木を作り、構築計算量はstd::nth_elementの平均線形選択に基づきます。最近傍や未登録点の動的挿入にO(log N)を主張する構造ではありません。
+- 値・座標は所有し、入力の変更・破棄に依存しません。返り値はコピーです。Dは代入先の旧保持要素数です。
+- ACLに多次元KD-treeはありません。既存2D Fenwickや永続矩形和と比較して選んでください。
 
-交互の軸で中央値分割する平衡 KD-tree。構築は std::nth_element の平均線形選択に基づき平均 O(N log(N+1))、メモリ O(1+N)。点更新 O(log(N+1))、2次元の軸平行矩形集約は最悪 O(sqrt(N)+1)。比較・op・e・コピー・破棄は O(1) とする。最近傍や未登録点の動的挿入に O(log N) を主張する構造ではない。値・座標は所有し、入力の変更・破棄に依存しない。返り値はコピー。D は代入先の旧保持要素数。
-
-既存2D Fenwick/永続矩形和と比較し、逆元がない可換モノイドや固定点の代入が必要な場合に選ぶ。ACL に多次元 KD-tree はない。
+</details>
 
 ## 最小使用例
 
@@ -206,6 +211,13 @@ assert(t.all_prod()==5);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Bentley の KD-tree 原論文](https://dl.acm.org/doi/10.1145/361002.361007) と [maspypy の矩形作用 KD-tree](https://maspypy.github.io/library/ds/kdtree/dual_kdtree_monoid.hpp) を参考に固定点・点代入・矩形集約へ用途を絞り独立実装。公式 `point_add_rectangle_sum` は未来の点を重み0で事前登録し `verify/data-structure/kd-tree.test.cpp` で検証。ランダムテストで重複座標・空矩形・負座標・更新を愚直比較する。
+## 出典・検証 {#出典検証}
+
+- [Bentley の KD-tree 原論文](https://dl.acm.org/doi/10.1145/361002.361007) と [maspypy の矩形作用 KD-tree](https://maspypy.github.io/library/ds/kdtree/dual_kdtree_monoid.hpp) を参考に固定点・点代入・矩形集約へ用途を絞り独立実装。
+- 公式 `point_add_rectangle_sum` は未来の点を重み0で事前登録し `verify/data-structure/kd-tree.test.cpp` で検証。
+- ランダムテストで重複座標・空矩形・負座標・更新を愚直比較する。
+
+</details>

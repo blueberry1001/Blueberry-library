@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/linear-rmq.hpp
 
 ## 概要
 
-静的配列の最小値・最小位置を返す。
+静的配列の最小値と最小位置を返します。`LinearRMQ<T, Compare>` は既定で最小値、std::greater<T>なら最大値を扱い、同値では常に最左位置を返します。比較器はconst呼び出し可能なstrict weak orderingが必要です。更新・空区間の集約はできません。
+
+Nは要素数。word RAMモデルで構築・メモリはO(1+N)、問合せはO(1)です。
 
 ## 操作一覧
 
@@ -25,13 +27,17 @@ documentation_of: //blueberry/data-structure/linear-rmq.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::LinearRMQ<T, Compare = std::less<T>>` は静的配列の最小値・最小位置を返す。N 要素、`0 <= N <= INT_MAX`。比較は const 呼び出し可能な strict weak ordering、T と比較器はコピー可能とする。既定の比較は最小値、`std::greater<T>` なら最大値。同値は常に最左位置を返す。
+## 概要・前提 {#概要前提}
 
-B = bit_ceil(max(1, floor(bit_width(N)/2))) のブロック内に単調スタックを unsigned のビットマスクで保存し、ブロック最小値だけに Sparse Table を構築する。幅は Θ(log N) の範囲で2冪へ切り上げ、ブロック番号を除算せずshiftで計算する。単語長が log N 以上で bit_width/countr_zero を O(1) とする word RAM で、構築・メモリ O(1+N)、クエリ O(1)。固定ブロック幅の Sparse Table を線形と呼ぶ方式ではない。比較・コピー・破棄は O(1) とする。
+- ACLに静的線形RMQはありません。`0 <= N <= INT_MAX`、Tと比較器はコピー可能であることが必要です。比較・コピー・破棄をO(1)とします。
+- B=bit_ceil(max(1,floor(bit_width(N)/2)))のブロック内の単調スタックをunsignedのビットマスクで保存し、ブロック最小値だけにSparse Tableを構築します。
+- 幅はΘ(log N)の範囲で2冪へ切り上げ、ブロック番号は除算せずshiftで計算します。単語長がlog N以上で、bit_width/countr_zeroをO(1)とするword RAMを仮定します。固定ブロック幅のSparse Tableを線形と呼ぶ方式ではありません。
+- 空配列は構築できますが、size以外の問合せはできません。値を所有コピーし、入力の変更・破棄の影響を受けません。返り値は値で内部参照を公開しません。Dは代入先が保持する旧データの要素数です。
 
-値は所有コピーされ、入力の変更・破棄は影響しない。値の更新・空区間の集約は不可。空配列は構築できるが size 以外の問い合わせはできない。返り値は値であり内部参照を公開しない。ACL には静的線形 RMQ がない。D は代入先が保持する旧データの要素数。
+</details>
 
 ## 最小使用例
 
@@ -185,6 +191,13 @@ assert(r.prod(0,3)==1);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[noshi91 の線形 RMQ の解説](https://noshi91.hatenablog.com/entry/2018/08/16/125415) と [Luzhiled の実装](https://ei1333.github.io/library/structure/others/linear-rmq.hpp) の小区間ビット管理を比較し、可変ブロック幅で独立実装した。公式 `staticrmq` を `verify/data-structure/linear-rmq.test.cpp` で検証。`tests/random/static-tree-expansion.cpp` で重複・最左優先・逆比較・2冪前後を愚直比較する。
+## 出典・検証 {#出典検証}
+
+- [noshi91 の線形 RMQ の解説](https://noshi91.hatenablog.com/entry/2018/08/16/125415) と [Luzhiled の実装](https://ei1333.github.io/library/structure/others/linear-rmq.hpp) の小区間ビット管理を比較し、可変ブロック幅で独立実装した。
+- 公式 `staticrmq` を `verify/data-structure/linear-rmq.test.cpp` で検証。
+- `tests/random/static-tree-expansion.cpp` で重複・最左優先・逆比較・2冪前後を愚直比較する。
+
+</details>

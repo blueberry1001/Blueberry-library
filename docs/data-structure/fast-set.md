@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/fast-set.hpp
 
 ## 概要
 
-固定整数宇宙 `[0, U)` の集合。
+固定整数宇宙 `[0,U)` の集合で、前後の要素を探します。重複・rank/kthは扱いません。巨大で疎な宇宙にはOrderedSet/BinaryTrieを使ってください。
+
+Uは宇宙の大きさ、H=1+log₆₄(U+1)、Wは保持する64-bit語数です。挿入・削除・前後検索は最悪O(H)、メモリはO(W)=O(U/64+log₆₄(U+1)+1)です。size()は要素数、universe_size()はUを返します。
 
 ## 操作一覧
 
@@ -40,20 +42,23 @@ documentation_of: //blueberry/data-structure/fast-set.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::FastSet` は固定整数宇宙 `[0, U)` の集合。64-bit 語の非空状態を階層化し、
-前後の要素を最悪 O(1 + log₆₄ U) で探す。既存 OrderedSet と異なり比較木や乱数を使わない。
-重複は保持せず、rank / kth は非対応。巨大で疎な宇宙には OrderedSet / BinaryTrie を使う。
-`0 <= U <= INT_MAX`。メモリは O(U / 64 + log₆₄(U + 1) + 1) 個の64-bit語。
-以下 W はこの語数、H = 1 + log₆₄(U + 1)。size() は現在の要素数、universe_size() は U。
-空の既定状態・ムーブ元は U=0。clear() は宇宙を維持して全要素を消す。
-数値加算はしない。返り値は値で、参照の無効化はない。コピーは独立。
-コピー構築は O(W)、コピー代入は両者の保持語数の和、ムーブ代入は旧保持語数の解放を含む。
+## 概要・前提 {#概要前提}
 
-insert は葉の64-bit語が空から非空へ変わるときだけ上位へ伝播します。
-既に非空の語へ要素を追加しても、その語を表す上位bitは変わらないためです。
-密な集合では上位への書き込みを省けますが、最悪計算量は従来どおり O(H) です。
+- `blueberry::FastSet` は64-bit語の非空状態を階層化し、比較木や乱数を使いません。`0 <= U <= INT_MAX` が必要です。
+- insertは葉の語が空から非空へ変わるときだけ上位へ伝播します。既に非空の語を表す上位bitは変わらず、密な集合では上位への書き込みを省けます。最悪計算量はO(H)のままです。
+- 既定状態・ムーブ元はU=0。clearは宇宙を維持して全要素を消します。
+- 数値加算はしません。返り値は値で参照の無効化はなく、コピーは独立です。
+- コピー構築はO(W)、コピー代入は両者の保持語数の和、ムーブ代入は旧保持語数の解放を含みます。
+
+## 操作の補足 {#操作の補足}
+
+- W はコピー元の保持語数、V は代入先の旧保持語数。
+- 型のコピー・演算・比較は O(1) とする。
+
+</details>
 
 ## 最小使用例
 
@@ -74,10 +79,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-W はコピー元の保持語数、V は代入先の旧保持語数。型のコピー・演算・比較は O(1) とする。
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>FastSet()</code> — O(1)</summary>
@@ -319,9 +320,14 @@ tree.clear();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[maspypy FastSet](https://maspypy.github.io/library/ds/fastset.hpp) の64分木設計を比較資料とし独立実装。
-Library Checker [Predecessor Problem](https://judge.yosupo.jp/problem/predecessor_problem) と
-`tests/random/specialized-structures.cpp` の std::set 比較。0/1/63/64/65/4095/4096/4097 の境界を含む。
+## 出典・検証 {#出典検証}
 
+- [maspypy FastSet](https://maspypy.github.io/library/ds/fastset.hpp) の64分木設計を比較資料とし独立実装。
+- Library Checker [Predecessor Problem](https://judge.yosupo.jp/problem/predecessor_problem) と
+  `tests/random/specialized-structures.cpp` の std::set 比較。
+- 0/1/63/64/65/4095/4096/4097 の境界を含む。
+
+</details>

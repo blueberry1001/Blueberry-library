@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/cartesian-tree.hpp
 
 ## 概要
 
-配列の inorder 順を保つ min Cartesian tree の親配列。
+配列のinorder順を保つmin Cartesian treeの親配列を構築します。最小値が同値なら左端を根に選びます。Tの`<`はstrict weak orderingを満たす必要があります。
+
+Nを要素数とすると、時間・メモリはO(N)です。
 
 ## 操作一覧
 
@@ -17,11 +19,16 @@ documentation_of: //blueberry/graph/cartesian-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-配列の inorder 順を保つ min Cartesian tree の親配列。ACL にない線形木構築。
-N は要素数で N ≤ INT_MAX。T の `<` は strict weak ordering、比較 O(1)。時間・メモリ O(N)。
-最小値が同値なら左端を根に選ぶ。再帰・値の算術を使用しない。入力を変更・保持せず返り値は独立した所有配列。
+## 概要・前提 {#概要前提}
+
+- `N <= INT_MAX`を満たしてください。計算量では比較をO(1)とします。
+- 再帰・値の算術を使いません。入力を変更・保持せず、返り値は独立した所有配列です。
+- ACLにはない線形木構築です。
+
+</details>
 
 ## 最小使用例
 
@@ -54,7 +61,12 @@ assert((p == std::vector<int>{0, 0}));
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [Nyaan](https://nyaannyaan.github.io/library/tree/cartesian-tree.hpp.html) の単調スタックを調査し独立実装。
 公式 Library Checker `cartesian_tree`、固定 seed の再帰最小値 oracle。候補比較は `docs/development/sequence-batch-two.md`。
+
+</details>

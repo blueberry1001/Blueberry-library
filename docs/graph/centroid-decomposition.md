@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/centroid-decomposition.hpp
 
 ## 概要
 
-通常の重心分解と、各頂点から重心祖先への距離・枝 ID を保持する。
+`CentroidDecomposition`は重心分解と、各頂点から重心祖先への距離・枝IDを保持します。`centroid_decomposition_thirds`は枝を概ね1/3〜2/3に二分する分解を行います。入力は連結・閉路なしの無重み無向木です。
+
+Nを頂点数とすると、通常版は構築・メモリO(N log(N+1))、各祖先列の長さO(log(N+1))です。1/3版はcallbackを除く構築O(N log(N+1))、一時メモリO(1+N)。callback全体の配列長合計もO(N log(N+1))です。
 
 ## 操作一覧
 
@@ -37,17 +39,19 @@ documentation_of: //blueberry/graph/centroid-decomposition.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::CentroidDecomposition` は通常の重心分解と、各頂点から重心祖先への距離・枝 ID を保持する。`centroid_decomposition_thirds(tree, callback)` は1/3重心分解の実頂点・仮想頂点版を行う。
+## 概要・前提 {#概要前提}
 
-N 頂点、`0 <= N <= INT_MAX`。非空入力は各無向辺を両方向に1回含む連結・閉路なしの無重み木とする。空木は通常版で size=0、1/3版では callback なし。入力の隣接リストを書き換えない。
+- `0 <= N <= INT_MAX`とし、各無向辺を隣接リストの両方向に1回含めます。空木は通常版でsize=0、1/3版ではcallbackを呼びません。入力は書き換えません。
+- 1/3版は枝を辺数で二分するもので、「全成分の頂点数がN/3以下になる重心」ではありません。分離点は仮想頂点として子へ複製します。
+- 実頂点の根に対しては先に根と他の実頂点の組を処理して仮想化し、星の中心の実頂点がO(N)回現れる問題を避けます。各実頂点の登場はO(log(N+1))回ですが、仮想頂点には個別のO(log N)保証はありません。
+- 無向の異なる頂点対を1回ずつ扱うための分解です。パス途中の頂点属性の動的変更には直接対応しません。
+- 通常版の内部DFSは反復処理で、分解再帰の深さはO(log(N+1))です。
+- ACLに対応機能はありません。返す整数はintの範囲で、Dは代入先の旧保持要素数です。
 
-通常版は構築・メモリ O(N log(N+1))。各 ancestors の長さ O(log(N+1))。内部 DFS は反復、分解再帰の深さは O(log(N+1))。
-
-1/3版は重心の枝を辺数で概ね1/3〜2/3に二分する。『全成分の頂点数が N/3 以下になる重心』ではない。分離点は仮想頂点として子へ複製する。実頂点の根に対しては先に根と他の実頂点の組を処理して仮想化するので、星の中心の実頂点が O(N) 回現れる問題を避ける。callback 全体の配列長合計 O(N log(N+1))、各実頂点の登場 O(log(N+1))。callback を除く構築 O(N log(N+1))、一時メモリ O(1+N)。仮想頂点の登場回数に個別の O(log N) 保証はない。
-
-無向の異なる頂点対を1回ずつ扱うための分解であり、パス途中の頂点属性の動的変更には直接対応しない。ACL に対応機能はない。返す整数は int の範囲。D は代入先の旧保持要素数。
+</details>
 
 ## 最小使用例
 
@@ -268,6 +272,11 @@ blueberry::centroid_decomposition_thirds(g, [](const auto& vertices, const auto&
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [maspypy の重心分解・1/3版解説](https://maspypy.com/重心分解・1-3重心分解のお絵描き) と [実装](https://maspypy.github.io/library/graph/centroid_decomposition.hpp) を比較し独立実装した。実/仮想頂点の区別が重要。公式 `frequency_table_of_tree_distance` を1/3版+ACL convolution_llで検証し、通常版は2方向の contour verify で検証。ランダムテストで全頂点対が1回、経路が分離点を通ること、星の実頂点登場回数を検証する。
+
+</details>

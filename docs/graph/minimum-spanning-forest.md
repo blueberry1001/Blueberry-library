@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/minimum-spanning-forest.hpp
 
 ## 概要
 
-Kruskal 法と ACL dsu で無向重み付きグラフの最小全域森を求めます。
+Kruskal法とACL `dsu`で無向重み付きグラフの最小全域森を求めます。負辺、多重辺、自己ループ、非連結グラフを許します。
+
+Nを頂点数、Mを辺数とすると、最悪時間O(N+M log(M+1))（DSU部分は償却）、補助メモリO(N+M)です。
 
 ## 操作一覧
 
@@ -17,9 +19,16 @@ Kruskal 法と ACL dsu で無向重み付きグラフの最小全域森を求め
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-Kruskal 法と ACL dsu で無向重み付きグラフの最小全域森を求めます。dsu は自作せず ACL を使う薄い組合せです。N 頂点 M 辺、時間 O(N+M log(M+1)) 最悪（DSU 部分は償却）、補助メモリ O(N+M)。辺は tuple<int,int,T> の (u,v,weight)、u,v∈[0,N)、N,M は int に収まること。T は厳密な大小比較と加算ができ、選ばれた重みの途中の和が収まる型を使います。負辺、多重辺、自己ループ、非連結グラフを許します。入力は変更しません。
+## 概要・前提 {#概要前提}
+
+- 辺は`tuple<int,int,T>`の`(u,v,weight)`で、`u,v∈[0,N)`、N,Mはintに収まる必要があります。
+- Tは厳密な大小比較と加算ができ、選ばれた重みの途中の和が収まる型を使います。
+- 入力は変更しません。DSUを自作せず、ACLを使う薄い組合せです。
+
+</details>
 
 ## 最小使用例
 
@@ -50,7 +59,12 @@ auto [cost, ids] = blueberry::minimum_spanning_forest<long long>(2, {{0,1,-3}});
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [Library Checker](https://judge.yosupo.jp/problem/minimum_spanning_tree) の公式ケースと固定 seed を指定できる全列挙比較で検証します。
 候補比較・一次資料・測定条件は [調査記録](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-graph-research.md) を参照してください。
+
+</details>

@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/li-chao-tree.hpp
 
 ## 概要
 
-直線 `y = ax + b` と、半開区間にだけ有効な線分を追加し、指定座標での最小値を求めます。
+直線y=ax+bと、半開区間だけで有効な線分を追加し、事前登録した座標での最小値を求めます。追加順・傾き順は自由ですが、登録後の座標追加や直線削除はできません。未知の座標には [Dynamic Li Chao Tree]({{ '/blueberry/data-structure/dynamic-li-chao-tree.hpp.html' | relative_url }}) を使います。
+
+Mは入力座標数、Nは重複除去後の座標数。構築はO(M log(M+1))、直線追加・問合せはO(log(N+1))、線分追加はO(log²(N+1))です。メモリはO(N)、構築中のピークはO(M+N)です。
 
 ## 操作一覧
 
@@ -21,16 +23,18 @@ documentation_of: //blueberry/data-structure/li-chao-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::LiChaoTree<T = long long>` は直線 `y = ax + b` と、半開区間にだけ有効な線分を追加し、指定座標での最小値を求めます。ACLに対応する機能はありません。
-クエリ座標を先に収集する座標圧縮方式です。挿入順・傾きの順序は自由ですが、登録後の座標追加や直線の削除はできません。未知の座標をオンラインで問い合わせる場合は [Dynamic Li Chao Tree]({{ '/blueberry/data-structure/dynamic-li-chao-tree.hpp.html' | relative_url }}) を使います。
+## 概要・前提 {#概要前提}
 
-入力座標数を M、重複除去後を N とします。メモリは O(N)、構築中の入力を含めたピークは O(M + N) です。内部に最大 4N 個の `optional<Line>` を確保し、更新による追加確保はありません。N は `INT_MAX / 4` 以下で、確保可能なメモリに収まる必要があります。以下の対数は空入力を含め `log(N + 1)` と表記し、計算量は償却ではなく最悪です。
+- `blueberry::LiChaoTree<T = long long>` を使います。ACLに対応する機能はありません。内部に最大4N個のoptional<Line>を確保し、更新による追加確保はありません。NはINT_MAX/4以下で、メモリに収まる必要があります。計算量は償却ではなく最悪です。
+- Tはコピー可能な順序付き数値型で、`a*x+b` と比較が正確である必要があります。通常は符号付き整数を使います。**積 `a*x` と和 `a*x+b` の両方がTに収まること**が前提です。
+- 数値条件は線分の有効範囲内の登録座標、直線では全登録座標で必要です。自動拡張・飽和はありません。浮動小数点の丸め誤差・NaNや、剰余演算の値域では正しさを保証しません。
+- 空の直線集合はnulloptを返します。数値の最大値・最小値も有効な答えとして区別し、INF番兵を予約しません。
+- 公開フィールドはありません。座標は所有コピー、返り値も値なので、元配列や木を更新しても取得済みの答えに影響しません。木のコピーは独立したO(N)のコピーです。
 
-T はコピー可能な順序付き数値型で、`a * x + b` と大小比較が正確に行える必要があります。通常は符号付き整数を使います。**積 `a * x` と和 `a * x + b` の両方が T に収まること**が前提です。線分の場合はその有効範囲内の登録座標、直線の場合はすべての登録座標でこの条件が必要です。整数の自動拡張や飽和処理はありません。浮動小数点の丸め誤差・NaNや、剰余演算の値域では正しさを保証しません。
-
-空の直線集合の答えは `std::nullopt` です。数値の最大値・最小値も有効な答えとして区別でき、INF番兵を予約する必要はありません。公開フィールドはありません。座標は所有コピー、返り値も値なので、元の座標配列や木を更新しても取得済みの答えの寿命に影響しません。木のコピーは独立した O(N) のコピーです。
+</details>
 
 ## 最小使用例
 
@@ -138,11 +142,18 @@ assert(answer && *answer == 9);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-設計調査には [Nyaan の座標圧縮 Li Chao Tree](https://nyaannyaan.github.io/library/segment-tree/li-chao-tree.hpp) と [Luzhiled の Dynamic Li Chao Tree](https://ei1333.github.io/library/structure/convex-hull-trick/dynamic-li-chao-tree.hpp.html) を参照しました。前者の配列配置と後者の動的座標領域を比較し、コードの転載ではなく、直線の交差回数を使うアルゴリズムから独立して実装しています。配列方式は事前に座標を集める必要がある一方、更新ごとのメモリ確保がなく、数値領域の幅ではなく座標数に依存します。本実装では番兵や座標末尾への加算によるパディングを使いません。
+## 出典・検証 {#出典検証}
 
+- 設計調査には [Nyaan の座標圧縮 Li Chao Tree](https://nyaannyaan.github.io/library/segment-tree/li-chao-tree.hpp) と [Luzhiled の Dynamic Li Chao Tree](https://ei1333.github.io/library/structure/convex-hull-trick/dynamic-li-chao-tree.hpp.html) を参照しました。
+- 前者の配列配置と後者の動的座標領域を比較し、コードの転載ではなく、直線の交差回数を使うアルゴリズムから独立して実装しています。
+- 配列方式は事前に座標を集める必要がある一方、更新ごとのメモリ確保がなく、数値領域の幅ではなく座標数に依存します。
+- 本実装では番兵や座標末尾への加算によるパディングを使いません。
 - [Line Add Get Min](https://judge.yosupo.jp/problem/line_add_get_min): 任意順の直線追加と最小値取得。
 - [Segment Add Get Min](https://judge.yosupo.jp/problem/segment_add_get_min): 半開区間への線分追加と空の答え。
 - `tests/random/li-chao-tree.cpp`: 再現可能な seed による全点の愚直比較、重複・単一点・空座標、等しい傾き、空区間、範囲外端点、型の最大値・最小値とコピーの独立性。
 - 性能比較の再現方法・入力・実測値は `benchmark/li-chao-tree.md` を参照してください。
+
+</details>

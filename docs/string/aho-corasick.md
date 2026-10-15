@@ -7,7 +7,9 @@ documentation_of: //blueberry/string/aho-corasick.hpp
 
 ## 概要
 
-複数パターンをTrieへ登録し、本文中の重なる出現もまとめて数えます。
+複数パターンをTrieへ登録し、本文中の重なる出現もまとめて数えます。固定辞書の多パターン検索で、すべてのadd後にbuildし、その後は登録できません。既定の文字集合は英小文字で、固定のバイト範囲を扱います。
+
+σ=Alphabet、V=rootを含むノード数、R=予約ノード数、L=登録文字列長、M=本文長です。所有メモリはO(σ max(V,R))、build用にO(V)です。検索は1文字O(1)で、文字種が大きい用途には不向きです。
 
 ## 操作一覧
 
@@ -25,21 +27,18 @@ documentation_of: //blueberry/string/aho-corasick.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-複数パターンをTrieへ登録し、本文中の重なる出現もまとめて数えます。ACLのZ Algorithmや
-suffix arrayとは異なる、固定辞書の多パターン検索です。
+## 概要・前提 {#概要前提}
 
-`AhoCorasick<Alphabet = 26, First = 'a'>` の文字集合は、unsigned byteとして
-`[First, First + Alphabet)`。`1 <= Alphabet`、`First + Alphabet <= 256` が必要です。
-既定は英小文字。本文もこの範囲内に限ります。UTF-8の文字単位処理ではありません。
-`add`をすべて済ませてから`build`し、その後は登録できません。
+- ACLのZ Algorithmやsuffix arrayとは用途が異なります。
+- `AhoCorasick<Alphabet = 26, First = 'a'>` の文字集合はunsigned byteの `[First, First + Alphabet)` です。`1 <= Alphabet`、`First + Alphabet <= 256` が必要で、本文もこの範囲内に限ります。UTF-8の文字単位処理ではありません。
+- 空TrieはV=1、空文字列のIDは0です。IDは初めてprefixが現れた順で、追加・buildで変わりません。
+- `V <= INT_MAX`、`M < LLONG_MAX` が必要です。遷移はdenseな表で保持します。
+- 通常のコピーは独立した値コピーで、時間・追加メモリはO(σ max(V,R))以内です。
 
-σをAlphabet、Vをrootを含むノード数、Rを予約ノード数、Lを登録文字列長、Mを本文長とします。
-空TrieはV=1、空文字列のIDは0。IDは初めてprefixが現れた順で、追加・buildで変わりません。
-`V <= INT_MAX`、`M < LLONG_MAX` が必要です。所有メモリはO(σ max(V,R))、
-build用にO(V)。denseな遷移表で検索を1文字O(1)にするため、文字種が大きい用途には不向きです。
-通常のコピーは独立した値コピー（時間・追加メモリO(σ max(V,R))以内）です。
+</details>
 
 ## 最小使用例
 
@@ -212,7 +211,10 @@ assert(copy.size() == ac.size());
 ムーブ元は破棄・再代入のみを行ってください。代入先の既存IDは新しい辞書に対して解釈されます。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Aho–Corasick原論文](https://doi.org/10.1145/360825.360855)のfailure automaton。
 - [Library Checker Aho Corasick](https://judge.yosupo.jp/problem/aho_corasick)でノード順・parent・linkを検証。
@@ -220,3 +222,5 @@ assert(copy.size() == ac.size());
   [380150](https://judge.yosupo.jp/submission/380150)はdense表とまとめた遷移コピー。
   本実装は検索も1文字O(1)にする固定配列方式を独立実装。提出ソースは転載していません。
 - `tests/random/string-expansion.cpp` は全ノードのsuffix、遷移、空・重複パターン、重なる出現を愚直解と比較します。
+
+</details>

@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/offline-fenwick-tree-2d.hpp
 
 ## 概要
 
-更新する座標を先に列挙できる場合の、点加算・矩形和です。
+更新座標を先に列挙できる疎な2次元点の、点加算と半開矩形の和を扱います。TはT{}を零とする加法可換群です。構築後は更新・問合せを任意順に行えますが、座標は追加できません。未知の更新座標には [Dynamic Fenwick Tree 2D]({{ '/blueberry/data-structure/dynamic-fenwick-tree-2d.hpp.html' | relative_url }}) を使います。
+
+Pは入力点数、Nは重複除去後の点数。構築はO(P log(P+1)+N log²(N+1))、更新・和は最悪O(log²(N+1))、保持メモリはO(N log(N+1))です。
 
 ## 操作一覧
 
@@ -21,21 +23,17 @@ documentation_of: //blueberry/data-structure/offline-fenwick-tree-2d.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-更新する座標を先に列挙できる場合の、点加算・矩形和です。ACLの1次元Fenwick Treeを
-そのまま使えない疎な2次元座標に対応します。構築後は、更新と問い合わせを任意の順で処理できます。
-**座標の追加はできません。** 未知の更新座標が逐次到着する用途には使えません。
-更新座標を事前に列挙できない場合は [Dynamic Fenwick Tree 2D]({{ '/blueberry/data-structure/dynamic-fenwick-tree-2d.hpp.html' | relative_url }}) を使います。座標が分かる場合は、このオフライン版を第一候補にしてください。
+## 概要・前提 {#概要前提}
 
-`OfflineFenwickTree2D<T, Coord = long long>` の `T` は加法可換群（`T{}` が零、
-`+=`, `+`, `-` とコピーを使用）、`Coord` は一貫した大小・等値比較ができる型です。
-整数座標を推奨し、浮動小数点のNaNは不可です。負座標・重複座標を扱え、座標への±1演算はしません。
-入力点数を $P$、重複を除いた点数を $N$ とし、$P,N < 2^{30}$ を前提にします。
-構築は $O(P\log(P+1)+N\log^2(N+1))$、構築後メモリは $O(N\log(N+1))$。
-構築中は入力バッファを含めて $O(P+N\log(N+1))$ です。重複除去後は入力の余剰容量を解放します。
-更新・和は最悪 $O(\log^2(N+1))$、型の比較・算術は定数時間とします。
-すべての途中の和・差が `T` に収まる必要があります。符号付き整数のオーバーフローは不可です。
+- ACLの1次元Fenwickをそのまま使えない疎な2次元座標向けです。座標が分かる場合はこの版を第一候補にしてください。
+- `OfflineFenwickTree2D<T, Coord = long long>` のTにはコピー・`+=`・`+`・`-`、Coordには一貫した大小・等値比較が必要です。整数座標を推奨し、浮動小数点のNaNは使えません。負座標・重複座標に対応し、座標への±1演算はしません。
+- `P,N < 2^30` を前提とします。比較・算術は定数時間とし、途中の和・差もTに収めてください。符号付き整数のオーバーフローは不可です。
+- 構築中は入力バッファを含めO(P+N log(N+1))メモリを使います。重複除去後に入力の余剰容量を解放します。
+
+</details>
 
 ## 最小使用例
 
@@ -141,8 +139,13 @@ assert(bit.sum(0, 0, 0, 5) == 0);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Library Checker: Point Add Rectangle Sum](https://judge.yosupo.jp/problem/point_add_rectangle_sum)
 - `tests/random/offline-fenwick-tree-2d.cpp`: 点の全列挙との比較、負更新、重複、空矩形、整数座標の両端、コピーの独立性。
 - 設計比較: [Nyaan FenwickRangeTree](https://github.com/NyaanNyaan/library/blob/master/data-structure-2d/fenwick-tree-on-range-tree.hpp) は登録点ごとの外側BIT、[suisen FenwickTree2D](https://github.com/suisen-cp/cp-library-cpp/blob/main/library/datastructure/fenwick_tree/fenwick_tree_2d.hpp) は密な格子。本実装は異なるx座標だけを外側BITに使い、各節点のyを圧縮する標準アルゴリズムを独立実装しています。密な全座標分の確保や、更新時のハッシュ表・節点確保を避けます。
+
+</details>

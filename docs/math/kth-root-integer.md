@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/kth-root-integer.hpp
 
 ## 概要
 
-`0 <= n <= UINT64_MAX`, `1 <= k <= INT_MAX`。
+非負整数nの厳密なfloor(n^(1/k))を整数演算だけで返します。k>=1です。
+
+B=bit_width(n)として時間O(k ceil(B/k))、k=1とk>=64ではO(1)です。追加メモリはO(1)です。
 
 ## 操作一覧
 
@@ -17,9 +19,15 @@ documentation_of: //blueberry/math/kth-root-integer.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`0 <= n <= UINT64_MAX`, `1 <= k <= INT_MAX`。厳密な floor(n^(1/k)) を整数演算だけで返す。ACLにはない演算。B = bit_width(n)、時間 O(k ceil(B/k))（k=1 と k>=64 は O(1)）、追加メモリ O(1)。割り算で積の上限を確認するためオーバーフローしない。
+## 概要・前提 {#概要前提}
+
+- `0 <= n <= UINT64_MAX`、`1 <= k <= INT_MAX`。ACLにはない演算です。
+- 割り算で積の上限を確認するため、オーバーフローしません。
+
+</details>
 
 ## 最小使用例
 
@@ -48,7 +56,12 @@ assert(blueberry::kth_root_integer(1000, 3) == 10);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[Library Checker](https://judge.yosupo.jp/problem/kth_root_integer)。固定seed・境界・愚直比較は `tests/random/math-batch-two.cpp`。
-複数実装の調査、独立実装した候補と同一環境測定は [math batch two]({{ '/docs/development/math-batch-two.html' | relative_url }}) を参照。
+## 出典・検証 {#出典検証}
+
+- [Library Checker](https://judge.yosupo.jp/problem/kth_root_integer)。固定seed・境界・愚直比較は `tests/random/math-batch-two.cpp`。
+  複数実装の調査、独立実装した候補と同一環境測定は [math batch two]({{ '/docs/development/math-batch-two.html' | relative_url }}) を参照。
+
+</details>

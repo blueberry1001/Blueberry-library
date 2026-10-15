@@ -7,9 +7,9 @@ documentation_of: //blueberry/data-structure/segment-tree-beats.hpp
 
 ## 概要
 
-区間の上限制限・下限制限・加算と、和・最小値・最大値を扱います。
+区間の上限制限・下限制限・加算と、和・最小値・最大値を扱います。公開型はlong longで、構築値・set/chmin/chmaxの引数・各更新後の要素は **−2^60 < x < 2^60** に収めてください。
 
-添字は0-index、区間は `[l,r)` です。
+Nは配列長、Qは更新・問合せ総数。構築・メモリはO(N)、chmin/chmaxの混合更新列全体はO((N+Q)log²(N+1))、更新1回の最悪はO(N)です。add/set/get/prod/min/maxは最悪O(log(N+1))、all_prod/sizeはO(1)。添字は0始まり、区間は `[l,r)` です。
 
 ## 操作一覧
 
@@ -42,17 +42,20 @@ documentation_of: //blueberry/data-structure/segment-tree-beats.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-区間の上限制限・下限制限・加算と、和・最小値・最大値を扱います。単純な遅延作用として表せないchmin/chmaxを、最大・第2最大・最小・第2最小の情報で処理します。ACLの通常のlazy_segtreeとは対象が異なります。型は `blueberry::SegmentTreeBeats`、値・和の公開型はlong longです。
+## 概要・前提 {#概要前提}
 
-Nは配列長、Qは更新・問合せの総数です。0<=N<=INT_MAX/4。添字は0-index、区間は `[l,r)`。構築値、set/chmin/chmaxの引数、各更新後の要素は厳密に `-2^60 < x < 2^60` としてください。addの引数はlong longで、更新後の全要素がこの範囲に収まる必要があります。prod/all_prodで返す和はlong longに収まることが前提です。空の和は0、空の最小・最大はnulloptです。
+- `blueberry::SegmentTreeBeats` は、単純な遅延作用にできないchmin/chmaxを最大・第2最大・最小・第2最小で処理します。ACLの通常のlazy_segtreeとは対象が異なります。
+- `0 <= N <= INT_MAX/4`。addの引数はlong longで、更新後の全要素が上記範囲に収まる必要があります。prod/all_prodで返す和もlong longに収めてください。空の和は0、空の最小・最大はnulloptです。
+- 内部はGNU拡張の符号付き128bitを使い、clamp後も蓄積する遅延加算と、一時的に大きくなる子の値を保持します。最終値が小さくても64bitのlazyはoverflowし得るため、128bitを意図的に選んでいます。
+- 128bitの中間値もoverflowしてはいけません。実用上十分広い保守的条件として、これまでのadd引数の絶対値総和が2^80未満なら安全です。
+- 再帰スタックはO(log(N+1))です。GCC/Clangの代表的な64bit環境ではノード112byteを最大4N個確保します。get等の問合せも遅延伝搬のため非constです。
+- 値をvectorで所有し、入力の寿命に依存しません。返り値は値で内部参照・iteratorは公開しません。移動元は長さ0になり、構築した値の代入で再利用できます。
+- 不正な添字・範囲はassertの前提条件で、releaseでも許可されません。
 
-内部はGNU拡張の符号付き128 bitを使い、clampで値を戻しても蓄積する遅延加算や、一時的に大きくなる子の値を保持します。128 bitの中間値もoverflowしてはいけません（実用上十分広い保守的条件として、これまでのadd引数の絶対値総和が2^80未満なら安全です）。最終値だけが小さい場合でも通常の64 bit lazyはoverflowし得るため、128 bitは意図的な選択です。
-
-構築O(N)、メモリO(N)、再帰スタックO(log(N+1))。GCC/Clangの代表的な64 bit環境ではノード112 byteを最大4N個確保します。chmin/chmaxは混合更新列全体でO((N+Q)log²(N+1))、更新1回の最悪O(N)です。add/set/get/prod/min/maxは最悪O(log(N+1))、all_prod/sizeはO(1)。get等の問合せも遅延伝搬のためnonconstです。
-
-vectorで値を所有し、入力vectorの寿命に依存しません。返り値は値で、内部参照・iteratorは公開しません。移動元は長さ0となり、構築した値の代入で再利用できます。不正な添字・範囲はassertの前提条件であり、releaseでも許可されるわけではありません。
+</details>
 
 ## 最小使用例
 
@@ -319,6 +322,14 @@ if (tree.size()) tree.set(0, 5);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[公式Range Chmin Chmax Add Range Sum](https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum)に対応。固定seedのvector愚直解で全操作・空区間・負値・コピー/移動・大きな遅延加算を確認します。[NyaanのBeats](https://nyaannyaan.github.io/library/segment-tree/segment-tree-beats.hpp.html)と[公開上位提出204482](https://judge.yosupo.jp/submission/204482)を設計比較に用い、標準的な第2極値のアルゴリズムを独立実装しています。公開ソースは転記していません。
+## 出典・検証 {#出典検証}
+
+- [公式Range Chmin Chmax Add Range Sum](https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum)に対応。
+- 固定seedのvector愚直解で全操作・空区間・負値・コピー/移動・大きな遅延加算を確認します。
+- [NyaanのBeats](https://nyaannyaan.github.io/library/segment-tree/segment-tree-beats.hpp.html)と[公開上位提出204482](https://judge.yosupo.jp/submission/204482)を設計比較に用い、標準的な第2極値のアルゴリズムを独立実装しています。
+- 公開ソースは転記していません。
+
+</details>

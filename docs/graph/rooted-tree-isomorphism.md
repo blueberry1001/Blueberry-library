@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/rooted-tree-isomorphism.hpp
 
 ## 概要
 
-根付き木の各頂点を根とする部分木を、子の順序を無視した同型類に分類します。
+根付き木の各頂点を根とする部分木を、子の順序を無視した同型類に分類します。`parent[v]`に親番号を、唯一の根に`-1`を指定します。ハッシュ衝突のない厳密な分類です。
+
+Nを頂点数とすると、時間O(N log(N+1))、追加メモリO(N)です。
 
 ## 操作一覧
 
@@ -17,14 +19,16 @@ documentation_of: //blueberry/graph/rooted-tree-isomorphism.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-根付き木の各頂点を根とする部分木を、子の順序を無視した同型類に分類します。ACLにはありません。
-`parent[v]` は親番号、唯一の根では `-1` です。頂点数 N は `int` の範囲内で、親番号は `[0,N)`。
-空配列も許可します。非空なら連結・非循環な木が必要です。
-子のクラス番号を整列し、完全なベクトルを辞書キーにするためハッシュ衝突はありません。
-時間 O(N log(N+1))、追加メモリ O(N)。整数演算のオーバーフローは前提範囲内でありません。
-再帰DFSを使わないため、深いパスでも呼び出しスタックは増えません。
+## 概要・前提 {#概要前提}
+
+- Nはintの範囲内、親番号は`[0,N)`とします。空配列も許可し、非空なら連結・非循環な木が必要です。
+- 子のクラス番号を整列し、完全なベクトルを辞書キーにします。前提範囲内で整数演算のオーバーフローはありません。
+- 再帰DFSを使わず、深いパスでも呼び出しスタックは増えません。ACLにはありません。
+
+</details>
 
 ## 最小使用例
 
@@ -61,10 +65,15 @@ assert(id[0] == id[2]); // 葉同士
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [spaghetti-source の木同型](https://github.com/spaghetti-source/algorithm/blob/master/graph/tree_isomorphism.cc) の子ラベル整列と
 [Nyaan の tree hash](https://nyaannyaan.github.io/library/tree/tree-hash.hpp.html) の確率的分類を調査。
 衝突を排除する完全キー方式を独立実装しました。外部コードの転載はありません。
 [Library Checker](https://judge.yosupo.jp/problem/rooted_tree_isomorphism_classification)、括弧列とのランダム比較、長さ20万のパスで検証します。
 候補の同一環境測定は [追加調査](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/graph-batch-four.md) に記載します。
+
+</details>

@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/sqrt-tree.hpp
 
 ## 概要
 
-更新のない配列のモノイド区間積を最悪 O(1) で返す。
+更新のない配列の区間モノイド積を最悪O(1)で返します。`SqrtTree<S, op, e>` のopは結合的、e()は左右単位元で、可換性・冪等性は不要です。左から右への順序を保ち、空配列・空区間も扱います。
+
+Nは要素数、L=1+log log(N+2)。構築・メモリはO(N L)、prodのop呼出しは最大2回です。一点更新が必要なら [Dynamic Sqrt Tree]({{ '/blueberry/data-structure/dynamic-sqrt-tree.hpp.html' | relative_url }})、更新が多い場合はACL segtreeと比較してください。
 
 ## 操作一覧
 
@@ -22,31 +24,29 @@ documentation_of: //blueberry/data-structure/sqrt-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::SqrtTree<S, op, e>` は更新のない配列のモノイド区間積を最悪 O(1) で返す。
-ACL segtree が必要とする O(log N) のクエリを、前計算と追加メモリで高速化する。
-Disjoint Sparse Table の O(N log N) に対して、構築・メモリは O(N L)、
-L = 1 + log log(N + 2)。N は要素数で `0 <= N <= INT_MAX`。
-実測の優劣は要素型・N・クエリ分布に依存するため、常に DST より速いとは限らない。
+## 概要・前提 {#概要前提}
 
-`S op(S, S)` は結合的、`S e()` は左右単位元を返すこと。可換性・冪等性は不要で、
-積は左から右の順序を保つ。`S` はコピー可能であればよく、既定コンストラクタは不要。
-計算量は `op`・`e`・コピーが O(1) の場合。和・積のオーバーフローは呼び出し側が防ぐ。
-空配列・空区間に対応し、値の更新はできない。入力配列はコピーされるため構築後に破棄してよい。
-各層で N 要素の prefix・suffix と、必要な層だけに2冪に切り上げた長さのブロック間積領域を保持する。
-存在しない末尾要素や、両端ブロックだけで処理できるブロック間積は前計算しない。
-クエリ時の `op` 呼び出しは最大 2 回。返り値はすべて値で、参照の寿命や無効化はない。
-
-このクラスは静的クエリに特化した版として維持する。
-一点更新が必要な場合は [Dynamic Sqrt Tree]({{ '/blueberry/data-structure/dynamic-sqrt-tree.hpp.html' | relative_url }}) を使う。
+- ACL segtreeの区間積O(log N)を前計算と追加メモリで高速化する、静的用途に特化した版です。Disjoint Sparse Tableの構築・メモリはO(N log N)ですが、実測の優劣は型・N・クエリ分布に依存し、常にDSTより速いとは限りません。
+- `0 <= N <= INT_MAX`。Sはコピー可能であればよく、既定構築は不要です。op/e/コピーをO(1)とする計算量で、和・積のオーバーフローは呼び出し側で防いでください。
+- 入力をコピーするため構築後に破棄して構いません。返り値はすべて値で、参照の寿命・無効化はありません。
+- 各層にN要素のprefix/suffixと、必要な層だけに2冪へ切り上げた長さのブロック間積領域を持ちます。存在しない末尾要素や、両端ブロックだけで処理できるブロック間積は前計算しません。
+- 静的・動的版の構築・メモリはいずれもO(N L)です。用途の違いは次のとおりです。
 
 | 版 | 区間積 | 一点更新 | 用途 |
 | --- | --- | --- | --- |
 | `SqrtTree` | O(1)、`op` は最大2回 | 非対応 | 構築後に変更しない配列 |
 | `DynamicSqrtTree` | O(1) | O(√N) | 更新が少なく区間積が多い配列 |
 
-いずれも構築・メモリは O(N L)。更新頻度が高い場合は、更新と区間積がともに O(log N) の ACL segtree と比較する。
+- ACL segtreeは更新・区間積ともO(log N)です。
+
+## 操作の補足 {#操作の補足}
+
+- 以下 `Tree = blueberry::SqrtTree<S, op, e>`。
+
+</details>
 
 ## 最小使用例
 
@@ -67,10 +67,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-以下 `Tree = blueberry::SqrtTree<S, op, e>`。
 
 <details class="api-operation" id="default-constructor" markdown="1">
 <summary><code>Tree tree</code> — O(1)</summary>
@@ -162,7 +158,10 @@ S total = tree.all_prod();
 注意点: 空配列では `e()`。状態は変化しない。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [CP-Algorithms: Sqrt Tree](https://cp-algorithms.com/data_structures/sqrt-tree.html)
   の層別 prefix/suffix/between と XOR による層選択を参考に、静的用途として独立実装。
@@ -174,3 +173,5 @@ S total = tree.all_prod();
 - `tests/random/sqrt-tree.cpp`: 固定 seed、空・1/2 要素・2 冪前後の境界、
   非可換 affine 合成と愚直積の比較、コピー・ムーブ先、演算回数上限を確認。
 - [DST との同一環境測定]({{ '/docs/development/sqrt-tree-comparison.html' | relative_url }})。
+
+</details>

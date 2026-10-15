@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/tree-diameter.hpp
 
 ## 概要
 
-非負重みの木の直径長と頂点列を二回の非再帰走査で求めます。
+非負重みの木の直径長と頂点列を求めます。入力は各無向辺を同じ重みで両方向に1回ずつ登録した連結木とし、空入力も許可します。自己ループ・多重辺・負重みは扱いません。
+
+Nを頂点数とすると、時間・追加メモリは最悪O(N)です。
 
 ## 操作一覧
 
@@ -17,12 +19,16 @@ documentation_of: //blueberry/graph/tree-diameter.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-非負重みの木の直径長と頂点列を二回の非再帰走査で求めます。ACLには木の直径APIがありません。
-N頂点（N ≤ INT_MAX）、端点 [0,N)、各無向辺を同じ重みで両方向に1回ずつ登録した連結木が必要です。空入力も許可します。
-自己ループ、多重辺、負重み、非連結入力は禁止。時間・追加メモリは最悪 O(N)。
-Tはゼロ初期化・加算・比較・コピーが可能で、加算と順序が非負距離として整合する型です。全パス長がTに収まることが必要です。
+## 概要・前提 {#概要前提}
+
+- `N <= INT_MAX`、端点は`[0,N)`とします。
+- Tはゼロ初期化・加算・比較・コピーが可能で、加算と順序が非負距離として整合する型とします。全パス長がTに収まる必要があります。
+- 二回の非再帰走査で求めます。ACLには木の直径APIがありません。
+
+</details>
 
 ## 最小使用例
 
@@ -57,10 +63,15 @@ assert(result.first == 0 && result.second == std::vector<int>{0});
 整数の加算オーバーフローを検出しません。Tの各演算をO(1)として最悪O(N)、償却ではありません。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [CP-Algorithmsの木直径](https://lib.cp-algorithms.com/cp-algo/tree/diameter.hpp.html) と
 [Nachiaの木直径](https://nachiavivias.github.io/cp-library/cpp/tree/tree-diameter.html)
 の木DP・パス復元APIを調査し、非負重みに対象を限定した二回走査の独自実装。コードの転用はありません。
 [Library Checker](https://judge.yosupo.jp/problem/tree_diameter) と全点対距離による乱択比較で検証します。
 測定は [graph-batch-two](https://github.com/blueberry1001/Blueberry-library/blob/main/benchmark/graph-batch-two.md)。
+
+</details>

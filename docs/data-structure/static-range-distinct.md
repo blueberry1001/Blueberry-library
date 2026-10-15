@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/static-range-distinct.hpp
 
 ## 概要
 
-不変配列の半開区間に現れる異なる値の個数をオンラインで返します。
+不変配列の半開区間に現れる異なる値の個数を、オンラインで返します。同値性はTのoperator<が定めるstrict weak orderingで判断します。空入力にも対応します。
+
+Nは配列長。構築はO(N log(N+1))、問合せはO(log(N+1))、保持メモリはO(N log(N+1)) bits + O(N) wordsです。
 
 ## 操作一覧
 
@@ -24,9 +26,15 @@ documentation_of: //blueberry/data-structure/static-range-distinct.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-不変配列の半開区間に現れる異なる値の個数をオンラインで返します。同値性はTのoperator<が定めるstrict weak orderingで判断し、コピーと比較をO(1)とします。Nは配列長でINT_MAX未満。直前の同値要素の位置をWaveletMatrixに格納し、構築O(N log(N+1))、保持メモリO(N log(N+1)) bits + O(N) words。入力への参照を保持せず、空入力も許可。ACL単体にはこの用途のAPIがありません。
+## 概要・前提 {#概要前提}
+
+- `N < INT_MAX`。Tのコピー・比較をO(1)とします。直前の同値要素の位置をWaveletMatrixに格納します。
+- 入力への参照を保持しません。ACL単体にはこの用途のAPIがありません。
+
+</details>
 
 ## 最小使用例
 
@@ -167,6 +175,13 @@ copy = std::move(original);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Library Checker](https://judge.yosupo.jp/problem/static_range_count_distinct) と全区間のset比較で検証。[suisenのoffline Fenwick設計](https://suisen-cp.github.io/cp-library-cpp/test/src/range_query/static%20range_count_distinct/static_range_count_distinct.test.cpp) と既存WaveletMatrixへの変換を比較し、即時クエリ可能な後者を採用。測定: [DS report](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-ds.md)。
+## 出典・検証 {#出典検証}
+
+- [Library Checker](https://judge.yosupo.jp/problem/static_range_count_distinct) と全区間のset比較で検証。
+- [suisenのoffline Fenwick設計](https://suisen-cp.github.io/cp-library-cpp/test/src/range_query/static%20range_count_distinct/static_range_count_distinct.test.cpp) と既存WaveletMatrixへの変換を比較し、即時クエリ可能な後者を採用。
+- 測定: [DS report](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-ds.md)。
+
+</details>

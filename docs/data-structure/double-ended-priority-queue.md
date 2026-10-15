@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/double-ended-priority-queue.hpp
 
 ## 概要
 
-配列上の min-max heap。
+重複を保持する優先度キューで、最小・最大の両方をO(1)で参照できます。`DoubleEndedPriorityQueue<T, Compare>` の比較器は厳密弱順序で、既定のstd::lessでは通常の最小・最大、逆順比較器では両者の意味も逆になります。
+
+Nは要素数、Cは保持容量。pushは償却O(log(N+1))、pop_min/pop_maxは最悪O(log(N+1))、メモリはO(C)です。
 
 ## 操作一覧
 
@@ -39,17 +41,23 @@ documentation_of: //blueberry/data-structure/double-ended-priority-queue.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::DoubleEndedPriorityQueue<T, Compare = std::less<T>>` は配列上の min-max heap。
-現在の最小・最大の両方を O(1) で参照できる。push / pop_min / pop_max は比較 O(log(N+1))、
-push は vector 再確保を含めて償却 O(log(N+1))、取り出しは最悪 O(log(N+1))。
-メモリは保持容量 C に対して O(C)、通常の増加利用では O(N)（clear 後も容量は残る）。
-既存 OrderedMultiset より機能を限定し、木のノードや順序統計・集約を持たない。
-Compare は厳密弱順序で、std::less なら通常の最小・最大。逆順なら両者の意味も逆になる。
-T はコピー・交換可能、既定構築は不要。重複を保持する。要素値の算術はしない。
-min/max は空で呼べない。返す const 参照は破棄・代入または次の変更操作まで有効とする。
-コピーは独立、ムーブ元は空。比較器・要素の操作は例外を投げないことを前提とする。
+## 概要・前提 {#概要前提}
+
+- 配列上のmin-max heapです。OrderedMultisetより機能を限定し、木のノードや順序統計・集約を持ちません。
+- pushの比較回数はO(log(N+1))ですが、vectorの再確保を含む時間は償却評価です。通常の増加利用ではメモリO(N)で、clear後も容量は残ります。
+- Tはコピー・交換可能で、既定構築は不要です。要素値の算術はしません。
+- min/maxは空で呼べません。返すconst参照は破棄・代入または次の変更操作まで有効です。
+- コピーは独立、ムーブ元は空です。比較器・要素の操作は例外を投げないことを前提とします。
+
+## 操作の補足 {#操作の補足}
+
+- Mはコピー・結合相手または置換前の保持量です。
+- 型のコピー・演算・比較をO(1)とします。
+
+</details>
 
 ## 最小使用例
 
@@ -66,10 +74,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-N は要素数（slope trick は保持する折れ点数）、M はコピー・結合相手または置換前の保持量。型のコピー・演算・比較は O(1) とする。
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>DoubleEndedPriorityQueue(Compare compare = {})</code> — O(1)</summary>
@@ -296,9 +300,14 @@ tree.reserve(1000);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Sartaj Sahni: Double-Ended Priority Queues](https://www.cise.ufl.edu/~sahni/dsaaj/enrich/c13/double.htm)
-に挙げられた heap 系設計を比較し、min/max の深さを交互に持つ min-max heap を独立実装。
-Library Checker [Double-Ended Priority Queue](https://judge.yosupo.jp/problem/double_ended_priority_queue)。
-`tests/random/specialized-structures.cpp` で std::multiset、重複、逆順比較器、bulk構築と比較。
+## 出典・検証 {#出典検証}
+
+- [Sartaj Sahni: Double-Ended Priority Queues](https://www.cise.ufl.edu/~sahni/dsaaj/enrich/c13/double.htm)
+  に挙げられた heap 系設計を比較し、min/max の深さを交互に持つ min-max heap を独立実装。
+- Library Checker [Double-Ended Priority Queue](https://judge.yosupo.jp/problem/double_ended_priority_queue)。
+- `tests/random/specialized-structures.cpp` で std::multiset、重複、逆順比較器、bulk構築と比較。
+
+</details>

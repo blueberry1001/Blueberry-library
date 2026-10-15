@@ -82,12 +82,17 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
   </div>
 </div>
 
-## レシピを変えるとき
+<details class="library-notes" markdown="1">
+<summary>レシピを変えるとき</summary>
 
-`op` の結合則・単位元、遅延作用の分配則を保ちます。
-`max_right` / `min_left` は、空区間で true になる単調な条件に使えます。
-区間の順序そのものを反転する操作は通常の固定区間セグ木では扱えず、
+## レシピを変えるとき {#レシピを変えるとき}
+
+- `op` の結合則・単位元、遅延作用の分配則を保ちます。
+- `max_right` / `min_left` は、空区間で true になる単調な条件に使えます。
+- 区間の順序そのものを反転する操作は通常の固定区間セグ木では扱えず、
 [Implicit Treap]({{ '/blueberry/data-structure/implicit-treap.hpp.html' | relative_url }})などが必要です。
 
 ACL の詳しい使い方は [segtree](https://atcoder.github.io/ac-library/production/document_ja/segtree.html)・
 [lazy_segtree](https://atcoder.github.io/ac-library/production/document_ja/lazysegtree.html) を参照してください。
+
+</details>

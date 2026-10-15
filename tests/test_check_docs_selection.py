@@ -21,7 +21,9 @@ def page(header, source=SOURCE):
     return (
         f"documentation_of: //{header}\n## 概要\n短い概要。\n## 操作一覧\n"
         "| 操作 | 計算量 |\n| --- | --- |\n| [`get`](#get) | O(1) |\n"
-        "<!-- library-implementation -->\n## 概要・前提\n## 最小使用例\n"
+        "<!-- library-implementation -->\n"
+        '<details class="library-notes" markdown="1">\n<summary>補足・制約</summary>\n'
+        "## 概要・前提\n- 型の制約。\n</details>\n## 最小使用例\n"
         "{% raw %}\n```cpp\n" + source + "\n```\n{% endraw %}\n"
         '<details class="api-operation" id="get" markdown="1">\n'
         "<summary>get — O(1)</summary>\n注意点: bounds\n"
@@ -64,6 +66,8 @@ class CheckDocsSelectionTest(unittest.TestCase):
             "documentation_of: //" + header + "\n## 概要\n"
             "| 定義 | 計算量 |\n| --- | --- |\n| monoid | O(1) |\n"
             "<!-- library-implementation -->\n"
+            '<details class="library-notes" markdown="1">\n<summary>補足・制約</summary>\n'
+            "## 使い方・前提\n- 整数の範囲。\n</details>\n"
             "{{ recipe.code | escape }} data-monoid-definition\n"
             "{% raw %}\n```cpp\n" + SOURCE + "\n```\n{% endraw %}\n"
         )
@@ -139,6 +143,19 @@ class CheckDocsSelectionTest(unittest.TestCase):
                   '| 操作 | 計算量 |\n| --- | --- |\n' + row * 12 + '\n</details>\n')
         self.write("docs/test/a.md", document.replace(row, row + folded))
         self.run_main(["--structure-only"])
+
+    def test_supplementary_contracts_stay_closed_and_keep_the_premise_anchor(self):
+        document = page("blueberry/test/a.hpp")
+        for broken in (
+            document.replace('class="library-notes"', 'class="other"'),
+            document.replace('class="library-notes"', 'open class="library-notes"'),
+            document.replace('class="library-notes"', 'class="library-notes" open="false"'),
+            document.replace("## 概要・前提\n", "").replace("## 最小使用例", "## 概要・前提\n## 最小使用例"),
+        ):
+            with self.subTest(document=broken):
+                self.write("docs/test/a.md", broken)
+                with self.assertRaises(AssertionError):
+                    self.run_main(["--structure-only"])
 
     def test_summary_template_brackets_must_be_html_escaped(self):
         document = page("blueberry/test/a.hpp")

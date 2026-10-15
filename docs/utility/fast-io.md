@@ -7,7 +7,12 @@ documentation_of: //blueberry/utility/fast-io.hpp
 
 ## 概要
 
-`blueberry::FastInput<Interactive = false>` / `blueberry::FastOutput`は、借用した`FILE*`に対する入出力です。
+`FastInput<Interactive = false>` / `FastOutput`で、整数・文字列・浮動小数点を読み書きします。
+通常ファイルとpipeに対応し、引数を省略するとstdin/stdoutを使います。
+対話問題では`FastInput<true>`を選び、出力後に`out.flush()`を呼びます。
+
+入力文字数をL、出力文字数をKとすると、整数・文字列の全処理はO(L+K)です。
+通常の入出力オブジェクトはそれぞれ64 KiBのバッファを持ち、`FastInput<true>`の補助メモリはO(1)です。
 
 ## 操作一覧
 
@@ -40,29 +45,36 @@ documentation_of: //blueberry/utility/fast-io.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::FastInput<Interactive = false>` / `blueberry::FastOutput`は、借用した`FILE*`に対する入出力です。
-通常ファイルとpipeで利用でき、mmap・固定された入力桁数・特定CPUの命令を必要としません。
-ACLには対応機能がありません。整数の符号・overflowを検査し、GNU C++環境では128bit整数も扱えます。
+## 概要・前提 {#概要前提}
 
-通常の入力objectと出力objectは各64 KiBの固定bufferを持ちます。`FastInput<true>`は対話用で
-1文字ずつ`fgetc`を呼び、64 KiBが揃うのを待ちません。通常の`fread`経路はbatch用途です。
-入力文字数をL、出力文字数をKとすると、
-整数・文字列の全処理はO(L+K)、各objectの補助メモリはO(64 KiB)。文字列入力は格納先の長さ、
-浮動小数点入力は一時tokenの長さの追加メモリを使います。FILE内部のbufferは別です。
-I/O bufferを初期zero-fillせず、整数出力は2桁ずつ変換します。
+- 整数の符号・オーバーフローを検査します。標準整数型の全範囲とfloat/double/long doubleに対応し、GNU C++環境では128bit整数も扱えます。
+- 空白はASCIIのspace、tab、LF、CR、vertical tab、form feedです。localeには依存しません。
+- 整数は10進数、浮動小数点は`from_chars`の一般形式（指数、inf/nanを含む）です。
+- boolは0/1、`char`は1文字、signed/unsigned charは整数として扱います。
+- 文字列入力には格納先の長さ、浮動小数点入力には一時tokenの長さの追加メモリが必要です。FILE内部のバッファは別です。
 
-空白はASCIIのspace、tab、LF、CR、vertical tab、form feedです。localeには依存しません。
-整数は10進数、浮動小数点は`from_chars`の一般形式（指数、inf/nanを含む）を扱います。
-boolは0/1として、`char`は1文字として、signed/unsigned charは整数として扱います。
-標準整数型の全範囲とfloat/double/long doubleに対応し、128bitは処理系拡張です。
+### 操作の補足 {#操作の補足}
 
-FILEはnonnullで、objectより長く生存させてください。objectはFILEを閉じません。
-copy/moveはできません。同じFILEでcin/scanf等と入力を混ぜたり、objectの生存中にseekしたりしないでください。
-入力は先読みするため、object破棄で未消費bufferをFILEへ戻しません。
-出力も他のwriterとの混在を避け、順序を切り替える場合は双方をflushしてください。
-同じobjectへの並行アクセスは外部同期が必要です。異なるFILE/object間で共有する可変状態はありません。
+- 文字数dは、入力では読み飛ばす空白も含めた消費文字数、出力では出力の長さです。bはその時点の未出力バッファ長（最大64 KiB）です。stdio・OSのI/O待ち時間は計算量に含めません。
+
+### FILEの寿命と併用 {#fileの寿命と併用}
+
+- nonnullの`FILE*`を借用します。FILEはオブジェクトより長く生存させてください。FILEを閉じる処理は呼び出し側で行います。
+- コピー・移動はできません。同じFILEでcin/scanfなどと入力を混ぜたり、オブジェクトの生存中にseekしたりしないでください。
+- 先読みした未消費の入力は、オブジェクトを破棄してもFILEへ戻しません。
+- 出力も他のwriterとの混在を避け、順序を切り替える場合は双方をflushしてください。
+- 同じオブジェクトへの並行アクセスは外部同期が必要です。異なるFILE/オブジェクト間で共有する可変状態はありません。
+
+### 実装の補足 {#実装の補足}
+
+- 通常の入力はbatch向けの`fread`経路です。対話用は1文字ずつ`fgetc`を呼びます。通常入力のままflushだけを追加しても、短い応答を待つ対話には対応できません。
+- `writeln`自体はflushしません。
+- mmap・固定入力桁数・特定CPUの命令に依存しません。バッファを初期zero-fillせず、整数出力は2桁ずつ変換します。ACLには対応機能がありません。
+
+</details>
 
 ## 最小使用例
 
@@ -94,16 +106,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-競技中は`FastInput in; FastOutput out;`でstdin/stdoutを使用します。
-対話問題では`FastInput<true> in;`を使い、出力後に`out.flush()`を明示します。
-通常のFastInputのままflushだけ追加しても、短い応答を待つ対話には対応できません。
-`writeln`自体はflushしません。
-
-## 操作の補足
-
-文字数dは入力なら読み飛ばす空白も含めた消費文字数、出力なら出力の長さ、bはその時点の未出力buffer長（最大64 KiB）です。
-stdio・OSのI/O待ち時間は、文字数に対する計算量とは別です。
 
 <details class="api-operation" id="input-construct" markdown="1">
 <summary><code>FastInput&lt;Interactive = false&gt;(FILE* file = stdin)</code> — O(1)</summary>
@@ -336,9 +338,14 @@ if (!out.flush()) return 1;
 {% endraw %}
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Many A + B](https://judge.yosupo.jp/problem/many_aplusb)・[128bit版](https://judge.yosupo.jp/problem/many_aplusb_128bit)で公式verify。
 - `tests/random/fast-io.cpp`: 整数全範囲・overflow・不正token・buffer境界・末尾改行なし・浮動小数点・文字列・出力エラーの検証。
 - 2桁変換とportable bufferを独自実装。Fastest提出のmmap/SIMD専用I/Oはコピーしていません。
 - [性能改善方針]({{ '/docs/development/fastest-performance-plan.html' | relative_url }})。
+
+</details>

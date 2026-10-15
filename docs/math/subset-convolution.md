@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/subset-convolution.hpp
 
 ## 概要
 
-集合の要素数ごとの zeta 変換（ranked transform）で、`c[S] = Σ_{A⊆S} a[A] b[S\A]` を計算します。
+`c[S] = Σ_{A⊆S} a[A] b[S\A]` を計算する部分集合畳み込みです。添字は集合のbit maskで、AND/OR畳み込みと異なり、積に使う二集合は互いに素です。入力は同長N、N=0またはN=2^Kで、Tは可換環を要求します。除算が不要なため、整数型、ACL modint、標数2の体でも使えます。
+
+最悪時間O(N(1+K)²)、追加メモリO(N(1+K)+1)です。空同士は空、N=1は要素積を返します。
 
 ## 操作一覧
 
@@ -17,15 +19,18 @@ documentation_of: //blueberry/math/subset-convolution.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-集合の要素数ごとの zeta 変換（ranked transform）で、`c[S] = Σ_{A⊆S} a[A] b[S\A]` を計算します。添字は集合の bit mask です。AND/OR 畳み込みと異なり、積に使う二集合の共通部分は空です。ACL の通常の多項式 convolution は再実装しません。
+## 概要・前提 {#概要前提}
 
-入力は同長 N、N=0 または N=2^K。自動パディングなし。T は可換環で、`T{}` はゼロ、コピー・`+=`・`-=`・`*` が必要です。除算を使わないため、整数型、ACL modint、標数2の体でも利用できます。中間値を含む全演算のオーバーフローを呼出側で防いでください。
+- 集合の要素数ごとのzeta変換（ranked transform）を使います。ACLの通常の多項式convolutionは再実装しません。自動パディングはしません。
+- `T{}` はゼロ、Tはコピー・`+=`・`-=`・`*` を持つ型です。係数演算・コピーをO(1)とします。中間値を含む全演算のオーバーフローを呼出側で防いでください。
+- 2本の連続したrank配列を使い、各maskの係数積を高い次数から上書きするため、第3のrank配列は不要です。zetaでは `rank <= popcount(mask)`、逆変換では最終対角に寄与する次数だけを処理します。
+- 入力はconst参照で変更せず、返り値は独立したvectorです。内部参照や格納領域を公開しません。
+- N(K+1)がsize_tに収まり、vectorが確保可能なサイズであることが前提です。
 
-最悪時間 O(N(1+K)²)、追加メモリ O(N(1+K)+1)。係数演算・コピーは O(1) とします。2本の連続した rank 配列を使い、各 mask での係数積を高い次数から上書きするため第3の rank 配列は不要です。zeta では `rank <= popcount(mask)`、逆変換では最終対角に寄与する次数だけを処理します。
-
-入力は const 参照で変更せず、返り値は独立した vector です。N(K+1) が size_t に収まり、vector が確保可能なサイズであることが前提です。空同士は空、N=1 は要素積を返します。内部参照や格納領域を公開しません。
+</details>
 
 ## 最小使用例
 
@@ -60,9 +65,14 @@ auto c = blueberry::subset_convolution(a, b);
 注意点: a.size()==b.size()、空または2冪長が必要。重なりを許す OR 畳み込みではありません。入力を破壊しません。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Björklund, Husfeldt, Kaski, Koivisto: Fourier meets Möbius (2006)](https://arxiv.org/abs/cs/0611101): ranked zeta/Möbius による O(K²2^K) 部分集合畳み込みの原論文。
 - [Library Checker Subset Convolution](https://judge.yosupo.jp/problem/subset_convolution): `verify/math/subset-convolution.test.cpp`。
 - [Fastest 352953](https://judge.yosupo.jp/submission/352953)、[339759](https://judge.yosupo.jp/submission/339759): SIMD と専用剰余演算を用いる実装を調査。命令セット依存の公開コードは転記せず、連続配列の汎用実装を採用しました。公開実行時間とローカル時間は直接比較しません。
 - `tests/random/algebra-expansion.cpp`: 全分割の独立 oracle、空・長さ1を検証。
+
+</details>

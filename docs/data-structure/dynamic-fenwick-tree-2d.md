@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/dynamic-fenwick-tree-2d.hpp
 
 ## 概要
 
-整数領域 `[0,n) × [0,m)` で **未知の座標へのオンライン点加算** と半開長方形の和を扱う。
+整数領域 `[0,n) × [0,m)` で、事前登録なしのオンライン点加算と半開長方形の和を扱います。Tには可換加法群を要求します。更新予定座標が先に分かる場合は、よりコンパクトな [Offline Fenwick Tree 2D]({{ '/blueberry/data-structure/offline-fenwick-tree-2d.hpp.html' | relative_url }}) を優先してください。
+
+Qはこれまで更新した異なる点の数、L=1+floor(log2(max(1,n)))、H=1+log2(Q+1)、Sは保存ノード数です。更新は平均・償却O(LH)、問合せは平均O(LH)、メモリはO(1+S)、S=O(QL)です。
 
 ## 操作一覧
 
@@ -37,39 +39,21 @@ documentation_of: //blueberry/data-structure/dynamic-fenwick-tree-2d.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-整数領域 `[0,n) × [0,m)` で **未知の座標へのオンライン点加算** と半開長方形の和を扱う。
-外側の Fenwick セルをハッシュ表で疎に保存し、各セル内の y 座標は部分木和を持つ AVL 木に保存する。
-全 AVL ノードは整数添字で結ぶ一つの `vector` に所有する。巨大な n,m に比例する初期化や、
-二重の動的 Fenwick のような y 方向の O(log m) 個のセル生成を避ける。
+## 概要・前提 {#概要前提}
 
-ACL に二次元 Fenwick はない。更新予定座標が先に分かる場合は、よりコンパクトな
-[Offline Fenwick Tree 2D]({{ '/blueberry/data-structure/offline-fenwick-tree-2d.hpp.html' | relative_url }}) を優先する。
-両者とも `add(x,y,value)`・`pref(x,y)`・`sum(left,down,right,up)` を使うが、
-本構造の問い合わせ端点は構築時の領域内に限る。負座標は呼び出し側で平行移動する。
+- ACLに二次元Fenwickはありません。`DynamicFenwickTree2D<T, Coord = long long>` のCoordは符号付き整数型で、`0 <= n,m <= numeric_limits<Coord>::max()` が必要です。
+- 問合せ端点も構築時の領域内に限ります。負座標は呼び出し側で平行移動してください。add/pref/sumの引数順はオフライン版と同じです。
+- `T{}` は加算単位元で、コピー・`+`・`+=`・`-` が必要です。整数・ACL modintに対応します。全中間演算のオーバーフローは呼び出し側で防ぎ、浮動小数点の演算順による誤差に注意してください。
+- 座標演算は最大のCoordでも安全です。無効な添字・逆向き区間はassert違反で、releaseでも満たすべき事前条件です。公開フィールド・外部に貸し出す参照はありません。
+- 外側のFenwickセルをハッシュ表に、各セル内のy座標を部分木和付きAVL木に保存します。全AVLノードは整数添字で結ぶ一つのvectorが所有し、巨大なn,mに比例する初期化や、二重Fenwickのy方向のO(log m)個のセル生成を避けます。
+- Rを外側の保存セル数とするとR<=Sです。ノード添字はintなので `S < INT_MAX` が必要です。ゼロ加算・ゼロに戻ったノードも保持し、重複点への加算は新しいノードを作りません。
+- 表はハッシュが十分分散する平均計算量です。AVL木の高さは最悪O(H)ですが、衝突が集中する読み取りの最悪はO(L(R+H))。更新の単発最悪はvector再確保O(S)とハッシュ再構築O(R²)を含むO(L(R+H)+S+R²)です。Tの演算・コピーはO(1)とします。読み取りは割当・挿入を行いません。
+- 旧 `DynamicFenwickTree2D<T>` からは名前空間・includeを変更し、`sum(x,y)` を `pref(x,y)` に置換します。長方形の引数順は維持し、旧N/M/bitの直接操作はできません。raw pointerの共有・未解放を廃止し、コピーは独立、move元は空になります。
 
-`DynamicFenwickTree2D<T, Coord = long long>` の `Coord` は符号付き整数型。
-`0 <= n,m <= numeric_limits<Coord>::max()`。`T{}` は加算単位元、コピー・`+`・`+=`・`-`
-を要求し、可換加法群を仮定する。整数・ACL modint に対応する。`T` の全中間演算の
-オーバーフローは呼び出し側で防ぐ。浮動小数点の演算順による誤差には注意する。
-座標演算は最大の `Coord` でも安全。公開フィールド・外部に貸し出す参照はない。
-無効な添字・逆向き区間は `assert` 違反で、release でも満たすべき事前条件。
-
-`Q` をこれまで更新した異なる点の数、`L=1+floor(log2(max(1,n)))`、`H=1+log2(Q+1)`、
-`S` を保存した AVL ノード数、`R` を外側の保存セル数とする。
-`R <= S = O(QL)`、メモリ O(1+S)。ノード添字は `int` なので `S < INT_MAX` が必要。
-ゼロ加算・ゼロに戻ったノードも保持する。重複点への加算は新しい AVL ノードを作らない。
-
-操作表はハッシュが十分分散する平均計算量を示す。AVL 木の高さは最悪 O(H) だが、
-ハッシュ衝突が集中する読み取りの最悪は O(L(R+H))。
-更新は `vector` 再確保 O(S) とハッシュ再構築の最悪 O(R²) を含め、
-単一操作の最悪 O(L(R+H)+S+R²)、平均・償却 O(LH)。`T` の演算・コピーは O(1) とする。
-読み取りは割当・挿入を行わない。
-
-旧 `DynamicFenwickTree2D<T>` からは名前空間と include を変更し、`sum(x,y)` を
-`pref(x,y)` に置換する。長方形の引数順は維持する。旧 `N,M,bit` の直接操作は不可。
-旧構造の raw pointer の共有・未解放を廃止し、コピーは独立、move 元は空となる。
+</details>
 
 ## 最小使用例
 
@@ -268,9 +252,14 @@ auto value = tree.get(3, 7);
 {% endraw %}
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Nyaan: Dynamic Binary Indexed Tree 2D](https://nyaannyaan.github.io/library/data-structure-2d/dynamic-binary-indexed-tree-2d.hpp.html): 二重 Fenwick の比較対象。本実装は疎な外側・内側の AVL・値所有を独立に記述。
 - [Library Checker: Point Add Rectangle Sum](https://judge.yosupo.jp/problem/point_add_rectangle_sum)、[Rectangle Sum](https://judge.yosupo.jp/problem/rectangle_sum): `verify/data-structure/dynamic-point-add-rectangle-sum.test.cpp` と `dynamic-rectangle-sum.test.cpp`。前者は入力を先読みせず順次処理する。
 - [Fastest C++ 提出 206958](https://judge.yosupo.jp/submission/206958): 事前登録した点の wavelet 型構造・専用 I/O を調査。未知座標のオンライン追加という要件が異なるため、その手法へ置換していない。公開時間はローカル結果と直接比較しない。
 - `tests/random/dynamic-fenwick-tree.cpp`: seed 指定可能な愚直列挙比較、負の値、最大整数座標、空長方形、昇順挿入、独立コピー・move。
+
+</details>

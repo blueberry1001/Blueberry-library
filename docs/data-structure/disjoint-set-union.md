@@ -7,7 +7,7 @@ documentation_of: //blueberry/data-structure/disjoint-set-union.hpp
 
 ## 概要
 
-互いに素な集合を併合し、同じ集合かどうかを判定します。
+互いに素な集合を併合し、同じ集合かどうかを判定します。要素数をNとすると、merge/leader/same/component_sizeは償却O(α(N))、groupsはO(Nα(N))です。添字は `[0,N)`、メモリはO(N)です。
 
 ## 操作一覧
 
@@ -26,11 +26,14 @@ documentation_of: //blueberry/data-structure/disjoint-set-union.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-互いに素な集合を併合し、同じ集合かどうかを判定します。要素数を $N$ とすると、
-union by size と経路圧縮により `merge`・`leader`・`same`・`component_size` は償却
-$O(\alpha(N))$、`groups` は $O(N\alpha(N))$ です。添字は `[0,N)` です。
+## 概要・前提 {#概要前提}
+
+- union by sizeと経路圧縮を使います。
+
+</details>
 
 ## 最小使用例
 

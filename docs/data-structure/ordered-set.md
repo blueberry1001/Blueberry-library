@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/ordered-set.hpp
 
 ## 概要
 
-オンラインで未知のキーを追加・削除できる順序集合。
+未知のキーをオンラインで追加・削除できる順序集合です。重複を保持せず、順位・k番目・前後検索を扱います。`OrderedSet<Key, Compare>` はstrict weak orderingによる比較を使い、座標圧縮や入力先読みは不要です。
+
+Nは現在の要素数、Mは過去の最大要素数。通常操作は期待O(log(N+1))で、insert/eraseの配列拡張は償却を含みます。メモリはO(M)です。重複や順位区間集約には [Ordered Multiset]({{ '/blueberry/data-structure/ordered-multiset.hpp.html' | relative_url }})、並びを変える列には [Implicit Treap]({{ '/blueberry/data-structure/implicit-treap.hpp.html' | relative_url }}) を使います。
 
 ## 操作一覧
 
@@ -37,15 +39,18 @@ documentation_of: //blueberry/data-structure/ordered-set.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-オンラインで未知のキーを追加・削除できる順序集合。ACL にない順位・k 番目・前後検索を提供する。`OrderedSet<Key,Compare=std::less<Key>>`。重複は保持しない。重複キーや順位区間の集約には [Ordered Multiset]({{ '/blueberry/data-structure/ordered-multiset.hpp.html' | relative_url }})、並び順を変える列には [Implicit Treap]({{ '/blueberry/data-structure/implicit-treap.hpp.html' | relative_url }}) を使う。
+## 概要・前提 {#概要前提}
 
-Compare は strict weak ordering。等価は `!comp(a,b) && !comp(b,a)`。Key に算術演算・既定コンストラクタ・operator== は不要で、コピー構築とコピー/ムーブ代入が可能であること。Compare もコピー可能で、検索中に順序が変化しないこと。
+- ACLに対応する順序統計操作はありません。既定比較器はstd::less<Key>で、`!comp(a,b) && !comp(b,a)` を等価とします。以下の大小はすべてCompareによる順序です。
+- Keyに算術・既定構築・operator==は不要です。コピー構築とコピー/ムーブ代入ができ、Compareもコピー可能で、検索中に順序が変化しないことが必要です。整数の最小値・最大値や文字列も扱えます。
+- 独立した64ビット擬似乱数列を使うtreapです。ノード番号はintに収まる必要があります。削除ノードを再利用しますが、容量と削除済みキーの格納領域は解放しません。
+- 最悪の木の高さ・再帰スタックはO(N)で、固定seedに対する敵対入力で最悪保証はありません。insertの配列拡張とeraseのfree-list拡張には償却評価が必要です。
+- 検索結果はoptionalのコピーです。参照・iterator・公開フィールドは提供せず、更新による結果の無効化はありません。
 
-独立した64ビット擬似乱数列を使う treap。N を現在の要素数、M を過去の最大要素数とするとメモリ O(M)、ノード番号は int に収まる必要がある。削除ノードを再利用するが容量と削除済みキーの格納領域は解放しない。通常操作の期待計算量は O(log(N+1))、配列拡張を伴う insert と erase の free-list 拡張は償却を含む。最悪の木の高さ・再帰スタックは O(N)、固定 seed に対する敵対入力で最悪保証はない。
-
-検索結果は optional のコピー。参照・iterator・公開フィールドは提供せず、更新による結果の無効化はない。整数の最小値・最大値や文字列を扱え、座標圧縮や入力先読みを必要としない。以下の大小はすべて Compare による順序。
+</details>
 
 ## 最小使用例
 
@@ -264,11 +269,17 @@ s.insert(4);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Predecessor Problem](https://judge.yosupo.jp/problem/predecessor_problem) の専用verifyも追加し、初期集合・重複挿入・未存在削除・前後の要素がない場合を公式ケースで検証します。
+## 出典・検証 {#出典検証}
 
-[公式 Ordered Set](https://judge.yosupo.jp/problem/ordered_set) と std::set による固定 seed の独立比較で検証。昇順・降順、重複、削除、整数端点、文字列、コピー・ムーブを確認する。
+- [Predecessor Problem](https://judge.yosupo.jp/problem/predecessor_problem) の専用verifyも追加し、初期集合・重複挿入・未存在削除・前後の要素がない場合を公式ケースで検証します。
+- [公式 Ordered Set](https://judge.yosupo.jp/problem/ordered_set) と std::set による固定 seed の独立比較で検証。
+- 昇順・降順、重複、削除、整数端点、文字列、コピー・ムーブを確認する。
+- treap の考え方を [KACTL](https://github.com/kth-competitive-programming/kactl/blob/main/content/data-structures/Treap.h)、ノードプールを [suisen](https://github.com/suisen-cp/cp-library-cpp/blob/main/library/datastructure/bbst/implicit_treap.hpp) と比較し、順序集合として独立実装した。
+- Fastest [403024](https://judge.yosupo.jp/submission/403024) は30ビット整数の radix 木、[400970](https://judge.yosupo.jp/submission/400970) はクエリを先読みして座標圧縮する。
+- 本 API は比較可能な汎用キーとオンライン更新を維持する。
+- プール・ポインタ候補の同条件測定は `benchmark/data-structure-expansion.cpp` と `benchmark/results/lc-expansion-ds/` を参照。
 
-treap の考え方を [KACTL](https://github.com/kth-competitive-programming/kactl/blob/main/content/data-structures/Treap.h)、ノードプールを [suisen](https://github.com/suisen-cp/cp-library-cpp/blob/main/library/datastructure/bbst/implicit_treap.hpp) と比較し、順序集合として独立実装した。
-Fastest [403024](https://judge.yosupo.jp/submission/403024) は30ビット整数の radix 木、[400970](https://judge.yosupo.jp/submission/400970) はクエリを先読みして座標圧縮する。本 API は比較可能な汎用キーとオンライン更新を維持する。プール・ポインタ候補の同条件測定は `benchmark/data-structure-expansion.cpp` と `benchmark/results/lc-expansion-ds/` を参照。
+</details>

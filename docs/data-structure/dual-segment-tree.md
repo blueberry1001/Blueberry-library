@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/dual-segment-tree.hpp
 
 ## 概要
 
-範囲作用・一点取得に特化。
+範囲作用と一点取得に特化した `DualSegmentTree<S, F, mapping, composition, id>` です。区間集約のop/eは不要です。`mapping(f,x)` は値への作用、`composition(f,g)` は **gの後にf**、`id()` は恒等作用です。合成は結合的でmappingと整合し、可換性は不要です。
+
+Nは要素数。構築・メモリはO(N)、範囲作用・一点操作は最悪O(log(N+1))。空入力・空区間に対応します。
 
 ## 操作一覧
 
@@ -37,16 +39,22 @@ documentation_of: //blueberry/data-structure/dual-segment-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::DualSegmentTree<S, F, mapping, composition, id>` は範囲作用・一点取得に特化。
-ACL lazy_segtree と違い区間集約 op/e を要求せず、葉の値と作用だけを保持する。
-初期構築・メモリ O(N)、範囲作用・一点操作は最悪 O(log(N+1))。
-`mapping(f,x)` は値への作用、`composition(f,g)` は **g の後に f**、`id()` は恒等作用。
-作用の合成は結合的で mapping と整合し、可換性は不要。F の等値比較も不要。
-S/F はコピー可能、既定構築は不要。N<=INT_MAX。数値演算のオーバーフローは利用側で防ぐ。
-空入力・空区間に対応。get は遅延作用を伝播するため非const。get_all も内部状態を更新するが、
-返す値・配列は独立したコピー。コピーした木は独立、ムーブ元は長さ0で再利用できる。
+## 概要・前提 {#概要前提}
+
+- ACL lazy_segtreeと異なり、葉の値と作用だけを保持します。Fの等値比較は不要です。
+- S/Fはコピー可能、既定構築は不要です。`N <= INT_MAX`。数値演算のオーバーフローは利用側で防いでください。
+- getは遅延作用を伝播するため非constです。get_allも内部状態を更新しますが、返す値・配列は独立したコピーです。
+- コピーした木は独立し、ムーブ元は長さ0で再利用できます。
+
+## 操作の補足 {#操作の補足}
+
+- Mはコピー・結合相手または置換前の保持量です。
+- 型のコピー・演算・比較をO(1)とします。
+
+</details>
 
 ## 最小使用例
 
@@ -69,10 +77,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-N は要素数（slope trick は保持する折れ点数）、M はコピー・結合相手または置換前の保持量。型のコピー・演算・比較は O(1) とする。
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>DualSegmentTree()</code> — O(1)</summary>
@@ -270,8 +274,13 @@ auto values = tree.get_all();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[maspypy Dual SegTree](https://maspypy.github.io/library/ds/segtree/dual_segtree.hpp) を設計比較資料とし独立実装。
-Library Checker [Range Affine Point Get](https://judge.yosupo.jp/problem/range_affine_point_get)。
-`tests/random/specialized-structures.cpp` で非可換 affine 作用・一点代入・空区間を愚直配列と比較。
+## 出典・検証 {#出典検証}
+
+- [maspypy Dual SegTree](https://maspypy.github.io/library/ds/segtree/dual_segtree.hpp) を設計比較資料とし独立実装。
+- Library Checker [Range Affine Point Get](https://judge.yosupo.jp/problem/range_affine_point_get)。
+- `tests/random/specialized-structures.cpp` で非可換 affine 作用・一点代入・空区間を愚直配列と比較。
+
+</details>

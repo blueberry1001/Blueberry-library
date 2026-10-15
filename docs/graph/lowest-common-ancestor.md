@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/lowest-common-ancestor.hpp
 
 ## 概要
 
-静的な根付き木の最小共通祖先（LCA）・深さ・辺数距離を求めます。
+静的な根付き木のLCA・深さ・辺数距離を求めます。Nを頂点数とし、N>=1の連結な木を無向隣接リストまたは根から辿れる親→子リストで渡します。
+
+`LowestCommonAncestor`はダブリングで、前計算・メモリO(N log N)、LCA・距離・祖先クエリO(log N)です。`LowestCommonAncestorRMQ`は前計算・メモリO(N log N)、LCA・距離クエリO(1)です。
 
 ## 操作一覧
 
@@ -28,12 +30,19 @@ documentation_of: //blueberry/graph/lowest-common-ancestor.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-静的な根付き木の最小共通祖先（LCA）・深さ・辺数距離を求めます。
-`LowestCommonAncestor` はダブリングで、前計算・メモリ O(N log N)、各クエリ O(log N) です。
-`LowestCommonAncestorRMQ` は Euler Tour と `SparseTable` により、前計算・メモリ O(N log N)、
-LCA・距離クエリ O(1) です。N>=1 の連結な木を、無向隣接リストまたは根から辿れる親→子リストで渡します。
+## 概要・前提 {#概要前提}
+
+- RMQ版はEuler Tourと`SparseTable`を使います。
+
+## 操作の補足 {#操作の補足}
+
+- Nは頂点数です。
+
+</details>
+
 
 ## 最小使用例
 
@@ -54,10 +63,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-ここで N は頂点数です。
 
 <details class="api-operation" id="construct-doubling" markdown="1">
 <summary><code>LowestCommonAncestor lca(tree, root = 0)</code> — O(N log N)</summary>
@@ -239,8 +244,13 @@ int n = lca.size();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 Euler Tour上で隣接要素の深さ差が1になる標準的なLCA→RMQ帰着を、既存の
 `blueberry::SparseTable` と組み合わせて独自実装しています。
 Library Checker `Lowest Common Ancestor` でダブリング版・RMQ版を検証し、ランダム木では愚直LCAと比較しています。
+
+</details>

@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/hopcroft-karp.hpp
 
 ## 概要
 
-左右の頂点集合が既知の二部グラフについて、最大マッチングと最小頂点被覆を求めます。
+左右の頂点集合が既知の二部グラフについて、最大マッチングと最小頂点被覆を求めます。構築時に解く静的なグラフで、多重辺・孤立頂点・空の頂点集合にも対応します。
+
+Lを左頂点数、Rを右頂点数、Mを入力辺数、V=L+Rとすると、構築O((V+M)√V)、メモリO(V+M)です。V=0の構築はO(1)です。
 
 ## 操作一覧
 
@@ -22,18 +24,19 @@ documentation_of: //blueberry/graph/hopcroft-karp.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-左右の頂点集合が既知の二部グラフについて、最大マッチングと最小頂点被覆を求めます。
-ACLの `mf_graph` でも解けますが、本実装は残余容量グラフやsource/sinkを組み立てず、左右の対応と被覆を直接取得する専用APIです。
-左頂点数を L、右頂点数を R、入力辺数を M、V=L+R とします。構築 O((V+M)√V)、メモリ O(V+M) です。
-V=0 の構築は O(1) です。CSR隣接配列とBFS・明示的な増加路スタックを使い、深い増加路でもC++の再帰スタックを消費しません。
+## 概要・前提 {#概要前提}
 
-入力辺は `vector<pair<int,int>>` で `(左番号, 右番号)` を渡します。0<=L,R、L+R<INT_MAX、各辺は 0<=u<L、0<=v<R を満たしてください。
-多重辺・孤立頂点・空の頂点集合を扱えます。多重辺は同じ頂点対を繰り返し指定したものとして扱い、辺数Mに数えます。
-左右は別の集合なので、番号が同じ `(u,u)` も通常の二部辺です。入力を変更せず構築時に解き、後から辺を追加する操作はありません。
-メモリが確保可能であることが前提です。頂点数とマッチ数はint、隣接配列の添字はsize_tで管理します。
-最適解が複数ある場合の対応・被覆の選び方は保証しません。
+- 入力辺は`vector<pair<int,int>>`で`(左番号, 右番号)`を渡します。`0<=L,R`、`L+R<INT_MAX`、各辺は`0<=u<L`、`0<=v<R`を満たしてください。
+- 多重辺は同じ頂点対を繰り返し指定したものとして扱い、辺数Mに数えます。左右は別集合なので、番号が同じ`(u,u)`も通常の二部辺です。
+- 入力を変更せず、後から辺を追加する操作はありません。最適解が複数ある場合の対応・被覆の選び方は保証しません。
+- 必要なメモリを確保できることが前提です。頂点数とマッチ数はint、隣接配列の添字はsize_tで管理します。
+- CSR隣接配列とBFS・明示的な増加路スタックを使い、深い増加路でもC++の再帰スタックを消費しません。
+- ACLの`mf_graph`でも解けますが、残余容量グラフやsource/sinkを組み立てず、左右の対応と被覆を直接取得する専用APIです。
+
+</details>
 
 ## 最小使用例
 
@@ -152,10 +155,15 @@ auto [cover_left, cover_right] = matching.min_vertex_cover();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Library Checker: Matching on Bipartite Graph](https://judge.yosupo.jp/problem/bipartitematching) で最大マッチングを検証。
 - [KACTL HopcroftKarp](https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/HopcroftKarp.h) と [hitonanode](https://hitonanode.github.io/cplib-cpp/graph/bipartite_matching.hpp.html) のAPI・層別探索を調査し、反復探索で独自実装しました。
 - [Fastest調査対象396318](https://judge.yosupo.jp/submission/396318) のCSRやI/Oを分析しました。提出の名称だけで標準HKの計算量を仮定せず、層別増加路方式を採用しています。
 - 小入力では独立した部分集合DPでマッチ数を比較し、被覆のサイズと全辺の被覆も確認します。長い増加路を含むテストを `tests/random/graph-expansion.cpp` に収録しています。
 - 公開コードのコピーは行っていません。比較条件・観測は `benchmark/results/lc-expansion-graph/` を参照してください。
+
+</details>

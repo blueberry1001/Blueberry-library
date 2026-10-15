@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/eulerian-trail.hpp
 
 ## 概要
 
-有向・無向多重グラフで、すべての辺をちょうど一度使うオイラー路を求めます。
+有向・無向多重グラフで、すべての辺をちょうど一度使うオイラー路を求めます。`EulerianTrail<true>`が有向、`EulerianTrail<false>`が無向です。自己ループ・多重辺・孤立頂点を許可し、始点を指定することもできます。
+
+Nを頂点数、Mを入力辺数とすると、構築時間・メモリはO(N+M)です。
 
 ## 操作一覧
 
@@ -20,20 +22,20 @@ documentation_of: //blueberry/graph/eulerian-trail.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-有向・無向多重グラフで、すべての辺をちょうど一度使うオイラー路を求めます。
-`EulerianTrail<true>` が有向、`EulerianTrail<false>` が無向です。Nを頂点数、Mを入力辺数とすると構築時間・メモリは O(N+M) です。
-ACLにはない機能です。Hierholzer法をvectorの明示的なスタックで実行し、長い道でも再帰スタックに依存しません。
+## 概要・前提 {#概要前提}
 
-入力は `vector<pair<int,int>>` で、有向では(u,v)がu→vです。入力の0-based位置が辺IDになります。
-N>=0、M<INT_MAX、0<=u,v<N を満たしてください。自己ループ・多重辺・孤立頂点を許可します。
-入力を変更せず構築時に解きます。次数条件に加えて使用した辺の総数を検査するため、辺を持つ連結成分が複数なら存在しないと判定します。
+- 入力は`vector<pair<int,int>>`で、有向では`(u,v)`がu→vです。入力の0-based位置が辺IDになります。`N>=0`、`M<INT_MAX`、`0<=u,v<N`を満たしてください。
+- 入力を変更せず構築時に解きます。次数条件に加え使用した辺の総数も検査し、辺を持つ連結成分が複数なら存在しないと判定します。
+- `start=-1`は始点自動選択、それ以外は`0<=start<N`で指定します。指定頂点が始点になれない場合は`exists()==false`です。
+- N>0,M=0なら任意の頂点が有効で、自動選択では頂点0だけを返します。N=M=0は空の有効な道と定義し、両列を空で返します（start=-1のみ）。
+- 解の辞書順最小性・選択順は保証しません。返すconst参照はオブジェクトの破棄・代入・移動で無効になり得ます。
+- intの次数差・辺IDとsize_tの隣接配列添字を使います。十分なメモリを確保できることが前提です。
+- Hierholzer法をvectorの明示的なスタックで実行し、長い道でも再帰スタックに依存しません。ACLにはない機能です。
 
-start=-1は始点自動選択、それ以外は0<=start<Nで指定します。指定頂点が始点になれない場合はexists()==falseです。
-N>0,M=0なら任意の頂点が有効で、自動選択では頂点0だけを返します。N=M=0は本APIでは空の有効な道と定義し、両列を空で返します（start=-1のみ）。
-解の辞書順最小性・選択順は保証しません。intの次数差・辺IDとsize_tの隣接配列添字を用います。十分なメモリを確保できることが前提です。
-返すconst参照はオブジェクトの破棄・代入・移動で無効になり得ます。
+</details>
 
 ## 最小使用例
 
@@ -123,9 +125,14 @@ assert(ids.size() == 2);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - Library Checkerの [有向オイラー路](https://judge.yosupo.jp/problem/eulerian_trail_directed)・[無向オイラー路](https://judge.yosupo.jp/problem/eulerian_trail_undirected) で検証します。
 - [CP-Algorithms](https://lib.cp-algorithms.com/cp-algo/graph/euler.hpp.html)、Fastest調査対象 [286963](https://judge.yosupo.jp/submission/286963)・[286968](https://judge.yosupo.jp/submission/286968) の明示スタック・次数検査・辺消費数検査を分析し、標準的なHierholzer法を独自実装しました。
 - 小入力の辺を使う全経路を探索して存在判定を比較し、全始点指定・自己ループ・多重辺・切り離された閉路・空入力・長いパスを検証します。公開コードのコピーは行っていません。
 - 比較条件と測定結果は `benchmark/results/lc-expansion-graph/` に保存します。
+
+</details>

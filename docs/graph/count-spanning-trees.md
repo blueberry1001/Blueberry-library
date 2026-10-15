@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/count-spanning-trees.hpp
 
 ## 概要
 
-Matrix-Tree 定理と既存の Matrix<T>::det() を組み合わせ、無向全域木または根から外向きに到達する有向全域木を数えます。
+無向全域木、または根から外向きに到達する有向全域木を数えます。多重辺は区別して数え、自己ループは無視します。Tは厳密な体（素数法のmodintなど）とし、返り値の算術はTに従います。
+
+Nを頂点数、Mを辺数とすると、最悪時間O(N³+M)、補助メモリO(N²)です。
 
 ## 操作一覧
 
@@ -18,9 +20,16 @@ Matrix-Tree 定理と既存の Matrix<T>::det() を組み合わせ、無向全�
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-Matrix-Tree 定理と既存の Matrix<T>::det() を組み合わせ、無向全域木または根から外向きに到達する有向全域木を数えます。ACL の modint と併用します。T は厳密な体（例: 素数法の modint）で、整数除算や誤差を含む実数消去には対応しません。N 頂点 M 辺で最悪 O(N³+M) 時間、O(N²) 補助メモリ。辺は (u,v)、番号は [0,N)、N は int に収まること。多重辺は区別して数え、自己ループは無視します。返り値の算術は T に従い、modint なら法で割った余りです。入力は変更しません。
+## 概要・前提 {#概要前提}
+
+- Matrix-Tree定理と既存の`Matrix<T>::det()`を組み合わせ、ACLのmodintと併用します。modintの返り値は法で割った余りです。
+- 整数除算や誤差を含む実数消去には対応しません。
+- 辺は`(u,v)`で、頂点番号は`[0,N)`、Nはintに収まる必要があります。入力は変更しません。
+
+</details>
 
 ## 最小使用例
 
@@ -68,8 +77,13 @@ auto count = blueberry::count_directed_spanning_trees<atcoder::modint998244353>(
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [Library Checker](https://judge.yosupo.jp/problem/counting_spanning_tree_directed) の公式ケースと固定 seed を指定できる全列挙比較で検証します。
 候補比較・一次資料・測定条件は [調査記録](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-graph-research.md) を参照してください。
 [無向版の公式問題](https://judge.yosupo.jp/problem/counting_spanning_tree_undirected) も検証します。
+
+</details>

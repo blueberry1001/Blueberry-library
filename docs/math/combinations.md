@@ -5,9 +5,9 @@ documentation_of: //blueberry/math/combinations.hpp
 
 ## 概要
 
-階乗・逆階乗を前計算し、組合せ数 C(n,k)・順列数 P(n,k) を求めます。
+ACL modintなどの体上で階乗・逆階乗を前計算し、C(n,k)/P(n,k)をO(1)で求めます。前計算上限Nまでの1～Nがすべて可逆であることが前提です。
 
-N は前計算上限で、Mint で 1～N がすべて可逆である必要があります。
+IをMint::inv()の計算量として構築はO(N+I)、メモリはMint 2(N+1)個です。
 
 ## 操作一覧
 
@@ -27,13 +27,20 @@ N は前計算上限で、Mint で 1～N がすべて可逆である必要があ
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-ACL modint などの体上で、階乗・逆階乗を 1 回前計算し C(n,k)/P(n,k) を O(1) で計算します。元テンプレートの COMinit/COM/nPr を、modulus ごとの独立オブジェクトへ置き換えました。Mint は整数からの構築、乗算、inv() を持つ型です。通常は ACL static_modint を使います。
+## 概要・前提 {#概要前提}
 
-N は前計算上限、Ndst は代入先の変更前の上限、I は Mint::inv() の計算量です。計算量は Mint の構築・コピー・代入・乗算・破棄が O(1) の場合を示します。重い係数型では、それぞれの操作回数に係数型のコストを掛けてください。C/P は係数を値で返し、0を返す場合も Mint の構築コストがかかります。fact/inv_fact の返り値にもコピーコストが含まれます。
+- `0 <= N < INT_MAX`。Ndstは代入先の変更前の上限です。
+- Mintは整数からの構築、乗算、`inv()` を持つ型です。通常はACL `static_modint` を使います。
+- 計算量はMintの構築・コピー・代入・乗算・破棄がO(1)の場合を示します。重い係数型では、それぞれの操作回数に係数型のコストを掛けてください。
+- C/Pは係数を値で返し、0を返す場合もMintの構築コストがかかります。fact/inv_factの返り値にもコピーコストが含まれます。
+- 各表はオブジェクトが所有し、結果は値で返します。内部の公開フィールド・参照・iteratorはありません。
+- 表が通常の構築条件を満たすオブジェクトに対してのみ問い合わせてください。移動元は破棄・代入・再構築のみが対象です。既定のコピー・移動操作を利用し、特別メンバは独自実装していません。
+- 元テンプレートのCOMinit/COM/nPrを、modulusごとの独立オブジェクトへ置き換えました。
 
-0 <= N < INT_MAX、1～N がすべて可逆であることが前提です。構築時間は O(N + I)、メモリは Mint 2(N+1) 個です。各表はオブジェクトが所有し、結果は値で返します。内部の公開フィールド・参照・iteratorはありません。表が通常の構築条件を満たすオブジェクトに対してのみ問合せを行ってください。移動元は破棄・代入・再構築のみが対象です。既定のコピー・移動操作を利用し、特別メンバを独自実装してはいません。
+</details>
 
 ## 最小使用例
 
@@ -225,6 +232,11 @@ target = std::move(copy);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[Library Checker Binomial Coefficient (Prime Mod)](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod) の verify driver と、Pascal 三角形による小さい素数の全数比較を用意しています。前計算アルゴリズムは元ユーザーテンプレートの用途を維持し、ACL の modint と 1 回の inverse に変更しました。性能比較・Fastest 調査の範囲は [移行記録]({{ '/docs/development/contest-template-import.html' | relative_url }}) を参照してください。
+## 出典・検証 {#出典検証}
+
+- [Library Checker Binomial Coefficient (Prime Mod)](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod) の verify driver と、Pascal 三角形による小さい素数の全数比較を用意しています。前計算アルゴリズムは元ユーザーテンプレートの用途を維持し、ACL の modint と 1 回の inverse に変更しました。性能比較・Fastest 調査の範囲は [移行記録]({{ '/docs/development/contest-template-import.html' | relative_url }}) を参照してください。
+
+</details>

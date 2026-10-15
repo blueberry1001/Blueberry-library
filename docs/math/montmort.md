@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/montmort.hpp
 
 ## 概要
 
-完全順列数D(0),...,D(n)を法modで返す。
+完全順列数D(0),...,D(n)を法modで返します。法は正の32bit整数で、合成数でも使えます。D(0)=1、D(1)=0で、n=0も1要素、mod=1はすべて0を返します。
+
+最悪時間・メモリともにO(n+1)です。
 
 ## 操作一覧
 
@@ -17,11 +19,16 @@ documentation_of: //blueberry/math/montmort.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-完全順列数D(0),...,D(n)を法modで返す。D(0)=1、D(1)=0。n=0も1要素返す。mod=1はすべて0。ACLにない任意法の数列生成で、除算や逆元を使わない。
+## 概要・前提 {#概要前提}
 
-0 <= n <= INT_MAX、1 <= mod <= UINT32_MAX。法は合成数でもよい。64bit符号なし中間積でこの全範囲のオーバーフローを防ぐ。D(i)=iD(i-1)+(-1)^iを利用する。 メモリは O(n+1)。以下は最悪計算量（償却ではない）。返り値は独立した所有ベクトルで、既存の参照を無効化しない。法演算を除く長さは利用可能なメモリに収まる必要がある。
+- `0 <= n <= INT_MAX`、`1 <= mod <= UINT32_MAX`。長さは利用可能なメモリに収まる必要があります。
+- ACLにない任意法の数列生成です。D(i)=iD(i-1)+(-1)^iを使い、除算や逆元は使いません。64bit符号なし中間積で対応範囲全体のオーバーフローを防ぎます。
+- 返り値は独立した所有ベクトルで、既存の参照を無効化しません。計算量は償却ではありません。
+
+</details>
 
 ## 最小使用例
 
@@ -53,6 +60,11 @@ auto a = blueberry::montmort(5, 100);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[公式問題](https://judge.yosupo.jp/problem/montmort_number_mod)、[アルゴリズム比較資料](https://raw.githubusercontent.com/ei1333/library/master/math/combinatorics/montmort.hpp)を参照し、コードは独立に実装した。候補比較・追加資料・生ログは [開発レポート](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-math.md)。乱数seed付きの愚直比較は `tests/random/math_batch_three.cpp`。
+## 出典・検証 {#出典検証}
+
+- [公式問題](https://judge.yosupo.jp/problem/montmort_number_mod)、[アルゴリズム比較資料](https://raw.githubusercontent.com/ei1333/library/master/math/combinatorics/montmort.hpp)を参照し、コードは独立に実装した。候補比較・追加資料・生ログは [開発レポート](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-math.md)。乱数seed付きの愚直比較は `tests/random/math_batch_three.cpp`。
+
+</details>

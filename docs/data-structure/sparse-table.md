@@ -7,9 +7,9 @@ documentation_of: //blueberry/data-structure/sparse-table.hpp
 
 ## 概要
 
-更新のない配列に対する `min`・`max`・`gcd` などの区間クエリを扱います。
+更新のない配列のmin/max/gcd等の区間集約を扱います。演算Opには結合則と冪等性op(x,x)==xが必要です。
 
-演算には結合則と冪等性が必要です。
+Nは要素数。構築・メモリはO(N log N)、prodはO(1)です。
 
 ## 操作一覧
 
@@ -25,12 +25,14 @@ documentation_of: //blueberry/data-structure/sparse-table.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-更新のない配列に対する `min`・`max`・`gcd` などの区間クエリを扱います。
-要素数を $N$ とすると、構築時間・メモリは $O(N\log N)$、`prod` は $O(1)$ です。
-演算 `Op` には結合則と冪等性 `op(x, x) == x` が必要です。和・xor のように
-冪等でない演算には ACL の `segtree` などを使ってください。
+## 概要・前提 {#概要前提}
+
+- 和・xor等の冪等でない演算にはACL segtree等を使ってください。
+
+</details>
 
 ## 最小使用例
 

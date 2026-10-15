@@ -6,6 +6,9 @@ documentation_of: //blueberry/utility/contest-helpers.hpp
 ## 概要
 
 最小・最大の更新、整数二分探索・丸め除算、文字列・配列・グラフの補助関数です。
+通常のライブラリヘッダと併用できます。
+
+Nは要素数、V/Eは頂点数/隣接リストの辺数です。各操作の時間は下表のとおりで、特記しない操作の追加メモリはO(1)です。
 
 ## 操作一覧
 
@@ -39,9 +42,16 @@ documentation_of: //blueberry/utility/contest-helpers.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-競技用テンプレートから、名前空間内で使える小さな補助関数を整理しました。通常のヘッダと併用できます。N は要素数、V/E は頂点数/隣接リストの辺数です。特記しない操作の追加メモリは O(1)、返り値は値として所有します。整数の 128 bit 部分には GNU 拡張を使用します。各操作の詳細に範囲・空入力・追加メモリを示します。
+## 概要・前提 {#概要前提}
+
+- 返り値は値として所有します。
+- 128bit整数にはGNU拡張を使用します。
+- 範囲・空入力・追加メモリの例外は、各操作の詳細を確認してください。
+
+</details>
 
 ## 最小使用例
 
@@ -322,6 +332,14 @@ assert(!blueberry::parse128("12x") && !blueberry::parse128(""));
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-元はユーザー所有の `/home/blueberry/lib/blueberrytemplate.h`。因数分解は既存 [Factorize]({{ '/blueberry/math/factorize.hpp.html' | relative_url }}) に委譲します。新しい高度なアルゴリズムの重複実装は追加していません。`tests/random/contest-helpers.cpp` の境界・固定 seed 比較、GCC/Clang の include/ODR 確認を使います。採否・性能測定は [移行記録]({{ '/docs/development/contest-template-import.html' | relative_url }}) を参照してください。
+## 出典・検証 {#出典検証}
+
+- 競技用テンプレートから補助関数を整理したものです。元ファイルは`/home/blueberry/lib/blueberrytemplate.h`です。
+- 因数分解は既存の[Factorize]({{ '/blueberry/math/factorize.hpp.html' | relative_url }})に委譲します。
+- `tests/random/contest-helpers.cpp`で境界・固定seed比較、GCC/Clangでinclude/ODRを確認します。
+- 採否と性能測定は[移行記録]({{ '/docs/development/contest-template-import.html' | relative_url }})を参照してください。
+
+</details>

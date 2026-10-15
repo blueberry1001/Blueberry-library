@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/maximum-independent-set.hpp
 
 ## 概要
 
-単純無向グラフの最大独立集合を半分全列挙で厳密に求めます。
+頂点数N≤40の単純無向グラフについて、最大独立集合を半分全列挙で厳密に求めます。自己ループ・重複辺は禁止です。
+
+Mを辺数とすると、時間O(M + 2^(ceil(N/2)))、追加メモリO(N + 2^(ceil(N/2)))です。
 
 ## 操作一覧
 
@@ -17,13 +19,15 @@ documentation_of: //blueberry/graph/maximum-independent-set.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-単純無向グラフの最大独立集合を半分全列挙で厳密に求めます。ACLにはありません。
-頂点数 `0 <= N <= 40`、頂点番号は `[0,N)`、辺数を M とします。
-自己ループ・重複辺は禁止です。辺の向きは任意です。
-時間 O(M + 2^(ceil(N/2)))、追加メモリ O(N + 2^(ceil(N/2)))。
-固定幅整数のビット演算を使い、指定範囲ではシフト・集合サイズのオーバーフローはありません。
+## 概要・前提 {#概要前提}
+
+- `0 <= N <= 40`、頂点番号は`[0,N)`とします。入力する辺の向きは任意です。
+- 固定幅整数のビット演算を使い、指定範囲ではシフト・集合サイズのオーバーフローはありません。ACLにはありません。
+
+</details>
 
 ## 最小使用例
 
@@ -58,10 +62,15 @@ auto all = blueberry::maximum_independent_set(2, {}); // {0, 1}
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [Nyaan の分枝探索](https://nyaannyaan.github.io/library/graph/max-independent-set.hpp.html) と
 [Luzhiled のランダム貪欲法](https://ei1333.github.io/library/graph/others/maximum-independent-set.hpp.html) を比較調査。
 入力による探索時間の差と近似解を避けるため、半分全列挙を独立実装しました。外部コードの転載はありません。
 [Library Checker](https://judge.yosupo.jp/problem/maximum_independent_set) と固定seedの全探索比較で検証します。
 候補の同一環境測定は [追加調査](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/graph-batch-four.md) を参照してください。
+
+</details>

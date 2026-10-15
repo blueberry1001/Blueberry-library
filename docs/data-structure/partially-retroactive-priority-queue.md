@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/partially-retroactive-priority-queu
 
 ## 概要
 
-過去の insert/delete-min 操作を追加・削除し、その変更を反映した**現在**の最小値を取得します。
+過去のinsert/delete-min操作を追加・削除し、変更を反映した**現在**の最小値を求めます。構築時にM個の整数時刻 `[0,M)` を用意し、各時刻には最大1操作を登録します。過去時点の問合せや履歴の分岐は提供しません。
+
+構築・メモリはO(M)、履歴変更はO(log(M+1))、min/sizeはO(1)です。各prefixでinsert数がdelete-min数以上となる履歴だけを受理し、不正な編集はfalseを返して元の論理状態を保ちます。
 
 ## 操作一覧
 
@@ -37,16 +39,21 @@ documentation_of: //blueberry/data-structure/partially-retroactive-priority-queu
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`PartiallyRetroactivePriorityQueue<T>` は過去の insert/delete-min 操作を追加・削除し、その変更を反映した**現在**の最小値を取得します。
-完全永続とは異なり履歴を分岐しません。過去時点の問い合わせを提供する fully retroactive 版ではありません。
-構築時に M 個の整数時刻 [0,M) を用意し、各時刻には最大1操作。座標圧縮すれば任意の既知時刻を使用できます。
-構築・メモリ O(M)、各履歴変更 O(log(M+1))、現在の min/size O(1)。入力時刻数と操作数を混同しないでください。
-元論文の bridge を ACL lazy_segtree の prefix 最小値で管理し、生存要素・消費済み要素の極値を ACL segtree に保持します。
-T はコピー・代入可能で `<` が strict weak ordering。等価な優先度は挿入時刻の小さい順に削除します。値の算術は行わず、比較・コピーを O(1) とします。
-0<=M<INT_MAX/4。各 prefix で insert 数が delete-min 数以上である履歴だけを受理します。不正な編集は false を返し、元の論理状態を保ちます。
-返り値はコピーで参照の無効化はありません。例外発生時の強い保証は提供しません。
+## 概要・前提 {#概要前提}
+
+- `PartiallyRetroactivePriorityQueue<T>` のTはコピー・代入可能で、`<` はstrict weak orderingが必要です。同値な優先度は挿入時刻の小さい順に削除します。値の算術は行わず、比較・コピーをO(1)とします。
+- `0 <= M < INT_MAX/4`。Mは操作数ではなく用意する時刻数です。座標圧縮すれば任意の既知時刻を使えます。
+- 元論文のbridgeをACL lazy_segtreeのprefix最小値で管理し、生存要素・消費済み要素の極値をACL segtreeに保持します。
+- 返り値はコピーで参照の無効化はありません。例外発生時の強い保証は提供しません。
+
+## 操作の補足 {#操作の補足}
+
+- 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
+
+</details>
 
 ## 最小使用例
 
@@ -67,10 +74,6 @@ int main(){
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>PartiallyRetroactivePriorityQueue&lt;T&gt;(int slots=0)</code> — O(M)</summary>
@@ -267,8 +270,13 @@ Type moved; moved = std::move(object);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Demaine・Iacono・Langerman: Retroactive Data Structures, §5.4](https://people.csail.mit.edu/edemaine/papers/Retroactive_TALG/paper.pdf) の bridge 補題に基づく独立実装。
 - `tests/random/partially-retroactive-priority-queue.cpp`: 毎回全履歴を multiset で再生し、任意位置の追加・削除、同値、拒否された編集を比較。
 - **公式問題による過去編集の検証は未対応**です。通常の優先度キュー問題だけでは過去編集を検証できないため、上記の全履歴再生とのランダム比較で検証します。
+
+</details>

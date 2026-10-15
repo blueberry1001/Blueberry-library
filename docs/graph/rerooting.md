@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/rerooting.hpp
 
 ## 概要
 
-木の全頂点をそれぞれ根としたDPを一度に計算します。
+無向木の全頂点をそれぞれ根としたDPを一度に計算します。`merge`は結合的で、`identity`は両側単位元とします。併合順は各頂点に接続する辺IDの昇順で、交換法則・逆元・除算は不要です。
+
+Nを頂点数とすると、最悪時間・メモリはO(N)です。
 
 ## 操作一覧
 
@@ -17,25 +19,24 @@ documentation_of: //blueberry/graph/rerooting.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-木の全頂点をそれぞれ根としたDPを一度に計算します。ACLにない全方位木DPの機能です。
-頂点数を N とし、状態Tのコピー・代入と各callbackが O(1) なら、最悪時間・メモリは O(N) です。
-木の巡回は反復処理で、20万頂点の鎖でも再帰スタックを消費しません。
+## 概要・前提 {#概要前提}
 
-頂点は `[0,N)`、`0 <= N <= INT_MAX`。入力は無向木の辺列 `vector<pair<int,int>>` で、
-`N>0` なら辺数は `N-1`、連結かつ自己ループ・多重辺・閉路がないことが前提です。
-`N=0` と空の辺列では空vectorを返し、callbackを呼びません。
-辺IDは入力添字 `[0,N-1)`、各頂点での併合順はその頂点に接続する辺IDの昇順です。
-**mergeに交換法則は不要**です。親方向の寄与も元の辺IDの位置に置くため、非可換なDPを扱えます。
+- 入力は無向木の辺列`vector<pair<int,int>>`です。頂点は`[0,N)`、`0 <= N <= INT_MAX`とし、N>0なら辺数N-1、連結かつ自己ループ・多重辺・閉路なしを前提とします。
+- N=0と空の辺列では空vectorを返し、callbackを呼びません。辺IDは入力添字`[0,N-1)`です。
+- 親方向の寄与も元の辺IDの位置に置くため、非可換なDPを扱えます。
+- Tはコピー構築・コピー代入可能で、default constructorは不要です。`add_vertex(T,int)->T`は子側の寄与を併合した値に頂点を加え、`transfer(T,int,int,int)->T`は頂点を加えた値を指定した辺で隣へ移します。
+- 全callbackは入力を変更せず、同じ引数に同じ値を返す必要があります。呼び出し回数や評価順に依存しないでください。値・重みのoverflow対策はcallback側で行います。
+- 計算量は状態Tのコピー・代入と各callbackがO(1)の場合です。状態が可変長文字列などなら、実際の時間・メモリにはコピーとcallbackの費用を掛けて考えます。
 
-状態Tはコピー構築・コピー代入可能で、default constructorは不要です。
-`merge(T,T)->T` は結合則を満たし、`identity` は左右の単位元とします。
-`add_vertex(T,int)->T` は子側の寄与を併合した値に頂点を加えます。
-`transfer(T,int,int,int)->T` は頂点を加えた値を指定した辺で隣へ移します。
-全callbackは入力を変更せず、同じ引数に同じ値を返す必要があります。呼び出し回数や評価順に依存しないでください。
-逆元や除算は要求しません。値・重みのoverflow対策はcallback側で行ってください。
-状態が可変長文字列などなら、実際の時間・メモリにはそのコピーとcallbackの費用を掛けて考えます。
+## 操作の補足 {#操作の補足}
+
+- 入力・callbackへの参照を返り値に保持しません。返り値は頂点順の独立したvectorで、呼び出し終了後も保持できます。
+- 木の巡回は反復処理で、20万頂点の鎖でも再帰スタックを消費しません。ACLにはない全方位木DPです。
+
+</details>
 
 ## 最小使用例
 
@@ -58,11 +59,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-公開APIは次の関数だけです。入力・callbackへの参照を返り値に保持しません。
-返り値は頂点順の独立したvectorで、呼び出し終了後も保持できます。
 
 <details class="api-operation" id="rerooting" markdown="1">
 <summary><code>vector&lt;T&gt; rerooting(int n, const vector&lt;pair&lt;int,int&gt;&gt;&amp; edges, T identity, Merge merge, AddVertex add_vertex, Transfer transfer)</code> — O(N)</summary>
@@ -102,7 +98,10 @@ assertを無効化した場合も不正な木を渡してよいわけではあ�
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [Nyaan Rerooting](https://nyaannyaan.github.io/library/tree/rerooting.hpp.html) と
 [MtSaka ReRooting](https://mtsaka.github.io/library/graph/tree/rerooting.hpp) の
@@ -114,3 +113,5 @@ assertを無効化した場合も不正な木を渡してよいわけではあ�
 検証コードはACL modintで `{sum,count}` を持ち、辺 `bx+c` を通す際に `sum=b*sum+c*count` とします。
 `tests/random/rerooting.cpp` は全頂点を個別に根とする愚直解と、非可換文字列・方向依存の重みを比較します。
 空入力・単独頂点・20万頂点の鎖と星も検証します。
+
+</details>

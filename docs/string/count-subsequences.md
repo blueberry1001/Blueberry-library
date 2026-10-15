@@ -7,7 +7,9 @@ documentation_of: //blueberry/string/count-subsequences.hpp
 
 ## 概要
 
-数列や文字列の、空でない相異なる部分列を数えます。
+数列や文字列の、空でない相異なる部分列を数えます。同じ値の並びは一度だけ数えます。記号の `<` は狭義弱順序を満たし、順序で同値な記号を同一視します。Countには正確な加算・減算が必要です。
+
+入力長N、異なる記号数Kとして、時間O(N log(N+1))、追加メモリO(N+K)です。
 
 ## 操作一覧
 
@@ -17,14 +19,16 @@ documentation_of: //blueberry/string/count-subsequences.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-数列や文字列の、空でない相異なる部分列を数えます。同じ値の並びは一度だけ数えます。
-ACLにはない数え上げDPで、直前の同じ記号による重複を差し引きます。
-入力長をN、異なる記号の数をKとし、時間O(N log(N+1))、追加メモリO(N+K)です。
-添字をソートして座標圧縮するので、記号自体のコピーやハッシュは不要です。
-`Sequence` は `size()` と定数時間の `operator[]` を持ち、記号の `<` は狭義弱順序を満たす必要があります。
-順序で同値な記号を同一視します。比較とCountの演算を定数時間として計算量を示しています。
+## 概要・前提 {#概要前提}
+
+- ACLにはない数え上げDPで、直前の同じ記号による重複を差し引きます。
+- 添字をソートして座標圧縮するので、記号自体のコピーやハッシュは不要です。
+- Sequenceは `size()` と定数時間の `operator[]` を持つ型です。比較とCountの演算を定数時間として計算量を示します。
+
+</details>
 
 ## 最小使用例
 
@@ -62,9 +66,14 @@ auto answer = blueberry::count_subsequences<long long>(a); // 3
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Library Checker公式解法](https://github.com/yosupo06/library-checker-problems/blob/master/enumerative_combinatorics/number_of_subsequences/sol/correct.cpp) と [maspypyの数え上げDP](https://github.com/maspypy/library/blob/main/string/count_subsequence.hpp) の状態定義を調査し、座標圧縮と配列を使って独立に実装しました。
 - [Number of Subsequences](https://judge.yosupo.jp/problem/number_of_subsequences) の専用verify、全部分集合からの重複除去を使うランダム比較、空・同一値・負値・小さい法で検証します。
 - 比較測定の入力生成・候補実装は [benchmark/batch-three-subsequences.cpp](https://github.com/blueberry1001/Blueberry-library/blob/main/benchmark/batch-three-subsequences.cpp)、生ログは同ディレクトリの `batch-three-subsequences.log` に保存します。
 - GCC 13.3 / gnu++20 / -O2 / N=500000、同一入力5回の中央値は、8記号で配列圧縮12.44ms・map 6.67ms、500000種類を生成範囲とする入力で47.18ms・184.81msでした。小アルファベットではmapが有利ですが、大きな入力での局所性とノード単位allocationの回避を優先して配列圧縮を採用しました。測定時の共有WSL環境の負荷も含むため、異環境への速度比は主張しません。
+
+</details>
