@@ -3,33 +3,37 @@ title: Contest Helpers
 documentation_of: //blueberry/utility/contest-helpers.hpp
 ---
 
-## 概要・前提
+## 概要
 
-競技用テンプレートから、名前空間内で使える小さな補助関数を整理しました。通常のヘッダと併用できます。N は要素数、V/E は頂点数/隣接リストの辺数です。特記しない操作の追加メモリは O(1)、返り値は値として所有します。整数の 128 bit 部分には GNU 拡張を使用します。各操作の詳細に範囲・空入力・追加メモリを示します。
+最小・最大の更新、整数二分探索・丸め除算、文字列・配列・グラフの補助関数です。
 
 ## 操作一覧
 
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `bool chmin(T& x, const U& y)` | O(1) | [開く](#chmin) |
-| `bool chmax(T& x, const U& y)` | O(1) | [開く](#chmax) |
-| `T floor_div(T a, T b)` | O(1) | [開く](#floor-div) |
-| `long long bin_search(long long ok, long long ng, const F& pred)` | O(log(D+1)) | [開く](#binary-search) |
-| `T sum(const std::vector<T>& a)` | O(N) | [開く](#sum) |
-| `T min_of(const std::vector<T>& a)` | O(N) | [開く](#min-of) |
-| `T max_of(const std::vector<T>& a)` | O(N) | [開く](#max-of) |
-| `int len(const Container& a)` | O(1) | [開く](#len) |
-| `void Fill(T (&a)[N], const U& value)` | O(S) | [開く](#fill) |
-| `bool is_palindrome(std::string_view s)` | O(N) | [開く](#palindrome) |
-| `long double my_distance(long double x, long double y, long double xx, long double yy)` | O(1) | [開く](#distance) |
-| `__int128 range_sum(long long a, long long b)` | O(1) | [開く](#range-sum) |
-| `int compress(std::vector<long long>& a)` | O(N log N) | [開く](#compress) |
-| `std::vector<std::uint64_t> divisors(std::uint64_t n)` | O(F(n) + tau(n) log tau(n)) | [開く](#divisors) |
-| `bool is_bipartite(const std::vector<std::vector<Index>>& g)` | O(V+E) | [開く](#bipartite) |
-| `std::string to_string128(__int128 value)` | O(L) | [開く](#to-string128) |
-| `std::optional<__int128> parse128(std::string_view text)` | O(L) | [開く](#parse128) |
+| 操作 | 計算量 |
+| --- | --- |
+| [`chmin`](#chmin) | O(1) |
+| [`chmax`](#chmax) | O(1) |
+| [`floor_div`](#floor-div) | O(1) |
+| [`bin_search`](#binary-search) | O(log(D+1)) |
+| [`sum`](#sum) | O(N) |
+| [`min_of`](#min-of) | O(N) |
+| [`max_of`](#max-of) | O(N) |
+| [`len`](#len) | O(1) |
+| [`Fill`](#fill) | O(S) |
+| [`is_palindrome`](#palindrome) | O(N) |
+| [`my_distance`](#distance) | O(1) |
+| [`range_sum`](#range-sum) | O(1) |
+| [`compress`](#compress) | O(N log N) |
+| [`divisors`](#divisors) | O(F(n) + tau(n) log tau(n)) |
+| [`is_bipartite`](#bipartite) | O(V+E) |
+| [`to_string128`](#to-string128) | O(L) |
+| [`parse128`](#parse128) | O(L) |
 
 <!-- library-implementation -->
+
+## 概要・前提
+
+競技用テンプレートから、名前空間内で使える小さな補助関数を整理しました。通常のヘッダと併用できます。N は要素数、V/E は頂点数/隣接リストの辺数です。特記しない操作の追加メモリは O(1)、返り値は値として所有します。整数の 128 bit 部分には GNU 拡張を使用します。各操作の詳細に範囲・空入力・追加メモリを示します。
 
 ## 最小使用例
 

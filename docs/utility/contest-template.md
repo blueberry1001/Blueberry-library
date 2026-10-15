@@ -3,64 +3,77 @@ title: Contest Template（明示 opt-in）
 documentation_of: //blueberry/utility/contest-template.hpp
 ---
 
+## 概要
+
+競技用の短い型別名・ループ・入出力を、必要なときだけ追加するヘッダです。
+
+GNU libstdc++・ACLが必要です。単一translation unitの提出用です。
+
+## 操作一覧
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`init_io`](#init-io) | O(1) |
+| [`scan`](#scan) | O(S) |
+| [`print`](#print) | O(S) |
+| [`operator>>（input128）`](#input128) | O(L) |
+| [`operator<<（output128）`](#output128) | O(L) |
+| [`operator>>（vector）`](#input-vector) | O(S+N) |
+| [`operator<<（vector）`](#output-vector) | O(S+N) |
+| [`operator>>（deque）`](#input-deque) | O(S+N) |
+| [`operator<<（deque）`](#output-deque) | O(S+N) |
+| [`operator>>（pair）`](#input-pair) | O(S) |
+| [`operator<<（pair）`](#output-pair) | O(S) |
+| [`rep(n)`](#rep1) | O(max(0,n)) |
+| [`rep(i,n)`](#rep2) | O(max(0,n)) |
+| [`rep(i,a,b)`](#rep3) | O(max(0,b-a)) |
+| [`rep(i,a,b,c)`](#rep4) | O(1 + max(0,(b-a)/c)) |
+| [`ALL`](#all) | O(1) |
+| [`rALL`](#rall) | O(1) |
+| [`LL`](#ll) | O(S) |
+| [`STR`](#str) | O(S) |
+| [`YesNo`](#yesno) | O(1) |
+| [`YESNO`](#yesno-upper) | O(1) |
+| [`bit`](#bit) | O(1) |
+| [`popc`](#popcount) | O(1) |
+| [`crmp`](#in-range) | O(1) |
+| [`object.fi`](#fi) | O(1) |
+| [`object.se`](#se) | O(1) |
+| [`container.pb`](#pb) | O(1) macro expansion |
+| [`container.eb`](#eb) | O(1) macro expansion |
+| [`Endl`](#endl) | O(1) macro expansion |
+| [`spa`](#space) | O(1) |
+| [`O`](#o) | O(S) |
+| [`divide`](#divide) | O(1) |
+| [`iskaibun`](#palindrome) | O(N) |
+| [`ran`](#range-sum) | O(1) |
+| [`zaatu`](#compress) | O(N log N) |
+| [`isbipartite_graph`](#bipartite) | O(V+E) |
+| [`Rande（既定）`](#rande-default) | O(1) |
+| [`Rande（seed指定）`](#rande-seed) | O(1) |
+| [`rng(a,b)`](#rande-range) | O(1) expected |
+| [`rng(b)`](#rande-bound) | O(1) expected |
+| [`ll / ld / ull / uint / str / mint / mint1 / pqg<T>`](#aliases) | O(1) |
+| [`constexpr ll INF`](#inf) | O(1) |
+| [`constexpr ld CPS`](#cps) | O(1) |
+| [`constexpr std::array<ll,8> dx`](#dx) | O(1) |
+| [`constexpr std::array<ll,8> dy`](#dy) | O(1) |
+| [`bin_search / chmin / chmax / Fill / len / sum / min_of / max_of / my_distance / parse128 / to_string128`](#imports) | O(各関数の計算量) |
+| [`Rande`（コピー構築）](#rande-copy) | O(1) |
+| [`Rande& operator=`（コピー代入）](#rande-copy-assign) | O(1) |
+| [`Rande`（移動構築）](#rande-move) | O(1) |
+| [`Rande& operator=`（移動代入）](#rande-move-assign) | O(1) |
+| [`~Rande`](#rande-destruct) | O(1) |
+
+<!-- library-implementation -->
+
 ## 概要・前提
 
 個人用 blueberrytemplate.h の短い書き方を、必要なときだけ選べるヘッダとして整理しました。GNU libstdc++ の bits/stdc++.h と ACL が必要です。global alias・macro・stream overload が増えるため、通常の all.hpp には含めません。main は利用者が書き、init_io() も明示的に呼びます。自動終了・未呼出しの global 初期化・可変 global table はありません。通常は namespaced Contest Helpers を優先してください。N は要素数、S/L は入出力の byte 数、V/E はグラフの頂点/辺数です。
 
 この入口は ACL と同じく単一 translation unit の提出用です。ACL の非 inline 関数定義があるため、複数 cpp から同時に include して link する用途には対応しません。ACL を含まない Contest Helpers と Combinations 自体は複数 translation unit で利用できます。
 
-## 操作一覧
-
-| 呼び出し方 | 計算量 | 詳細 |
-| --- | --- | --- |
-| `void init_io(int precision = 30)` | O(1) | [開く](#init-io) |
-| `void scan(Args&... values)` | O(S) | [開く](#scan) |
-| `void print(const Args&... values)` | O(S) | [開く](#print) |
-| `std::istream& operator>>(std::istream& in, __int128& value)` | O(L) | [開く](#input128) |
-| `std::ostream& operator<<(std::ostream& out, __int128 value)` | O(L) | [開く](#output128) |
-| `std::istream& operator>>(std::istream& in, std::vector<T>& a)` | O(S+N) | [開く](#input-vector) |
-| `std::ostream& operator<<(std::ostream& out, const std::vector<T>& a)` | O(S+N) | [開く](#output-vector) |
-| `std::istream& operator>>(std::istream& in, std::deque<T>& a)` | O(S+N) | [開く](#input-deque) |
-| `std::ostream& operator<<(std::ostream& out, const std::deque<T>& a)` | O(S+N) | [開く](#output-deque) |
-| `std::istream& operator>>(std::istream& in, std::pair<T,U>& a)` | O(S) | [開く](#input-pair) |
-| `std::ostream& operator<<(std::ostream& out, const std::pair<T,U>& a)` | O(S) | [開く](#output-pair) |
-| `rep(n)` | O(max(0,n)) | [開く](#rep1) |
-| `rep(i,n)` | O(max(0,n)) | [開く](#rep2) |
-| `rep(i,a,b)` | O(max(0,b-a)) | [開く](#rep3) |
-| `rep(i,a,b,c)` | O(1 + max(0,(b-a)/c)) | [開く](#rep4) |
-| `ALL(x)` | O(1) | [開く](#all) |
-| `rALL(x)` | O(1) | [開く](#rall) |
-| `LL(names...)` | O(S) | [開く](#ll) |
-| `STR(names...)` | O(S) | [開く](#str) |
-| `YesNo(condition)` | O(1) | [開く](#yesno) |
-| `YESNO(condition)` | O(1) | [開く](#yesno-upper) |
-| `bit(x,i)` | O(1) | [開く](#bit) |
-| `popc(x)` | O(1) | [開く](#popcount) |
-| `crmp(x,l,r)` | O(1) | [開く](#in-range) |
-| `object.fi` | O(1) | [開く](#fi) |
-| `object.se` | O(1) | [開く](#se) |
-| `container.pb(value)` | O(1) macro expansion | [開く](#pb) |
-| `container.eb(args...)` | O(1) macro expansion | [開く](#eb) |
-| `Endl` | O(1) macro expansion | [開く](#endl) |
-| `spa` | O(1) | [開く](#space) |
-| `O(args...)` | O(S) | [開く](#o) |
-| `ll divide(ll a, ll b)` | O(1) | [開く](#divide) |
-| `bool iskaibun(std::string_view s)` | O(N) | [開く](#palindrome) |
-| `__int128 ran(ll a, ll b)` | O(1) | [開く](#range-sum) |
-| `int zaatu(std::vector<ll>& a)` | O(N log N) | [開く](#compress) |
-| `bool isbipartite_graph(const std::vector<std::vector<Index>>& g)` | O(V+E) | [開く](#bipartite) |
-| `Rande()` | O(1) | [開く](#rande-default) |
-| `Rande rng(std::uint32_t seed)` | O(1) | [開く](#rande-seed) |
-| `int rng(int a, int b)` | O(1) expected | [開く](#rande-range) |
-| `int rng(int b)` | O(1) expected | [開く](#rande-bound) |
-| `ll / ld / ull / uint / str / mint / mint1 / pqg<T>` | O(1) | [開く](#aliases) |
-| `constexpr ll INF` | O(1) | [開く](#inf) |
-| `constexpr ld CPS` | O(1) | [開く](#cps) |
-| `constexpr std::array<ll,8> dx` | O(1) | [開く](#dx) |
-| `constexpr std::array<ll,8> dy` | O(1) | [開く](#dy) |
-| `bin_search / chmin / chmax / Fill / len / sum / min_of / max_of / my_distance / parse128 / to_string128` | O(各関数の計算量) | [開く](#imports) |
-
-<!-- library-implementation -->
+`BLUEBERRY_REP1`～`BLUEBERRY_REP4` と `BLUEBERRY_REP_SELECT` は rep の展開用内部マクロです。直接呼ばず、同名のマクロを定義しないでください。Rande は暗黙のコピー・移動・代入・破棄を利用します。利用者向けの公開フィールドはありません。
 
 ## 最小使用例
 
@@ -770,6 +783,87 @@ assert(parse128("-4").value() == -4);
 {% endraw %}
 
 注意点: 全オーバーロード・範囲・空入力・メモリ条件は Contest Helpers の操作一覧を参照してください。元 min/max の可変長 overload は std::min/std::max と衝突するため追加していません。
+
+</details>
+
+<details class="api-operation" id="rande-copy" markdown="1">
+<summary><code>Rande(const Rande&amp; other)</code> — O(1)</summary>
+
+乱数生成器の現在の状態を独立にコピーします。
+
+{% raw %}
+```cpp
+Rande rng(7);
+Rande copy(rng);
+assert(rng(100) == copy(100));
+```
+{% endraw %}
+
+注意点: コピー直後は同じ問い合わせ列から同じ乱数列を得ます。固定長の mt19937 状態をコピーするため、入力範囲の大きさには依存しません。
+
+</details>
+
+<details class="api-operation" id="rande-copy-assign" markdown="1">
+<summary><code>Rande&amp; operator=(const Rande&amp; other)</code> — O(1)</summary>
+
+乱数生成器の状態をコピーし、自身への参照を返します。
+
+{% raw %}
+```cpp
+Rande rng(7), copy(9);
+copy = rng;
+assert(rng(100) == copy(100));
+```
+{% endraw %}
+
+注意点: 自身への代入も可能です。以後の生成は各オブジェクトで独立です。固定長の状態以外に追加allocationはありません。
+
+</details>
+
+<details class="api-operation" id="rande-move" markdown="1">
+<summary><code>Rande(Rande&amp;&amp; other)</code> — O(1)</summary>
+
+乱数生成器の状態を移動構築します。
+
+{% raw %}
+```cpp
+Rande rng(7);
+Rande moved(std::move(rng));
+```
+{% endraw %}
+
+注意点: 移動元の乱数列を前提にしないでください。移動元は破棄・代入・再構築して使います。固定長の状態を扱います。
+
+</details>
+
+<details class="api-operation" id="rande-move-assign" markdown="1">
+<summary><code>Rande&amp; operator=(Rande&amp;&amp; other)</code> — O(1)</summary>
+
+乱数生成器の状態を移動代入し、自身への参照を返します。
+
+{% raw %}
+```cpp
+Rande rng(7), target(9);
+target = std::move(rng);
+```
+{% endraw %}
+
+注意点: 移動元の利用条件は移動構築と同じです。自己移動後の列は前提にせず、seed指定で作った Rande を代入してから使ってください。
+
+</details>
+
+<details class="api-operation" id="rande-destruct" markdown="1">
+<summary><code>~Rande()</code> — O(1)</summary>
+
+固定長の乱数生成器を破棄します。
+
+{% raw %}
+```cpp
+{ Rande rng(7); } // スコープ終了時に破棄
+```
+{% endraw %}
+
+注意点: 移動元も破棄できます。内部の mt19937 や参照・iteratorは公開しません。
 
 </details>
 
