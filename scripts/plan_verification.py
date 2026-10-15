@@ -169,7 +169,7 @@ def build_plan(repo: Path, base_sha: str | None, head_sha: str, force_full: bool
         return full(f"base/diff unavailable; fail-safe full verification ({type(error).__name__})")
     paths = {c[key] for c in changes for key in ("path", "previous_path") if key in c}
     plan["docs_examples"] = sorted(p for p in paths if p in current.files and (
-        p in (".verify-helper/docs/static/guide.md", ".verify-helper/docs/static/migration.md") or
+        p == ".verify-helper/docs/static/guide.md" or
         (p.startswith("docs/") and p.endswith(".md") and
          "blueberry/" + p.removeprefix("docs/").removesuffix(".md") + ".hpp" in current.files)))
     unknown = sorted(p for p in paths if file_kind(p) == "full")
@@ -249,7 +249,7 @@ def build_cached_plan(repo: Path, base_sha: str | None, head_sha: str, state: di
         current = Snapshot(repo, plan["head_sha"])
         plan["docs_examples"] = sorted(change["path"] for change in plan["changed_files"]
             if change["path"] in current.files and (
-                change["path"] in (".verify-helper/docs/static/guide.md", ".verify-helper/docs/static/migration.md") or
+                change["path"] == ".verify-helper/docs/static/guide.md" or
                 (change["path"].startswith("docs/") and change["path"].endswith(".md") and
                  "blueberry/" + change["path"].removeprefix("docs/").removesuffix(".md") + ".hpp" in current.files)))
     return plan

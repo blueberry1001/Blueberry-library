@@ -3,7 +3,7 @@
 Read IMPLEMENTATION_POLICY.md before changing a library. Standard ACL features
 are ACL-first; prioritize non-ACL functionality. Preserve supported API compatibility.
 The user authorized removal of obsolete root headers during the 2026-09-17 migration;
-do not restore them. Keep migration guidance in the published migration page.
+do not restore them. Keep maintainer migration records out of the public usage guide.
 
 For every new or changed public API:
 
@@ -626,8 +626,8 @@ PR
   検索UIやcopyボタンの変更では `tests/docs_ui_test.cjs` と実ブラウザで確認し、
   mobile表示、キーボード操作、JavaScript無効時の一覧を維持してください。
 - catalog登録の `blueberry/<category>/*.hpp` と入口 `blueberry/all.hpp` を検証対象として扱います。
-  旧ルート直下ヘッダ7個は削除済みです。パス・APIの変更は公開 `migration.html` の
-  元ファイル `.verify-helper/docs/static/migration.md` に記載し、旧入口を復活させないでください。
+  旧ルート直下ヘッダ7個は削除済みです。旧入口や廃止した公開移行ページを復活させず、
+  互換性の変更は必要に応じて `docs/development` のレポートへ記録してください。
 
 具体的な実行例と検証・測定結果はREADME、docs/development以下のレポートを参照してください。
 文書のみの変更では影響範囲に応じた確認を行い、実行していない検証を実行済みと書かないでください。

@@ -24,7 +24,7 @@ body {
 }
 
 body > div.wrapper {
-  width: min(1056px, calc(100% - 48px));
+  width: min(var(--page-width, 1056px), calc(100% - 48px));
   margin: 0 auto;
 }
 
@@ -46,7 +46,7 @@ body > .wrapper > section {
 
 .site-hero { margin: 12px 0 32px; }
 .site-hero h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 8px; }
-.site-hero p { color: var(--muted); margin: 0; }
+.site-license { margin: 40px 0 0; padding-top: 12px; border-top: 1px solid var(--line); font-size: .875rem; }
 
 h1, h2, h3 {
   color: var(--ink);
@@ -144,8 +144,22 @@ input[type="search"] { caret-color: var(--blueberry); }
 .document-back { margin: 24px 0 0; font-size: .875rem; }
 .monoid-recipe { border-bottom: 1px solid var(--line); }
 .monoid-recipe > summary { cursor: pointer; padding: 16px 0; }
-.monoid-recipe > summary span { margin-inline-start: 12px; color: var(--muted); font-size: .875rem; font-weight: 400; }
 .monoid-recipe[open] > summary { margin-bottom: 8px; }
+.monoid-page { --page-width: 1200px; }
+.monoid-pair, .monoid-columns {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) 7rem;
+  column-gap: 24px;
+}
+.monoid-columns { display: grid; padding: 12px 0 12px 24px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .875rem; }
+.monoid-pair { display: grid; font-size: 1rem; }
+.monoid-update { font-weight: 600; }
+.monoid-query { font-weight: 400; }
+.monoid-kind, .monoid-columns > :last-child { text-align: right; white-space: nowrap; }
+.monoid-kind { color: var(--muted); font-size: .875rem; font-weight: 400; align-self: center; }
+.monoid-page .monoid-recipe > summary { position: relative; padding: 14px 0 14px 24px; list-style: none; font-size: 1rem; }
+.monoid-page .monoid-recipe > summary::-webkit-details-marker { display: none; }
+.monoid-page .monoid-recipe > summary::before { content: ""; position: absolute; inset-inline-start: 2px; top: calc(14px + .6em); border-block: 4px solid transparent; border-inline-start: 6px solid currentColor; transform-origin: 3px 4px; }
+.monoid-page .monoid-recipe[open] > summary::before { transform: rotate(90deg); }
 .source-relations-details { margin-top: 32px; }
 .category-guide { margin-top: 32px; border-top: 1px solid var(--line); }
 .category-guide > summary { padding: 16px 0; cursor: pointer; }
@@ -258,7 +272,12 @@ th {
   .catalog-category-field { flex: 1 1 10rem; }
   .site-more[open] { flex-basis: 100%; }
   .site-more-links { position: static; box-shadow: none; }
-  .monoid-recipe > summary span { display: block; margin-inline-start: 16px; }
+  .monoid-pair, .monoid-columns { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 12px; }
+  .monoid-columns { padding-inline-start: 20px; }
+  .monoid-columns > :last-child { display: none; }
+  .monoid-pair { row-gap: 4px; }
+  .monoid-page .monoid-recipe > summary { padding-inline-start: 20px; }
+  .monoid-kind { grid-column: 2; font-size: .75rem; }
   .document-meta code { white-space: normal; }
 
   .library-catalog table,
@@ -288,12 +307,12 @@ th {
 [data-source-viewer] pre { max-height: 40rem; overflow: auto; }
 [data-source-enhanced] .source-fallback-note { display: none; }
 /* Comparisons stay collapsed until requested, including on individual API pages. */
-.comparison-guide, .library-comparison { margin: 1rem 0; padding: .8rem 0; border-top: 1px solid var(--line); background: var(--surface); }
-.comparison-guide > summary, .library-comparison > summary { cursor: pointer; font-weight: 600; line-height: 1.6; }
-.comparison-guide > summary:focus-visible, .library-comparison > summary:focus-visible, .comparison-table:focus-visible { outline: 3px solid #3157d5; outline-offset: 3px; }
+.library-comparison { margin: 1rem 0; padding: .8rem 0; border-top: 1px solid var(--line); background: var(--surface); }
+.library-comparison > summary { cursor: pointer; font-weight: 600; line-height: 1.6; }
+.library-comparison > summary:focus-visible, .comparison-table:focus-visible { outline: 3px solid #3157d5; outline-offset: 3px; }
 .library-comparison[open] > summary { margin-bottom: .8rem; }
 .comparison-table { max-width: 100%; overflow-x: auto; margin-bottom: 1rem; }
-.comparison-table table { margin-bottom: 0; font-size: .9rem; }
+.comparison-table table { display: table; overflow: visible; margin-bottom: 0; font-size: .9rem; }
 .comparison-table th, .comparison-table td { min-width: 8rem; vertical-align: top; }
 .comparison-scroll-hint { display: none; color: var(--muted); font-size: .8rem; }
 @media (max-width: 700px) { .comparison-scroll-hint { display: block; } }

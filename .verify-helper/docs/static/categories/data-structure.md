@@ -22,6 +22,3 @@ category: data-structure
 | 重複を含む集合・順位区間の集約 | Ordered Multiset | 同値キーを挿入順に保持、モノイド集約 |
 | 列の挿入・削除・反転・区間作用 | Implicit Treap | 位置で管理する動的列。モノイドと作用を指定 |
 | 過去版を保持した区間積 | Persistent Segment Tree | モノイド、一点更新。任意のversionから分岐 |
-
-動的な木・永続lazy区間更新は未収録です。このページには検証・API文書を整備したヘッダを掲載し、
-削除した旧スニペットの代替先は[移行ガイド]({{ '/migration.html' | relative_url }})に記載しています。

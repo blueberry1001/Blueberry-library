@@ -1,6 +1,7 @@
 ---
 layout: page
 title: モノイド一覧
+body_class: monoid-page
 ---
 
 # モノイド一覧
@@ -46,9 +47,8 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
 
 共通操作は `seg.prod(l, r)`（区間の集約）、`seg.set(i, s)`（一点変更）、
 遅延セグ木なら `seg.apply(l, r, f)`（区間更新）です。区間は **0-indexed の `[l, r)`**。
-- **葉と空区間は別:** 長さを持つ定義では`seg(n)`の全要素は長さ0です。零配列でも各葉の長さは1にします。
 - **合成順:** `op(left, right)` は左から右。`composition(f, g)` は **`g` の後に `f`**。
-- **型と計算量:** 中間積まで型に収まることが前提です。各定義の演算は、記載がなければ`O(1)`です。木の構築は`O(N)`、区間取得・更新は`O(log N)`で、演算が定数時間でない場合はその費用を掛けます。
+- **計算量:** 各定義の演算は、記載がなければ`O(1)`です。木の構築は`O(N)`、区間取得・更新は`O(log N)`です。
 
 </details>
 
@@ -67,11 +67,16 @@ atcoder::lazy_segtree<S, op, e, F, mapping, composition, id> seg(init);
   </div>
   <noscript><p>JavaScript が無効のため全レシピを表示しています。見出しとブラウザ内検索で探せます。</p></noscript>
   <p data-catalog-empty hidden>一致するレシピがありません。キーワードを減らすか条件をクリアしてください。</p>
+  <div class="monoid-columns" aria-hidden="true"><span>更新操作</span><span>取得する値</span><span>使う構造</span></div>
   <div id="monoid-results">
   {% for recipe in site.data.monoids %}{% if recipe.code and recipe.code != '' %}
-    <article data-library data-category="{{ recipe.kind | escape }}" data-keywords="{{ recipe.keywords | escape }}" id="{{ recipe.id | escape }}">
+    <article data-library data-category="{{ recipe.kind | escape }}" data-keywords="{{ recipe.keywords | escape }} {{ recipe.search_aliases | escape }}" id="{{ recipe.id | escape }}">
       <details class="monoid-recipe" data-linked-details>
-      <summary><strong>{{ recipe.title | escape }}</strong><span>{% if recipe.kind == 'lazy' %}遅延セグ木{% elsif recipe.kind == 'beats' %}Beats{% else %}セグ木{% endif %}</span></summary>
+      <summary><span class="monoid-pair">
+        <span class="monoid-update"><span class="visually-hidden">更新：</span>{{ recipe.update_label | escape }}</span>
+        <span class="monoid-query"><span class="visually-hidden">取得：</span>{{ recipe.query_label | escape }}</span>
+        <span class="monoid-kind">{% if recipe.kind == 'lazy' %}遅延セグ木{% else %}セグ木{% endif %}</span>
+      </span></summary>
       {% if recipe.nonconstant_cost %}<p>{{ recipe.nonconstant_cost | escape }}</p>{% endif %}
       {% if recipe.note %}<p><code>{{ recipe.note | escape }}</code></p>{% endif %}
       {% if recipe.caveat != '' %}<p>{{ recipe.caveat | escape }}</p>{% endif %}

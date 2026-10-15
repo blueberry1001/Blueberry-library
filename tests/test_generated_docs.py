@@ -104,7 +104,7 @@ class GeneratedDocumentationTest(unittest.TestCase):
             output = root / ".verify-helper/markdown"
             names = ("blueberry/old.hpp.md", "blueberry/math/new.hpp.md",
                      "verify/math/old.test.cpp.md", "verify/math/new.test.cpp.md",
-                     "migration.md", "blueberry/notes.md")
+                     "guide.md", "blueberry/notes.md")
             for name in names:
                 page = output / name
                 page.parent.mkdir(parents=True, exist_ok=True)
@@ -118,6 +118,17 @@ class GeneratedDocumentationTest(unittest.TestCase):
             for name in names:
                 self.assertEqual((output / name).exists(), "old." not in name)
             self.assertEqual(MODULE.prune_removed_sources(root), [])
+
+    def test_retired_migration_page_is_pruned_from_previous_build(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            output = root / ".verify-helper/markdown"
+            output.mkdir(parents=True)
+            (output / "migration.md").write_text("retired page")
+            (output / "guide.md").write_text("current guide")
+            self.assertEqual(MODULE.prune_removed_sources(root), ["migration.md"])
+            self.assertFalse((output / "migration.md").exists())
+            self.assertTrue((output / "guide.md").exists())
 
     def test_no_generated_directory_is_a_noop(self):
         with tempfile.TemporaryDirectory() as temporary:
@@ -142,6 +153,113 @@ DATA = ROOT / ".verify-helper/docs/static/_data/monoids.yml"
 # These are deliberately independent of blueberry/algebra/monoids.hpp: readers
 # copy the code field, so testing the library classes would miss snippet errors.
 TESTS = {
+    "point_sum": r"""
+void test() {
+ for(trial=0;trial<40;++trial) {
+  int n=trial%10;vector<long long>a(n);
+  for(auto&x:a)x=draw(21)-10;
+  atcoder::segtree<S,op,e>seg(a);
+  monoid_laws(a,op,e,[](S x){return x;});
+  for(step=0;step<60;++step) {
+   if(n){int p=draw(n);a[p]=draw(21)-10;seg.set(p,a[p]);}
+   for(int l=0;l<=n;++l)for(int r=l;r<=n;++r) {
+    long long expected=0;for(int i=l;i<r;++i)expected+=a[i];
+    EQ(seg.prod(l,r),expected);
+   }
+  }
+ }
+}
+""",
+    "point_min": r"""
+void test() {
+ vector<S>boundary{numeric_limits<S>::lowest(),numeric_limits<S>::max()};
+ monoid_laws(boundary,op,e,[](S x){return x;});
+ atcoder::segtree<S,op,e>limits(boundary);
+ EQ(limits.prod(0,2),numeric_limits<S>::lowest());
+ EQ(limits.prod(1,2),numeric_limits<S>::max());EQ(limits.prod(0,0),e());
+ for(trial=0;trial<40;++trial) {
+  int n=trial%10;vector<long long>a(n);for(auto&x:a)x=draw(21)-10;
+  atcoder::segtree<S,op,e>seg(a);
+  for(step=0;step<60;++step) {
+   if(n){int p=draw(n);a[p]=draw(21)-10;seg.set(p,a[p]);}
+   for(int l=0;l<=n;++l)for(int r=l;r<=n;++r) {
+    long long expected=numeric_limits<S>::max();
+    for(int i=l;i<r;++i)if(a[i]<expected)expected=a[i];
+    EQ(seg.prod(l,r),expected);
+   }
+  }
+ }
+}
+""",
+    "point_max": r"""
+void test() {
+ vector<S>boundary{numeric_limits<S>::lowest(),numeric_limits<S>::max()};
+ monoid_laws(boundary,op,e,[](S x){return x;});
+ atcoder::segtree<S,op,e>limits(boundary);
+ EQ(limits.prod(0,2),numeric_limits<S>::max());
+ EQ(limits.prod(0,1),numeric_limits<S>::lowest());EQ(limits.prod(0,0),e());
+ for(trial=0;trial<40;++trial) {
+  int n=trial%10;vector<long long>a(n);for(auto&x:a)x=draw(21)-10;
+  atcoder::segtree<S,op,e>seg(a);
+  for(step=0;step<60;++step) {
+   if(n){int p=draw(n);a[p]=draw(21)-10;seg.set(p,a[p]);}
+   for(int l=0;l<=n;++l)for(int r=l;r<=n;++r) {
+    long long expected=numeric_limits<S>::lowest();
+    for(int i=l;i<r;++i)if(a[i]>expected)expected=a[i];
+    EQ(seg.prod(l,r),expected);
+   }
+  }
+ }
+}
+""",
+    "add_sum": r"""
+void test() {
+ auto view=[](S s){return vector<long long>{s.sum,s.len};};
+ for(trial=0;trial<40;++trial) {
+  int n=trial%10;vector<long long>a(n);vector<S>v;
+  for(auto&x:a){x=draw(21)-10;v.push_back(S{x,1});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<60;++step) {
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);F f=draw(11)-5;
+   action_laws(v,f,F{-3},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i)a[i]+=f;
+   if(n&&step%9==0){int p=draw(n);a[p]=draw(21)-10;seg.set(p,S{a[p],1});}
+   for(int ql=0;ql<=n;++ql)for(int qr=ql;qr<=n;++qr) {
+    long long sum=0;for(int i=ql;i<qr;++i)sum+=a[i];
+    vector<long long>expected{sum,qr-ql};EQ(view(seg.prod(ql,qr)),expected);
+   }
+  }
+ }
+}
+""",
+    "add_max": r"""
+void test() {
+ auto view=[](S s){return vector<long long>{s.empty?0:s.maximum,s.empty};};
+ vector<S>boundary{{numeric_limits<long long>::lowest(),false},
+                    {numeric_limits<long long>::max(),false}};
+ action_laws(boundary,F{0},F{0},op,e,mapping,composition,id,view);
+ EQ(mapping(F{7},e()).empty,true);
+ atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>limits(boundary);
+ EQ(limits.prod(0,1).maximum,numeric_limits<long long>::lowest());
+ EQ(limits.prod(0,2).maximum,numeric_limits<long long>::max());
+ for(trial=0;trial<40;++trial) {
+  int n=trial%10;vector<long long>a(n);vector<S>v;
+  for(auto&x:a){x=draw(21)-10;v.push_back(S{x,false});}
+  atcoder::lazy_segtree<S,op,e,F,mapping,composition,id>seg(v);
+  for(step=0;step<60;++step) {
+   int l=draw(n+1),r=draw(n+1);if(l>r)swap(l,r);F f=draw(11)-5;
+   action_laws(v,f,F{-3},op,e,mapping,composition,id,view);
+   seg.apply(l,r,f);for(int i=l;i<r;++i)a[i]+=f;
+   if(n&&step%9==0){int p=draw(n);a[p]=draw(21)-10;seg.set(p,S{a[p],false});}
+   for(int ql=0;ql<=n;++ql)for(int qr=ql;qr<=n;++qr) {
+    long long maximum=0;
+    for(int i=ql;i<qr;++i)if(i==ql||a[i]>maximum)maximum=a[i];
+    vector<long long>expected{maximum,ql==qr};EQ(view(seg.prod(ql,qr)),expected);
+   }
+  }
+ }
+}
+""",
     "sum": r"""
 void test() {
  auto view=[](S s){return vector<long long>{s.sum,s.len};};

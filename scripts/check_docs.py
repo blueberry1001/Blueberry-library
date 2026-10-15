@@ -72,7 +72,7 @@ def collect_examples(root):
         path = document.relative_to(root).as_posix()
         examples.append((path, path, blocks[0]))
 
-    for name in ("guide", "migration"):
+    for name in ("guide",):
         guide = root / f".verify-helper/docs/static/{name}.md"
         blocks = re.findall(r"```cpp\n(.*?)\n```", guide.read_text(encoding="utf-8"), re.S)
         path = guide.relative_to(root).as_posix()
@@ -88,7 +88,7 @@ def selected_paths(root, paths_file, examples):
     if not isinstance(paths, list) or any(not isinstance(path, str) for path in paths):
         raise ValueError("--paths-file must contain a JSON array of document path strings")
     allowed = {path for path, _, _ in examples}
-    allowed.update(f".verify-helper/docs/static/{name}.md" for name in ("guide", "migration"))
+    allowed.add(".verify-helper/docs/static/guide.md")
     unknown = set(paths) - allowed
     if unknown:
         raise ValueError(f"Unknown or non-document selected paths: {sorted(unknown)}")

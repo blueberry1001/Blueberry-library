@@ -8,7 +8,6 @@ title: Library Checker 対応表
 
 {% assign coverage = site.data.library_checker %}
 <h1>Library Checker 対応表</h1>
-<p class="coverage-note">「verifyあり」は検証コードがある問題です。ACの結果は<a href="{{ '/benchmarks.html' | relative_url }}">検証結果一覧</a>で確認できます。</p>
 
 <div data-coverage>
   <fieldset class="coverage-controls" data-coverage-controls hidden>
@@ -48,15 +47,3 @@ title: Library Checker 対応表
     </tbody>
   </table>
 </div>
-
-<details class="category-guide"><summary>対応状況・データの出典</summary>
-<p>「verifyあり」はACを保証しません。実行結果と測定条件は各verifyのリンク先と<a href="{{ '/benchmarks.html' | relative_url }}">検証結果一覧</a>で確認してください。専用verifyなしの項目は、対応するAPIと使い方を個別に確認したものです。ACLは外部ライブラリとして区別しています。</p>
-<p>取得日時: <time>{{ coverage.fetched_at | escape }}</time> · <a href="{{ coverage.api_url | escape }}">公式公開問題一覧</a> · <a href="{{ coverage.upstream_url | escape }}/blob/{{ coverage.upstream_revision | escape }}/categories.toml">カテゴリの固定リビジョン</a></p>
-<p>取得日付きのスナップショットを使い、閲覧時にはネットワーク取得しません。</p>
-</details>
-
-<details class="category-guide"><summary>開発時の更新方法</summary>
-<p>ライブラリやverifyを追加した後は <code>python3 scripts/library_checker_coverage.py</code> で対応表とMarkdownチェックリストを再生成します。<code>make test</code> が更新漏れを検出します。</p>
-<p>公開問題を更新する場合は、最新の公式問題リポジトリを用意し、<code>python3 scripts/library_checker_coverage.py --refresh --upstream /path/to/library-checker-problems</code> を実行します。取得できなかった場合に問題数をゼロに置き換えることはありません。</p>
-<p><a href="https://github.com/blueberry1001/Blueberry-library/blob/main/docs/library-checker-checklist.md">GitHubでチェックリストを読む</a> · <a href="https://github.com/blueberry1001/Blueberry-library/blob/main/data/library-checker-mappings.json">個別に確認したAPI・ACL対応</a></p>
-</details>

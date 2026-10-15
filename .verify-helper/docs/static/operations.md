@@ -97,15 +97,11 @@ title: 操作から探す
       <p class="operation-prerequisites"><strong>前提</strong> {{ entry.prerequisites | escape }}</p>
       {% for family in site.data.comparisons %}
       {% assign hint = family.hints[entry.id] %}
-      {% if hint %}<p class="operation-choice"><strong>使い分け</strong> {{ hint | escape }} <a href="#comparison-{{ family.id }}">比較を開く<span class="visually-hidden">：{{ family.title | escape }}</span></a></p>{% endif %}
+      {% if hint %}<p class="operation-choice"><strong>使い分け</strong> {{ hint | escape }} <a href="{{ '/comparisons.html#comparison-' | append: family.id | relative_url }}">比較を開く<span class="visually-hidden">：{{ family.title | escape }}</span></a></p>{% endif %}
       {% endfor %}
       {% if entry.external_url %}<p class="operation-external"><a href="{{ entry.external_url | escape }}">組み合わせる ACL の公式文書（外部）</a></p>{% endif %}
     </article>
     {% endfor %}
   </div>
-  <details class="comparison-guide" id="comparison-guide">
-    <summary>似た構造を比較する</summary>
-    {% for family in site.data.comparisons %}{% include library_comparison.html family=family.id %}{% endfor %}
-  </details>
   <p class="operation-caption">計算量は記載の前提と O(1) の演算を仮定します。</p>
 </div>

@@ -57,7 +57,6 @@ Nは対象の項数（inv/expなどでは要求項数）、二項演算のMは�
 - NTTを使う操作では、各内部畳み込みの出力長Lに対して `2^ceil(log2(L))` が `mod-1` の2進因子以下である必要があります。
 - `inv(n)` と `exp(n)` の変換長は `2^ceil(log2(n))` です。積・log・sqrt・多項式除算では中間の積の長さも考慮してください。
 - 一般的な積はACLの `convolution` を利用し、FPS固有の逆元・log・expなどのNewton反復をこのヘッダで提供します。本体は `blueberry` 名前空間にあります。
-- 旧パスとグローバル別名は廃止したため、[移行ガイド]({{ '/migration.html' | relative_url }})を参照してください。
 
 </details>
 

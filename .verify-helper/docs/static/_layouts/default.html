@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     {% include head-custom.html %}
   </head>
-  <body>
+  <body{% if page.body_class %} class="{{ page.body_class | escape }}"{% endif %}>
     <a class="skip-link" href="#main-content">本文へ移動</a>
     <div class="wrapper">
       <section>{{ content }}</section>
