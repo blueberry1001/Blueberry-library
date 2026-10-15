@@ -34,6 +34,13 @@ assert 'data-catalog-choice="algebra"' not in home, "Empty compatibility categor
 assert not any(href.endswith('/blueberry/algebra/monoids.hpp.html') for href in home_links), (
     "Compatibility monoids belong on the monoid page")
 catalog_script = (SITE / "assets/js/docs.js").read_text()
+original = (ROOT / '.verify-helper/docs/static/assets/code/blueberrytemplate.h').read_bytes()
+assert (SITE / 'assets/code/blueberrytemplate.h').read_bytes() == original, "Original template download changed bytes"
+template_page = (SITE / 'blueberrytemplate.html').read_text()
+original_code = re.search(r'<code\b[^>]*id="original-template-code"[^>]*>(.*?)</code>', template_page, re.S)
+assert original_code and html.unescape(original_code[1]).encode('utf-8') == original, "Original template copy changed bytes"
+assert '/Blueberry-library/blueberrytemplate.html' in home, "Missing original template entry"
+assert '/Blueberry-library/blueberrytemplate.html' in (SITE / 'categories/utility.html').read_text()
 assert 'event.preventDefault()' in catalog_script and 'choice.dataset.catalogChoice' in catalog_script, (
     "Category selection must filter the catalog without navigating away")
 categories = ("data-structure", "graph", "math", "string", "utility")

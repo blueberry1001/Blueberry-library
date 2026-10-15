@@ -1,11 +1,13 @@
 ---
-title: Contest Template（明示 opt-in）
+title: Contest Template（整理版・明示 opt-in）
 documentation_of: //blueberry/utility/contest-template.hpp
 ---
 
 ## 概要
 
 競技用の短い型別名・ループ・入出力を、必要なときだけ追加するヘッダです。
+
+元の名前・定義のまま使う場合は [blueberrytemplate.h（原文）]({{ '/blueberrytemplate.html' | relative_url }}) をコピーしてください。
 
 GNU libstdc++・ACLが必要です。単一translation unitの提出用です。
 

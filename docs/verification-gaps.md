@@ -47,7 +47,7 @@
 - 整数除算・二分探索・圧縮・二部判定・Fillなどは公式の専用問題ではなくローカル検査です。
 - 型の前提と整数端点のテストを維持し、対応する公式問題がある操作には専用ドライバを追加する。
 
-## Contest Template（任意読込み）
+## Contest Template（整理版・任意読込み）
 
 [blueberry/utility/contest-template.hpp](../blueberry/utility/contest-template.hpp) — **主機能の一部に公式verifyなし**
 
