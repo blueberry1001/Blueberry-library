@@ -211,10 +211,26 @@ if "--without-metrics" in sys.argv[1:]:
     print(f"PASS: {len(categories)} categories, {len(headers)} API pages, footer and navigation (before verification).")
     sys.exit(0)
 
-metrics = json.loads((SITE / "assets/verification-metrics.json").read_text())
-paths = {r["path"] for r in metrics["results"]}
-expected = {p.relative_to(ROOT).as_posix() for p in (ROOT / "verify").rglob("*.test.cpp")}
+from verification_state import load_state, valid_successes
+
 revision = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
+verification_state = json.loads((SITE / "assets/verification-state.json").read_text())
+assert verification_state.get("schema") == 1 and verification_state.get("revision") == revision
+saved_successes = valid_successes(load_state(ROOT / ".verification/state.json"), ROOT)
+assert verification_state.get("records") == saved_successes, "Published AC must match unchanged source/dependency fingerprints"
+expected = {p.relative_to(ROOT).as_posix() for p in (ROOT / "verify").rglob("*.test.cpp")}
+assert expected <= set(saved_successes), "Publication must retain valid AC evidence for every verifier, including unselected ones"
+metrics = json.loads((SITE / "assets/verification-metrics.json").read_text())
+currently_passed = {row["path"] for row in metrics["results"] if row["status"] == "passed"}
+for path, record in saved_successes.items():
+    content = (SITE / f"{path}.html").read_text()
+    assert 'data-verification-status="TEST_ACCEPTED"' in content, (path, "Valid historical AC was lost")
+    assert f'data-saved-verification="{path}"' in content, (path, "Missing saved verification provenance")
+    assert record["verified_at"] in content and record["verified_revision"] in content, (path, "Missing actual verified time/revision")
+    if path not in currently_passed:
+        assert "以前のACを保持" in content and "再計測を意味しません" in content, (path, "Historical AC must not look like current measurement")
+
+paths = {r["path"] for r in metrics["results"]}
 selected = validate_publication_report(metrics, expected, revision)
 if metrics.get("selection") is not None:
     validate_plan_against_repository(metrics["selection"], ROOT)
@@ -227,10 +243,9 @@ for row in metrics["results"]:
     if row["status"] == "passed":
         assert 'data-verification-status="TEST_ACCEPTED"' in content, (
             row["path"], "Successful measurement must render an accepted verification heading")
-if selected == expected:
-    for header in headers:
-        content = (SITE / f"{header}.html").read_text()
-        assert not re.search(r'data-verification-status="LIBRARY_(?:ALL|SOME)_WA"', content), (
-            header, "Full successful verification must not render a failed library heading")
+for header in headers:
+    content = (SITE / f"{header}.html").read_text()
+    assert not re.search(r'data-verification-status="LIBRARY_(?:ALL|SOME)_WA"', content), (
+        header, "Published source-valid AC must not render a failed library heading")
 print(f"PASS: {len(categories)} categories, {len(headers)} API pages, {len(selected)} measured verifies, "
       f"{len(paths) - len(selected)} intentionally unselected, footer and navigation.")

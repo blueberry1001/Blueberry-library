@@ -39,16 +39,21 @@ def current_failed_verifiers(basedir, revision):
 
 
 @contextmanager
-def documentation_marker_statuses(marker_class, failed, basedir):
-    """Keep cached AC; turn missing/stale records into waiting, not fabricated WA."""
+def documentation_marker_statuses(marker_class, failed, basedir, accepted=None):
+    """Use source-validated successes; explicit current failures take precedence."""
     original_verified = marker_class.is_verified
     basedir = Path(basedir).resolve()
+    successes = ({(basedir / path).resolve() for path in accepted}
+                 if accepted is not None else None)
 
     def is_failed(marker, path):
         return (basedir / path).resolve() in failed
 
     def is_verified(marker, path):
-        return not is_failed(marker, path) and original_verified(marker, path)
+        if is_failed(marker, path):
+            return False
+        return ((basedir / path).resolve() in successes if successes is not None
+                else original_verified(marker, path))
 
     with patch.object(marker_class, "is_verified", is_verified), \
             patch.object(marker_class, "is_failed", is_failed):
@@ -80,6 +85,7 @@ def main():
     import onlinejudge_verify.documentation.configure as configure
     import onlinejudge_verify.documentation.main as documentation
     import onlinejudge_verify.marker as marker_module
+    from verification_state import load_state, valid_successes
 
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("-j", "--jobs", type=int, default=2)
@@ -95,8 +101,9 @@ def main():
 
     revision = subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
     failed = current_failed_verifiers(Path.cwd(), revision)
+    accepted = valid_successes(load_state(Path('.verification/state.json')), Path.cwd())
     with patch.object(configure, "_find_source_code_paths", included_sources), \
-            documentation_marker_statuses(marker_module.VerificationMarker, failed, Path.cwd()):
+            documentation_marker_statuses(marker_module.VerificationMarker, failed, Path.cwd(), accepted):
         documentation.main(jobs=args.jobs)
     for page in prune_removed_sources(Path.cwd()):
         print(f"Removed obsolete generated source page: {page}")

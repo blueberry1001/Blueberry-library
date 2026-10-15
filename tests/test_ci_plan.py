@@ -185,11 +185,11 @@ class CiPlanTests(unittest.TestCase):
         self.assertIn("API unavailable", evidence["reason"])
         self.assertEqual(build_plan(self.root, base, "HEAD")["mode"], "full")
 
-    def test_cli_dispatch_three_repeats_and_empty_paths_file(self):
+    def test_cli_explicit_full_three_repeats_and_empty_paths_file(self):
         script = Path(__file__).resolve().parents[1] / "scripts/plan_verification.py"
         output = self.root / "plan.json"
         subprocess.run([sys.executable, str(script), "--repo", str(self.root), "--base", self.base,
-                        "--event-name", "workflow_dispatch", "--output", str(output)], check=True,
+                        "--event-name", "workflow_dispatch", "--full", "--output", str(output)], check=True,
                        stdout=subprocess.PIPE)
         plan = json.loads(output.read_text())
         self.assertEqual((plan["mode"], plan["repeats"]), ("full", 3))
@@ -202,7 +202,7 @@ class CiPlanTests(unittest.TestCase):
         self.assertEqual((plan["selected_verify"], plan["repeats"]), ([], 1))
         self.assertEqual(json.loads((self.root / "ci-doc-examples.json").read_text()), [])
 
-    def test_publication_push_verifies_all_even_for_docs_only_with_explicit_base(self):
+    def test_publication_push_keeps_docs_only_selection_empty(self):
         self.write("README.md", "documentation-only publication\n")
         self.commit()
         output = self.root / "ci-plan.json"
@@ -211,10 +211,10 @@ class CiPlanTests(unittest.TestCase):
                         "--base", self.base, "--event-name", "push",
                         "--output", str(output)], check=True, stdout=subprocess.PIPE)
         plan = json.loads(output.read_text())
-        self.assertEqual((plan["mode"], plan["repeats"]), ("full", 3))
-        self.assertEqual(plan["selected_verify"], ["verify/a.test.cpp", "verify/b.test.cpp"])
-        self.assertTrue(plan["compile_required"])
-        self.assertIsNone(json.loads((self.root / "ci-doc-examples.json").read_text()))
+        self.assertEqual((plan["mode"], plan["repeats"]), ("affected", 1))
+        self.assertEqual(plan["selected_verify"], [])
+        self.assertFalse(plan["compile_required"])
+        self.assertEqual(json.loads((self.root / "ci-doc-examples.json").read_text()), [])
         validate_plan(plan, self.root)
 
 

@@ -1,12 +1,24 @@
 {% assign metrics = site.data.verification_metrics %}
 {% assign timings = metrics.results | where: "path", include.path %}
+{% assign latest_timing = timings | first %}
+{% assign saved_verification = site.data.verification_state.records[include.path] %}
 <aside class="verification-metrics">
   <h2>このverifyの実行時間</h2>
+  {% if saved_verification %}
+  <p data-saved-verification="{{ include.path | escape }}">最終成功: {{ saved_verification.verified_at | escape }} · commit
+    <a href="{{ site.github.repository_url }}/commit/{{ saved_verification.verified_revision | escape }}">{{ saved_verification.verified_revision | slice: 0, 7 }}</a>
+    {% if saved_verification.run_url and saved_verification.run_url != '' %} · <a href="{{ saved_verification.run_url | escape }}">検証ログ</a>{% endif %}<br>
+    {% if latest_timing.status == 'passed' and saved_verification.verified_revision == metrics.revision %}
+    今回の実行で成功した検証の記録です。
+    {% else %}
+    ソースと依存関係が同一のため、以前のACを保持しています。この実行での再計測を意味しません。
+    {% endif %}</p>
+  {% endif %}
   {% if timings.size > 0 %}
   <p>検証レポート: {{ metrics.generated_at | escape }} · commit {{ metrics.revision | slice: 0, 7 }}</p>
   {% for row in timings %}
   {% if row.status == 'not_selected' %}
-  <p>今回未実行（変更の影響範囲外）。この実行での計測値・成功判定はありません。</p>
+  <p>今回未実行（変更の影響範囲外）。今回の計測値はありません。{% unless saved_verification %}有効な成功記録もありません。{% endunless %}</p>
   {% else %}
   <p>環境 {{ row.environment_index }} / {{ row.status | escape }}<br>
     コンパイル: {% if row.compile_seconds != nil %}{{ row.compile_seconds | round: 6 }} 秒{% else %}—{% endif %} /
@@ -17,7 +29,7 @@
   {% endif %}
   {% endfor %}
   {% else %}
-  <p>まだ計測結果がありません。計測付きverify実行後に表示されます。</p>
+  <p>今回の計測結果はありません。計測付きverifyを実行した回の結果を表示します。</p>
   {% endif %}
   <a href="{{ '/benchmarks.html' | relative_url }}">計測条件・全verifyの結果</a>
 </aside>

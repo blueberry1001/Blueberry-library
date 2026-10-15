@@ -143,7 +143,7 @@ def write_report(report, baseline, destination):
         lines[5:5] = [
             f"Selection: {plan['mode']} / {len(plan['selected_verify'])} of {len(plan['all_verify'])} verifies",
             f"Base: {plan.get('base_sha') or 'none'} / Reason: {plan['reason']}",
-            "未選択のverifyは今回未実行です。過去の時間・成功結果は引き継ぎません。", "",
+            "未選択のverifyは今回未実行です。過去の成功結果は内容を照合して別の保存記録から表示し、測定時間は混在させません。", "",
         ]
     for row in report["results"]:
         lines.append(f"| {row['path']} / {row['environment_index']} | {row['status']} | "
@@ -383,6 +383,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("paths", nargs="*", help="verify files; omitted means all")
     parser.add_argument("--plan", type=Path, help="validated CI selection plan; an empty selection runs nothing")
+    parser.add_argument("--state", type=Path, help="immutable previous receipts; updated receipts go to output/state.json")
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--tle", type=float, default=60)
     parser.add_argument("--timeout", type=float, default=1500)
@@ -425,7 +426,19 @@ def main():
         report["succeeded"] = run_with_helper(args, report)
     finally:
         # Compile errors, WA, and exceptions still leave a usable CI artifact.
+        report["completed_at"] = datetime.now(timezone.utc).isoformat()
         write_report(report, baseline, args.output)
+        if args.state is not None:
+            if __package__:
+                from .verification_state import load_state, update_state
+            else:
+                from verification_state import load_state, update_state
+            run_url = None
+            if os.environ.get("GITHUB_RUN_ID") and os.environ.get("GITHUB_REPOSITORY"):
+                run_url = ("https://github.com/" + os.environ["GITHUB_REPOSITORY"] +
+                           "/actions/runs/" + os.environ["GITHUB_RUN_ID"])
+            state = update_state(load_state(args.state), report, Path.cwd(), run_url=run_url)
+            (args.output / "state.json").write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n")
     if report["succeeded"] and args.save_baseline:
         args.baseline.parent.mkdir(parents=True, exist_ok=True)
         args.baseline.write_text((args.output / "current.json").read_text())
