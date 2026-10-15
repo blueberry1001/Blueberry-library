@@ -5,13 +5,14 @@ layout: default
 {% include theme_fix.html %}
 <nav class="site-nav" aria-label="サイト内ナビゲーション">
   <a class="site-brand" href="{{ '/' | relative_url }}">Blueberry Library</a>
-  <a href="{{ '/operations.html' | relative_url }}">操作から探す</a>
-  <a href="{{ '/monoids.html' | relative_url }}">モノイド</a>
-  <a href="{{ '/guide.html' | relative_url }}">使い方</a>
+  <a href="{{ '/guide.html' | relative_url }}"{% if page.url == '/guide.html' %} aria-current="page"{% endif %}>使い方</a>
+  <a href="{{ '/operations.html' | relative_url }}"{% if page.url == '/operations.html' %} aria-current="page"{% endif %}>操作から探す</a>
+  <a href="{{ '/monoids.html' | relative_url }}"{% if page.url == '/monoids.html' %} aria-current="page"{% endif %}>モノイド</a>
+  <a href="{{ '/library-checker.html' | relative_url }}"{% if page.url == '/library-checker.html' %} aria-current="page"{% endif %}>LC対応表</a>
   <details class="site-more">
   <summary>資料</summary>
   <div class="site-more-links">
-  <a href="{{ '/library-checker.html' | relative_url }}">LC対応表</a>
+  <a href="{{ '/blueberrytemplate.html' | relative_url }}">個人用テンプレート</a>
   <a href="{{ '/verification-gaps.html' | relative_url }}">検証・調査状況</a>
   <a href="{{ '/migration.html' | relative_url }}">旧版からの移行</a>
   <a href="{{ '/benchmarks.html' | relative_url }}">verify実行時間</a>

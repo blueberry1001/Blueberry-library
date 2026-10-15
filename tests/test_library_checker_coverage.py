@@ -199,6 +199,96 @@ console.log(JSON.stringify([
         result = subprocess.run([node, "-e", script], cwd=MODULE.parents[1], capture_output=True, text=True, check=True)
         self.assertEqual(json.loads(result.stdout), [True, False, False, True, False, False])
 
+    def test_browser_filters_restore_urls_quick_links_and_history(self):
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("Node.js is required to run JavaScript filter tests")
+        script = r'''
+const assert = require('node:assert/strict');
+const {readFilters, filterURL, setup} = require('./.verify-helper/docs/static/assets/js/coverage.js');
+const categories = ['', 'Math'], statuses = ['', 'verify', 'acl', 'missing'];
+assert.deepEqual(readFilters('https://example.com/?query=%EF%BC%A6%EF%BC%B0%EF%BC%B3&category=Math&status=missing', categories, statuses),
+  {search:'ＦＰＳ', category:'Math', status:'missing'});
+assert.deepEqual(readFilters('https://example.com/?category=Unknown&status=unknown', categories, statuses),
+  {search:'', category:'', status:''});
+const url = filterURL('https://example.com/list?keep=1&status=verify#problem-a', {search:'sum tree',category:'Math',status:'missing'});
+assert.equal(url.searchParams.get('query'), 'sum tree');
+assert.equal(url.searchParams.get('keep'), '1');
+assert.equal(url.hash, '#problem-a');
+const cleared = filterURL(url, {search:'',category:'',status:''});
+assert.equal(cleared.search, '?keep=1');
+
+class Element {
+  constructor() { this.value = ''; this.listeners = {}; this.attributes = {}; this.dataset = {}; }
+  addEventListener(name, listener) { this.listeners[name] = listener; }
+  setAttribute(name, value) { this.attributes[name] = value; }
+  removeAttribute(name) { delete this.attributes[name]; }
+  focus() { this.focused = true; }
+}
+function select(values) {
+  const element = new Element();
+  element.options = values.map(value => ({value, textContent: value || 'すべて'}));
+  Object.defineProperty(element, 'selectedIndex', {get() { return values.indexOf(this.value); }});
+  return element;
+}
+const search = new Element(), category = select(categories), status = select(statuses);
+const elements = Object.fromEntries(['count','empty','reset','controls'].map(name => [name, new Element()]));
+Object.assign(elements, {search, category, status});
+const rows = ['verify','acl','missing'].map(status => ({dataset:{category:'Math',status},textContent:'FPS '+status}));
+const links = ['', 'verify','acl','missing'].map(value => Object.assign(new Element(), {dataset:{coverageQuick:value}}));
+const events = {}, documentEvents = {};
+let writes = 0;
+const browser = {
+  location:{href:'https://example.com/list?status=missing&keep=1#problem-c'},
+  history:{state:{preserved:true}, replaceState(state, title, href) {
+    assert.deepEqual(state, {preserved:true}); this.href = href; browser.location.href = href; ++writes;
+  }},
+  addEventListener(name, listener) { events[name] = listener; }
+};
+const root = {
+  ownerDocument:{defaultView:browser, addEventListener(name, listener) { documentEvents[name] = listener; }},
+  querySelector(selector) { return elements[selector.match(/data-coverage-(.+)\]/)[1]]; },
+  querySelectorAll(selector) { return selector === '[data-coverage-row]' ? rows : links; }
+};
+setup(root);
+assert.deepEqual(rows.map(row => row.hidden), [true,true,false]);
+assert.equal(status.value, 'missing');
+assert.equal(links[3].attributes['aria-current'], 'true');
+assert.equal(writes, 0, 'loading a shared URL does not rewrite history');
+let prevented = false;
+links[1].listeners.click({button:0,preventDefault() { prevented = true; }});
+assert.equal(prevented, true);
+assert.equal(status.value, 'verify');
+assert.deepEqual(rows.map(row => row.hidden), [false,true,true]);
+assert.equal(links[3].attributes['aria-current'], undefined);
+assert.equal(new URL(browser.location.href).searchParams.get('keep'), '1');
+assert.equal(new URL(browser.location.href).hash, '#problem-c');
+const beforeModifiedClick = writes;
+links[2].listeners.click({button:0,ctrlKey:true,preventDefault() { throw Error('modified clicks must navigate normally'); }});
+assert.equal(writes, beforeModifiedClick);
+status.value = 'acl'; status.listeners.change();
+assert.equal(links[2].attributes['aria-current'], 'true', 'select and shortcuts stay synchronized');
+search.value = 'absent'; search.listeners.input();
+assert.equal(elements.empty.hidden, false);
+assert.equal(new URL(browser.location.href).searchParams.get('query'), 'absent');
+browser.location.href = 'https://example.com/list?status=missing'; events.popstate();
+assert.equal(search.value, '');
+assert.equal(status.value, 'missing');
+assert.deepEqual(rows.map(row => row.hidden), [true,true,false]);
+elements.reset.listeners.click();
+assert.equal(search.focused, true);
+assert.deepEqual(rows.map(row => row.hidden), [false,false,false]);
+search.focused = false;
+documentEvents.keydown({key:'/',target:{closest:() => null},preventDefault() {}});
+assert.equal(search.focused, true);
+for (const extra of [{ctrlKey:true},{metaKey:true},{altKey:true},{shiftKey:true},{isComposing:true},{target:{closest:() => ({})}}]) {
+  search.focused = false;
+  documentEvents.keydown({key:'/',target:{closest:() => null},preventDefault() { throw Error('must not intercept'); },...extra});
+  assert.equal(search.focused, false);
+}
+'''
+        subprocess.run([node, "-e", script], cwd=MODULE.parents[1], capture_output=True, text=True, check=True)
+
 
 if __name__ == "__main__":
     unittest.main()

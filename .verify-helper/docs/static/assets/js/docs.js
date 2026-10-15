@@ -77,25 +77,46 @@ function filterCatalog(catalog) {
 function initializeCatalog(catalog) {
   const search = catalog.querySelector("[data-catalog-search]");
   const category = catalog.querySelector("[data-catalog-category]");
+  const remember = catalog.dataset?.catalogUrl !== undefined;
+  function restore() {
+    if (remember) {
+      const params = new URL(window.location.href).searchParams;
+      search.value = params.get("query") || "";
+      const selected = params.get("category") || "";
+      category.value = Array.from(category.options).some(option => option.value === selected) ? selected : "";
+    }
+    filterCatalog(catalog);
+  }
+  function apply() {
+    filterCatalog(catalog);
+    if (!remember) return;
+    const url = new URL(window.location.href);
+    for (const [key, value] of [["query", search.value], ["category", category.value]]) {
+      if (value) url.searchParams.set(key, value);
+      else url.searchParams.delete(key);
+    }
+    if (url.href !== window.location.href) window.history.replaceState(window.history.state, "", url);
+  }
   catalog.querySelector("[data-catalog-controls]").hidden = false;
   const choices = catalog.querySelectorAll("[data-catalog-choice]");
-  if (choices.length) category.parentElement.hidden = true;
+  if (choices.length || category.options?.length <= 2) category.parentElement.hidden = true;
   choices.forEach(choice => choice.addEventListener("click", (event) => {
     // Leave modified clicks available for opening the category guide in another tab.
     if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
     category.value = choice.dataset.catalogChoice;
-    filterCatalog(catalog);
+    apply();
   }));
-  search.addEventListener("input", () => filterCatalog(catalog));
-  category.addEventListener("change", () => filterCatalog(catalog));
+  search.addEventListener("input", apply);
+  category.addEventListener("change", apply);
   catalog.querySelector("[data-catalog-reset]").addEventListener("click", () => {
     search.value = "";
     category.value = "";
-    filterCatalog(catalog);
+    apply();
     search.focus();
   });
-  filterCatalog(catalog);
+  if (remember) window.addEventListener("popstate", restore);
+  restore();
 }
 
 async function copyCode(code, status) {

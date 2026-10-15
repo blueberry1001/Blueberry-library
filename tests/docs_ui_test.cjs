@@ -26,6 +26,7 @@ const target = new Element("", inner);
 const nodes = new Map([["nested example", target], ["operation", inner]]);
 let copied, selected;
 const context = vm.createContext({
+  URL,
   document: {
     getElementById: (id) => nodes.get(id),
     addEventListener() {},
@@ -195,6 +196,42 @@ assert.equal(categoryChoices[0].attributes["aria-current"], "true");
 assert.equal(categoryGuide.hidden, true);
 assert.equal(interactiveSearch.focused, true);
 assert.equal(rows.every(row => !row.hidden), true, "reset restores every library");
+
+// Shared catalog links restore filters; edits preserve unrelated URL parameters.
+interactiveCatalog.dataset = { catalogUrl: "" };
+interactiveCategory.options = [{ value: "" }, { value: "graph" }, { value: "math" }];
+context.window.location.href = "https://example.test/library/?query=ＬＣＡ&category=graph&from=guide#library-results";
+let writes = 0, popstate;
+context.window.history = { replaceState(_state, _title, url) {
+  ++writes;
+  context.window.location.href = String(url);
+} };
+context.window.addEventListener = (event, listener) => { if (event === "popstate") popstate = listener; };
+context.initializeCatalog(interactiveCatalog);
+assert.equal(interactiveSearch.value, "ＬＣＡ");
+assert.equal(interactiveCategory.value, "graph");
+assert.deepEqual(rows.map(row => row.hidden), [true, false, true]);
+assert.equal(writes, 0, "restoring a link does not change browser history");
+interactiveSearch.value = "木";
+interactiveSearch.listeners.input();
+let url = new URL(context.window.location.href);
+assert.equal(url.searchParams.get("query"), "木");
+assert.equal(url.searchParams.get("from"), "guide");
+assert.equal(url.hash, "#library-results");
+reset.listeners.click();
+url = new URL(context.window.location.href);
+assert.equal(url.searchParams.has("query"), false);
+assert.equal(url.searchParams.has("category"), false);
+assert.equal(url.searchParams.get("from"), "guide");
+const writesBeforePop = writes;
+context.window.location.href = "https://example.test/library/?query=fps&category=math";
+popstate();
+assert.deepEqual(rows.map(row => row.hidden), [true, true, false]);
+assert.equal(writes, writesBeforePop, "back/forward restores filters without rewriting history");
+context.window.location.href = "https://example.test/library/?category=unknown";
+popstate();
+assert.equal(interactiveCategory.value, "", "unknown categories leave all libraries accessible");
+assert.equal(rows.every(row => !row.hidden), true);
 
 (async () => {
   const code = new Element("int main() {\n  assert(1 < 2);\n}\n");
