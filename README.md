@@ -7,6 +7,8 @@ C++20向けの競技プログラミング用ライブラリです。`blueberry/`
 [Library Checker](https://judge.yosupo.jp/) のテストケースを利用して
 [verification-helper](https://github.com/online-judge-tools/verification-helper) で継続的に検証します。
 
+[ライブラリ一覧](https://blueberry1001.github.io/Blueberry-library/) · [操作から探す](https://blueberry1001.github.io/Blueberry-library/operations.html) · [使い方](https://blueberry1001.github.io/Blueberry-library/guide.html) · [LC対応表](https://blueberry1001.github.io/Blueberry-library/library-checker.html)
+
 ## 使い方
 
 リポジトリのルートをインクルードパスに追加し、必要なヘッダだけを読み込みます。

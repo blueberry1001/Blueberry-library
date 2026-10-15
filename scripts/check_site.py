@@ -19,6 +19,10 @@ assert not any('/atcoder/' in href or '/verify/' in href for href in home_links)
 assert "Verification Files" not in home
 assert 'class="site-hero"' in home
 assert 'class="site-nav"' in home
+nav = re.search(r'<nav class="site-nav".*?</nav>', home, re.S)[0]
+assert '/library-checker.html' in nav.split('<details', 1)[0], "LC coverage needs a direct navigation link"
+assert '個人用テンプレート' not in home.split('<main', 1)[-1].split('<table id="library-results"', 1)[0], (
+    "Personal template guidance should not interrupt library discovery")
 assert '<main id="main-content">' in home
 assert re.search(r'<details class="library-files" id="library-files">', home)
 assert 'site-hero__eyebrow' not in home and 'class="library-summary"' not in home
@@ -109,6 +113,9 @@ for obsolete in ("ConvexHulltrick.hpp", "DynamicFenwickTree2D.hpp", "implicit_tr
 
 headers = re.findall(r"^  path: (.+)$", (ROOT / ".verify-helper/docs/static/_data/libraries.yml").read_text(), re.M)
 catalog_rows = re.findall(r'<tr data-library\b[^>]*>.*?</tr>', home, re.S)
+catalog_names = [html.unescape(re.search(r'<a\b[^>]*>(.*?)</a>', row, re.S)[1]) for row in catalog_rows]
+assert catalog_names == sorted(catalog_names, key=str.lower), "Catalog must use predictable name order"
+assert all('class="catalog-category"' in row for row in catalog_rows), "Show each result's category"
 assert len(catalog_rows) == len(headers), "Search catalog must contain every modern header exactly once"
 for header in headers:
     assert sum(f'/{header}.html' in row for row in catalog_rows) == 1, (header, "missing or duplicate search result")
@@ -160,6 +167,8 @@ for header in headers:
         assert link.startswith('/Blueberry-library/') and link.endswith('.html'), (header, link)
         assert (SITE / link.removeprefix('/Blueberry-library/')).exists(), (header, link, "broken dependency/verify link")
     api_operations = re.findall(r'<details\b[^>]*class="api-operation"[^>]*>(.*?)</details>', content, re.S)
+    if '<h2 id="最小使用例">' in content:
+        assert '<a href="#最小使用例">使用例</a>' in unquote(content), (header, "Missing direct route to the usage example")
     if header == 'blueberry/algebra/monoids.hpp':
         assert not api_operations and '操作一覧' not in content
         assert len(re.findall(r'<article\b[^>]*data-monoid-definition', content)) == 30

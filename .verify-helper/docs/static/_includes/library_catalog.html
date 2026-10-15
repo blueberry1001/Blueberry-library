@@ -1,9 +1,9 @@
-{% assign entries = site.data.libraries %}
+{% assign entries = site.data.libraries | sort_natural: 'name' %}
 {% if include.category %}{% assign entries = entries | where: 'category', include.category %}{% endif %}
-{% if include.category == nil or include.category == 'utility' %}
+{% if include.category == 'utility' %}
 <p>個人用テンプレート: <a href="{{ '/blueberrytemplate.html' | relative_url }}">blueberrytemplate.h（原文）</a></p>
 {% endif %}
-<div class="library-catalog" data-catalog>
+<div class="library-catalog" data-catalog data-catalog-url>
   <div class="catalog-controls" data-catalog-controls hidden>
     <div class="catalog-search-field"><label for="library-search">名前・用途で検索 <small><kbd>/</kbd></small></label>
     <input id="library-search" data-catalog-search type="search" placeholder="例: LCA、区間 頻度、回文" autocomplete="off" aria-controls="library-results"></div>
@@ -32,7 +32,7 @@
     <tbody>
     {% for item in entries %}
       <tr data-library data-category="{{ item.category | escape }}" data-keywords="{{ item.path | escape }} {{ item.aliases | join: ' ' | escape }}">
-        <td><a href="{{ item.path | append: '.html' | relative_url }}">{{ item.name | escape }}</a></td>
+        <td><a href="{{ item.path | append: '.html' | relative_url }}">{{ item.name | escape }}</a>{% unless include.category %}<small class="catalog-category">{% if item.category == 'data-structure' %}Data Structure{% else %}{{ item.category | capitalize | escape }}{% endif %}</small>{% endunless %}</td>
         <td>{{ item.description | escape }}{% if item.role contains '互換' %}<small class="catalog-role">{{ item.role | escape }}</small>{% endif %}</td>
       </tr>
     {% endfor %}

@@ -1,5 +1,11 @@
-.coverage-totals { display: flex; flex-wrap: wrap; gap: .6rem 1.4rem; padding-left: 1.2rem; }
-.coverage-controls { border: 0; padding: 0; margin-top: 1.5rem; }
+.coverage-note { color: var(--muted); }
+.coverage-totals { display: flex; flex-wrap: wrap; gap: .25rem 1.3rem; margin-top: 1rem; }
+.coverage-totals a { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; text-underline-offset: .35em; }
+.coverage-totals span { color: var(--muted); font-variant-numeric: tabular-nums; }
+.coverage-totals a[aria-current] { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; }
+.coverage-totals a:focus-visible { outline: 3px solid var(--blueberry); outline-offset: 2px; }
+.coverage-controls { border: 0; padding: 0; margin-top: 1rem; }
+.coverage-controls legend { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .coverage-fields { display: flex; flex-wrap: wrap; align-items: end; gap: 1rem; }
 .coverage-fields label { display: grid; gap: .3rem; flex: 1 1 12rem; min-width: 0; }
 .coverage-fields input, .coverage-fields select, .coverage-fields button {
@@ -7,6 +13,8 @@
   font: inherit; border: 1px solid #9baad0; border-radius: 6px; background: white; color: var(--ink);
 }
 .coverage-fields button { width: auto; cursor: pointer; }
+.coverage-fields input { caret-color: var(--blueberry); }
+.coverage-fields button:hover { border-color: var(--blueberry); }
 .coverage-fields :focus-visible { outline: 3px solid var(--blueberry); outline-offset: 2px; }
 .coverage-link { display: block; margin-bottom: .3rem; overflow-wrap: anywhere; }
 .coverage-table { margin-top: 1rem; }
@@ -14,8 +22,14 @@
 .coverage-table td:nth-child(2) { min-width: 8rem; }
 .coverage-table td p { margin: .3rem 0; }
 .coverage-category { color: var(--muted); font-size: .85rem; }
+[data-coverage-count] { margin: .5rem 0; font-variant-numeric: tabular-nums; color: var(--muted); }
+.coverage-table tr:target { background: #f5f7ff; }
 [data-coverage] [hidden] { display: none !important; }
 @media screen and (max-width: 720px) {
+  .coverage-fields { gap: .65rem; }
+  .coverage-fields label { flex-basis: calc(50% - .65rem); }
+  .coverage-fields label:first-child { flex-basis: 100%; }
+  .coverage-table td:first-child > a { display: inline-flex; align-items: center; min-height: 44px; }
   .coverage-table, .coverage-table tbody, .coverage-table tr, .coverage-table td { display: block; width: 100%; box-sizing: border-box; }
   .coverage-table thead { display: none; }
   .coverage-table tr { border-bottom: 1px solid var(--line); padding: 1rem 0; }
