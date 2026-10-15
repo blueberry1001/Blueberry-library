@@ -7,9 +7,9 @@ documentation_of: //blueberry/data-structure/wavelet-matrix.hpp
 
 ## 概要
 
-静的配列の区間 k 番目・頻度・前後要素を求める、ACL にないデータ構造です。
+静的な整数列の区間k番目・頻度・前後要素を求めます。値を自動で座標圧縮し、符号やビット幅の指定は不要です。値は更新できません。添字区間は `0 <= l <= r <= N` です。
 
-添字区間は `0 <= l <= r <= N`、値は更新できません。
+Nは要素数、σは異なる値の数、L=max(1,ceil(log2(max(1,σ))))。構築は最悪O(N log(N+1))、各クエリは最悪O(L)、sizeはO(1)です。保持メモリはO(N+L ceil((N+1)/64))ワード、構築補助メモリはO(N)です。
 
 ## 操作一覧
 
@@ -29,30 +29,25 @@ documentation_of: //blueberry/data-structure/wavelet-matrix.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-静的配列の区間 k 番目・頻度・前後要素を求める、ACL にないデータ構造です。
-値を内部で座標圧縮するため、ビット幅や符号変換を指定する必要はありません。
-要素数を N、異なる値の数を σ、L = max(1, ceil(log2(max(1, σ)))) とします。
-構築 O(N log(N+1))、各クエリ O(L)、size は O(1)（すべて最悪計算量）です。
+## 概要・前提 {#概要前提}
 
-64 bit のビット列とブロック単位の累積 popcount を各段に保存します。
-保持メモリは O(N + L ceil((N+1)/64)) ワード、構築時の補助メモリは O(N)。
-値辞書の vector は入力サイズ分の容量を持ち得るため O(N) を含めています。
-圧縮時は元位置を値順に並べ、順位を元位置へ書き戻します。
-小配列では比較sortを使い、それ以外ではunsigned型で最小値との差を取り、必要な8bit桁だけradix分配します。
-radixのbucket初期化が小さい全幅入力で支配的になるため、N<64またはNが必要桁数の128倍未満なら比較sortを選びます。
-符号付きオーバーフローを起こさず、符号付き最小値・最大値や重複も同じ順序で扱います。
-型のbit幅を8で割って切り上げた数をBとすると圧縮のradix部分は O(BN)、小配列の比較sortは O(N log(N+1))。
-標準整数型の幅Bを定数と数えると、全体の構築計算量は上記の上界を満たします。
-各要素の二分探索を省き、2本の位置配列を段構築のpartition bufferとして再利用します。
-T の比較・コピーと 64 bit popcount を O(1) とします。CPU 固有命令の指定は不要です。
+- ACLにないデータ構造です。64bitのビット列とブロック単位の累積popcountを各段に保存します。値辞書のvectorは入力サイズ分の容量を持ち得るため、保持メモリのO(N)項を含めています。
+- 圧縮時は元位置を値順に並べ、順位を元位置へ書き戻します。小配列では比較sort、それ以外ではunsigned型で最小値との差を取り、必要な8bit桁だけradix分配します。
+- radixのbucket初期化が小さい全幅入力で支配的になるため、N<64またはNが必要桁数の128倍未満なら比較sortを選びます。各要素の二分探索を省き、2本の位置配列を段構築のpartition bufferに再利用します。
+- 圧縮時の差分はunsignedのmodulo演算、段構築は圧縮後の非負整数のビット操作です。符号付きoverflowを起こさず、符号付き最小値・最大値や重複も同じ順序で扱います。
+- 型のbit幅を8で割って切り上げた数をBとすると、radix部分はO(BN)、比較sortはO(N log(N+1))です。標準整数型のBを定数とすれば、上記の構築上界を満たします。
+- Tの比較・コピーと64bit popcountをO(1)とします。CPU固有命令の指定は不要です。
+- 範囲外引数は契約違反で、debug buildではassertです。公開フィールドはありません。
+- 暗黙のコピーは独立した配列を所有し、時間・追加メモリは保持量に比例します。ムーブ元には破棄・再代入のみ行ってください。取得結果はすべて値で返し、参照の無効化はありません。
 
-すべての添字区間に `0 <= l <= r <= N` が必要です。値は更新できません。
-圧縮時の差分はunsignedのmodulo演算で求め、段構築は圧縮後の非負整数をビット操作します。
-範囲外引数は契約違反（debug build では assert）。公開フィールドはありません。
-暗黙のコピーは独立した配列を所有し、時間・追加メモリとも保持メモリ量に比例します。
-ムーブ元は破棄または再代入のみ行ってください。すべての取得結果は値で返し、参照の無効化はありません。
+## 操作の補足 {#操作の補足}
+
+- 以下の操作例は最小使用例の `wm` を前提とします。
+
+</details>
 
 ## 最小使用例
 
@@ -76,10 +71,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-以下の操作例は最小使用例の `wm` を前提とします。
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>WaveletMatrix&lt;T&gt; wm</code> — O(1)</summary>
@@ -249,7 +240,10 @@ assert(!wm.next_value(0, 4, 8));
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Luzhiled の Wavelet Matrix](https://ei1333.github.io/library/structure/wavelet/wavelet-matrix.hpp.html):
   固定幅と座標圧縮版の API、rank による区間移動を調査しました。
@@ -263,3 +257,5 @@ assert(!wm.next_value(0, 4, 8));
   空・全要素同値・昇順・降順・重複・符号付き/符号なし極値・64 bit 境界を含みます。
 - 同一入力で整数 prefix 配列版と比較する測定コード・生ログ・判断は
   [追加ライブラリの測定記録](https://github.com/blueberry1001/Blueberry-library/blob/main/benchmark/ADDITIONS.md)にあります。
+
+</details>

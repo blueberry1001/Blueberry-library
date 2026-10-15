@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/potential-union-find.hpp
 
 ## 概要
 
-群の要素で表した相対値を管理する Union Find。
+群の要素で表した相対値と矛盾を管理するUnion Findです。merge(u,v,w)は **P[u]=op(P[v],w)**、diff(u,v)は **op(inv(P[v]),P[u])** を意味し、非可換群も扱います。opは結合的、identityは両側単位元、invは群の逆元が必要です。
+
+Nは頂点数。通常操作は償却O(α(N))、単発最悪O(log N)、メモリはO(N)です。
 
 ## 操作一覧
 
@@ -24,14 +26,17 @@ documentation_of: //blueberry/data-structure/potential-union-find.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-群の要素で表した相対値を管理する Union Find。ACL の DSU にない重みと矛盾検出を提供する。
-`merge(u,v,w)` は **P[u] = op(P[v],w)**、`diff(u,v)` は **op(inv(P[v]),P[u])** を意味する。非可換群にも対応する。
+## 概要・前提 {#概要前提}
 
-`PotentialUnionFind<T,Op=std::plus<T>,Inv=std::negate<T>>`。`T` はコピー可能で `==` を持ち、`op` は結合的、`identity` は両側単位元、`inv` は群の逆元であること。加算群は既定でよい。行列積では単位行列と逆行列関数を渡す。演算のオーバーフローや浮動小数点誤差は呼び出し側の責任。
+- ACL DSUにない重みと矛盾検出を提供します。`PotentialUnionFind<T, Op=std::plus<T>, Inv=std::negate<T>>` のTはコピー可能で、`==` が必要です。
+- 加算群は既定引数を使えます。行列積では単位行列と逆行列関数を渡してください。演算のオーバーフロー・浮動小数点誤差は呼び出し側の責任です。
+- `0 <= N <= INT_MAX`、頂点番号は `[0,N)`。空構築も可能です。群演算・コピーをO(1)とする計算量です。union by sizeと経路圧縮を使い、内部再帰の深さはO(log N)です。
+- 公開フィールドはなく、返り値は値で参照の無効化はありません。コピーはO(N)で独立した構造を作り、ムーブ元は破棄・再代入できます。
 
-頂点数 N は `0 <= N <= INT_MAX`、頂点番号は `[0,N)`。空構築は可能。メモリ O(N)、群演算・コピーが O(1) の場合、union by size と経路圧縮で通常操作は償却 O(α(N))、単発最悪 O(log N)。内部再帰の深さも O(log N)。公開フィールドはない。返り値は値で所有し、参照の無効化はない。コピーは O(N) で独立した構造を作る。ムーブ後のオブジェクトは破棄・再代入できる。
+</details>
 
 ## 最小使用例
 
@@ -173,9 +178,17 @@ assert(copy.diff(0, 2) == 10);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[公式加算群](https://judge.yosupo.jp/problem/unionfind_with_potential)、[公式非可換群](https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group) で検証。固定 seed の小グラフ BFS による行列制約の独立比較を行う。
+## 出典・検証 {#出典検証}
 
-比較資料: [Nyaan の加算版](https://nyaannyaan.github.io/library/data-structure/union-find-with-potential.hpp.html)、[mtsaka の群版](https://mtsaka.github.io/library/ds/union-find/weighted-union-find.hpp)。群演算順序を整理して独立実装した。
-Fastest [224108](https://judge.yosupo.jp/submission/224108)、[393949](https://judge.yosupo.jp/submission/393949) は高速入力も使う。公開提出の時刻を本ライブラリの性能と直接比較しない。比較候補と測定条件は `benchmark/data-structure-expansion.cpp` と `benchmark/results/lc-expansion-ds/` を参照。
+- [公式加算群](https://judge.yosupo.jp/problem/unionfind_with_potential)、[公式非可換群](https://judge.yosupo.jp/problem/unionfind_with_potential_non_commutative_group) で検証。
+- 固定 seed の小グラフ BFS による行列制約の独立比較を行う。
+- 比較資料: [Nyaan の加算版](https://nyaannyaan.github.io/library/data-structure/union-find-with-potential.hpp.html)、[mtsaka の群版](https://mtsaka.github.io/library/ds/union-find/weighted-union-find.hpp)。
+- 群演算順序を整理して独立実装した。
+- Fastest [224108](https://judge.yosupo.jp/submission/224108)、[393949](https://judge.yosupo.jp/submission/393949) は高速入力も使う。
+- 公開提出の時刻を本ライブラリの性能と直接比較しない。
+- 比較候補と測定条件は `benchmark/data-structure-expansion.cpp` と `benchmark/results/lc-expansion-ds/` を参照。
+
+</details>

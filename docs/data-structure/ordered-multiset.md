@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/ordered-multiset.hpp
 
 ## 概要
 
-キー順の多重集合に、重複込みの順位取得と順位区間のmonoid集約を加えます。
+キー順の多重集合に、重複込みの順位と順位区間のモノイド集約を加えます。`OrderedMultiset<T, op, e, Compare>` のopは結合的、e()は両側単位元で、非可換でもCompare順に集約します。比較器はstrict weak orderingを満たし、同値要素の挿入順を保ちます。
+
+Nは要素数、Hはclear以降の最大同時要素数に対応するpool slot数。探索・区間集約は期待O(log(N+1))、挿入・削除は期待・償却O(log(N+1))です。size/empty/all_prodはO(1)、メモリはO(H)です。
 
 ## 操作一覧
 
@@ -45,17 +47,20 @@ documentation_of: //blueberry/data-structure/ordered-multiset.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-キー順の多重集合に、重複込みの順位取得と順位区間のmonoid集約を加えます。旧 `blueberry/implicit_treap.hpp` の実際の用途の移行先です。位置で並びを管理する `ImplicitTreap`、重複を持たない `OrderedSet` と使い分けます。ACLには対応するオンライン順序付き多重集合はありません。
+## 概要・前提 {#概要前提}
 
-`OrderedMultiset<T, op, e, Compare = std::less<T>>`。Tはキー兼葉の集約値、`T op(T,T)` は結合的、`T e()` は両側単位元です。非可換でも**Compare順のinorder**に集約します。Compareはstrict weak orderingで、`!comp(a,b) && !comp(b,a)` を同値とします。同値クラス内は挿入順を維持し、erase(value)は最初の同値要素を1つ消します。演算子==は不要で、等価性はCompareだけで決まります。
+- Tはキー兼葉の集約値です。既定比較器はstd::less<T>で、`!comp(a,b) && !comp(b,a)` を同値とします。operator==は不要です。erase(value)は最初の同値要素を1つ消します。
+- T/Compareはコピー・ムーブ・代入可能な値型で、Tの既定構築は不要です。比較は葉の値にだけ適用し、集約結果をキーとして探索しません。op・比較に副作用を持たせず、整数和等のoverflowは利用者が防いでください。
+- 演算・比較・コピーをO(1)とみなします。探索・区間集約の最悪はO(N)、insert/erase/erase_kthの単発最悪はpool・free-listのvector増設を含むO(H+N)です。削除時にもHに比例するコピーが生じ得ます。
+- 添字・個数はint、`0 <= N <= INT_MAX` で、満杯時のinsertは禁止です。pool/indexでノードを所有し、削除slotとvector容量を再利用します。clearは容量も解放します。
+- 返り値は所有値で内部参照・iteratorは公開しません。局所の固定seed擬似乱数を優先度とし、敵対的入力で最悪時間保証はありません。内部再帰の深さは期待O(log(N+1))、最悪O(N)です。
+- allocation/比較/代数演算が例外を投げた後の強い例外保証は提供しません。
+- 旧 `blueberry/implicit_treap.hpp` のキー順集合用途の移行先です。位置で並びを管理するImplicitTreap、重複を持たないOrderedSetと使い分けます。ACLに対応するオンライン順序付き多重集合はありません。
 
-T/Compareはcopy/move/assignment可能な値型を使ってください。Tのdefault constructorは不要です。比較は葉の値だけに適用し、集約結果の値をキーとして探索しません。利用者のopや比較は副作用を持たせないでください。整数和等のoverflowを避ける型・範囲は利用者の責任です。
-
-Nを現在の要素数、Hをclear以降の最大同時要素数に対応するpool slot数とすると、探索・区間集約は期待O(log(N+1))、最悪O(N)。insert/erase/erase_kthはpool・free-listのvector増設を含め期待・償却O(log(N+1))、単一呼出しの最悪O(H+N)です。削除時にもfree-list増設で過去の最大要素数Hに比例するコピーが生じ得ます。size/empty/all_prodはO(1)。演算・比較・値コピーのコストをO(1)とみなします。メモリは削除slotとvector容量を含めO(H)、clearは容量も解放します。添字/個数はint、0<=N<=INT_MAXで、満杯時のinsertは禁止です。
-
-pool/indexでノードを所有し、削除slotを再利用します。返り値は所有値で内部参照・iteratorは公開しません。優先度は局所の固定seed擬似乱数。敵対的入力での最悪時間保証はなく、内部再帰の深さは木の高さ（期待O(log(N+1))、最悪O(N)）です。allocation/比較/代数演算が例外を投げた後の強い例外保証は提供しません。
+</details>
 
 ## 最小使用例
 
@@ -401,10 +406,19 @@ auto total = tree.all_prod();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Point Set Range Composite (Large Array)](https://judge.yosupo.jp/problem/point_set_range_composite_large_array) の専用verifyでは、64bit座標をキーとして更新済みの関数だけ保存し、`prod(rank(l),rank(r))` で合成します。未更新位置は恒等関数なので格納不要です。
+## 出典・検証 {#出典検証}
 
-公式問題: [Double Ended Priority Queue](https://judge.yosupo.jp/problem/double_ended_priority_queue)で重複の挿入・端点削除、[Point Set Range Composite](https://judge.yosupo.jp/problem/point_set_range_composite)で非可換な順位区間集約を検証します。固定seedのstable sorted-vector oracleで全bound/count/rank、同値でも異なる値の順序、copy/move、削除slot再利用を補います。
+- [Point Set Range Composite (Large Array)](https://judge.yosupo.jp/problem/point_set_range_composite_large_array) の専用verifyでは、64bit座標をキーとして更新済みの関数だけ保存し、`prod(rank(l),rank(r))` で合成します。
+- 未更新位置は恒等関数なので格納不要です。
+- 公式問題: [Double Ended Priority Queue](https://judge.yosupo.jp/problem/double_ended_priority_queue)で重複の挿入・端点削除、[Point Set Range Composite](https://judge.yosupo.jp/problem/point_set_range_composite)で非可換な順位区間集約を検証します。
+- 固定seedのstable sorted-vector oracleで全bound/count/rank、同値でも異なる値の順序、copy/move、削除slot再利用を補います。
+- 標準的なtreapの回転・優先度mergeを独立実装しています。
+- 旧実装にあった未存在erase/空root参照や、op/eを無視した加算、ノードの解放漏れを引き継ぎません。
+- [CP-Algorithms](https://github.com/cp-algorithms/cp-algorithms/blob/main/src/data_structures/treap.md)と公開LC提出のAPI/データ配置を調査しました。
+- 公開ソースは転記していません。
+- 公開上位の専用min-max queue、逆写像を使う多分木、固定長segment treeは提供機能が異なるので、順位集約付き多重集合との同一機能の速度差とは扱いません。
 
-標準的なtreapの回転・優先度mergeを独立実装しています。旧実装にあった未存在erase/空root参照や、op/eを無視した加算、ノードの解放漏れを引き継ぎません。[CP-Algorithms](https://github.com/cp-algorithms/cp-algorithms/blob/main/src/data_structures/treap.md)と公開LC提出のAPI/データ配置を調査しました。公開ソースは転記していません。公開上位の専用min-max queue、逆写像を使う多分木、固定長segment treeは提供機能が異なるので、順位集約付き多重集合との同一機能の速度差とは扱いません。
+</details>

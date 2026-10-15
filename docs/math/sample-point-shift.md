@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/sample-point-shift.hpp
 
 ## 概要
 
-次数 N 未満の多項式の `y[i]=f(i)` から `f(start),...,f(start+count-1)` を求めます。
+次数N未満の多項式のy[i]=f(i)から、f(start),...,f(start+count-1)を求めます。Mintは素数modulusのACL `static_modint` を使い、必要なNTT長をmodulusがサポートすることが前提です。
+
+N=y.size()、M=count、K=N+M+1として、最悪時間O(K log K+log mod)、追加メモリO(K)です。
 
 ## 操作一覧
 
@@ -17,14 +19,15 @@ documentation_of: //blueberry/math/sample-point-shift.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-次数 N 未満の多項式の `y[i]=f(i)` から `f(start),...,f(start+count-1)` を求めます。
-ACLにはない連続点補間をACL畳み込みで実装します。
-`Mint` は素数modulusのACL `static_modint`、N=`y.size()`、M=`count`、K=N+M+1 として
-時間 O(K log K+log mod)、追加メモリ O(K)。計算量は最悪値で、償却ではありません。
-`0 <= N,M < mod`、内部サイズ `2*N+M` がintに収まり、`bit_ceil(2*N+M)` のNTT長をサポートすることが前提です。
-998244353を想定します。
+## 概要・前提 {#概要前提}
+
+- ACLにはない連続点補間をACL畳み込みで実装します。計算量は償却ではありません。
+- `0 <= N,M < mod`、内部サイズ2*N+Mがintに収まり、`bit_ceil(2*N+M)` のNTT長をサポートすることが必要です。998244353を想定します。
+
+</details>
 
 ## 最小使用例
 
@@ -62,10 +65,15 @@ assert((shifted == std::vector<mint>{1, 0, 1}));
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[Library Checker](https://judge.yosupo.jp/problem/shift_of_sampling_points_of_polynomial) に対応。
-[Luzhiled](https://ei1333.github.io/library/math/combinatorics/sample-point-shift.hpp) のLagrange重みと畳み込み、
-[Nyaan](https://nyaannyaan.github.io/library/fps/multipoint-evaluation.hpp.html) の一般点評価を候補として調査しました。
-数式から独立に実装しコードの転記はありません。Horner法、既存点との重複、modulus跨ぎをランダム比較します。
-[追加時の調査](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/math-batch-four.md) に測定条件を記載します。
+## 出典・検証 {#出典検証}
+
+- [Library Checker](https://judge.yosupo.jp/problem/shift_of_sampling_points_of_polynomial) に対応。
+  [Luzhiled](https://ei1333.github.io/library/math/combinatorics/sample-point-shift.hpp) のLagrange重みと畳み込み、
+  [Nyaan](https://nyaannyaan.github.io/library/fps/multipoint-evaluation.hpp.html) の一般点評価を候補として調査しました。
+  数式から独立に実装しコードの転記はありません。Horner法、既存点との重複、modulus跨ぎをランダム比較します。
+  [追加時の調査](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/math-batch-four.md) に測定条件を記載します。
+
+</details>

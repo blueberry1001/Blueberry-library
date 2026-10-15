@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/formal-power-series.hpp
 
 ## 概要
 
-係数を次数の昇順に保持する形式的冪級数（FPS）です。
+係数を次数の昇順に保持する形式的冪級数（FPS）です。Mintは素数modulusのACL `static_modint` を使い、通常は `atcoder::modint998244353` を選びます。積分・級数演算の要求項数はmodulus未満、平方根のmodulusは奇素数が前提です。NTTを使う操作は、中間計算に必要な変換長をmodulusがサポートする必要があります。
+
+Nは対象の項数（inv/expなどでは要求項数）、二項演算のMは相手の項数です。M(N)はACL畳み込みの計算量（998244353ではO(N log N)）です。各操作の時間は操作一覧に示し、メモリ使用量は対象の項数に比例します。`blueberry::FPS<Mint>` は短い別名です。
 
 ## 操作一覧
 
@@ -44,24 +46,20 @@ documentation_of: //blueberry/math/formal-power-series.hpp
 
 </details>
 
-以下の詳細では、返り値、使用例、境界条件をまとめています。例は必要なヘッダと有効な
-`f`・`g` が既にある前提です。
-
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-係数を次数の昇順に保持する形式的冪級数（FPS）です。`Mint` は ACL の
-`static_modint`（素数 modulus）を想定します。積分・級数演算の要求項数は modulus 未満、
-平方根の modulus は奇素数が前提です。NTTを使う操作では、各内部畳み込みの出力長 `L` に対して
-`2^ceil(log2(L))` が `mod-1` の2進因子以下である必要があります。`inv(n)` と `exp(n)` の
-変換長は `2^ceil(log2(n))`、積・log・sqrt・多項式除算では中間の積の長さも考慮してください。標準設定は
-`atcoder::modint998244353` です。`M(N)` を ACL の畳み込みの計算量
-（998244353 では $O(N\log N)$）とすると、メモリ使用量は $O(N)$ です。
+## 概要・前提 {#概要前提}
 
-積の一般的な処理はACLの `convolution` を利用し、FPS固有の逆元・log・expなどの
-Newton反復だけをこのヘッダで提供します。ライブラリ本体は `blueberry` 名前空間に
-あります。`blueberry::FPS<Mint>` は短い別名です。旧パスとグローバル別名は廃止したため、[移行ガイド]({{ '/migration.html' | relative_url }}) を参照してください。
+- 操作ごとの断片例は、必要なヘッダと有効な `f`・`g` が既にある前提です。
+- NTTを使う操作では、各内部畳み込みの出力長Lに対して `2^ceil(log2(L))` が `mod-1` の2進因子以下である必要があります。
+- `inv(n)` と `exp(n)` の変換長は `2^ceil(log2(n))` です。積・log・sqrt・多項式除算では中間の積の長さも考慮してください。
+- 一般的な積はACLの `convolution` を利用し、FPS固有の逆元・log・expなどのNewton反復をこのヘッダで提供します。本体は `blueberry` 名前空間にあります。
+- 旧パスとグローバル別名は廃止したため、[移行ガイド]({{ '/migration.html' | relative_url }})を参照してください。
+
+</details>
 
 ## 最小使用例
 
@@ -95,10 +93,15 @@ int main() {
 ```
 {% endraw %}
 
-## 操作の補足
+<details class="library-notes" markdown="1">
+<summary>操作例の前提</summary>
 
-`N` は保持する項数、`S` は疎級数の項数、`M(N)` は長さ `N` の畳み込みの計算量です。
-`std::vector` から継承した添字・イテレータ・`size()` なども利用できます。
+## 操作の補足 {#操作の補足}
+
+- `N` は保持する項数、`S` は疎級数の項数、`M(N)` は長さ `N` の畳み込みの計算量です。
+  `std::vector` から継承した添字・イテレータ・`size()` なども利用できます。
+
+</details>
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>FormalPowerSeries&lt;Mint&gt; f(n) / f(values)</code> — O(N)</summary>
@@ -463,16 +466,19 @@ for (int i = 0; i < (int)f.size(); ++i) f[i] = mint(i);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-設計は [ACL convolution の仕様](https://github.com/atcoder/ac-library/blob/master/document_en/convolution.md)、
-[NyaanNyaan/library のFPS実装](https://github.com/NyaanNyaan/library/tree/master/fps)、
-[Luzhiled Library のFPS解説](https://ei1333.github.io/luzhiled/snippets/math/formal-power-series.html)
-を比較して決めました。積はACLの公開APIを使い、NTT反復の変換再利用とFPS固有の操作は
-Blueberry側で再実装しています。コードをそのままコピーせず、API・境界条件・コメントを
-このリポジトリの方針に合わせています。
+## 出典・検証 {#出典検証}
 
-次のLibrary Checker公式問題を `verification-helper` の標準checkerで検証します。
+- 設計は [ACL convolution の仕様](https://github.com/atcoder/ac-library/blob/master/document_en/convolution.md)、
+  [NyaanNyaan/library のFPS実装](https://github.com/NyaanNyaan/library/tree/master/fps)、
+  [Luzhiled Library のFPS解説](https://ei1333.github.io/luzhiled/snippets/math/formal-power-series.html)
+  を比較して決めました。積はACLの公開APIを使い、NTT反復の変換再利用とFPS固有の操作は
+  Blueberry側で再実装しています。コードをそのままコピーせず、API・境界条件・コメントを
+  このリポジトリの方針に合わせています。
+
+- 次のLibrary Checker公式問題を `verification-helper` の標準checkerで検証します。
 
 - [Inv of Formal Power Series](https://judge.yosupo.jp/problem/inv_of_formal_power_series)
 - [Log of Formal Power Series](https://judge.yosupo.jp/problem/log_of_formal_power_series)
@@ -481,19 +487,19 @@ Blueberry側で再実装しています。コードをそのままコピーせ�
 - [Pow of Formal Power Series](https://judge.yosupo.jp/problem/pow_of_formal_power_series)
 - [Division of Polynomials](https://judge.yosupo.jp/problem/division_of_polynomials)
 
-`tests/random/formal-power-series.cpp` は二次時間の独立した実装と、逆元・積・商・余り・exp・log・
-pow・sqrt・mod_powを固定seedで比較します。疎係数の並び替え・重複、係数自身を引数にするスカラー倍、
-空級数・次数0・NTTへの切替境界も検証します。
+- `tests/random/formal-power-series.cpp` は二次時間の独立した実装と、逆元・積・商・余り・exp・log・
+  pow・sqrt・mod_powを固定seedで比較します。疎係数の並び替え・重複、係数自身を引数にするスカラー倍、
+  空級数・次数0・NTTへの切替境界も検証します。
 
-### Fastest 提出との比較
+### Fastest 提出との比較 {#fastest-提出との比較}
 
-Library Checker の「Fastest」は、同じ問題の AC 提出を Yosupo 側の実行環境で最大ケース時間順に
-並べた値です。`make verify` の集計（複数ケース・複数回・CI runner）とは測定対象が異なるため、
-数値をそのまま倍率比較しません。比較するときは、問題・入力・コンパイラ・最適化フラグ・CPUを揃え、
-solution 実行時間とコンパイル時間を分けます。
+- Library Checker の「Fastest」は、同じ問題の AC 提出を Yosupo 側の実行環境で最大ケース時間順に
+  並べた値です。`make verify` の集計（複数ケース・複数回・CI runner）とは測定対象が異なるため、
+  数値をそのまま倍率比較しません。比較するときは、問題・入力・コンパイラ・最適化フラグ・CPUを揃え、
+  solution 実行時間とコンパイル時間を分けます。
 
-公開実装の構成を調べるには、読み取り専用の次のスクリプトを使えます。REST API の `+time` 順を
-取得し、各提出のケース最大時間と NTT/SIMD/ACL 畳み込みなどの特徴を `report.md` にまとめます。
+- 公開実装の構成を調べるには、読み取り専用の次のスクリプトを使えます。REST API の `+time` 順を
+  取得し、各提出のケース最大時間と NTT/SIMD/ACL 畳み込みなどの特徴を `report.md` にまとめます。
 
 {% raw %}
 ```bash
@@ -502,11 +508,13 @@ python3 scripts/fetch_lc_fastest.py exp_of_formal_power_series \
 ```
 {% endraw %}
 
-このスクリプトは提出・ソースの取得だけを行い、自動提出やアカウント操作はしません。Fastest 上位には
-AVX2 の手書き Montgomery 算術や専用 NTT が含まれることがあり、ACL `static_modint` と公開 API を
-使う本ライブラリとの速度差はアルゴリズムだけでなく係数演算・SIMD・I/O・測定環境にも由来します。
-そのため、まず同一条件のローカルベンチマークで候補を比較し、可読性・移植性を損なう最適化は採用しません。
+- このスクリプトは提出・ソースの取得だけを行い、自動提出やアカウント操作はしません。Fastest 上位には
+  AVX2 の手書き Montgomery 算術や専用 NTT が含まれることがあり、ACL `static_modint` と公開 API を
+  使う本ライブラリとの速度差はアルゴリズムだけでなく係数演算・SIMD・I/O・測定環境にも由来します。
+  そのため、まず同一条件のローカルベンチマークで候補を比較し、可読性・移植性を損なう最適化は採用しません。
 
-公式問題の最大入力（`N=500000`、modulus `998244353`）を対象に、CIではコンパイル時間と
-solution実行時間を分離して直列3回計測します。測定値は同じrunner・compiler・verifyコードの
-基準がある場合だけ比較し、Yosupo提出画面の時間とは区別します。
+- 公式問題の最大入力（`N=500000`、modulus `998244353`）を対象に、CIではコンパイル時間と
+  solution実行時間を分離して直列3回計測します。測定値は同じrunner・compiler・verifyコードの
+  基準がある場合だけ比較し、Yosupo提出画面の時間とは区別します。
+
+</details>

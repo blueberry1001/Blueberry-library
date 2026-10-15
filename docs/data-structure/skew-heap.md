@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/skew-heap.hpp
 
 ## 概要
 
-所有権付き meldable heap。
+heap同士を結合できる、所有権付き優先度キューです。`SkewHeap<T, Compare>` は既定のstd::lessで最小値を返します。比較器は厳密弱順序で、meldする2個は同じ順序を与える必要があります。
+
+Nは要素数、Mは結合相手の要素数。push/popは償却O(log(N+1))、meldは償却O(log(N+M+1))、topはO(1)です。単発のpush/pop/meldは最悪O(N+M)、メモリはO(N)です。
 
 ## 操作一覧
 
@@ -27,16 +29,22 @@ documentation_of: //blueberry/data-structure/skew-heap.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::SkewHeap<T, Compare = std::less<T>>` は所有権付き meldable heap。
-std::priority_queue にない heap 同士の結合を償却 O(log(N+M+1)) で行う。
-push/pop も償却 O(log(N+1))、top O(1)。単発の push/pop/meld は最悪 O(N+M)。
-ノード数 N に対しメモリ O(N)。meld と破棄は再帰を使わず、偏った木でも call stack を消費しない。
-Compare=less なら最小を返す。比較器は厳密弱順序で、meldする2個の比較器は同じ順序を与えること。
-コピー構築・コピー代入は delete。ムーブ元と meld 元は空になり再利用可能。
-T はコピー可能、既定構築不要。比較器・値の操作は例外を投げない前提。算術はしない。
-キー一括加算・decrease-key・永続化は提供しない。top参照は次の変更または破棄まで有効。
+## 概要・前提 {#概要前提}
+
+- std::priority_queueにはないheap同士の結合を行います。meld・破棄は再帰を使わず、偏った木でもcall stackを消費しません。
+- コピー構築・コピー代入はdeleteです。ムーブ元・meld元は空になり再利用可能です。
+- Tはコピー可能で既定構築は不要です。比較器・値の操作は例外を投げない前提で、値の算術はしません。
+- キー一括加算・decrease-key・永続化は提供しません。top参照は次の変更または破棄まで有効です。
+
+## 操作の補足 {#操作の補足}
+
+- Mは結合相手、代入の計算量では置換前の保持量です。
+- 型のコピー・比較をO(1)とします。
+
+</details>
 
 ## 最小使用例
 
@@ -54,10 +62,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-N は要素数（slope trick は保持する折れ点数）、M はコピー・結合相手または置換前の保持量。型のコピー・演算・比較は O(1) とする。
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>SkewHeap(Compare compare = {})</code> — O(1)</summary>
@@ -224,10 +228,16 @@ tree.clear();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Luzhiled Skew Heap](https://ei1333.github.io/library/structure/heap/skew-heap.hpp.html) を設計比較資料とし、
-所有権管理と非再帰meldを独立実装。Library Checkerに直接の meldable-heap 問題はない。
-[Shortest Path](https://judge.yosupo.jp/problem/shortest_path) のdriverで Dijkstra の緩和候補を別heapに作り、
-実際に meld して利用する（すべてのmeldパターンの検証ではない）。
-`tests/random/specialized-structures.cpp` は複数heapの meld/move/self-meld を std::multiset と比較し、深いheapの破棄も確認。
+## 出典・検証 {#出典検証}
+
+- [Luzhiled Skew Heap](https://ei1333.github.io/library/structure/heap/skew-heap.hpp.html) を設計比較資料とし、
+  所有権管理と非再帰meldを独立実装。
+- Library Checkerに直接の meldable-heap 問題はない。
+- [Shortest Path](https://judge.yosupo.jp/problem/shortest_path) のdriverで Dijkstra の緩和候補を別heapに作り、
+  実際に meld して利用する（すべてのmeldパターンの検証ではない）。
+- `tests/random/specialized-structures.cpp` は複数heapの meld/move/self-meld を std::multiset と比較し、深いheapの破棄も確認。
+
+</details>

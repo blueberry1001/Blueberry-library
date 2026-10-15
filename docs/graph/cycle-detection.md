@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/cycle-detection.hpp
 
 ## 概要
 
-有向・無向グラフから単純閉路を1つ探し、入力の辺番号を巡回順で返します。
+有向・無向グラフから単純閉路を1つ探し、入力の辺番号を巡回順で返します。自己ループ・多重辺・非連結グラフに対応します。
+
+Nを頂点数、Mを辺数とすると、時間・作業メモリは最悪O(N+M)、返却値はO(N)です。
 
 ## 操作一覧
 
@@ -17,11 +19,15 @@ documentation_of: //blueberry/graph/cycle-detection.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-有向・無向グラフから単純閉路を1つ探し、入力の辺番号を巡回順で返します。ACLには閉路の辺列復元APIがありません。
-頂点数 N、辺数 M とし、0 ≤ N ≤ INT_MAX、M ≤ INT_MAX、端点は [0,N)。自己ループ・多重辺・非連結グラフに対応します。
-時間・作業メモリは最悪 O(N+M)、返却値は O(N)。再帰を使わず、深いグラフでも呼び出しスタックを消費しません。
+## 概要・前提 {#概要前提}
+
+- `0 <= N <= INT_MAX`、`M <= INT_MAX`とし、端点は`[0,N)`に含めます。
+- 再帰を使わず、深いグラフでも呼び出しスタックを消費しません。ACLには閉路の辺列復元APIがありません。
+
+</details>
 
 ## 最小使用例
 
@@ -55,7 +61,10 @@ assert(ids.size() == 2);
 注意点: 入力は変更・保持せず、返却vectorは独立に所有されます。辺番号はint、隣接位置はsize_tです。計算量は最悪値で償却クエリではありません。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [CP-AlgorithmsのDFS閉路復元](https://lib.cp-algorithms.com/cp-algo/graph/cycle.hpp.html) と
 [CP-Algorithmsの再帰DFS実装](https://cp-algorithms.com/graph/finding-cycle.html)
@@ -63,3 +72,5 @@ assert(ids.size() == 2);
 Library Checker [Cycle Detection](https://judge.yosupo.jp/problem/cycle_detection) /
 [Undirected](https://judge.yosupo.jp/problem/cycle_detection_undirected)、乱択による推移閉包・DSU比較、20万頂点の道で検証します。
 候補比較と測定条件は [graph-batch-two](https://github.com/blueberry1001/Blueberry-library/blob/main/benchmark/graph-batch-two.md) を参照。
+
+</details>

@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/persistent-binary-trie.hpp
 
 ## 概要
 
-過去の任意の版から分岐して挿入・削除できる、符号なし整数の永続多重集合です。
+過去の任意の版から挿入・削除で分岐できる、符号なし整数の永続多重集合です。`PersistentBinaryTrie<UInt, Bits>` の値はBitsビット以内で、フル幅ではUIntの最大値も使えます。版0は空集合です。
+
+B=Bits、Uは成功した挿入・削除回数。更新は償却O(B)、問合せは最悪O(B)、メモリはO(1+UB)です。通常のBinaryTrieと異なり、過去版への問合せや分岐ができます。
 
 ## 操作一覧
 
@@ -37,26 +39,19 @@ documentation_of: //blueberry/data-structure/persistent-binary-trie.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-過去の任意の版から分岐して挿入・削除できる、符号なし整数の永続多重集合です。
-通常の BinaryTrie は現在の集合のみを管理するため、undo・履歴の問い合わせにはこちらを使います。
-ACL に対応する機能はありません。木のパスに沿ったノードだけをコピーします。
+## 概要・前提 {#概要前提}
 
-`PersistentBinaryTrie<UInt = std::uint32_t, Bits = std::numeric_limits<UInt>::digits>`。
-`UInt` は bool 以外の符号なし整数、`1 <= Bits <= UInt のビット数`。
-値は `Bits` ビット以内（フル幅では UInt の最大値を含む）です。
-版 0 は空集合で、引数 `version` は同じオブジェクトが返した版番号、またはコピー・ムーブで受け継いだ版番号でなければなりません。
-各更新は元の版を変更せず、成功した更新のみ新しい版を返します。
-版番号は追加や内部 vector の再確保で無効化されません。破棄・代入による履歴の置換まで有効です。ムーブでは移動先に引き継がれます。
-各版の要素数と全ノード数・版数は int の範囲内であることが前提です。
+- ACLに対応する機能はありません。既定のUIntはstd::uint32_t、Bitsはstd::numeric_limits<UInt>::digitsです。UIntはbool以外の符号なし整数で、`1 <= Bits <= UIntのビット数` が必要です。
+- 木のパス上のノードだけをコピーし、更新ごとにB+1ノードを追加します。削除でも履歴のメモリは解放しません。vectorの再確保時には単一更新がO(UB)になり得ます。
+- 各更新は元の版を変えず、成功した更新だけが新しい版を返します。versionは同じオブジェクトが返した版番号か、コピー・ムーブで受け継いだ版番号に限ります。
+- 版番号は追加・再確保で無効化されず、破棄・代入による履歴の置換まで有効です。ムーブでは移動先へ引き継がれます。各版の要素数・全ノード数・版数はintの範囲内であることが前提です。
+- 暗黙のコピーは全履歴を複製するためO(1+UB)です。ムーブ元は再代入または破棄してください。Mはコピー元・移動元の保持ノード数と版数の合計、Dは代入先の旧保持量の合計で、M=O(1+UB)です。
+- 返り値は値で、参照の寿命・無効化の問題はありません。
 
-B = Bits、U = 成功した挿入・削除回数。メモリは O(1 + UB)、更新ごとに B+1 ノードです。
-削除でも履歴のメモリを解放しません。更新の O(B) は vector 再確保を含む償却計算量で、
-再確保時の単一更新は O(UB) になり得ます。問い合わせは最悪 O(B) です。
-オブジェクトの暗黙のコピーは全履歴を複製するため O(1 + UB)。ムーブ元は再代入または破棄してください。
-以下のコピー・ムーブの計算量では M = コピー元・移動元の保持ノード数と版数の合計、D = 代入先の旧保持ノード数と版数の合計です。M = O(1 + UB)。
-返り値は値なので参照の寿命・無効化の問題はありません。
+</details>
 
 ## 最小使用例
 
@@ -291,23 +286,29 @@ int a = t.insert(0, 3); assert(t.xor_min(a, 6) == 5);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Luzhiled の永続 Binary Trie](https://ei1333.github.io/luzhiled/snippets/structure/binary-trie.html) の
-パスコピー方式と [Nyaan の Binary Trie](https://nyaannyaan.github.io/library/data-structure/binary-trie.hpp.html)
-のポインタ木方式を調査しました。どちらもビット長に比例する操作です。
-本実装はコードを転用せず、int 添字の連続プールと版配列で実装しています。
-ポインタ・要素 ID 配列を持たず、各ノードに子 2 個と個数だけを保持します。
-その代わりに版単位の部分解放は提供しません。
+## 出典・検証 {#出典検証}
 
-公式問題 [Set Xor-Min](https://judge.yosupo.jp/problem/set_xor_min) を
-`verify/data-structure/persistent-binary-trie.test.cpp` で検証します。
-`tests/random/persistent-binary-trie.cpp` は分岐履歴、重複、削除、空集合、1 / 30 / 64 ビット、
-UInt 最大値をソート済み配列と比較します。速度の優劣は異なる条件の提出値から判断していません。
+- [Luzhiled の永続 Binary Trie](https://ei1333.github.io/luzhiled/snippets/structure/binary-trie.html) の
+  パスコピー方式と [Nyaan の Binary Trie](https://nyaannyaan.github.io/library/data-structure/binary-trie.hpp.html)
+  のポインタ木方式を調査しました。
+- どちらもビット長に比例する操作です。
+- 本実装はコードを転用せず、int 添字の連続プールと版配列で実装しています。
+- ポインタ・要素 ID 配列を持たず、各ノードに子 2 個と個数だけを保持します。
+- その代わりに版単位の部分解放は提供しません。
+- 公式問題 [Set Xor-Min](https://judge.yosupo.jp/problem/set_xor_min) を
+  `verify/data-structure/persistent-binary-trie.test.cpp` で検証します。
+- `tests/random/persistent-binary-trie.cpp` は分岐履歴、重複、削除、空集合、1 / 30 / 64 ビット、
+  UInt 最大値をソート済み配列と比較します。
+- 速度の優劣は異なる条件の提出値から判断していません。
+- 同条件で既存 BinaryTrie の全体コピーによる履歴保持と比較した測定を
+  [測定ソース](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/persistent-binary-trie-benchmark.cpp) と
+  [生ログ](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/persistent-binary-trie-benchmark.txt) に保存しています。
+- GCC 13.3 / gnu++20 / -O2、20 ビット、固定 seed、20,000 回の分岐挿入と XOR 問い合わせ、5 回で、
+  中央値は永続版 2.256 ms、全コピー 9.460 ms（最小 2.092 / 8.734 ms）でした。
+- これは同一の全履歴を保持する用途の比較です。
+- 通常の非永続操作に対する高速化を意味しません。
 
-同条件で既存 BinaryTrie の全体コピーによる履歴保持と比較した測定を
-[測定ソース](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/persistent-binary-trie-benchmark.cpp) と
-[生ログ](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/persistent-binary-trie-benchmark.txt) に保存しています。
-GCC 13.3 / gnu++20 / -O2、20 ビット、固定 seed、20,000 回の分岐挿入と XOR 問い合わせ、5 回で、
-中央値は永続版 2.256 ms、全コピー 9.460 ms（最小 2.092 / 8.734 ms）でした。
-これは同一の全履歴を保持する用途の比較です。通常の非永続操作に対する高速化を意味しません。
+</details>

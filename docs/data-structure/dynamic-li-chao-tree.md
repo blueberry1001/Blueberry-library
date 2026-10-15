@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/dynamic-li-chao-tree.hpp
 
 ## 概要
 
-整数領域 `[low, high)` 上で、直線・線分の追加と最小値取得をオンラインで処理します。
+整数領域 `[low,high)` に直線・線分を追加し、指定座標の最小値をオンラインで求めます。`DynamicLiChaoTree<T = long long>` は標準の符号付き整数型を使い、座標の事前登録や挿入順・傾き順の制約はありません。座標が既知なら [Li Chao Tree]({{ '/blueberry/data-structure/li-chao-tree.hpp.html' | relative_url }}) も選べます。
+
+V=high−lowは数学上の領域幅、H=ceil(log₂(V+1))、Kは確保済みノード数。直線追加は償却O(H)、線分追加は償却O(H²)、queryは最悪O(H)、メモリはO(K+1)です。
 
 ## 操作一覧
 
@@ -25,17 +27,26 @@ documentation_of: //blueberry/data-structure/dynamic-li-chao-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::DynamicLiChaoTree<T = long long>` は整数領域 `[low, high)` 上で、直線・線分の追加と最小値取得をオンラインで処理します。座標の事前登録は不要で、挿入順・傾きの順序は自由です。ACLには対応する機能がありません。クエリ座標が事前に分かる場合は、座標数に依存する [Li Chao Tree]({{ '/blueberry/data-structure/li-chao-tree.hpp.html' | relative_url }}) も利用できます。座標領域の変更、直線の削除、最大値の直接取得は提供しません。
+## 概要・前提 {#概要前提}
 
-T は標準の符号付き整数型（`signed char`、`short`、`int`、`long`、`long long`）を使います。係数、座標、答えはすべて T です。**各評価点で積 `a*x` と和 `a*x+b` の両方が T に収まること**が前提です。`char`/`short` 相当の小さい型の式には通常の整数昇格が働き、演算型は `decltype(T{} * T{} + T{})`（通常 `int`）です。その場合も積と和の値域は T 内に制限します。自動拡張・飽和・overflow検出はありません。`add_line` は全領域の整数点、`add_segment` は指定区間と領域との共通部分だけでこの条件を満たせば十分です。領域外・線分範囲外での評価はしません。
+- ACLに対応する機能はありません。領域の変更、直線の削除、最大値の直接取得は提供しません。
+- Tはsigned char/short/int/long/long longで、係数・座標・答えに共通です。**各評価点で積 `a*x` と和 `a*x+b` の両方がTに収まること**が必要です。小さい型には通常の整数昇格が働き、演算型は `decltype(T{} * T{} + T{})`（通常int）ですが、積・和の値域もT内に制限します。自動拡張・飽和・overflow検出はありません。
+- add_lineでは領域の全整数点、add_segmentでは指定区間と領域の共通部分でのみ数値条件が必要です。領域外・線分範囲外では評価しません。
+- `low <= high` が必要です。領域・線分は半開区間なのでTの最大値をquery座標にはできませんが、答えには使えます。空領域の追加は何もせず、有効なqueryはありません。
+- 中点は符号なし型で幅を求め、その半分を左端に足します。端点の和や符号付き差を直接求めず、`[LLONG_MIN,LLONG_MAX)` のように幅がTに収まらない領域も指定できます。
+- 空集合・その点を覆う線分がない場合はnulloptを返し、INF番兵を予約しません。
+- 直線追加L回、線分追加S回についてK=O(L+SH)かつK=O(V)です。新規ノードは直線追加1回で高々1個、線分追加1回でO(H)個。vectorは幾何的に拡張し、再確保する単一操作にはさらにO(K)時間がかかります。ノード数はINT_MAX以下でメモリに収まる必要があります。
+- 木がノードを所有し、破棄時に解放します。公開フィールドはなく、コピーは独立した木です。移動元は同じ座標領域の空の木として再利用でき、自己移動代入は何もしません。
+- 返り値は値であり、木の追加・コピー・移動・破棄による参照の無効化はありません。
 
-`low <= high` を要求します。領域も線分も半開区間なので、T の最大値を query の座標にはできません（答えとしては可能です）。内部の中点計算は対応する符号なし型で幅を求め、その半分を左端に足します。端点の和・符号付きの差を直接計算しないため、`[LLONG_MIN, LLONG_MAX)` のように幅が T に収まらない領域も指定できます。空領域の追加は何もせず、有効な query はありません。空の直線集合・その点を覆う線分がない場合は `std::nullopt` を返し、INF番兵を予約しません。
+## 操作の補足 {#操作の補足}
 
-数学上の領域幅を V = high − low、H = ceil(log₂(V + 1))、確保済みノード数を K とします。直線追加 L 回、線分追加 S 回について、K = O(L + S H) かつ K = O(V)、メモリは O(K + 1) です。直線追加1回で新規ノードは高々1個、線分追加1回で O(H) 個です。内部の vector は幾何的に拡張するため、追加操作の計算量は**償却**です。再確保が起きた1回の操作にはさらに O(K) 時間がかかります。ノード数は `INT_MAX` 以下で、メモリに収まる必要があります。query は最悪計算量です。
+- Ksrc はコピー元、Kold は代入前の代入先のノード数です。
 
-公開フィールドはありません。ノードは木が所有し、破棄時に解放します。コピーは独立した木です。移動元は**同じ座標領域の空の木**として再利用でき、自己移動代入は何もしません。返り値は値なので、木の追加・コピー・移動・破棄による参照の無効化はありません。
+</details>
 
 ## 最小使用例
 
@@ -60,10 +71,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-Ksrc はコピー元、Kold は代入前の代入先のノード数です。
 
 <details class="api-operation" id="constructor" markdown="1">
 <summary><code>DynamicLiChaoTree&lt;T&gt; tree(T low, T high)</code> — O(1)</summary>
@@ -219,11 +226,17 @@ assert(answer && *answer == 7);
 注意点: `low <= x < high` が前提で、空領域では呼べません。事前登録は不要です。空を確認してから値を取り出してください。ノードの追加確保はありません。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-動的整数領域と支配直線の棄却について [Luzhiled の Dynamic Li Chao Tree](https://ei1333.github.io/library/structure/convex-hull-trick/dynamic-li-chao-tree.hpp.html)、圧縮配列方式について [Nyaan の Li Chao Tree](https://nyaannyaan.github.io/library/segment-tree/li-chao-tree.hpp.html) を調査しました。外部コードを転載せず、直線が高々1回交差する性質から独立に実装しています。従来の生ポインタ・INF番兵・閉じた整数領域とは異なり、所有 arena、optional、半開区間を使います。
+## 出典・検証 {#出典検証}
 
+- 動的整数領域と支配直線の棄却について [Luzhiled の Dynamic Li Chao Tree](https://ei1333.github.io/library/structure/convex-hull-trick/dynamic-li-chao-tree.hpp.html)、圧縮配列方式について [Nyaan の Li Chao Tree](https://nyaannyaan.github.io/library/segment-tree/li-chao-tree.hpp.html) を調査しました。
+- 外部コードを転載せず、直線が高々1回交差する性質から独立に実装しています。
+- 従来の生ポインタ・INF番兵・閉じた整数領域とは異なり、所有 arena、optional、半開区間を使います。
 - [Line Add Get Min](https://judge.yosupo.jp/problem/line_add_get_min): `verify/data-structure/dynamic-line-add-get-min.test.cpp`。
 - [Segment Add Get Min](https://judge.yosupo.jp/problem/segment_add_get_min): `verify/data-structure/dynamic-segment-add-get-min.test.cpp`。
 - `tests/random/dynamic-li-chao-tree.cpp`: 固定 seed の全整数点愚直比較、空・単点・型境界、同傾き、区間外 clipping、有効範囲外を評価すると overflow する線分、コピー・移動・移動元再利用。
 - 調査と同条件の性能比較は `benchmark/dynamic-li-chao-tree.md` を参照してください。
+
+</details>

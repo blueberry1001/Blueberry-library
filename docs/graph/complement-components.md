@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/complement-components.hpp
 
 ## 概要
 
-無向グラフの補グラフを明示的に構築せず連結成分を列挙します。
+無向グラフの補グラフを明示的に構築せず連結成分を列挙します。隣接リストは両方向に登録します。自己ループ・重複辺は無視します。
+
+Nを頂点数、Mを隣接リストの総長（重複を含む）とすると、最悪時間O(N+M)、入力を除くメモリO(N)です。
 
 ## 操作一覧
 
@@ -17,9 +19,15 @@ documentation_of: //blueberry/graph/complement-components.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-無向グラフの補グラフを明示的に構築せず連結成分を列挙します。ACL に補グラフ専用の探索はありません。N 頂点、隣接リスト総長 M として最悪 O(N+M) 時間、入力を除き O(N) メモリです。隣接リストは両方向に登録し、各頂点番号は [0,N)、N < INT_MAX が必要です。自己ループ・重複辺は無視されます（重複も M に数えます）。空グラフは空の成分配列です。入力を変更しません。
+## 概要・前提 {#概要前提}
+
+- 各頂点番号は`[0,N)`、`N < INT_MAX`が必要です。空グラフでは空の成分配列を返します。
+- 入力を変更しません。ACLに補グラフ専用の探索はありません。
+
+</details>
 
 ## 最小使用例
 
@@ -51,7 +59,12 @@ auto groups = blueberry::complement_components(std::vector<std::vector<int>>(3))
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [Library Checker](https://judge.yosupo.jp/problem/connected_components_of_complement_graph) の公式ケースと固定 seed を指定できる全列挙比較で検証します。
 候補比較・一次資料・測定条件は [調査記録](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-graph-research.md) を参照してください。
+
+</details>

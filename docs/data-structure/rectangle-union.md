@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/rectangle-union.hpp
 
 ## 概要
 
-軸平行矩形の和集合の面積をx方向の走査と被覆長segment treeで求めます。
+軸平行矩形の和集合の面積を求めます。各矩形は{left,bottom,right,top}で、負座標・重複・接触・包含を許します。空入力や、幅・高さが0の矩形の寄与は0です。
+
+Nは矩形数。時間はO(N log(N+1))、追加メモリはO(N)です。
 
 ## 操作一覧
 
@@ -17,9 +19,16 @@ documentation_of: //blueberry/data-structure/rectangle-union.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-軸平行矩形の和集合の面積をx方向の走査と被覆長segment treeで求めます。各矩形は{left,bottom,right,top}。Nは矩形数、N<=INT_MAX/8。時間O(N log(N+1))、追加メモリO(N)。空入力・幅または高さ0の矩形の寄与は0。Coordは比較可能な整数型、Areaは座標・差・積・面積の全中間値が収まる整数型を指定してください。Areaの既定値はlong long。座標の差を取る前にAreaへ変換します。負座標・重複・接触・包含を許可。浮動小数の誤差モデルは保証しません。ACLの汎用木と異なり、矩形集合を直接受け取る専用処理です。
+## 概要・前提 {#概要前提}
+
+- x方向の走査と被覆長segment treeを使います。ACLの汎用木と異なり、矩形集合を直接受け取る専用処理です。
+- `N <= INT_MAX/8`。Coordは比較可能な整数型、Areaは座標・差・積・面積の全中間値が収まる整数型を指定してください。Areaの既定値はlong longです。
+- 座標の差を取る前にAreaへ変換します。浮動小数の誤差モデルは保証しません。
+
+</details>
 
 ## 最小使用例
 
@@ -53,6 +62,14 @@ auto area=blueberry::rectangle_union_area<__int128_t>(r);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Library Checker](https://judge.yosupo.jp/problem/area_of_union_of_rectangles) と整数格子の全セル比較で検証。[sotanishyの最小被覆数方式](https://sotanishy.github.io/cp-library-cpp/misc/rectangle_union.hpp.html)、[spaghetti-sourceのBentley走査](https://github.com/spaghetti-source/algorithm/blob/master/geometry/rectangle_union.cc) を調査。コードは独立実装。測定: [DS report](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-ds.md)。
+## 出典・検証 {#出典検証}
+
+- [Library Checker](https://judge.yosupo.jp/problem/area_of_union_of_rectangles) と整数格子の全セル比較で検証。
+- [sotanishyの最小被覆数方式](https://sotanishy.github.io/cp-library-cpp/misc/rectangle_union.hpp.html)、[spaghetti-sourceのBentley走査](https://github.com/spaghetti-source/algorithm/blob/master/geometry/rectangle_union.cc) を調査。
+- コードは独立実装。
+- 測定: [DS report](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-ds.md)。
+
+</details>

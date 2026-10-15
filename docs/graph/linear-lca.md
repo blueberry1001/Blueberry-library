@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/linear-lca.hpp
 
 ## 概要
 
-静的な無向木の LCA と辺数距離を O(1) で返す。
+静的な無向木のLCAと辺数距離をO(1)で返します。根を指定でき、入力は各無向辺を両方向に1回ずつ含む連結・閉路なしの非空の木とします。k-th ancestorは提供しません。
+
+Nを頂点数とすると、構築・メモリO(N)、各操作O(1)です。
 
 ## 操作一覧
 
@@ -25,11 +27,17 @@ documentation_of: //blueberry/graph/linear-lca.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::LinearLCA` は静的な無向木の LCA と辺数距離を O(1) で返す。N 頂点、`1 <= N <= INT_MAX/2`、隣接リストは各無向辺を両方向に1回ずつ含む連結・閉路なしの木とする。根を指定でき、頂点は `[0,N)`。
+## 概要・前提 {#概要前提}
 
-Euler tour は反復 DFS で構築し、深さ列を LinearRMQ で処理する。構築・メモリ O(N)、各操作 O(1)（word RAM、比較・整数操作 O(1)）。再帰の深さ N を使わない。既存 doubling LCA / Sparse Table LCA は変更しない。k-th ancestor は提供しない。入力木は構築後に破棄可能。辺・根の動的変更不可。距離は int に収まる。返り値は値で参照無効化なし。D は代入先の旧保持要素数。
+- `1 <= N <= INT_MAX/2`、頂点番号は`[0,N)`です。距離はintに収まります。
+- 計算量はword RAMで比較・整数操作をO(1)とします。Euler tourを反復DFSで構築し、深さ列をLinearRMQで処理します。再帰の深さNを使いません。
+- 入力木は構築後に破棄でき、辺・根の動的変更はできません。返り値は値で、参照の無効化はありません。Dは代入先の旧保持要素数です。
+- 既存のdoubling LCA・Sparse Table LCAは変更しません。
+
+</details>
 
 ## 最小使用例
 
@@ -182,6 +190,11 @@ assert(t.distance(2,3)==3);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [Bender–Farach-Colton 論文](https://www3.cs.stonybrook.edu/~bender/newpub/BenderFa00-lca.pdf) の Euler tour/RMQ 帰着と既存 LowestCommonAncestorRMQ を比較。本実装の RMQ 部分は ±1 専用表ではなく LinearRMQ。公式 `lca` を `verify/graph/linear-lca.test.cpp` で検証。ランダム木・星・パスを親登りと BFS 距離で比較する。
+
+</details>

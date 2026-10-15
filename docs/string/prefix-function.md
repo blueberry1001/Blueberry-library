@@ -7,7 +7,9 @@ documentation_of: //blueberry/string/prefix-function.hpp
 
 ## 概要
 
-接頭辞の最長 proper border と全一致位置を求める。
+接頭辞の最長proper borderと、パターンの全一致位置を求めます。要素の `==` が同値関係である列に対応し、区切り文字なしでNULや整数列も使えます。
+
+N=列/本文長、M=パターン長、K=一致数です。接頭辞関数はO(N)時間・メモリ、KMP検索はO(N+M+1)時間・出力を含む追加メモリO(M+K)です。
 
 ## 操作一覧
 
@@ -18,12 +20,15 @@ documentation_of: //blueberry/string/prefix-function.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-接頭辞の最長 proper border と全一致位置を求める。ACL の Z algorithm と異なる情報を提供する。
-Sequence/Text/Pattern は size() と O(1) 添字アクセスを提供し、要素 `==` は O(1) の同値関係。
-各長さ ≤ INT_MAX。N は列/本文長、M はパターン長、K は一致数。入力を変更・保持せず返り値は独立した所有配列。
-区切り文字不要で NUL や整数列も使用可能。値の算術演算を行わない。
+## 概要・前提 {#概要前提}
+
+- ACLのZ algorithmとは異なる情報を提供します。Sequence/Text/Patternは `size()` とO(1)の添字アクセスを持ち、要素の `==` はO(1)とします。
+- 各長さはINT_MAX以下です。入力を変更・保持せず、返り値は独立した所有配列です。値の算術演算は行いません。
+
+</details>
 
 ## 最小使用例
 
@@ -74,8 +79,13 @@ assert((ids == std::vector<int>{0, 1}));
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[KACTL KMP](https://github.com/kth-competitive-programming/kactl/blob/main/content/strings/KMP.h)（CC0）を調査し区切り不要方式で独立実装。
-公式 AOJ `ALDS1_14_B`（Library Checker ではない）と固定 seed の愚直比較、空文字列・重複・NUL を検証。
-候補比較は `docs/development/sequence-batch-two.md`。
+## 出典・検証 {#出典検証}
+
+- [KACTL KMP](https://github.com/kth-competitive-programming/kactl/blob/main/content/strings/KMP.h)（CC0）を調査し区切り不要方式で独立実装。
+  公式 AOJ `ALDS1_14_B`（Library Checker ではない）と固定 seed の愚直比較、空文字列・重複・NUL を検証。
+  候補比較は `docs/development/sequence-batch-two.md`。
+
+</details>

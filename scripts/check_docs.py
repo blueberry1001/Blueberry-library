@@ -35,6 +35,13 @@ def collect_examples(root):
         # The monoid cookbook intentionally documents definitions rather than
         # repeating a public-operation reference for every recipe.
         definitions = header == "blueberry/algebra/monoids.hpp"
+        notes = re.findall(r'<details\b([^>]*\bclass="library-notes"[^>]*)>(.*?)</details>', reference, re.S)
+        assert notes, (document, "Keep supplemental contracts in closed library notes")
+        for attributes, body in notes:
+            assert not re.search(r"\bopen(?:\s|=|$)", attributes), (document, "Notes must start collapsed")
+            assert 'markdown="1"' in attributes and "<summary>" in body, document
+        premise_heading = "## 使い方・前提" if definitions else "## 概要・前提"
+        assert any(premise_heading in body for _, body in notes), (document, "Keep the premise anchor inside its notes")
         for heading in (() if definitions else ("## 概要・前提", "## 最小使用例", "## 操作一覧")):
             assert heading in text, (document, heading)
         details = re.findall(r'<details class="api-operation" id="([^"]+)" markdown="1">(.*?)</details>', text, re.S)

@@ -7,8 +7,9 @@ documentation_of: //blueberry/graph/heavy-light-decomposition.hpp
 
 ## 概要
 
-静的な根付き木をHeavy-Light Decomposition（HLD）し、頂点・辺のパスを O(log N) 個の半開区間に、
-部分木を1個の半開区間に変換します。
+静的な根付き木をHLDで分解し、頂点・辺のパスをO(log N)個の半開区間に、部分木を1個の半開区間に変換します。値の保持にはACLの`segtree`・`lazy_segtree`・`fenwick_tree`などを組み合わせます。
+
+Nを頂点数とすると、構築時間・メモリはO(N)です。入力はN>=1の連結な木で、無向隣接リストまたは根から辿れる親→子リストを渡します。
 
 ## 操作一覧
 
@@ -48,22 +49,25 @@ documentation_of: //blueberry/graph/heavy-light-decomposition.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-静的な根付き木をHeavy-Light Decomposition（HLD）し、頂点・辺のパスを O(log N) 個の半開区間に、
-部分木を1個の半開区間に変換します。構築時間・メモリは O(N) です。
-値を保持するデータ構造ではないため、ACLの `segtree` / `lazy_segtree` / `fenwick_tree` などと組み合わせます。
+## 概要・前提 {#概要前提}
 
-N>=1 の連結な木を、無向隣接リストまたは根から辿れる親→子リストで渡します。
-頂点 `v` の値は `in(v)`、親から `v` への辺の値も `in(v)` に置きます。根に対応する辺はありません。
-`HeavyLightDecomposition` の短縮名として `HLD` も利用できます。
+- 頂点vの値は`in(v)`、親からvへの辺の値も`in(v)`に置きます。根に対応する辺はありません。
+- `HeavyLightDecomposition`の短縮名として`HLD`も利用できます。
 
-## 統合時の移行注意
+## 操作の補足 {#操作の補足}
 
-先行PR #5では `path_query` / `subtree_query` の末尾boolは `vertex=true` でした。
-統合版はTree PR #9に統一し、`edge=false`（頂点）、`edge=true`（辺）です。
-引数省略時の動作は同じですが、#5で末尾boolを明示したコードは値を反転してください。
-パスは `vertex_query(u,v,f)` / `edge_query(u,v,f)` を使うと意味が明確になります。
+- 区間callback自身の処理時間は操作一覧の計算量に含めません。
+
+## 統合時の移行注意 {#統合時の移行注意}
+
+- 先行PR #5では`path_query`・`subtree_query`の末尾boolは`vertex=true`でした。統合版はTree PR #9に統一し、`edge=false`（頂点）、`edge=true`（辺）です。
+- 引数省略時の動作は同じですが、#5で末尾boolを明示したコードは値を反転してください。
+- パスは`vertex_query(u,v,f)`・`edge_query(u,v,f)`を使うと意味が明確になります。
+
+</details>
 
 ## 最小使用例
 
@@ -88,10 +92,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-ここで N は頂点数です。区間callback自身の処理時間は表の計算量に含めません。
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>HLD hld(tree, root = 0)</code> — O(N)</summary>
@@ -450,7 +450,10 @@ hld.subtree_query(1, [&](int left, int right) {
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 API設計では [NyaanNyaan/library](https://github.com/NyaanNyaan/library) の頂点/辺query分離、
 [ei1333/library](https://github.com/ei1333/library/blob/master/graph/tree/heavy-light-decomposition.hpp) の短い `la`・順序付き集約、
@@ -459,3 +462,5 @@ API設計では [NyaanNyaan/library](https://github.com/NyaanNyaan/library) の�
 
 Library Checkerの `Vertex Add Path Sum`、`Vertex Add Subtree Sum`、`Vertex Set Path Composite`、
 `Jump on Tree` で検証し、ランダム木では全操作を愚直解と比較しています。
+
+</details>

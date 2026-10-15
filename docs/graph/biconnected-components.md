@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/biconnected-components.hpp
 
 ## 概要
 
-自己ループのない無向多重グラフを二重頂点連結成分（block）へ分解し、block-cut forestを構築します。
+自己ループのない無向多重グラフを二重頂点連結成分（block）へ分解し、block-cut forestを構築します。関節点は複数のblockに現れます。橋を削除した二辺連結成分の頂点分割（`LowLink::groups()`）とは異なります。
+
+Nを頂点数、Mを入力辺数、Bをblock数とすると、構築時間・メモリはO(N+M)です。
 
 ## 操作一覧
 
@@ -19,19 +21,19 @@ documentation_of: //blueberry/graph/biconnected-components.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-自己ループのない無向多重グラフを二重頂点連結成分（block）へ分解し、block-cut forestを構築します。
-Nを頂点数、Mを入力辺数、Bをblock数とすると、構築時間・メモリは O(N+M) です。明示的なDFSスタックと辺スタックを使い、再帰は行いません。
-ACLにはない機能です。既存の `LowLink::groups()` は橋を削除した**二辺連結成分の頂点分割**であり、本クラスとは異なります。
-本クラスでは関節点が複数blockに現れます。既存LowLinkの非公開探索情報を変更せず、必要な辺スタックを持つ独立した探索で計算します。
+## 概要・前提 {#概要前提}
 
-`vector<pair<int,int>> edges` の要素は無向辺の両端です。N>=0、M<=INT_MAX、0<=u,v<N、u!=v を満たしてください。
-多重辺を扱えます。親の**辺ID**だけを読み飛ばすので、親への別の辺は逆辺として処理されます。
-孤立頂点は単一頂点block、橋は2頂点blockです。N=0なら辺列も空で、block列は空になります。
-group内の頂点は重複しませんが、頂点順・block順の安定性や昇順は保証しません。頂点集合の総要素数は O(N+M) です。
-入力を変更せず所有データを構築します。返したconst参照はオブジェクトの破棄・代入・移動で無効になり得ます。
-必要なメモリを確保できることが前提です。block-cut forestを取得するときは N+B<=INT_MAX が必要です。
+- 入力は無向辺の両端を並べた`vector<pair<int,int>> edges`です。`N>=0`、`M<=INT_MAX`、`0<=u,v<N`、`u!=v`を満たしてください。block-cut forestの取得時は`N+B<=INT_MAX`が必要です。
+- 孤立頂点は単一頂点block、橋は2頂点blockです。N=0なら辺列も空で、block列は空になります。
+- group内の頂点は重複しませんが、頂点順・block順の安定性や昇順は保証しません。頂点集合の総要素数はO(N+M)です。
+- 入力を変更せず所有データを構築します。返したconst参照はオブジェクトの破棄・代入・移動で無効になり得ます。必要なメモリを確保できることが前提です。
+- 明示的なDFSスタックと辺スタックを使い、再帰は行いません。親の辺IDだけを読み飛ばすため、親への別の辺は逆辺として処理します。
+- ACLにはない機能です。既存LowLinkの非公開探索情報を変更せず、必要な辺スタックを持つ独立した探索で計算します。
+
+</details>
 
 ## 最小使用例
 
@@ -103,9 +105,14 @@ int first_block_node = 3; // 上のn=3の例ではblock頂点が3から始まる
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Library Checker: Biconnected Components](https://judge.yosupo.jp/problem/biconnected_components) で検証します（多重辺あり・自己ループなし）。
 - [KACTL](https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/BiconnectedComponents.h)、[Nyaan](https://nyaannyaan.github.io/library/graph/biconnected-components.hpp.html)、[公開提出287412](https://judge.yosupo.jp/submission/287412) のblock抽出・API・メモリ配置を調査しました。KACTLの橋を除外する辺callbackとは出力規約が異なります。
 - Tarjanの標準的なlowlinkと辺スタックを独自に反復実装し、頂点の重複除去にはstamp配列を使います。公開コードのコピーは行っていません。
 - 小グラフの全頂点部分集合について連結性と頂点除去後の連結性から極大blockを求める独立テスト、長いパス、多重辺、孤立点を検証します。比較条件は `benchmark/results/lc-expansion-graph/` を参照してください。
+
+</details>

@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/topological-sort.hpp
 
 ## 概要
 
-有向グラフをKahn法でトポロジカルソートし、閉路があればnulloptを返します。
+有向グラフをKahn法でトポロジカルソートし、閉路があれば`nullopt`を返します。自己ループ・平行辺・非連結入力に対応します。
+
+Nを頂点数、Mを辺数とすると、最悪時間O(N+M)、追加メモリO(N)です。
 
 ## 操作一覧
 
@@ -17,11 +19,15 @@ documentation_of: //blueberry/graph/topological-sort.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-有向グラフをKahn法でトポロジカルソートし、閉路があればnulloptを返します。ACLのSCCで代用可能ですが、この単一操作はより短く使えます。
-N頂点（N ≤ INT_MAX）、M辺、端点 [0,N)。自己ループ・平行辺・非連結入力に対応。最悪時間 O(N+M)、追加メモリ O(N)。
-入次数カウントはsize_tに収まることが必要です。
+## 概要・前提 {#概要前提}
+
+- `N <= INT_MAX`、端点は`[0,N)`とします。入次数カウントはsize_tに収まる必要があります。
+- ACLのSCCで代用できますが、この単一操作はより短く使えます。
+
+</details>
 
 ## 最小使用例
 
@@ -54,10 +60,15 @@ assert(empty && empty->empty());
 計算量は最悪値（内部push_backの償却を合計）です。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [DFSによる実装](https://cp-algorithms.com/graph/topological-sort.html) と
 [KACTLのKahn法](https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/TopoSort.h)
 を調査し、入次数とvectorキューによる独自実装を採用。コードの転用はありません。
 直接対応するLibrary Checker問題はなく、ランダムグラフの推移閉包による閉路判定・各辺の順序・20万頂点の道で検証します。
 測定は [graph-batch-two](https://github.com/blueberry1001/Blueberry-library/blob/main/benchmark/graph-batch-two.md)。
+
+</details>

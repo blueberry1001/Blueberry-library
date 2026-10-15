@@ -5,7 +5,9 @@ documentation_of: //blueberry/graph/static-top-tree.hpp
 
 ## 概要
 
-固定された根付き木の DP を頂点更新後 O(log N) で再計算します。
+固定された非空の根付き木のDPを、頂点更新後に再計算します。`compress`は上から下への結合的な結合、`rake`は同一親への寄与の可換・結合的な結合とし、木の分解によらず答えが一致するDP代数を与えます。
+
+Nを頂点数とすると、構築O(N log(N+1))以下、格納量O(N)、setは最悪O(log(N+1))、全体集約の取得はO(1)です。
 
 ## 操作一覧
 
@@ -23,17 +25,17 @@ documentation_of: //blueberry/graph/static-top-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::StaticTopTree<V, Path, Point, add_vertex, add_edge, compress, rake, point_identity>` は固定された根付き木の DP を頂点更新後 O(log N) で再計算します。
-ACL の区間データ構造では木の分岐の DP をそのまま扱えないため追加しています。動的な辺の変更は別の Dynamic Top Tree の用途です。
+## 概要・前提 {#概要前提}
 
-heavy path の直列結合を compress、light subtree の並列結合を rake として二分式木にします。
-元の部分木サイズによる weighted median で構築するため、同じ重さの葉数で分割する方法と異なり、式木の高さは O(log N) です。
-格納量 O(N)、構築 O(N log(N+1)) 以下、set は最悪 O(log(N+1))。callback・値コピー・破棄が O(1) の場合です。
-Path / Point はデフォルト構築・コピー可能、V はコピー可能としてください。空木は不可。算術のオーバーフローは呼び出し側で防ぎます。
+- 型は`StaticTopTree<V, Path, Point, add_vertex, add_edge, compress, rake, point_identity>`です。Path・Pointはデフォルト構築・コピー可能、Vはコピー可能とします。
+- 計算量はcallback・値コピー・破棄がO(1)の場合です。算術のオーバーフローは呼び出し側で防いでください。
+- heavy pathの直列結合をcompress、light subtreeの並列結合をrakeとして二分式木にします。元の部分木サイズによるweighted medianで構築し、式木の高さをO(log N)に保ちます。
+- ACLの区間データ構造では木の分岐のDPをそのまま扱えないため追加しています。辺を動的に変更する場合はDynamic Top Treeを使います。
 
-### callback の意味
+### callback の意味 {#callback-の意味}
 
 | callback | 意味 |
 | --- | --- |
@@ -43,10 +45,12 @@ Path / Point はデフォルト構築・コピー可能、V はコピー可能�
 | `Point rake(Point a, Point b)` | 同一親へ接続される light subtree の寄与を結合する。可換・結合的であること |
 | `Point point_identity()` | light subtree がない場合の単位元 |
 
-同じ木を表す結合順序で同じ答えになる木 DP の代数を与えてください。単に型が一致するだけでは十分ではありません。
-重い子の選択は内部処理なので、light / heavy の選択で答えが変わらないことも必要です。
-葉と非葉で DP が異なる場合や辺の値を扱う場合は、その情報を V に含められます。
-各頂点は一度だけ add_vertex に含まれ、境界の頂点を重複して加算しません。
+- 同じ木を表す結合順序で同じ答えになる木DPの代数が必要です。単に型が一致するだけでは十分ではありません。
+- 重い子の選択は内部処理なので、light/heavyの選択で答えが変わらないことも必要です。
+- 葉と非葉でDPが異なる場合や辺の値を扱う場合は、その情報をVに含められます。
+- 各頂点は一度だけ`add_vertex`に含まれ、境界の頂点を重複して加算しません。
+
+</details>
 
 ## 最小使用例
 
@@ -211,10 +215,15 @@ copy = std::move(moved);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [ABC351 G 公式解説](https://atcoder.jp/contests/abc351/editorial/9899): rake/compress による固定木の DP。
 - [Nyaan Static Top Tree](https://nyaannyaan.github.io/library/tree/static-top-tree-vertex-based.hpp.html): weighted balancing と cluster API を比較。
 - [Point Set Tree Path Composite Sum (Fixed Root)](https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum_fixed_root): 頂点値と辺の affine 関数の更新。
 
 ランダム DP 比較に加え、10 万頂点の鎖・星・二分木で再帰の深さと更新 callback 数の境界を検査します。
+
+</details>

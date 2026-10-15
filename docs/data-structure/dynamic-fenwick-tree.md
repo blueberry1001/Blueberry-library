@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/dynamic-fenwick-tree.hpp
 
 ## 概要
 
-事前の座標登録なしで、巨大な整数区間 `[0,n)` に点加算・区間和・重み付き探索を行う。
+事前の座標登録なしで、巨大な整数区間 `[0,n)` の点加算・区間和・重み付き探索を扱います。Tには可換加法群を要求し、lower_boundのみ比較と各点の非負値も必要です。通常の密な配列にはACL fenwick_treeを優先してください。
+
+L=1+floor(log2(max(1,n)))、Qはこれまで加算した異なる位置の数、S=O(min(n,QL))は保存セル数です。各操作は平均O(L)、更新は再ハッシュを含め償却評価です。メモリはO(1+S)です。
 
 ## 操作一覧
 
@@ -37,28 +39,19 @@ documentation_of: //blueberry/data-structure/dynamic-fenwick-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-事前の座標登録なしで、巨大な整数区間 `[0,n)` に点加算・区間和・重み付き探索を行う。
-通常の密な配列には ACL `fenwick_tree` を優先する。本実装は Fenwick セルを
-`unordered_map` に保存し、初期化時に `n` 個の配列を確保しない。
+## 概要・前提 {#概要前提}
 
-`DynamicFenwickTree<T, Coord = long long>` の `Coord` は符号付き整数型。
-`0 <= n <= numeric_limits<Coord>::max()`。`T{}` が加算の単位元で、コピー・`+=`・二項 `-`
-が必要。区間和には可換加法群を仮定する。`lower_bound` のみさらに `<` と非負な各点の値を要求する。
-整数・ACL modint を使えるが、modint では重み付き探索を使わない。全中間演算を含め、`T` の
-オーバーフローを呼び出し側で防ぐ。浮動小数点には演算順による誤差がある。
+- `DynamicFenwickTree<T, Coord = long long>` のCoordは符号付き整数型で、`0 <= n <= numeric_limits<Coord>::max()` が必要です。Fenwickセルをunordered_mapに保存し、初期化時にn個の配列を確保しません。
+- `T{}` は加算単位元で、コピー・`+=`・二項 `-` が必要です。lower_boundにはさらに `<` が必要です。整数・ACL modintを使えますが、modintでは重み付き探索を使いません。
+- 全中間演算を含めTのオーバーフローは呼び出し側で防いでください。浮動小数点には演算順による誤差があります。
+- 表はハッシュが十分分散する平均計算量で、Tのコピー・演算はO(1)とします。衝突が集中する最悪時の探索はO(L(1+S))、更新は再ハッシュを含めO(L(1+S)+S²)です。
+- ゼロを加えた位置・ゼロに戻ったセルも削除しません。読み取りはセルを挿入せず、公開フィールド・参照を返す操作はありません。
+- 旧 `DynamicFenwickTree<S,T>` からはテンプレート引数順をT,Coordに変更し、`sum(r)` は `pref(r)`、`operator[](p)` は `get(p)` に移行します。負のprefix終端を暗黙にゼロ扱いせず、すべての添字条件をassertで検査します。
 
-以下で `L = 1 + floor(log2(max(1,n)))`、`Q` はこれまで加算した異なる位置の数、
-`S` は保存セル数とし、`S = O(min(n, QL))`。メモリは `O(1+S)`。
-表の計算量はハッシュが十分分散する場合の平均で、更新の再ハッシュを償却する。
-衝突が集中する最悪時の探索は `O(L(1+S))`、更新は再ハッシュも含め `O(L(1+S)+S²)`。
-`T` のコピー・演算は `O(1)` とする。ゼロを加えた位置・ゼロに戻ったセルも保持し、削除しない。
-読み取り操作はセルを挿入しない。公開フィールド・参照を返す操作はない。
-
-旧 `DynamicFenwickTree<S,T>` からはテンプレート引数順を `T,Coord` に変更し、
-`sum(r)` は `pref(r)`、`operator[](p)` は `get(p)` に移行する。
-負の prefix 終端を暗黙にゼロ扱いせず、すべての添字条件を `assert` で検査する。
+</details>
 
 ## 最小使用例
 
@@ -254,9 +247,14 @@ assert(weights.lower_bound(1) == 4 && weights.lower_bound(4) == 10);
 {% endraw %}
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Nyaan: Dynamic Binary Indexed Tree](https://nyaannyaan.github.io/library/data-structure/dynamic-binary-indexed-tree.hpp.html): 疎な Fenwick セルと重み付き探索の設計を比較。実装は独立に記述。
 - [ACL Fenwick Tree](https://atcoder.github.io/ac-library/production/document_ja/fenwicktree.html): 密な通常配列はこちらを優先。
 - [Library Checker: Point Add Range Sum](https://judge.yosupo.jp/problem/point_add_range_sum): `verify/data-structure/dynamic-point-add-range-sum.test.cpp`。
 - `tests/random/dynamic-fenwick-tree.cpp`: 固定 seed、愚直列挙、負の値、ゼロギャップの探索、最大整数座標、コピー・move を検証。
+
+</details>

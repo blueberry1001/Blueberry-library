@@ -7,9 +7,9 @@ documentation_of: //blueberry/math/matrix.hpp
 
 ## 概要
 
-体上の行列式・逆行列・階数・連立一次方程式を扱います。
+正確な体上の行列式・逆行列・階数・連立一次方程式を扱います。素数法のACL modintなどを使い、通常の整数型、合成数法modint、epsilon判定が必要な浮動小数点には対応しません。det/invは正方行列、rank/solveは長方形にも対応します。
 
-要素の添字は0-indexedです。
+n行m列、r=rank(A)、d=m-rとして、操作時間は一覧に示します。行列自身のメモリはO(nm+1)です。要素の添字は0-indexedで、`a(i,j)` で参照します。消去を行う操作は元の行列を変更しません。
 
 ## 操作一覧
 
@@ -50,22 +50,22 @@ documentation_of: //blueberry/math/matrix.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-体上の行列式・逆行列・階数・連立一次方程式を扱います。ACL modint をそのまま係数型に使い、ACL にない行列消去のみ提供します。行列積・累乗・浮動小数点の数値安定化は対象外です。`Matrix<T>` は行数と列数、行優先の連続配列を所有します。`a(i,j)` で短く要素を参照できます。
+## 概要・前提 {#概要前提}
 
-T は**正確な体演算**を持つ型で、`T{}`=0、`T(1)`=1、コピー・代入・等値/不等値・単項負号・乗算・乗算代入・減算代入・除算が必要です。非零要素はすべて可逆であること。素数法 ACL `static_modint`、法を途中で変更しない素数法 `dynamic_modint` が使えます。通常の int/long long（割算の切捨て）、合成数法 modint、epsilon 判定が必要な浮動小数点には使わないでください。標数2を含む体にも対応します。
+- ACLにはない行列消去を提供します。行列積・累乗・浮動小数点の数値安定化は対象外です。`Matrix<T>` は行数と列数、行優先の連続配列を所有します。
+- Tは `T{}`=0、`T(1)`=1、コピー・代入・等値/不等値・単項負号・乗算・乗算代入・減算代入・除算を持ち、非零要素がすべて可逆であることが必要です。法を途中で変更しない素数法 `dynamic_modint` と、標数2を含む体にも対応します。符号なしの剰余2^w整数は体ではありません。
+- 演算・コピーをO(1)とみなした最悪計算量です。消去1回の逆元計算は高々min(n,m)回で、逆元1回のコストをIと数える場合は表の時間にO(min(n,m)I)を加えます。
+- 消去は作業用コピー上で先頭の非零pivotを選ぶGaussian/Gauss–Jordan消去を行い、行交換を処理します。
+- 寸法は非負intで、積・作業用寸法が型と実メモリに収まることが前提です。全中間演算のオーバーフローは呼出側で避けてください。無効な形状・添字・右辺長はassertの対象で、releaseでも守る必要があります。
+- 0×0の行列式は1、逆行列は存在し、階数は0です。0×mとn×0も区別して保存します。
+- `LinearSystem<T>` は `particular` と `basis` を持つ所有値です。不整合はnullopt、一意解は `basis.empty()` で区別します。公開フィールドを利用者が変更した後の解の正しさは保証しません。
+- 要素参照は親の代入・move・破棄後に使用しないでください。消去const操作では参照は有効です。copyは独立し、Matrixのmove元は0×0に初期化されます。
+- 結果型の操作で使うBは `particular.size() + basis.size() + Σ basis[i].size()` です。solveが返した正常な結果ではB=O(m(d+1)+1)ですが、利用者が自由に集成体初期化・変更した結果も、このBを用いれば評価できます。
 
-n行m列、r=rank(A)、d=m-r。演算・コピーを O(1) とみなした最悪計算量を示します。行列自身のメモリは O(nm+1)。消去は作業用コピーだけを変更し、利用者の行列は変更しません。先頭の非零 pivot を選ぶ通常の Gaussian/Gauss–Jordan 消去で、行交換を処理します。整数座標の寸法は非負int、積・作業用寸法が型と実メモリに収まることが前提です。
-
-消去1回の逆元計算は高々 min(n,m) 回です。逆元1回のコストを I と数える型では、表の時間に O(min(n,m)I) を加えます。
-
-全中間演算のオーバーフローは呼出側で避けてください。符号なしの剰余2^w整数も体ではありません。無効な形状・添字・右辺長は assert の対象で、releaseでも守る必要があります。0×0 の行列式は1、逆行列は存在し、階数は0。0×m と n×0 も区別して保存します。det/invは正方行列のみ、rank/solveは長方形にも対応します。
-
-`LinearSystem<T>` は `particular` と `basis` を持つ所有値です。不整合を nullopt、一意解を basis.empty() で区別します。要素参照は親の代入・move・破棄後に使用しないでください。消去const操作では参照は有効です。copyは独立、Matrixのmove元は0×0に初期化されます。公開フィールドを利用者が変更した後の解の正しさは保証しません。
-
-結果型の操作で使う B は `particular.size() + basis.size() + Σ basis[i].size()` とします。
-solve が返した正常な結果では B=O(m(d+1)+1) ですが、利用者が自由に集成体初期化・変更した結果も、この B を用いれば評価できます。
+</details>
 
 ## 最小使用例
 
@@ -432,8 +432,13 @@ const auto& directions = solution.basis;
 注意点: 一意解では空。solveは自由列を昇順に選び、各基底の対応自由変数を1にします。公開vectorの変更・再確保時は通常のvector参照無効化規則に従います。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
+
+## 出典・検証 {#出典検証}
 
 - 公式問題: [Determinant](https://judge.yosupo.jp/problem/matrix_det)、[Inverse](https://judge.yosupo.jp/problem/inverse_matrix)、[Rank](https://judge.yosupo.jp/problem/matrix_rank)、[System of Linear Equations](https://judge.yosupo.jp/problem/system_of_linear_equations)。対応 verify/math drivers を用意しています。
 - [公式の連立一次方程式仕様](https://github.com/yosupo06/library-checker-problems/blob/master/linear_algebra/system_of_linear_equations/task.md) と、[Fastest determinant 401316](https://judge.yosupo.jp/submission/401316)・[361510](https://judge.yosupo.jp/submission/361510) を調査。高速提出はブロック化・SIMD・遅延剰余などを使います。本APIは任意の正確な体を扱う単純な連続配列消去で、公開コードを転記していません。
 - `tests/random/algebra-expansion.cpp`: F3 の全入力ベクトル列挙による像の大きさ・解集合との独立比較、行列式の全置換展開、逆行列の積、空・特異・不整合・コピー・moveを検証。
+
+</details>

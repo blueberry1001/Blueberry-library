@@ -7,8 +7,9 @@ documentation_of: //blueberry/math/linear-recurrence.hpp
 
 ## 概要
 
-有限の数列から最小次数の線形漸化式を見つけるBerlekamp–Masseyと、
-与えた漸化式の $k$ 番目を求めるBostan–Moriです。
+有限の数列から最小次数の線形漸化式を求めるBerlekamp–Masseyと、与えた漸化式のk番目を求めるBostan–Moriです。添字は0から始まり、係数順は `a[i] = c[0]*a[i-1] + ... + c[d-1]*a[i-d]` です。BMには厳密な体、k項目の計算には素数modulusのACL `static_modint` が必要です。NTTを使う場合は、法が対応する変換長の範囲で使います。
+
+入力長NのBMはO(N²)時間・追加メモリO(N)です。次数dのk項目は、畳み込み時間M(d)=O(d log d)としてO(M(d) log(k+1))時間・追加メモリO(d)です。
 
 ## 操作一覧
 
@@ -19,22 +20,18 @@ documentation_of: //blueberry/math/linear-recurrence.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-有限の数列から最小次数の線形漸化式を見つけるBerlekamp–Masseyと、
-与えた漸化式の $k$ 番目を求めるBostan–Moriです。添字は0から始まり、係数順は
-`a[i] = c[0]*a[i-1] + c[1]*a[i-2] + ... + c[d-1]*a[i-d]` に統一します。
-ACLのmodintと畳み込みを利用し、ACLにない級数の係数抽出・漸化式推定だけを実装しています。
+## 概要・前提 {#概要前提}
 
-BMの係数型は厳密な体として加減乗除・零比較が可能な型です。ACLの素数modintを推奨します。
-入力長を $N$ として時間 $O(N^2)$、追加メモリ $O(N)$。
-k項目の計算にはACLの `static_modint` と素数modulusが必要です。
-次数を $d$、畳み込み時間を $M(d)=O(d\log d)$ として
-時間 $O(M(d)\log(k+1))$、追加メモリ $O(d)$。
+- ACLのmodintと畳み込みを利用し、ACLにない級数の係数抽出・漸化式推定を実装しています。
+- BMの係数型には加減乗除・零比較が必要です。ACLの素数modintを推奨します。
+- `k >= d > 0` では `bit_ceil(2*d+1)` が `Mint::mod()-1` を割り切る必要があります。`modint998244353` なら `d <= 4,194,303` です。
+- `k < d` は初期値をO(1)で返すため、このNTT長制約は適用しません。
+- すべての入力vectorは変更せず、返却値がデータを所有します。
 
-`k >= d > 0` では `bit_ceil(2*d+1)` が `Mint::mod()-1` を割り切る必要があります。
-`modint998244353` なら `d <= 4,194,303`。`k < d` は初期値を $O(1)$ で返すため、
-このNTT長制約は適用しません。すべての入力vectorは変更せず、返却値がデータを所有します。
+</details>
 
 ## 最小使用例
 
@@ -98,14 +95,19 @@ assert(blueberry::linear_recurrence_kth(initial, coefficients, 1'000'000'000'000
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[emthrmのBM](https://github.com/emthrm/cp-library/blob/master/include/emthrm/math/formal_power_series/berlekamp-massey.hpp)、
-[NyaanのBM](https://github.com/NyaanNyaan/library/blob/master/fps/berlekamp-massey.hpp)、
-[Bostan–Mori](https://github.com/emthrm/cp-library/blob/master/include/emthrm/math/formal_power_series/bostan-mori.hpp) を調査し、
-係数の順序・符号を統一して独立実装しました。外部コードは転記していません。
-Fastestのhalf-GCDによる高速BMや専用SIMD NTTは、実装規模と移植性を考えて今回採用していません。
+## 出典・検証 {#出典検証}
 
-公式問題: [Find Linear Recurrence](https://judge.yosupo.jp/problem/find_linear_recurrence)、
-[Kth term](https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence)。
-追加テストはGaussian eliminationで最小次数を確認し、直接DP・独立したKitamasa法でk項目を照合します。
+- [emthrmのBM](https://github.com/emthrm/cp-library/blob/master/include/emthrm/math/formal_power_series/berlekamp-massey.hpp)、
+  [NyaanのBM](https://github.com/NyaanNyaan/library/blob/master/fps/berlekamp-massey.hpp)、
+  [Bostan–Mori](https://github.com/emthrm/cp-library/blob/master/include/emthrm/math/formal_power_series/bostan-mori.hpp) を調査し、
+  係数の順序・符号を統一して独立実装しました。外部コードは転記していません。
+  Fastestのhalf-GCDによる高速BMや専用SIMD NTTは、実装規模と移植性を考えて今回採用していません。
+
+- 公式問題: [Find Linear Recurrence](https://judge.yosupo.jp/problem/find_linear_recurrence)、
+  [Kth term](https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence)。
+  追加テストはGaussian eliminationで最小次数を確認し、直接DP・独立したKitamasa法でk項目を照合します。
+
+</details>

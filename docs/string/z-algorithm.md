@@ -7,7 +7,9 @@ documentation_of: //blueberry/string/z-algorithm.hpp
 
 ## 概要
 
-列 `s` の各位置から始まる接尾辞と `s` 全体の最長共通接頭辞長を求めます。
+列sの各位置から始まる接尾辞と、s全体の最長共通接頭辞長を求めます。要素の等値比較が可能な列に対応し、空列では空vectorを返します。
+
+長さNに対して、時間・メモリともにO(N)です。
 
 ## 操作一覧
 
@@ -17,11 +19,14 @@ documentation_of: //blueberry/string/z-algorithm.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-列 `s` の各位置から始まる接尾辞と `s` 全体の最長共通接頭辞長を求めます。長さを $N$ とすると
-時間・メモリは $O(N)$ です。`Sequence` は `size()` と添字アクセス、要素の等値比較を提供する
-必要があります。空列にも対応します。
+## 概要・前提 {#概要前提}
+
+- Sequenceは `size()` と添字アクセス、要素の等値比較を提供する型です。
+
+</details>
 
 ## 最小使用例
 

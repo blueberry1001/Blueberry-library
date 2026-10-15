@@ -5,7 +5,9 @@ documentation_of: //blueberry/graph/link-cut-tree.hpp
 
 ## 概要
 
-辺の接続・切断と頂点値のパス積を扱う動的森です。
+辺の接続・切断と頂点値のパス積を扱う動的森です。`LinkCutTree<S, op, e>`の`op`は結合的、`e()`は両側単位元とし、非可換モノイドにも対応します。部分木集約・パス一括更新は含みません。
+
+Nを固定頂点数とすると、構築O(N)、格納メモリ・一時スタックO(N)です。動的操作は償却O(log(N+1))、単発最悪O(N)です。
 
 ## 操作一覧
 
@@ -36,20 +38,17 @@ documentation_of: //blueberry/graph/link-cut-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::LinkCutTree<S, op, e>` は辺の接続・切断と頂点値のパス積を扱う動的森です。
-Splay tree で preferred path を管理し、正逆両方向の積を保持するため非可換モノイドにも対応します。
-ACL には動的森がないため独立実装です。部分木集約・パス一括更新はこの API には含みません。
+## 概要・前提 {#概要前提}
 
-`op(S,S)` は結合的、`e()` は両側単位元。演算・S のコピーと破棄を O(1) とした計算量です。
-N は固定頂点数、格納メモリと一時スタックは O(N)。操作の O(log N) は償却であり、単発最悪 O(N) です。
-値・集約値のオーバーフローは呼び出し側で防いでください。辺を切っても頂点番号は変化しません。
+- 計算量は演算・Sのコピーと破棄をO(1)とします。値・集約値のオーバーフローは呼び出し側で防いでください。辺を切っても頂点番号は変化しません。
+- Splay treeでpreferred pathを管理し、正逆両方向の積を保持します。ACLには動的森がないため独立実装です。
+- 内部では空の子との単位元演算と、splay中の重複した集約更新を省いています。正逆両方向の集約・反転・カスタムS型・失敗するlink/cutの扱いは維持します。
+- [同じAPIでの性能測定](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/generic-performance/lct/REPORT.md)には、非可換演算での改善と、加算では入力形状によって差が小さい場合の両方を記録しています。
 
-内部では空の子との単位元演算と、splay中の重複した集約更新を省いています。
-正逆両方向の集約・反転・カスタムS型・失敗するlink/cutの扱いは維持します。
-[同じAPIでの性能測定](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/generic-performance/lct/REPORT.md)では、
-非可換演算での改善と、加算では入力形状によって差が小さい場合の両方を記録しています。
+</details>
 
 ## 最小使用例
 
@@ -252,7 +251,10 @@ copy = std::move(moved);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Splay preferred path の説明（ei1333）](https://ei1333.hateblo.jp/entry/2018/05/29/011140)
 - [Harvard CS224 講義資料](https://people.seas.harvard.edu/~cs224/spring17/lec/lec26.pdf)
@@ -260,6 +262,8 @@ copy = std::move(moved);
 - [Dynamic Tree Vertex Set Path Composite](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite)
 
 ランダムテストでは非可換な文字列連結を使い、逆向きパス、閉路になる link、存在しない cut、独立コピーを BFS と照合します。
+
+</details>
 
 <details class="api-operation" id="evert" markdown="1">
 <summary><code>void evert(int v)</code> — 償却 O(log(N+1))</summary>

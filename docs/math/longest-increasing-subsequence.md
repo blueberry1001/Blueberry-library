@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/longest-increasing-subsequence.hpp
 
 ## 概要
 
-厳密増加部分列の最長解を添字列で復元する。
+厳密増加部分列の最長解を添字列で復元します。Tの `<` は狭義弱順序を満たす必要があります。
+
+Nを要素数として時間O(N log(N+1))、メモリO(N)です。
 
 ## 操作一覧
 
@@ -17,11 +19,16 @@ documentation_of: //blueberry/math/longest-increasing-subsequence.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-厳密増加部分列の最長解を添字列で復元する。ACL にない列アルゴリズム。
-N は要素数で N ≤ INT_MAX。T の `<` は strict weak ordering、比較 O(1)。時間 O(N log(N+1))、メモリ O(N)。
-値の番兵・算術演算を使わず整数最小・最大値も扱える。入力を変更・保持せず返り値は独立した所有配列。
+## 概要・前提 {#概要前提}
+
+- ACLにはない列アルゴリズムです。`N <= INT_MAX`、比較はO(1)とします。
+- 値の番兵・算術演算を使わず、整数の最小・最大値も扱えます。
+- 入力を変更・保持せず、返り値は独立した所有配列です。
+
+</details>
 
 ## 最小使用例
 
@@ -54,9 +61,14 @@ assert(ids.size() == 1);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[Luzhiled](https://ei1333.github.io/library/dp/longest-increasing-subsequence.hpp.html) と
-[sotanishy](https://sotanishy.github.io/cp-library-cpp/dp/lis.hpp) の二分探索・復元方式を調査し独立実装。
-公式 Library Checker `longest_increasing_subsequence`、固定 seed の O(N²) DP・復元チェック。
-候補比較は `docs/development/sequence-batch-two.md`。
+## 出典・検証 {#出典検証}
+
+- [Luzhiled](https://ei1333.github.io/library/dp/longest-increasing-subsequence.hpp.html) と
+  [sotanishy](https://sotanishy.github.io/cp-library-cpp/dp/lis.hpp) の二分探索・復元方式を調査し独立実装。
+  公式 Library Checker `longest_increasing_subsequence`、固定 seed の O(N²) DP・復元チェック。
+  候補比較は `docs/development/sequence-batch-two.md`。
+
+</details>

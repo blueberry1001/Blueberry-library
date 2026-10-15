@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/mod-sqrt.hpp
 
 ## 概要
 
-素数 $p$ に対して $x^2\equiv a\pmod p$ を解き、存在すれば最小の非負の根を返します。
+素数pに対してx²≡a (mod p)を解き、存在すれば最小の非負の根を返します。modulusは引数として渡し、素数性は検査しません。
+
+非剰余探索の候補数をzとして時間O(z log p+log² p)、追加メモリO(1)です。p%4==3はO(log p)、p==2と剰余0はO(1)です。
 
 ## 操作一覧
 
@@ -17,17 +19,16 @@ documentation_of: //blueberry/math/mod-sqrt.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-素数 $p$ に対して $x^2\equiv a\pmod p$ を解き、存在すれば最小の非負の根を返します。
-ACLにない演算で、Tonelli–Shanks法を使います。modulusは引数として渡し、
-globalなmodint設定を変更しません。既存FPS内部の平方根処理とは独立です。
+## 概要・前提 {#概要前提}
 
-`2 <= prime_mod <= INT32_MAX` かつ素数が前提です。素数性はこの関数では検査しません。
-`a` は任意の `int64_t` で、負値も `[0,p)` へ正規化します。範囲内の積はint64に収まります。
-追加メモリ $O(1)$。非剰余探索で調べる候補数を $z$ とすると、
-時間は $O(z\log p + \log^2 p)$ です。順次探索のため $z$ を無条件に定数とはみなしません。
-`p % 4 == 3` は $O(\log p)$、`p == 2` と剰余0は $O(1)$ の高速経路です。
+- `2 <= prime_mod <= INT32_MAX` かつ素数が前提です。aは任意のint64_tで、負値も `[0,p)` へ正規化します。範囲内の積はint64に収まります。
+- ACLにないTonelli–Shanks法の演算です。globalなmodint設定を変更せず、既存FPS内部の平方根処理とは独立しています。
+- 非剰余候補は順次探索するため、zを無条件に定数とはみなしません。
+
+</details>
 
 ## 最小使用例
 
@@ -64,12 +65,17 @@ if (auto root = blueberry::mod_sqrt(4, 7)) {
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[NyaanのTonelli–Shanks](https://github.com/NyaanNyaan/library/blob/master/modulo/mod-sqrt.hpp) と
-[Cipollaの提出215966](https://judge.yosupo.jp/submission/215966) を比較し、
-global modulusに依存しないTonelli–Shanksを独立実装しました。外部コードは転記していません。
-Fastest提出の複数mod同時SIMD処理は単発APIへ持ち込んでいません。
+## 出典・検証 {#出典検証}
 
-公式問題: [Sqrt Mod](https://judge.yosupo.jp/problem/sqrt_mod)。
-小素数の全残余に対する全探索・負値・INT64_MIN・INT32_MAX素数も追加検証します。
+- [NyaanのTonelli–Shanks](https://github.com/NyaanNyaan/library/blob/master/modulo/mod-sqrt.hpp) と
+  [Cipollaの提出215966](https://judge.yosupo.jp/submission/215966) を比較し、
+  global modulusに依存しないTonelli–Shanksを独立実装しました。外部コードは転記していません。
+  Fastest提出の複数mod同時SIMD処理は単発APIへ持ち込んでいません。
+
+- 公式問題: [Sqrt Mod](https://judge.yosupo.jp/problem/sqrt_mod)。
+  小素数の全残余に対する全探索・負値・INT64_MIN・INT32_MAX素数も追加検証します。
+
+</details>

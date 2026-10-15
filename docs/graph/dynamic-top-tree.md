@@ -5,7 +5,9 @@ documentation_of: //blueberry/graph/dynamic-top-tree.hpp
 
 ## 概要
 
-辺の link/cut と全木・部分木の DP を扱う、頂点ベースの動的 rake/compress 構造です。
+辺のlink/cutと全木・部分木のDPを扱います。頂点数は固定で、初期状態は孤立点です。`compress`は上から下への結合的な結合、`rake`は同一親への寄与の可換・結合的な結合とします。Pointの逆元は不要ですが、同じ木を表す分解・再結合・根変更で整合するDP代数が必要です。
+
+Nを頂点数とすると、構築O(N)、メモリO(N)、get/sizeはO(1)です。動的操作は償却O(log²(N+1))、単発最悪O(N)となり得ます。
 
 ## 操作一覧
 
@@ -38,37 +40,25 @@ documentation_of: //blueberry/graph/dynamic-top-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::DynamicTopTree<V, Path, Point, add_vertex, add_edge, compress, rake, point_identity>` は
-辺の link/cut と全木・部分木の DP を扱う、頂点ベースの動的 rake/compress 構造です。
-preferred path の splay tree に加え、各頂点の light cluster を別の splay tree で保持します。
-Point の逆元を必要としないため、通常の Link-Cut Tree のパス積より広い木 DP を扱えます。
-既存 LCT のラッパーではなく、light cluster の所有・結合を持つ独立実装です。
+## 概要・前提 {#概要前提}
 
-本実装は競プロで広義の Top Tree と呼ばれる二階 splay 方式です。
-論文の狭義の辺クラスタ（境界頂点を共有する二境界クラスタ）モデルそのものとは異なります。
-頂点値は一度だけ加算されます。ACL に同等機能はありません。
+- 型は`DynamicTopTree<V, Path, Point, add_vertex, add_edge, compress, rake, point_identity>`です。`0 <= N <= INT_MAX`とし、PathとVはコピー可能、Pointはデフォルト構築・コピー可能にしてください。
+- `add_vertex(value, point_identity())`が単独頂点を表し、`add_edge`は完成したpath clusterを親へのPointへ変換します。
+- 例えば互換なclusterでは`add_edge(compress(add_vertex(v,L),P)) == add_edge(add_vertex(v,rake(L,add_edge(P))))`が必要です。一頂点のclusterはpathの向きに依存しないことを仮定し、パス反転時はcompressの順を反転します。
+- 葉と枝の違いを扱える情報や、辺を分割して作る辺頂点などはVに含めます。頂点値は一度だけ加算されます。
+- callbackは外部の可変状態に依存させず、例外を投げないでください。オーバーフローは呼び出し側で防ぎます。計算量はcallback・コピー・破棄がO(1)の場合です。
+- preferred pathと各頂点のlight clusterをそれぞれsplay treeで保持します。light nodeは再利用し、操作回数でメモリが増え続けません。既存LCTのラッパーではなく、light clusterの所有・結合を持つ独立実装です。
+- 競プロで広義のTop Treeと呼ばれる二階splay方式です。論文の狭義の辺クラスタ（境界頂点を共有する二境界クラスタ）モデルそのものとは異なります。ACLに同等機能はありません。
 
-N は固定頂点数、0 <= N <= INT_MAX。初期状態は孤立点です。メモリ O(N)。light node は再利用し、操作回数で増え続けません。
-Path と V はコピー可能、Point はデフォルト構築・コピー可能にしてください。
-`add_vertex(value, point_identity())` が単独頂点を表します。
-compress は上→下方向の結合的な結合、rake は同一親への寄与の可換・結合的な結合です。
-add_edge は完成した path cluster を親への Point に変換します。
+### 計算量の保証 {#計算量の保証}
 
-同じ木を表す分解・再結合・根変更で整合する DP 代数が必要です。callback は外部の可変状態に依存させず、例外を投げないでください。
-例えば互換な cluster では `add_edge(compress(add_vertex(v,L),P)) == add_edge(add_vertex(v,rake(L,add_edge(P))))` が必要です。
-一頂点の cluster は path の向きに依存しないことを仮定します。パス反転時は compress の順を反転します。
-葉と枝の違いを扱える情報、辺を分割して作る辺頂点などは V に含めます。
-オーバーフローは呼び出し側で防ぎます。以下は callback・コピー・破棄が O(1) の場合です。
+- preferred-path accessの辺変更回数は一連の操作で償却O(log N)です。その一回につきlight splayの挿入・削除が加わり、それぞれ償却O(log N)なので、動的操作の上界は償却O(log²(N+1))となります。
+- 二階のpotentialを合わせた、より強いO(log N)の解析は本実装の保証として採用していません。
 
-### 計算量の保証
-
-構築 O(N)。get/size は O(1)、動的操作は **償却 O(log²(N+1))** と保守的に保証します。
-通常の preferred-path access の辺変更回数は一連の操作で償却 O(log N)。
-その一回につき light splay の挿入・削除が追加され、それぞれ償却 O(log N) なので二乗の上界を得ます。
-二階の potential を合わせたより強い O(log N) の解析は本実装では保証として採用していません。
-単発の最悪時間は O(N) となり得ます。
+</details>
 
 ## 最小使用例
 
@@ -339,7 +329,10 @@ copy=std::move(moved);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Luzhiled Top Tree](https://ei1333.github.io/library/structure/dynamic-tree/top-tree.hpp.html): 二階 splay と light cluster handle の移動を比較。ここでは index 所有・再利用 pool を用い独立に実装。
 - [ABC351 G 公式解説](https://atcoder.jp/contests/abc351/editorial/9899): 広義・狭義 Top Tree の区別と rake/compress 代数。
@@ -348,3 +341,5 @@ copy=std::move(moved);
 - [Dynamic Tree Vertex Add Subtree Sum](https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_subtree_sum)
 
 ランダム森林上の link/cut、全根・部分木 DP、非可換 compress、0 を含む逆元のない rake を愚直 DP と照合します。
+
+</details>

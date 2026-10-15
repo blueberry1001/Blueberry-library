@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/multipoint-evaluation.hpp
 
 ## 概要
 
-多項式の値を任意の点でまとめて求めます。
+多項式の値を任意の点でまとめて求めます。係数は次数昇順で、Mintは素数modulusのACL `static_modint` を使います。中間計算に必要なNTT長をmodulusがサポートすることが前提です。
+
+N=f.size()、M=x.size()、K=N+M+1として、最悪時間O(K log² K)、追加メモリO(N+M log(M+1))です。
 
 ## 操作一覧
 
@@ -17,13 +19,16 @@ documentation_of: //blueberry/math/multipoint-evaluation.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-多項式の値を任意の点でまとめて求めます。ACLにはない積木・剰余木を既存FPSとACL畳み込みで実装しています。
-`Mint` は素数modulusのACL `static_modint`。係数は次数昇順です。
-`N=f.size()`、`M=x.size()`、`K=N+M+1` として、最悪時間 O(K log² K)、追加メモリ O(N+M log(M+1))。
-`N,M < mod` かつ `4*bit_ceil(K)` 以下の2冪変換長をmodulusがサポートする範囲を十分条件とします。
-サイズ・内部添字は `int` に収まる必要があります。998244353を想定します。
+## 概要・前提 {#概要前提}
+
+- ACLにはない積木・剰余木を既存FPSとACL畳み込みで実装しています。
+- `N,M < mod` かつ `4*bit_ceil(K)` 以下の2冪変換長をmodulusがサポートする範囲を十分条件とします。998244353を想定します。
+- サイズ・内部添字はintに収まる必要があります。
+
+</details>
 
 ## 最小使用例
 
@@ -62,10 +67,15 @@ modint内で演算するため係数の整数オーバーフローはありま�
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[Library Checker](https://judge.yosupo.jp/problem/multipoint_evaluation) に対応。
-[Nyaan](https://nyaannyaan.github.io/library/fps/multipoint-evaluation.hpp.html) の小次数で直接評価する設計と
-[Luzhiled](https://ei1333.github.io/library/math/fps/multipoint-evaluation.hpp.html) の剰余木を調査し、数式から独立に実装しました。
-外部コードの転記はありません。固定seedのHorner法比較も実施します。
-候補比較と測定条件は [追加時の調査](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/math-batch-four.md) を参照してください。
+## 出典・検証 {#出典検証}
+
+- [Library Checker](https://judge.yosupo.jp/problem/multipoint_evaluation) に対応。
+  [Nyaan](https://nyaannyaan.github.io/library/fps/multipoint-evaluation.hpp.html) の小次数で直接評価する設計と
+  [Luzhiled](https://ei1333.github.io/library/math/fps/multipoint-evaluation.hpp.html) の剰余木を調査し、数式から独立に実装しました。
+  外部コードの転記はありません。固定seedのHorner法比較も実施します。
+  候補比較と測定条件は [追加時の調査](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/math-batch-four.md) を参照してください。
+
+</details>

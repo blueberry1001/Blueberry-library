@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/assignment.hpp
 
 ## 概要
 
-N 行 M 列 (N ≤ M) の費用行列で、各行へ異なる列を割り当て、総費用を最小化します。
+N行M列（N≤M）の費用行列で、各行へ異なる列を割り当て、総費用を最小化します。費用は負でもよく、符号付き整数型を想定します。
+
+最悪時間O(N²M)、補助メモリO(N+M)です。
 
 ## 操作一覧
 
@@ -17,9 +19,17 @@ N 行 M 列 (N ≤ M) の費用行列で、各行へ異なる列を割り当て�
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-N 行 M 列 (N ≤ M) の費用行列で、各行へ異なる列を割り当て、総費用を最小化します。ACL にはない矩形割当です。T は符号付き整数型を想定し、比較・加減算・numeric_limits<T>::max() を使います。全ての中間値（費用差、ポテンシャル、slack、総和）が T に収まり、有限の slack が max() 未満であることが必要です。禁止辺・無限大・浮動小数点の誤差処理は提供しません。入力は変更せず、補助メモリ O(N+M)、時間 O(N²M) 最悪です。N=0 は費用 0 と空配列を返します。各行の長さは等しく、N,M < INT_MAX が必要です。
+## 概要・前提 {#概要前提}
+
+- Tは比較・加減算・`numeric_limits<T>::max()`を使える型とします。費用差・ポテンシャル・slack・総和を含む全中間値がTに収まり、有限のslackが`max()`未満であることが必要です。
+- 各行の長さは等しく、`N,M < INT_MAX`が必要です。N=0は費用0と空配列を返します。
+- 禁止辺・無限大・浮動小数点の誤差処理は提供しません。
+- 入力は変更しません。ACLにはない矩形割当です。
+
+</details>
 
 ## 最小使用例
 
@@ -50,7 +60,12 @@ auto [cost, match] = blueberry::assignment(std::vector<std::vector<long long>>{{
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [Library Checker](https://judge.yosupo.jp/problem/assignment) の公式ケースと固定 seed を指定できる全列挙比較で検証します。
 候補比較・一次資料・測定条件は [調査記録](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-graph-research.md) を参照してください。
+
+</details>

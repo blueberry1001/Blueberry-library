@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/dijkstra.hpp
 
 ## 概要
 
-非負辺重みのグラフに対する単一始点最短路です。
+非負辺重みのグラフに対する単一始点最短路です。`infinity`は正の値とし、最短距離が`infinity`以上の頂点は未到達として扱います。
+
+Vを頂点数、Eを辺数とすると、二分ヒープによる計算時間O(V+E log(E+1))、メモリO(V+E)です。
 
 ## 操作一覧
 
@@ -25,17 +27,17 @@ documentation_of: //blueberry/graph/dijkstra.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-非負辺重みのグラフに対する単一始点最短路です。頂点数を $V$、辺数を $E$ とすると、
-二分ヒープを使って計算量は $O(V+E\log(E+1))$、メモリは $O(V+E)$ です。
-単純グラフでは通常の $O((V+E)\log V)$ と書けますが、平行辺を許すためヒープ長は $O(E)$ です。
-辺コストは `Cost{}` 以上、`infinity` は正の値が必要です。
-標準整数型の距離は加算前に `infinity` で打ち切るため、符号付き・符号なし双方のオーバーフローを防ぎます。
-最短距離が `infinity` 以上の頂点は未到達と同じ扱いです。
-浮動小数点・独自型では従来通り加算結果が型に収まり、全順序比較ができることが必要です（NaN不可）。
-`WeightedGraph<Cost>` は `vector<vector<WeightedEdge<Cost>>>` の別名です。
-通常のvectorと同じ構築・更新・参照無効化規則を持ち、辺の `to` は0-indexedの頂点番号です。
+## 概要・前提 {#概要前提}
+
+- 単純グラフでは通常のO((V+E)log V)と書けますが、平行辺を許すためヒープ長はO(E)です。
+- 辺コストは`Cost{}`以上とします。標準整数型の距離は加算前に`infinity`で打ち切り、符号付き・符号なし双方のオーバーフローを防ぎます。
+- 浮動小数点・独自型では、加算結果が型に収まり、全順序比較ができることが必要です（NaN不可）。
+- `WeightedGraph<Cost>`は`vector<vector<WeightedEdge<Cost>>>`の別名です。通常のvectorと同じ構築・更新・参照無効化規則を持ち、辺の`to`は0-indexedの頂点番号です。
+
+</details>
 
 ## 最小使用例
 

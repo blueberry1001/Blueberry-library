@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/factorize.hpp
 
 ## 概要
 
-`uint64_t` 全域の素数判定と素因数分解です。
+`uint64_t` 全域の素数判定と素因数分解です。小さい上限まで多数の問い合わせを行う `PrimeSieve` と異なり、大きな単発の整数に使います。GCC/Clangの128bit整数を使うため、MSVC単体は対象外です。
+
+素数判定はO(log n)時間・追加メモリO(1)です。分解は最悪時間保証がなく、最小素因数pに対するrho法の典型的な期待更新回数はO(sqrt(p))です。素因数の個数を重複込みでkとすると、追加メモリO(k)、結果のsortはO(k log k)です。
 
 ## 操作一覧
 
@@ -18,22 +20,18 @@ documentation_of: //blueberry/math/factorize.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`uint64_t` 全域の素数判定と素因数分解です。ACLの公開APIにはなく、
-小さい上限まで多数の問い合わせを行う `PrimeSieve` と異なり、大きな単発の整数に使います。
-7基底の決定的Miller–RabinとPollard–Brent法を使い、剰余積はGCC/Clangの
-`unsigned __int128` で計算します。MSVC単体は対象外です。
+## 概要・前提 {#概要前提}
 
-素数判定は64bitの剰余演算を定数時間とみなして $O(\log n)$、追加メモリ $O(1)$。
-分解は確率的アルゴリズムに基づく探索で、最悪時間保証はありません。合成数の最小素因数を
-$p$ とすると、rho法の典型的な期待更新回数は $O(\sqrt p)$ です。各更新は剰余演算、
-128個ごとにgcdを計算します。素数判定・再帰的な分割に相当する処理・結果のsortも必要です。
-素因数の個数を重複込みで $k$ とすると、追加メモリは $O(k)$、sortは $O(k\log k)$ です。
+- ACLの公開APIにはない演算です。7基底の決定的Miller–RabinとPollard–Brent法を使い、剰余積を `unsigned __int128` で計算します。
+- 64bitの剰余演算を定数時間とみなします。分解では各更新に剰余演算、128個ごとにgcdを計算し、素数判定・再帰的な分割に相当する処理・結果のsortも必要です。
+- 内部乱数は入力から初期化した局所状態です。同じ入力は同じ探索になり、global RNGを変更しません。
+- 1試行の更新予算を制限して別の定数・初期値で再開しますが、敵対的入力への時間上限は保証しません。
+- 入力を変更せず、返却vectorは自身で要素を所有します。内部 `factorize_detail` は公開APIではありません。
 
-内部乱数は入力から初期化した局所状態です。同じ入力は同じ探索になり、global RNGを変更しません。
-1試行の更新予算を制限して別の定数・初期値で再開しますが、敵対的入力への時間上限は保証しません。
-入力を変更せず、返却vectorは自身で要素を所有します。内部 `factorize_detail` は公開APIではありません。
+</details>
 
 ## 最小使用例
 
@@ -87,14 +85,19 @@ auto factors = blueberry::factorize(1'000'000'016'000'000'063ULL);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[NyaanのMiller–Rabin](https://github.com/NyaanNyaan/library/blob/master/prime/miller-rabin.hpp) と
-[Pollard rho](https://github.com/NyaanNyaan/library/blob/master/prime/fast-factorize.hpp)、
-[Fastest提出317402](https://judge.yosupo.jp/submission/317402) のアルゴリズム・積バッチgcdを調査し、
-独立に実装しました。外部ソースは転記していません。Montgomeryや2系列同時更新は採用せず、
-全uint64に対応する128bit剰余積と試行予算を使います。
+## 出典・検証 {#出典検証}
 
-公式問題: [Primality Test](https://judge.yosupo.jp/problem/primality_test)、
-[Factorize](https://judge.yosupo.jp/problem/factorize)。公式上限は $10^{18}$ なので、
-最大uint64近傍・平方・強擬素数を追加テストで補います。
+- [NyaanのMiller–Rabin](https://github.com/NyaanNyaan/library/blob/master/prime/miller-rabin.hpp) と
+  [Pollard rho](https://github.com/NyaanNyaan/library/blob/master/prime/fast-factorize.hpp)、
+  [Fastest提出317402](https://judge.yosupo.jp/submission/317402) のアルゴリズム・積バッチgcdを調査し、
+  独立に実装しました。外部ソースは転記していません。Montgomeryや2系列同時更新は採用せず、
+  全uint64に対応する128bit剰余積と試行予算を使います。
+
+- 公式問題: [Primality Test](https://judge.yosupo.jp/problem/primality_test)、
+  [Factorize](https://judge.yosupo.jp/problem/factorize)。公式上限は $10^{18}$ なので、
+  最大uint64近傍・平方・強擬素数を追加テストで補います。
+
+</details>

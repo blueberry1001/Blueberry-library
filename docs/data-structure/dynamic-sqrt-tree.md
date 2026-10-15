@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/dynamic-sqrt-tree.hpp
 
 ## 概要
 
-配列の点代入と区間モノイド積を扱う。
+固定長配列の点代入と、左から右への区間モノイド積を扱います。`DynamicSqrtTree<S, op, e>` のopは結合的、e()は左右単位元で、可換性・冪等性・逆元は不要です。
+
+Nは要素数、L(N)=1+log log(N+2)。prodは最悪O(1)、setは最悪O(√N)、構築・メモリはO(1+N L(N))です。**更新が少なく区間積が非常に多い**場合の選択肢です。更新しない場合は [静的Sqrt Tree]({{ '/blueberry/data-structure/sqrt-tree.hpp.html' | relative_url }})、通常の点更新にはACL segtreeを優先してください。
 
 ## 操作一覧
 
@@ -27,30 +29,24 @@ documentation_of: //blueberry/data-structure/dynamic-sqrt-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::DynamicSqrtTree<S, op, e>` は配列の点代入と区間モノイド積を扱う。
-`prod` は最悪 O(1)、`set` は最悪 O(√N)。構築・メモリは O(N L(N))、
-L(N) = 1 + log log(N + 2)、N は要素数で `0 <= N <= INT_MAX`。
-空配列でも定数の管理領域を持つため、メモリ・構築の厳密な表記は O(1 + N L(N))。
-以下の表ではこの定数項を省略する。
+## 概要・前提 {#概要前提}
 
-ACL segtree の更新・クエリ O(log N) と異なり、**更新が少なく区間積が非常に多い**場合の
-選択肢である。更新がない場合は [静的 Sqrt Tree]({{ '/blueberry/data-structure/sqrt-tree.hpp.html' | relative_url }})
-のほうがクエリの演算回数は少ない。通常の点更新用途は ACL segtree を第一候補とし、
-[同一条件の比較]({{ '/docs/development/dynamic-sqrt-tree-comparison.html' | relative_url }})で用途を判断する。
-固定長配列であり、要素の挿入・削除、範囲更新、`max_right` / `min_left` は提供しない。
+- `0 <= N <= INT_MAX`。空配列でも定数の管理領域を持ちます。操作表の構築・メモリO(N L(N))は定数項を省略しています。
+- [同一条件の比較]({{ '/docs/development/dynamic-sqrt-tree-comparison.html' | relative_url }})で用途を判断してください。ACL segtreeは更新・クエリともO(log N)、静的Sqrt Treeはクエリの演算回数が少ない設計です。要素の挿入・削除、範囲更新、max_right/min_leftは提供しません。
+- Sはコピー構築・コピー代入可能で、既定構築は不要です。計算量はop/eとコピー・破棄がO(1)の場合です。和・積等のオーバーフロー、演算の閉性、演算中に例外を投げないことは呼び出し側の責任です。
+- 入力をコピーして保持し、構築後に変更・破棄して構いません。外部参照・公開フィールドはなく、返り値もコピーです。
+- コピー先は独立した木です。ムーブ元は空になり、size/prod(0,0)/all_prodや再代入が可能です。自己コピー代入・自己ムーブ代入は内容を保ちます。
 
-`S op(S, S)` は結合的な二項演算、`S e()` は左右単位元を返す関数。
-可換性・冪等性・逆元は不要で、左から右への演算順序を保つ。
-`S` はコピー構築・コピー代入できる型で、既定コンストラクタは不要。
-計算量は `op` / `e` と要素のコピー・破棄が O(1) の場合。
-和・積などのオーバーフロー、演算の閉性、演算中に例外を投げないことは呼び出し側の責任。
+## 操作の補足 {#操作の補足}
 
-入力はコピーして保持するので構築後に変更・破棄してよい。外部参照や公開フィールドはない。
-返り値もコピーなので、更新・コピー・ムーブによる返り値の参照無効化はない。
-コピー先は独立した木。ムーブ元は空になり、`size()` / `prod(0, 0)` / `all_prod()` や
-再代入が可能。自己コピー代入・自己ムーブ代入は内容を保つ。
+- 以下 `Tree = blueberry::DynamicSqrtTree<S, op, e>`。
+- 代入では N は代入元、M は代入前の代入先の要素数。
+- すべて最悪計算量で、償却表記ではない。
+
+</details>
 
 ## 最小使用例
 
@@ -80,11 +76,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-以下 `Tree = blueberry::DynamicSqrtTree<S, op, e>`。
-代入では N は代入元、M は代入前の代入先の要素数。すべて最悪計算量で、償却表記ではない。
 
 <details class="api-operation" id="default-constructor" markdown="1">
 <summary><code>Tree tree</code> — O(1)</summary>
@@ -274,7 +265,10 @@ between 表だけを修復する。親の長さの和は O(B)。補助 index で
 再構築しないことが O(√N) の要点である。
 クエリは XOR の最上位ビットから層を直接選び、必要な場合だけ補助 index に1回問い合わせる。
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [CP-Algorithms: Sqrt Tree](https://cp-algorithms.com/data_structures/sqrt-tree.html)
   の indexed/unindexed 構造と更新計算量を参照し、静的版と分離して独立実装した。
@@ -286,3 +280,5 @@ between 表だけを修復する。親の長さの和は O(B)。補助 index で
 - `tests/random/dynamic-sqrt-tree.cpp`: 固定 seed の非可換 affine 合成、空配列、1/2 要素、
   各2冪の前後、全区間・空区間・小配列の全範囲、点更新、コピー・ムーブと独立性を確認する。
   クエリと更新の `op` 回数も検査し、根の線形再計算への退行を検出する。
+
+</details>

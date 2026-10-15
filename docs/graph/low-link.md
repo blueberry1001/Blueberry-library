@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/low-link.hpp
 
 ## 概要
 
-無向グラフの橋・関節点・二辺連結成分を一度に求めます。
+静的な無向グラフの橋・関節点・二辺連結成分を一度に求めます。非連結グラフ、孤立頂点、自己ループ、多重辺に対応します。
+
+Nを頂点数、Mを辺数とすると、構築時間・構築時メモリ・保持メモリはいずれもO(N+M)です。
 
 ## 操作一覧
 
@@ -24,17 +26,21 @@ documentation_of: //blueberry/graph/low-link.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-無向グラフの橋・関節点・二辺連結成分を一度に求めます。ACLの有向グラフ用SCCとは異なる機能です。
-頂点数を N、辺数を M とし、構築時間・構築時メモリ・保持メモリはいずれも O(N+M) です。
-DFSと成分探索は反復処理なので、長いパスでも再帰スタックを消費しません。
+## 概要・前提 {#概要前提}
 
-頂点は `[0,N)`、辺IDは入力vectorの添字 `[0,M)`。`0 <= N <= INT_MAX`、`M <= INT_MAX` とします。
-非連結グラフ、孤立頂点、自己ループ、多重辺に対応します。`N=0` では辺も空にしてください。
-自己ループは橋ではなく、同じ両端を結ぶ複数の辺も互いに迂回できるため橋ではありません。
-グラフは構築後に変更できません。入力vectorへの参照を保持しないため、構築後に入力を破棄・変更できます。
-不正な添字・サイズは前提違反で、debug buildではassertで検出します。
+- 頂点は`[0,N)`、辺IDは入力vectorの添字`[0,M)`です。`0 <= N <= INT_MAX`、`M <= INT_MAX`とし、N=0では辺も空にしてください。
+- 自己ループは橋ではありません。同じ両端を結ぶ複数の辺も互いに迂回できるため橋ではありません。
+- グラフは構築後に変更できません。入力vectorへの参照は保持せず、構築後に入力を破棄・変更できます。不正な添字・サイズは前提違反で、debug buildではassertで検出します。
+- DFSと成分探索は反復処理で、長いパスでも再帰スタックを消費しません。ACLの有向グラフ用SCCとは異なる機能です。
+
+## 操作の補足 {#操作の補足}
+
+- 計算量は最悪値です。`bridges()`と`articulation_points()`は内部vectorへのconst参照を返し、要素をコピーしません。参照はオブジェクトの破棄・代入・移動まで有効です。`groups()`は独立した値を返します。
+
+</details>
 
 ## 最小使用例
 
@@ -59,11 +65,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-計算量は最悪計算量です。`bridges()` と `articulation_points()` は内部vectorへのconst参照を返し、
-要素をコピーしません。参照はオブジェクトの破棄・代入・移動まで有効です。`groups()` は独立した値を返します。
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>LowLink graph(int n, const vector&lt;pair&lt;int,int&gt;&gt;&amp; edges)</code> — O(N+M)</summary>
@@ -194,7 +195,10 @@ auto components = graph.groups();
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [ei1333 LowLink](https://github.com/ei1333/library/blob/master/graph/others/low-link.hpp) の
 DFS lowlinkと多重辺の扱い、[KACTL BiconnectedComponents](https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/BiconnectedComponents.h)
@@ -205,3 +209,5 @@ ACLのSCCやDSUを再実装するものではありません。
 公式問題は [Two Edge Connected Components](https://judge.yosupo.jp/problem/two_edge_connected_components)。
 `tests/random/low-link.cpp` では小さい多重グラフから各辺・各頂点を取り除いた愚直探索と比較し、
 空入力、孤立点、自己ループ、多重辺、非連結、20万頂点の鎖も検証します。
+
+</details>

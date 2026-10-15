@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/aggregate-deque.hpp
 
 ## 概要
 
-両端キューの全要素を先頭から末尾への順序で集約します。
+両端キューの全要素を先頭から末尾への順序で集約します。`AggregateDeque<S, op, e>` の `op` は結合的な二項演算、`e()` は両側単位元です。可換性・逆元は不要です。
+
+Nは現在の要素数、Hはclear以降の最大同時要素数。両端のpush/popは償却O(1)、単発最悪O(N)、prod/front/back/size/emptyは最悪O(1)です。保持容量を含むメモリはO(H)です。
 
 ## 操作一覧
 
@@ -40,15 +42,21 @@ documentation_of: //blueberry/data-structure/aggregate-deque.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-両端キューの全要素を先頭から末尾への順序で集約します。`AggregateDeque<S, op, e>` のopは結合的な `S op(S,S)`、eは両側単位元 `S e()` です。可換性・逆元は不要です。ACLの固定長segment treeより短い操作列で、端点の挿入削除と全体集約を扱います。
+## 概要・前提 {#概要前提}
 
-Nは現在の要素数、Hはclear以降の最大同時要素数。0<=N<=INT_MAX。Sはcopy/move/assignment可能な値型で、default constructorや等値比較は不要です。op/e/値コピーをO(1)とみなす計算量であり、string等では演算コストを掛けてください。最小例のstring連結は順序の説明用です。途中のprefix/suffix集約を含め、整数のopでoverflowを避けることは呼出側の責任です。
+- ACLの固定長segment treeより短い操作列で、端点の挿入削除と全体集約を扱います。
+- `0 <= N <= INT_MAX`。Sはコピー・ムーブ・代入可能な値型で、既定構築や等値比較は不要です。
+- 計算量はop/e/値コピーをO(1)、空間計算量はSの大きさを一定とみなします。string等では演算コストと所有領域を加えてください。最小例の文字列連結は順序の説明用で、全prefixを保持すると最悪O(N²)文字になります。
+- 左右2本の集約スタックを使い、空の側からpopすると全体をほぼ半分ずつに再配置します。再配置後、同程度の端点操作なしには再び大きな再配置は起きません。両端を交互に削除しても集約順序を保ちます。clearは保持容量も解放します。
+- 途中のprefix/suffix集約を含め、整数のopでoverflowを避けることは呼出側の責任です。
+- 空でのprodはe()です。空でのpop/front/backは禁止でassert対象です。
+- 値と領域は自身が所有し、返り値はコピーです。内部参照・iteratorは公開せず、コピーは独立、移動元は空で再利用可能です。
+- 利用者の演算・値のコピー・allocationが例外を投げた後の強い例外保証は提供しません。
 
-左右2本の集約スタックを使い、一方が空のときにそこからpopすると全体をほぼ半分ずつに再配置します。push_front/push_back/pop_front/pop_backは償却O(1)、単発最悪O(N)。再配置後は同程度の端点操作がなければ再び大きな再配置は起きません。prod/front/back/size/emptyは最悪O(1)。メモリはvectorの保持容量を含めO(H)。clearは保持容量も解放します。これはSの大きさを一定とみなす空間計算量です。Sがstring等の領域を所有する場合はその合計も必要で、文字列連結の全prefixを保持すると最悪O(N²)文字になります。両端を交互に削除しても集約の順序は変わりません。
-
-空でのprodはe()です。空でのpop/front/backは禁止でassert対象です。返り値は値コピーで、参照・iteratorは公開しません。値と領域は自身が所有し、コピーは独立、移動元は空で再利用可能です。利用者の演算・値のコピー・allocationが例外を投げた後の強い例外保証は提供しません。
+</details>
 
 ## 最小使用例
 
@@ -315,6 +323,14 @@ tree.clear(); assert(tree.empty());
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[公式合成問題](https://judge.yosupo.jp/problem/deque_operate_all_composite)、固定seedのstd::deque愚直合成、コピー・移動・再配置境界で検証します。[公開上位提出403007](https://judge.yosupo.jp/submission/403007)は事前容量指定と連続配置を用います。こちらは動的vectorと汎用monoidを用い、必要な2方向の集約を独立実装しています。公開ソースは転記していません。
+## 出典・検証 {#出典検証}
+
+- [公式合成問題](https://judge.yosupo.jp/problem/deque_operate_all_composite)、固定seedのstd::deque愚直合成、コピー・移動・再配置境界で検証します。
+- [公開上位提出403007](https://judge.yosupo.jp/submission/403007)は事前容量指定と連続配置を用います。
+- こちらは動的vectorと汎用monoidを用い、必要な2方向の集約を独立実装しています。
+- 公開ソースは転記していません。
+
+</details>

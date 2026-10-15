@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/static-range-lis.hpp
 
 ## 概要
 
-静的な列の任意の半開区間の**狭義**最長増加部分列の長さを返します。
+静的な列の半開区間に対する**狭義**最長増加部分列の長さを返します。Tの `<` はstrict weak orderingが必要で、重複を増加として数えません。更新はできず、空列・空区間の答えは0です。
+
+Nは入力長。構築はO(N log²(N+1))、問合せはO(log(N+1))、メモリはO(N log(N+1))です。
 
 ## 操作一覧
 
@@ -24,20 +26,23 @@ documentation_of: //blueberry/data-structure/static-range-lis.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`StaticRangeLIS<T>` は静的な列の任意の半開区間の**狭義**最長増加部分列の長さを返します。
-ACL には区間 LIS はありません。N は入力長。構築 O(N log²(N+1))、問い合わせ O(log(N+1))、メモリ O(N log(N+1))。
-semi-local LIS の subunit Monge 積で点集合を構築し、既存 WaveletMatrix で数えます。
-`T` の `<` は strict weak ordering。比較を O(1) と数えます。同値要素は添字の逆順で順位化し、重複を増加として数えません。
-入力はコピーによる索引化で、元配列の寿命に依存しません。更新はできません。空列・空区間の答えは 0。
-長さと答えは int、N<=INT_MAX。値の加算はしません。
+## 概要・前提 {#概要前提}
 
-Monge積の再帰は、構築ごとに一度確保する O(N) の作業領域を使い回します。
-一つの長さnのframeは n+5⌈n/2⌉ 個のintを使い、同時に処理しない兄弟は共有します。
-同時に必要な再帰パスの容量を先に計算し、再帰中の確保と部分列vectorの再確保を省きます。
-作業領域はconstructorローカルで、WaveletMatrix構築前に解放します。
-インスタンス間の共有状態・入力への参照は追加しません。
+- `StaticRangeLIS<T>` を使います。ACLに区間LISはありません。`N <= INT_MAX`、長さと答えはintです。比較をO(1)とし、値の加算はしません。
+- semi-local LISのsubunit Monge積で点集合を構築し、既存WaveletMatrixで数えます。同値要素を添字の逆順で順位化します。
+- 入力をコピーによって索引化し、元配列の寿命に依存しません。
+- Monge積の再帰は構築ごとに一度確保したO(N)の作業領域を使い回します。長さnのframeはn+5⌈n/2⌉個のintを使い、同時に処理しない兄弟は共有します。
+- 再帰パスに同時に必要な容量を先に求め、再帰中の確保と部分列vectorの再確保を省きます。作業領域はconstructorローカルで、WaveletMatrix構築前に解放します。
+- インスタンス間の共有状態・入力への参照は追加しません。
+
+## 操作の補足 {#操作の補足}
+
+- 以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
+
+</details>
 
 ## 最小使用例
 
@@ -53,10 +58,6 @@ int main() {
 }
 ```
 {% endraw %}
-
-## 操作の補足
-
-以下 `Type` はこのページのクラス、`object` は有効な構築済みオブジェクトです。
 
 <details class="api-operation" id="default" markdown="1">
 <summary><code>StaticRangeLIS&lt;T&gt;()</code> — O(1)</summary>
@@ -178,8 +179,13 @@ Type moved; moved = std::move(object);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Library Checker 仕様・議論](https://github.com/yosupo06/library-checker-problems/issues/737)、[m1une の semi-local LIS 実装](https://m1une.github.io/m1une_library/ds/range_query/range_lis_query.hpp) と公式解法を調査し、再帰的な置換図の積を独立実装。
 - `verify/data-structure/static-range-lis.test.cpp`: [Static Range LIS Query](https://judge.yosupo.jp/problem/static_range_lis_query)。
 - `tests/random/static-range-lis.cpp`: 全区間を patience sorting と比較。空列、同値、昇順、降順、重複乱数。
+
+</details>

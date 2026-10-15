@@ -5,7 +5,9 @@ documentation_of: //blueberry/algebra/monoids.hpp
 
 **[操作から検索する・共通の使い方を見る]({{ '/monoids.html' | relative_url }})**
 
-ACLに渡すモノイドの定義集です。
+ACLに渡すモノイドの定義集です。必要な例を一つコピーして使えます。
+セグ木には`S, op, e`、遅延セグ木にはさらに`F, mapping, composition, id`を渡します。
+`composition(f, g)`は`g`の後に`f`を適用します。各演算は、記載がなければO(1)です。
 
 ## 定義一覧
 
@@ -15,12 +17,14 @@ ACLに渡すモノイドの定義集です。
 
 <!-- library-implementation -->
 
-## 使い方・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-ACLに渡すモノイドの定義集です。必要な例を一つコピーして使えます。
-セグ木には `S, op, e`、遅延セグ木にはさらに `F, mapping, composition, id` を渡します。
-`composition(f, g)` は `g` の後に `f` を適用します。整数は中間計算まで型の範囲に収めてください。
-各演算は、記載がなければ`O(1)`です。
+## 使い方・前提 {#使い方前提}
+
+- 整数は中間計算まで型の範囲に収めてください。
+
+</details>
 
 {% for recipe in site.data.monoids %}
 {% if recipe.code %}
@@ -39,7 +43,7 @@ ACLに渡すモノイドの定義集です。必要な例を一つコピーし�
 {% endif %}
 {% endfor %}
 
-<details markdown="1">
+<details class="library-notes" markdown="1">
 <summary>ヘッダとして使う場合</summary>
 
 既存の `blueberry::monoid` もそのまま使えます。例えば、等差数列加算は次のように書けます。

@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/persistent-queue.hpp
 
 ## 概要
 
-任意の過去版から分岐できる永続FIFOです。
+任意の過去版から分岐できる永続FIFOです。版0は空で、push/popは連番の新しい版を返します。
+
+Qは累積更新数、Nは参照版までのappend経路長。push/popは償却O(1)、frontはO(log(N+1))、メモリはO(Q)です。
 
 ## 操作一覧
 
@@ -27,9 +29,16 @@ documentation_of: //blueberry/data-structure/persistent-queue.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-任意の過去版から分岐できる永続FIFOです。ACLには永続queueがないため追加します。版0は空で、push/popは連番の新しい版を返します。Qを累積更新数、Nを参照版までのappend経路長とし、メモリはO(Q)。親と1本のskip linkで先頭を探索します。Tはコピー可能で、既定構築や大小比較は不要です。以下の計算量はTのコピーをO(1)とします。版数はINT_MAX以下。オブジェクトは全版を所有し、入力への参照を保持せず、戻り値もコピーです。
+## 概要・前提 {#概要前提}
+
+- ACLに永続queueはありません。親と1本のskip linkで先頭を探索します。
+- Tはコピー可能で、既定構築・大小比較は不要です。計算量はTのコピーをO(1)とします。版数はINT_MAX以下です。
+- オブジェクトが全版を所有します。入力への参照を保持せず、戻り値もコピーです。
+
+</details>
 
 ## 最小使用例
 
@@ -215,6 +224,14 @@ copy = std::move(original);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Library Checker: Persistent Queue](https://judge.yosupo.jp/problem/persistent_queue) と分岐・長い経路のランダム比較で検証します。[Nyaanのdoubling設計](https://nyaannyaan.github.io/library/data-structure/persistent-queue.hpp.html) とskip-link方式を比較し、O(Q)空間を採用。コードは独立実装。測定条件・結果は [batch-three DS report](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-ds.md)。
+## 出典・検証 {#出典検証}
+
+- [Library Checker: Persistent Queue](https://judge.yosupo.jp/problem/persistent_queue) と分岐・長い経路のランダム比較で検証します。
+- [Nyaanのdoubling設計](https://nyaannyaan.github.io/library/data-structure/persistent-queue.hpp.html) とskip-link方式を比較し、O(Q)空間を採用。
+- コードは独立実装。
+- 測定条件・結果は [batch-three DS report](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-ds.md)。
+
+</details>

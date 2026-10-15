@@ -7,7 +7,7 @@ documentation_of: //blueberry/data-structure/rollback-union-find.hpp
 
 ## 概要
 
-変更履歴を保存し、過去の状態へ戻せる Union Find です。
+変更履歴を保存し、過去の状態に戻せるUnion Findです。Nは頂点数、Hは保存中の履歴数。leader/same/component_sizeはO(log(N+1))、mergeは償却O(log(N+1))です。undoはO(1)、rollbackは取り消す履歴数に比例します。メモリはO(N+H)、頂点番号は `[0,N)` です。
 
 ## 操作一覧
 
@@ -37,12 +37,15 @@ documentation_of: //blueberry/data-structure/rollback-union-find.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-変更履歴を保存し、過去の状態へ戻せる Union Find です。経路圧縮は行わず union by size
-を使うため、`leader`・`same`・`component_size` は $O(\log(N+1))$ です。
-`merge` は履歴vectorへの追加を含むため償却 $O(\log(N+1))$、保存中の履歴数をHとすると再確保時は $O(H+\log(N+1))$ です。
-`undo` は $O(1)$、`rollback` は取り消す履歴数に比例します。要素番号は `[0,N)` です。
+## 概要・前提 {#概要前提}
+
+- 経路圧縮をせず、union by sizeを使います。
+- mergeは履歴vectorに追加するため、再確保時の単発最悪はO(H+log(N+1))です。
+
+</details>
 
 ## 最小使用例
 

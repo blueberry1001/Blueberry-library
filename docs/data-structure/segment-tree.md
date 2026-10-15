@@ -7,9 +7,7 @@ documentation_of: //blueberry/data-structure/segment-tree.hpp
 
 ## 概要
 
-モノイドの一点更新・区間積を扱います。
-
-区間は `[l,r)`、演算は結合則と単位元を満たす必要があります。
+モノイドの一点更新・区間積を扱います。opは結合的、identityは単位元が必要です。Nは要素数。構築・メモリはO(N)、set/product/prodはO(log N)、get/all_product/all_prod/sizeはO(1)です。区間は `[l,r)` です。
 
 ## 操作一覧
 
@@ -27,11 +25,14 @@ documentation_of: //blueberry/data-structure/segment-tree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-モノイドの一点更新・区間積を扱います。要素数を $N$ とし、演算 `op` は結合則を満たし、
-`identity` は単位元である必要があります。構築は $O(N)$、`set`・`product`・`prod` は
-$O(\log N)$、`get`・`all_product`・`all_prod`・`size` は $O(1)$ です。区間は `[l,r)` です。
+## 概要・前提 {#概要前提}
+
+- product/all_productと、短い別名prod/all_prodは同じ操作です。
+
+</details>
 
 ## 最小使用例
 

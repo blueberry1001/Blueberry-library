@@ -7,9 +7,9 @@ documentation_of: //blueberry/data-structure/disjoint-sparse-table.hpp
 
 ## 概要
 
-**集約演算はコンストラクタに渡した `op` で決まる。
+更新のない配列の区間集約を最悪O(1)で返します。コンストラクタに渡す `op` は結合的で、可換性・冪等性・単位元は不要です。区間は `[l,r)` で、空区間は扱いません。
 
-区間は `[l,r)`、空区間は扱いません。
+Nは要素数。構築・メモリはO(N log(N+1))です。ACLにない静的O(1)クエリを提供します。
 
 ## 操作一覧
 
@@ -21,23 +21,23 @@ documentation_of: //blueberry/data-structure/disjoint-sparse-table.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-**集約演算はコンストラクタに渡した `op` で決まる。** 区間和は `x + y`、区間最小値は `std::min(x, y)` を指定する。
-Library Checker に提出する場合は、問題に合ったverifyコードを使う。
+## 概要・前提 {#概要前提}
+
+- `0 <= N <= INT_MAX`。Tはコピー可能、Opはconst呼び出し可能であることが必要です。計算量は演算・コピーをO(1)とみなします。
+- **集約演算はコンストラクタに渡したopで決まります。** 区間和は `x + y`、区間最小値は `std::min(x, y)` を指定します。Library Checkerには問題に合うverifyコードを使ってください。区間和版をStatic RMQに提出すると、合計を出力するためWAになります。
 
 | 問題 | 演算 | 提出用コード |
 | --- | --- | --- |
 | Static Range Sum（区間和） | `[](long long x, long long y) { return x + y; }` | [区間和版]({{ '/verify/data-structure/disjoint-sparse-table.test.cpp.html' | relative_url }}) |
 | Static RMQ（区間最小値） | `[](int x, int y) { return std::min(x, y); }` | [区間最小値版]({{ '/verify/data-structure/disjoint-sparse-table-rmq.test.cpp.html' | relative_url }}) |
 
-区間和版を Static RMQ に提出すると、最小値ではなく合計を出力するためWAになる。
+- 演算内のオーバーフローは利用者が防いでください。
+- 入力を所有コピーし、元配列の変更・破棄の影響を受けません。所有コピーを第0層として共用し、同一内容を別に保持するN要素分の領域を省いています。
 
-結合的演算の静的区間集約。ACL にない O(1) クエリを提供する。
-N は要素数、0 ≤ N ≤ INT_MAX。T はコピー可能、Op は const 呼び出し可能で結合則を満たすこと。
-可換性・冪等性・単位元は不要。演算・コピー O(1) を仮定して構築・メモリ O(N log(N+1))。
-演算内のオーバーフローは利用者が防ぐ。入力を所有コピーし元配列の変更・破棄の影響を受けない。更新は不可。
-入力の所有コピーを第0層として共用し、同一内容を別に保持する N 要素分の領域を省いている。
+</details>
 
 ## 最小使用例
 
@@ -99,7 +99,13 @@ assert(table.size() == 2);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[Luzhiled](https://ei1333.github.io/library/structure/others/disjoint-sparse-table.hpp.html) を調査し独立実装。
-公式 Library Checker `static_range_sum` と固定 seed の非可換文字列連結の愚直比較。候補比較は `docs/development/sequence-batch-two.md`。
+## 出典・検証 {#出典検証}
+
+- [Luzhiled](https://ei1333.github.io/library/structure/others/disjoint-sparse-table.hpp.html) を調査し独立実装。
+- 公式 Library Checker `static_range_sum` と固定 seed の非可換文字列連結の愚直比較。
+- 候補比較は `docs/development/sequence-batch-two.md`。
+
+</details>

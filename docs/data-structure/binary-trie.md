@@ -7,7 +7,9 @@ documentation_of: //blueberry/data-structure/binary-trie.hpp
 
 ## 概要
 
-固定bit長の符号なし整数の多重集合です。
+固定bit長の符号なし整数の多重集合です。`BinaryTrie<UInt, Bits>` は重複込みの順位・k番目・最小XORを扱います。値と問合せ値は `[0, 2^Bits)`。`xor_min(x)` は格納要素ではなく **min(x xor a[i])の値** を返します。
+
+Nは重複を含む要素数、B=Bits、Hはclear以降のpool slot数の最大値です。問合せは最悪O(B)、insert/eraseは償却O(B)、単発最悪O(H+B)。メモリはO(H)=O(1+B·Dmax)で、Dmaxは過去最大の異なる値の数です。
 
 ## 操作一覧
 
@@ -39,15 +41,20 @@ documentation_of: //blueberry/data-structure/binary-trie.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-固定bit長の符号なし整数の多重集合です。最小XOR値、重複込みの順位とk番目を扱います。ACLには対応する構造がありません。`BinaryTrie<UInt = uint32_t, Bits = numeric_limits<UInt>::digits>` を使います。UIntはbool以外の符号なし整数型、1<=Bits<=UIntの値bit数です。格納値と問合せ値は `[0,2^Bits)`。Bitsが型の全幅と等しくても、幅と同じbit数のshiftは行いません。
+## 概要・前提 {#概要前提}
 
-Nは重複を含む要素数、B=Bits、Dは異なる値の数、Hはclear以降のpool slot数の最大値です。N<=INT_MAXかつノード数<=INT_MAXが必要です。ノードには子2個と個数をintで持ちます。メモリO(H)=O(1+B·Dmax)で、Dmaxは過去最大の異なる値の数。削除された経路を再利用し、clearは容量も解放します。重複挿入は新しい経路を作りません。
+- ACLに対応する構造はありません。既定のUIntはuint32_t、BitsはUIntの値bit数です。UIntはbool以外の符号なし整数型で、`1 <= Bits <= UIntの値bit数` が必要です。
+- `N <= INT_MAX`、ノード数 `<= INT_MAX` が必要です。ノードには子2個と個数をintで持ちます。
+- Bitsが型の全幅と等しくても、幅と同じbit数のshiftは行いません。
+- 削除された経路を再利用し、重複挿入は新しい経路を作りません。clearは容量も解放します。free-listの拡張によりeraseでも再確保が起こり得ます。
+- size/emptyはO(1)。eraseは同じ値を1個だけ削除し、存在しなければfalseです。
+- 所有権はvector内で完結し、コピーは独立、移動元は空で再利用可能です。返り値は所有値で内部参照を公開しません。
+- 再帰はなく、eraseの一時経路はO(B)。allocation例外後の強い例外保証は提供しません。範囲違反はassertの前提条件です。
 
-count/rank/kth/xor_minは最悪O(B)。insert/eraseはvectorの増設を含め償却O(B)、単発最悪O(H+B)です。free-listの拡張によりeraseでも再確保が起こり得ます。size/emptyはO(1)。eraseは同じ値を1個だけ削除し、存在しなければfalseです。xor_minは格納要素ではなく **min(x xor a[i])の値** を返します。
-
-所有権はvector内で完結し、コピーは独立、移動元は空で再利用可能です。返り値は所有値で内部参照を公開しません。再帰はなく、eraseの一時経路はO(B)。allocation例外後の強い例外保証は提供しません。範囲違反はassertの前提条件です。
+</details>
 
 ## 最小使用例
 
@@ -300,6 +307,14 @@ tree.clear(); assert(tree.empty());
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
 
-[公式Set Xor Min](https://judge.yosupo.jp/problem/set_xor_min)ではcountで重複挿入を抑えて集合として使います。重複・rank/kth・64 bitの最上位・1 bit型・削除slot再利用は独立sorted-vector oracleで検証します。[公開上位提出403013](https://judge.yosupo.jp/submission/403013)のbitmap階層を用いた集合と比較し、こちらは固定bit経路で多重集合と順位を扱う設計です。公開ソースは転記していません。
+## 出典・検証 {#出典検証}
+
+- [公式Set Xor Min](https://judge.yosupo.jp/problem/set_xor_min)ではcountで重複挿入を抑えて集合として使います。
+- 重複・rank/kth・64 bitの最上位・1 bit型・削除slot再利用は独立sorted-vector oracleで検証します。
+- [公開上位提出403013](https://judge.yosupo.jp/submission/403013)のbitmap階層を用いた集合と比較し、こちらは固定bit経路で多重集合と順位を扱う設計です。
+- 公開ソースは転記していません。
+
+</details>

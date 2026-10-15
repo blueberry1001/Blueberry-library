@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/polynomial-interpolation.hpp
 
 ## 概要
 
-異なる N 点を通る次数 N 未満の多項式を復元します。
+異なるN点を通る次数N未満の多項式を復元します。Mintは素数modulusのACL `static_modint`、xはmodulus上で相異なり、`x.size()==y.size()` が必須です。必要なNTT長をmodulusがサポートすることも前提です。
+
+時間O(N log²(N+1)+N log mod)、追加メモリO(N log(N+1))です。逆元の計算を明示した上限です。
 
 ## 操作一覧
 
@@ -17,13 +19,15 @@ documentation_of: //blueberry/math/polynomial-interpolation.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-異なる N 点を通る次数 N 未満の多項式を復元します。ACLにはない補間演算をACL畳み込みと既存FPSで実装します。
-`Mint` は素数modulusのACL `static_modint`、`x` はmodulus上で相異なり、`x.size()==y.size()` が必須です。
-時間 O(N log²(N+1)+N log mod)、追加メモリ O(N log(N+1))。逆元の計算を明示した上限です。
-`N < mod`、内部添字が `int` に収まり、`4*bit_ceil(N+1)` 以下の2冪NTT長をサポートする範囲を十分条件とします。
-998244353を想定します。
+## 概要・前提 {#概要前提}
+
+- ACLにはない補間演算を、ACL畳み込みと既存FPSで実装します。
+- `N < mod`、内部添字がintに収まり、`4*bit_ceil(N+1)` 以下の2冪NTT長をサポートする範囲を十分条件とします。998244353を想定します。
+
+</details>
 
 ## 最小使用例
 
@@ -61,11 +65,16 @@ modintにより係数の整数オーバーフローはありません。計算�
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
 
-[Library Checker](https://judge.yosupo.jp/problem/polynomial_interpolation) に対応。
-[Luzhiled](https://ei1333.github.io/library/math/fps/polynomial-interpolation.hpp.html) の積木による合成と
-[Nyaan](https://nyaannyaan.github.io/library/fps/multipoint-evaluation.hpp.html) の積木・多点評価設計を調査。
-Lagrange補間の数式から独立に実装し、コードの転記はありません。
-ランダム係数から点列を生成して元の係数と比較します。
-[追加時の調査](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/math-batch-four.md) に候補比較を記載します。
+## 出典・検証 {#出典検証}
+
+- [Library Checker](https://judge.yosupo.jp/problem/polynomial_interpolation) に対応。
+  [Luzhiled](https://ei1333.github.io/library/math/fps/polynomial-interpolation.hpp.html) の積木による合成と
+  [Nyaan](https://nyaannyaan.github.io/library/fps/multipoint-evaluation.hpp.html) の積木・多点評価設計を調査。
+  Lagrange補間の数式から独立に実装し、コードの転記はありません。
+  ランダム係数から点列を生成して元の係数と比較します。
+  [追加時の調査](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/math-batch-four.md) に候補比較を記載します。
+
+</details>

@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/triangle-enumeration.hpp
 
 ## 概要
 
-単純無向グラフの三角形を重複なく列挙します。
+単純無向グラフの三角形を重複なく列挙します。自己ループ・多重辺は禁止です。
+
+Nを頂点数、Mを辺数とすると、最悪時間O(N+M√M)にcallbackの処理時間を加え、作業メモリO(N+M)を使います。
 
 ## 操作一覧
 
@@ -17,11 +19,15 @@ documentation_of: //blueberry/graph/triangle-enumeration.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-単純無向グラフの三角形を重複なく列挙します。ACLには対応機能がありません。N頂点、M辺、端点 [0,N)、N,M ≤ INT_MAX。
-自己ループと多重辺は禁止（多重辺は実行時検査しません）。次数と頂点番号の順で辺を向き付け、最悪 O(N+M√M)、作業メモリ O(N+M)。
-コールバックの実行時間は別途加算します。全三角形を内部保存しません。
+## 概要・前提 {#概要前提}
+
+- 端点は`[0,N)`、`N,M <= INT_MAX`とします。多重辺は実行時に検査しません。
+- 次数と頂点番号の順で辺を向き付けます。全三角形を内部保存しません。ACLには対応機能がありません。
+
+</details>
 
 ## 最小使用例
 
@@ -56,9 +62,14 @@ assert(count == 0);
 次数はintですが単純グラフでは N-1 以下です。計算量は最悪値です。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [hitonanodeの次数による向き付け](https://hitonanode.github.io/cplib-cpp/other_algorithms/enumerate_triangles.hpp.html) と
 [maspypyの三角形列挙](https://maspypy.github.io/library/enumerate/triangle.hpp) を調査し、次数順DAGと頂点マークによる独自実装を採用。
 コードの転用はありません。[Library Checker](https://judge.yosupo.jp/problem/enumerate_triangles) と三重ループの乱択比較で検証します。
 測定は [graph-batch-two](https://github.com/blueberry1001/Blueberry-library/blob/main/benchmark/graph-batch-two.md)。
+
+</details>

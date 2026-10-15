@@ -7,7 +7,9 @@ documentation_of: //blueberry/graph/contour-query.hpp
 
 ## 概要
 
-頂点加算・距離帯の和、`blueberry::ContourAdd<T>` は距離帯加算・頂点取得を提供する。
+固定された無重み無向木で、`ContourQuery<T>`は頂点加算・距離帯の和、`ContourAdd<T>`は距離帯加算・頂点取得を扱います。距離帯は辺数による半開区間`[l,r)`です。TはACL `fenwick_tree`が対応する整数または`static_modint`とします。
+
+Nを頂点数とすると、構築O(N log(N+1))、メモリO(1+N log(N+1))、各更新・問い合わせO(log²(N+1))です。
 
 ## 操作一覧
 
@@ -40,15 +42,19 @@ documentation_of: //blueberry/graph/contour-query.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-`blueberry::ContourQuery<T>` は頂点加算・距離帯の和、`blueberry::ContourAdd<T>` は距離帯加算・頂点取得を提供する。両者は別の状態であり、一方の更新は他方には反映されない。
+## 概要・前提 {#概要前提}
 
-N 頂点の固定・無重み・無向木。距離帯は辺数による `[l,r)`、`0 <= l <= r <= INT_MAX`。距離0を含めれば自身も対象。r が木の最大距離より大きくてもよい。空の距離帯は和0・作用なし。全頂点の初期値は0。非空の木は連結・閉路なしで、各辺を隣接リストの両方向に1回ずつ含む。空木も構築可能だが頂点操作は禁止。
+- 両クラスは別の状態で、一方の更新は他方には反映されません。全頂点の初期値は0です。
+- `0 <= l <= r <= INT_MAX`を満たしてください。距離0を含めれば自身も対象です。rが木の最大距離より大きくてもよく、空の距離帯は和0・作用なしです。
+- 非空の木は連結・閉路なしで、各辺を隣接リストの両方向に1回ずつ含めます。空木も構築できますが、頂点操作は禁止です。
+- Tは加算・減算・ゼロ構築が必要で、整数演算の結果と更新値の負数がTの範囲に収まる必要があります。内部の平坦化された配列長もINT_MAX以下とします。
+- 通常の重心分解で祖先全体から同じ枝を差し引き、Fenwick部分はACLを使います。
+- 元の木・値への外部参照は保持せず、入力は構築後に破棄できます。返り値は値なので内部参照の無効化はありません。Dは代入先の旧保持要素数です。
 
-T は ACL fenwick_tree が対応する整数または static_modint。加算・減算・ゼロ構築が必要で、整数演算の結果と更新値の負数が T の範囲に収まること。構築 O(N log(N+1))、メモリ O(1+N log(N+1))、各更新・問い合わせ O(log²(N+1))。内部の平坦化された配列長も INT_MAX 以下。通常の重心分解で祖先全体から同じ枝を差し引く。Fenwick 部分は ACL を利用する。
-
-元の木・値への外部参照は保持せず、入力は構築後に破棄可能。返り値は値なので内部参照の無効化はない。D は代入先の旧保持要素数。
+</details>
 
 ## 最小使用例
 
@@ -309,6 +315,11 @@ assert(a.get(1)==3);
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証</summary>
+
+## 出典・検証 {#出典検証}
 
 [maspypy の contour 範囲分解](https://maspypy.github.io/library/graph/ds/contour_query_range.hpp) の1/3版と、通常重心分解の全体−枝方式を比較。本 API は加法群を対象にし、簡潔な通常版+ACL Fenwickを採用した。公式 `vertex_add_range_contour_sum_on_tree` / `vertex_get_range_contour_add_on_tree` に対応する verify を追加。星・パス・ランダム木で BFS 距離を使う愚直更新・集約と比較する。
+
+</details>

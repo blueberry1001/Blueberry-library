@@ -123,7 +123,7 @@ assert not re.search(r'<tr data-library\b[^>]*\bhidden\b', home), "Catalog must 
 compatibility_monoids = SITE / 'blueberry/algebra/monoids.hpp.html'
 assert compatibility_monoids.is_file(), "Removing a catalog entry must preserve its supported source page"
 assert (SITE / 'blueberry/all.hpp.html').is_file(), "The umbrella include page must remain available"
-for header in headers:
+for header in [*headers, 'blueberry/algebra/monoids.hpp']:
     content = (SITE / f"{header}.html").read_text()
     # Hand-written API prose is rendered under the header URL, not docs/*.md.
     # Validate its cross-links as well as helper-generated dependency links.
@@ -166,6 +166,18 @@ for header in headers:
     for link in re.findall(r'href="([^"]+)"', relations[1]):
         assert link.startswith('/Blueberry-library/') and link.endswith('.html'), (header, link)
         assert (SITE / link.removeprefix('/Blueberry-library/')).exists(), (header, link, "broken dependency/verify link")
+    notes = re.findall(r'<details\b([^>]*\bclass="library-notes"[^>]*)>(.*?)</details>', content, re.S)
+    assert notes, (header, "Missing supplemental notes")
+    for attributes, body in notes:
+        assert not re.search(r"\bopen(?:\s|=|$)", attributes), (header, "Notes must start collapsed")
+        assert '<summary>' in body, (header, "Missing notes label")
+        assert not re.search(r'^#{2,3} ', body, re.M), (header, "Notes headings were not rendered")
+    assert '<ul>' in notes[0][1], (header, "Render common supplemental contracts as a list")
+    premise_id = '使い方前提' if header == 'blueberry/algebra/monoids.hpp' else '概要前提'
+    assert f'id="{premise_id}"' in notes[0][1], (header, "Preserve the premise deep link inside its notes")
+    document = (ROOT / ('docs/' + header.removeprefix('blueberry/').removesuffix('.hpp') + '.md')).read_text()
+    for anchor in re.findall(r'^#{2,3} .* \{#([^}]+)\}$', document, re.M):
+        assert content.count(f'id="{anchor}"') == 1, (header, anchor, "Preserve each pinned notes anchor exactly once")
     api_operations = re.findall(r'<details\b[^>]*class="api-operation"[^>]*>(.*?)</details>', content, re.S)
     if '<h2 id="最小使用例">' in content:
         assert '<a href="#最小使用例">使用例</a>' in unquote(content), (header, "Missing direct route to the usage example")

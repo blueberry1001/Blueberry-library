@@ -7,7 +7,9 @@ documentation_of: //blueberry/math/fraction.hpp
 
 ## 概要
 
-正確な比較と四則演算を行う `blueberry::Fraction`。
+正確な比較と四則演算を行う有理数の値型 `blueberry::Fraction` です。常に既約で、分子はint64_t全域、分母は1..INT64_MAX、ゼロは0/1です。入力と演算結果が約分・符号正規化後にこの範囲へ収まることが前提です。
+
+Bは正規化する整数の絶対値の最大（最低2）です。構築・四則演算はO(log B)、比較はO(1)、文字列出力は桁数に比例します。2個の整数を保持し、メモリはO(1)です。
 
 ## 操作一覧
 
@@ -49,21 +51,18 @@ documentation_of: //blueberry/math/fraction.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-正確な比較と四則演算を行う `blueberry::Fraction`。ACL にない有理数の値型です。
-常に既約で、分子は `int64_t` 全域、分母は `1..INT64_MAX`、ゼロは `0/1` です。
-2個の整数だけを保持し、メモリ O(1)。分子・分母の直接書き換えはできません。
+## 概要・前提 {#概要前提}
 
-**入力と演算結果を約分・符号正規化した後に、この範囲に収まることが前提です。**
-ゼロ除算、表現できない結果は assert で検出します。assert 無効時も許される入力にはなりません。
-無限大、NaN、多倍長分数、浮動小数への変換は提供しません。
-GNU/Clang の `__int128` を意図的に使用し、64bit の積と和を広い中間型で計算します。
-有効な値同士の比較は常に安全で、四則演算の途中が int64 を超えても約分後に収まれば使えます。
+- ACLにはない有理数型です。分子・分母の直接書き換えはできません。
+- ゼロ除算、表現できない結果はassertで検出します。assert無効時も許される入力にはなりません。無限大、NaN、多倍長分数、浮動小数への変換は提供しません。
+- GNU/Clangの `__int128` を意図的に使い、64bitの積と和を広い中間型で計算します。有効な値同士の比較は常に安全で、四則演算の途中がint64を超えても約分後に収まれば使えます。
+- 固定幅整数演算をO(1)として、正規化にはEuclidの互除法を使います。
+- stream出力を除く全演算はconstexprです。コピー・移動は独立した値で、参照無効化はありません。
 
-B は正規化する整数の絶対値の最大（最低2）です。固定幅整数演算を O(1) として、
-Euclid の互除法を使う構築・四則演算は O(log B)、比較は O(1)。文字列出力は桁数に比例します。
-stream 出力を除く全演算は constexpr。コピー・移動は独立した値で、参照無効化はありません。
+</details>
 
 ## 最小使用例
 
@@ -91,10 +90,15 @@ int main() {
 ```
 {% endraw %}
 
-## 操作の補足
+<details class="library-notes" markdown="1">
+<summary>操作例の前提</summary>
 
-以下の断片では `using blueberry::Fraction;` を前提とします。
-整数は `Fraction(n)` に変換されるため、`a + 2`、`2 * a`、`a == 0` も使えます。
+## 操作の補足 {#操作の補足}
+
+- 以下の断片では `using blueberry::Fraction;` を前提とします。
+  整数は `Fraction(n)` に変換されるため、`a + 2`、`2 * a`、`a == 0` も使えます。
+
+</details>
 
 <details class="api-operation" id="construct" markdown="1">
 <summary><code>Fraction a(int64_t n = 0, int64_t d = 1)</code> — O(log B)</summary>
@@ -475,10 +479,15 @@ assert(out.str() == "-3/4");
 
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Boost.Rational](https://www.boost.org/doc/libs/latest/libs/rational/rational.html) の既約値型と演算範囲を比較。コードの転載はせず、128bit 中間値と Euclid の互除法で実装しています。
 - [Library Checker: Sort Points by Argument](https://judge.yosupo.jp/problem/sort_points_by_argument) で、半平面ごとの有理数比較による厳密な偏角ソートを検証します。これは比較・構築の公式検証であり、四則演算全体を検証する問題ではありません。
 - `tests/random/fraction.cpp` は Boost.Multiprecision の無制限整数を独立 oracle とし、四則・複合代入・比較・正規化・出力・コピー/移動を比較します。INT64_MIN/MAX、相殺、負の分母、ゼロを含みます。
 - 旧 `blueberry/fraction.hpp` の `fraction`、可変フィールド `num/den`、`raw_assign` は廃止。
   新パス・`Fraction`・`num()/den()` と正規化する構築・代入へ移行してください。
+
+</details>

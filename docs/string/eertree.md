@@ -7,7 +7,9 @@ documentation_of: //blueberry/string/eertree.hpp
 
 ## 概要
 
-文字を末尾へ追加しながら、異なる回文部分文字列を1ノードずつ管理する回文木です。
+文字を末尾へ追加しながら、異なる回文部分文字列を1ノードずつ管理する回文木です。Manacherが各中心の長さを求めるのに対し、回文の同一性・suffix link・出現数を扱います。既定の文字集合は英小文字で、固定のバイト範囲に対応します。末尾削除・過去位置の更新は提供しません。
+
+N=入力長、D=異なる非空回文数（D<=N）、σ=Alphabet、R=予約文字数です。全N文字の構築時間O(σN)、所有メモリO(σ max(D,R)+max(N,R))です。
 
 ## 操作一覧
 
@@ -26,20 +28,16 @@ documentation_of: //blueberry/string/eertree.hpp
 
 <!-- library-implementation -->
 
-## 概要・前提
+<details class="library-notes" markdown="1">
+<summary>補足・制約</summary>
 
-文字を末尾へ追加しながら、異なる回文部分文字列を1ノードずつ管理する回文木です。
-Manacherが各中心の長さを求めるのに対し、回文そのものの同一性・suffix link・出現数を扱います。
+## 概要・前提 {#概要前提}
 
-`Eertree<Alphabet = 26, First = 'a'>` の文字集合はunsigned byteの
-`[First, First + Alphabet)`、`1 <= Alphabet`、`First + Alphabet <= 256` が必要。
-既定は英小文字で、UTF-8を文字単位として扱いません。
+- `Eertree<Alphabet = 26, First = 'a'>` の文字集合はunsigned byteの `[First, First + Alphabet)` です。`1 <= Alphabet`、`First + Alphabet <= 256` が必要で、UTF-8を文字単位として扱いません。
+- ノードIDは長さ-1の特別rootが-1、空文字列が0、非空回文が発見順に1..Dです。`N <= INT_MAX-2` が必要です。
+- 固定小文字種向けのdense遷移を使います。値コピーは独立し、時間・追加メモリは所有領域に比例します。
 
-ノードIDは長さ-1の特別rootが-1、空文字列が0、非空回文が発見順に1..Dです。
-入力長Nに対しD<=N、`N <= INT_MAX-2`。σをAlphabet、Rを予約文字数とすると、
-所有メモリはO(σ max(D,R)+max(N,R))、全N文字の構築時間はO(σN)です。
-固定小文字種向けのdense遷移で、末尾削除・過去位置の更新は提供しません。
-値コピーは独立し、時間・追加メモリは所有領域に比例します。
+</details>
 
 ## 最小使用例
 
@@ -222,7 +220,10 @@ assert(copy.size() == 3 && original.size() == 2);
 コピー後も既存IDは同じ回文を表しますが、その後の追加で作られるIDは別々です。
 </details>
 
-## 出典・検証
+<details class="library-notes" markdown="1">
+<summary>出典・検証・性能</summary>
+
+## 出典・検証 {#出典検証}
 
 - [Rubinchik–Shur, EERTREE](https://arxiv.org/abs/1506.04862)の回文木を独立実装。
 - [Library Checker Eertree](https://judge.yosupo.jp/problem/eertree)で発見順、親、suffix linkと全prefixの最長回文を検証。
@@ -230,3 +231,5 @@ assert(copy.size() == 3 && original.size() == 2);
   [400577](https://judge.yosupo.jp/submission/400577)は疎な辺と専用allocation/I/O。
   本実装は小さい固定文字種で単純な遷移配列を選択。文字種・メモリの交換条件を比較レポートに記録します。
 - `tests/random/string-expansion.cpp` は小入力の全substring列挙と全ノードの出現数・親・linkを比較します。
+
+</details>
