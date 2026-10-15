@@ -14,21 +14,29 @@ documentation_of: //blueberry/graph/contour-query.hpp
 | 操作 | 計算量 |
 | --- | --- |
 | [`ContourQuery<T>`](#query-constructor) | O(N log(N+1)) |
-| [`ContourQuery<T>`](#query-copy-constructor) | O(N log(N+1)) |
-| [`operator=`](#query-copy-assignment) | O(N log(N+1)) + D |
-| [`ContourQuery<T>`](#query-move-constructor) | O(1) |
-| [`operator=`](#query-move-assignment) | O(1 + D) |
 | [`ContourQuery<T>::size`](#query-size) | O(1) |
 | [`ContourQuery<T>::add`](#query-add) | O(log²(N+1)) |
 | [`ContourQuery<T>::sum`](#query-sum) | O(log²(N+1)) |
 | [`ContourAdd<T>`](#add-constructor) | O(N log(N+1)) |
+| [`ContourAdd<T>::size`](#add-size) | O(1) |
+| [`ContourAdd<T>::add`](#add-add) | O(log²(N+1)) |
+| [`ContourAdd<T>::get`](#add-get) | O(log²(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`ContourQuery<T>`](#query-copy-constructor) | O(N log(N+1)) |
+| [`operator=`](#query-copy-assignment) | O(N log(N+1)) + D |
+| [`ContourQuery<T>`](#query-move-constructor) | O(1) |
+| [`operator=`](#query-move-assignment) | O(1 + D) |
 | [`ContourAdd<T>`](#add-copy-constructor) | O(N log(N+1)) |
 | [`operator=`](#add-copy-assignment) | O(N log(N+1)) + D |
 | [`ContourAdd<T>`](#add-move-constructor) | O(1) |
 | [`operator=`](#add-move-assignment) | O(1 + D) |
-| [`ContourAdd<T>::size`](#add-size) | O(1) |
-| [`ContourAdd<T>::add`](#add-add) | O(log²(N+1)) |
-| [`ContourAdd<T>::get`](#add-get) | O(log²(N+1)) |
+
+</details>
 
 <!-- library-implementation -->
 

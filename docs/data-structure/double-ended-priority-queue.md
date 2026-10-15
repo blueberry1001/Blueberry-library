@@ -15,10 +15,6 @@ documentation_of: //blueberry/data-structure/double-ended-priority-queue.hpp
 | --- | --- |
 | [`DoubleEndedPriorityQueue`](#default) | O(1) |
 | [`DoubleEndedPriorityQueue`](#vector) | O(N) |
-| [`DoubleEndedPriorityQueue`](#copy-constructor) | O(N) |
-| [`operator=`](#copy-assignment) | O(N + M) |
-| [`DoubleEndedPriorityQueue`](#move-constructor) | O(1) |
-| [`operator=`](#move-assignment) | O(M) |
 | [`size`](#size) | O(1) |
 | [`empty`](#empty) | O(1) |
 | [`min`](#min) | O(1) |
@@ -28,6 +24,18 @@ documentation_of: //blueberry/data-structure/double-ended-priority-queue.hpp
 | [`pop_max`](#pop-max) | O(log(N+1)) |
 | [`clear`](#clear) | O(N) |
 | [`reserve`](#reserve) | O(N) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`DoubleEndedPriorityQueue`](#copy-constructor) | O(N) |
+| [`operator=`](#copy-assignment) | O(N + M) |
+| [`DoubleEndedPriorityQueue`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+
+</details>
 
 <!-- library-implementation -->
 

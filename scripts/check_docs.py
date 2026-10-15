@@ -46,6 +46,9 @@ def collect_examples(root):
         else:
             assert "## 概要" in quick and "## 操作一覧" in quick, document
             assert "| 操作 | 計算量 |" in quick and "| 詳細 |" not in quick, document
+            primary = quick.split('<details class="extra-operations"', 1)[0]
+            primary_rows = re.findall(r"^\|.*\]\(#[^)]*\).*\|$", primary, re.M)
+            assert len(primary_rows) <= 12, (document, "Keep the primary quick table to at most 12 rows")
             assert "## 概要・前提" in reference and "## 最小使用例" in reference, document
             assert details and len(ids) == len(set(ids)) and set(links) == set(ids), document
         for identifier, body in details:

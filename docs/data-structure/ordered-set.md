@@ -24,8 +24,16 @@ documentation_of: //blueberry/data-structure/ordered-set.hpp
 | [`lower_bound`](#lower-bound) | 期待 O(log(N+1)) |
 | [`upper_bound`](#upper-bound) | 期待 O(log(N+1)) |
 | [`floor`](#floor) | 期待 O(log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`OrderedSet`（コピー構築）](#copy) | O(M) |
 | [`OrderedSet`（移動構築）](#move) | O(1) ※代入先解放 O(M) |
+
+</details>
 
 <!-- library-implementation -->
 

@@ -22,10 +22,18 @@ documentation_of: //blueberry/data-structure/partially-retroactive-priority-queu
 | [`object.insert_op`](#insert-op) | O(log(M+1)) |
 | [`object.pop_op`](#pop-op) | O(log(M+1)) |
 | [`object.erase_op`](#erase-op) | O(log(M+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`Type`](#copy-constructor) | O(M) |
 | [`Type`](#move-constructor) | O(1) |
 | [`operator=`](#copy-assignment) | O(M + D) |
 | [`operator=`](#move-assignment) | O(1 + D) |
+
+</details>
 
 <!-- library-implementation -->
 

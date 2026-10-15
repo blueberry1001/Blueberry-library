@@ -20,10 +20,18 @@ documentation_of: //blueberry/graph/euler-tour-tree.hpp
 | [`S`](#get) | 償却 O(log(N+1)) |
 | [`S`](#prod) | 償却 O(log(N+1)) |
 | [`apply`](#apply) | 償却 O(log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`EulerTourTree`（コピー構築）](#copy) | O(N) |
 | [`operator=`（コピー代入）](#copy-assign) | O(N+D) |
 | [`EulerTourTree`（移動構築）](#move) | O(1) |
 | [`operator=`（移動代入）](#move-assign) | O(D) |
+
+</details>
 
 <!-- library-implementation -->
 

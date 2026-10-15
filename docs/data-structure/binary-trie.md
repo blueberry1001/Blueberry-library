@@ -14,11 +14,6 @@ documentation_of: //blueberry/data-structure/binary-trie.hpp
 | 操作 | 計算量 |
 | --- | --- |
 | [`BinaryTrie<UInt,`](#construct) | O(1) |
-| [`BinaryTrie`（コピー構築）](#copy-construct) | O(H) |
-| [`operator=`（コピー代入）](#copy-assign) | O(H + Hdst) |
-| [`BinaryTrie`（移動構築）](#move-construct) | O(1) |
-| [`operator=`（移動代入）](#move-assign) | O(Hdst) |
-| [`~BinaryTrie`](#destruct) | O(H) |
 | [`tree.size`](#size) | O(1) |
 | [`tree.empty`](#empty) | O(1) |
 | [`tree.insert`](#insert) | 償却 O(B) |
@@ -28,6 +23,19 @@ documentation_of: //blueberry/data-structure/binary-trie.hpp
 | [`tree.kth`](#kth) | O(B) |
 | [`tree.xor_min`](#xor-min) | O(B) |
 | [`tree.clear`](#clear) | O(H) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`BinaryTrie`（コピー構築）](#copy-construct) | O(H) |
+| [`operator=`（コピー代入）](#copy-assign) | O(H + Hdst) |
+| [`BinaryTrie`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Hdst) |
+| [`~BinaryTrie`](#destruct) | O(H) |
+
+</details>
 
 <!-- library-implementation -->
 

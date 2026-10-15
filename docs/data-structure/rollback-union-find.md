@@ -25,7 +25,15 @@ documentation_of: //blueberry/data-structure/rollback-union-find.hpp
 | [`uf.snapshot`](#snapshot) | O(1) |
 | [`uf.undo`](#undo) | O(1) |
 | [`uf.rollback`](#rollback-state) | O(取り消し数) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`uf.rollback`](#rollback-snapshot) | O(取り消し数) |
+
+</details>
 
 <!-- library-implementation -->
 

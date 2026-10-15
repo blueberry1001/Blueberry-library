@@ -14,10 +14,6 @@ documentation_of: //blueberry/data-structure/slope-trick.hpp
 | 操作 | 計算量 |
 | --- | --- |
 | [`SlopeTrick`](#constructor) | O(1) |
-| [`SlopeTrick`](#copy-constructor) | O(N) |
-| [`operator=`](#copy-assignment) | O(N + M) |
-| [`SlopeTrick`](#move-constructor) | O(1) |
-| [`operator=`](#move-assignment) | O(M) |
 | [`size`](#size) | O(1) |
 | [`T`](#min) | O(1) |
 | [`argmin`](#argmin) | O(1) |
@@ -29,9 +25,21 @@ documentation_of: //blueberry/data-structure/slope-trick.hpp
 | [`shift`](#window) | O(1) |
 | [`prefix_min`](#prefix) | O(K) |
 | [`suffix_min`](#suffix) | O(K) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`SlopeTrick`](#copy-constructor) | O(N) |
+| [`operator=`](#copy-assignment) | O(N + M) |
+| [`SlopeTrick`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
 | [`T`](#eval) | O(N log(N+1)) |
 | [`merge`](#merge) | 償却 O(min(N,M) log(N+M+1)) |
 | [`clear`](#clear) | O(N) |
+
+</details>
 
 <!-- library-implementation -->
 

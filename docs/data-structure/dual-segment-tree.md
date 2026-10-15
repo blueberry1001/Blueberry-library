@@ -16,16 +16,24 @@ documentation_of: //blueberry/data-structure/dual-segment-tree.hpp
 | [`DualSegmentTree`](#default) | O(1) |
 | [`DualSegmentTree`](#vector) | O(N) |
 | [`DualSegmentTree`](#fill) | O(N) |
-| [`DualSegmentTree`](#copy-constructor) | O(N) |
-| [`operator=`](#copy-assignment) | O(N + M) |
-| [`DualSegmentTree`](#move-constructor) | O(1) |
-| [`operator=`](#move-assignment) | O(M) |
 | [`size`](#size) | O(1) |
 | [`S`](#get) | O(log(N+1)) |
 | [`set`](#set) | O(log(N+1)) |
 | [`apply`](#point-apply) | O(log(N+1)) |
 | [`apply`](#range-apply) | O(log(N+1)) |
 | [`get_all`](#get-all) | O(N) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`DualSegmentTree`](#copy-constructor) | O(N) |
+| [`operator=`](#copy-assignment) | O(N + M) |
+| [`DualSegmentTree`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+
+</details>
 
 <!-- library-implementation -->
 

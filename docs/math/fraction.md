@@ -14,10 +14,6 @@ documentation_of: //blueberry/math/fraction.hpp
 | 操作 | 計算量 |
 | --- | --- |
 | [`Fraction`](#construct) | O(log B) |
-| [`Fraction`（コピー構築）](#copy) | O(1) |
-| [`Fraction`（移動構築）](#move) | O(1) |
-| [`operator=`（コピー代入）](#copy-assign) | O(1) |
-| [`operator=`（移動代入）](#move-assign) | O(1) |
 | [`a.num`](#num) | O(1) |
 | [`a.den`](#den) | O(1) |
 | [`Fraction +a`](#unary-plus) | O(1) |
@@ -26,18 +22,30 @@ documentation_of: //blueberry/math/fraction.hpp
 | [`Fraction a - b`](#subtract) | O(log B) |
 | [`Fraction a * b`](#multiply) | O(log B) |
 | [`Fraction a / b`](#divide) | O(log B) |
+| [`bool a == b`](#equal) | O(1) |
+| [`bool a != b`](#not-equal) | O(1) |
+| [`bool a < b`](#less) | O(1) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Fraction`（コピー構築）](#copy) | O(1) |
+| [`Fraction`（移動構築）](#move) | O(1) |
+| [`operator=`（コピー代入）](#copy-assign) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(1) |
 | [`Fraction& a += b`](#add-assign) | O(log B) |
 | [`Fraction& a -= b`](#subtract-assign) | O(log B) |
 | [`Fraction& a *= b`](#multiply-assign) | O(log B) |
 | [`Fraction& a /= b`](#divide-assign) | O(log B) |
-| [`bool a == b`](#equal) | O(1) |
-| [`bool a != b`](#not-equal) | O(1) |
-| [`bool a < b`](#less) | O(1) |
 | [`bool a > b`](#greater) | O(1) |
 | [`bool a <= b`](#less-equal) | O(1) |
 | [`bool a >= b`](#greater-equal) | O(1) |
 | [`ostream& out << a`](#stream) | O(log B) |
 | [`a.~Fraction`（通常は自動）](#destruct) | O(1) |
+
+</details>
 
 <!-- library-implementation -->
 

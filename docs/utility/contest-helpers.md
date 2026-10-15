@@ -23,11 +23,19 @@ documentation_of: //blueberry/utility/contest-helpers.hpp
 | [`is_palindrome`](#palindrome) | O(N) |
 | [`my_distance`](#distance) | O(1) |
 | [`range_sum`](#range-sum) | O(1) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`compress`](#compress) | O(N log N) |
 | [`divisors`](#divisors) | O(F(n) + tau(n) log tau(n)) |
 | [`is_bipartite`](#bipartite) | O(V+E) |
 | [`to_string128`](#to-string128) | O(L) |
 | [`parse128`](#parse128) | O(L) |
+
+</details>
 
 <!-- library-implementation -->
 

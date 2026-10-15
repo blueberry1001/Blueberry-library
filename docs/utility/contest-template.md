@@ -14,8 +14,23 @@ GNU libstdc++・ACLが必要です。単一translation unitの提出用です。
 | 操作 | 計算量 |
 | --- | --- |
 | [`init_io`](#init-io) | O(1) |
+| [`rep(n)`](#rep1) | O(max(0,n)) |
+| [`rep(i,n)`](#rep2) | O(max(0,n)) |
+| [`rep(i,a,b)`](#rep3) | O(max(0,b-a)) |
+| [`rep(i,a,b,c)`](#rep4) | O(1 + max(0,(b-a)/c)) |
 | [`scan`](#scan) | O(S) |
 | [`print`](#print) | O(S) |
+| [`ALL`](#all) | O(1) |
+| [`rALL`](#rall) | O(1) |
+| [`LL`](#ll) | O(S) |
+| [`STR`](#str) | O(S) |
+| [`YesNo`](#yesno) | O(1) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`operator>>（input128）`](#input128) | O(L) |
 | [`operator<<（output128）`](#output128) | O(L) |
 | [`operator>>（vector）`](#input-vector) | O(S+N) |
@@ -24,15 +39,6 @@ GNU libstdc++・ACLが必要です。単一translation unitの提出用です。
 | [`operator<<（deque）`](#output-deque) | O(S+N) |
 | [`operator>>（pair）`](#input-pair) | O(S) |
 | [`operator<<（pair）`](#output-pair) | O(S) |
-| [`rep(n)`](#rep1) | O(max(0,n)) |
-| [`rep(i,n)`](#rep2) | O(max(0,n)) |
-| [`rep(i,a,b)`](#rep3) | O(max(0,b-a)) |
-| [`rep(i,a,b,c)`](#rep4) | O(1 + max(0,(b-a)/c)) |
-| [`ALL`](#all) | O(1) |
-| [`rALL`](#rall) | O(1) |
-| [`LL`](#ll) | O(S) |
-| [`STR`](#str) | O(S) |
-| [`YesNo`](#yesno) | O(1) |
 | [`YESNO`](#yesno-upper) | O(1) |
 | [`bit`](#bit) | O(1) |
 | [`popc`](#popcount) | O(1) |
@@ -64,6 +70,8 @@ GNU libstdc++・ACLが必要です。単一translation unitの提出用です。
 | [`Rande`（移動構築）](#rande-move) | O(1) |
 | [`Rande& operator=`（移動代入）](#rande-move-assign) | O(1) |
 | [`~Rande`](#rande-destruct) | O(1) |
+
+</details>
 
 <!-- library-implementation -->
 

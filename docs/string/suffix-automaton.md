@@ -25,11 +25,19 @@ documentation_of: //blueberry/string/suffix-automaton.hpp
 | [`object.longest_common_substring`](#longest_common_substring-range) | O(P log(σ+1)) |
 | [`object.contains`](#contains-view) | O(P log(σ+1)) |
 | [`object.count`](#count-view) | O(N + P log(σ+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`object.longest_common_substring`](#longest_common_substring-view) | O(P log(σ+1)) |
 | [`Type`](#copy-constructor) | O(M) |
 | [`Type`](#move-constructor) | O(1) |
 | [`operator=`](#copy-assignment) | O(M + D) |
 | [`operator=`](#move-assignment) | O(1 + D) |
+
+</details>
 
 <!-- library-implementation -->
 

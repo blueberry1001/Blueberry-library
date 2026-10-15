@@ -17,11 +17,6 @@ documentation_of: //blueberry/math/matrix.hpp
 | --- | --- |
 | [`Matrix<T> a`](#default) | O(1) |
 | [`Matrix<T>`](#construct) | O(nm+1) |
-| [`Matrix<T>`（コピー構築）](#copy-construct) | O(nm+1) |
-| [`operator=`（コピー代入）](#copy-assign) | O(nm+n_old m_old+1) |
-| [`Matrix<T>`（移動構築）](#move-construct) | O(1) |
-| [`operator=`（移動代入）](#move-assign) | O(n_old m_old+1) |
-| [`a.~Matrix`](#destroy) | O(nm+1) |
 | [`a.rows`](#rows) | O(1) |
 | [`a.cols`](#cols) | O(1) |
 | [`operator()`](#element) | O(1) |
@@ -30,6 +25,17 @@ documentation_of: //blueberry/math/matrix.hpp
 | [`a.inv`](#inverse) | O(n³+n²+1) |
 | [`a.rank`](#rank) | O(nm min(n,m)+nm+1) |
 | [`a.solve`](#solve) | O(n(m+1)min(n,m)+n(m+1)+m(d+1)+1) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Matrix<T>`（コピー構築）](#copy-construct) | O(nm+1) |
+| [`operator=`（コピー代入）](#copy-assign) | O(nm+n_old m_old+1) |
+| [`Matrix<T>`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(n_old m_old+1) |
+| [`a.~Matrix`](#destroy) | O(nm+1) |
 | [`LinearSystem<T> solution`](#result-default) | O(1) |
 | [`LinearSystem<T> solution{particular, basis}`](#result-aggregate) | O(B+1) |
 | [`LinearSystem<T>`（コピー構築）](#result-copy) | O(B+1) |
@@ -39,6 +45,8 @@ documentation_of: //blueberry/math/matrix.hpp
 | [`solution.~LinearSystem`](#result-destroy) | O(B+1) |
 | [`vector<T> solution.particular`](#particular) | 参照取得 O(1)、コピー O(m) |
 | [`vector<vector<T>> solution.basis`](#basis) | 参照取得 O(1)、コピー O(md) |
+
+</details>
 
 <!-- library-implementation -->
 

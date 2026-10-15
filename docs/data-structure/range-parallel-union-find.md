@@ -23,10 +23,18 @@ documentation_of: //blueberry/data-structure/range-parallel-union-find.hpp
 | [`object.merge`](#merge-callback) | 償却 O(α(N)) |
 | [`object.range_merge`](#range-merge) | O(K log(N+1)) |
 | [`object.range_merge`](#range-callback) | O(K log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`Type`](#copy-constructor) | O(M) |
 | [`Type`](#move-constructor) | O(1) |
 | [`operator=`](#copy-assignment) | O(M + D) |
 | [`operator=`](#move-assignment) | O(1 + D) |
+
+</details>
 
 <!-- library-implementation -->
 

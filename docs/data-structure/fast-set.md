@@ -16,10 +16,6 @@ documentation_of: //blueberry/data-structure/fast-set.hpp
 | [`FastSet`](#default) | O(1) |
 | [`FastSet`](#universe) | O(W) |
 | [`FastSet`](#bits) | O(U) |
-| [`FastSet`](#copy-constructor) | O(W) |
-| [`operator=`](#copy-assignment) | O(W + V) |
-| [`FastSet`](#move-constructor) | O(1) |
-| [`operator=`](#move-assignment) | O(1 + V) |
 | [`size`](#size) | O(1) |
 | [`universe_size`](#universe-size) | O(1) |
 | [`empty`](#empty) | O(1) |
@@ -29,6 +25,18 @@ documentation_of: //blueberry/data-structure/fast-set.hpp
 | [`next`](#next) | O(H) |
 | [`prev`](#prev) | O(H) |
 | [`clear`](#clear) | O(W) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`FastSet`](#copy-constructor) | O(W) |
+| [`operator=`](#copy-assignment) | O(W + V) |
+| [`FastSet`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + V) |
+
+</details>
 
 <!-- library-implementation -->
 

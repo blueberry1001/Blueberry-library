@@ -21,14 +21,22 @@ documentation_of: //blueberry/utility/fast-io.hpp
 | [`in.read`（浮動小数点）](#read-float) | O(d)+標準変換関数の費用 |
 | [`in.read`](#read-many) | 各readの合計 |
 | [`FastOutput`](#output-construct) | O(1) |
-| [`out.~FastOutput`](#output-destroy) | O(b) |
 | [`out.write`](#write-char) | 償却O(1)、buffer排出時O(b) |
 | [`out.write`](#write-bool) | 償却O(1) |
 | [`out.write`](#write-string) | 償却O(d) |
 | [`out.write`（整数）](#write-integer) | 償却O(d) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`out.~FastOutput`](#output-destroy) | O(b) |
 | [`out.write`（浮動小数点）](#write-float) | 標準変換関数の費用+償却O(d) |
 | [`out.writeln`](#writeln) | 各writeと区切りの合計、償却 |
 | [`out.flush`](#flush) | O(b) |
+
+</details>
 
 <!-- library-implementation -->
 

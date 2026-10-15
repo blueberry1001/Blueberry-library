@@ -16,9 +16,6 @@ documentation_of: //blueberry/data-structure/splay-slope-trick.hpp
 | [`SplaySlopeTrick`](#default) | O(1) |
 | [`SplaySlopeTrick`](#linear) | O(1) |
 | [`from_points`](#from-points) | O(N log(N+1)) |
-| [`SplaySlopeTrick`](#move-constructor) | O(1) |
-| [`operator=`](#move-assignment) | O(M) |
-| [`~SplaySlopeTrick`](#destructor) | O(K) |
 | [`empty`](#empty) | O(1) |
 | [`size`](#size) | O(1) |
 | [`domain`](#domain) | O(1) |
@@ -28,6 +25,15 @@ documentation_of: //blueberry/data-structure/splay-slope-trick.hpp
 | [`add_const`](#add-const) | O(1) |
 | [`add_linear`](#add-linear) | O(1) |
 | [`add_x_minus_a`](#add-right) | O(log(K+1)) 償却 |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`SplaySlopeTrick`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(M) |
+| [`~SplaySlopeTrick`](#destructor) | O(K) |
 | [`add_a_minus_x`](#add-left) | O(log(K+1)) 償却 |
 | [`add_abs`](#add-abs) | O(log(K+1)) 償却 |
 | [`shift`](#shift) | O(1) |
@@ -36,6 +42,8 @@ documentation_of: //blueberry/data-structure/splay-slope-trick.hpp
 | [`convolve_segment`](#convolve-segment) | O(log(K+1)) 償却 |
 | [`convolve`](#convolve) | O((K+M+1) log(K+M+2)) 償却 |
 | [`clear`](#clear) | O(K) |
+
+</details>
 
 <!-- library-implementation -->
 

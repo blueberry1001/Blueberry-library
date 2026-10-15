@@ -14,10 +14,6 @@ documentation_of: //blueberry/graph/centroid-decomposition.hpp
 | 操作 | 計算量 |
 | --- | --- |
 | [`CentroidDecomposition`](#constructor) | O(N log(N+1)) |
-| [`CentroidDecomposition`](#copy-constructor) | O(N log(N+1)) |
-| [`operator=`](#copy-assignment) | O(N log(N+1)) + D |
-| [`CentroidDecomposition`](#move-constructor) | O(1) |
-| [`operator=`](#move-assignment) | O(1 + D) |
 | [`size`](#size) | O(1) |
 | [`parent`](#parent) | O(1) |
 | [`ancestors`](#ancestors) | O(1) |
@@ -26,6 +22,18 @@ documentation_of: //blueberry/graph/centroid-decomposition.hpp
 | [`int Entry::distance`](#distance-field) | O(1) |
 | [`int Entry::branch`](#branch-field) | O(1) |
 | [`centroid_decomposition_thirds`](#thirds) | O(N log(N+1) + C) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`CentroidDecomposition`](#copy-constructor) | O(N log(N+1)) |
+| [`operator=`](#copy-assignment) | O(N log(N+1)) + D |
+| [`CentroidDecomposition`](#move-constructor) | O(1) |
+| [`operator=`](#move-assignment) | O(1 + D) |
+
+</details>
 
 <!-- library-implementation -->
 

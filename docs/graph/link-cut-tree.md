@@ -21,10 +21,18 @@ documentation_of: //blueberry/graph/link-cut-tree.hpp
 | [`S`](#get) | O(1) |
 | [`set`](#set) | 償却 O(log(N+1)) |
 | [`S`](#prod) | 償却 O(log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`LinkCutTree`（コピー構築）](#copy) | O(N) |
 | [`operator=`（コピー代入）](#copy-assign) | O(N+D) |
 | [`LinkCutTree`（移動構築）](#move) | O(1) |
 | [`operator=`（移動代入）](#move-assign) | O(D) |
+
+</details>
 
 <!-- library-implementation -->
 

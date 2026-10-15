@@ -16,11 +16,6 @@ documentation_of: //blueberry/data-structure/segment-tree-beats.hpp
 | 操作 | 計算量 |
 | --- | --- |
 | [`SegmentTreeBeats`](#construct) | O(N) |
-| [`SegmentTreeBeats`（コピー構築）](#copy-construct) | O(N) |
-| [`operator=`（コピー代入）](#copy-assign) | O(N + Ndst) |
-| [`SegmentTreeBeats`（移動構築）](#move-construct) | O(1) |
-| [`operator=`（移動代入）](#move-assign) | O(Ndst) |
-| [`~SegmentTreeBeats`](#destruct) | O(N) |
 | [`tree.size`](#size) | O(1) |
 | [`tree.chmin`](#chmin) | 償却 O(log²(N+1)) |
 | [`tree.chmax`](#chmax) | 償却 O(log²(N+1)) |
@@ -31,6 +26,19 @@ documentation_of: //blueberry/data-structure/segment-tree-beats.hpp
 | [`tree.all_prod`](#all-prod) | O(1) |
 | [`tree.get`](#get) | O(log(N+1)) |
 | [`tree.set`](#set) | O(log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`SegmentTreeBeats`（コピー構築）](#copy-construct) | O(N) |
+| [`operator=`（コピー代入）](#copy-assign) | O(N + Ndst) |
+| [`SegmentTreeBeats`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Ndst) |
+| [`~SegmentTreeBeats`](#destruct) | O(N) |
+
+</details>
 
 <!-- library-implementation -->
 

@@ -26,6 +26,12 @@ documentation_of: //blueberry/graph/heavy-light-decomposition.hpp
 | [`hld.vertex_at`](#vertex-at) | O(1) |
 | [`hld.edge_index`](#edge-index) | O(1) |
 | [`hld.subtree_range`](#subtree-range) | O(1) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
 | [`hld.is_ancestor`](#is-ancestor) | O(1) |
 | [`hld.lca`](#lca) | O(log N) |
 | [`hld.kth_ancestor`](#kth-ancestor) | O(log N) |
@@ -37,6 +43,8 @@ documentation_of: //blueberry/graph/heavy-light-decomposition.hpp
 | [`hld.edge_query`](#edge-query) | O(log N) callbacks |
 | [`hld.vertex_query`](#single-vertex-query) | O(1) callback |
 | [`hld.subtree_query`](#subtree-query) | O(1) callback |
+
+</details>
 
 <!-- library-implementation -->
 

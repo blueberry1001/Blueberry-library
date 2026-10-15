@@ -128,6 +128,18 @@ class CheckDocsSelectionTest(unittest.TestCase):
                 with self.assertRaises(AssertionError):
                     self.run_main(["--structure-only"])
 
+    def test_long_quick_tables_require_native_disclosure(self):
+        document = page("blueberry/test/a.hpp")
+        row = "| [`get`](#get) | O(1) |\n"
+        self.write("docs/test/a.md", document.replace(row, row * 13))
+        with self.assertRaisesRegex(AssertionError, "at most 12 rows"):
+            self.run_main(["--structure-only"])
+        folded = ('<details class="extra-operations" markdown="1">\n'
+                  '<summary>その他の操作・型</summary>\n\n'
+                  '| 操作 | 計算量 |\n| --- | --- |\n' + row * 12 + '\n</details>\n')
+        self.write("docs/test/a.md", document.replace(row, row + folded))
+        self.run_main(["--structure-only"])
+
     def test_summary_template_brackets_must_be_html_escaped(self):
         document = page("blueberry/test/a.hpp")
         for signature, valid in (("vector<int>", False), ("vector&lt;int&gt;", True)):

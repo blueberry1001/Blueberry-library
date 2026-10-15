@@ -14,11 +14,6 @@ documentation_of: //blueberry/data-structure/implicit-treap.hpp
 | 操作 | 計算量 |
 | --- | --- |
 | [`ImplicitTreap`](#construct) | O(N) |
-| [`Tree`（コピー構築）](#copy-construct) | O(H) |
-| [`operator=`（コピー代入）](#copy-assign) | O(H + Hdst) |
-| [`Tree`（移動構築）](#move-construct) | O(1) |
-| [`operator=`（移動代入）](#move-assign) | O(Hdst) |
-| [`tree.~Tree`](#destruct) | O(H) |
 | [`tree.size`](#size) | O(1) |
 | [`tree.empty`](#empty) | O(1) |
 | [`tree.clear`](#clear) | O(H) |
@@ -30,7 +25,20 @@ documentation_of: //blueberry/data-structure/implicit-treap.hpp
 | [`tree.all_prod`](#all-prod) | O(1) |
 | [`tree.reverse`](#reverse) | 期待・償却 O(log(N+1)) |
 | [`tree.apply`](#apply) | 期待・償却 O(log(N+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`Tree`（コピー構築）](#copy-construct) | O(H) |
+| [`operator=`（コピー代入）](#copy-assign) | O(H + Hdst) |
+| [`Tree`（移動構築）](#move-construct) | O(1) |
+| [`operator=`（移動代入）](#move-assign) | O(Hdst) |
+| [`tree.~Tree`](#destruct) | O(H) |
 | [`tree.to_vector`](#to-vector) | O(N) |
+
+</details>
 
 <!-- library-implementation -->
 

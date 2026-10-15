@@ -15,26 +15,34 @@ documentation_of: //blueberry/math/formal-power-series.hpp
 | --- | --- |
 | [`FormalPowerSeries<Mint>`](#construct) | O(N) |
 | [`f.pre`, `f.rev`](#pre-rev) | O(N) |
-| [`f.shrink`](#shrink) | 償却 O(N) |
 | [`f +=/-= g`, `f + g`, `f - g`, `-f`](#add-sub) | O(max(N, M)) |
-| [`f +=/-= scalar`, `f + scalar`, `f - scalar`](#scalar-add-sub) | O(1) / O(N) |
-| [`f *= scalar`, `f /= scalar`, `f * scalar`, `f / scalar`](#scalar) | O(N) |
 | [`f *= g`, `f * g`](#multiply) | O(M(N+M)) |
 | [`f /= g`, `f / g`, `f %= g`, `f % g`, `f.div_mod`](#divide) | O(M(N+M)) |
-| [`f *= sparse`, `f * sparse`](#sparse) | O(NS) |
-| [`f /= sparse`, `f / sparse`](#sparse) | O(NS + S log S) |
-| [`f <<= d`, `f >>= d`, `f << d`, `f >> d`](#shift) | O(N+d) |
-| [`f.dot`](#dot) | O(min(N, M)) |
-| [`f.eval`, `f`](#eval) | O(N) |
-| [`f.multiply`, `f.divide`](#factor) | O(N) |
 | [`f.diff`, `f.integral`](#calculus) | O(N) / O(N log mod) |
 | [`f.inv`](#inv) | O(M(N)) |
 | [`f.log`](#log) | O(M(N)) |
 | [`f.sqrt`, `f.sqrt_with`](#sqrt) | O(M(N) log N) |
 | [`f.exp`](#exp) | O(M(N) log N) |
 | [`f.pow`](#pow) | O(M(N) log N) |
+| [`f.eval`, `f`](#eval) | O(N) |
+
+<details class="extra-operations" markdown="1">
+<summary>その他の操作・型</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`f.shrink`](#shrink) | 償却 O(N) |
+| [`f +=/-= scalar`, `f + scalar`, `f - scalar`](#scalar-add-sub) | O(1) / O(N) |
+| [`f *= scalar`, `f /= scalar`, `f * scalar`, `f / scalar`](#scalar) | O(N) |
+| [`f *= sparse`, `f * sparse`](#sparse) | O(NS) |
+| [`f /= sparse`, `f / sparse`](#sparse) | O(NS + S log S) |
+| [`f <<= d`, `f >>= d`, `f << d`, `f >> d`](#shift) | O(N+d) |
+| [`f.dot`](#dot) | O(min(N, M)) |
+| [`f.multiply`, `f.divide`](#factor) | O(N) |
 | [`f.mod_pow`](#mod-pow) | O(M(N+D) + M(D) log(k+1)) |
 | [`f[i]`, `f.size`, range-for/iterators](#vector-interface) | O(1) |
+
+</details>
 
 以下の詳細では、返り値、使用例、境界条件をまとめています。例は必要なヘッダと有効な
 `f`・`g` が既にある前提です。
