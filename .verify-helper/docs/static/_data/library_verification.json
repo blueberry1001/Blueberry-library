@@ -156,8 +156,24 @@
           "problem": "https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum"
         },
         {
+          "path": "verify/math/bell.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bell_number"
+        },
+        {
+          "path": "verify/math/bernoulli.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bernoulli_number"
+        },
+        {
           "path": "verify/math/binomial-coefficient-prime-mod.test.cpp",
           "problem": "https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod"
+        },
+        {
+          "path": "verify/math/partition.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/partition_function"
+        },
+        {
+          "path": "verify/math/tetration-mod.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/tetration_mod"
         },
         {
           "path": "verify/utility/fast-io-128bit.test.cpp",
@@ -1557,6 +1573,42 @@
       "label": "専用verifyドライバあり"
     },
     {
+      "path": "blueberry/math/bell.hpp",
+      "name": "Bell Numbers",
+      "direct": [
+        {
+          "path": "verify/math/bell.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bell_number"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/fps_sequences.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/bernoulli.hpp",
+      "name": "Bernoulli Numbers",
+      "direct": [
+        {
+          "path": "verify/math/bernoulli.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bernoulli_number"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/fps_sequences.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
       "path": "blueberry/math/bitwise-convolution.hpp",
       "name": "Bitwise Convolution",
       "direct": [
@@ -1678,13 +1730,23 @@
       ],
       "indirect": [
         {
+          "path": "verify/math/primitive-root.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/primitive_root"
+        },
+        {
+          "path": "verify/math/tetration-mod.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/tetration_mod"
+        },
+        {
           "path": "verify/utility/contest-template-128bit.test.cpp",
           "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
         }
       ],
       "random_tests": [
         "tests/random/contest-helpers.cpp",
-        "tests/random/math-expansion.cpp"
+        "tests/random/math-expansion.cpp",
+        "tests/random/primitive_root.cpp",
+        "tests/random/tetration_mod.cpp"
       ],
       "ignored": [],
       "note": {},
@@ -1720,9 +1782,23 @@
           "problem": "https://judge.yosupo.jp/problem/sqrt_of_formal_power_series"
         }
       ],
-      "indirect": [],
+      "indirect": [
+        {
+          "path": "verify/math/bell.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bell_number"
+        },
+        {
+          "path": "verify/math/bernoulli.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/bernoulli_number"
+        },
+        {
+          "path": "verify/math/partition.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/partition_function"
+        }
+      ],
       "random_tests": [
-        "tests/random/formal-power-series.cpp"
+        "tests/random/formal-power-series.cpp",
+        "tests/random/fps_sequences.cpp"
       ],
       "ignored": [],
       "note": {},
@@ -1901,6 +1977,24 @@
       "label": "専用verifyドライバあり"
     },
     {
+      "path": "blueberry/math/partition.hpp",
+      "name": "Partition Function",
+      "direct": [
+        {
+          "path": "verify/math/partition.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/partition_function"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/fps_sequences.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
       "path": "blueberry/math/polynomial-interpolation.hpp",
       "name": "Polynomial Interpolation",
       "direct": [
@@ -1953,6 +2047,24 @@
       ],
       "random_tests": [
         "tests/random/contest-helpers.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/primitive-root.hpp",
+      "name": "Primitive Root",
+      "direct": [
+        {
+          "path": "verify/math/primitive-root.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/primitive_root"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/primitive_root.cpp"
       ],
       "ignored": [],
       "note": {},
@@ -2025,6 +2137,24 @@
       "indirect": [],
       "random_tests": [
         "tests/random/math_batch_three.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
+      "path": "blueberry/math/tetration-mod.hpp",
+      "name": "Tetration Mod",
+      "direct": [
+        {
+          "path": "verify/math/tetration-mod.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/tetration_mod"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/tetration_mod.cpp"
       ],
       "ignored": [],
       "note": {},
@@ -2200,6 +2330,6 @@
     "missing": 2,
     "indirect": 2,
     "partial": 2,
-    "direct": 99
+    "direct": 104
   }
 }

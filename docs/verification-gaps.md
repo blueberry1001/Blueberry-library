@@ -72,7 +72,11 @@
 - 専用ドライバ: [verify/data-structure/static-range-lis.test.cpp](../verify/data-structure/static-range-lis.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_lis_query)
 - 専用ドライバ: [verify/graph/link-cut-tree-composite.test.cpp](../verify/graph/link-cut-tree-composite.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite)
 - 専用ドライバ: [verify/graph/link-cut-tree.test.cpp](../verify/graph/link-cut-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum)
+- 専用ドライバ: [verify/math/bell.test.cpp](../verify/math/bell.test.cpp) / [問題](https://judge.yosupo.jp/problem/bell_number)
+- 専用ドライバ: [verify/math/bernoulli.test.cpp](../verify/math/bernoulli.test.cpp) / [問題](https://judge.yosupo.jp/problem/bernoulli_number)
 - 専用ドライバ: [verify/math/binomial-coefficient-prime-mod.test.cpp](../verify/math/binomial-coefficient-prime-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod)
+- 専用ドライバ: [verify/math/partition.test.cpp](../verify/math/partition.test.cpp) / [問題](https://judge.yosupo.jp/problem/partition_function)
+- 専用ドライバ: [verify/math/tetration-mod.test.cpp](../verify/math/tetration-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/tetration_mod)
 - 専用ドライバ: [verify/utility/fast-io-128bit.test.cpp](../verify/utility/fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
 - 専用ドライバ: [verify/utility/fast-io.test.cpp](../verify/utility/fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
 - 関連ローカルテスト: [tests/random/fast-io.cpp](../tests/random/fast-io.cpp)
@@ -600,6 +604,20 @@
 - 専用ドライバ: [verify/graph/triangle-enumeration.test.cpp](../verify/graph/triangle-enumeration.test.cpp) / [問題](https://judge.yosupo.jp/problem/enumerate_triangles)
 - 関連ローカルテスト: [tests/random/graph-batch-two.cpp](../tests/random/graph-batch-two.cpp)
 
+## Bell Numbers
+
+[blueberry/math/bell.hpp](../blueberry/math/bell.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/math/bell.test.cpp](../verify/math/bell.test.cpp) / [問題](https://judge.yosupo.jp/problem/bell_number)
+- 関連ローカルテスト: [tests/random/fps_sequences.cpp](../tests/random/fps_sequences.cpp)
+
+## Bernoulli Numbers
+
+[blueberry/math/bernoulli.hpp](../blueberry/math/bernoulli.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/math/bernoulli.test.cpp](../verify/math/bernoulli.test.cpp) / [問題](https://judge.yosupo.jp/problem/bernoulli_number)
+- 関連ローカルテスト: [tests/random/fps_sequences.cpp](../tests/random/fps_sequences.cpp)
+
 ## Bitwise Convolution
 
 [blueberry/math/bitwise-convolution.hpp](../blueberry/math/bitwise-convolution.hpp) — **専用verifyドライバあり**
@@ -645,9 +663,13 @@
 
 - 専用ドライバ: [verify/math/factorize.test.cpp](../verify/math/factorize.test.cpp) / [問題](https://judge.yosupo.jp/problem/factorize)
 - 専用ドライバ: [verify/math/primality-test.test.cpp](../verify/math/primality-test.test.cpp) / [問題](https://judge.yosupo.jp/problem/primality_test)
+- 間接利用: [verify/math/primitive-root.test.cpp](../verify/math/primitive-root.test.cpp) / [問題](https://judge.yosupo.jp/problem/primitive_root)
+- 間接利用: [verify/math/tetration-mod.test.cpp](../verify/math/tetration-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/tetration_mod)
 - 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
 - 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
 - 関連ローカルテスト: [tests/random/math-expansion.cpp](../tests/random/math-expansion.cpp)
+- 関連ローカルテスト: [tests/random/primitive_root.cpp](../tests/random/primitive_root.cpp)
+- 関連ローカルテスト: [tests/random/tetration_mod.cpp](../tests/random/tetration_mod.cpp)
 
 ## Formal Power Series
 
@@ -659,7 +681,11 @@
 - 専用ドライバ: [verify/math/log-formal-power-series.test.cpp](../verify/math/log-formal-power-series.test.cpp) / [問題](https://judge.yosupo.jp/problem/log_of_formal_power_series)
 - 専用ドライバ: [verify/math/pow-formal-power-series.test.cpp](../verify/math/pow-formal-power-series.test.cpp) / [問題](https://judge.yosupo.jp/problem/pow_of_formal_power_series)
 - 専用ドライバ: [verify/math/sqrt-formal-power-series.test.cpp](../verify/math/sqrt-formal-power-series.test.cpp) / [問題](https://judge.yosupo.jp/problem/sqrt_of_formal_power_series)
+- 間接利用: [verify/math/bell.test.cpp](../verify/math/bell.test.cpp) / [問題](https://judge.yosupo.jp/problem/bell_number)
+- 間接利用: [verify/math/bernoulli.test.cpp](../verify/math/bernoulli.test.cpp) / [問題](https://judge.yosupo.jp/problem/bernoulli_number)
+- 間接利用: [verify/math/partition.test.cpp](../verify/math/partition.test.cpp) / [問題](https://judge.yosupo.jp/problem/partition_function)
 - 関連ローカルテスト: [tests/random/formal-power-series.cpp](../tests/random/formal-power-series.cpp)
+- 関連ローカルテスト: [tests/random/fps_sequences.cpp](../tests/random/fps_sequences.cpp)
 
 ## Fraction
 
@@ -725,6 +751,13 @@
 - 専用ドライバ: [verify/math/multipoint-evaluation.test.cpp](../verify/math/multipoint-evaluation.test.cpp) / [問題](https://judge.yosupo.jp/problem/multipoint_evaluation)
 - 関連ローカルテスト: [tests/random/math-batch-four.cpp](../tests/random/math-batch-four.cpp)
 
+## Partition Function
+
+[blueberry/math/partition.hpp](../blueberry/math/partition.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/math/partition.test.cpp](../verify/math/partition.test.cpp) / [問題](https://judge.yosupo.jp/problem/partition_function)
+- 関連ローカルテスト: [tests/random/fps_sequences.cpp](../tests/random/fps_sequences.cpp)
+
 ## Polynomial Interpolation
 
 [blueberry/math/polynomial-interpolation.hpp](../blueberry/math/polynomial-interpolation.hpp) — **専用verifyドライバあり**
@@ -746,6 +779,13 @@
 - 専用ドライバ: [verify/math/enumerate-primes.test.cpp](../verify/math/enumerate-primes.test.cpp) / [問題](https://judge.yosupo.jp/problem/enumerate_primes)
 - 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
 - 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
+
+## Primitive Root
+
+[blueberry/math/primitive-root.hpp](../blueberry/math/primitive-root.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/math/primitive-root.test.cpp](../verify/math/primitive-root.test.cpp) / [問題](https://judge.yosupo.jp/problem/primitive_root)
+- 関連ローカルテスト: [tests/random/primitive_root.cpp](../tests/random/primitive_root.cpp)
 
 ## Sample Point Shift
 
@@ -774,6 +814,13 @@
 
 - 専用ドライバ: [verify/math/taylor-shift.test.cpp](../verify/math/taylor-shift.test.cpp) / [問題](https://judge.yosupo.jp/problem/polynomial_taylor_shift)
 - 関連ローカルテスト: [tests/random/math_batch_three.cpp](../tests/random/math_batch_three.cpp)
+
+## Tetration Mod
+
+[blueberry/math/tetration-mod.hpp](../blueberry/math/tetration-mod.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/math/tetration-mod.test.cpp](../verify/math/tetration-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/tetration_mod)
+- 関連ローカルテスト: [tests/random/tetration_mod.cpp](../tests/random/tetration_mod.cpp)
 
 ## Aho–Corasick
 

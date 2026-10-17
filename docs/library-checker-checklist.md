@@ -9,7 +9,7 @@
 実行結果は各verifyページと[測定一覧](https://blueberry1001.github.io/Blueberry-library/benchmarks.html)で確認してください。
 ACL推奨は外部ライブラリです。Blueberryの実装数・チェック済み数には含めません。
 
-実装＋verifyあり: 112 / 実装あり・専用verifyなし: 0 / ACL推奨: 7 / 補助verifyのみ: 1 / 未対応: 133
+実装＋verifyあり: 117 / 実装あり・専用verifyなし: 0 / ACL推奨: 7 / 補助verifyのみ: 1 / 未対応: 128
 
 ## Sample
 
@@ -145,7 +145,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 
 ## Number Theory
 
-- [ ] [Bernoulli Number](https://judge.yosupo.jp/problem/bernoulli_number) (`bernoulli_number`): 未対応
+- [x] [Bernoulli Number](https://judge.yosupo.jp/problem/bernoulli_number) (`bernoulli_number`): 実装＋verifyあり — [Bernoulli Numbers](../blueberry/math/bernoulli.hpp), [Formal Power Series](../blueberry/math/formal-power-series.hpp), [verify](../verify/math/bernoulli.test.cpp)
 - [ ] [Counting Primes](https://judge.yosupo.jp/problem/counting_primes) (`counting_primes`): 未対応
 - [ ] [Counting Square-free Integers](https://judge.yosupo.jp/problem/counting_squarefrees) (`counting_squarefrees`): 未対応
 - [x] [Discrete Logarithm](https://judge.yosupo.jp/problem/discrete_logarithm_mod) (`discrete_logarithm_mod`): 実装＋verifyあり — [Discrete Logarithm](../blueberry/math/discrete-log.hpp), [verify](../verify/math/discrete-log.test.cpp)
@@ -158,14 +158,14 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Min of Mod of Linear](https://judge.yosupo.jp/problem/min_of_mod_of_linear) (`min_of_mod_of_linear`): 未対応
 - [ ] [Nim Product ($\\mathbb{F}_{2^{64}}$)](https://judge.yosupo.jp/problem/nim_product_64) (`nim_product_64`): 未対応
 - [x] [Primality Test](https://judge.yosupo.jp/problem/primality_test) (`primality_test`): 実装＋verifyあり — [Factorize](../blueberry/math/factorize.hpp), [verify](../verify/math/primality-test.test.cpp)
-- [ ] [Primitive Root](https://judge.yosupo.jp/problem/primitive_root) (`primitive_root`): 未対応
+- [x] [Primitive Root](https://judge.yosupo.jp/problem/primitive_root) (`primitive_root`): 実装＋verifyあり — [Factorize](../blueberry/math/factorize.hpp), [Primitive Root](../blueberry/math/primitive-root.hpp), [verify](../verify/math/primitive-root.test.cpp)
 - [ ] [Rational Approximation](https://judge.yosupo.jp/problem/rational_approximation) (`rational_approximation`): 未対応
 - [x] [Sqrt Mod](https://judge.yosupo.jp/problem/sqrt_mod) (`sqrt_mod`): 実装＋verifyあり — [Modular Square Root](../blueberry/math/mod-sqrt.hpp), [verify](../verify/math/mod-sqrt.test.cpp)
 - [ ] [Stern–Brocot Tree](https://judge.yosupo.jp/problem/stern_brocot_tree) (`stern_brocot_tree`): 未対応
 - [ ] [Sum of Floor of Linear](https://judge.yosupo.jp/problem/sum_of_floor_of_linear) (`sum_of_floor_of_linear`): ACL推奨 — [ACL](https://atcoder.github.io/ac-library/production/document_en/math.html) — atcoder::floor_sumを利用する。引数の整数範囲を満たすこと。
 - [ ] [Sum of Multiplicative Function(Large)](https://judge.yosupo.jp/problem/sum_of_multiplicative_function_large) (`sum_of_multiplicative_function_large`): 未対応
 - [ ] [Sum of Totient Function](https://judge.yosupo.jp/problem/sum_of_totient_function) (`sum_of_totient_function`): 未対応
-- [ ] [Tetration Mod](https://judge.yosupo.jp/problem/tetration_mod) (`tetration_mod`): 未対応
+- [x] [Tetration Mod](https://judge.yosupo.jp/problem/tetration_mod) (`tetration_mod`): 実装＋verifyあり — [Factorize](../blueberry/math/factorize.hpp), [Tetration Mod](../blueberry/math/tetration-mod.hpp), [verify](../verify/math/tetration-mod.test.cpp)
 - [ ] [Represent A Number As Two Square Sum](https://judge.yosupo.jp/problem/two_square_sum) (`two_square_sum`): 未対応
 
 ## Polynomial
@@ -206,7 +206,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 
 ## Enumerative Combinatorics
 
-- [ ] [Bell Number](https://judge.yosupo.jp/problem/bell_number) (`bell_number`): 未対応
+- [x] [Bell Number](https://judge.yosupo.jp/problem/bell_number) (`bell_number`): 実装＋verifyあり — [Bell Numbers](../blueberry/math/bell.hpp), [Formal Power Series](../blueberry/math/formal-power-series.hpp), [verify](../verify/math/bell.test.cpp)
 - [ ] [Binomial Coefficient](https://judge.yosupo.jp/problem/binomial_coefficient) (`binomial_coefficient`): 未対応
 - [x] [Binomial Coefficient (Prime Mod)](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod) (`binomial_coefficient_prime_mod`): 実装＋verifyあり — [Combinations](../blueberry/math/combinations.hpp), [verify](../verify/math/binomial-coefficient-prime-mod.test.cpp)
 - [ ] [Factorial](https://judge.yosupo.jp/problem/factorial) (`factorial`): 未対応
@@ -214,7 +214,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [x] [Montmort Number](https://judge.yosupo.jp/problem/montmort_number_mod) (`montmort_number_mod`): 実装＋verifyあり — [Montmort Numbers](../blueberry/math/montmort.hpp), [verify](../verify/math/montmort.test.cpp)
 - [ ] [Number of Increasing Sequences Between Two Sequences](https://judge.yosupo.jp/problem/number_of_increasing_sequences_between_two_sequences) (`number_of_increasing_sequences_between_two_sequences`): 未対応
 - [x] [Number of Subsequences ](https://judge.yosupo.jp/problem/number_of_subsequences) (`number_of_subsequences`): 実装＋verifyあり — [Count Subsequences](../blueberry/string/count-subsequences.hpp), [verify](../verify/string/count-subsequences.test.cpp)
-- [ ] [Partition Function](https://judge.yosupo.jp/problem/partition_function) (`partition_function`): 未対応
+- [x] [Partition Function](https://judge.yosupo.jp/problem/partition_function) (`partition_function`): 実装＋verifyあり — [Formal Power Series](../blueberry/math/formal-power-series.hpp), [Partition Function](../blueberry/math/partition.hpp), [verify](../verify/math/partition.test.cpp)
 - [ ] [$q$-Binomial Coefficient (Prime Mod)](https://judge.yosupo.jp/problem/q_binomial_coefficient_prime_mod) (`q_binomial_coefficient_prime_mod`): 未対応
 - [ ] [$\\#_p$ Subset Sum](https://judge.yosupo.jp/problem/sharp_p_subset_sum) (`sharp_p_subset_sum`): 未対応
 - [ ] [Stirling Number of the First Kind](https://judge.yosupo.jp/problem/stirling_number_of_the_first_kind) (`stirling_number_of_the_first_kind`): 未対応
