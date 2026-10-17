@@ -38,8 +38,10 @@ class LiChaoTree {
   }
 
   std::optional<T> query(T x) const {
+#ifndef NDEBUG
     const int position = index(x);
     assert(position < size() && xs_[position] == x);
+#endif
     std::optional<T> answer;
     int node = 1, left = 0, right = size();
     while (left < right) {
@@ -49,7 +51,13 @@ class LiChaoTree {
       }
       if (right - left == 1) break;
       const int middle = left + (right - left) / 2;
-      if (position < middle) {
+#ifndef NDEBUG
+      const bool go_left = position < middle;
+#else
+      // The coordinate lookup and query use the same descent in release builds.
+      const bool go_left = x < xs_[middle];
+#endif
+      if (go_left) {
         node *= 2;
         right = middle;
       } else {
@@ -102,6 +110,14 @@ class LiChaoTree {
     if (begin <= left && right <= end) {
       insert(line, node, left, right);
       return;
+    }
+    if (lines_[node]) {
+      const Line& current = *lines_[node];
+      // Only evaluate inside the segment's support: values outside it may overflow.
+      if (!(line.eval(xs_[std::max(left, begin)]) <
+            current.eval(xs_[std::max(left, begin)])) &&
+          !(line.eval(xs_[std::min(right, end) - 1]) <
+            current.eval(xs_[std::min(right, end) - 1]))) return;
     }
     const int middle = left + (right - left) / 2;
     insert_segment(line, begin, end, node * 2, left, middle);

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// Euler TourとSparseTableで前計算し、各頂点対のLCAをO(1)で求める。
+// DFSの行きがけ順とSparseTableで前計算し、各頂点対のLCAをO(1)で求める。
 
 int main() {
   ios::sync_with_stdio(false);

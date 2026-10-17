@@ -1,0 +1,130 @@
+[
+  {
+    "label": "g++-gnu++20",
+    "command": [
+      "python3",
+      "scripts/check_cpp.py",
+      "random",
+      "tests/random/formal-power-series.cpp",
+      "tests/random/data-structure-expansion.cpp",
+      "--compiler",
+      "g++",
+      "--standard",
+      "gnu++20",
+      "--random-runs",
+      "20"
+    ],
+    "returncode": 0,
+    "seconds": 6.229843268999957
+  },
+  {
+    "label": "g++-gnu++23",
+    "command": [
+      "python3",
+      "scripts/check_cpp.py",
+      "random",
+      "tests/random/formal-power-series.cpp",
+      "tests/random/data-structure-expansion.cpp",
+      "--compiler",
+      "g++",
+      "--standard",
+      "gnu++23",
+      "--random-runs",
+      "20"
+    ],
+    "returncode": 0,
+    "seconds": 5.7522111339999356
+  },
+  {
+    "label": "clang++-gnu++20",
+    "command": [
+      "python3",
+      "scripts/check_cpp.py",
+      "random",
+      "tests/random/formal-power-series.cpp",
+      "tests/random/data-structure-expansion.cpp",
+      "--compiler",
+      "clang++",
+      "--standard",
+      "gnu++20",
+      "--random-runs",
+      "20"
+    ],
+    "returncode": 0,
+    "seconds": 4.353920575000075
+  },
+  {
+    "label": "clang++-gnu++23",
+    "command": [
+      "python3",
+      "scripts/check_cpp.py",
+      "random",
+      "tests/random/formal-power-series.cpp",
+      "tests/random/data-structure-expansion.cpp",
+      "--compiler",
+      "clang++",
+      "--standard",
+      "gnu++23",
+      "--random-runs",
+      "20"
+    ],
+    "returncode": 0,
+    "seconds": 4.342802881000011
+  },
+  {
+    "label": "formal-power-series-sanitizer-compile",
+    "command": [
+      "g++",
+      "-std=gnu++20",
+      "-O1",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-I.",
+      "-isystem",
+      ".deps/ac-library",
+      "tests/random/formal-power-series.cpp",
+      "-o",
+      "/tmp/core-sanitizer-d80uvusg/formal-power-series"
+    ],
+    "returncode": 0,
+    "seconds": 6.242037025000059
+  },
+  {
+    "label": "formal-power-series-sanitizer-run",
+    "command": [
+      "/tmp/core-sanitizer-d80uvusg/formal-power-series",
+      "20261017"
+    ],
+    "returncode": 0,
+    "seconds": 0.06389409299993076
+  },
+  {
+    "label": "data-structure-expansion-sanitizer-compile",
+    "command": [
+      "g++",
+      "-std=gnu++20",
+      "-O1",
+      "-g",
+      "-fsanitize=address,undefined",
+      "-fno-omit-frame-pointer",
+      "-I.",
+      "-isystem",
+      ".deps/ac-library",
+      "tests/random/data-structure-expansion.cpp",
+      "-o",
+      "/tmp/core-sanitizer-d80uvusg/data-structure-expansion"
+    ],
+    "returncode": 0,
+    "seconds": 6.313249149999933
+  },
+  {
+    "label": "data-structure-expansion-sanitizer-run",
+    "command": [
+      "/tmp/core-sanitizer-d80uvusg/data-structure-expansion",
+      "20261017"
+    ],
+    "returncode": 0,
+    "seconds": 0.7415821029999279
+  }
+]

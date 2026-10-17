@@ -33,6 +33,24 @@ int main(int argc, char** argv) {
   assert(!single.query(7));
   single.add_segment(6, 8, 2, 1);
   assert(single.query(7) == 15);
+  // Partial segments must be evaluated only at their registered support points.
+  Tree clipped({low, -2, -1, 0, 1, 2, high});
+  clipped.add_line(0, high);
+  clipped.add_segment(-2, 3, high / 4, 0);
+  for (long long x = -2; x <= 2; ++x) assert(clipped.query(x) == (high / 4) * x);
+  assert(clipped.query(low) == high && clipped.query(high) == high);
+  // Uneven trees and sparse coordinates: the leaf path must find every exact x.
+  for (int n = 1; n <= 65; ++n) {
+    std::vector<long long> xs;
+    for (int i = 0; i < n; ++i) xs.push_back(i * i * 3LL - 7000);
+    Tree sparse(xs);
+    sparse.add_line(0, 100);
+    sparse.add_segment(xs.front(), xs.back() + 1, 0, 100);  // Equal at both ends.
+    for (int i = 0; i < n; ++i) {
+      sparse.add_segment(xs[i], xs[i] + 1, 0, -i);
+      for (int j = 0; j < n; ++j) assert(sparse.query(xs[j]) == (j <= i ? -j : 100));
+    }
+  }
 
   for (int trial = 0; trial < 60; ++trial) {
     const int n = 1 + static_cast<int>(random() % 40);

@@ -139,6 +139,14 @@ class DynamicLiChaoTree {
   int segment(int node, T l, T r, T begin, T end, Line line) {
     if (end <= l || r <= begin) return node;
     if (begin <= l && r <= end) return insert(node, l, r, line);
+    if (node != -1 && nodes_[node].line) {
+      const Line& current = *nodes_[node].line;
+      // A dominating ancestor makes this segment irrelevant throughout the overlap.
+      // Evaluate only in the overlap, where the caller guarantees no overflow.
+      const T first = std::max(l, begin), last = std::min(r, end) - 1;
+      if (!(line.eval(first) < current.eval(first)) &&
+          !(line.eval(last) < current.eval(last))) return node;
+    }
     if (node == -1) node = create();
     const T m = midpoint(l, r);
     const int left = segment(nodes_[node].left, l, m, begin, end, line);

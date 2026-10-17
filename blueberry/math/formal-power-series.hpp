@@ -312,9 +312,15 @@ struct FormalPowerSeries : std::vector<Mint> {
   FPS integral() const {
     assert(this->size() < static_cast<std::size_t>(Mint::mod()));
     FPS result(this->size() + 1);
-    for (int i = 0; i < static_cast<int>(this->size()); ++i) {
-      result[i + 1] = (*this)[i] / Mint(i + 1);
-    }
+    if (this->empty()) return result;
+    // Build inverses in the output buffer, then replace them with coefficients.
+    // For prime mod and 1 < i < mod, inv(i) = -floor(mod/i) * inv(mod%i).
+    result[1] = Mint(1);
+    const int mod = Mint::mod();
+    for (int i = 2; i <= static_cast<int>(this->size()); ++i)
+      result[i] = -result[mod % i] * Mint(mod / i);
+    for (int i = 1; i <= static_cast<int>(this->size()); ++i)
+      result[i] *= (*this)[i - 1];
     return result;
   }
 
