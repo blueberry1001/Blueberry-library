@@ -32,7 +32,7 @@ uf.rollback(saved);
 | Algebra | いろいろなモノイド（区間等差数列加算、affine・二乗和、反転・転倒数、最大部分配列、括弧列、関数合成、最大値と個数） |
 | Data Structure | Sparse Table / Disjoint Sparse Table / Sqrt Tree, Rollback Union Find, Li Chao Tree / Dynamic Li Chao Tree, Wavelet Matrix / Weighted Wavelet Matrix, Offline / Dynamic Fenwick Tree 2D, Dynamic Fenwick Tree, Potential Union Find, Ordered Set / Multiset, Implicit Treap, Persistent Segment Tree, Segment Tree Beats, Binary Trie / Persistent Binary Trie, Aggregate Queue / Deque, Persistent Queue, Static Range Distinct, Rectangle Union Area, Static Range Inversions, Static Range Mode |
 | Graph | Dijkstra, Lowest Common Ancestor, Heavy-Light Decomposition, Low Link, Rerooting DP, Hopcroft–Karp, Biconnected Components, Eulerian Trail, Cartesian Tree, Cycle Detection, Topological Sort, Tree Diameter, Triangle Enumeration, Assignment, Complement Components, Count Spanning Trees, Minimum Spanning Forest, Rooted Tree Isomorphism, Clique Enumeration, Maximum Independent Set |
-| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers, Multipoint Evaluation, Polynomial Interpolation, Sample Point Shift |
+| Math | Formal Power Series, Fraction, Prime Sieve, Factorize, Modular Square Root, Linear Recurrence, Bitwise Convolution, Subset Convolution, Matrix, Divisor Convolution, Enumerate Quotients, Kth Root Integer, Discrete Logarithm, Longest Increasing Subsequence, Polynomial Taylor Shift, Polynomial Product, Stirling Numbers Second Kind, Montmort Numbers, Multipoint Evaluation, Polynomial Interpolation, Sample Point Shift, Primitive Root, Tetration Mod, Bernoulli Numbers, Bell Numbers, Partition Function |
 | String | Manacher, Aho–Corasick, Eertree, Lyndon Factorization, Prefix Function / KMP, Count Subsequences, Longest Common Substring |
 | Utility | Fast I/O（整数・128bit・文字列・浮動小数点、通常ファイル・pipe・対話入力） |
 
@@ -81,6 +81,9 @@ uf.rollback(saved);
 | 全辺を一度ずつ通る経路 | [Eulerian Trail](docs/graph/eulerian-trail.md): `exists`, `vertices`, `edges` |
 | 64bit素数判定・素因数分解 | [Factorize](docs/math/factorize.md): `is_prime`, `factorize` |
 | 素数modの平方根 | [Mod Sqrt](docs/math/mod-sqrt.md): `mod_sqrt` |
+| 64bit素数の原始根 | [Primitive Root](docs/math/primitive-root.md): `primitive_root` |
+| 冪塔の剰余 | [Tetration Mod](docs/math/tetration-mod.md): `tetration_mod` |
+| Bernoulli数・Bell数・整数分割数の列 | [Bernoulli](docs/math/bernoulli.md): `bernoulli` / [Bell](docs/math/bell.md): `bell` / [Partition](docs/math/partition.md): `partition` |
 | 漸化式の推定と遠い項 | [Linear Recurrence](docs/math/linear-recurrence.md): `berlekamp_massey`, `linear_recurrence_kth` |
 | 分数の厳密な比較・四則演算 | [Fraction](docs/math/fraction.md): `num`, `den`, `+`, `-`, `*`, `/` |
 | 複数パターンの出現数 | [Aho–Corasick](docs/string/aho-corasick.md): `add` → `build` → `count` |
