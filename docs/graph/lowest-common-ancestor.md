@@ -35,7 +35,7 @@ documentation_of: //blueberry/graph/lowest-common-ancestor.hpp
 
 ## 概要・前提 {#概要前提}
 
-- RMQ版はEuler Tourと`SparseTable`を使います。
+- RMQ版はDFSの行きがけ順で各頂点の親の訪問順番号を並べ、`SparseTable`で最小値を求めます。
 
 ## 操作の補足 {#操作の補足}
 
@@ -172,7 +172,7 @@ int n = lca.size();
 <details class="api-operation" id="construct-rmq" markdown="1">
 <summary><code>LowestCommonAncestorRMQ lca(tree, root = 0)</code> — O(N log N)</summary>
 
-長さ `2N-1` の Euler Tour と、深さ最小値を取る Sparse Table を構築します。メモリは O(N log N) です。
+DFSの行きがけ順で各頂点の親の訪問順番号を並べ、長さNの列に最小値を取るSparse Tableを構築します。メモリはO(N log N)です。
 
 {% raw %}
 ```cpp
@@ -187,7 +187,7 @@ blueberry::LowestCommonAncestorRMQ lca(tree, 0);
 <details class="api-operation" id="lca-rmq" markdown="1">
 <summary><code>int lca.lca(u, v) const</code> — O(1)</summary>
 
-Euler Tour上の初回出現区間に対するRMQでLCAを返します。
+DFSの行きがけ順で2頂点の間にある親の訪問順番号の最小値からLCAを返します。同じ頂点を渡すとその頂点を返します。
 
 {% raw %}
 ```cpp
@@ -249,8 +249,9 @@ int n = lca.size();
 
 ## 出典・検証 {#出典検証}
 
-Euler Tour上で隣接要素の深さ差が1になる標準的なLCA→RMQ帰着を、既存の
-`blueberry::SparseTable` と組み合わせて独自実装しています。
+DFSの行きがけ順に並べた親の訪問順番号のminを使うLCA→RMQ帰着を、既存の
+`blueberry::SparseTable`と組み合わせて反復DFSで実装しています。
+同じ帰着は[KACTL LCA.h](https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/LCA.h)にも記載されています（CC0、folklore）。
 Library Checker `Lowest Common Ancestor` でダブリング版・RMQ版を検証し、ランダム木では愚直LCAと比較しています。
 
 </details>

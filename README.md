@@ -127,7 +127,7 @@ FPS固有のNewton反復だけをBlueberry側で提供します。
 FPSを使う場合は、ACLの `atcoder/` ヘッダをインクルードパスに配置してください。
 GitHub Actionsでは公式ACLを取得してから検証します。
 
-LCA が大量に必要な場合は `LowestCommonAncestorRMQ`（Euler tour + Sparse Table、クエリ O(1)）を、
+LCA が大量に必要な場合は `LowestCommonAncestorRMQ`（DFSの行きがけ順 + Sparse Table、クエリ O(1)）を、
 部分木・パスクエリには `HeavyLightDecomposition` を利用できます。後者は ACL の `segtree` / `lazy_segtree`
 を分解配列の区間に適用する設計です。
 

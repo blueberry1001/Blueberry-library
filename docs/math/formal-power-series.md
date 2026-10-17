@@ -20,19 +20,20 @@ Nは対象の項数（inv/expなどでは要求項数）、二項演算のMは�
 | [`f +=/-= g`, `f + g`, `f - g`, `-f`](#add-sub) | O(max(N, M)) |
 | [`f *= g`, `f * g`](#multiply) | O(M(N+M)) |
 | [`f /= g`, `f / g`, `f %= g`, `f % g`, `f.div_mod`](#divide) | O(M(N+M)) |
-| [`f.diff`, `f.integral`](#calculus) | O(N) / O(N log mod) |
+| [`f.diff()`](#calculus) | O(N) |
+| [`f.integral()`](#integral) | O(N) |
 | [`f.inv`](#inv) | O(M(N)) |
 | [`f.log`](#log) | O(M(N)) |
 | [`f.sqrt`, `f.sqrt_with`](#sqrt) | O(M(N) log N) |
 | [`f.exp`](#exp) | O(M(N) log N) |
 | [`f.pow`](#pow) | O(M(N) log N) |
-| [`f.eval`, `f`](#eval) | O(N) |
 
 <details class="extra-operations" markdown="1">
 <summary>その他の操作・型</summary>
 
 | 操作 | 計算量 |
 | --- | --- |
+| [`f.eval`, `f`](#eval) | O(N) |
 | [`f.shrink`](#shrink) | 償却 O(N) |
 | [`f +=/-= scalar`, `f + scalar`, `f - scalar`](#scalar-add-sub) | O(1) / O(N) |
 | [`f *= scalar`, `f /= scalar`, `f * scalar`, `f / scalar`](#scalar) | O(N) |
@@ -326,19 +327,38 @@ f.divide(3, mint(-1));
 </details>
 
 <details class="api-operation" id="calculus" markdown="1">
-<summary><code>f.diff() / f.integral()</code> — O(N) / O(N log mod)</summary>
+<summary><code>f.diff()</code> — O(N)</summary>
 
-形式微分と形式積分を計算します。`integral` の定数項は0です。
+形式微分を新しいFPSとして返します。元の級数は変更しません。
 
 {% raw %}
 ```cpp
 fps derivative = f.diff();
-fps antiderivative = derivative.integral();
 ```
 {% endraw %}
 
-注意点: `integral` は `1,2,...,N` の逆元を個別に求めるため O(N log mod)、
-保持項数はmodulus未満でなければなりません。微分は空または定数級数から空級数、空級数の積分は `{0}` を返します。
+注意点: 空または定数級数の微分は空級数です。出力のメモリはO(N)です。
+
+</details>
+
+<details class="api-operation" id="integral" markdown="1">
+<summary><code>fps f.integral()</code> — O(N)</summary>
+
+定数項が0の形式積分を新しいFPSとして返します。入力の保持項数をNとすると、
+出力はN+1項で、`result[i+1] = f[i] / Mint(i+1)`です。
+元の級数やその参照・イテレータは変更しません。
+
+{% raw %}
+```cpp
+fps antiderivative = fps{2, 4}.integral();
+assert((antiderivative == fps{0, 2, 2}));
+assert((fps{}.integral() == fps{0}));
+```
+{% endraw %}
+
+注意点: Mintは素数modulusのACL `static_modint`、Nはmodulus未満が前提です。
+逆元の漸化式を使い、O(N)時間・出力を含めO(N)メモリで計算します。
+空級数の積分は`{0}`です。計算はmodulus上で行い、整数の積分値や浮動小数点数は扱いません。
 
 </details>
 

@@ -88,6 +88,27 @@ int main(int argc, char** argv) {
   check("empty sparse multiplication", {1, 2}, {}, fps{1, 2} * fps::Sparse{});
   check("empty sparse division", {}, {}, fps{} / fps::Sparse{{0, 1}});
 
+  // Integration must retain zero coefficients: its temporary inverse table
+  // cannot be overwritten by coefficients before later inverses are computed.
+  check("empty integral", {}, {0}, fps{}.integral());
+  check("zero integral", {0, 0, 0, 0}, {0, 0, 0, 0, 0}, fps{0, 0, 0, 0}.integral());
+  using small_mint = atcoder::static_modint<17>;
+  using small_fps = blueberry::FPS<small_mint>;
+  for (int n = 0; n < 17; ++n) {
+    small_fps source(n), expected(n + 1);
+    for (int i = 0; i < n; ++i) {
+      source[i] = rng() % 17;
+      expected[i + 1] = source[i] / small_mint(i + 1);
+    }
+    if (source.integral() != expected) {
+      cerr << "seed=" << seed << " operation=small-mod integral n=" << n << '\n';
+      for (auto x : source) cerr << " input=" << x.val();
+      for (auto x : expected) cerr << " expected=" << x.val();
+      for (auto x : source.integral()) cerr << " actual=" << x.val();
+      return 1;
+    }
+  }
+
   // Include both sides of the quadratic/NTT inverse threshold and power-of-two
   // transform boundaries; compare against independent quadratic recurrences.
   for (int n : {0, 1, 2, 3, 7, 16, 31, 32, 63, 64, 65, 127, 128, 129}) {
@@ -95,6 +116,10 @@ int main(int argc, char** argv) {
       fps a(max(1, n)), b(max(1, n / 2 + 1));
       for (mint& x : a) x = rng() % 100;
       for (mint& x : b) x = rng() % 100;
+      fps integrated(a.size() + 1);
+      for (int i = 0; i < static_cast<int>(a.size()); ++i)
+        integrated[i + 1] = a[i] / mint(i + 1);
+      check("integral", a, integrated, a.integral());
       a[0] = 1 + rng() % 100;
       b.back() = 1 + rng() % 100;
       check("inverse", a, inverse(a, n), a.inv(n));

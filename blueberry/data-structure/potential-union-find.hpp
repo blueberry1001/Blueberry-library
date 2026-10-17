@@ -26,6 +26,8 @@ class PotentialUnionFind {
     check(v);
     if (parent_[v] < 0) return v;
     int p = parent_[v];
+    // Already relative to the root: composing its identity changes nothing.
+    if (parent_[p] < 0) return p;
     int root = leader(p);
     weight_[v] = op_(weight_[p], weight_[v]);
     return parent_[v] = root;

@@ -340,6 +340,7 @@
 - 間接利用: [verify/graph/lowest-common-ancestor-rmq.test.cpp](../verify/graph/lowest-common-ancestor-rmq.test.cpp) / [問題](https://judge.yosupo.jp/problem/lca)
 - 間接利用: [verify/graph/lowest-common-ancestor.test.cpp](../verify/graph/lowest-common-ancestor.test.cpp) / [問題](https://judge.yosupo.jp/problem/lca)
 - 関連ローカルテスト: [tests/data_structure_random_test.cpp](../tests/data_structure_random_test.cpp)
+- 関連ローカルテスト: [tests/random/lca-boundary.cpp](../tests/random/lca-boundary.cpp)
 - 関連ローカルテスト: [tests/tree_random.cpp](../tests/tree_random.cpp)
 
 ## Splay Slope Trick
@@ -549,6 +550,7 @@
 
 - 専用ドライバ: [verify/graph/lowest-common-ancestor-rmq.test.cpp](../verify/graph/lowest-common-ancestor-rmq.test.cpp) / [問題](https://judge.yosupo.jp/problem/lca)
 - 専用ドライバ: [verify/graph/lowest-common-ancestor.test.cpp](../verify/graph/lowest-common-ancestor.test.cpp) / [問題](https://judge.yosupo.jp/problem/lca)
+- 関連ローカルテスト: [tests/random/lca-boundary.cpp](../tests/random/lca-boundary.cpp)
 - 関連ローカルテスト: [tests/tree_random.cpp](../tests/tree_random.cpp)
 
 ## Maximum Independent Set
