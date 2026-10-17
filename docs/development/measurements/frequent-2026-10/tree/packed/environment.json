@@ -1,0 +1,47 @@
+{
+  "baseline_revision": "d6af3e9",
+  "utc": "2026-10-17T05:26:18Z",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpuinfo": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 183\nmodel name\t: Intel(R) Core(TM) i7-14650HX\nstepping\t: 1\nmicrocode\t: 0xffffffff\ncpu MHz\t\t: 2419.198\ncache size\t: 30720 KB\nphysical id\t: 0\nsiblings\t: 24\ncore id\t\t: 0\ncpu cores\t: 12\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nvmx flags\t: vnmi invvpid ept_x_only ept_ad ept_1gb tsc_offset vtpr ept vpid unrestricted_guest ept_mode_based_exec tsc_scaling usr_wait_pause\nbugs\t\t: spectre_v1 spectre_v2 spec_store_bypass swapgs retbleed eibrs_pbrsb rfds bhi\nbogomips\t: 4838.39\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 39 bits physical, 48 bits virtual\npower management:",
+  "cpu_affinity": 0,
+  "profiles": {
+    "gcc-release": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "gcc-assert": [
+      "g++",
+      "-std=gnu++20",
+      "-O2"
+    ],
+    "clang-release": [
+      "clang++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ]
+  },
+  "compiler_versions": {
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n",
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  "sources": {
+    "docs/development/measurements/frequent-2026-10/tree/benchmark.cpp": "ee5da2c6843996d678aec445bdc7ae8de3b92172e2ac04c217797954effaa73f",
+    "docs/development/measurements/frequent-2026-10/tree/run.py": "9513dc477416ddde18e561f912607a34e60a4e58df0060b9ec690dd039e1c5fb",
+    "docs/development/measurements/frequent-2026-10/tree/sparse-table-baseline.hpp": "92dde23f0b59ed3577d147d6b052c5f303afff43f05553380c5e2ab3359de703",
+    "docs/development/measurements/frequent-2026-10/tree/baseline.hpp": "9fdac79e279ccbeac84a088d56a8411e9258c5003ec606cceadcf8a5405ef93c",
+    "docs/development/measurements/frequent-2026-10/tree/candidate.hpp": "f1003a824f44b39ff8dc07f3dec4782086ac01d6c9183bd0bfb66dc4e6d68bf7",
+    "docs/development/measurements/frequent-2026-10/tree/packed.hpp": "88ce6fdeda382c61eae35ff33ec49db485f5bb2cfa6a7a5ca3a0008d86a06bca"
+  },
+  "n": 200000,
+  "q": 500000,
+  "seed": 20261017,
+  "repeats": 5,
+  "warmups": 1,
+  "order": "shuffle configurations each round with seed 917; all serial",
+  "scope": "construction excludes tree/query generation; query loop includes checksum; no input parsing/output formatting in timed sections",
+  "memory": "peak process RSS includes identical tree/query inputs and runtime; not a table-only allocation measurement",
+  "dependency": "SparseTable fixed to d6af3e9 in every variant"
+}
