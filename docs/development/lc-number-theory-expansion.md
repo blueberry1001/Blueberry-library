@@ -56,9 +56,9 @@ ACLは既存の固定版を使っています。コンパイル・random testは
 147件中1件がtimeoutしました。この結果は成功扱いにせず、Linux上で全件を再実行しています。
 初回のGit環境変数の引き継ぎによるテスト失敗も別ログに残し、環境変数を解除して再実行しました。
 
-公式検証と公開用AC記録は、コミット済みのLFソースを使います。
-既存分を含む全148本の1反復と、新規5本の3反復は別の実行として記録し、
-異なる反復数・ソース状態の時間を混ぜません。新規5本の公式ケースは計66件です。
+新規5本は公式ケース計66件をローカルで各3反復し、すべて成功しました。
+ローカルで開始した全148本のverifyは未完了であり、全体成功の根拠には使いません。
+異なる反復数・ソース状態の時間を混ぜません。
 
 mainへ入った[既存ライブラリの性能改善PR #47](https://github.com/blueberry1001/Blueberry-library/pull/47)を取り込んだ後、
 `fps_sequences`と既存FPSのrandom testをGCC / Clang × gnu++20 / gnu++23で再実行し、
@@ -67,6 +67,13 @@ mainへ入った[既存ライブラリの性能改善PR #47](https://github.com/
 
 初回の[PR #48のCI](https://github.com/blueberry1001/Blueberry-library/actions/runs/39009203173)では、
 コンパイラ4構成と選択した公式verify・文書検査が成功しました。
-全148本の実行結果、main取り込み後の最終CI、公開確認は
+main取り込み後の[CI](https://github.com/blueberry1001/Blueberry-library/actions/runs/39009995996)は、
+追加5本・一括入口1本・性能改善関連16本の計22本を選択してすべて成功しました。
+残る126本は依存関係と内容が一致する既存のAC記録を保持し、再実行していません。
+選択理由は「新規・変更された依存先、または有効なAC記録がない対象」です。
+全体の再実行は行わず、以後も変更・影響範囲に応じたverifyを使います。
+最終CIと公開確認は
 [PR #48](https://github.com/blueberry1001/Blueberry-library/pull/48)の検証結果を参照してください。
-ローカルの実行ログとソースに紐づくAC記録は`.verification/linux-validation`へ保存します。
+CIの選択記録とソースに紐づくAC記録は、Actions artifactの`ci-plan`と
+`verification-metrics`に保存されています。取得した写しは`.verification/final-ci-plan`と
+`.verification/final-ci-metrics`に置いています。
