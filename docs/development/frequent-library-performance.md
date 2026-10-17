@@ -97,3 +97,29 @@ GCCのassert有効時も別に測定し、結果を各分野の生ログに保�
   それらを今回の高速化の成果とは扱わない。
 
 分布・compiler・assert設定別の最小値、全試行、棄却理由は測定ディレクトリを参照する。
+
+## 正しさと公開前確認
+
+`make check`が成功した。unit 147件、106ライブラリ文書と107 C++実行例、
+106ヘッダと143 verifyドライバのcompile、乱択50プログラム×20seedを含む。
+変更箇所はGCC/Clang・gnu++20/23の個別検証とサニタイザでも確認した。
+
+`-DNDEBUG`の単独・重複includeは106ヘッダで成功した。
+元checkoutのignoredなroot `atcoder/`がシステムヘッダ指定より先に見つかるため、
+同じbytesの検証用コピーを作り、本体は通常のinclude、ACLだけを`-isystem`として確認した。
+全111入力ファイルのhash一致も記録した。本体の警告を抑制する変更は加えていない。
+
+影響する17ドライバの公式ケースは、計354件すべてがACになった。
+同じ問題を別ドライバで確認した分も別に数える。
+このローカルrunはcommit前の作業ツリーから開始したためrevision欄は`d6af3e9`だが、
+変更5ヘッダの開始時・終了時hashと全verifier hashを照合し、実装したコードの検証であることを確認した。
+他の検証と並列実行しているため、この公式runの時間は性能比較に使わない。
+
+`make docs`も成功した。初回の生成カタログの更新漏れ、FPS操作一覧の行数超過、
+ACLの解決経路によるrelease警告は、原ログと対処を保持して再実行した。
+[検証記録とhash監査](https://github.com/blueberry1001/Blueberry-library/tree/main/docs/development/measurements/frequent-2026-10/validation)を参照する。
+
+リポジトリ全体の追加verifyは`VERIFY_REPEATS=1 VERIFY_TIMEOUT=900`で実行し、
+完了範囲・未実行・失敗を区別する。最終の実行結果、CI、Jekyllとサイト確認は
+[PR #47](https://github.com/blueberry1001/Blueberry-library/pull/47)に記録する。
+未実行をACや0秒として扱わず、全対象の全面的な性能比較が終わったとは主張しない。
