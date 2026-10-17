@@ -1,0 +1,3224 @@
+{
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "flags": [
+    "-std=gnu++20",
+    "-O2",
+    "-DNDEBUG"
+  ],
+  "seed": 1961338640,
+  "count": 5000,
+  "runs": 3,
+  "compilers": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)"
+  },
+  "results": [
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "Euler/trial",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.06375713799997129,
+          "max_rss_kib": 4144,
+          "parse": 0.000193063,
+          "core": 0.05641731,
+          "format": 0.000115703,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.06462626500001534,
+          "max_rss_kib": 4212,
+          "parse": 0.00019037,
+          "core": 0.056217963,
+          "format": 6.8242e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.06340656900005115,
+          "max_rss_kib": 4028,
+          "parse": 0.000193024,
+          "core": 0.057033248,
+          "format": 6.6124e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.06375713799997129,
+      "e2e_min": 0.06340656900005115,
+      "core_median": 0.05641731,
+      "core_min": 0.056217963,
+      "parse_median": 0.000193024,
+      "parse_min": 0.00019037,
+      "format_median": 6.8242e-05,
+      "format_min": 6.6124e-05,
+      "max_rss_kib_median": 4144,
+      "max_rss_kib_min": 4028
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "Euler/factorize",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.07606311699998969,
+          "max_rss_kib": 4124,
+          "parse": 0.000384472,
+          "core": 0.03746798,
+          "format": 5.7774e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.0525807359999817,
+          "max_rss_kib": 4164,
+          "parse": 0.000199106,
+          "core": 0.037517068,
+          "format": 6.4521e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04444142700003795,
+          "max_rss_kib": 4052,
+          "parse": 0.000204619,
+          "core": 0.037752847,
+          "format": 7.2567e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.0525807359999817,
+      "e2e_min": 0.04444142700003795,
+      "core_median": 0.037517068,
+      "core_min": 0.03746798,
+      "parse_median": 0.000204619,
+      "parse_min": 0.000199106,
+      "format_median": 6.4521e-05,
+      "format_min": 5.7774e-05,
+      "max_rss_kib_median": 4124,
+      "max_rss_kib_min": 4052
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "gcd/factorize",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.03489927399999715,
+          "max_rss_kib": 4060,
+          "parse": 0.000623118,
+          "core": 0.028836889,
+          "format": 7.4033e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.049335697999993045,
+          "max_rss_kib": 4068,
+          "parse": 0.000184194,
+          "core": 0.027570722,
+          "format": 7.0653e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03276796399995874,
+          "max_rss_kib": 4040,
+          "parse": 0.000201638,
+          "core": 0.026935506,
+          "format": 7.0391e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.03489927399999715,
+      "e2e_min": 0.03276796399995874,
+      "core_median": 0.027570722,
+      "core_min": 0.026935506,
+      "parse_median": 0.000201638,
+      "parse_min": 0.000184194,
+      "format_median": 7.0653e-05,
+      "format_min": 7.0391e-05,
+      "max_rss_kib_median": 4060,
+      "max_rss_kib_min": 4040
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "gcd/trial",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.08015004500003897,
+          "max_rss_kib": 4292,
+          "parse": 0.000234718,
+          "core": 0.04853945,
+          "format": 6.0227e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.09815707599994994,
+          "max_rss_kib": 4040,
+          "parse": 0.000221998,
+          "core": 0.049360893,
+          "format": 7.5237e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.11800291700001253,
+          "max_rss_kib": 4168,
+          "parse": 0.000536447,
+          "core": 0.049405056,
+          "format": 6.7066e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.09815707599994994,
+      "e2e_min": 0.08015004500003897,
+      "core_median": 0.049360893,
+      "core_min": 0.04853945,
+      "parse_median": 0.000234718,
+      "parse_min": 0.000221998,
+      "format_median": 6.7066e-05,
+      "format_min": 6.0227e-05,
+      "max_rss_kib_median": 4168,
+      "max_rss_kib_min": 4040
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "Fastest/150339",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.02427847000001293,
+          "max_rss_kib": 1912
+        },
+        {
+          "e2e": 0.04360661599997684,
+          "max_rss_kib": 1972
+        },
+        {
+          "e2e": 0.024872153000046637,
+          "max_rss_kib": 1944
+        }
+      ],
+      "e2e_median": 0.024872153000046637,
+      "e2e_min": 0.02427847000001293,
+      "max_rss_kib_median": 1944,
+      "max_rss_kib_min": 1912
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "Fastest/108768",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.022554260000049453,
+          "max_rss_kib": 4724
+        },
+        {
+          "e2e": 0.024527856000020165,
+          "max_rss_kib": 4736
+        },
+        {
+          "e2e": 0.022855248000041684,
+          "max_rss_kib": 4696
+        }
+      ],
+      "e2e_median": 0.022855248000041684,
+      "e2e_min": 0.022554260000049453,
+      "max_rss_kib_median": 4724,
+      "max_rss_kib_min": 4696
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "Fastest/405835",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.05787472499997648,
+          "max_rss_kib": 3784
+        },
+        {
+          "e2e": 0.1317449770000394,
+          "max_rss_kib": 3644
+        },
+        {
+          "e2e": 0.05543228200002659,
+          "max_rss_kib": 3784
+        }
+      ],
+      "e2e_median": 0.05787472499997648,
+      "e2e_min": 0.05543228200002659,
+      "max_rss_kib_median": 3784,
+      "max_rss_kib_min": 3644
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "Fastest/150339-normalized",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.06633781199997202,
+          "max_rss_kib": 1832
+        },
+        {
+          "e2e": 0.08373175099995933,
+          "max_rss_kib": 1944
+        },
+        {
+          "e2e": 0.06460536700001285,
+          "max_rss_kib": 1896
+        }
+      ],
+      "e2e_median": 0.06633781199997202,
+      "e2e_min": 0.06460536700001285,
+      "max_rss_kib_median": 1896,
+      "max_rss_kib_min": 1832
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "Euler/trial",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.3418297020000409,
+          "max_rss_kib": 4096,
+          "parse": 0.000180954,
+          "core": 0.335394135,
+          "format": 7.6113e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.3682281789999706,
+          "max_rss_kib": 4096,
+          "parse": 0.000232741,
+          "core": 0.352205934,
+          "format": 7.7606e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.502058164999994,
+          "max_rss_kib": 4096,
+          "parse": 0.000356529,
+          "core": 0.335462723,
+          "format": 7.3752e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.3682281789999706,
+      "e2e_min": 0.3418297020000409,
+      "core_median": 0.335462723,
+      "core_min": 0.335394135,
+      "parse_median": 0.000232741,
+      "parse_min": 0.000180954,
+      "format_median": 7.6113e-05,
+      "format_min": 7.3752e-05,
+      "max_rss_kib_median": 4096,
+      "max_rss_kib_min": 4096
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "Euler/factorize",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.1002513850000355,
+          "max_rss_kib": 4184,
+          "parse": 0.000531129,
+          "core": 0.036005647,
+          "format": 6.4688e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.13480779100001428,
+          "max_rss_kib": 4064,
+          "parse": 0.000280265,
+          "core": 0.034988854,
+          "format": 5.9371e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.10026183200000105,
+          "max_rss_kib": 4144,
+          "parse": 0.000392431,
+          "core": 0.035982173,
+          "format": 6.7674e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.10026183200000105,
+      "e2e_min": 0.1002513850000355,
+      "core_median": 0.035982173,
+      "core_min": 0.034988854,
+      "parse_median": 0.000392431,
+      "parse_min": 0.000280265,
+      "format_median": 6.4688e-05,
+      "format_min": 5.9371e-05,
+      "max_rss_kib_median": 4144,
+      "max_rss_kib_min": 4064
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "gcd/factorize",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.07446914100000868,
+          "max_rss_kib": 4064,
+          "parse": 0.000289338,
+          "core": 0.023779903,
+          "format": 6.2724e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.02818878299996186,
+          "max_rss_kib": 4064,
+          "parse": 0.000175894,
+          "core": 0.022475276,
+          "format": 6.408e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.029697854999994888,
+          "max_rss_kib": 4068,
+          "parse": 0.000189369,
+          "core": 0.023008586,
+          "format": 7.0567e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.029697854999994888,
+      "e2e_min": 0.02818878299996186,
+      "core_median": 0.023008586,
+      "core_min": 0.022475276,
+      "parse_median": 0.000189369,
+      "parse_min": 0.000175894,
+      "format_median": 6.408e-05,
+      "format_min": 6.2724e-05,
+      "max_rss_kib_median": 4064,
+      "max_rss_kib_min": 4064
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "gcd/trial",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.3409943590000353,
+          "max_rss_kib": 4100,
+          "parse": 0.000190484,
+          "core": 0.3352029,
+          "format": 8.0567e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.3414128390000428,
+          "max_rss_kib": 4000,
+          "parse": 0.000205995,
+          "core": 0.331091723,
+          "format": 8.1392e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.3454410289999714,
+          "max_rss_kib": 4080,
+          "parse": 0.00023852,
+          "core": 0.331534779,
+          "format": 7.5128e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.3414128390000428,
+      "e2e_min": 0.3409943590000353,
+      "core_median": 0.331534779,
+      "core_min": 0.331091723,
+      "parse_median": 0.000205995,
+      "parse_min": 0.000190484,
+      "format_median": 8.0567e-05,
+      "format_min": 7.5128e-05,
+      "max_rss_kib_median": 4080,
+      "max_rss_kib_min": 4000
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "Fastest/150339",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.03948662400000558,
+          "max_rss_kib": 1940
+        },
+        {
+          "e2e": 0.04587814699999626,
+          "max_rss_kib": 1912
+        },
+        {
+          "e2e": 0.03462650200003736,
+          "max_rss_kib": 1912
+        }
+      ],
+      "e2e_median": 0.03948662400000558,
+      "e2e_min": 0.03462650200003736,
+      "max_rss_kib_median": 1912,
+      "max_rss_kib_min": 1912
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "Fastest/108768",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.030243737000034798,
+          "max_rss_kib": 4676
+        },
+        {
+          "e2e": 0.028749975999971866,
+          "max_rss_kib": 4724
+        },
+        {
+          "e2e": 0.03277523200000587,
+          "max_rss_kib": 4628
+        }
+      ],
+      "e2e_median": 0.030243737000034798,
+      "e2e_min": 0.028749975999971866,
+      "max_rss_kib_median": 4676,
+      "max_rss_kib_min": 4628
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "Fastest/405835",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.04631128099998705,
+          "max_rss_kib": 3588
+        },
+        {
+          "e2e": 0.049352262000013525,
+          "max_rss_kib": 3660
+        },
+        {
+          "e2e": 0.03478739500002348,
+          "max_rss_kib": 3812
+        }
+      ],
+      "e2e_median": 0.04631128099998705,
+      "e2e_min": 0.03478739500002348,
+      "max_rss_kib_median": 3660,
+      "max_rss_kib_min": 3588
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "Fastest/150339-normalized",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.044907338000029995,
+          "max_rss_kib": 1892
+        },
+        {
+          "e2e": 0.036861579999992955,
+          "max_rss_kib": 1884
+        },
+        {
+          "e2e": 0.06335843100004013,
+          "max_rss_kib": 1896
+        }
+      ],
+      "e2e_median": 0.044907338000029995,
+      "e2e_min": 0.036861579999992955,
+      "max_rss_kib_median": 1892,
+      "max_rss_kib_min": 1884
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "Euler/trial",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.049909169999978076,
+          "max_rss_kib": 4044,
+          "parse": 0.000410556,
+          "core": 0.006985854,
+          "format": 3.442e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.026300133999995978,
+          "max_rss_kib": 4092,
+          "parse": 0.000232886,
+          "core": 0.006291504,
+          "format": 3.8209e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.02284843099999989,
+          "max_rss_kib": 4140,
+          "parse": 0.000259893,
+          "core": 0.00591213,
+          "format": 3.5921e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.026300133999995978,
+      "e2e_min": 0.02284843099999989,
+      "core_median": 0.006291504,
+      "core_min": 0.00591213,
+      "parse_median": 0.000259893,
+      "parse_min": 0.000232886,
+      "format_median": 3.5921e-05,
+      "format_min": 3.442e-05,
+      "max_rss_kib_median": 4092,
+      "max_rss_kib_min": 4044
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "Euler/factorize",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.03718790199997102,
+          "max_rss_kib": 4168,
+          "parse": 0.000733524,
+          "core": 0.014586905,
+          "format": 3.5409e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.02443249600003128,
+          "max_rss_kib": 4000,
+          "parse": 0.000195779,
+          "core": 0.010130242,
+          "format": 2.8508e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.024853867999979684,
+          "max_rss_kib": 4096,
+          "parse": 0.000214991,
+          "core": 0.010119205,
+          "format": 2.4978e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.024853867999979684,
+      "e2e_min": 0.02443249600003128,
+      "core_median": 0.010130242,
+      "core_min": 0.010119205,
+      "parse_median": 0.000214991,
+      "parse_min": 0.000195779,
+      "format_median": 2.8508e-05,
+      "format_min": 2.4978e-05,
+      "max_rss_kib_median": 4096,
+      "max_rss_kib_min": 4000
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "gcd/factorize",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.02819477299999562,
+          "max_rss_kib": 4096,
+          "parse": 0.000205478,
+          "core": 0.000311834,
+          "format": 2.1899e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03349461200002679,
+          "max_rss_kib": 4000,
+          "parse": 0.000238305,
+          "core": 0.000330963,
+          "format": 2.3395e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.01836030099997288,
+          "max_rss_kib": 3996,
+          "parse": 0.000238002,
+          "core": 0.000352964,
+          "format": 2.6968e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.02819477299999562,
+      "e2e_min": 0.01836030099997288,
+      "core_median": 0.000330963,
+      "core_min": 0.000311834,
+      "parse_median": 0.000238002,
+      "parse_min": 0.000205478,
+      "format_median": 2.3395e-05,
+      "format_min": 2.1899e-05,
+      "max_rss_kib_median": 4000,
+      "max_rss_kib_min": 3996
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "gcd/trial",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.041225556999961555,
+          "max_rss_kib": 3996,
+          "parse": 0.000226447,
+          "core": 0.000346754,
+          "format": 2.4567e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04748235299996395,
+          "max_rss_kib": 4100,
+          "parse": 0.000369968,
+          "core": 0.00031465,
+          "format": 2.2527e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.024272173999975166,
+          "max_rss_kib": 4256,
+          "parse": 0.00021093,
+          "core": 0.000294095,
+          "format": 2.1829e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.041225556999961555,
+      "e2e_min": 0.024272173999975166,
+      "core_median": 0.00031465,
+      "core_min": 0.000294095,
+      "parse_median": 0.000226447,
+      "parse_min": 0.00021093,
+      "format_median": 2.2527e-05,
+      "format_min": 2.1829e-05,
+      "max_rss_kib_median": 4100,
+      "max_rss_kib_min": 3996
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "Fastest/150339",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.025243955000007645,
+          "max_rss_kib": 1980
+        },
+        {
+          "e2e": 0.02649460300000328,
+          "max_rss_kib": 1932
+        },
+        {
+          "e2e": 0.01897412300002088,
+          "max_rss_kib": 1968
+        }
+      ],
+      "e2e_median": 0.025243955000007645,
+      "e2e_min": 0.01897412300002088,
+      "max_rss_kib_median": 1968,
+      "max_rss_kib_min": 1932
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "Fastest/108768",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.02519044699999995,
+          "max_rss_kib": 4652
+        },
+        {
+          "e2e": 0.026845420000029208,
+          "max_rss_kib": 4624
+        },
+        {
+          "e2e": 0.026106448000007276,
+          "max_rss_kib": 4620
+        }
+      ],
+      "e2e_median": 0.026106448000007276,
+      "e2e_min": 0.02519044699999995,
+      "max_rss_kib_median": 4624,
+      "max_rss_kib_min": 4620
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "Fastest/405835",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.02424562200002356,
+          "max_rss_kib": 3828
+        },
+        {
+          "e2e": 0.02477800499997329,
+          "max_rss_kib": 3584
+        },
+        {
+          "e2e": 0.020661666000023615,
+          "max_rss_kib": 3656
+        }
+      ],
+      "e2e_median": 0.02424562200002356,
+      "e2e_min": 0.020661666000023615,
+      "max_rss_kib_median": 3656,
+      "max_rss_kib_min": 3584
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "Fastest/150339-normalized",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.015401327999995829,
+          "max_rss_kib": 1840
+        },
+        {
+          "e2e": 0.016732846000024892,
+          "max_rss_kib": 1948
+        },
+        {
+          "e2e": 0.013378101999990122,
+          "max_rss_kib": 1880
+        }
+      ],
+      "e2e_median": 0.015401327999995829,
+      "e2e_min": 0.013378101999990122,
+      "max_rss_kib_median": 1880,
+      "max_rss_kib_min": 1840
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "Euler/trial",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.04405587100001185,
+          "max_rss_kib": 4060,
+          "parse": 0.000149898,
+          "core": 0.026054117,
+          "format": 8.4662e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.039177414999983284,
+          "max_rss_kib": 4192,
+          "parse": 0.000150484,
+          "core": 0.02505257,
+          "format": 6.7894e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04022501000002876,
+          "max_rss_kib": 4144,
+          "parse": 0.000206283,
+          "core": 0.024169501,
+          "format": 5.5072e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.04022501000002876,
+      "e2e_min": 0.039177414999983284,
+      "core_median": 0.02505257,
+      "core_min": 0.024169501,
+      "parse_median": 0.000150484,
+      "parse_min": 0.000149898,
+      "format_median": 6.7894e-05,
+      "format_min": 5.5072e-05,
+      "max_rss_kib_median": 4144,
+      "max_rss_kib_min": 4060
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "Euler/factorize",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.02867242399997849,
+          "max_rss_kib": 4060,
+          "parse": 0.000148892,
+          "core": 0.008150669,
+          "format": 5.4325e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.026347650000047906,
+          "max_rss_kib": 4060,
+          "parse": 0.000243746,
+          "core": 0.008457608,
+          "format": 6.7207e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.023825934000001325,
+          "max_rss_kib": 4292,
+          "parse": 0.000167241,
+          "core": 0.008272487,
+          "format": 7.8678e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.026347650000047906,
+      "e2e_min": 0.023825934000001325,
+      "core_median": 0.008272487,
+      "core_min": 0.008150669,
+      "parse_median": 0.000167241,
+      "parse_min": 0.000148892,
+      "format_median": 6.7207e-05,
+      "format_min": 5.4325e-05,
+      "max_rss_kib_median": 4060,
+      "max_rss_kib_min": 4060
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "gcd/factorize",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.024989939000022332,
+          "max_rss_kib": 4092,
+          "parse": 0.000194355,
+          "core": 0.008413611,
+          "format": 7.1953e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.01879526100003659,
+          "max_rss_kib": 4168,
+          "parse": 0.000149552,
+          "core": 0.008766385,
+          "format": 7.6352e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.021949422999966828,
+          "max_rss_kib": 4000,
+          "parse": 0.000477757,
+          "core": 0.008834893,
+          "format": 0.000112034,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.021949422999966828,
+      "e2e_min": 0.01879526100003659,
+      "core_median": 0.008766385,
+      "core_min": 0.008413611,
+      "parse_median": 0.000194355,
+      "parse_min": 0.000149552,
+      "format_median": 7.6352e-05,
+      "format_min": 7.1953e-05,
+      "max_rss_kib_median": 4092,
+      "max_rss_kib_min": 4000
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "gcd/trial",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.04233677500002386,
+          "max_rss_kib": 4052,
+          "parse": 0.000153317,
+          "core": 0.024873003,
+          "format": 7.794e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.042553849999990234,
+          "max_rss_kib": 4072,
+          "parse": 0.000150438,
+          "core": 0.026905144,
+          "format": 7.1474e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.044563715999970555,
+          "max_rss_kib": 4140,
+          "parse": 0.000154335,
+          "core": 0.025674121,
+          "format": 8.7394e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.042553849999990234,
+      "e2e_min": 0.04233677500002386,
+      "core_median": 0.025674121,
+      "core_min": 0.024873003,
+      "parse_median": 0.000153317,
+      "parse_min": 0.000150438,
+      "format_median": 7.794e-05,
+      "format_min": 7.1474e-05,
+      "max_rss_kib_median": 4072,
+      "max_rss_kib_min": 4052
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "Fastest/150339",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.023335924000036812,
+          "max_rss_kib": 1980
+        },
+        {
+          "e2e": 0.020826552000016818,
+          "max_rss_kib": 1980
+        },
+        {
+          "e2e": 0.021824140000035186,
+          "max_rss_kib": 1988
+        }
+      ],
+      "e2e_median": 0.021824140000035186,
+      "e2e_min": 0.020826552000016818,
+      "max_rss_kib_median": 1980,
+      "max_rss_kib_min": 1980
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "Fastest/108768",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.022396269999944707,
+          "max_rss_kib": 4680
+        },
+        {
+          "e2e": 0.02270811600004663,
+          "max_rss_kib": 4640
+        },
+        {
+          "e2e": 0.02262719000003699,
+          "max_rss_kib": 4804
+        }
+      ],
+      "e2e_median": 0.02262719000003699,
+      "e2e_min": 0.022396269999944707,
+      "max_rss_kib_median": 4680,
+      "max_rss_kib_min": 4640
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "Fastest/405835",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.03763026900003297,
+          "max_rss_kib": 3788
+        },
+        {
+          "e2e": 0.021457955000016682,
+          "max_rss_kib": 3656
+        },
+        {
+          "e2e": 0.031941754000001765,
+          "max_rss_kib": 3768
+        }
+      ],
+      "e2e_median": 0.031941754000001765,
+      "e2e_min": 0.021457955000016682,
+      "max_rss_kib_median": 3768,
+      "max_rss_kib_min": 3656
+    },
+    {
+      "compiler": "g++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "Fastest/150339-normalized",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.13821096999998872,
+          "max_rss_kib": 1924
+        },
+        {
+          "e2e": 0.1726077650000093,
+          "max_rss_kib": 1928
+        },
+        {
+          "e2e": 0.12785607999995818,
+          "max_rss_kib": 1940
+        }
+      ],
+      "e2e_median": 0.13821096999998872,
+      "e2e_min": 0.12785607999995818,
+      "max_rss_kib_median": 1928,
+      "max_rss_kib_min": 1924
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "mixed",
+      "implementation": "Euler/trial",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.08370940599996857,
+          "max_rss_kib": 4260,
+          "parse": 0.000218867,
+          "core": 0.053489939,
+          "format": 6.2699e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.08819628500003773,
+          "max_rss_kib": 4064,
+          "parse": 0.00050121,
+          "core": 0.055010664,
+          "format": 6.2775e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.07847901900004217,
+          "max_rss_kib": 3992,
+          "parse": 0.000198586,
+          "core": 0.053788191,
+          "format": 7.0133e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.08370940599996857,
+      "e2e_min": 0.07847901900004217,
+      "core_median": 0.053788191,
+      "core_min": 0.053489939,
+      "parse_median": 0.000218867,
+      "parse_min": 0.000198586,
+      "format_median": 6.2775e-05,
+      "format_min": 6.2699e-05,
+      "max_rss_kib_median": 4064,
+      "max_rss_kib_min": 3992
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "mixed",
+      "implementation": "Euler/factorize",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.11863529100003234,
+          "max_rss_kib": 3988,
+          "parse": 0.000331918,
+          "core": 0.036221415,
+          "format": 7.3702e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.07937552600003528,
+          "max_rss_kib": 4100,
+          "parse": 0.00020548,
+          "core": 0.036745621,
+          "format": 8.7791e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.07487820499994768,
+          "max_rss_kib": 4188,
+          "parse": 0.000240614,
+          "core": 0.035312816,
+          "format": 5.7711e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.07937552600003528,
+      "e2e_min": 0.07487820499994768,
+      "core_median": 0.036221415,
+      "core_min": 0.035312816,
+      "parse_median": 0.000240614,
+      "parse_min": 0.00020548,
+      "format_median": 7.3702e-05,
+      "format_min": 5.7711e-05,
+      "max_rss_kib_median": 4100,
+      "max_rss_kib_min": 3988
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "mixed",
+      "implementation": "gcd/factorize",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.03302513500000259,
+          "max_rss_kib": 4256,
+          "parse": 0.000199802,
+          "core": 0.027189318,
+          "format": 7.1269e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03161487199997737,
+          "max_rss_kib": 4088,
+          "parse": 0.000200884,
+          "core": 0.026329117,
+          "format": 5.8606e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.031545040999958474,
+          "max_rss_kib": 3996,
+          "parse": 0.000220318,
+          "core": 0.026519887,
+          "format": 6.5587e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.03161487199997737,
+      "e2e_min": 0.031545040999958474,
+      "core_median": 0.026519887,
+      "core_min": 0.026329117,
+      "parse_median": 0.000200884,
+      "parse_min": 0.000199802,
+      "format_median": 6.5587e-05,
+      "format_min": 5.8606e-05,
+      "max_rss_kib_median": 4088,
+      "max_rss_kib_min": 3996
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "mixed",
+      "implementation": "gcd/trial",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.06752050299996881,
+          "max_rss_kib": 4192,
+          "parse": 0.000204042,
+          "core": 0.050673294,
+          "format": 9.4786e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.0777974229999927,
+          "max_rss_kib": 4296,
+          "parse": 0.000211327,
+          "core": 0.050852442,
+          "format": 6.4057e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.05732682100000375,
+          "max_rss_kib": 4096,
+          "parse": 0.000191538,
+          "core": 0.050940184,
+          "format": 7.3517e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.06752050299996881,
+      "e2e_min": 0.05732682100000375,
+      "core_median": 0.050852442,
+      "core_min": 0.050673294,
+      "parse_median": 0.000204042,
+      "parse_min": 0.000191538,
+      "format_median": 7.3517e-05,
+      "format_min": 6.4057e-05,
+      "max_rss_kib_median": 4192,
+      "max_rss_kib_min": 4096
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "prime",
+      "implementation": "Euler/trial",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.3708378139999695,
+          "max_rss_kib": 4064,
+          "parse": 0.000236685,
+          "core": 0.348288438,
+          "format": 7.8913e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.3496230810000043,
+          "max_rss_kib": 4056,
+          "parse": 0.000209646,
+          "core": 0.338480701,
+          "format": 7.2349e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.4035365120000165,
+          "max_rss_kib": 4064,
+          "parse": 0.000196675,
+          "core": 0.339082369,
+          "format": 7.2043e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.3708378139999695,
+      "e2e_min": 0.3496230810000043,
+      "core_median": 0.339082369,
+      "core_min": 0.338480701,
+      "parse_median": 0.000209646,
+      "parse_min": 0.000196675,
+      "format_median": 7.2349e-05,
+      "format_min": 7.2043e-05,
+      "max_rss_kib_median": 4064,
+      "max_rss_kib_min": 4056
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "prime",
+      "implementation": "Euler/factorize",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.11884288400000287,
+          "max_rss_kib": 4172,
+          "parse": 0.000230825,
+          "core": 0.036075809,
+          "format": 6.8495e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.09274851200001422,
+          "max_rss_kib": 4260,
+          "parse": 0.000377153,
+          "core": 0.037112418,
+          "format": 7.3537e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.049791046999985156,
+          "max_rss_kib": 4080,
+          "parse": 0.000182845,
+          "core": 0.034572368,
+          "format": 5.1954e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.09274851200001422,
+      "e2e_min": 0.049791046999985156,
+      "core_median": 0.036075809,
+      "core_min": 0.034572368,
+      "parse_median": 0.000230825,
+      "parse_min": 0.000182845,
+      "format_median": 6.8495e-05,
+      "format_min": 5.1954e-05,
+      "max_rss_kib_median": 4172,
+      "max_rss_kib_min": 4080
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "prime",
+      "implementation": "gcd/factorize",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.16131449199997405,
+          "max_rss_kib": 4100,
+          "parse": 0.00049513,
+          "core": 0.023460628,
+          "format": 6.2634e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04176218999998582,
+          "max_rss_kib": 4260,
+          "parse": 0.000246269,
+          "core": 0.022592585,
+          "format": 5.0207e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.05761709900002643,
+          "max_rss_kib": 3996,
+          "parse": 0.000175339,
+          "core": 0.022625609,
+          "format": 5.2289e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.05761709900002643,
+      "e2e_min": 0.04176218999998582,
+      "core_median": 0.022625609,
+      "core_min": 0.022592585,
+      "parse_median": 0.000246269,
+      "parse_min": 0.000175339,
+      "format_median": 5.2289e-05,
+      "format_min": 5.0207e-05,
+      "max_rss_kib_median": 4100,
+      "max_rss_kib_min": 3996
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "prime",
+      "implementation": "gcd/trial",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.4656796369999938,
+          "max_rss_kib": 4192,
+          "parse": 0.00020675,
+          "core": 0.337690443,
+          "format": 7.7492e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.38174319600000217,
+          "max_rss_kib": 4056,
+          "parse": 0.000275265,
+          "core": 0.325813448,
+          "format": 8.9218e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.4022005619999618,
+          "max_rss_kib": 4044,
+          "parse": 0.000282909,
+          "core": 0.325485255,
+          "format": 6.986e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.4022005619999618,
+      "e2e_min": 0.38174319600000217,
+      "core_median": 0.325813448,
+      "core_min": 0.325485255,
+      "parse_median": 0.000275265,
+      "parse_min": 0.00020675,
+      "format_median": 7.7492e-05,
+      "format_min": 6.986e-05,
+      "max_rss_kib_median": 4056,
+      "max_rss_kib_min": 4044
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "power-two",
+      "implementation": "Euler/trial",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.02675988400000051,
+          "max_rss_kib": 4064,
+          "parse": 0.00021472,
+          "core": 0.005924455,
+          "format": 2.3034e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.07699928800002453,
+          "max_rss_kib": 4080,
+          "parse": 0.000309591,
+          "core": 0.00614033,
+          "format": 3.9457e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.06581128599998465,
+          "max_rss_kib": 4084,
+          "parse": 0.00022679,
+          "core": 0.005835932,
+          "format": 2.6357e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.06581128599998465,
+      "e2e_min": 0.02675988400000051,
+      "core_median": 0.005924455,
+      "core_min": 0.005835932,
+      "parse_median": 0.00022679,
+      "parse_min": 0.00021472,
+      "format_median": 2.6357e-05,
+      "format_min": 2.3034e-05,
+      "max_rss_kib_median": 4080,
+      "max_rss_kib_min": 4064
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "power-two",
+      "implementation": "Euler/factorize",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.03852268700001105,
+          "max_rss_kib": 4064,
+          "parse": 0.00022189,
+          "core": 0.010450635,
+          "format": 3.1268e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.026259165999988454,
+          "max_rss_kib": 4056,
+          "parse": 0.000198969,
+          "core": 0.010239614,
+          "format": 2.7107e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.02525740699996959,
+          "max_rss_kib": 4244,
+          "parse": 0.000193406,
+          "core": 0.010517461,
+          "format": 2.4676e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.026259165999988454,
+      "e2e_min": 0.02525740699996959,
+      "core_median": 0.010450635,
+      "core_min": 0.010239614,
+      "parse_median": 0.000198969,
+      "parse_min": 0.000193406,
+      "format_median": 2.7107e-05,
+      "format_min": 2.4676e-05,
+      "max_rss_kib_median": 4064,
+      "max_rss_kib_min": 4056
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "power-two",
+      "implementation": "gcd/factorize",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.005832495999982257,
+          "max_rss_kib": 4040,
+          "parse": 0.000207054,
+          "core": 0.000318307,
+          "format": 2.4927e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.010082737999994151,
+          "max_rss_kib": 4260,
+          "parse": 0.000211191,
+          "core": 0.000308521,
+          "format": 2.425e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.00472748100003173,
+          "max_rss_kib": 4172,
+          "parse": 0.00021963,
+          "core": 0.000317962,
+          "format": 2.2366e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.005832495999982257,
+      "e2e_min": 0.00472748100003173,
+      "core_median": 0.000317962,
+      "core_min": 0.000308521,
+      "parse_median": 0.000211191,
+      "parse_min": 0.000207054,
+      "format_median": 2.425e-05,
+      "format_min": 2.2366e-05,
+      "max_rss_kib_median": 4172,
+      "max_rss_kib_min": 4040
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "power-two",
+      "implementation": "gcd/trial",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.10015435200000411,
+          "max_rss_kib": 4056,
+          "parse": 0.00035769,
+          "core": 0.000321443,
+          "format": 3.142e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.02786884900001496,
+          "max_rss_kib": 4184,
+          "parse": 0.000215134,
+          "core": 0.000318038,
+          "format": 2.3132e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.004935309000018151,
+          "max_rss_kib": 4188,
+          "parse": 0.000197431,
+          "core": 0.000326977,
+          "format": 2.5682e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.02786884900001496,
+      "e2e_min": 0.004935309000018151,
+      "core_median": 0.000321443,
+      "core_min": 0.000318038,
+      "parse_median": 0.000215134,
+      "parse_min": 0.000197431,
+      "format_median": 2.5682e-05,
+      "format_min": 2.3132e-05,
+      "max_rss_kib_median": 4184,
+      "max_rss_kib_min": 4056
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "small-height",
+      "implementation": "Euler/trial",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.03370980300002202,
+          "max_rss_kib": 4184,
+          "parse": 0.0001691,
+          "core": 0.025461325,
+          "format": 8.0846e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03729010099999641,
+          "max_rss_kib": 4140,
+          "parse": 0.000152945,
+          "core": 0.025625456,
+          "format": 7.8817e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.05329562200000737,
+          "max_rss_kib": 4296,
+          "parse": 0.000291612,
+          "core": 0.028667737,
+          "format": 8.2853e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.03729010099999641,
+      "e2e_min": 0.03370980300002202,
+      "core_median": 0.025625456,
+      "core_min": 0.025461325,
+      "parse_median": 0.0001691,
+      "parse_min": 0.000152945,
+      "format_median": 8.0846e-05,
+      "format_min": 7.8817e-05,
+      "max_rss_kib_median": 4184,
+      "max_rss_kib_min": 4140
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "small-height",
+      "implementation": "Euler/factorize",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.02521805899999663,
+          "max_rss_kib": 4168,
+          "parse": 0.000250807,
+          "core": 0.008450281,
+          "format": 6.0921e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.013269879999995737,
+          "max_rss_kib": 4296,
+          "parse": 0.000156547,
+          "core": 0.008087713,
+          "format": 5.7018e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.013059452999982568,
+          "max_rss_kib": 4056,
+          "parse": 0.000134786,
+          "core": 0.008164047,
+          "format": 5.8864e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.013269879999995737,
+      "e2e_min": 0.013059452999982568,
+      "core_median": 0.008164047,
+      "core_min": 0.008087713,
+      "parse_median": 0.000156547,
+      "parse_min": 0.000134786,
+      "format_median": 5.8864e-05,
+      "format_min": 5.7018e-05,
+      "max_rss_kib_median": 4168,
+      "max_rss_kib_min": 4056
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "small-height",
+      "implementation": "gcd/factorize",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.05889942799996106,
+          "max_rss_kib": 4240,
+          "parse": 0.000147029,
+          "core": 0.008606338,
+          "format": 6.0352e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03075812899999164,
+          "max_rss_kib": 4064,
+          "parse": 0.000283902,
+          "core": 0.010116136,
+          "format": 6.1017e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.017573541000047044,
+          "max_rss_kib": 4088,
+          "parse": 0.000241227,
+          "core": 0.009295672,
+          "format": 5.7038e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.03075812899999164,
+      "e2e_min": 0.017573541000047044,
+      "core_median": 0.009295672,
+      "core_min": 0.008606338,
+      "parse_median": 0.000241227,
+      "parse_min": 0.000147029,
+      "format_median": 6.0352e-05,
+      "format_min": 5.7038e-05,
+      "max_rss_kib_median": 4088,
+      "max_rss_kib_min": 4064
+    },
+    {
+      "compiler": "g++",
+      "build": "assert",
+      "case": "small-height",
+      "implementation": "gcd/trial",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.030716083000015715,
+          "max_rss_kib": 4060,
+          "parse": 0.000210642,
+          "core": 0.024773935,
+          "format": 7.0066e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.0324186720000057,
+          "max_rss_kib": 4296,
+          "parse": 0.000145764,
+          "core": 0.025263182,
+          "format": 6.8322e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.040507022999975106,
+          "max_rss_kib": 4144,
+          "parse": 0.000148065,
+          "core": 0.024639758,
+          "format": 7.0374e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.0324186720000057,
+      "e2e_min": 0.030716083000015715,
+      "core_median": 0.024773935,
+      "core_min": 0.024639758,
+      "parse_median": 0.000148065,
+      "parse_min": 0.000145764,
+      "format_median": 7.0066e-05,
+      "format_min": 6.8322e-05,
+      "max_rss_kib_median": 4144,
+      "max_rss_kib_min": 4060
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "Euler/trial",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.04387732799995092,
+          "max_rss_kib": 4088,
+          "parse": 0.000288642,
+          "core": 0.036645736,
+          "format": 8.6678e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04291157300002624,
+          "max_rss_kib": 4104,
+          "parse": 0.000260169,
+          "core": 0.036611832,
+          "format": 8.0628e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.05467598199999202,
+          "max_rss_kib": 4052,
+          "parse": 0.000256976,
+          "core": 0.036677855,
+          "format": 0.000102848,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.04387732799995092,
+      "e2e_min": 0.04291157300002624,
+      "core_median": 0.036645736,
+      "core_min": 0.036611832,
+      "parse_median": 0.000260169,
+      "parse_min": 0.000256976,
+      "format_median": 8.6678e-05,
+      "format_min": 8.0628e-05,
+      "max_rss_kib_median": 4088,
+      "max_rss_kib_min": 4052
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "Euler/factorize",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.040843983000002027,
+          "max_rss_kib": 4088,
+          "parse": 0.000258119,
+          "core": 0.033370341,
+          "format": 8.5867e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03941137499998604,
+          "max_rss_kib": 4252,
+          "parse": 0.00027417,
+          "core": 0.033322585,
+          "format": 8.1567e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04026729700001397,
+          "max_rss_kib": 4112,
+          "parse": 0.000262459,
+          "core": 0.033627506,
+          "format": 8.3943e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.04026729700001397,
+      "e2e_min": 0.03941137499998604,
+      "core_median": 0.033370341,
+      "core_min": 0.033322585,
+      "parse_median": 0.000262459,
+      "parse_min": 0.000258119,
+      "format_median": 8.3943e-05,
+      "format_min": 8.1567e-05,
+      "max_rss_kib_median": 4112,
+      "max_rss_kib_min": 4088
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "gcd/factorize",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.05679397400001562,
+          "max_rss_kib": 4120,
+          "parse": 0.000383767,
+          "core": 0.026179692,
+          "format": 8.8383e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.036322818000030566,
+          "max_rss_kib": 4024,
+          "parse": 0.000277596,
+          "core": 0.025799946,
+          "format": 7.5432e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03319690700004685,
+          "max_rss_kib": 4224,
+          "parse": 0.000287301,
+          "core": 0.025589182,
+          "format": 7.9417e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.036322818000030566,
+      "e2e_min": 0.03319690700004685,
+      "core_median": 0.025799946,
+      "core_min": 0.025589182,
+      "parse_median": 0.000287301,
+      "parse_min": 0.000277596,
+      "format_median": 7.9417e-05,
+      "format_min": 7.5432e-05,
+      "max_rss_kib_median": 4120,
+      "max_rss_kib_min": 4024
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "mixed",
+      "implementation": "gcd/trial",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.03769914399998697,
+          "max_rss_kib": 4092,
+          "parse": 0.000263909,
+          "core": 0.032248335,
+          "format": 8.5362e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03798577199995634,
+          "max_rss_kib": 4052,
+          "parse": 0.000271351,
+          "core": 0.032303458,
+          "format": 7.9328e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03790981899999224,
+          "max_rss_kib": 4168,
+          "parse": 0.000277577,
+          "core": 0.032205883,
+          "format": 8.3921e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.03790981899999224,
+      "e2e_min": 0.03769914399998697,
+      "core_median": 0.032248335,
+      "core_min": 0.032205883,
+      "parse_median": 0.000271351,
+      "parse_min": 0.000263909,
+      "format_median": 8.3921e-05,
+      "format_min": 7.9328e-05,
+      "max_rss_kib_median": 4092,
+      "max_rss_kib_min": 4052
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "Euler/trial",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.21177433299999393,
+          "max_rss_kib": 4260,
+          "parse": 0.000276136,
+          "core": 0.205783978,
+          "format": 0.000101636,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.21345808900002794,
+          "max_rss_kib": 4204,
+          "parse": 0.000250782,
+          "core": 0.206597817,
+          "format": 0.000126031,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.21541789099995867,
+          "max_rss_kib": 4088,
+          "parse": 0.000257544,
+          "core": 0.209504202,
+          "format": 0.000123637,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.21345808900002794,
+      "e2e_min": 0.21177433299999393,
+      "core_median": 0.206597817,
+      "core_min": 0.205783978,
+      "parse_median": 0.000257544,
+      "parse_min": 0.000250782,
+      "format_median": 0.000123637,
+      "format_min": 0.000101636,
+      "max_rss_kib_median": 4204,
+      "max_rss_kib_min": 4088
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "Euler/factorize",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.03954586700001528,
+          "max_rss_kib": 4120,
+          "parse": 0.000283588,
+          "core": 0.032907529,
+          "format": 9.0264e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03736131599998771,
+          "max_rss_kib": 4140,
+          "parse": 0.000263289,
+          "core": 0.031665448,
+          "format": 6.7163e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03858548700003439,
+          "max_rss_kib": 4112,
+          "parse": 0.000252061,
+          "core": 0.033196282,
+          "format": 0.000105559,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.03858548700003439,
+      "e2e_min": 0.03736131599998771,
+      "core_median": 0.032907529,
+      "core_min": 0.031665448,
+      "parse_median": 0.000263289,
+      "parse_min": 0.000252061,
+      "format_median": 9.0264e-05,
+      "format_min": 6.7163e-05,
+      "max_rss_kib_median": 4120,
+      "max_rss_kib_min": 4112
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "gcd/factorize",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.03819399999997586,
+          "max_rss_kib": 4116,
+          "parse": 0.000281737,
+          "core": 0.021674557,
+          "format": 7.4976e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.07219038400000954,
+          "max_rss_kib": 4116,
+          "parse": 0.000288745,
+          "core": 0.022607963,
+          "format": 9.5879e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04146804300000895,
+          "max_rss_kib": 4116,
+          "parse": 0.000279251,
+          "core": 0.022259037,
+          "format": 8.4132e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.04146804300000895,
+      "e2e_min": 0.03819399999997586,
+      "core_median": 0.022259037,
+      "core_min": 0.021674557,
+      "parse_median": 0.000281737,
+      "parse_min": 0.000279251,
+      "format_median": 8.4132e-05,
+      "format_min": 7.4976e-05,
+      "max_rss_kib_median": 4116,
+      "max_rss_kib_min": 4116
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "prime",
+      "implementation": "gcd/trial",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.25365155000002915,
+          "max_rss_kib": 4060,
+          "parse": 0.00030567,
+          "core": 0.209173449,
+          "format": 0.000121763,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.2991143790000024,
+          "max_rss_kib": 4112,
+          "parse": 0.000373521,
+          "core": 0.209226774,
+          "format": 9.8594e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.28629041099998176,
+          "max_rss_kib": 4168,
+          "parse": 0.000333826,
+          "core": 0.201715629,
+          "format": 0.00011319,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.28629041099998176,
+      "e2e_min": 0.25365155000002915,
+      "core_median": 0.209173449,
+      "core_min": 0.201715629,
+      "parse_median": 0.000333826,
+      "parse_min": 0.00030567,
+      "format_median": 0.00011319,
+      "format_min": 9.8594e-05,
+      "max_rss_kib_median": 4112,
+      "max_rss_kib_min": 4060
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "Euler/trial",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.057229081999992104,
+          "max_rss_kib": 4104,
+          "parse": 0.000455756,
+          "core": 0.006837581,
+          "format": 3.3145e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04081348599999046,
+          "max_rss_kib": 4020,
+          "parse": 0.000401801,
+          "core": 0.006283103,
+          "format": 4.3458e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.02504911699998047,
+          "max_rss_kib": 4100,
+          "parse": 0.000404822,
+          "core": 0.004667937,
+          "format": 2.8091e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.04081348599999046,
+      "e2e_min": 0.02504911699998047,
+      "core_median": 0.006283103,
+      "core_min": 0.004667937,
+      "parse_median": 0.000404822,
+      "parse_min": 0.000401801,
+      "format_median": 3.3145e-05,
+      "format_min": 2.8091e-05,
+      "max_rss_kib_median": 4100,
+      "max_rss_kib_min": 4020
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "Euler/factorize",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.03188653400002295,
+          "max_rss_kib": 4068,
+          "parse": 0.000368658,
+          "core": 0.009645856,
+          "format": 2.964e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.06132738100001234,
+          "max_rss_kib": 4104,
+          "parse": 0.000519845,
+          "core": 0.010374177,
+          "format": 8.8666e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.047255052999958025,
+          "max_rss_kib": 4180,
+          "parse": 0.000279957,
+          "core": 0.009337596,
+          "format": 4.9235e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.047255052999958025,
+      "e2e_min": 0.03188653400002295,
+      "core_median": 0.009645856,
+      "core_min": 0.009337596,
+      "parse_median": 0.000368658,
+      "parse_min": 0.000279957,
+      "format_median": 4.9235e-05,
+      "format_min": 2.964e-05,
+      "max_rss_kib_median": 4104,
+      "max_rss_kib_min": 4068
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "gcd/factorize",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.034544717000017044,
+          "max_rss_kib": 3984,
+          "parse": 0.000310863,
+          "core": 0.000377215,
+          "format": 2.8308e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.010595137999985127,
+          "max_rss_kib": 3988,
+          "parse": 0.000251714,
+          "core": 0.000366338,
+          "format": 3.2968e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.005790641000032792,
+          "max_rss_kib": 4068,
+          "parse": 0.000258107,
+          "core": 0.000384552,
+          "format": 3.171e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.010595137999985127,
+      "e2e_min": 0.005790641000032792,
+      "core_median": 0.000377215,
+      "core_min": 0.000366338,
+      "parse_median": 0.000258107,
+      "parse_min": 0.000251714,
+      "format_median": 3.171e-05,
+      "format_min": 2.8308e-05,
+      "max_rss_kib_median": 3988,
+      "max_rss_kib_min": 3984
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "power-two",
+      "implementation": "gcd/trial",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.0327097980000417,
+          "max_rss_kib": 4100,
+          "parse": 0.000323158,
+          "core": 0.000378962,
+          "format": 3.5659e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.07226326100004599,
+          "max_rss_kib": 4064,
+          "parse": 0.000268977,
+          "core": 0.00037034,
+          "format": 3.1436e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.0056424919999926715,
+          "max_rss_kib": 4184,
+          "parse": 0.000234946,
+          "core": 0.000366375,
+          "format": 3.1825e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.0327097980000417,
+      "e2e_min": 0.0056424919999926715,
+      "core_median": 0.00037034,
+      "core_min": 0.000366375,
+      "parse_median": 0.000268977,
+      "parse_min": 0.000234946,
+      "format_median": 3.1825e-05,
+      "format_min": 3.1436e-05,
+      "max_rss_kib_median": 4100,
+      "max_rss_kib_min": 4064
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "Euler/trial",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.02373227600003247,
+          "max_rss_kib": 4208,
+          "parse": 0.000218887,
+          "core": 0.016003958,
+          "format": 9.872e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.025897982000003594,
+          "max_rss_kib": 4076,
+          "parse": 0.00022956,
+          "core": 0.014985925,
+          "format": 6.3604e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04596786499996597,
+          "max_rss_kib": 4092,
+          "parse": 0.000416555,
+          "core": 0.016828141,
+          "format": 0.000101534,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.025897982000003594,
+      "e2e_min": 0.02373227600003247,
+      "core_median": 0.016003958,
+      "core_min": 0.014985925,
+      "parse_median": 0.00022956,
+      "parse_min": 0.000218887,
+      "format_median": 9.872e-05,
+      "format_min": 6.3604e-05,
+      "max_rss_kib_median": 4092,
+      "max_rss_kib_min": 4076
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "Euler/factorize",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.01714981899999657,
+          "max_rss_kib": 4108,
+          "parse": 0.00021181,
+          "core": 0.008195015,
+          "format": 7.4597e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.015216444999964551,
+          "max_rss_kib": 3912,
+          "parse": 0.00021345,
+          "core": 0.008313592,
+          "format": 9.2264e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.013001771000006102,
+          "max_rss_kib": 4056,
+          "parse": 0.000216589,
+          "core": 0.008070084,
+          "format": 6.9508e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.015216444999964551,
+      "e2e_min": 0.013001771000006102,
+      "core_median": 0.008195015,
+      "core_min": 0.008070084,
+      "parse_median": 0.00021345,
+      "parse_min": 0.00021181,
+      "format_median": 7.4597e-05,
+      "format_min": 6.9508e-05,
+      "max_rss_kib_median": 4056,
+      "max_rss_kib_min": 3912
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "gcd/factorize",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.050029011999981776,
+          "max_rss_kib": 3948,
+          "parse": 0.00024393,
+          "core": 0.007927411,
+          "format": 6.4326e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.05806385699997918,
+          "max_rss_kib": 4156,
+          "parse": 0.000424882,
+          "core": 0.009465964,
+          "format": 8.0899e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.19399507800000038,
+          "max_rss_kib": 4080,
+          "parse": 0.000279697,
+          "core": 0.008504748,
+          "format": 7.599e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.05806385699997918,
+      "e2e_min": 0.050029011999981776,
+      "core_median": 0.008504748,
+      "core_min": 0.007927411,
+      "parse_median": 0.000279697,
+      "parse_min": 0.00024393,
+      "format_median": 7.599e-05,
+      "format_min": 6.4326e-05,
+      "max_rss_kib_median": 4080,
+      "max_rss_kib_min": 3948
+    },
+    {
+      "compiler": "clang++",
+      "build": "release",
+      "case": "small-height",
+      "implementation": "gcd/trial",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.04577775399997108,
+          "max_rss_kib": 4040,
+          "parse": 0.00024318,
+          "core": 0.01611778,
+          "format": 0.000104041,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.023308043999975325,
+          "max_rss_kib": 4096,
+          "parse": 0.000231792,
+          "core": 0.015678754,
+          "format": 8.1066e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.020937408999998297,
+          "max_rss_kib": 4056,
+          "parse": 0.000210663,
+          "core": 0.015551362,
+          "format": 7.0498e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.023308043999975325,
+      "e2e_min": 0.020937408999998297,
+      "core_median": 0.015678754,
+      "core_min": 0.015551362,
+      "parse_median": 0.000231792,
+      "parse_min": 0.000210663,
+      "format_median": 8.1066e-05,
+      "format_min": 7.0498e-05,
+      "max_rss_kib_median": 4056,
+      "max_rss_kib_min": 4040
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "mixed",
+      "implementation": "Euler/trial",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.043295364000016434,
+          "max_rss_kib": 4104,
+          "parse": 0.000276504,
+          "core": 0.036867459,
+          "format": 8.7685e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.043131854000023395,
+          "max_rss_kib": 4140,
+          "parse": 0.000274994,
+          "core": 0.037182123,
+          "format": 8.4723e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04379652500000475,
+          "max_rss_kib": 4020,
+          "parse": 0.000277721,
+          "core": 0.036802216,
+          "format": 8.4506e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.043295364000016434,
+      "e2e_min": 0.043131854000023395,
+      "core_median": 0.036867459,
+      "core_min": 0.036802216,
+      "parse_median": 0.000276504,
+      "parse_min": 0.000274994,
+      "format_median": 8.4723e-05,
+      "format_min": 8.4506e-05,
+      "max_rss_kib_median": 4104,
+      "max_rss_kib_min": 4020
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "mixed",
+      "implementation": "Euler/factorize",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.039896369999951276,
+          "max_rss_kib": 3960,
+          "parse": 0.000237753,
+          "core": 0.034630591,
+          "format": 7.9087e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04151671400001078,
+          "max_rss_kib": 4260,
+          "parse": 0.000253374,
+          "core": 0.035603906,
+          "format": 8.0996e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04057808099997828,
+          "max_rss_kib": 4084,
+          "parse": 0.000251378,
+          "core": 0.033739375,
+          "format": 7.8421e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.04057808099997828,
+      "e2e_min": 0.039896369999951276,
+      "core_median": 0.034630591,
+      "core_min": 0.033739375,
+      "parse_median": 0.000251378,
+      "parse_min": 0.000237753,
+      "format_median": 7.9087e-05,
+      "format_min": 7.8421e-05,
+      "max_rss_kib_median": 4084,
+      "max_rss_kib_min": 3960
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "mixed",
+      "implementation": "gcd/factorize",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.040400357999999414,
+          "max_rss_kib": 4136,
+          "parse": 0.000269877,
+          "core": 0.02569413,
+          "format": 8.1976e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03287517699999398,
+          "max_rss_kib": 4044,
+          "parse": 0.000258441,
+          "core": 0.026420167,
+          "format": 8.3658e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03177147899998545,
+          "max_rss_kib": 4120,
+          "parse": 0.000266646,
+          "core": 0.026325885,
+          "format": 8.2203e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.03287517699999398,
+      "e2e_min": 0.03177147899998545,
+      "core_median": 0.026325885,
+      "core_min": 0.02569413,
+      "parse_median": 0.000266646,
+      "parse_min": 0.000258441,
+      "format_median": 8.2203e-05,
+      "format_min": 8.1976e-05,
+      "max_rss_kib_median": 4120,
+      "max_rss_kib_min": 4044
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "mixed",
+      "implementation": "gcd/trial",
+      "input_sha256": "b7b51379e2eb9a64ce3fc00997b588d6549131960c4e46d6608cda8c905d685a",
+      "samples": [
+        {
+          "e2e": 0.047801754999966306,
+          "max_rss_kib": 3956,
+          "parse": 0.000276318,
+          "core": 0.032566778,
+          "format": 0.000104333,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03822432300000855,
+          "max_rss_kib": 4120,
+          "parse": 0.000253054,
+          "core": 0.032225927,
+          "format": 7.91e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03897166499996274,
+          "max_rss_kib": 4116,
+          "parse": 0.000302577,
+          "core": 0.033336399,
+          "format": 0.0001138,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.03897166499996274,
+      "e2e_min": 0.03822432300000855,
+      "core_median": 0.032566778,
+      "core_min": 0.032225927,
+      "parse_median": 0.000276318,
+      "parse_min": 0.000253054,
+      "format_median": 0.000104333,
+      "format_min": 7.91e-05,
+      "max_rss_kib_median": 4116,
+      "max_rss_kib_min": 3956
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "prime",
+      "implementation": "Euler/trial",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.23321254500001487,
+          "max_rss_kib": 4136,
+          "parse": 0.000285987,
+          "core": 0.206354493,
+          "format": 0.000110433,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.23646307000001343,
+          "max_rss_kib": 4172,
+          "parse": 0.000280892,
+          "core": 0.210427785,
+          "format": 9.9746e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.2516478809999967,
+          "max_rss_kib": 3960,
+          "parse": 0.000430288,
+          "core": 0.21264865,
+          "format": 8.5457e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.23646307000001343,
+      "e2e_min": 0.23321254500001487,
+      "core_median": 0.210427785,
+      "core_min": 0.206354493,
+      "parse_median": 0.000285987,
+      "parse_min": 0.000280892,
+      "format_median": 9.9746e-05,
+      "format_min": 8.5457e-05,
+      "max_rss_kib_median": 4136,
+      "max_rss_kib_min": 3960
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "prime",
+      "implementation": "Euler/factorize",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.051104804000033255,
+          "max_rss_kib": 4088,
+          "parse": 0.000263012,
+          "core": 0.033373214,
+          "format": 7.5813e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.04657986800003755,
+          "max_rss_kib": 4120,
+          "parse": 0.000261754,
+          "core": 0.033293927,
+          "format": 8.5118e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.03938358900001049,
+          "max_rss_kib": 4220,
+          "parse": 0.000275202,
+          "core": 0.033380991,
+          "format": 7.8863e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.04657986800003755,
+      "e2e_min": 0.03938358900001049,
+      "core_median": 0.033373214,
+      "core_min": 0.033293927,
+      "parse_median": 0.000263012,
+      "parse_min": 0.000261754,
+      "format_median": 7.8863e-05,
+      "format_min": 7.5813e-05,
+      "max_rss_kib_median": 4120,
+      "max_rss_kib_min": 4088
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "prime",
+      "implementation": "gcd/factorize",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.047236721999979636,
+          "max_rss_kib": 4056,
+          "parse": 0.000283249,
+          "core": 0.020885482,
+          "format": 7.1194e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.06701095199997553,
+          "max_rss_kib": 4168,
+          "parse": 0.000366708,
+          "core": 0.022154309,
+          "format": 6.8473e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.054265129999976125,
+          "max_rss_kib": 4100,
+          "parse": 0.000300818,
+          "core": 0.022186938,
+          "format": 6.9695e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.054265129999976125,
+      "e2e_min": 0.047236721999979636,
+      "core_median": 0.022154309,
+      "core_min": 0.020885482,
+      "parse_median": 0.000300818,
+      "parse_min": 0.000283249,
+      "format_median": 6.9695e-05,
+      "format_min": 6.8473e-05,
+      "max_rss_kib_median": 4100,
+      "max_rss_kib_min": 4056
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "prime",
+      "implementation": "gcd/trial",
+      "input_sha256": "b88b2b487030b57da4f2b40e632526f45ff93f81d83f0158a47c9596dcd8a1ed",
+      "samples": [
+        {
+          "e2e": 0.2259355919999848,
+          "max_rss_kib": 4056,
+          "parse": 0.000285707,
+          "core": 0.212305002,
+          "format": 8.3611e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.21206330999996226,
+          "max_rss_kib": 4216,
+          "parse": 0.000266989,
+          "core": 0.206604674,
+          "format": 8.5683e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.21274599499997748,
+          "max_rss_kib": 4060,
+          "parse": 0.000317359,
+          "core": 0.206499548,
+          "format": 9.4296e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.21274599499997748,
+      "e2e_min": 0.21206330999996226,
+      "core_median": 0.206604674,
+      "core_min": 0.206499548,
+      "parse_median": 0.000285707,
+      "parse_min": 0.000266989,
+      "format_median": 8.5683e-05,
+      "format_min": 8.3611e-05,
+      "max_rss_kib_median": 4060,
+      "max_rss_kib_min": 4056
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "power-two",
+      "implementation": "Euler/trial",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.011087684000017362,
+          "max_rss_kib": 4136,
+          "parse": 0.000269159,
+          "core": 0.005071491,
+          "format": 3.81e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.009854623000023821,
+          "max_rss_kib": 4152,
+          "parse": 0.000264414,
+          "core": 0.004859324,
+          "format": 3.9478e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.010205702999996902,
+          "max_rss_kib": 4136,
+          "parse": 0.000325407,
+          "core": 0.004826041,
+          "format": 3.5432e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.010205702999996902,
+      "e2e_min": 0.009854623000023821,
+      "core_median": 0.004859324,
+      "core_min": 0.004826041,
+      "parse_median": 0.000269159,
+      "parse_min": 0.000264414,
+      "format_median": 3.81e-05,
+      "format_min": 3.5432e-05,
+      "max_rss_kib_median": 4136,
+      "max_rss_kib_min": 4136
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "power-two",
+      "implementation": "Euler/factorize",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.015456309000001056,
+          "max_rss_kib": 4048,
+          "parse": 0.000250274,
+          "core": 0.009426376,
+          "format": 4.0781e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.014179680000040662,
+          "max_rss_kib": 4136,
+          "parse": 0.00025352,
+          "core": 0.009010682,
+          "format": 3.8373e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.013785182999981771,
+          "max_rss_kib": 3988,
+          "parse": 0.000257448,
+          "core": 0.009040555,
+          "format": 3.3428e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.014179680000040662,
+      "e2e_min": 0.013785182999981771,
+      "core_median": 0.009040555,
+      "core_min": 0.009010682,
+      "parse_median": 0.00025352,
+      "parse_min": 0.000250274,
+      "format_median": 3.8373e-05,
+      "format_min": 3.3428e-05,
+      "max_rss_kib_median": 4048,
+      "max_rss_kib_min": 3988
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "power-two",
+      "implementation": "gcd/factorize",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.005713328000013007,
+          "max_rss_kib": 3984,
+          "parse": 0.000250664,
+          "core": 0.000367356,
+          "format": 3.2404e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.006808529000011276,
+          "max_rss_kib": 4160,
+          "parse": 0.000250143,
+          "core": 0.000382573,
+          "format": 3.3975e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.005441331000042737,
+          "max_rss_kib": 4176,
+          "parse": 0.000244606,
+          "core": 0.000358048,
+          "format": 3.1092e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.005713328000013007,
+      "e2e_min": 0.005441331000042737,
+      "core_median": 0.000367356,
+      "core_min": 0.000358048,
+      "parse_median": 0.000250143,
+      "parse_min": 0.000244606,
+      "format_median": 3.2404e-05,
+      "format_min": 3.1092e-05,
+      "max_rss_kib_median": 4160,
+      "max_rss_kib_min": 3984
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "power-two",
+      "implementation": "gcd/trial",
+      "input_sha256": "4f692b47ba31388ad5cf629dea960fd911e01a0036246d6f1003bae428cccb5b",
+      "samples": [
+        {
+          "e2e": 0.02662549299998318,
+          "max_rss_kib": 4076,
+          "parse": 0.000396054,
+          "core": 0.000358955,
+          "format": 3.3639e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.005148775000009209,
+          "max_rss_kib": 4100,
+          "parse": 0.000268844,
+          "core": 0.000352359,
+          "format": 3.1562e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.004732818000036332,
+          "max_rss_kib": 4132,
+          "parse": 0.00026829,
+          "core": 0.000351403,
+          "format": 3.0086e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.005148775000009209,
+      "e2e_min": 0.004732818000036332,
+      "core_median": 0.000352359,
+      "core_min": 0.000351403,
+      "parse_median": 0.000268844,
+      "parse_min": 0.00026829,
+      "format_median": 3.1562e-05,
+      "format_min": 3.0086e-05,
+      "max_rss_kib_median": 4100,
+      "max_rss_kib_min": 4076
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "small-height",
+      "implementation": "Euler/trial",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.02532681899998579,
+          "max_rss_kib": 4108,
+          "parse": 0.000198695,
+          "core": 0.0164671,
+          "format": 0.000170439,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.020869284999946558,
+          "max_rss_kib": 4080,
+          "parse": 0.000201497,
+          "core": 0.015362586,
+          "format": 7.7516e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.020989615000019057,
+          "max_rss_kib": 4044,
+          "parse": 0.000225261,
+          "core": 0.01553221,
+          "format": 7.8546e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.020989615000019057,
+      "e2e_min": 0.020869284999946558,
+      "core_median": 0.01553221,
+      "core_min": 0.015362586,
+      "parse_median": 0.000201497,
+      "parse_min": 0.000198695,
+      "format_median": 7.8546e-05,
+      "format_min": 7.7516e-05,
+      "max_rss_kib_median": 4080,
+      "max_rss_kib_min": 4044
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "small-height",
+      "implementation": "Euler/factorize",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.018980914000053417,
+          "max_rss_kib": 4052,
+          "parse": 0.00019898,
+          "core": 0.008153759,
+          "format": 6.7271e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.01258616500001608,
+          "max_rss_kib": 4252,
+          "parse": 0.000206179,
+          "core": 0.007967185,
+          "format": 8.2014e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.014370816999985436,
+          "max_rss_kib": 4076,
+          "parse": 0.00022225,
+          "core": 0.00826982,
+          "format": 7.1657e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.014370816999985436,
+      "e2e_min": 0.01258616500001608,
+      "core_median": 0.008153759,
+      "core_min": 0.007967185,
+      "parse_median": 0.000206179,
+      "parse_min": 0.00019898,
+      "format_median": 7.1657e-05,
+      "format_min": 6.7271e-05,
+      "max_rss_kib_median": 4076,
+      "max_rss_kib_min": 4052
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "small-height",
+      "implementation": "gcd/factorize",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.01402902099999892,
+          "max_rss_kib": 4132,
+          "parse": 0.000207866,
+          "core": 0.008454015,
+          "format": 8.8416e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.014288348000036422,
+          "max_rss_kib": 4080,
+          "parse": 0.000194637,
+          "core": 0.008279315,
+          "format": 7.9952e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.013470160999986547,
+          "max_rss_kib": 4044,
+          "parse": 0.000240743,
+          "core": 0.008069257,
+          "format": 8.641e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.01402902099999892,
+      "e2e_min": 0.013470160999986547,
+      "core_median": 0.008279315,
+      "core_min": 0.008069257,
+      "parse_median": 0.000207866,
+      "parse_min": 0.000194637,
+      "format_median": 8.641e-05,
+      "format_min": 7.9952e-05,
+      "max_rss_kib_median": 4080,
+      "max_rss_kib_min": 4044
+    },
+    {
+      "compiler": "clang++",
+      "build": "assert",
+      "case": "small-height",
+      "implementation": "gcd/trial",
+      "input_sha256": "a7d5750ef126e3107d8653bf40dd89b583ec03832e13bf5a1bc1b23be8e0067a",
+      "samples": [
+        {
+          "e2e": 0.021425615999987713,
+          "max_rss_kib": 3948,
+          "parse": 0.00023247,
+          "core": 0.015898848,
+          "format": 7.9258e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.02517366699999002,
+          "max_rss_kib": 4012,
+          "parse": 0.000196385,
+          "core": 0.015834566,
+          "format": 9.2517e-05,
+          "queries_bytes": 120000
+        },
+        {
+          "e2e": 0.02210117300001002,
+          "max_rss_kib": 4060,
+          "parse": 0.000185818,
+          "core": 0.015983178,
+          "format": 7.4429e-05,
+          "queries_bytes": 120000
+        }
+      ],
+      "e2e_median": 0.02210117300001002,
+      "e2e_min": 0.021425615999987713,
+      "core_median": 0.015898848,
+      "core_min": 0.015834566,
+      "parse_median": 0.000196385,
+      "parse_min": 0.000185818,
+      "format_median": 7.9258e-05,
+      "format_min": 7.4429e-05,
+      "max_rss_kib_median": 4012,
+      "max_rss_kib_min": 3948
+    }
+  ],
+  "upstream_compile": [
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration-fastest/submission-150339.cpp",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration/fastest-150339"
+      ],
+      "returncode": 0,
+      "stderr": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration-fastest/submission-150339.cpp:9: warning: \"_GNU_SOURCE\" redefined\n    9 | #define _GNU_SOURCE\n      | \n<command-line>: note: this is the location of the previous definition\n"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration/fastest-150339-normalized.cpp",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration/fastest-150339-normalized"
+      ],
+      "returncode": 0,
+      "stderr": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration/fastest-150339-normalized.cpp:5: warning: \"_GNU_SOURCE\" redefined\n    5 | #define _GNU_SOURCE\n      | \n<command-line>: note: this is the location of the previous definition\n"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration-fastest/submission-108768.cpp",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration/fastest-108768"
+      ],
+      "returncode": 0,
+      "stderr": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration-fastest/submission-108768.cpp: In member function \u2018int suisen::Sieve<N>::prime_factor(unsigned int) const [with unsigned int N = 1000000]\u2019:\n/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration-fastest/submission-108768.cpp:331:17: warning: control reaches end of non-void function [-Wreturn-type]\n  331 |                 default: assert(false);\n      |                 ^~~~~~~\n"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration-fastest/submission-405835.cpp",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/lc-number-theory/.build/lc-expansion-tetration/fastest-405835"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    }
+  ]
+}

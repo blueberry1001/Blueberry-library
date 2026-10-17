@@ -1,2 +1,7 @@
 # Preserve the user's original template byte-for-byte, including its missing EOF newline.
 /.verify-helper/docs/static/assets/code/blueberrytemplate.h -text -whitespace
+
+# Keep benchmark diagnostics byte-for-byte, including original whitespace.
+/benchmark/lc-expansion-fps-sequences/**/*.log -text -whitespace
+/benchmark/lc-expansion-tetration*.log -text -whitespace
+/benchmarks/research/lc-expansion-primitive-root/*.log -text -whitespace
