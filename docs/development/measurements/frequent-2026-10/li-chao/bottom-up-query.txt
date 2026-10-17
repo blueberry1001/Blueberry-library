@@ -1,0 +1,24 @@
+  std::optional<T> query(T x) const {
+    assert(size() != 0);
+    int node = 1, left = 0, right = size();
+    while (right - left > 1) {
+      const int middle = left + (right - left) / 2;
+      if (x < xs_[middle]) {
+        node *= 2;
+        right = middle;
+      } else {
+        node = node * 2 + 1;
+        left = middle;
+      }
+    }
+    assert(xs_[left] == x);
+    // Finding the leaf also finds its ancestors; no second coordinate search.
+    std::optional<T> answer;
+    for (; node != 0; node /= 2) {
+      if (lines_[node]) {
+        const T value = lines_[node]->eval(x);
+        if (!answer || value < *answer) answer = value;
+      }
+    }
+    return answer;
+  }

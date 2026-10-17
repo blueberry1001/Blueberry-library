@@ -1,0 +1,4061 @@
+{
+  "baseline": "d6af3e9",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "flags": [
+    "-std=gnu++20",
+    "-O2",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DNDEBUG"
+  ],
+  "n": 100000,
+  "seed": 1729,
+  "repeats": 5,
+  "warmups": 1,
+  "results": [
+    {
+      "candidate": "baseline-static",
+      "workload": "envelope-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.48223 interleaved_ms=36.8064 updates_ms=13.983 queries_ms=19.4827 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29292\n",
+          "construction_ms": 5.48223,
+          "interleaved_ms": 36.8064,
+          "updates_ms": 13.983,
+          "queries_ms": 19.4827,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29292
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.64949 interleaved_ms=34.7348 updates_ms=13.8331 queries_ms=20.2091 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29288\n",
+          "construction_ms": 5.64949,
+          "interleaved_ms": 34.7348,
+          "updates_ms": 13.8331,
+          "queries_ms": 20.2091,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29288
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.753 interleaved_ms=34.934 updates_ms=14.3842 queries_ms=20.2331 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29176\n",
+          "construction_ms": 5.753,
+          "interleaved_ms": 34.934,
+          "updates_ms": 14.3842,
+          "queries_ms": 20.2331,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29176
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=6.00289 interleaved_ms=37.1434 updates_ms=13.4271 queries_ms=19.4855 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29196\n",
+          "construction_ms": 6.00289,
+          "interleaved_ms": 37.1434,
+          "updates_ms": 13.4271,
+          "queries_ms": 19.4855,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29196
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.64301 interleaved_ms=34.592 updates_ms=13.7126 queries_ms=20.0008 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29248\n",
+          "construction_ms": 5.64301,
+          "interleaved_ms": 34.592,
+          "updates_ms": 13.7126,
+          "queries_ms": 20.0008,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29248
+        }
+      ],
+      "median": {
+        "construction_ms": 5.64949,
+        "interleaved_ms": 34.934,
+        "updates_ms": 13.8331,
+        "queries_ms": 20.0008,
+        "peak_rss_kib": 29248
+      },
+      "min": {
+        "construction_ms": 5.48223,
+        "interleaved_ms": 34.592,
+        "updates_ms": 13.4271,
+        "queries_ms": 19.4827
+      }
+    },
+    {
+      "candidate": "query-static",
+      "workload": "envelope-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.8752 interleaved_ms=29.1264 updates_ms=14.5659 queries_ms=12.9484 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29304\n",
+          "construction_ms": 5.8752,
+          "interleaved_ms": 29.1264,
+          "updates_ms": 14.5659,
+          "queries_ms": 12.9484,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29304
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.89234 interleaved_ms=30.4715 updates_ms=13.7306 queries_ms=12.9325 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29220\n",
+          "construction_ms": 5.89234,
+          "interleaved_ms": 30.4715,
+          "updates_ms": 13.7306,
+          "queries_ms": 12.9325,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29220
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.79157 interleaved_ms=28.6035 updates_ms=13.9542 queries_ms=12.7756 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29260\n",
+          "construction_ms": 5.79157,
+          "interleaved_ms": 28.6035,
+          "updates_ms": 13.9542,
+          "queries_ms": 12.7756,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29260
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.5669 interleaved_ms=29.1167 updates_ms=13.7181 queries_ms=13.3381 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29256\n",
+          "construction_ms": 5.5669,
+          "interleaved_ms": 29.1167,
+          "updates_ms": 13.7181,
+          "queries_ms": 13.3381,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29256
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.83541 interleaved_ms=30.8864 updates_ms=13.6027 queries_ms=12.6072 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29196\n",
+          "construction_ms": 5.83541,
+          "interleaved_ms": 30.8864,
+          "updates_ms": 13.6027,
+          "queries_ms": 12.6072,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29196
+        }
+      ],
+      "median": {
+        "construction_ms": 5.83541,
+        "interleaved_ms": 29.1264,
+        "updates_ms": 13.7306,
+        "queries_ms": 12.9325,
+        "peak_rss_kib": 29256
+      },
+      "min": {
+        "construction_ms": 5.5669,
+        "interleaved_ms": 28.6035,
+        "updates_ms": 13.6027,
+        "queries_ms": 12.6072
+      }
+    },
+    {
+      "candidate": "prune-static",
+      "workload": "envelope-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.98988 interleaved_ms=36.0297 updates_ms=13.8563 queries_ms=23.4523 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29220\n",
+          "construction_ms": 5.98988,
+          "interleaved_ms": 36.0297,
+          "updates_ms": 13.8563,
+          "queries_ms": 23.4523,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29220
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.74021 interleaved_ms=36.2635 updates_ms=13.7397 queries_ms=20.7695 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29356\n",
+          "construction_ms": 5.74021,
+          "interleaved_ms": 36.2635,
+          "updates_ms": 13.7397,
+          "queries_ms": 20.7695,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29356
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=6.04277 interleaved_ms=37.0973 updates_ms=14.1826 queries_ms=20.8522 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29212\n",
+          "construction_ms": 6.04277,
+          "interleaved_ms": 37.0973,
+          "updates_ms": 14.1826,
+          "queries_ms": 20.8522,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29212
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.79826 interleaved_ms=36.8889 updates_ms=14.3433 queries_ms=21.9735 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29184\n",
+          "construction_ms": 5.79826,
+          "interleaved_ms": 36.8889,
+          "updates_ms": 14.3433,
+          "queries_ms": 21.9735,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29184
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.7089 interleaved_ms=35.2656 updates_ms=13.5982 queries_ms=20.7373 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29304\n",
+          "construction_ms": 5.7089,
+          "interleaved_ms": 35.2656,
+          "updates_ms": 13.5982,
+          "queries_ms": 20.7373,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29304
+        }
+      ],
+      "median": {
+        "construction_ms": 5.79826,
+        "interleaved_ms": 36.2635,
+        "updates_ms": 13.8563,
+        "queries_ms": 20.8522,
+        "peak_rss_kib": 29220
+      },
+      "min": {
+        "construction_ms": 5.7089,
+        "interleaved_ms": 35.2656,
+        "updates_ms": 13.5982,
+        "queries_ms": 20.7373
+      }
+    },
+    {
+      "candidate": "combined-static",
+      "workload": "envelope-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.57556 interleaved_ms=29.9824 updates_ms=13.7186 queries_ms=14.2813 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29200\n",
+          "construction_ms": 5.57556,
+          "interleaved_ms": 29.9824,
+          "updates_ms": 13.7186,
+          "queries_ms": 14.2813,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29200
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=6.02355 interleaved_ms=28.5829 updates_ms=13.8429 queries_ms=14.3608 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29196\n",
+          "construction_ms": 6.02355,
+          "interleaved_ms": 28.5829,
+          "updates_ms": 13.8429,
+          "queries_ms": 14.3608,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29196
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.60638 interleaved_ms=28.3521 updates_ms=14.3602 queries_ms=15.0562 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29320\n",
+          "construction_ms": 5.60638,
+          "interleaved_ms": 28.3521,
+          "updates_ms": 14.3602,
+          "queries_ms": 15.0562,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29320
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.61122 interleaved_ms=28.8605 updates_ms=13.5445 queries_ms=14.0399 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29372\n",
+          "construction_ms": 5.61122,
+          "interleaved_ms": 28.8605,
+          "updates_ms": 13.5445,
+          "queries_ms": 14.0399,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29372
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=7.39423 interleaved_ms=27.8899 updates_ms=14.1993 queries_ms=13.6337 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=29256\n",
+          "construction_ms": 7.39423,
+          "interleaved_ms": 27.8899,
+          "updates_ms": 14.1993,
+          "queries_ms": 13.6337,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 29256
+        }
+      ],
+      "median": {
+        "construction_ms": 5.61122,
+        "interleaved_ms": 28.5829,
+        "updates_ms": 13.8429,
+        "queries_ms": 14.2813,
+        "peak_rss_kib": 29256
+      },
+      "min": {
+        "construction_ms": 5.57556,
+        "interleaved_ms": 27.8899,
+        "updates_ms": 13.5445,
+        "queries_ms": 13.6337
+      }
+    },
+    {
+      "candidate": "baseline-dynamic",
+      "workload": "envelope-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.24283 interleaved_ms=25.0611 updates_ms=13.9789 queries_ms=13.9399 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=19996\n",
+          "construction_ms": 0.24283,
+          "interleaved_ms": 25.0611,
+          "updates_ms": 13.9789,
+          "queries_ms": 13.9399,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 19996
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.242184 interleaved_ms=24.2321 updates_ms=14.3031 queries_ms=13.4413 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=18728\n",
+          "construction_ms": 0.242184,
+          "interleaved_ms": 24.2321,
+          "updates_ms": 14.3031,
+          "queries_ms": 13.4413,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 18728
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.248946 interleaved_ms=24.2439 updates_ms=13.334 queries_ms=13.8195 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=18068\n",
+          "construction_ms": 0.248946,
+          "interleaved_ms": 24.2439,
+          "updates_ms": 13.334,
+          "queries_ms": 13.8195,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 18068
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.242572 interleaved_ms=25.4197 updates_ms=14.3368 queries_ms=13.8595 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=19304\n",
+          "construction_ms": 0.242572,
+          "interleaved_ms": 25.4197,
+          "updates_ms": 14.3368,
+          "queries_ms": 13.8595,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 19304
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.246831 interleaved_ms=24.4619 updates_ms=14.3217 queries_ms=13.7358 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=18772\n",
+          "construction_ms": 0.246831,
+          "interleaved_ms": 24.4619,
+          "updates_ms": 14.3217,
+          "queries_ms": 13.7358,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 18772
+        }
+      ],
+      "median": {
+        "construction_ms": 0.24283,
+        "interleaved_ms": 24.4619,
+        "updates_ms": 14.3031,
+        "queries_ms": 13.8195,
+        "peak_rss_kib": 18772
+      },
+      "min": {
+        "construction_ms": 0.242184,
+        "interleaved_ms": 24.2321,
+        "updates_ms": 13.334,
+        "queries_ms": 13.4413
+      }
+    },
+    {
+      "candidate": "prune-dynamic",
+      "workload": "envelope-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.228986 interleaved_ms=25.1656 updates_ms=14.5665 queries_ms=13.9025 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=19696\n",
+          "construction_ms": 0.228986,
+          "interleaved_ms": 25.1656,
+          "updates_ms": 14.5665,
+          "queries_ms": 13.9025,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 19696
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.264257 interleaved_ms=24.5789 updates_ms=14.4778 queries_ms=13.5802 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=18456\n",
+          "construction_ms": 0.264257,
+          "interleaved_ms": 24.5789,
+          "updates_ms": 14.4778,
+          "queries_ms": 13.5802,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 18456
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.22671 interleaved_ms=24.1282 updates_ms=13.8107 queries_ms=13.1562 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=17996\n",
+          "construction_ms": 0.22671,
+          "interleaved_ms": 24.1282,
+          "updates_ms": 13.8107,
+          "queries_ms": 13.1562,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 17996
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.293047 interleaved_ms=25.168 updates_ms=14.1779 queries_ms=13.9419 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=19944\n",
+          "construction_ms": 0.293047,
+          "interleaved_ms": 25.168,
+          "updates_ms": 14.1779,
+          "queries_ms": 13.9419,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 19944
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.282681 interleaved_ms=25.9113 updates_ms=14.4732 queries_ms=13.9784 checksum=215267844207647571 batch_checksum=13568870114362508562\n",
+          "stderr": "peak_rss_kib=19476\n",
+          "construction_ms": 0.282681,
+          "interleaved_ms": 25.9113,
+          "updates_ms": 14.4732,
+          "queries_ms": 13.9784,
+          "checksum": 215267844207647571,
+          "batch_checksum": 13568870114362508562,
+          "peak_rss_kib": 19476
+        }
+      ],
+      "median": {
+        "construction_ms": 0.264257,
+        "interleaved_ms": 25.1656,
+        "updates_ms": 14.4732,
+        "queries_ms": 13.9025,
+        "peak_rss_kib": 19476
+      },
+      "min": {
+        "construction_ms": 0.22671,
+        "interleaved_ms": 24.1282,
+        "updates_ms": 13.8107,
+        "queries_ms": 13.1562
+      }
+    },
+    {
+      "candidate": "baseline-static",
+      "workload": "random-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.52166 interleaved_ms=23.914 updates_ms=2.82748 queries_ms=15.6551 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29244\n",
+          "construction_ms": 5.52166,
+          "interleaved_ms": 23.914,
+          "updates_ms": 2.82748,
+          "queries_ms": 15.6551,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29244
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.78578 interleaved_ms=27.3292 updates_ms=2.83931 queries_ms=15.0929 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29296\n",
+          "construction_ms": 5.78578,
+          "interleaved_ms": 27.3292,
+          "updates_ms": 2.83931,
+          "queries_ms": 15.0929,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29296
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.4924 interleaved_ms=24.0596 updates_ms=2.8448 queries_ms=14.9802 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29192\n",
+          "construction_ms": 5.4924,
+          "interleaved_ms": 24.0596,
+          "updates_ms": 2.8448,
+          "queries_ms": 14.9802,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29192
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=6.2724 interleaved_ms=24.5052 updates_ms=2.85401 queries_ms=14.9197 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29100\n",
+          "construction_ms": 6.2724,
+          "interleaved_ms": 24.5052,
+          "updates_ms": 2.85401,
+          "queries_ms": 14.9197,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29100
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=6.33348 interleaved_ms=23.0782 updates_ms=2.83149 queries_ms=15.9835 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29240\n",
+          "construction_ms": 6.33348,
+          "interleaved_ms": 23.0782,
+          "updates_ms": 2.83149,
+          "queries_ms": 15.9835,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29240
+        }
+      ],
+      "median": {
+        "construction_ms": 5.78578,
+        "interleaved_ms": 24.0596,
+        "updates_ms": 2.83931,
+        "queries_ms": 15.0929,
+        "peak_rss_kib": 29240
+      },
+      "min": {
+        "construction_ms": 5.4924,
+        "interleaved_ms": 23.0782,
+        "updates_ms": 2.82748,
+        "queries_ms": 14.9197
+      }
+    },
+    {
+      "candidate": "query-static",
+      "workload": "random-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.56235 interleaved_ms=16.088 updates_ms=2.82917 queries_ms=10.6421 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29276\n",
+          "construction_ms": 5.56235,
+          "interleaved_ms": 16.088,
+          "updates_ms": 2.82917,
+          "queries_ms": 10.6421,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29276
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.52089 interleaved_ms=17.0452 updates_ms=2.87387 queries_ms=10.5176 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29292\n",
+          "construction_ms": 5.52089,
+          "interleaved_ms": 17.0452,
+          "updates_ms": 2.87387,
+          "queries_ms": 10.5176,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29292
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.52778 interleaved_ms=15.8379 updates_ms=2.82608 queries_ms=10.606 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29308\n",
+          "construction_ms": 5.52778,
+          "interleaved_ms": 15.8379,
+          "updates_ms": 2.82608,
+          "queries_ms": 10.606,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29308
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=6.01229 interleaved_ms=15.7662 updates_ms=2.86415 queries_ms=10.5477 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29220\n",
+          "construction_ms": 6.01229,
+          "interleaved_ms": 15.7662,
+          "updates_ms": 2.86415,
+          "queries_ms": 10.5477,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29220
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.66829 interleaved_ms=15.8756 updates_ms=2.81966 queries_ms=10.4039 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29264\n",
+          "construction_ms": 5.66829,
+          "interleaved_ms": 15.8756,
+          "updates_ms": 2.81966,
+          "queries_ms": 10.4039,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29264
+        }
+      ],
+      "median": {
+        "construction_ms": 5.56235,
+        "interleaved_ms": 15.8756,
+        "updates_ms": 2.82917,
+        "queries_ms": 10.5477,
+        "peak_rss_kib": 29276
+      },
+      "min": {
+        "construction_ms": 5.52089,
+        "interleaved_ms": 15.7662,
+        "updates_ms": 2.81966,
+        "queries_ms": 10.4039
+      }
+    },
+    {
+      "candidate": "prune-static",
+      "workload": "random-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.82739 interleaved_ms=22.8124 updates_ms=2.80687 queries_ms=15.1626 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29228\n",
+          "construction_ms": 5.82739,
+          "interleaved_ms": 22.8124,
+          "updates_ms": 2.80687,
+          "queries_ms": 15.1626,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29228
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.45983 interleaved_ms=23.0949 updates_ms=2.82618 queries_ms=14.9019 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29232\n",
+          "construction_ms": 5.45983,
+          "interleaved_ms": 23.0949,
+          "updates_ms": 2.82618,
+          "queries_ms": 14.9019,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29232
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=6.23899 interleaved_ms=23.457 updates_ms=2.85331 queries_ms=15.3987 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29192\n",
+          "construction_ms": 6.23899,
+          "interleaved_ms": 23.457,
+          "updates_ms": 2.85331,
+          "queries_ms": 15.3987,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29192
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.49813 interleaved_ms=24.455 updates_ms=2.82432 queries_ms=14.9734 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29264\n",
+          "construction_ms": 5.49813,
+          "interleaved_ms": 24.455,
+          "updates_ms": 2.82432,
+          "queries_ms": 14.9734,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29264
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.56202 interleaved_ms=24.1912 updates_ms=2.85278 queries_ms=15.0388 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29280\n",
+          "construction_ms": 5.56202,
+          "interleaved_ms": 24.1912,
+          "updates_ms": 2.85278,
+          "queries_ms": 15.0388,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29280
+        }
+      ],
+      "median": {
+        "construction_ms": 5.56202,
+        "interleaved_ms": 23.457,
+        "updates_ms": 2.82618,
+        "queries_ms": 15.0388,
+        "peak_rss_kib": 29232
+      },
+      "min": {
+        "construction_ms": 5.45983,
+        "interleaved_ms": 22.8124,
+        "updates_ms": 2.80687,
+        "queries_ms": 14.9019
+      }
+    },
+    {
+      "candidate": "combined-static",
+      "workload": "random-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.90596 interleaved_ms=15.7439 updates_ms=2.82687 queries_ms=11.0292 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29188\n",
+          "construction_ms": 5.90596,
+          "interleaved_ms": 15.7439,
+          "updates_ms": 2.82687,
+          "queries_ms": 11.0292,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29188
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.75651 interleaved_ms=15.6917 updates_ms=2.84589 queries_ms=10.8793 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29184\n",
+          "construction_ms": 5.75651,
+          "interleaved_ms": 15.6917,
+          "updates_ms": 2.84589,
+          "queries_ms": 10.8793,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29184
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.79368 interleaved_ms=16.1771 updates_ms=2.82802 queries_ms=10.6943 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29140\n",
+          "construction_ms": 5.79368,
+          "interleaved_ms": 16.1771,
+          "updates_ms": 2.82802,
+          "queries_ms": 10.6943,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29140
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.56616 interleaved_ms=16.1774 updates_ms=2.85161 queries_ms=11.3672 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29256\n",
+          "construction_ms": 5.56616,
+          "interleaved_ms": 16.1774,
+          "updates_ms": 2.85161,
+          "queries_ms": 11.3672,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29256
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.7468 interleaved_ms=15.9382 updates_ms=2.86774 queries_ms=10.6461 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=29100\n",
+          "construction_ms": 5.7468,
+          "interleaved_ms": 15.9382,
+          "updates_ms": 2.86774,
+          "queries_ms": 10.6461,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 29100
+        }
+      ],
+      "median": {
+        "construction_ms": 5.75651,
+        "interleaved_ms": 15.9382,
+        "updates_ms": 2.84589,
+        "queries_ms": 10.8793,
+        "peak_rss_kib": 29184
+      },
+      "min": {
+        "construction_ms": 5.56616,
+        "interleaved_ms": 15.6917,
+        "updates_ms": 2.82687,
+        "queries_ms": 10.6461
+      }
+    },
+    {
+      "candidate": "baseline-dynamic",
+      "workload": "random-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.299069 interleaved_ms=2.32851 updates_ms=1.18624 queries_ms=1.10211 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9608\n",
+          "construction_ms": 0.299069,
+          "interleaved_ms": 2.32851,
+          "updates_ms": 1.18624,
+          "queries_ms": 1.10211,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9608
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.231467 interleaved_ms=2.3388 updates_ms=1.18908 queries_ms=1.10564 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9616\n",
+          "construction_ms": 0.231467,
+          "interleaved_ms": 2.3388,
+          "updates_ms": 1.18908,
+          "queries_ms": 1.10564,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9616
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.235291 interleaved_ms=2.29154 updates_ms=1.19123 queries_ms=1.12332 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9692\n",
+          "construction_ms": 0.235291,
+          "interleaved_ms": 2.29154,
+          "updates_ms": 1.19123,
+          "queries_ms": 1.12332,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9692
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.229223 interleaved_ms=2.26805 updates_ms=1.22157 queries_ms=1.1263 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9572\n",
+          "construction_ms": 0.229223,
+          "interleaved_ms": 2.26805,
+          "updates_ms": 1.22157,
+          "queries_ms": 1.1263,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9572
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.22924 interleaved_ms=2.40746 updates_ms=1.22511 queries_ms=1.12997 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9616\n",
+          "construction_ms": 0.22924,
+          "interleaved_ms": 2.40746,
+          "updates_ms": 1.22511,
+          "queries_ms": 1.12997,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9616
+        }
+      ],
+      "median": {
+        "construction_ms": 0.231467,
+        "interleaved_ms": 2.32851,
+        "updates_ms": 1.19123,
+        "queries_ms": 1.12332,
+        "peak_rss_kib": 9616
+      },
+      "min": {
+        "construction_ms": 0.229223,
+        "interleaved_ms": 2.26805,
+        "updates_ms": 1.18624,
+        "queries_ms": 1.10211
+      }
+    },
+    {
+      "candidate": "prune-dynamic",
+      "workload": "random-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.221362 interleaved_ms=2.29117 updates_ms=1.21592 queries_ms=1.12516 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9648\n",
+          "construction_ms": 0.221362,
+          "interleaved_ms": 2.29117,
+          "updates_ms": 1.21592,
+          "queries_ms": 1.12516,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9648
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.225122 interleaved_ms=2.32859 updates_ms=1.20616 queries_ms=1.10181 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9596\n",
+          "construction_ms": 0.225122,
+          "interleaved_ms": 2.32859,
+          "updates_ms": 1.20616,
+          "queries_ms": 1.10181,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9596
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.249163 interleaved_ms=2.3033 updates_ms=1.1767 queries_ms=1.12698 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9664\n",
+          "construction_ms": 0.249163,
+          "interleaved_ms": 2.3033,
+          "updates_ms": 1.1767,
+          "queries_ms": 1.12698,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9664
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.251724 interleaved_ms=2.29892 updates_ms=1.22962 queries_ms=1.10458 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9632\n",
+          "construction_ms": 0.251724,
+          "interleaved_ms": 2.29892,
+          "updates_ms": 1.22962,
+          "queries_ms": 1.10458,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9632
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.254607 interleaved_ms=2.36387 updates_ms=1.17755 queries_ms=1.10474 checksum=1157147216033038665 batch_checksum=15917210702630944825\n",
+          "stderr": "peak_rss_kib=9664\n",
+          "construction_ms": 0.254607,
+          "interleaved_ms": 2.36387,
+          "updates_ms": 1.17755,
+          "queries_ms": 1.10474,
+          "checksum": 1157147216033038665,
+          "batch_checksum": 15917210702630944825,
+          "peak_rss_kib": 9664
+        }
+      ],
+      "median": {
+        "construction_ms": 0.249163,
+        "interleaved_ms": 2.3033,
+        "updates_ms": 1.20616,
+        "queries_ms": 1.10474,
+        "peak_rss_kib": 9648
+      },
+      "min": {
+        "construction_ms": 0.221362,
+        "interleaved_ms": 2.29117,
+        "updates_ms": 1.1767,
+        "queries_ms": 1.10181
+      }
+    },
+    {
+      "candidate": "baseline-static",
+      "workload": "query-heavy-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.78004 interleaved_ms=18.8346 updates_ms=1.20465 queries_ms=19.4407 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29224\n",
+          "construction_ms": 5.78004,
+          "interleaved_ms": 18.8346,
+          "updates_ms": 1.20465,
+          "queries_ms": 19.4407,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29224
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.72134 interleaved_ms=18.8189 updates_ms=1.23239 queries_ms=18.0737 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29224\n",
+          "construction_ms": 5.72134,
+          "interleaved_ms": 18.8189,
+          "updates_ms": 1.23239,
+          "queries_ms": 18.0737,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29224
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.59824 interleaved_ms=18.9737 updates_ms=1.24528 queries_ms=17.9536 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29340\n",
+          "construction_ms": 5.59824,
+          "interleaved_ms": 18.9737,
+          "updates_ms": 1.24528,
+          "queries_ms": 17.9536,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29340
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.48583 interleaved_ms=20.1627 updates_ms=1.23526 queries_ms=18.0845 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29376\n",
+          "construction_ms": 5.48583,
+          "interleaved_ms": 20.1627,
+          "updates_ms": 1.23526,
+          "queries_ms": 18.0845,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29376
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.50712 interleaved_ms=19.1791 updates_ms=1.2272 queries_ms=18.2097 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29296\n",
+          "construction_ms": 5.50712,
+          "interleaved_ms": 19.1791,
+          "updates_ms": 1.2272,
+          "queries_ms": 18.2097,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29296
+        }
+      ],
+      "median": {
+        "construction_ms": 5.59824,
+        "interleaved_ms": 18.9737,
+        "updates_ms": 1.23239,
+        "queries_ms": 18.0845,
+        "peak_rss_kib": 29296
+      },
+      "min": {
+        "construction_ms": 5.48583,
+        "interleaved_ms": 18.8189,
+        "updates_ms": 1.20465,
+        "queries_ms": 17.9536
+      }
+    },
+    {
+      "candidate": "query-static",
+      "workload": "query-heavy-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.4886 interleaved_ms=14.7994 updates_ms=1.36497 queries_ms=12.7825 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29324\n",
+          "construction_ms": 5.4886,
+          "interleaved_ms": 14.7994,
+          "updates_ms": 1.36497,
+          "queries_ms": 12.7825,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29324
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.70434 interleaved_ms=13.7801 updates_ms=1.32802 queries_ms=12.1443 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29228\n",
+          "construction_ms": 5.70434,
+          "interleaved_ms": 13.7801,
+          "updates_ms": 1.32802,
+          "queries_ms": 12.1443,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29228
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.50386 interleaved_ms=13.495 updates_ms=1.33204 queries_ms=12.1703 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29376\n",
+          "construction_ms": 5.50386,
+          "interleaved_ms": 13.495,
+          "updates_ms": 1.33204,
+          "queries_ms": 12.1703,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29376
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.51528 interleaved_ms=13.4358 updates_ms=1.37208 queries_ms=11.7351 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29264\n",
+          "construction_ms": 5.51528,
+          "interleaved_ms": 13.4358,
+          "updates_ms": 1.37208,
+          "queries_ms": 11.7351,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29264
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.8593 interleaved_ms=14.0133 updates_ms=1.29226 queries_ms=12.0909 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29304\n",
+          "construction_ms": 5.8593,
+          "interleaved_ms": 14.0133,
+          "updates_ms": 1.29226,
+          "queries_ms": 12.0909,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29304
+        }
+      ],
+      "median": {
+        "construction_ms": 5.51528,
+        "interleaved_ms": 13.7801,
+        "updates_ms": 1.33204,
+        "queries_ms": 12.1443,
+        "peak_rss_kib": 29304
+      },
+      "min": {
+        "construction_ms": 5.4886,
+        "interleaved_ms": 13.4358,
+        "updates_ms": 1.29226,
+        "queries_ms": 11.7351
+      }
+    },
+    {
+      "candidate": "prune-static",
+      "workload": "query-heavy-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.49841 interleaved_ms=18.8662 updates_ms=1.19639 queries_ms=18.6393 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29244\n",
+          "construction_ms": 5.49841,
+          "interleaved_ms": 18.8662,
+          "updates_ms": 1.19639,
+          "queries_ms": 18.6393,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29244
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=6.27982 interleaved_ms=19.0529 updates_ms=1.25852 queries_ms=18.3842 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29256\n",
+          "construction_ms": 6.27982,
+          "interleaved_ms": 19.0529,
+          "updates_ms": 1.25852,
+          "queries_ms": 18.3842,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29256
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.75458 interleaved_ms=18.7544 updates_ms=1.16097 queries_ms=18.117 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29224\n",
+          "construction_ms": 5.75458,
+          "interleaved_ms": 18.7544,
+          "updates_ms": 1.16097,
+          "queries_ms": 18.117,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29224
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.60872 interleaved_ms=18.7498 updates_ms=1.16981 queries_ms=18.0855 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29112\n",
+          "construction_ms": 5.60872,
+          "interleaved_ms": 18.7498,
+          "updates_ms": 1.16981,
+          "queries_ms": 18.0855,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29112
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.33308 interleaved_ms=18.6374 updates_ms=1.25126 queries_ms=18.5031 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29292\n",
+          "construction_ms": 5.33308,
+          "interleaved_ms": 18.6374,
+          "updates_ms": 1.25126,
+          "queries_ms": 18.5031,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29292
+        }
+      ],
+      "median": {
+        "construction_ms": 5.60872,
+        "interleaved_ms": 18.7544,
+        "updates_ms": 1.19639,
+        "queries_ms": 18.3842,
+        "peak_rss_kib": 29244
+      },
+      "min": {
+        "construction_ms": 5.33308,
+        "interleaved_ms": 18.6374,
+        "updates_ms": 1.16097,
+        "queries_ms": 18.0855
+      }
+    },
+    {
+      "candidate": "combined-static",
+      "workload": "query-heavy-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.81813 interleaved_ms=13.9661 updates_ms=1.29987 queries_ms=12.5042 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29228\n",
+          "construction_ms": 5.81813,
+          "interleaved_ms": 13.9661,
+          "updates_ms": 1.29987,
+          "queries_ms": 12.5042,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29228
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.67379 interleaved_ms=14.413 updates_ms=1.34712 queries_ms=12.8828 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29184\n",
+          "construction_ms": 5.67379,
+          "interleaved_ms": 14.413,
+          "updates_ms": 1.34712,
+          "queries_ms": 12.8828,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29184
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.89159 interleaved_ms=14.6235 updates_ms=1.34467 queries_ms=12.6772 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29232\n",
+          "construction_ms": 5.89159,
+          "interleaved_ms": 14.6235,
+          "updates_ms": 1.34467,
+          "queries_ms": 12.6772,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29232
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.79127 interleaved_ms=14.1502 updates_ms=1.31371 queries_ms=12.3973 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29224\n",
+          "construction_ms": 5.79127,
+          "interleaved_ms": 14.1502,
+          "updates_ms": 1.31371,
+          "queries_ms": 12.3973,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29224
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.52106 interleaved_ms=13.8176 updates_ms=1.33996 queries_ms=12.3356 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=29268\n",
+          "construction_ms": 5.52106,
+          "interleaved_ms": 13.8176,
+          "updates_ms": 1.33996,
+          "queries_ms": 12.3356,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 29268
+        }
+      ],
+      "median": {
+        "construction_ms": 5.79127,
+        "interleaved_ms": 14.1502,
+        "updates_ms": 1.33996,
+        "queries_ms": 12.5042,
+        "peak_rss_kib": 29228
+      },
+      "min": {
+        "construction_ms": 5.52106,
+        "interleaved_ms": 13.8176,
+        "updates_ms": 1.29987,
+        "queries_ms": 12.3356
+      }
+    },
+    {
+      "candidate": "baseline-dynamic",
+      "workload": "query-heavy-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.22323 interleaved_ms=7.84591 updates_ms=0.95768 queries_ms=8.1077 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10344\n",
+          "construction_ms": 0.22323,
+          "interleaved_ms": 7.84591,
+          "updates_ms": 0.95768,
+          "queries_ms": 8.1077,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10344
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.248146 interleaved_ms=7.77323 updates_ms=0.977114 queries_ms=8.03276 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10344\n",
+          "construction_ms": 0.248146,
+          "interleaved_ms": 7.77323,
+          "updates_ms": 0.977114,
+          "queries_ms": 8.03276,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10344
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.227381 interleaved_ms=7.68713 updates_ms=0.891423 queries_ms=7.92076 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10344\n",
+          "construction_ms": 0.227381,
+          "interleaved_ms": 7.68713,
+          "updates_ms": 0.891423,
+          "queries_ms": 7.92076,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10344
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.21197 interleaved_ms=7.49785 updates_ms=0.88704 queries_ms=7.63964 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10300\n",
+          "construction_ms": 0.21197,
+          "interleaved_ms": 7.49785,
+          "updates_ms": 0.88704,
+          "queries_ms": 7.63964,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10300
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.216612 interleaved_ms=7.63537 updates_ms=0.927658 queries_ms=7.91539 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10320\n",
+          "construction_ms": 0.216612,
+          "interleaved_ms": 7.63537,
+          "updates_ms": 0.927658,
+          "queries_ms": 7.91539,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10320
+        }
+      ],
+      "median": {
+        "construction_ms": 0.22323,
+        "interleaved_ms": 7.68713,
+        "updates_ms": 0.927658,
+        "queries_ms": 7.92076,
+        "peak_rss_kib": 10344
+      },
+      "min": {
+        "construction_ms": 0.21197,
+        "interleaved_ms": 7.49785,
+        "updates_ms": 0.88704,
+        "queries_ms": 7.63964
+      }
+    },
+    {
+      "candidate": "prune-dynamic",
+      "workload": "query-heavy-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.224595 interleaved_ms=7.82889 updates_ms=0.947887 queries_ms=8.00091 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10456\n",
+          "construction_ms": 0.224595,
+          "interleaved_ms": 7.82889,
+          "updates_ms": 0.947887,
+          "queries_ms": 8.00091,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10456
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.239751 interleaved_ms=7.66953 updates_ms=0.926286 queries_ms=8.00578 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10348\n",
+          "construction_ms": 0.239751,
+          "interleaved_ms": 7.66953,
+          "updates_ms": 0.926286,
+          "queries_ms": 8.00578,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10348
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.220156 interleaved_ms=7.88611 updates_ms=0.955984 queries_ms=7.93133 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10320\n",
+          "construction_ms": 0.220156,
+          "interleaved_ms": 7.88611,
+          "updates_ms": 0.955984,
+          "queries_ms": 7.93133,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10320
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.244345 interleaved_ms=7.50953 updates_ms=0.970865 queries_ms=7.92344 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10328\n",
+          "construction_ms": 0.244345,
+          "interleaved_ms": 7.50953,
+          "updates_ms": 0.970865,
+          "queries_ms": 7.92344,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10328
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.255624 interleaved_ms=7.51832 updates_ms=0.905045 queries_ms=7.64022 checksum=17581123465375791002 batch_checksum=8897856524881265369\n",
+          "stderr": "peak_rss_kib=10428\n",
+          "construction_ms": 0.255624,
+          "interleaved_ms": 7.51832,
+          "updates_ms": 0.905045,
+          "queries_ms": 7.64022,
+          "checksum": 17581123465375791002,
+          "batch_checksum": 8897856524881265369,
+          "peak_rss_kib": 10428
+        }
+      ],
+      "median": {
+        "construction_ms": 0.239751,
+        "interleaved_ms": 7.66953,
+        "updates_ms": 0.947887,
+        "queries_ms": 7.93133,
+        "peak_rss_kib": 10348
+      },
+      "min": {
+        "construction_ms": 0.220156,
+        "interleaved_ms": 7.50953,
+        "updates_ms": 0.905045,
+        "queries_ms": 7.64022
+      }
+    },
+    {
+      "candidate": "baseline-static",
+      "workload": "duplicate-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=1.94251 interleaved_ms=2.87753 updates_ms=0.285824 queries_ms=2.59409 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9468\n",
+          "construction_ms": 1.94251,
+          "interleaved_ms": 2.87753,
+          "updates_ms": 0.285824,
+          "queries_ms": 2.59409,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9468
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=1.97577 interleaved_ms=2.93635 updates_ms=0.293833 queries_ms=2.58802 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9440\n",
+          "construction_ms": 1.97577,
+          "interleaved_ms": 2.93635,
+          "updates_ms": 0.293833,
+          "queries_ms": 2.58802,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9440
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=2.045 interleaved_ms=2.91426 updates_ms=0.271275 queries_ms=2.55906 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9584\n",
+          "construction_ms": 2.045,
+          "interleaved_ms": 2.91426,
+          "updates_ms": 0.271275,
+          "queries_ms": 2.55906,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9584
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=2.01623 interleaved_ms=2.8896 updates_ms=0.304291 queries_ms=2.6311 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9556\n",
+          "construction_ms": 2.01623,
+          "interleaved_ms": 2.8896,
+          "updates_ms": 0.304291,
+          "queries_ms": 2.6311,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9556
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=2.01546 interleaved_ms=2.995 updates_ms=0.303182 queries_ms=2.5675 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9512\n",
+          "construction_ms": 2.01546,
+          "interleaved_ms": 2.995,
+          "updates_ms": 0.303182,
+          "queries_ms": 2.5675,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9512
+        }
+      ],
+      "median": {
+        "construction_ms": 2.01546,
+        "interleaved_ms": 2.91426,
+        "updates_ms": 0.293833,
+        "queries_ms": 2.58802,
+        "peak_rss_kib": 9512
+      },
+      "min": {
+        "construction_ms": 1.94251,
+        "interleaved_ms": 2.87753,
+        "updates_ms": 0.271275,
+        "queries_ms": 2.55906
+      }
+    },
+    {
+      "candidate": "query-static",
+      "workload": "duplicate-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=2.01958 interleaved_ms=2.71129 updates_ms=0.246462 queries_ms=2.20092 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9464\n",
+          "construction_ms": 2.01958,
+          "interleaved_ms": 2.71129,
+          "updates_ms": 0.246462,
+          "queries_ms": 2.20092,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9464
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=2.02136 interleaved_ms=2.71121 updates_ms=0.278875 queries_ms=2.17612 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9536\n",
+          "construction_ms": 2.02136,
+          "interleaved_ms": 2.71121,
+          "updates_ms": 0.278875,
+          "queries_ms": 2.17612,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9536
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=2.01118 interleaved_ms=2.72224 updates_ms=0.285973 queries_ms=2.20104 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9508\n",
+          "construction_ms": 2.01118,
+          "interleaved_ms": 2.72224,
+          "updates_ms": 0.285973,
+          "queries_ms": 2.20104,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9508
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=2.02583 interleaved_ms=2.71488 updates_ms=0.282421 queries_ms=2.20245 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9512\n",
+          "construction_ms": 2.02583,
+          "interleaved_ms": 2.71488,
+          "updates_ms": 0.282421,
+          "queries_ms": 2.20245,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9512
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=2.05321 interleaved_ms=2.77186 updates_ms=0.329478 queries_ms=2.19952 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9584\n",
+          "construction_ms": 2.05321,
+          "interleaved_ms": 2.77186,
+          "updates_ms": 0.329478,
+          "queries_ms": 2.19952,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9584
+        }
+      ],
+      "median": {
+        "construction_ms": 2.02136,
+        "interleaved_ms": 2.71488,
+        "updates_ms": 0.282421,
+        "queries_ms": 2.20092,
+        "peak_rss_kib": 9512
+      },
+      "min": {
+        "construction_ms": 2.01118,
+        "interleaved_ms": 2.71121,
+        "updates_ms": 0.246462,
+        "queries_ms": 2.17612
+      }
+    },
+    {
+      "candidate": "prune-static",
+      "workload": "duplicate-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=2.02058 interleaved_ms=2.88016 updates_ms=0.303069 queries_ms=2.45501 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9496\n",
+          "construction_ms": 2.02058,
+          "interleaved_ms": 2.88016,
+          "updates_ms": 0.303069,
+          "queries_ms": 2.45501,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9496
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=2.0328 interleaved_ms=2.92192 updates_ms=0.363778 queries_ms=2.56887 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9588\n",
+          "construction_ms": 2.0328,
+          "interleaved_ms": 2.92192,
+          "updates_ms": 0.363778,
+          "queries_ms": 2.56887,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9588
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=1.96722 interleaved_ms=2.95135 updates_ms=0.31552 queries_ms=2.4811 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9440\n",
+          "construction_ms": 1.96722,
+          "interleaved_ms": 2.95135,
+          "updates_ms": 0.31552,
+          "queries_ms": 2.4811,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9440
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=1.99112 interleaved_ms=2.73577 updates_ms=0.296539 queries_ms=2.51862 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9512\n",
+          "construction_ms": 1.99112,
+          "interleaved_ms": 2.73577,
+          "updates_ms": 0.296539,
+          "queries_ms": 2.51862,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9512
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=2.13136 interleaved_ms=3.11258 updates_ms=0.341029 queries_ms=2.53987 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9460\n",
+          "construction_ms": 2.13136,
+          "interleaved_ms": 3.11258,
+          "updates_ms": 0.341029,
+          "queries_ms": 2.53987,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9460
+        }
+      ],
+      "median": {
+        "construction_ms": 2.02058,
+        "interleaved_ms": 2.92192,
+        "updates_ms": 0.31552,
+        "queries_ms": 2.51862,
+        "peak_rss_kib": 9496
+      },
+      "min": {
+        "construction_ms": 1.96722,
+        "interleaved_ms": 2.73577,
+        "updates_ms": 0.296539,
+        "queries_ms": 2.45501
+      }
+    },
+    {
+      "candidate": "combined-static",
+      "workload": "duplicate-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=1.98954 interleaved_ms=2.64098 updates_ms=0.313455 queries_ms=2.24494 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9528\n",
+          "construction_ms": 1.98954,
+          "interleaved_ms": 2.64098,
+          "updates_ms": 0.313455,
+          "queries_ms": 2.24494,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9528
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=1.92289 interleaved_ms=2.44936 updates_ms=0.305141 queries_ms=2.24143 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9508\n",
+          "construction_ms": 1.92289,
+          "interleaved_ms": 2.44936,
+          "updates_ms": 0.305141,
+          "queries_ms": 2.24143,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9508
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=1.96207 interleaved_ms=3.06872 updates_ms=0.313267 queries_ms=2.25796 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9524\n",
+          "construction_ms": 1.96207,
+          "interleaved_ms": 3.06872,
+          "updates_ms": 0.313267,
+          "queries_ms": 2.25796,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9524
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=2.00494 interleaved_ms=4.09859 updates_ms=0.406396 queries_ms=2.88857 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9512\n",
+          "construction_ms": 2.00494,
+          "interleaved_ms": 4.09859,
+          "updates_ms": 0.406396,
+          "queries_ms": 2.88857,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9512
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=2.05033 interleaved_ms=3.03822 updates_ms=0.296643 queries_ms=2.21167 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=9560\n",
+          "construction_ms": 2.05033,
+          "interleaved_ms": 3.03822,
+          "updates_ms": 0.296643,
+          "queries_ms": 2.21167,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 9560
+        }
+      ],
+      "median": {
+        "construction_ms": 1.98954,
+        "interleaved_ms": 3.03822,
+        "updates_ms": 0.313267,
+        "queries_ms": 2.24494,
+        "peak_rss_kib": 9524
+      },
+      "min": {
+        "construction_ms": 1.92289,
+        "interleaved_ms": 2.44936,
+        "updates_ms": 0.296643,
+        "queries_ms": 2.21167
+      }
+    },
+    {
+      "candidate": "baseline-dynamic",
+      "workload": "duplicate-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.218125 interleaved_ms=16.3589 updates_ms=13.706 queries_ms=2.61481 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=19788\n",
+          "construction_ms": 0.218125,
+          "interleaved_ms": 16.3589,
+          "updates_ms": 13.706,
+          "queries_ms": 2.61481,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 19788
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.246877 interleaved_ms=16.7703 updates_ms=13.7764 queries_ms=2.57513 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=20856\n",
+          "construction_ms": 0.246877,
+          "interleaved_ms": 16.7703,
+          "updates_ms": 13.7764,
+          "queries_ms": 2.57513,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 20856
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.248563 interleaved_ms=16.1969 updates_ms=13.024 queries_ms=2.63476 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=17796\n",
+          "construction_ms": 0.248563,
+          "interleaved_ms": 16.1969,
+          "updates_ms": 13.024,
+          "queries_ms": 2.63476,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 17796
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.235162 interleaved_ms=16.2396 updates_ms=12.9567 queries_ms=2.59041 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=19340\n",
+          "construction_ms": 0.235162,
+          "interleaved_ms": 16.2396,
+          "updates_ms": 12.9567,
+          "queries_ms": 2.59041,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 19340
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.363608 interleaved_ms=16.6462 updates_ms=13.454 queries_ms=2.78719 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=19480\n",
+          "construction_ms": 0.363608,
+          "interleaved_ms": 16.6462,
+          "updates_ms": 13.454,
+          "queries_ms": 2.78719,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 19480
+        }
+      ],
+      "median": {
+        "construction_ms": 0.246877,
+        "interleaved_ms": 16.3589,
+        "updates_ms": 13.454,
+        "queries_ms": 2.61481,
+        "peak_rss_kib": 19480
+      },
+      "min": {
+        "construction_ms": 0.218125,
+        "interleaved_ms": 16.1969,
+        "updates_ms": 12.9567,
+        "queries_ms": 2.57513
+      }
+    },
+    {
+      "candidate": "prune-dynamic",
+      "workload": "duplicate-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.216091 interleaved_ms=16.3581 updates_ms=13.5667 queries_ms=2.5922 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=19532\n",
+          "construction_ms": 0.216091,
+          "interleaved_ms": 16.3581,
+          "updates_ms": 13.5667,
+          "queries_ms": 2.5922,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 19532
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.258558 interleaved_ms=16.2826 updates_ms=13.786 queries_ms=2.7997 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=18656\n",
+          "construction_ms": 0.258558,
+          "interleaved_ms": 16.2826,
+          "updates_ms": 13.786,
+          "queries_ms": 2.7997,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 18656
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.237363 interleaved_ms=16.3565 updates_ms=13.7414 queries_ms=2.62202 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=19476\n",
+          "construction_ms": 0.237363,
+          "interleaved_ms": 16.3565,
+          "updates_ms": 13.7414,
+          "queries_ms": 2.62202,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 19476
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.232475 interleaved_ms=16.8301 updates_ms=13.0842 queries_ms=2.58223 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=20040\n",
+          "construction_ms": 0.232475,
+          "interleaved_ms": 16.8301,
+          "updates_ms": 13.0842,
+          "queries_ms": 2.58223,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 20040
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.231334 interleaved_ms=16.3317 updates_ms=13.6578 queries_ms=2.6531 checksum=17076442216458603088 batch_checksum=4806035811538843572\n",
+          "stderr": "peak_rss_kib=19716\n",
+          "construction_ms": 0.231334,
+          "interleaved_ms": 16.3317,
+          "updates_ms": 13.6578,
+          "queries_ms": 2.6531,
+          "checksum": 17076442216458603088,
+          "batch_checksum": 4806035811538843572,
+          "peak_rss_kib": 19716
+        }
+      ],
+      "median": {
+        "construction_ms": 0.232475,
+        "interleaved_ms": 16.3565,
+        "updates_ms": 13.6578,
+        "queries_ms": 2.62202,
+        "peak_rss_kib": 19532
+      },
+      "min": {
+        "construction_ms": 0.216091,
+        "interleaved_ms": 16.2826,
+        "updates_ms": 13.0842,
+        "queries_ms": 2.58223
+      }
+    },
+    {
+      "candidate": "baseline-static",
+      "workload": "ordered-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=2.12211 interleaved_ms=21.7717 updates_ms=13.8163 queries_ms=8.55829 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29696\n",
+          "construction_ms": 2.12211,
+          "interleaved_ms": 21.7717,
+          "updates_ms": 13.8163,
+          "queries_ms": 8.55829,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29696
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=3.74012 interleaved_ms=22.0247 updates_ms=13.3011 queries_ms=8.53309 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29884\n",
+          "construction_ms": 3.74012,
+          "interleaved_ms": 22.0247,
+          "updates_ms": 13.3011,
+          "queries_ms": 8.53309,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29884
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=2.66338 interleaved_ms=22.4748 updates_ms=14.1622 queries_ms=8.53538 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29696\n",
+          "construction_ms": 2.66338,
+          "interleaved_ms": 22.4748,
+          "updates_ms": 14.1622,
+          "queries_ms": 8.53538,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29696
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=2.67831 interleaved_ms=36.3919 updates_ms=18.7319 queries_ms=9.47002 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29708\n",
+          "construction_ms": 2.67831,
+          "interleaved_ms": 36.3919,
+          "updates_ms": 18.7319,
+          "queries_ms": 9.47002,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29708
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=2.26546 interleaved_ms=26.2948 updates_ms=18.6052 queries_ms=12.553 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29812\n",
+          "construction_ms": 2.26546,
+          "interleaved_ms": 26.2948,
+          "updates_ms": 18.6052,
+          "queries_ms": 12.553,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29812
+        }
+      ],
+      "median": {
+        "construction_ms": 2.66338,
+        "interleaved_ms": 22.4748,
+        "updates_ms": 14.1622,
+        "queries_ms": 8.55829,
+        "peak_rss_kib": 29708
+      },
+      "min": {
+        "construction_ms": 2.12211,
+        "interleaved_ms": 21.7717,
+        "updates_ms": 13.3011,
+        "queries_ms": 8.53309
+      }
+    },
+    {
+      "candidate": "query-static",
+      "workload": "ordered-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=2.55732 interleaved_ms=26.4334 updates_ms=13.9573 queries_ms=6.51952 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29696\n",
+          "construction_ms": 2.55732,
+          "interleaved_ms": 26.4334,
+          "updates_ms": 13.9573,
+          "queries_ms": 6.51952,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29696
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=2.19188 interleaved_ms=21.7604 updates_ms=14.4637 queries_ms=6.64222 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29772\n",
+          "construction_ms": 2.19188,
+          "interleaved_ms": 21.7604,
+          "updates_ms": 14.4637,
+          "queries_ms": 6.64222,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29772
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=2.2281 interleaved_ms=22.1151 updates_ms=14.5473 queries_ms=6.49834 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29740\n",
+          "construction_ms": 2.2281,
+          "interleaved_ms": 22.1151,
+          "updates_ms": 14.5473,
+          "queries_ms": 6.49834,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29740
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=2.02171 interleaved_ms=21.8096 updates_ms=14.3782 queries_ms=7.80659 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29760\n",
+          "construction_ms": 2.02171,
+          "interleaved_ms": 21.8096,
+          "updates_ms": 14.3782,
+          "queries_ms": 7.80659,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29760
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=2.33108 interleaved_ms=21.8255 updates_ms=14.1135 queries_ms=6.26864 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29736\n",
+          "construction_ms": 2.33108,
+          "interleaved_ms": 21.8255,
+          "updates_ms": 14.1135,
+          "queries_ms": 6.26864,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29736
+        }
+      ],
+      "median": {
+        "construction_ms": 2.2281,
+        "interleaved_ms": 21.8255,
+        "updates_ms": 14.3782,
+        "queries_ms": 6.51952,
+        "peak_rss_kib": 29740
+      },
+      "min": {
+        "construction_ms": 2.02171,
+        "interleaved_ms": 21.7604,
+        "updates_ms": 13.9573,
+        "queries_ms": 6.26864
+      }
+    },
+    {
+      "candidate": "prune-static",
+      "workload": "ordered-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=1.90675 interleaved_ms=22.8397 updates_ms=13.5402 queries_ms=9.17445 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29816\n",
+          "construction_ms": 1.90675,
+          "interleaved_ms": 22.8397,
+          "updates_ms": 13.5402,
+          "queries_ms": 9.17445,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29816
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=2.09771 interleaved_ms=23.3601 updates_ms=13.9104 queries_ms=9.2769 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29724\n",
+          "construction_ms": 2.09771,
+          "interleaved_ms": 23.3601,
+          "updates_ms": 13.9104,
+          "queries_ms": 9.2769,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29724
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=1.94436 interleaved_ms=22.8035 updates_ms=13.5252 queries_ms=9.42214 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29808\n",
+          "construction_ms": 1.94436,
+          "interleaved_ms": 22.8035,
+          "updates_ms": 13.5252,
+          "queries_ms": 9.42214,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29808
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=1.8573 interleaved_ms=22.8773 updates_ms=13.5156 queries_ms=9.14159 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29800\n",
+          "construction_ms": 1.8573,
+          "interleaved_ms": 22.8773,
+          "updates_ms": 13.5156,
+          "queries_ms": 9.14159,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29800
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=2.02978 interleaved_ms=29.0594 updates_ms=13.826 queries_ms=9.52588 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29696\n",
+          "construction_ms": 2.02978,
+          "interleaved_ms": 29.0594,
+          "updates_ms": 13.826,
+          "queries_ms": 9.52588,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29696
+        }
+      ],
+      "median": {
+        "construction_ms": 1.94436,
+        "interleaved_ms": 22.8773,
+        "updates_ms": 13.5402,
+        "queries_ms": 9.2769,
+        "peak_rss_kib": 29800
+      },
+      "min": {
+        "construction_ms": 1.8573,
+        "interleaved_ms": 22.8035,
+        "updates_ms": 13.5156,
+        "queries_ms": 9.14159
+      }
+    },
+    {
+      "candidate": "combined-static",
+      "workload": "ordered-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=1.87407 interleaved_ms=21.1018 updates_ms=13.4164 queries_ms=6.51638 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29652\n",
+          "construction_ms": 1.87407,
+          "interleaved_ms": 21.1018,
+          "updates_ms": 13.4164,
+          "queries_ms": 6.51638,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29652
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=2.26543 interleaved_ms=20.8972 updates_ms=13.4719 queries_ms=6.21509 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29808\n",
+          "construction_ms": 2.26543,
+          "interleaved_ms": 20.8972,
+          "updates_ms": 13.4719,
+          "queries_ms": 6.21509,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29808
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=2.11008 interleaved_ms=20.6011 updates_ms=13.3799 queries_ms=6.41709 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29692\n",
+          "construction_ms": 2.11008,
+          "interleaved_ms": 20.6011,
+          "updates_ms": 13.3799,
+          "queries_ms": 6.41709,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29692
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=2.1103 interleaved_ms=20.5758 updates_ms=13.2549 queries_ms=6.80987 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29736\n",
+          "construction_ms": 2.1103,
+          "interleaved_ms": 20.5758,
+          "updates_ms": 13.2549,
+          "queries_ms": 6.80987,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29736
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=2.06999 interleaved_ms=20.8183 updates_ms=13.4975 queries_ms=6.32686 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=29832\n",
+          "construction_ms": 2.06999,
+          "interleaved_ms": 20.8183,
+          "updates_ms": 13.4975,
+          "queries_ms": 6.32686,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 29832
+        }
+      ],
+      "median": {
+        "construction_ms": 2.11008,
+        "interleaved_ms": 20.8183,
+        "updates_ms": 13.4164,
+        "queries_ms": 6.41709,
+        "peak_rss_kib": 29736
+      },
+      "min": {
+        "construction_ms": 1.87407,
+        "interleaved_ms": 20.5758,
+        "updates_ms": 13.2549,
+        "queries_ms": 6.21509
+      }
+    },
+    {
+      "candidate": "baseline-dynamic",
+      "workload": "ordered-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.209357 interleaved_ms=18.8187 updates_ms=13.4308 queries_ms=7.10385 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=20064\n",
+          "construction_ms": 0.209357,
+          "interleaved_ms": 18.8187,
+          "updates_ms": 13.4308,
+          "queries_ms": 7.10385,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 20064
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.232149 interleaved_ms=18.5482 updates_ms=13.1566 queries_ms=7.13545 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=17880\n",
+          "construction_ms": 0.232149,
+          "interleaved_ms": 18.5482,
+          "updates_ms": 13.1566,
+          "queries_ms": 7.13545,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 17880
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.233379 interleaved_ms=19.22 updates_ms=13.4955 queries_ms=7.4118 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=20852\n",
+          "construction_ms": 0.233379,
+          "interleaved_ms": 19.22,
+          "updates_ms": 13.4955,
+          "queries_ms": 7.4118,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 20852
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.228359 interleaved_ms=18.6091 updates_ms=13.0504 queries_ms=7.07777 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=18164\n",
+          "construction_ms": 0.228359,
+          "interleaved_ms": 18.6091,
+          "updates_ms": 13.0504,
+          "queries_ms": 7.07777,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 18164
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.254579 interleaved_ms=18.9462 updates_ms=13.5952 queries_ms=7.16015 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=18980\n",
+          "construction_ms": 0.254579,
+          "interleaved_ms": 18.9462,
+          "updates_ms": 13.5952,
+          "queries_ms": 7.16015,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 18980
+        }
+      ],
+      "median": {
+        "construction_ms": 0.232149,
+        "interleaved_ms": 18.8187,
+        "updates_ms": 13.4308,
+        "queries_ms": 7.13545,
+        "peak_rss_kib": 18980
+      },
+      "min": {
+        "construction_ms": 0.209357,
+        "interleaved_ms": 18.5482,
+        "updates_ms": 13.0504,
+        "queries_ms": 7.07777
+      }
+    },
+    {
+      "candidate": "prune-dynamic",
+      "workload": "ordered-line",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.237618 interleaved_ms=19.1964 updates_ms=13.6035 queries_ms=7.06774 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=18004\n",
+          "construction_ms": 0.237618,
+          "interleaved_ms": 19.1964,
+          "updates_ms": 13.6035,
+          "queries_ms": 7.06774,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 18004
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.253831 interleaved_ms=19.2639 updates_ms=13.5828 queries_ms=7.07077 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=18768\n",
+          "construction_ms": 0.253831,
+          "interleaved_ms": 19.2639,
+          "updates_ms": 13.5828,
+          "queries_ms": 7.07077,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 18768
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.263439 interleaved_ms=19.3983 updates_ms=13.8607 queries_ms=7.05026 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=18804\n",
+          "construction_ms": 0.263439,
+          "interleaved_ms": 19.3983,
+          "updates_ms": 13.8607,
+          "queries_ms": 7.05026,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 18804
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.23971 interleaved_ms=20.057 updates_ms=14.1227 queries_ms=7.15256 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=19280\n",
+          "construction_ms": 0.23971,
+          "interleaved_ms": 20.057,
+          "updates_ms": 14.1227,
+          "queries_ms": 7.15256,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 19280
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.229622 interleaved_ms=18.8927 updates_ms=13.6395 queries_ms=7.33058 checksum=9041606597875869838 batch_checksum=1702093382649589387\n",
+          "stderr": "peak_rss_kib=18420\n",
+          "construction_ms": 0.229622,
+          "interleaved_ms": 18.8927,
+          "updates_ms": 13.6395,
+          "queries_ms": 7.33058,
+          "checksum": 9041606597875869838,
+          "batch_checksum": 1702093382649589387,
+          "peak_rss_kib": 18420
+        }
+      ],
+      "median": {
+        "construction_ms": 0.23971,
+        "interleaved_ms": 19.2639,
+        "updates_ms": 13.6395,
+        "queries_ms": 7.07077,
+        "peak_rss_kib": 18768
+      },
+      "min": {
+        "construction_ms": 0.229622,
+        "interleaved_ms": 18.8927,
+        "updates_ms": 13.5828,
+        "queries_ms": 7.05026
+      }
+    },
+    {
+      "candidate": "baseline-static",
+      "workload": "envelope-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.49478 interleaved_ms=61.7769 updates_ms=41.9779 queries_ms=19.4808 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29180\n",
+          "construction_ms": 5.49478,
+          "interleaved_ms": 61.7769,
+          "updates_ms": 41.9779,
+          "queries_ms": 19.4808,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29180
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=6.6742 interleaved_ms=62.525 updates_ms=43.2599 queries_ms=19.9577 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29236\n",
+          "construction_ms": 6.6742,
+          "interleaved_ms": 62.525,
+          "updates_ms": 43.2599,
+          "queries_ms": 19.9577,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29236
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.61166 interleaved_ms=62.8707 updates_ms=43.9068 queries_ms=20.028 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29224\n",
+          "construction_ms": 5.61166,
+          "interleaved_ms": 62.8707,
+          "updates_ms": 43.9068,
+          "queries_ms": 20.028,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29224
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.90697 interleaved_ms=63.4275 updates_ms=43.4454 queries_ms=19.4894 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29240\n",
+          "construction_ms": 5.90697,
+          "interleaved_ms": 63.4275,
+          "updates_ms": 43.4454,
+          "queries_ms": 19.4894,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29240
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.46673 interleaved_ms=61.3663 updates_ms=44.3862 queries_ms=19.347 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29340\n",
+          "construction_ms": 5.46673,
+          "interleaved_ms": 61.3663,
+          "updates_ms": 44.3862,
+          "queries_ms": 19.347,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29340
+        }
+      ],
+      "median": {
+        "construction_ms": 5.61166,
+        "interleaved_ms": 62.525,
+        "updates_ms": 43.4454,
+        "queries_ms": 19.4894,
+        "peak_rss_kib": 29236
+      },
+      "min": {
+        "construction_ms": 5.46673,
+        "interleaved_ms": 61.3663,
+        "updates_ms": 41.9779,
+        "queries_ms": 19.347
+      }
+    },
+    {
+      "candidate": "query-static",
+      "workload": "envelope-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.741 interleaved_ms=58.4458 updates_ms=44.0221 queries_ms=17.0808 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29236\n",
+          "construction_ms": 5.741,
+          "interleaved_ms": 58.4458,
+          "updates_ms": 44.0221,
+          "queries_ms": 17.0808,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29236
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=6.01917 interleaved_ms=57.3486 updates_ms=43.279 queries_ms=16.0178 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29248\n",
+          "construction_ms": 6.01917,
+          "interleaved_ms": 57.3486,
+          "updates_ms": 43.279,
+          "queries_ms": 16.0178,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29248
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.4591 interleaved_ms=59.849 updates_ms=45.6197 queries_ms=17.6876 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29300\n",
+          "construction_ms": 5.4591,
+          "interleaved_ms": 59.849,
+          "updates_ms": 45.6197,
+          "queries_ms": 17.6876,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29300
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=6.4684 interleaved_ms=59.6016 updates_ms=44.205 queries_ms=15.9235 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29220\n",
+          "construction_ms": 6.4684,
+          "interleaved_ms": 59.6016,
+          "updates_ms": 44.205,
+          "queries_ms": 15.9235,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29220
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.57159 interleaved_ms=59.9577 updates_ms=46.8789 queries_ms=16.6627 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29276\n",
+          "construction_ms": 5.57159,
+          "interleaved_ms": 59.9577,
+          "updates_ms": 46.8789,
+          "queries_ms": 16.6627,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29276
+        }
+      ],
+      "median": {
+        "construction_ms": 5.741,
+        "interleaved_ms": 59.6016,
+        "updates_ms": 44.205,
+        "queries_ms": 16.6627,
+        "peak_rss_kib": 29248
+      },
+      "min": {
+        "construction_ms": 5.4591,
+        "interleaved_ms": 57.3486,
+        "updates_ms": 43.279,
+        "queries_ms": 15.9235
+      }
+    },
+    {
+      "candidate": "prune-static",
+      "workload": "envelope-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.59069 interleaved_ms=44.909 updates_ms=28.2026 queries_ms=19.8338 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29300\n",
+          "construction_ms": 5.59069,
+          "interleaved_ms": 44.909,
+          "updates_ms": 28.2026,
+          "queries_ms": 19.8338,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29300
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=6.42411 interleaved_ms=43.3967 updates_ms=23.7734 queries_ms=19.8753 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29292\n",
+          "construction_ms": 6.42411,
+          "interleaved_ms": 43.3967,
+          "updates_ms": 23.7734,
+          "queries_ms": 19.8753,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29292
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.88095 interleaved_ms=41.9978 updates_ms=23.5211 queries_ms=18.9944 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29224\n",
+          "construction_ms": 5.88095,
+          "interleaved_ms": 41.9978,
+          "updates_ms": 23.5211,
+          "queries_ms": 18.9944,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29224
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.5373 interleaved_ms=43.0113 updates_ms=24.5177 queries_ms=19.0938 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29280\n",
+          "construction_ms": 5.5373,
+          "interleaved_ms": 43.0113,
+          "updates_ms": 24.5177,
+          "queries_ms": 19.0938,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29280
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.63345 interleaved_ms=41.8916 updates_ms=23.1805 queries_ms=19.1537 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29292\n",
+          "construction_ms": 5.63345,
+          "interleaved_ms": 41.8916,
+          "updates_ms": 23.1805,
+          "queries_ms": 19.1537,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29292
+        }
+      ],
+      "median": {
+        "construction_ms": 5.63345,
+        "interleaved_ms": 43.0113,
+        "updates_ms": 23.7734,
+        "queries_ms": 19.1537,
+        "peak_rss_kib": 29292
+      },
+      "min": {
+        "construction_ms": 5.5373,
+        "interleaved_ms": 41.8916,
+        "updates_ms": 23.1805,
+        "queries_ms": 18.9944
+      }
+    },
+    {
+      "candidate": "combined-static",
+      "workload": "envelope-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.80839 interleaved_ms=37.4611 updates_ms=23.3483 queries_ms=14.12 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29248\n",
+          "construction_ms": 5.80839,
+          "interleaved_ms": 37.4611,
+          "updates_ms": 23.3483,
+          "queries_ms": 14.12,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29248
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=6.35301 interleaved_ms=36.9064 updates_ms=23.563 queries_ms=13.2653 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29248\n",
+          "construction_ms": 6.35301,
+          "interleaved_ms": 36.9064,
+          "updates_ms": 23.563,
+          "queries_ms": 13.2653,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29248
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.83771 interleaved_ms=36.9727 updates_ms=23.3914 queries_ms=13.8875 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29260\n",
+          "construction_ms": 5.83771,
+          "interleaved_ms": 36.9727,
+          "updates_ms": 23.3914,
+          "queries_ms": 13.8875,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29260
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.89621 interleaved_ms=36.5988 updates_ms=23.2777 queries_ms=13.2096 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29180\n",
+          "construction_ms": 5.89621,
+          "interleaved_ms": 36.5988,
+          "updates_ms": 23.2777,
+          "queries_ms": 13.2096,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29180
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.90532 interleaved_ms=35.9479 updates_ms=23.3343 queries_ms=13.2106 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=29184\n",
+          "construction_ms": 5.90532,
+          "interleaved_ms": 35.9479,
+          "updates_ms": 23.3343,
+          "queries_ms": 13.2106,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 29184
+        }
+      ],
+      "median": {
+        "construction_ms": 5.89621,
+        "interleaved_ms": 36.9064,
+        "updates_ms": 23.3483,
+        "queries_ms": 13.2653,
+        "peak_rss_kib": 29248
+      },
+      "min": {
+        "construction_ms": 5.80839,
+        "interleaved_ms": 35.9479,
+        "updates_ms": 23.2777,
+        "queries_ms": 13.2096
+      }
+    },
+    {
+      "candidate": "baseline-dynamic",
+      "workload": "envelope-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.24569 interleaved_ms=91.5974 updates_ms=83.0278 queries_ms=25.7591 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=86140\n",
+          "construction_ms": 0.24569,
+          "interleaved_ms": 91.5974,
+          "updates_ms": 83.0278,
+          "queries_ms": 25.7591,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 86140
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.257556 interleaved_ms=106.215 updates_ms=84.6112 queries_ms=26.1551 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=86632\n",
+          "construction_ms": 0.257556,
+          "interleaved_ms": 106.215,
+          "updates_ms": 84.6112,
+          "queries_ms": 26.1551,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 86632
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.265068 interleaved_ms=99.8549 updates_ms=77.008 queries_ms=26.3884 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=87800\n",
+          "construction_ms": 0.265068,
+          "interleaved_ms": 99.8549,
+          "updates_ms": 77.008,
+          "queries_ms": 26.3884,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 87800
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.249194 interleaved_ms=105.181 updates_ms=78.0984 queries_ms=23.4891 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=87472\n",
+          "construction_ms": 0.249194,
+          "interleaved_ms": 105.181,
+          "updates_ms": 78.0984,
+          "queries_ms": 23.4891,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 87472
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.25789 interleaved_ms=93.2282 updates_ms=74.4265 queries_ms=21.5697 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=87568\n",
+          "construction_ms": 0.25789,
+          "interleaved_ms": 93.2282,
+          "updates_ms": 74.4265,
+          "queries_ms": 21.5697,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 87568
+        }
+      ],
+      "median": {
+        "construction_ms": 0.257556,
+        "interleaved_ms": 99.8549,
+        "updates_ms": 78.0984,
+        "queries_ms": 25.7591,
+        "peak_rss_kib": 87472
+      },
+      "min": {
+        "construction_ms": 0.24569,
+        "interleaved_ms": 91.5974,
+        "updates_ms": 74.4265,
+        "queries_ms": 21.5697
+      }
+    },
+    {
+      "candidate": "prune-dynamic",
+      "workload": "envelope-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.21624 interleaved_ms=17.6255 updates_ms=9.59586 queries_ms=9.44349 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=13004\n",
+          "construction_ms": 0.21624,
+          "interleaved_ms": 17.6255,
+          "updates_ms": 9.59586,
+          "queries_ms": 9.44349,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 13004
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.241505 interleaved_ms=17.5076 updates_ms=9.59192 queries_ms=9.20181 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=12880\n",
+          "construction_ms": 0.241505,
+          "interleaved_ms": 17.5076,
+          "updates_ms": 9.59192,
+          "queries_ms": 9.20181,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 12880
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.230416 interleaved_ms=17.86 updates_ms=9.24898 queries_ms=9.39752 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=12840\n",
+          "construction_ms": 0.230416,
+          "interleaved_ms": 17.86,
+          "updates_ms": 9.24898,
+          "queries_ms": 9.39752,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 12840
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.239192 interleaved_ms=18.9515 updates_ms=9.69951 queries_ms=9.84646 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=12884\n",
+          "construction_ms": 0.239192,
+          "interleaved_ms": 18.9515,
+          "updates_ms": 9.69951,
+          "queries_ms": 9.84646,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 12884
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.244498 interleaved_ms=17.9595 updates_ms=9.78126 queries_ms=9.6967 checksum=8549227188953414555 batch_checksum=13980792854875588756\n",
+          "stderr": "peak_rss_kib=12912\n",
+          "construction_ms": 0.244498,
+          "interleaved_ms": 17.9595,
+          "updates_ms": 9.78126,
+          "queries_ms": 9.6967,
+          "checksum": 8549227188953414555,
+          "batch_checksum": 13980792854875588756,
+          "peak_rss_kib": 12912
+        }
+      ],
+      "median": {
+        "construction_ms": 0.239192,
+        "interleaved_ms": 17.86,
+        "updates_ms": 9.59586,
+        "queries_ms": 9.44349,
+        "peak_rss_kib": 12884
+      },
+      "min": {
+        "construction_ms": 0.21624,
+        "interleaved_ms": 17.5076,
+        "updates_ms": 9.24898,
+        "queries_ms": 9.20181
+      }
+    },
+    {
+      "candidate": "baseline-static",
+      "workload": "random-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.84704 interleaved_ms=58.1266 updates_ms=40.2952 queries_ms=17.0059 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29168\n",
+          "construction_ms": 5.84704,
+          "interleaved_ms": 58.1266,
+          "updates_ms": 40.2952,
+          "queries_ms": 17.0059,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29168
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.58495 interleaved_ms=58.5994 updates_ms=39.8043 queries_ms=17.4579 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29168\n",
+          "construction_ms": 5.58495,
+          "interleaved_ms": 58.5994,
+          "updates_ms": 39.8043,
+          "queries_ms": 17.4579,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29168
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.75917 interleaved_ms=56.5933 updates_ms=42.4856 queries_ms=17.6615 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29240\n",
+          "construction_ms": 5.75917,
+          "interleaved_ms": 56.5933,
+          "updates_ms": 42.4856,
+          "queries_ms": 17.6615,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29240
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.77566 interleaved_ms=55.1788 updates_ms=38.1469 queries_ms=16.9592 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29164\n",
+          "construction_ms": 5.77566,
+          "interleaved_ms": 55.1788,
+          "updates_ms": 38.1469,
+          "queries_ms": 16.9592,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29164
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.47418 interleaved_ms=55.804 updates_ms=39.1571 queries_ms=16.8439 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29288\n",
+          "construction_ms": 5.47418,
+          "interleaved_ms": 55.804,
+          "updates_ms": 39.1571,
+          "queries_ms": 16.8439,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29288
+        }
+      ],
+      "median": {
+        "construction_ms": 5.75917,
+        "interleaved_ms": 56.5933,
+        "updates_ms": 39.8043,
+        "queries_ms": 17.0059,
+        "peak_rss_kib": 29168
+      },
+      "min": {
+        "construction_ms": 5.47418,
+        "interleaved_ms": 55.1788,
+        "updates_ms": 38.1469,
+        "queries_ms": 16.8439
+      }
+    },
+    {
+      "candidate": "query-static",
+      "workload": "random-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.68101 interleaved_ms=55.5023 updates_ms=39.4994 queries_ms=18.4462 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29224\n",
+          "construction_ms": 5.68101,
+          "interleaved_ms": 55.5023,
+          "updates_ms": 39.4994,
+          "queries_ms": 18.4462,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29224
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=6.31032 interleaved_ms=56.0341 updates_ms=38.7811 queries_ms=18.4275 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29328\n",
+          "construction_ms": 6.31032,
+          "interleaved_ms": 56.0341,
+          "updates_ms": 38.7811,
+          "queries_ms": 18.4275,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29328
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.53172 interleaved_ms=58.691 updates_ms=39.4616 queries_ms=18.8417 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29204\n",
+          "construction_ms": 5.53172,
+          "interleaved_ms": 58.691,
+          "updates_ms": 39.4616,
+          "queries_ms": 18.8417,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29204
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.73988 interleaved_ms=56.4641 updates_ms=40.1937 queries_ms=18.5866 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29172\n",
+          "construction_ms": 5.73988,
+          "interleaved_ms": 56.4641,
+          "updates_ms": 40.1937,
+          "queries_ms": 18.5866,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29172
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=7.3117 interleaved_ms=56.1356 updates_ms=39.3933 queries_ms=18.795 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29240\n",
+          "construction_ms": 7.3117,
+          "interleaved_ms": 56.1356,
+          "updates_ms": 39.3933,
+          "queries_ms": 18.795,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29240
+        }
+      ],
+      "median": {
+        "construction_ms": 5.73988,
+        "interleaved_ms": 56.1356,
+        "updates_ms": 39.4616,
+        "queries_ms": 18.5866,
+        "peak_rss_kib": 29224
+      },
+      "min": {
+        "construction_ms": 5.53172,
+        "interleaved_ms": 55.5023,
+        "updates_ms": 38.7811,
+        "queries_ms": 18.4275
+      }
+    },
+    {
+      "candidate": "prune-static",
+      "workload": "random-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.74955 interleaved_ms=34.5183 updates_ms=18.1562 queries_ms=15.2881 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29288\n",
+          "construction_ms": 5.74955,
+          "interleaved_ms": 34.5183,
+          "updates_ms": 18.1562,
+          "queries_ms": 15.2881,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29288
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.84185 interleaved_ms=34.4811 updates_ms=18.0434 queries_ms=15.6784 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29168\n",
+          "construction_ms": 5.84185,
+          "interleaved_ms": 34.4811,
+          "updates_ms": 18.0434,
+          "queries_ms": 15.6784,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29168
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.89324 interleaved_ms=34.1143 updates_ms=18.0702 queries_ms=15.7776 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29240\n",
+          "construction_ms": 5.89324,
+          "interleaved_ms": 34.1143,
+          "updates_ms": 18.0702,
+          "queries_ms": 15.7776,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29240
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.9012 interleaved_ms=34.2718 updates_ms=18.6695 queries_ms=15.3694 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29212\n",
+          "construction_ms": 5.9012,
+          "interleaved_ms": 34.2718,
+          "updates_ms": 18.6695,
+          "queries_ms": 15.3694,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29212
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.94911 interleaved_ms=34.4028 updates_ms=18.0469 queries_ms=15.4594 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29208\n",
+          "construction_ms": 5.94911,
+          "interleaved_ms": 34.4028,
+          "updates_ms": 18.0469,
+          "queries_ms": 15.4594,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29208
+        }
+      ],
+      "median": {
+        "construction_ms": 5.89324,
+        "interleaved_ms": 34.4028,
+        "updates_ms": 18.0702,
+        "queries_ms": 15.4594,
+        "peak_rss_kib": 29212
+      },
+      "min": {
+        "construction_ms": 5.74955,
+        "interleaved_ms": 34.1143,
+        "updates_ms": 18.0434,
+        "queries_ms": 15.2881
+      }
+    },
+    {
+      "candidate": "combined-static",
+      "workload": "random-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.5435 interleaved_ms=31.8014 updates_ms=18.282 queries_ms=13.2672 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29248\n",
+          "construction_ms": 5.5435,
+          "interleaved_ms": 31.8014,
+          "updates_ms": 18.282,
+          "queries_ms": 13.2672,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29248
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.51316 interleaved_ms=32.9976 updates_ms=18.329 queries_ms=14.0264 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29276\n",
+          "construction_ms": 5.51316,
+          "interleaved_ms": 32.9976,
+          "updates_ms": 18.329,
+          "queries_ms": 14.0264,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29276
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.93236 interleaved_ms=32.7427 updates_ms=18.7658 queries_ms=13.4942 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29212\n",
+          "construction_ms": 5.93236,
+          "interleaved_ms": 32.7427,
+          "updates_ms": 18.7658,
+          "queries_ms": 13.4942,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29212
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.79954 interleaved_ms=32.632 updates_ms=18.4725 queries_ms=14.7367 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29264\n",
+          "construction_ms": 5.79954,
+          "interleaved_ms": 32.632,
+          "updates_ms": 18.4725,
+          "queries_ms": 14.7367,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29264
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=6.07656 interleaved_ms=32.0583 updates_ms=18.4339 queries_ms=13.7911 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=29164\n",
+          "construction_ms": 6.07656,
+          "interleaved_ms": 32.0583,
+          "updates_ms": 18.4339,
+          "queries_ms": 13.7911,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 29164
+        }
+      ],
+      "median": {
+        "construction_ms": 5.79954,
+        "interleaved_ms": 32.632,
+        "updates_ms": 18.4339,
+        "queries_ms": 13.7911,
+        "peak_rss_kib": 29248
+      },
+      "min": {
+        "construction_ms": 5.51316,
+        "interleaved_ms": 31.8014,
+        "updates_ms": 18.282,
+        "queries_ms": 13.2672
+      }
+    },
+    {
+      "candidate": "baseline-dynamic",
+      "workload": "random-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.248355 interleaved_ms=105.87 updates_ms=72.8016 queries_ms=19.4736 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=88028\n",
+          "construction_ms": 0.248355,
+          "interleaved_ms": 105.87,
+          "updates_ms": 72.8016,
+          "queries_ms": 19.4736,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 88028
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.310326 interleaved_ms=94.9936 updates_ms=73.7625 queries_ms=22.1444 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=86560\n",
+          "construction_ms": 0.310326,
+          "interleaved_ms": 94.9936,
+          "updates_ms": 73.7625,
+          "queries_ms": 22.1444,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 86560
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.244304 interleaved_ms=90.4361 updates_ms=70.5744 queries_ms=20.7907 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=87124\n",
+          "construction_ms": 0.244304,
+          "interleaved_ms": 90.4361,
+          "updates_ms": 70.5744,
+          "queries_ms": 20.7907,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 87124
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.344854 interleaved_ms=99.4848 updates_ms=72.6124 queries_ms=20.0513 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=88364\n",
+          "construction_ms": 0.344854,
+          "interleaved_ms": 99.4848,
+          "updates_ms": 72.6124,
+          "queries_ms": 20.0513,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 88364
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.241141 interleaved_ms=84.7274 updates_ms=73.1517 queries_ms=23.7709 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=87096\n",
+          "construction_ms": 0.241141,
+          "interleaved_ms": 84.7274,
+          "updates_ms": 73.1517,
+          "queries_ms": 23.7709,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 87096
+        }
+      ],
+      "median": {
+        "construction_ms": 0.248355,
+        "interleaved_ms": 94.9936,
+        "updates_ms": 72.8016,
+        "queries_ms": 20.7907,
+        "peak_rss_kib": 87124
+      },
+      "min": {
+        "construction_ms": 0.241141,
+        "interleaved_ms": 84.7274,
+        "updates_ms": 70.5744,
+        "queries_ms": 19.4736
+      }
+    },
+    {
+      "candidate": "prune-dynamic",
+      "workload": "random-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.246491 interleaved_ms=9.17162 updates_ms=5.23654 queries_ms=4.3301 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=10048\n",
+          "construction_ms": 0.246491,
+          "interleaved_ms": 9.17162,
+          "updates_ms": 5.23654,
+          "queries_ms": 4.3301,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 10048
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.239568 interleaved_ms=9.54411 updates_ms=5.32657 queries_ms=4.22379 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=9936\n",
+          "construction_ms": 0.239568,
+          "interleaved_ms": 9.54411,
+          "updates_ms": 5.32657,
+          "queries_ms": 4.22379,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 9936
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.27729 interleaved_ms=10.48 updates_ms=5.17587 queries_ms=4.17214 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=9964\n",
+          "construction_ms": 0.27729,
+          "interleaved_ms": 10.48,
+          "updates_ms": 5.17587,
+          "queries_ms": 4.17214,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 9964
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.669948 interleaved_ms=9.31331 updates_ms=5.24015 queries_ms=4.16439 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=9948\n",
+          "construction_ms": 0.669948,
+          "interleaved_ms": 9.31331,
+          "updates_ms": 5.24015,
+          "queries_ms": 4.16439,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 9948
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.268818 interleaved_ms=11.3444 updates_ms=5.2527 queries_ms=4.17626 checksum=6024768119097061289 batch_checksum=1356617830941394560\n",
+          "stderr": "peak_rss_kib=10044\n",
+          "construction_ms": 0.268818,
+          "interleaved_ms": 11.3444,
+          "updates_ms": 5.2527,
+          "queries_ms": 4.17626,
+          "checksum": 6024768119097061289,
+          "batch_checksum": 1356617830941394560,
+          "peak_rss_kib": 10044
+        }
+      ],
+      "median": {
+        "construction_ms": 0.268818,
+        "interleaved_ms": 9.54411,
+        "updates_ms": 5.24015,
+        "queries_ms": 4.17626,
+        "peak_rss_kib": 9964
+      },
+      "min": {
+        "construction_ms": 0.239568,
+        "interleaved_ms": 9.17162,
+        "updates_ms": 5.17587,
+        "queries_ms": 4.16439
+      }
+    },
+    {
+      "candidate": "baseline-static",
+      "workload": "narrow-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.50494 interleaved_ms=33.144 updates_ms=18.7434 queries_ms=15.7971 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29332\n",
+          "construction_ms": 5.50494,
+          "interleaved_ms": 33.144,
+          "updates_ms": 18.7434,
+          "queries_ms": 15.7971,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29332
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.42166 interleaved_ms=33.1955 updates_ms=18.4226 queries_ms=16.0363 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29376\n",
+          "construction_ms": 5.42166,
+          "interleaved_ms": 33.1955,
+          "updates_ms": 18.4226,
+          "queries_ms": 16.0363,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29376
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.47495 interleaved_ms=33.0817 updates_ms=18.5336 queries_ms=16.2357 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29332\n",
+          "construction_ms": 5.47495,
+          "interleaved_ms": 33.0817,
+          "updates_ms": 18.5336,
+          "queries_ms": 16.2357,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29332
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.7537 interleaved_ms=33.3908 updates_ms=18.6653 queries_ms=15.5333 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29244\n",
+          "construction_ms": 5.7537,
+          "interleaved_ms": 33.3908,
+          "updates_ms": 18.6653,
+          "queries_ms": 15.5333,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29244
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=6.05212 interleaved_ms=33.1842 updates_ms=18.5638 queries_ms=15.5425 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29184\n",
+          "construction_ms": 6.05212,
+          "interleaved_ms": 33.1842,
+          "updates_ms": 18.5638,
+          "queries_ms": 15.5425,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29184
+        }
+      ],
+      "median": {
+        "construction_ms": 5.50494,
+        "interleaved_ms": 33.1842,
+        "updates_ms": 18.5638,
+        "queries_ms": 15.7971,
+        "peak_rss_kib": 29332
+      },
+      "min": {
+        "construction_ms": 5.42166,
+        "interleaved_ms": 33.0817,
+        "updates_ms": 18.4226,
+        "queries_ms": 15.5333
+      }
+    },
+    {
+      "candidate": "query-static",
+      "workload": "narrow-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.66402 interleaved_ms=28.9325 updates_ms=18.3275 queries_ms=11.0305 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29192\n",
+          "construction_ms": 5.66402,
+          "interleaved_ms": 28.9325,
+          "updates_ms": 18.3275,
+          "queries_ms": 11.0305,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29192
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.42303 interleaved_ms=29.2936 updates_ms=19.0941 queries_ms=11.5325 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29288\n",
+          "construction_ms": 5.42303,
+          "interleaved_ms": 29.2936,
+          "updates_ms": 19.0941,
+          "queries_ms": 11.5325,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29288
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.50632 interleaved_ms=29.589 updates_ms=19.0691 queries_ms=11.1226 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29296\n",
+          "construction_ms": 5.50632,
+          "interleaved_ms": 29.589,
+          "updates_ms": 19.0691,
+          "queries_ms": 11.1226,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29296
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=6.37648 interleaved_ms=30.4874 updates_ms=19.4785 queries_ms=11.5045 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29220\n",
+          "construction_ms": 6.37648,
+          "interleaved_ms": 30.4874,
+          "updates_ms": 19.4785,
+          "queries_ms": 11.5045,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29220
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.76625 interleaved_ms=30.7879 updates_ms=19.4485 queries_ms=11.728 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29184\n",
+          "construction_ms": 5.76625,
+          "interleaved_ms": 30.7879,
+          "updates_ms": 19.4485,
+          "queries_ms": 11.728,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29184
+        }
+      ],
+      "median": {
+        "construction_ms": 5.66402,
+        "interleaved_ms": 29.589,
+        "updates_ms": 19.0941,
+        "queries_ms": 11.5045,
+        "peak_rss_kib": 29220
+      },
+      "min": {
+        "construction_ms": 5.42303,
+        "interleaved_ms": 28.9325,
+        "updates_ms": 18.3275,
+        "queries_ms": 11.0305
+      }
+    },
+    {
+      "candidate": "prune-static",
+      "workload": "narrow-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.73873 interleaved_ms=33.9511 updates_ms=19.3582 queries_ms=15.4233 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29180\n",
+          "construction_ms": 5.73873,
+          "interleaved_ms": 33.9511,
+          "updates_ms": 19.3582,
+          "queries_ms": 15.4233,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29180
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.96766 interleaved_ms=34.1385 updates_ms=19.6636 queries_ms=15.5867 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29200\n",
+          "construction_ms": 5.96766,
+          "interleaved_ms": 34.1385,
+          "updates_ms": 19.6636,
+          "queries_ms": 15.5867,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29200
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.76068 interleaved_ms=34.0797 updates_ms=20.081 queries_ms=15.7987 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29156\n",
+          "construction_ms": 5.76068,
+          "interleaved_ms": 34.0797,
+          "updates_ms": 20.081,
+          "queries_ms": 15.7987,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29156
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=5.66815 interleaved_ms=34.3468 updates_ms=19.8236 queries_ms=15.2707 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29224\n",
+          "construction_ms": 5.66815,
+          "interleaved_ms": 34.3468,
+          "updates_ms": 19.8236,
+          "queries_ms": 15.2707,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29224
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.45016 interleaved_ms=33.8956 updates_ms=19.2423 queries_ms=15.544 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29328\n",
+          "construction_ms": 5.45016,
+          "interleaved_ms": 33.8956,
+          "updates_ms": 19.2423,
+          "queries_ms": 15.544,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29328
+        }
+      ],
+      "median": {
+        "construction_ms": 5.73873,
+        "interleaved_ms": 34.0797,
+        "updates_ms": 19.6636,
+        "queries_ms": 15.544,
+        "peak_rss_kib": 29200
+      },
+      "min": {
+        "construction_ms": 5.45016,
+        "interleaved_ms": 33.8956,
+        "updates_ms": 19.2423,
+        "queries_ms": 15.2707
+      }
+    },
+    {
+      "candidate": "combined-static",
+      "workload": "narrow-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=5.57805 interleaved_ms=30.1762 updates_ms=19.9311 queries_ms=11.9831 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29328\n",
+          "construction_ms": 5.57805,
+          "interleaved_ms": 30.1762,
+          "updates_ms": 19.9311,
+          "queries_ms": 11.9831,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29328
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=5.68579 interleaved_ms=29.5038 updates_ms=19.8671 queries_ms=11.4083 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29228\n",
+          "construction_ms": 5.68579,
+          "interleaved_ms": 29.5038,
+          "updates_ms": 19.8671,
+          "queries_ms": 11.4083,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29228
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=5.93274 interleaved_ms=30.329 updates_ms=20.0432 queries_ms=12.024 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29296\n",
+          "construction_ms": 5.93274,
+          "interleaved_ms": 30.329,
+          "updates_ms": 20.0432,
+          "queries_ms": 12.024,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29296
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=7.42971 interleaved_ms=31.6497 updates_ms=19.7562 queries_ms=11.4943 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29204\n",
+          "construction_ms": 7.42971,
+          "interleaved_ms": 31.6497,
+          "updates_ms": 19.7562,
+          "queries_ms": 11.4943,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29204
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=5.70707 interleaved_ms=32.0871 updates_ms=20.0289 queries_ms=12.2673 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=29300\n",
+          "construction_ms": 5.70707,
+          "interleaved_ms": 32.0871,
+          "updates_ms": 20.0289,
+          "queries_ms": 12.2673,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 29300
+        }
+      ],
+      "median": {
+        "construction_ms": 5.70707,
+        "interleaved_ms": 30.329,
+        "updates_ms": 19.9311,
+        "queries_ms": 11.9831,
+        "peak_rss_kib": 29296
+      },
+      "min": {
+        "construction_ms": 5.57805,
+        "interleaved_ms": 29.5038,
+        "updates_ms": 19.7562,
+        "queries_ms": 11.4083
+      }
+    },
+    {
+      "candidate": "baseline-dynamic",
+      "workload": "narrow-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.246475 interleaved_ms=58.4239 updates_ms=44.3935 queries_ms=14.8002 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=84224\n",
+          "construction_ms": 0.246475,
+          "interleaved_ms": 58.4239,
+          "updates_ms": 44.3935,
+          "queries_ms": 14.8002,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 84224
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.616266 interleaved_ms=59.2201 updates_ms=47.5132 queries_ms=20.2492 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=84588\n",
+          "construction_ms": 0.616266,
+          "interleaved_ms": 59.2201,
+          "updates_ms": 47.5132,
+          "queries_ms": 20.2492,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 84588
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.257948 interleaved_ms=60.5715 updates_ms=51.9331 queries_ms=17.0156 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=83100\n",
+          "construction_ms": 0.257948,
+          "interleaved_ms": 60.5715,
+          "updates_ms": 51.9331,
+          "queries_ms": 17.0156,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 83100
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.233491 interleaved_ms=56.8319 updates_ms=45.8715 queries_ms=16.4157 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=83476\n",
+          "construction_ms": 0.233491,
+          "interleaved_ms": 56.8319,
+          "updates_ms": 45.8715,
+          "queries_ms": 16.4157,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 83476
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.237561 interleaved_ms=61.8443 updates_ms=49.8526 queries_ms=18.7419 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=84100\n",
+          "construction_ms": 0.237561,
+          "interleaved_ms": 61.8443,
+          "updates_ms": 49.8526,
+          "queries_ms": 18.7419,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 84100
+        }
+      ],
+      "median": {
+        "construction_ms": 0.246475,
+        "interleaved_ms": 59.2201,
+        "updates_ms": 47.5132,
+        "queries_ms": 17.0156,
+        "peak_rss_kib": 84100
+      },
+      "min": {
+        "construction_ms": 0.233491,
+        "interleaved_ms": 56.8319,
+        "updates_ms": 44.3935,
+        "queries_ms": 14.8002
+      }
+    },
+    {
+      "candidate": "prune-dynamic",
+      "workload": "narrow-segment",
+      "runs": [
+        {
+          "iteration": 0,
+          "returncode": 0,
+          "stdout": "construction_ms=0.239705 interleaved_ms=57.6626 updates_ms=43.2635 queries_ms=14.8635 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=81020\n",
+          "construction_ms": 0.239705,
+          "interleaved_ms": 57.6626,
+          "updates_ms": 43.2635,
+          "queries_ms": 14.8635,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 81020
+        },
+        {
+          "iteration": 1,
+          "returncode": 0,
+          "stdout": "construction_ms=0.268264 interleaved_ms=64.6831 updates_ms=46.405 queries_ms=16.5708 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=81328\n",
+          "construction_ms": 0.268264,
+          "interleaved_ms": 64.6831,
+          "updates_ms": 46.405,
+          "queries_ms": 16.5708,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 81328
+        },
+        {
+          "iteration": 2,
+          "returncode": 0,
+          "stdout": "construction_ms=0.239776 interleaved_ms=62.1615 updates_ms=46.4164 queries_ms=15.0641 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=81580\n",
+          "construction_ms": 0.239776,
+          "interleaved_ms": 62.1615,
+          "updates_ms": 46.4164,
+          "queries_ms": 15.0641,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 81580
+        },
+        {
+          "iteration": 3,
+          "returncode": 0,
+          "stdout": "construction_ms=0.334614 interleaved_ms=59.445 updates_ms=49.5513 queries_ms=13.3847 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=80540\n",
+          "construction_ms": 0.334614,
+          "interleaved_ms": 59.445,
+          "updates_ms": 49.5513,
+          "queries_ms": 13.3847,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 80540
+        },
+        {
+          "iteration": 4,
+          "returncode": 0,
+          "stdout": "construction_ms=0.282401 interleaved_ms=60.9236 updates_ms=45.2038 queries_ms=15.992 checksum=2928851368749242303 batch_checksum=2961280705565286493\n",
+          "stderr": "peak_rss_kib=82084\n",
+          "construction_ms": 0.282401,
+          "interleaved_ms": 60.9236,
+          "updates_ms": 45.2038,
+          "queries_ms": 15.992,
+          "checksum": 2928851368749242303,
+          "batch_checksum": 2961280705565286493,
+          "peak_rss_kib": 82084
+        }
+      ],
+      "median": {
+        "construction_ms": 0.268264,
+        "interleaved_ms": 60.9236,
+        "updates_ms": 46.405,
+        "queries_ms": 15.0641,
+        "peak_rss_kib": 81328
+      },
+      "min": {
+        "construction_ms": 0.239705,
+        "interleaved_ms": 57.6626,
+        "updates_ms": 43.2635,
+        "queries_ms": 13.3847
+      }
+    }
+  ],
+  "source_sha256": {
+    "baseline-static": "9bb053e7a7494f5dd83f608a383fe0a61a872c6a4d3aa9d535fbb87b72533639",
+    "query-static": "70604ae98fc38590990109624443cd8ff31768badb50a8d2480f0792ac79c5ab",
+    "prune-static": "b7dc89c106cb232c33bee582d4e6ccbaa8f49f09dcbe368228a0ca73cd542db9",
+    "combined-static": "6fd8411cff8c576dc57ba032088e29e0e4f3d5a44253d43a22038095221f3e43",
+    "baseline-dynamic": "2e475545e1957fc5f2d9051eed486fb1b47b60fb04a5a7b710a43280092ce63b",
+    "prune-dynamic": "d670444ab03cf9ecf2591c9341c5bf46a16a307bd6a2006f82145265c39658d8"
+  },
+  "checksums_match": true
+}

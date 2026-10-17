@@ -78,6 +78,15 @@ int main(int argc, char** argv) {
   Tree envelope(-2048, 2049);
   for (long long x = -2048; x <= 2048; ++x) envelope.add_line(-2 * x, x * x);
   for (long long x = -2048; x <= 2048; ++x) assert(envelope.query(x) == -x * x);
+  // Dominance on the actual overlap must allow crossings outside that overlap.
+  Tree clipped(-100, 101);
+  clipped.add_line(0, 0);
+  clipped.add_segment(20, 40, 1, -20);  // Ties at 20; dominated on the full support.
+  clipped.add_segment(-40, -20, -1, -40);  // Improves only part of the support.
+  for (long long x = -100; x <= 100; ++x) {
+    const long long answer = -40 <= x && x < -20 ? std::min(0LL, -x - 40) : 0;
+    assert(clipped.query(x) == answer);
+  }
 
   for (int trial = 0; trial < 60; ++trial) {
     const int left = static_cast<int>(random() % 100) - 100;
