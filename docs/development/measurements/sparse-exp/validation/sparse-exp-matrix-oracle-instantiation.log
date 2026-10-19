@@ -1,0 +1,25 @@
+FAIL tests/random/sparse-exp.cpp (3.21s)
+command: g++ -I.deps/ac-library -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -Werror -I /home/blueberry/.cache/blueberry-sparse-exp-20261019 -o /tmp/blueberry-cpp-check-8aor6idf/tests_random_sparse-exp.cpp /home/blueberry/.cache/blueberry-sparse-exp-20261019/tests/random/sparse-exp.cpp
+In file included from .deps/ac-library/atcoder/convolution:1,
+                 from /home/blueberry/.cache/blueberry-sparse-exp-20261019/blueberry/math/formal-power-series.hpp:10,
+                 from /home/blueberry/.cache/blueberry-sparse-exp-20261019/blueberry/math/sparse-exp.hpp:10,
+                 from /home/blueberry/.cache/blueberry-sparse-exp-20261019/tests/random/sparse-exp.cpp:10:
+.deps/ac-library/atcoder/convolution.hpp: In function ‘void atcoder::internal::butterfly(std::vector<_RealType>&) [with mint = atcoder::static_modint<2147483647>; is_static_modint_t<mint>* <anonymous> = 0]’:
+.deps/ac-library/atcoder/convolution.hpp:87:27: error: array subscript 2 is above array bounds of ‘std::__array_traits<atcoder::static_modint<2147483647>, 2>::_Type’ {aka ‘const atcoder::static_modint<2147483647> [2]’} [-Werror=array-bounds=]
+   87 |             mint rot = 1, imag = info.root[2];
+      |                           ^~~~
+In file included from .deps/ac-library/atcoder/convolution.hpp:5:
+/usr/include/c++/13/array:109:55: note: while referencing ‘std::array<atcoder::static_modint<2147483647>, 2>::_M_elems’
+  109 |       typename __array_traits<_Tp, _Nm>::_Type        _M_elems;
+      |                                                       ^~~~~~~~
+.deps/ac-library/atcoder/convolution.hpp: In function ‘void atcoder::internal::butterfly_inv(std::vector<_RealType>&) [with mint = atcoder::static_modint<2147483647>; is_static_modint_t<mint>* <anonymous> = 0]’:
+.deps/ac-library/atcoder/convolution.hpp:144:28: error: array subscript 2 is above array bounds of ‘std::__array_traits<atcoder::static_modint<2147483647>, 2>::_Type’ {aka ‘const atcoder::static_modint<2147483647> [2]’} [-Werror=array-bounds=]
+  144 |             mint irot = 1, iimag = info.iroot[2];
+      |                            ^~~~~
+/usr/include/c++/13/array:109:55: note: while referencing ‘std::array<atcoder::static_modint<2147483647>, 2>::_M_elems’
+  109 |       typename __array_traits<_Tp, _Nm>::_Type        _M_elems;
+      |                                                       ^~~~~~~~
+cc1plus: all warnings being treated as errors
+Compiler: g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+Standard: gnu++20
+Summary: 1 failure(s)

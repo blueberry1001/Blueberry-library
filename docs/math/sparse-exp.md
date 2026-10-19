@@ -82,5 +82,6 @@ assert(g[0] == Mint(1) && g[1] == Mint(1) && g[2] == Mint(2).inv());
 - g=exp(f)を形式微分した恒等式`g' = f'g`から、`g[0]=1`、`g[i] = (sum_{1 <= d <= i} d * f[d] * g[i-d]) / i`を使います。i=1..n-1の逆元はまとめて前計算します。
 - [Library Checker公式問題: Exp of Formal Power Series (Sparse)](https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse)。疎な入力から求めた全係数を検証する問題です。
 - ACLの係数型を利用します。ACLには疎な形式的冪級数の指数関数を求めるAPIはありません。
+- [調査・性能比較・検証記録]({{ '/docs/development/sparse-exp.html' | relative_url }})
 
 </details>

@@ -1,0 +1,151 @@
+{
+  "cases": [
+    {
+      "expected": "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.verify-helper/cache/a6c9c91ff6ded11df48d90036f3b9e23/test/max_random_00.out",
+      "expected_sha256": "aeeee46db80428e448d3616202dabce98ee1557460084b999e199d4f86f4e6c2",
+      "input": "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.verify-helper/cache/a6c9c91ff6ded11df48d90036f3b9e23/test/max_random_00.in",
+      "input_sha256": "0a6beb4dee013ea8326c6e4c4eae73fe815ac81316dab4f9be04910432ca372c",
+      "name": "max_random_00.in"
+    },
+    {
+      "expected": "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.verify-helper/cache/a6c9c91ff6ded11df48d90036f3b9e23/test/min_K_00.out",
+      "expected_sha256": "9f1e78974126b1a20b68f38ec2b8129ad4838eb3a117d032d6f1ddd414dd2340",
+      "input": "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.verify-helper/cache/a6c9c91ff6ded11df48d90036f3b9e23/test/min_K_00.in",
+      "input_sha256": "73d7239189e361e407b8e83d17e8f01de2a845e578f5586a7b64e2099b893c89",
+      "name": "min_K_00.in"
+    },
+    {
+      "expected": "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.verify-helper/cache/a6c9c91ff6ded11df48d90036f3b9e23/test/small_dense_00.out",
+      "expected_sha256": "d49cd6c8e28f19ede11fcec357e9648b39d05f2b68b2a3fdfc0c30dd7f02f383",
+      "input": "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.verify-helper/cache/a6c9c91ff6ded11df48d90036f3b9e23/test/small_dense_00.in",
+      "input_sha256": "e506ee3a3e057e217c97e2b539c738b8720760c7189f91f68264b90cf904109e",
+      "name": "small_dense_00.in"
+    }
+  ],
+  "compilers": {
+    "clang++": {
+      "builds": {
+        "blueberry": {
+          "binary_sha256": "c1aa64e5e854f19ff4d2ad8eca417d85af9e90f5affe348478c59b4259c45037",
+          "command": [
+            "/usr/bin/clang++",
+            "-std=gnu++20",
+            "-O2",
+            "-DNDEBUG",
+            "-mavx2",
+            "-mbmi",
+            "-mbmi2",
+            "-I",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019",
+            "-I",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.deps/ac-library",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/benchmarks/sparse-exp/phase_driver.cpp",
+            "-o",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/docs/development/measurements/sparse-exp/phases/compiler-1-blueberry.exe"
+          ],
+          "returncode": 0
+        },
+        "submission-409367": {
+          "binary_sha256": "72275929984546e2aeec9ee0264da61c8e31828757676aa4d4a7f08823a5c5c4",
+          "command": [
+            "/usr/bin/clang++",
+            "-std=gnu++20",
+            "-O2",
+            "-DNDEBUG",
+            "-mavx2",
+            "-mbmi",
+            "-mbmi2",
+            "-I",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019",
+            "-I",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.deps/ac-library",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.build/fastest/submission-409367.cpp",
+            "-o",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/docs/development/measurements/sparse-exp/phases/compiler-1-submission-409367.exe"
+          ],
+          "returncode": 0
+        }
+      },
+      "version": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+    },
+    "g++": {
+      "builds": {
+        "blueberry": {
+          "binary_sha256": "7d71628e7696834c34c8904b0db611ff4ad2d310d9124e0b817c333e8d3283ae",
+          "command": [
+            "/usr/bin/g++",
+            "-std=gnu++20",
+            "-O2",
+            "-DNDEBUG",
+            "-mavx2",
+            "-mbmi",
+            "-mbmi2",
+            "-I",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019",
+            "-I",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.deps/ac-library",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/benchmarks/sparse-exp/phase_driver.cpp",
+            "-o",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/docs/development/measurements/sparse-exp/phases/compiler-0-blueberry.exe"
+          ],
+          "returncode": 0
+        },
+        "submission-409367": {
+          "binary_sha256": "615feddb5b5c85c851ba266e192c8a74c58ca19a2ac971c2ad14d7fe0cf4b080",
+          "command": [
+            "/usr/bin/g++",
+            "-std=gnu++20",
+            "-O2",
+            "-DNDEBUG",
+            "-mavx2",
+            "-mbmi",
+            "-mbmi2",
+            "-I",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019",
+            "-I",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.deps/ac-library",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.build/fastest/submission-409367.cpp",
+            "-o",
+            "/home/blueberry/.cache/blueberry-sparse-exp-20261019/docs/development/measurements/sparse-exp/phases/compiler-0-submission-409367.exe"
+          ],
+          "returncode": 0
+        }
+      },
+      "version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+    }
+  },
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "cpu_affinity": [
+    2
+  ],
+  "errors": [],
+  "flags": [
+    "-std=gnu++20",
+    "-O2",
+    "-DNDEBUG",
+    "-mavx2",
+    "-mbmi",
+    "-mbmi2"
+  ],
+  "git_head": "cee0f9ec85da359e657798293583d6d30095f216",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "rss_method": "/usr/bin/time -f %M, KiB",
+  "runs": 3,
+  "source_changes_allowed": false,
+  "source_restriction": "Fastest originals compiled unmodified; ISA flags applied identically to both implementations",
+  "sources": {
+    "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.build/fastest/submission-409367.cpp": "24c9dbf6ceb880ec39983e4944604f22a11f36585479874a82894717d9fd173b",
+    "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.deps/ac-library/atcoder/convolution.hpp": "456e3d737ec2a73ca00ed3c1f12f26731b8cbefc1e81dec5a950ebf458a509d5",
+    "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.deps/ac-library/atcoder/internal_math.hpp": "487416d11ce878d7785559a02c84f094529e39fa5cc593d4c45e91fc7da53f56",
+    "/home/blueberry/.cache/blueberry-sparse-exp-20261019/.deps/ac-library/atcoder/modint.hpp": "aef131053e67300be6def657f1ef1eb1c80ef2c92ffc8220d7be0cccab583318",
+    "/home/blueberry/.cache/blueberry-sparse-exp-20261019/benchmarks/sparse-exp/official_compare.py": "06b21befa9139aae9ca35c4f0a6611d3acf8431562d8f22a3ccfb5870c8fb2f1",
+    "/home/blueberry/.cache/blueberry-sparse-exp-20261019/benchmarks/sparse-exp/phase_driver.cpp": "9633c20550fdf8e1dd32dbd81729e1654f50c4be8c506659bf500757ae014ea8",
+    "/home/blueberry/.cache/blueberry-sparse-exp-20261019/blueberry/math/formal-power-series.hpp": "1f84dc1338d1bbb860ab5b1b1db55881c6a65590a3a048bc32e9c62cd09680f4",
+    "/home/blueberry/.cache/blueberry-sparse-exp-20261019/blueberry/math/sparse-exp.hpp": "5334f1d8506c0fcb46040a8ecc1ecaba86b5e3b1ebe463c678ea00d858fcc655",
+    "/home/blueberry/.cache/blueberry-sparse-exp-20261019/blueberry/utility/fast-io.hpp": "1999ac21152a7d638d412caeb74cd413bf3c524471fcab4137def212fbdb9845"
+  },
+  "sources_unchanged_during_run": true,
+  "timing_scope": "end-to-end process with official input/output files, including startup, parsing, algorithm, formatting and file I/O",
+  "warmups": 1
+}
