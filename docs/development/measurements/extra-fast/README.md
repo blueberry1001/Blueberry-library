@@ -158,6 +158,58 @@ N=1048576、portable O2 releaseの独立したメモリ測定では、GCCのRSS�
 配列の要素だけなら高速版は8947840byte、ACL Fenwickは8388608byte、ACL segtreeは16777216byteとなる。
 この入力では高速版の配列はFenwickより大きい。
 
+## 上位提出のプログラム全体との追加比較
+
+上のphase測定とは別に、[提出258491](https://judge.yosupo.jp/submission/258491)と
+[提出403014](https://judge.yosupo.jp/submission/403014)の保存済みソースを無改変でコンパイルし、
+公開verifyプログラムと比較した。[環境・ソースhash](fastest-program/environment.json)、
+[コンパイル結果](fastest-program/compile.json)、[生ログ](fastest-program/samples.jsonl)、
+[集計](fastest-program/summary.json)、[失敗記録](fastest-program/failures.json)を保存している。
+測定revisionは`0285ece7948a9e56176ce904b975417654f0fd9e`であり、
+PR #51のmerge先`181755b74cc621b69069894fccb05ba8d9ae1ca0`と同じファイル内容である。
+
+CPU 0、GCC 13 / Clang 18、`-std=gnu++23 -O2 -DNDEBUG -march=native`で、
+各入力を5回ずつ候補順を回転させて実行した。初期値・加算値は0〜10^9、更新は`add`だけ、
+問い合わせは空でない半開区間とし、N・Qとも500000以下の問題の制約内に収めた。
+独立したPython Fenwickによる正解と、実行できた60件すべての出力SHA-256が一致した。
+
+Linux側の通常ファイルを標準入出力に接続し、プロセス起動から終了までのwall時間を測った。
+parse・構築・操作・format・OSのファイル入出力・終了処理を含む。
+入力生成とhash確認は含まず、ファイルcacheは消していない。
+前節のOS入出力を含まないend-to-endとは測定範囲が違うため、数値を混ぜて比較しない。
+以下はwall時間の中央値、括弧内は最小値。単位はms。
+
+| 入力 | GCC 公開verify | GCC 提出258491 | Clang 公開verify | Clang 提出258491 |
+| --- | ---: | ---: | ---: | ---: |
+| N=65536、Q=200000、広区間 | 9.080 (8.861) | 7.496 (7.051) | 10.445 (9.923) | 7.076 (6.712) |
+| N=500000、Q=500000、広区間 | 27.860 (27.071) | 17.147 (16.609) | 30.247 (29.864) | 17.335 (17.073) |
+| N=65536、Q=200000、短区間中心 | 8.463 (8.265) | 7.233 (7.129) | 9.692 (9.155) | 7.400 (6.595) |
+
+プログラム全体では上位提出の方が速く、最速提出と同等になったという結果ではない。
+ソースを調べると、提出258491は固定最大長の静的配列とコンパイル時に決まる木の高さ・offsetを使い、
+I/Oには`mmap`と複数桁の変換tableを用いている。一方、公開版は実行時の長さ、動的確保、
+SIMDの実行時判定を持ち、verifyは不正値・EOF・pipeにも対応する既存のFastInputを使う。
+さらに提出内の`Ofast`・ループ展開・AVX2指定pragmaを残しているため、
+CLIのflagsは同じでも有効な最適化設定まで同一ではない。
+これらの差があり、全体時間の差を木の演算やI/Oの一方だけに帰属することはできない。
+固定最大長と専用I/Oを公開APIへ持ち込む変更は今回採用せず、比較条件と残る差を記録する。
+
+提出403014は、この環境の標準ライブラリに`std::from_range_t` / `std::from_range`がなく、
+両コンパイラでビルドに失敗した。診断を保存し、ソースの書き換えや実行時間の0置換はしていない。
+CPUのuser/system内訳にはOSの会計粒度による実測0があるが、失敗や欠測を埋めた値ではない。
+
+追加比較の[runner](fastest-program/runner.py.snapshot)は自作コードである。
+第三者ソースは配布せず、元提出のURLとhashだけを記録した。
+再実行時は元提出を`environment.json`にある`.benchmark/extra-fast/research50/`以下のパスへ保存し、
+hashを確認してから、CPUを固定してrunnerへ空の出力先を指定する。
+
+{% raw %}
+```sh
+taskset -c 0 python3 docs/development/measurements/extra-fast/fastest-program/runner.py.snapshot \
+  --output .benchmark/extra-fast/fastest-program-local
+```
+{% endraw %}
+
 ## 再実行
 
 `run.py`は空でない出力ディレクトリへの上書きを拒否する。

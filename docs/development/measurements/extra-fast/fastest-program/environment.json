@@ -1,0 +1,104 @@
+{
+  "measurement_kind": "New additional whole-program comparison after merged PR 51; separate from initial/phase/final kernel runs",
+  "timestamp_utc": "2026-10-19T08:14:46.250947+00:00",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "cpu_affinity": [
+    0
+  ],
+  "cpuinfo": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 183\nmodel name\t: Intel(R) Core(TM) i7-14650HX\nstepping\t: 1\nmicrocode\t: 0xffffffff\ncpu MHz\t\t: 2419.198\ncache size\t: 30720 KB\nphysical id\t: 0\nsiblings\t: 24\ncore id\t\t: 0\ncpu cores\t: 12\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nvmx flags\t: vnmi invvpid ept_x_only ept_ad ept_1gb tsc_offset vtpr ept vpid unrestricted_guest ept_mode_based_exec tsc_scaling usr_wait_pause\nbugs\t\t: spectre_v1 spectre_v2 spec_store_bypass swapgs retbleed eibrs_pbrsb rfds bhi\nbogomips\t: 4838.39\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 39 bits physical, 48 bits virtual\npower management:",
+  "revision": "0285ece7948a9e56176ce904b975417654f0fd9e",
+  "flags": [
+    "-std=gnu++23",
+    "-O2",
+    "-DNDEBUG",
+    "-march=native"
+  ],
+  "compilers": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+  },
+  "source_sha256": {
+    "docs/development/measurements/extra-fast/fastest-program/runner.py.snapshot": "9a630b5a13321bf3a5943b1d5a6ae29e06ca1ded010060b3b60c718a43fb1dac",
+    "verify/extra-fast/point-add-range-sum.test.cpp": "077e34162cee264efde591ab948acd3c1e1cbec99bffd14b182aef8f2930b336",
+    ".benchmark/extra-fast/research50/point_add_range_sum/submission-403014.cpp": "4ebe55c7895945ad4c4d7e6195ca75399fd58f20dbfca1015b9e39be376602d5",
+    ".benchmark/extra-fast/research50/point_add_range_sum/submission-258491.cpp": "7926bd59c2566511fd3523f097abe458615bd25b1b1c699708d679b5f003be9a",
+    "blueberry/extra-fast/segment-tree.hpp": "580cec447f5d9cb67020e18c7283389dd4104e89d815a32afccef9a9e51125f0",
+    "blueberry/utility/fast-io.hpp": "60366b981d669bacb6c2dbf9f9f00372f75fcf5eb2810286c81c7e9aaaa70001"
+  },
+  "source_urls": {
+    "lc-403014": "https://judge.yosupo.jp/submission/403014",
+    "lc-258491": "https://judge.yosupo.jp/submission/258491"
+  },
+  "embedded_pragmas": {
+    "blueberry": [],
+    "lc-403014": [],
+    "lc-258491": [
+      {
+        "line": 5,
+        "directive": "#pragma GCC optimize(\"Ofast\", \"unroll-loops\")"
+      },
+      {
+        "line": 6,
+        "directive": "#pragma GCC target(\"avx2\", \"bmi\", \"bmi2\", \"popcnt\", \"lzcnt\")"
+      },
+      {
+        "line": 294,
+        "directive": "#pragma unroll(1024)"
+      }
+    ]
+  },
+  "third_party_source": "Original saved sources compiled without edits; not copied into published measurement artifacts",
+  "optimization_caveat": "Same command-line optimization flags; embedded GCC optimize/target/unroll pragmas remain and can override their effective optimization level",
+  "contract": "LC-valid N,Q<=500000, initial values and add deltas 0..1e9; add only, nonempty half-open sum; total stays below uint64 overflow",
+  "oracle": "Independent Python Fenwick; exact decimal output including newline SHA-256",
+  "repeats": 5,
+  "order": "Rotate all successful candidates by run+case; fresh process, no warmup",
+  "wall_timing": "perf_counter_ns before opening regular stdin/stdout files until process exits and descriptors close; includes launch, initialization, operations, parsing/formatting and OS file I/O; excludes compile, fixture generation, digest checks and output unlink",
+  "process_timing": "Delta of RUSAGE_CHILDREN user/system CPU time for the one measured child; includes its file I/O CPU overhead; parent CPU excluded",
+  "filesystem": "TemporaryDirectory under Linux /tmp, input/output regular files (not pipes, /dev/null or Windows-mounted worktree); default cached filesystem, no fsync/drop_caches",
+  "memory": "No RSS comparison: getrusage can inherit Python parent peak",
+  "diagnostics": "GCC/Clang caret source excerpts suppressed with diagnostic-only flags to avoid redistributing third-party code",
+  "temporary_filesystem_path": "/tmp/blueberry-fastest-program-096eqo4j",
+  "cases": [
+    {
+      "name": "wide-65536",
+      "n": 65536,
+      "q": 200000,
+      "short": false,
+      "seed": 20261019,
+      "updates": 100095,
+      "queries": 99905,
+      "input_bytes": 3778829,
+      "input_sha256": "5ecb33a3c273fe35d2c8a2e4d89a7aefe3240e455e0cea2f42862e7eec08d557",
+      "expected_bytes": 1461081,
+      "expected_sha256": "f8eab5845afe27512581b84aea77b9e3a946cb45f1b9af64355e90738baababa"
+    },
+    {
+      "name": "wide-500000",
+      "n": 500000,
+      "q": 500000,
+      "short": false,
+      "seed": 20261020,
+      "updates": 250359,
+      "queries": 249641,
+      "input_bytes": 13477752,
+      "input_sha256": "d179fd577a384d50533461e5ffff67f8caccc4e8bc95867ba3f7ad751c86c5e9",
+      "expected_bytes": 3842282,
+      "expected_sha256": "856e8a814361c374f853a59af1ba1c06c4566668e9f5bbebbf7fe78b0383939a"
+    },
+    {
+      "name": "short-65536",
+      "n": 65536,
+      "q": 200000,
+      "short": true,
+      "seed": 20261021,
+      "updates": 99954,
+      "queries": 100046,
+      "input_bytes": 3778544,
+      "input_sha256": "d6d7bbdd44a7f925ab62da77534dab58dce3514707f04f40a32253cfb45f9a15",
+      "expected_bytes": 1162929,
+      "expected_sha256": "61ee5d0e4897d322028da732f06ffee3c002880c273c4b11f96468289bae4b95"
+    }
+  ]
+}
