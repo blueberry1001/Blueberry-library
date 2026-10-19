@@ -9,7 +9,7 @@
 実行結果は各verifyページと[測定一覧](https://blueberry1001.github.io/Blueberry-library/benchmarks.html)で確認してください。
 ACL推奨は外部ライブラリです。Blueberryの実装数・チェック済み数には含めません。
 
-実装＋verifyあり: 117 / 実装あり・専用verifyなし: 0 / ACL推奨: 7 / 補助verifyのみ: 1 / 未対応: 128
+実装＋verifyあり: 118 / 実装あり・専用verifyなし: 0 / ACL推奨: 7 / 補助verifyのみ: 1 / 未対応: 127
 
 ## Sample
 
@@ -177,7 +177,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Conversion from Monomial Basis to Newton Basis](https://judge.yosupo.jp/problem/conversion_from_monomial_basis_to_newton_basis) (`conversion_from_monomial_basis_to_newton_basis`): 未対応
 - [x] [Division of Polynomials](https://judge.yosupo.jp/problem/division_of_polynomials) (`division_of_polynomials`): 実装＋verifyあり — [Formal Power Series](../blueberry/math/formal-power-series.hpp), [verify](../verify/math/division-of-polynomials.test.cpp)
 - [x] [Exp of Formal Power Series](https://judge.yosupo.jp/problem/exp_of_formal_power_series) (`exp_of_formal_power_series`): 実装＋verifyあり — [Formal Power Series](../blueberry/math/formal-power-series.hpp), [verify](../verify/math/exp-formal-power-series.test.cpp)
-- [ ] [Exp of Formal Power Series (Sparse)](https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse) (`exp_of_formal_power_series_sparse`): 未対応
+- [x] [Exp of Formal Power Series (Sparse)](https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse) (`exp_of_formal_power_series_sparse`): 実装＋verifyあり — [Formal Power Series](../blueberry/math/formal-power-series.hpp), [Sparse FPS Exp](../blueberry/math/sparse-exp.hpp), [verify](../verify/math/sparse-exp.test.cpp) — sparse_expで疎な入力から指数関数の全係数を専用verifyで検証。
 - [ ] [Factorization of Polynomial (Mod)](https://judge.yosupo.jp/problem/factorization_of_polynomials) (`factorization_of_polynomials`): 未対応
 - [x] [Inv of Formal Power Series](https://judge.yosupo.jp/problem/inv_of_formal_power_series) (`inv_of_formal_power_series`): 実装＋verifyあり — [Formal Power Series](../blueberry/math/formal-power-series.hpp), [verify](../verify/math/inv-formal-power-series.test.cpp)
 - [ ] [Inv of Formal Power Series (Sparse)](https://judge.yosupo.jp/problem/inv_of_formal_power_series_sparse) (`inv_of_formal_power_series_sparse`): 未対応

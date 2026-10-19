@@ -102,6 +102,7 @@ uf.rollback(saved);
 | 整数除算の異なる商 | [Enumerate Quotients](docs/math/enumerate-quotients.md): `enumerate_quotients` |
 | 整数のk乗根の切り捨て | [Kth Root Integer](docs/math/kth-root-integer.md): `kth_root_integer` |
 | 累乗の合同式から指数を求める | [Discrete Logarithm](docs/math/discrete-log.md): `discrete_log` |
+| 疎な形式的冪級数の指数関数 | [Sparse FPS Exp](docs/math/sparse-exp.md): `sparse_exp(terms,n)` |
 | 最長増加部分列の復元 | [LIS](docs/math/longest-increasing-subsequence.md): `longest_increasing_subsequence` |
 | 接頭辞関数・パターンの全出現位置 | [Prefix Function / KMP](docs/string/prefix-function.md): `prefix_function`, `kmp_search` |
 | 静的配列の区間転倒数 | [Static Range Inversions](docs/data-structure/static-range-inversions.md): `static_range_inversions` |
