@@ -2,6 +2,8 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cstdint>
+#include <limits>
 #include <utility>
 #include <vector>
 
@@ -38,7 +40,6 @@ FPS<Mint> sparse_exp(const std::vector<std::pair<int, Mint>>& terms, int n) {
   count = 0;
   for (auto term : sparse) {
     if (term.second == Mint(0)) continue;
-    term.second *= Mint(term.first);
     sparse[count++] = term;
   }
   sparse.resize(count);
@@ -46,14 +47,36 @@ FPS<Mint> sparse_exp(const std::vector<std::pair<int, Mint>>& terms, int n) {
   FPS<Mint> result(n);
   result[0] = 1;
   if (sparse.empty()) return result;
+  // If f^2 vanishes modulo x^n, exp(f) is just 1 + f.
+  if (sparse.front().first >= n - sparse.front().first) {
+    for (const auto& [degree, coefficient] : sparse) result[degree] = coefficient;
+    return result;
+  }
+  for (auto& [degree, coefficient] : sparse) coefficient *= Mint(degree);
   std::vector<Mint> inverse(n);
   if (n > 1) inverse[1] = 1;
   for (int i = 2; i < n; ++i) inverse[i] = -Mint(Mint::mod() / i) * inverse[Mint::mod() % i];
   for (int i = 1; i < n; ++i) {
     Mint value = 0;
-    for (const auto& [degree, coefficient] : sparse) {
-      if (degree > i) break;
-      value += coefficient * result[i - degree];
+    if (sparse.size() < 4) {
+      for (const auto& [degree, coefficient] : sparse) {
+        if (degree > i) break;
+        value += coefficient * result[i - degree];
+      }
+    } else {
+      // At most block products fit in uint64_t, for every supported prime.
+      constexpr std::uint64_t largest = std::uint64_t(Mint::mod() - 1) * (Mint::mod() - 1);
+      constexpr auto block = std::min<std::uint64_t>(16, std::numeric_limits<std::uint64_t>::max() / largest);
+      std::uint64_t sum = 0, used = 0;
+      for (const auto& [degree, coefficient] : sparse) {
+        if (degree > i) break;
+        sum += std::uint64_t(coefficient.val()) * result[i - degree].val();
+        if (++used == block) {
+          value += Mint::raw(static_cast<int>(sum % Mint::mod()));
+          sum = used = 0;
+        }
+      }
+      value += Mint::raw(static_cast<int>(sum % Mint::mod()));
     }
     result[i] = value * inverse[i];
   }

@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <bit>
 #include <cstdlib>
 #include <iostream>
 #include <limits>
@@ -59,8 +60,12 @@ void verify(const vector<pair<int, Mint>>& terms, int n, bool brute = true) {
   const auto actual = blueberry::sparse_exp<Mint>(terms, n);
   // Vector equality also checks exact precision, including trailing zeros.
   if (brute) check("power-series expansion", terms, n, brute_exp(dense), actual);
-  const auto dense_result = blueberry::FPS<Mint>(dense.begin(), dense.end()).exp(n);
-  check("dense FPS exp", terms, n, vector<Mint>(dense_result.begin(), dense_result.end()), actual);
+  if constexpr ((Mint::mod() - 1) % 4 == 0) {
+    if (n <= 1 || (Mint::mod() - 1) % std::bit_ceil(static_cast<unsigned>(n)) == 0) {
+      const auto dense_result = blueberry::FPS<Mint>(dense.begin(), dense.end()).exp(n);
+      check("dense FPS exp", terms, n, vector<Mint>(dense_result.begin(), dense_result.end()), actual);
+    }
+  }
   if (terms != saved) {
     cerr << "seed=" << seed << " mod=" << Mint::mod() << " input was modified\n";
     exit(1);
@@ -106,6 +111,11 @@ int main(int argc, char** argv) {
   run<mint>(rng, 40);
   run<atcoder::static_modint<17>>(rng, 16);
   run<atcoder::static_modint<2>>(rng, 1);
+  // No NTT support is needed. The large prime also tests the uint64 batch bound.
+  run<atcoder::static_modint<2147483647>>(rng, 40);
+  vector<pair<int, atcoder::static_modint<2147483647>>> large_coefficients;
+  for (int d = 1; d < 40; ++d) large_coefficients.emplace_back(d, 2147483646);
+  verify(large_coefficients, 40);
 
   // Non-power-of-two precisions around larger inverse-table boundaries.
   for (int n : {63, 64, 65, 127, 128, 129, 255, 256, 257}) {
