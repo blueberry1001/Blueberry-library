@@ -1,0 +1,222 @@
+#!/usr/bin/env python3
+"""Additional whole-program comparison after PR 51, not the phase benchmark.
+
+Third-party submission sources stay in ignored .benchmark storage. This runner
+records only their hashes, original embedded pragmas and compiler diagnostics.
+Linux regular files are used for stdin/stdout because submitted I/O uses mmap.
+"""
+import argparse
+import hashlib
+import json
+import os
+import platform
+import random
+import re
+import resource
+import statistics
+import subprocess
+import tempfile
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[5]
+HERE = Path(__file__).resolve().parent
+FLAGS = ["-std=gnu++23", "-O2", "-DNDEBUG", "-march=native"]
+CASES = [("wide-65536", 65536, 200000, False),
+         ("wide-500000", 500000, 500000, False),
+         ("short-65536", 65536, 200000, True)]
+SEED = 20261019
+
+
+def digest(path):
+    result = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            result.update(block)
+    return result.hexdigest()
+
+
+def save(path, value):
+    path.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+
+
+def generate(directory, name, n, q, short, seed):
+    rng = random.Random(seed)
+    values = [rng.randrange(1000000001) for _ in range(n)]
+    # Independent Python Fenwick oracle, with O(N) initialization.
+    fenwick = [0] + values
+    for p in range(1, n + 1):
+        parent = p + (p & -p)
+        if parent <= n:
+            fenwick[parent] += fenwick[p]
+    def pref(r):
+        answer = 0
+        while r:
+            answer += fenwick[r]
+            r -= r & -r
+        return answer
+    source = directory / (name + ".in")
+    expected = directory / (name + ".expected")
+    updates = queries = 0
+    with source.open("w", encoding="ascii", newline="\n") as input_stream:
+        with expected.open("w", encoding="ascii", newline="\n") as output_stream:
+            input_stream.write(f"{n} {q}\n")
+            input_stream.write(" ".join(map(str, values)) + "\n")
+            for operation in range(q):
+                if rng.getrandbits(1):
+                    p = 0 if operation % 97 == 0 else n - 1 if operation % 89 == 0 else rng.randrange(n)
+                    delta = rng.randrange(1000000001)
+                    input_stream.write(f"0 {p} {delta}\n")
+                    index = p + 1
+                    while index <= n:
+                        fenwick[index] += delta
+                        index += index & -index
+                    updates += 1
+                else:
+                    if operation % 101 == 0:
+                        l, r = 0, n
+                    elif short:
+                        l = rng.randrange(n)
+                        r = min(n, l + rng.randrange(1, 33))
+                    else:
+                        l, last = rng.randrange(n), rng.randrange(n)
+                        l, r = min(l, last), max(l, last) + 1
+                    # Nonempty half-open ranges satisfy either LC empty-range convention.
+                    input_stream.write(f"1 {l} {r}\n")
+                    output_stream.write(str(pref(r) - pref(l)) + "\n")
+                    queries += 1
+    return {"name": name, "n": n, "q": q, "short": short, "seed": seed,
+            "updates": updates, "queries": queries,
+            "input_bytes": source.stat().st_size, "input_sha256": digest(source),
+            "expected_bytes": expected.stat().st_size, "expected_sha256": digest(expected)}, source
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--repeats", type=int, default=5)
+    parser.add_argument("--output", type=Path, default=HERE)
+    args = parser.parse_args(argv)
+    if args.repeats < 1:
+        parser.error("--repeats must be positive")
+    output = args.output.resolve()
+    output.mkdir(parents=True, exist_ok=True)
+    protected = ["environment.json", "samples.jsonl", "summary.json", "compile.json", "failures.json"]
+    if any((output / filename).exists() for filename in protected):
+        parser.error("refusing to overwrite measurement results")
+    sources = {
+        "blueberry": ROOT / "verify/extra-fast/point-add-range-sum.test.cpp",
+        "lc-403014": ROOT / ".benchmark/extra-fast/research50/point_add_range_sum/submission-403014.cpp",
+        "lc-258491": ROOT / ".benchmark/extra-fast/research50/point_add_range_sum/submission-258491.cpp",
+    }
+    tracked = [Path(__file__).resolve(), *sources.values(),
+               ROOT / "blueberry/extra-fast/segment-tree.hpp", ROOT / "blueberry/utility/fast-io.hpp"]
+    hashes = {str(p.relative_to(ROOT)): digest(p) for p in tracked}
+    environment = {
+        "measurement_kind": "New additional whole-program comparison after merged PR 51; separate from initial/phase/final kernel runs",
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(), "platform": platform.platform(),
+        "python": platform.python_version(), "cpu_affinity": sorted(os.sched_getaffinity(0)),
+        "cpuinfo": Path("/proc/cpuinfo").read_text().split("\n\n")[0],
+        "revision": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
+        "flags": FLAGS, "compilers": {}, "source_sha256": hashes,
+        "source_urls": {name: f"https://judge.yosupo.jp/submission/{name[3:]}" for name in sources if name.startswith("lc-")},
+        "embedded_pragmas": {name: [{"line": i, "directive": line.strip()}
+            for i, line in enumerate(path.read_text().splitlines(), 1)
+            if re.match(r"\s*#\s*pragma\b", line)] for name, path in sources.items()},
+        "third_party_source": "Original saved sources compiled without edits; not copied into published measurement artifacts",
+        "optimization_caveat": "Same command-line optimization flags; embedded GCC optimize/target/unroll pragmas remain and can override their effective optimization level",
+        "contract": "LC-valid N,Q<=500000, initial values and add deltas 0..1e9; add only, nonempty half-open sum; total stays below uint64 overflow",
+        "oracle": "Independent Python Fenwick; exact decimal output including newline SHA-256",
+        "repeats": args.repeats, "order": "Rotate all successful candidates by run+case; fresh process, no warmup",
+        "wall_timing": "perf_counter_ns before opening regular stdin/stdout files until process exits and descriptors close; includes launch, initialization, operations, parsing/formatting and OS file I/O; excludes compile, fixture generation, digest checks and output unlink",
+        "process_timing": "Delta of RUSAGE_CHILDREN user/system CPU time for the one measured child; includes its file I/O CPU overhead; parent CPU excluded",
+        "filesystem": "TemporaryDirectory under Linux /tmp, input/output regular files (not pipes, /dev/null or Windows-mounted worktree); default cached filesystem, no fsync/drop_caches",
+        "memory": "No RSS comparison: getrusage can inherit Python parent peak",
+        "diagnostics": "GCC/Clang caret source excerpts suppressed with diagnostic-only flags to avoid redistributing third-party code",
+    }
+    save(output / "environment.json", environment)
+    compilations, rows, failures = [], [], []
+    with tempfile.TemporaryDirectory(prefix="blueberry-fastest-program-") as temporary:
+        directory = Path(temporary)
+        environment["temporary_filesystem_path"] = str(directory)
+        environment["cases"] = []
+        fixtures = []
+        for case_number, (name, n, q, short) in enumerate(CASES):
+            metadata, path = generate(directory, name, n, q, short, SEED + case_number)
+            environment["cases"].append(metadata)
+            fixtures.append((metadata, path))
+        save(output / "environment.json", environment)
+        binaries = {}
+        for compiler in ["g++", "clang++"]:
+            environment["compilers"][compiler] = subprocess.check_output([compiler, "--version"], text=True)
+            binaries[compiler] = {}
+            for candidate, source in sources.items():
+                binary = directory / f"{compiler}-{candidate}"
+                diagnostic_flag = "-fno-diagnostics-show-caret" if compiler == "g++" else "-fno-caret-diagnostics"
+                command = [compiler, *FLAGS, diagnostic_flag, "-I", str(ROOT), str(source), "-o", str(binary)]
+                started = time.perf_counter()
+                result = subprocess.run(command, capture_output=True, text=True, timeout=180)
+                entry = {"compiler": compiler, "candidate": candidate, "command": command,
+                         "returncode": result.returncode, "compile_seconds": time.perf_counter() - started}
+                log = json.dumps(command) + "\n" + result.stdout + result.stderr
+                (output / f"compile-{compiler}-{candidate}.log").write_text(log.rstrip("\n") + "\n", encoding="utf-8")
+                compilations.append(entry)
+                if result.returncode:
+                    failures.append({"stage": "compile", **entry})
+                else:
+                    binaries[compiler][candidate] = binary
+                save(output / "compile.json", compilations)
+                print(f"{compiler} {candidate} compile exit={result.returncode}", flush=True)
+        save(output / "environment.json", environment)
+        with (output / "samples.jsonl").open("w", encoding="utf-8") as sample_stream:
+            for compiler, successful in binaries.items():
+                names = list(successful)
+                if not names:
+                    continue
+                for case_number, (case, fixture) in enumerate(fixtures):
+                    for run in range(args.repeats):
+                        shift = (run + case_number) % len(names)
+                        for candidate in names[shift:] + names[:shift]:
+                            destination = directory / "actual.out"
+                            before = resource.getrusage(resource.RUSAGE_CHILDREN)
+                            start = time.perf_counter_ns()
+                            with fixture.open("rb") as input_stream, destination.open("wb") as output_stream:
+                                result = subprocess.run([str(successful[candidate])], stdin=input_stream,
+                                                        stdout=output_stream, stderr=subprocess.PIPE, timeout=30)
+                            finish = time.perf_counter_ns()
+                            after = resource.getrusage(resource.RUSAGE_CHILDREN)
+                            row = {"compiler": compiler, "candidate": candidate, "case": case["name"],
+                                   "run": run, "returncode": result.returncode,
+                                   "wall_ms": (finish - start) / 1e6,
+                                   "user_cpu_ms": (after.ru_utime - before.ru_utime) * 1000,
+                                   "system_cpu_ms": (after.ru_stime - before.ru_stime) * 1000,
+                                   "process_cpu_ms": ((after.ru_utime + after.ru_stime) - (before.ru_utime + before.ru_stime)) * 1000,
+                                   "input_sha256": case["input_sha256"],
+                                   "output_sha256": digest(destination), "output_bytes": destination.stat().st_size}
+                            row["correct"] = result.returncode == 0 and row["output_sha256"] == case["expected_sha256"]
+                            rows.append(row)
+                            sample_stream.write(json.dumps(row) + "\n")
+                            sample_stream.flush()
+                            if not row["correct"]:
+                                failures.append({"stage": "execution", **row, "stderr": result.stderr.decode(errors="replace")})
+                            destination.unlink()
+                    print(f"{compiler} {case['name']} timing complete", flush=True)
+    if hashes != {str(p.relative_to(ROOT)): digest(p) for p in tracked}:
+        failures.append({"stage": "integrity", "error": "source changed during measurement"})
+    summary = []
+    for compiler, candidate, case in sorted({(r["compiler"], r["candidate"], r["case"]) for r in rows}):
+        selected = [r for r in rows if (r["compiler"], r["candidate"], r["case"]) == (compiler, candidate, case) and r["correct"]]
+        entry = {"compiler": compiler, "candidate": candidate, "case": case, "successful_samples": len(selected)}
+        if selected:
+            for metric in ["wall_ms", "process_cpu_ms", "user_cpu_ms", "system_cpu_ms"]:
+                entry[f"median_{metric}"] = statistics.median(r[metric] for r in selected)
+                entry[f"min_{metric}"] = min(r[metric] for r in selected)
+        summary.append(entry)
+    save(output / "summary.json", summary)
+    save(output / "failures.json", failures)
+    print(f"Saved {len(rows)} execution samples and {len(failures)} failures to {output}", flush=True)
+    return int(any(f.get("stage") != "compile" for f in failures))
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
