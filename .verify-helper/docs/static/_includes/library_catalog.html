@@ -1,4 +1,9 @@
 {% assign entries = site.data.libraries | sort_natural: 'name' %}
+{% if include.section %}
+{% assign entries = entries | where: 'section', include.section %}
+{% else %}
+{% assign entries = entries | where_exp: 'item', "item.section != 'extra-fast'" %}
+{% endif %}
 {% if include.category %}{% assign entries = entries | where: 'category', include.category %}{% endif %}
 {% if include.category == 'utility' %}
 <p>個人用テンプレート: <a href="{{ '/blueberrytemplate.html' | relative_url }}">blueberrytemplate.h（原文）</a></p>
@@ -16,7 +21,7 @@
     <button type="button" data-catalog-reset>条件をクリア</button>
     <span data-catalog-count role="status" aria-live="polite"></span>
   </div>
-  {% unless include.category %}
+  {% unless include.category or include.section %}
   <nav class="catalog-categories" aria-label="カテゴリで絞り込む">
   <a href="#library-results" data-catalog-choice="">すべて</a>
   {% assign category_ids = 'algebra,data-structure,graph,math,string,utility' | split: ',' %}

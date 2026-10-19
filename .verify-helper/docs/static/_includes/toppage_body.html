@@ -3,6 +3,7 @@
 <details class="library-files" id="library-files">
 <summary>全ファイルと検証状態</summary>
 {% for category in page.data.libraryCategories %}
+  {% if category.name contains 'extra-fast' %}{% continue %}{% endif %}
   {% assign root = category.name | split: '/' | first %}
   {% assign visible_pages = category.pages | where_exp: 'item', "item.path != 'blueberry/algebra/monoids.hpp'" %}
   {% if root == 'blueberry' and visible_pages.size > 0 %}

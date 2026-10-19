@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""Evaluate scalar and AVX2 prefix construction without editing the library."""
+import argparse
+import json
+import os
+import statistics
+import subprocess
+import tempfile
+from datetime import datetime, timezone
+from pathlib import Path
+
+import run as common
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--repeats", type=int, default=5)
+    args = parser.parse_args()
+    output = args.output.resolve()
+    if output.exists() and any(output.iterdir()):
+        parser.error("refusing to overwrite nonempty output directory")
+    if args.repeats < 1:
+        parser.error("--repeats must be positive")
+    output.mkdir(parents=True, exist_ok=True)
+    files = [common.HERE / "prefix-candidates.cpp", Path(__file__).resolve(), common.HERE / "run.py"]
+    hashes = {p.name: common.sha256(p) for p in files}
+    for path in files:
+        (output / (path.name + ".snapshot")).write_bytes(path.read_bytes())
+    environment = {
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "revision": common.git_metadata("rev-parse", "HEAD"),
+        "cpu_affinity": sorted(os.sched_getaffinity(0)),
+        "source_sha256": hashes, "seed": 20261019, "runs": args.repeats,
+        "n": [4096, 65536, 1048576],
+        "cpuinfo": Path("/proc/cpuinfo").read_text().split("\n\n")[0],
+        "timing": "allocation/zero initialization/copy and prefix construction separately; input generation, validation and destruction excluded",
+        "order": "fresh process per sample; alternate scalar/simd order by run; inherit recorded CPU affinity",
+        "correctness": "all internal prefixes compared against scalar at boundaries before measurement, uint64 modulo 2^64; timed root total checked",
+        "compilers": {},
+    }
+    rows, failures = [], []
+    with tempfile.TemporaryDirectory(prefix="prefix-candidates-") as temporary:
+        with (output / "compile.log").open("w", encoding="utf-8") as log:
+            with (output / "samples.jsonl").open("w", encoding="utf-8") as stream:
+                for compiler in ["g++", "clang++"]:
+                    environment["compilers"][compiler] = subprocess.check_output([compiler, "--version"], text=True)
+                    for configuration in ["portable-o2-release", "native-o3-release"]:
+                        binary = Path(temporary) / f"{compiler}-{configuration}"
+                        command = [compiler, "-std=gnu++20", *common.CONFIGURATIONS[configuration],
+                                   str(common.HERE / "prefix-candidates.cpp"), "-o", str(binary)]
+                        result = subprocess.run(command, capture_output=True, text=True)
+                        log.write(json.dumps(command) + "\n" + result.stdout + result.stderr + "\n")
+                        log.flush()
+                        if result.returncode:
+                            failures.append({"command": command, "returncode": result.returncode,
+                                             "stdout": result.stdout, "stderr": result.stderr})
+                            continue
+                        for n in environment["n"]:
+                            for run in range(args.repeats):
+                                for variant in (["scalar", "simd"] if run % 2 == 0 else ["simd", "scalar"]):
+                                    command = [str(binary), str(n), variant]
+                                    result = subprocess.run(command, capture_output=True, text=True, timeout=30)
+                                    if result.returncode:
+                                        failures.append({"command": command, "returncode": result.returncode,
+                                                         "stdout": result.stdout, "stderr": result.stderr})
+                                        continue
+                                    row = json.loads(result.stdout)
+                                    row.update(compiler=compiler, configuration=configuration, n=n,
+                                               run=run, variant=variant)
+                                    rows.append(row)
+                                    stream.write(json.dumps(row) + "\n")
+                                    stream.flush()
+                            selected = [r for r in rows if (r["compiler"], r["configuration"], r["n"]) == (compiler, configuration, n)]
+                            if len({r["checksum"] for r in selected}) != 1:
+                                failures.append({"error": "checksum mismatch", "compiler": compiler,
+                                                 "configuration": configuration, "n": n})
+                        print(f"{compiler} {configuration} prefix candidates complete", flush=True)
+    common.write_json(output / "environment.json", environment)
+    if hashes != {p.name: common.sha256(p) for p in files}:
+        failures.append({"error": "source changed during measurement"})
+    keys = ["compiler", "configuration", "n", "variant"]
+    groups = sorted({tuple(row[k] for k in keys) for row in rows})
+    summary = []
+    for group in groups:
+        selected = [r for r in rows if tuple(r[k] for k in keys) == group]
+        result = dict(zip(keys, group))
+        result["samples"] = len(selected)
+        for metric in ["allocation_copy_ms", "prefix_ms", "build_ms"]:
+            result[f"median_{metric}"] = statistics.median(r[metric] for r in selected)
+            result[f"min_{metric}"] = min(r[metric] for r in selected)
+        summary.append(result)
+    common.write_json(output / "summary.json", summary)
+    common.write_json(output / "failures.json", failures)
+    print(f"Saved {len(rows)} samples and {len(failures)} failures to {output}", flush=True)
+    return int(bool(failures))
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

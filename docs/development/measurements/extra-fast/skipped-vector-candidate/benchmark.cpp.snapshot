@@ -1,0 +1,204 @@
+// Paired modulo-2^64 workloads. Input generation is outside measured phases.
+#include "blueberry/data-structure/segment-tree.hpp"
+#ifndef BLUEBERRY_EXTRA_FAST_HEADER
+#define BLUEBERRY_EXTRA_FAST_HEADER "blueberry/extra-fast/segment-tree.hpp"
+#endif
+#include BLUEBERRY_EXTRA_FAST_HEADER
+#include <atcoder/fenwicktree>
+#include <atcoder/segtree>
+
+#include <algorithm>
+#include <charconv>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <fstream>
+#include <iostream>
+#include <limits>
+#include <random>
+#include <stdexcept>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
+#if defined(__unix__)
+#include <sys/resource.h>
+#endif
+
+using U64 = std::uint64_t;
+using Clock = std::chrono::steady_clock;
+U64 plus(U64 a, U64 b) { return a + b; }
+U64 zero() { return 0; }
+using AclTree = atcoder::segtree<U64, plus, zero>;
+struct Plus { U64 operator()(U64 a, U64 b) const { return a + b; } };
+using BlueTree = blueberry::SegmentTree<U64, Plus>;
+
+struct Fenwick {
+  atcoder::fenwick_tree<U64> tree;
+  explicit Fenwick(const std::vector<U64>& a) : tree(a.size()) {
+    for (int i = 0; i < static_cast<int>(a.size()); ++i) tree.add(i, a[i]);
+  }
+  void add(int p, U64 x) { tree.add(p, x); }
+  void set(int p, U64 x) { tree.add(p, x - tree.sum(p, p + 1)); }
+  U64 prod(int l, int r) { return tree.sum(l, r); }
+};
+struct Acl {
+  AclTree tree;
+  explicit Acl(const std::vector<U64>& a) : tree(a) {}
+  void add(int p, U64 x) { tree.set(p, tree.get(p) + x); }
+  void set(int p, U64 x) { tree.set(p, x); }
+  U64 prod(int l, int r) const { return tree.prod(l, r); }
+};
+struct Blue {
+  BlueTree tree;
+  explicit Blue(const std::vector<U64>& a) : tree(a, Plus{}, U64(0)) {}
+  void add(int p, U64 x) { tree.set(p, tree.get(p) + x); }
+  void set(int p, U64 x) { tree.set(p, x); }
+  U64 prod(int l, int r) const { return tree.prod(l, r); }
+};
+struct Fast {
+  blueberry::extra_fast::SumSegmentTree tree;
+  explicit Fast(const std::vector<U64>& a) : tree(a) {}
+  void add(int p, U64 x) { tree.add(p, x); }
+  void set(int p, U64 x) { tree.set(p, x); }
+  U64 prod(int l, int r) const { return tree.prod(l, r); }
+};
+
+struct Operation { int type, l, r; U64 value; };
+struct Input { std::vector<U64> values; std::vector<Operation> operations; };
+
+void append(std::string& text, U64 x) {
+  char digits[32];
+  auto result = std::to_chars(digits, digits + sizeof(digits), x);
+  text.append(digits, result.ptr);
+  text += ' ';
+}
+
+std::string generate(int n, int q, std::string_view distribution) {
+  std::mt19937_64 rng(20261019);
+  std::string text;
+  text.reserve(static_cast<std::size_t>(n) * 22 + static_cast<std::size_t>(q) * 40);
+  append(text, n); append(text, q);
+  for (int i = 0; i < n; ++i) append(text, rng());
+  const int update_percent = distribution == "updates" ? 90
+                           : distribution == "queries" ? 10 : 50;
+  for (int i = 0; i < q; ++i) {
+    if (static_cast<int>(rng() % 100) < update_percent) {
+      // Both add and assignment exercise the same supported contract.
+      append(text, rng() % 2); append(text, rng() % n); append(text, rng());
+    } else {
+      int l = rng() % (n + 1), r = rng() % (n + 1);
+      if (distribution == "short") r = std::min(n, l + static_cast<int>(rng() % 33));
+      if (l > r) std::swap(l, r);
+      append(text, 2); append(text, l); append(text, r);
+    }
+  }
+  return text;
+}
+
+Input parse(const std::string& text) {
+  const char* p = text.data();
+  const char* end = p + text.size();
+  auto next = [&] {
+    U64 value = 0;
+    const auto result = std::from_chars(p, end, value);
+    if (result.ec != std::errc()) throw std::runtime_error("invalid fixture");
+    p = result.ptr + 1;
+    return value;
+  };
+  const int n = next(), q = next();
+  Input input;
+  input.values.resize(n); input.operations.reserve(q);
+  for (auto& x : input.values) x = next();
+  for (int i = 0; i < q; ++i) {
+    const int type = next(), l = next();
+    const U64 value = next();
+    input.operations.push_back({type, l, type == 2 ? static_cast<int>(value) : 0, value});
+  }
+  return input;
+}
+
+double ms(Clock::time_point a, Clock::time_point b) {
+  return std::chrono::duration<double, std::milli>(b - a).count();
+}
+long peak_rss() {
+#if defined(__linux__)
+  // getrusage can retain the Python parent's pre-exec high-water mark. VmHWM
+  // belongs to this executable's address space, so small structures remain visible.
+  std::ifstream status("/proc/self/status");
+  std::string line;
+  while (std::getline(status, line)) {
+    if (line.starts_with("VmHWM:")) return std::stol(line.substr(6));
+  }
+  throw std::runtime_error("VmHWM missing");
+#elif defined(__unix__)
+  rusage usage{};
+  if (getrusage(RUSAGE_SELF, &usage) != 0) throw std::runtime_error("getrusage failed");
+  return usage.ru_maxrss;
+#else
+  return -1;
+#endif
+}
+
+U64 digest(const std::string& text) {
+  U64 result = 1469598103934665603ULL;
+  for (unsigned char c : text) { result ^= c; result *= 1099511628211ULL; }
+  return result;
+}
+
+template<class Tree> void measure(int n, int q, std::string_view distribution, bool memory_only) {
+  if (memory_only) {
+    std::mt19937_64 rng(20261019);
+    std::vector<U64> initial(n);
+    for (auto& x : initial) x = rng();
+    Tree tree(initial);
+    std::cout << "{\"peak_rss_kib\":" << peak_rss()
+              << ",\"checksum\":\"" << tree.prod(0, n) << "\"}\n";
+    return;
+  }
+  const auto fixture = generate(n, q, distribution);
+  const U64 input_hash = digest(fixture);
+  const auto start = Clock::now();
+  const auto input = parse(fixture);
+  const auto parsed = Clock::now();
+  Tree tree(input.values);
+  const auto built = Clock::now();
+  std::vector<U64> results;
+  results.reserve(q);  // Account for result storage in operations for every candidate.
+  for (const auto& op : input.operations) {
+    if (op.type == 0) tree.add(op.l, op.value);
+    else if (op.type == 1) tree.set(op.l, op.value);
+    else results.push_back(tree.prod(op.l, op.r));
+  }
+  const auto operated = Clock::now();
+  std::string output;
+  output.reserve(results.size() * 22);
+  for (U64 value : results) append(output, value);
+  const auto formatted = Clock::now();
+  std::cout << "{\"parse_ms\":" << ms(start, parsed)
+            << ",\"build_ms\":" << ms(parsed, built)
+            << ",\"operations_ms\":" << ms(built, operated)
+            << ",\"format_ms\":" << ms(operated, formatted)
+            << ",\"end_to_end_ms\":" << ms(start, formatted)
+            << ",\"peak_rss_kib\":" << peak_rss()
+            << ",\"input_bytes\":" << fixture.size()
+            << ",\"output_bytes\":" << output.size()
+            << ",\"input_hash\":\"" << input_hash
+            << "\",\"checksum\":\"" << digest(output) << "\"}\n";
+}
+
+int main(int argc, char** argv) {
+  if (argc != 6) {
+    std::cerr << "usage: benchmark fast|acl-segtree|acl-fenwick|blueberry N Q distribution timing|memory\n";
+    return 2;
+  }
+  const std::string variant = argv[1];
+  const int n = std::stoi(argv[2]), q = std::stoi(argv[3]);
+  if (n <= 0 || q < 0) return 2;
+  const bool memory_only = std::string_view(argv[5]) == "memory";
+  if (variant == "fast") measure<Fast>(n, q, argv[4], memory_only);
+  else if (variant == "acl-segtree") measure<Acl>(n, q, argv[4], memory_only);
+  else if (variant == "acl-fenwick") measure<Fenwick>(n, q, argv[4], memory_only);
+  else if (variant == "blueberry") measure<Blue>(n, q, argv[4], memory_only);
+  else return 2;
+}

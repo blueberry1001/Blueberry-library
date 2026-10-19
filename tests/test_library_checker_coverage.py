@@ -45,6 +45,29 @@ class CoverageTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 coverage.make_inventory(problems, {"categories": []}, "a" * 40, "date")
 
+    def test_extra_fast_catalog_is_retained_for_validation_but_not_discovery(self):
+        fast = "blueberry/extra-fast/segment-tree.hpp"
+        self.write(".verify-helper/docs/static/_data/libraries.yml",
+                   "- name: A\n  path: blueberry/ds/a.hpp\n"
+                   f"- name: SIMD Sum Segment Tree\n  path: {fast}\n  section: extra-fast\n")
+        self.assertEqual(set(coverage.read_catalog(self.root)), {"blueberry/ds/a.hpp", fast})
+        self.assertEqual(coverage.read_catalog(self.root, include_extra_fast=False),
+                         {"blueberry/ds/a.hpp": "A"})
+
+    def test_extra_fast_driver_does_not_leak_through_shared_dependencies(self):
+        fast = "blueberry/extra-fast/segment-tree.hpp"
+        self.write(fast, '#include "blueberry/ds/a.hpp"\n')
+        self.driver("specialized", header=fast)
+        rows = coverage.build_rows(self.root, self.inventory, {}, self.catalog, {fast})
+        self.assertEqual(rows[0]["status"], "missing")
+        self.assertEqual(rows[0]["verifies"], [])
+        evidence = coverage.build_library_verification(self.root, self.catalog, {}, {fast})
+        self.assertTrue(all(row["status"] == "missing" for row in evidence))
+        # The ordinary driver still contributes its own independent evidence.
+        self.driver()
+        rows = coverage.build_rows(self.root, self.inventory, {}, self.catalog, {fast})
+        self.assertEqual(rows[0]["verifies"], ["verify/one.test.cpp"])
+
     def test_multiple_drivers_and_transitive_dependencies(self):
         self.driver()
         self.driver("two")

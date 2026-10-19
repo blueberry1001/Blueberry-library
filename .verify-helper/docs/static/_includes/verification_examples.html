@@ -3,6 +3,7 @@
 <section class="verification-examples" aria-label="検証コード">
 <h2 id="verification-examples">検証コード</h2>
 {% for item in page.data._extendedVerifiedWith %}
+  {% unless page.data.path contains '/extra-fast/' %}{% if item.path contains '/extra-fast/' %}{% continue %}{% endif %}{% endunless %}
   {% if item.path == 'verify/utility/all-headers.test.cpp' and page.data.path != 'blueberry/all.hpp' %}{% continue %}{% endif %}
   {% assign example = nil %}
   {% for candidate in site.pages %}

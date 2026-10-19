@@ -30,6 +30,7 @@ Yosupoの提出画面に表示される時間ではありません。</p>
   <thead><tr><th>Verify / 環境番号</th><th>状態</th><th>コンパイル (s)</th><th>実行合計 (s)</th><th>最大ケース (s)</th><th>基準との差</th></tr></thead>
   <tbody>
   {% for row in metrics.results %}
+    {% if row.path contains '/extra-fast/' %}{% continue %}{% endif %}
     <tr>
       <td><a href="{{ '/' | append: row.path | append: '.html' | relative_url }}">{{ row.path | escape }}</a> / {{ row.environment_index }}</td>
       <td>{% if row.status == 'not_selected' %}今回未実行{% else %}{{ row.status | escape }}{% endif %}</td>

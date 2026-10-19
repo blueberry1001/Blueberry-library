@@ -1,0 +1,4 @@
+2026-10-19 initial benchmark bootstrap: no samples measured.
+Command: python3 docs/development/measurements/extra-fast/run.py --output docs/development/measurements/extra-fast/initial --acl-root /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library --compiler g++ --configuration portable-o2-release --repeats 5
+Failure: git rev-parse HEAD returned 128 because the Windows-created worktree's .git file contains an absolute Windows path, which Linux git interpreted as relative.
+Correction: run.py translates the gitdir argument for WSL without changing the shared git metadata. Re-run results belong to a separate directory; this run is not a successful or zero-time measurement.
