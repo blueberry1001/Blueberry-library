@@ -76,6 +76,7 @@
 - 専用ドライバ: [verify/math/bernoulli.test.cpp](../verify/math/bernoulli.test.cpp) / [問題](https://judge.yosupo.jp/problem/bernoulli_number)
 - 専用ドライバ: [verify/math/binomial-coefficient-prime-mod.test.cpp](../verify/math/binomial-coefficient-prime-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod)
 - 専用ドライバ: [verify/math/partition.test.cpp](../verify/math/partition.test.cpp) / [問題](https://judge.yosupo.jp/problem/partition_function)
+- 専用ドライバ: [verify/math/sparse-exp.test.cpp](../verify/math/sparse-exp.test.cpp) / [問題](https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse)
 - 専用ドライバ: [verify/math/tetration-mod.test.cpp](../verify/math/tetration-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/tetration_mod)
 - 専用ドライバ: [verify/utility/fast-io-128bit.test.cpp](../verify/utility/fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
 - 専用ドライバ: [verify/utility/fast-io.test.cpp](../verify/utility/fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
@@ -686,8 +687,10 @@
 - 間接利用: [verify/math/bell.test.cpp](../verify/math/bell.test.cpp) / [問題](https://judge.yosupo.jp/problem/bell_number)
 - 間接利用: [verify/math/bernoulli.test.cpp](../verify/math/bernoulli.test.cpp) / [問題](https://judge.yosupo.jp/problem/bernoulli_number)
 - 間接利用: [verify/math/partition.test.cpp](../verify/math/partition.test.cpp) / [問題](https://judge.yosupo.jp/problem/partition_function)
+- 間接利用: [verify/math/sparse-exp.test.cpp](../verify/math/sparse-exp.test.cpp) / [問題](https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse)
 - 関連ローカルテスト: [tests/random/formal-power-series.cpp](../tests/random/formal-power-series.cpp)
 - 関連ローカルテスト: [tests/random/fps_sequences.cpp](../tests/random/fps_sequences.cpp)
+- 関連ローカルテスト: [tests/random/sparse-exp.cpp](../tests/random/sparse-exp.cpp)
 
 ## Fraction
 
@@ -795,6 +798,13 @@
 
 - 専用ドライバ: [verify/math/sample-point-shift.test.cpp](../verify/math/sample-point-shift.test.cpp) / [問題](https://judge.yosupo.jp/problem/shift_of_sampling_points_of_polynomial)
 - 関連ローカルテスト: [tests/random/math-batch-four.cpp](../tests/random/math-batch-four.cpp)
+
+## Sparse FPS Exp
+
+[blueberry/math/sparse-exp.hpp](../blueberry/math/sparse-exp.hpp) — **専用verifyドライバあり**
+
+- 専用ドライバ: [verify/math/sparse-exp.test.cpp](../verify/math/sparse-exp.test.cpp) / [問題](https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse)
+- 関連ローカルテスト: [tests/random/sparse-exp.cpp](../tests/random/sparse-exp.cpp)
 
 ## Stirling Numbers Second Kind
 
