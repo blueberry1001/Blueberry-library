@@ -92,7 +92,7 @@ memberの配置、既定backend、GCCのflagsは揃え、同じCPU 0・入力・
 ### 構築時のprefixのSIMD化
 
 Library Checker提出257591にもある構築時のprefix計算のSIMD化を、独立した
-[候補コード](prefix-candidates.cpp)で評価した。16要素nodeの配置、確保・0初期化・入力copyを揃え、
+[候補コード](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/extra-fast/prefix-candidates.cpp)で評価した。16要素nodeの配置、確保・0初期化・入力copyを揃え、
 scalarの逐次加算と、4lane内のscanとcarryを使うAVX2を比較した。
 測定前には境界Nとunsignedの折り返しを含めて全内部prefixの一致を確認し、構築後の総和も確認した。
 
