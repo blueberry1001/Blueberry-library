@@ -142,13 +142,29 @@ for obsolete in ("ConvexHulltrick.hpp", "DynamicFenwickTree2D.hpp", "implicit_tr
     assert not any(f'/blueberry/{obsolete}.html' in href for href in home_links), obsolete
 
 headers = re.findall(r"^  path: (.+)$", (ROOT / ".verify-helper/docs/static/_data/libraries.yml").read_text(), re.M)
+from library_checker_coverage import read_catalog
+ordinary_headers = set(read_catalog(ROOT, include_extra_fast=False))
+extra_fast_headers = set(headers) - ordinary_headers
 catalog_rows = re.findall(r'<tr data-library\b[^>]*>.*?</tr>', home, re.S)
 catalog_names = [html.unescape(re.search(r'<a\b[^>]*>(.*?)</a>', row, re.S)[1]) for row in catalog_rows]
 assert catalog_names == sorted(catalog_names, key=str.lower), "Catalog must use predictable name order"
 assert all('class="catalog-category"' in row for row in catalog_rows), "Show each result's category"
-assert len(catalog_rows) == len(headers), "Search catalog must contain every modern header exactly once"
-for header in headers:
+assert len(catalog_rows) == len(ordinary_headers), "Search catalog must contain every ordinary header exactly once"
+for header in ordinary_headers:
     assert sum(f'/{header}.html' in row for row in catalog_rows) == 1, (header, "missing or duplicate search result")
+extra_fast = (SITE / 'extra-fast.html').read_text()
+assert '>さらに高速なライブラリ</a>' in nav.split('<details', 1)[1]
+assert '/extra-fast.html' not in nav.split('<details', 1)[0], "Specialized entry belongs in the reference dropdown"
+extra_rows = re.findall(r'<tr data-library\b[^>]*>.*?</tr>', extra_fast, re.S)
+assert len(extra_rows) == len(extra_fast_headers)
+benchmarks = (SITE / 'benchmarks.html').read_text()
+assert not re.search(r'href="[^"]*/verify/extra-fast/', benchmarks), "Specialized measurements leaked into ordinary discovery"
+for header in extra_fast_headers:
+    assert sum(f'/{header}.html' in row for row in extra_rows) == 1
+    for public_page in [home, operations, coverage, (SITE / 'verification-gaps.html').read_text(),
+                        *((SITE / 'categories' / f'{category}.html').read_text() for category in categories)]:
+        assert f'/{header}.html' not in public_page, (header, "Specialized API leaked into ordinary discovery")
+assert not re.search(r'<tr data-library\b[^>]*\bhidden\b', extra_fast), "Specialized catalog must work without JavaScript"
 assert not re.search(r'<tr data-library\b[^>]*\bhidden\b', home), "Catalog must work without JavaScript"
 compatibility_monoids = SITE / 'blueberry/algebra/monoids.hpp.html'
 assert compatibility_monoids.is_file(), "Removing a catalog entry must preserve its supported source page"
@@ -237,8 +253,14 @@ for source in (ROOT / "verify").rglob("*.test.cpp"):
     assert 'data-source-toggle' in verify_page and '>Bundle</button>' in verify_page, path
     assert '<details class="bundled-source"' not in verify_page, path
     assert 'id="unbundled"' in verify_page and 'id="bundled-source"' in verify_page, path
+    if '/extra-fast/' in path:
+        for ordinary_header in ordinary_headers:
+            ordinary_page = (SITE / f'{ordinary_header}.html').read_text()
+            assert f'/{path}.html' not in ordinary_page, (ordinary_header, path, "Specialized verify leaked through dependency graph")
     includes = re.findall(r'#include "(blueberry/[^"\n]+)"', source.read_text())
     for header in includes:
+        if '/extra-fast/' in path and header not in extra_fast_headers:
+            continue  # Shared dependencies do not advertise specialized experiments.
         content = (SITE / f"{header}.html").read_text()
         match = re.search(r'<details[^>]*data-verify="' + re.escape(path) + r'"[^>]*>(.*?)</details>', content, re.S)
         assert match, (header, path, "missing related verify")
@@ -262,7 +284,7 @@ for href in re.findall(r'href="(/Blueberry-library/[^"#]*\.html)"', comparison_p
     assert (SITE / href.removeprefix('/Blueberry-library/')).is_file(), ("comparisons", href)
 gap_page = (SITE / "verification-gaps.html").read_text()
 evidence = json.loads((ROOT / ".verify-helper/docs/static/_data/library_verification.json").read_text())
-assert {row["path"] for row in evidence["libraries"]} == set(headers)
+assert {row["path"] for row in evidence["libraries"]} == ordinary_headers
 for row in evidence["libraries"]:
     assert f'/{row["path"]}.html' in gap_page, row["path"]
 assert "all.hpp" not in " ".join(driver["path"] for row in evidence["libraries"] for driver in row["direct"])

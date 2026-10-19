@@ -23,7 +23,7 @@ class OperationFinderTest(unittest.TestCase):
         ids = [entry["id"] for entry in self.entries]
         self.assertEqual(len(ids), len(set(ids)))
         catalog = yaml.safe_load((STATIC / "_data/libraries.yml").read_text(encoding="utf-8"))
-        headers = {row["path"] for row in catalog}
+        headers = {row["path"] for row in catalog if row.get("section") != "extra-fast"}
         recipes = {row["id"]: row for row in yaml.safe_load(
             (STATIC / "_data/monoids.yml").read_text(encoding="utf-8"))}
         for facet, values in self.data["facets"].items():

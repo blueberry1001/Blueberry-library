@@ -82,7 +82,7 @@ def dependencies(root, text, catalog, seen=None):
     return result
 
 
-def build_rows(root, inventory, mappings, catalog):
+def build_rows(root, inventory, mappings, catalog, excluded_headers=()):
     problems = {item["id"]: item for item in inventory["problems"]}
     if len(problems) != len(inventory["problems"]):
         raise ValueError("Duplicate inventory problem IDs")
@@ -109,6 +109,10 @@ def build_rows(root, inventory, mappings, catalog):
             continue
         if len(ids) != 1 or ids[0] not in problems:
             raise ValueError(f"Unknown or ambiguous PROBLEM in {source}: {ids}")
+        # Specialized experiments have their own entry point and must not turn
+        # the ordinary ACL recommendation into a replacement recommendation.
+        if excluded_headers and dependencies(root, text, excluded_headers):
+            continue
         identifier = ids[0]
         path = source.relative_to(root).as_posix()
         if re.search(r'^\s*#\s*define\s+IGNORE\b', text, re.M):
@@ -139,7 +143,7 @@ def md_escape(text):
     return text.replace("\\", "\\\\").replace("[", "\\[").replace("]", "\\]").replace("\n", " ")
 
 
-def build_library_verification(root, catalog, notes):
+def build_library_verification(root, catalog, notes, excluded_headers=()):
     """Inventory evidence, not AC status or proof that every API is exercised."""
     unknown = notes.keys() - catalog.keys()
     if unknown:
@@ -150,6 +154,8 @@ def build_library_verification(root, catalog, notes):
     problem_url = re.compile(r'^\s*#\s*define\s+PROBLEM\s+"(https://[^"\s]+)"', re.M)
     for source in sorted((root / "verify").rglob("*.test.cpp")):
         text = cpp_without_comments(source.read_text(encoding="utf-8"))
+        if excluded_headers and dependencies(root, text, excluded_headers):
+            continue
         urls = problem_url.findall(text)
         if not urls:
             continue
@@ -164,7 +170,10 @@ def build_library_verification(root, catalog, notes):
             rows[path][kind].append(evidence)
     # Include graphs indicate related tests, not complete API coverage.
     for source in sorted((root / "tests").rglob("*.cpp")):
-        for path in dependencies(root, source.read_text(encoding="utf-8"), catalog):
+        text = source.read_text(encoding="utf-8")
+        if excluded_headers and dependencies(root, text, excluded_headers):
+            continue
+        for path in dependencies(root, text, catalog):
             rows[path]["random_tests"].append(source.relative_to(root).as_posix())
     labels = {"direct": "専用verifyドライバあり", "partial": "主機能の一部に公式verifyなし", "indirect": "依存先としてのみ利用",
               "missing": "公式verify未登録"}
@@ -229,9 +238,17 @@ def render_markdown(inventory, rows):
     return "\n".join(lines)
 
 
-def read_catalog(root):
+def read_catalog(root, *, include_extra_fast=True):
     text = (root / ".verify-helper/docs/static/_data/libraries.yml").read_text(encoding="utf-8")
-    return {match[1]: match[0] for match in re.findall(r'^- name: (.+)\n(?:(?!- name:)[\s\S])*?^  path: (.+)$', text, re.M)}
+    catalog = {}
+    for block in re.findall(r'^- name: .*(?:\n(?!- name:).*)*', text, re.M):
+        if not include_extra_fast and re.search(r'^  section: extra-fast$', block, re.M):
+            continue
+        name = re.search(r'^- name: (.+)$', block, re.M)
+        path = re.search(r'^  path: (.+)$', block, re.M)
+        if name and path:
+            catalog[path[1]] = name[1]
+    return catalog
 
 
 def write_or_check(path, text, check):
@@ -263,9 +280,11 @@ def main():
         write_or_check(inventory_path, json.dumps(inventory, ensure_ascii=False, indent=2) + "\n", False)
     inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
     mappings = json.loads((ROOT / "data/library-checker-mappings.json").read_text(encoding="utf-8"))
-    rows = build_rows(ROOT, inventory, mappings, read_catalog(ROOT))
+    catalog = read_catalog(ROOT, include_extra_fast=False)
+    excluded = read_catalog(ROOT).keys() - catalog.keys()
+    rows = build_rows(ROOT, inventory, mappings, catalog, excluded)
     notes = json.loads((ROOT / "data/library-verification-notes.json").read_text(encoding="utf-8"))
-    library_rows = build_library_verification(ROOT, read_catalog(ROOT), notes)
+    library_rows = build_library_verification(ROOT, catalog, notes, excluded)
     payload = {key: value for key, value in inventory.items() if key != "problems"}
     payload.update({"total": len(rows), "counts": dict(Counter(row["status"] for row in rows)),
                     "statuses": [{"id": key, "label": value} for key, value in LABELS.items()], "problems": rows})

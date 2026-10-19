@@ -26,6 +26,7 @@
   <h2>{{ headings[forloop.index0] }}</h2>
   <ul>
     {% for item in entries %}
+    {% unless page.data.path contains '/extra-fast/' %}{% if item.path contains '/extra-fast/' %}{% continue %}{% endif %}{% endunless %}
     <li><a href="{{ item.path | append: '.html' | relative_url }}">{{ item.icon }} {{ item.title | escape }}{% if item.title != item.path %} <small>({{ item.path | escape }})</small>{% endif %}</a></li>
     {% endfor %}
   </ul>
@@ -36,4 +37,8 @@
 </details>
 
 </section>
+{% if page.data.path contains '/extra-fast/' %}
+<p class="document-back"><a href="{{ '/extra-fast.html' | relative_url }}">さらに高速なライブラリへ戻る</a></p>
+{% else %}
 <p class="document-back"><a href="{{ '/' | relative_url }}">ライブラリ一覧へ戻る</a></p>
+{% endif %}
