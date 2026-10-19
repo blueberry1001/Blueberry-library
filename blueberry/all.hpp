@@ -76,6 +76,7 @@
 #include "blueberry/math/bernoulli.hpp"
 #include "blueberry/math/bell.hpp"
 #include "blueberry/math/partition.hpp"
+#include "blueberry/math/sparse-exp.hpp"
 #include "blueberry/math/prime-sieve.hpp"
 #include "blueberry/string/z-algorithm.hpp"
 #include "blueberry/string/manacher.hpp"

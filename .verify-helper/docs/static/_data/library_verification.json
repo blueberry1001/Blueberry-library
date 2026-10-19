@@ -172,6 +172,10 @@
           "problem": "https://judge.yosupo.jp/problem/partition_function"
         },
         {
+          "path": "verify/math/sparse-exp.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse"
+        },
+        {
           "path": "verify/math/tetration-mod.test.cpp",
           "problem": "https://judge.yosupo.jp/problem/tetration_mod"
         },
@@ -1796,11 +1800,16 @@
         {
           "path": "verify/math/partition.test.cpp",
           "problem": "https://judge.yosupo.jp/problem/partition_function"
+        },
+        {
+          "path": "verify/math/sparse-exp.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse"
         }
       ],
       "random_tests": [
         "tests/random/formal-power-series.cpp",
-        "tests/random/fps_sequences.cpp"
+        "tests/random/fps_sequences.cpp",
+        "tests/random/sparse-exp.cpp"
       ],
       "ignored": [],
       "note": {},
@@ -2092,6 +2101,24 @@
       "label": "専用verifyドライバあり"
     },
     {
+      "path": "blueberry/math/sparse-exp.hpp",
+      "name": "Sparse FPS Exp",
+      "direct": [
+        {
+          "path": "verify/math/sparse-exp.test.cpp",
+          "problem": "https://judge.yosupo.jp/problem/exp_of_formal_power_series_sparse"
+        }
+      ],
+      "indirect": [],
+      "random_tests": [
+        "tests/random/sparse-exp.cpp"
+      ],
+      "ignored": [],
+      "note": {},
+      "status": "direct",
+      "label": "専用verifyドライバあり"
+    },
+    {
       "path": "blueberry/math/stirling-second.hpp",
       "name": "Stirling Numbers Second Kind",
       "direct": [
@@ -2332,6 +2359,6 @@
     "missing": 2,
     "indirect": 2,
     "partial": 2,
-    "direct": 104
+    "direct": 105
   }
 }
