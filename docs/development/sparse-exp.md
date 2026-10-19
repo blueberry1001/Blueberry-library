@@ -15,7 +15,7 @@ ACLのmodintを利用し、指数関数の係数は `g' = f'g` から独立に�
 法pは素数、要求項数は `0 <= n < p` です。NTT対応法である必要はありません。
 Kを入力数、Sを正規化後の有効な非零項数として、
 最悪時間O(K log(K+1)+n(S+1))、追加メモリO(n+K)です。
-所有する長さちょうどnのFPSを返します。詳細は[APIページ]({{ '/docs/math/sparse-exp.html' | relative_url }})を参照してください。
+所有する長さちょうどnのFPSを返します。詳細は[APIページ]({{ '/blueberry/math/sparse-exp.hpp.html' | relative_url }})を参照してください。
 
 ## 比較条件と再現資料
 
