@@ -1,5 +1,5 @@
 ---
-title: Padded Fenwick Tree
+title: SIMD Fenwick Tree
 documentation_of: //blueberry/extra-fast/fenwick-tree.hpp
 ---
 
@@ -8,9 +8,9 @@ documentation_of: //blueberry/extra-fast/fenwick-tree.hpp
 ## 概要
 
 `blueberry::extra_fast::FenwickTree`はuint64_tの一点加算・区間和とprefix探索を行います。
-内部添字に約0.1%のpaddingを入れ、2の冪間隔のcache衝突を減らします。
-構築はO(N+1)、更新・総和・探索はO(log(N+1))、メモリはO(N+1)です。
-16分木のSumSegmentTreeより省メモリで、prefix探索も使えます。
+内部は16分累積和木で、AVX2による4要素並列の加算とprefix探索を行います。
+更新にはSumSegmentTreeのSIMDカーネルを再利用し、探索は各ノードの16個のprefixを並列比較します。
+構築はO(N+1)、更新・区間和・探索はO(log(N+1))、一点取得・全体和はO(1)、メモリはO(N+1)です。
 
 ## 操作一覧
 
@@ -21,10 +21,10 @@ documentation_of: //blueberry/extra-fast/fenwick-tree.hpp
 | [`tree.size() → int`](#size) | O(1) |
 | [`tree.add(p, x)`](#add) | O(log(N+1)) |
 | [`tree.set(p, x)`](#set) | O(log(N+1)) |
-| [`tree.get(p) → uint64_t`](#get) | O(log(N+1)) |
+| [`tree.get(p) → uint64_t`](#get) | O(1) |
 | [`tree.pref(r) → uint64_t`](#pref) | O(log(N+1)) |
 | [`tree.prod(l, r) → uint64_t`](#prod) | O(log(N+1)) |
-| [`tree.all_prod() → uint64_t`](#all-prod) | O(log(N+1)) |
+| [`tree.all_prod() → uint64_t`](#all-prod) | O(1) |
 | [`tree.lower_bound(x) → int`](#lower-bound) | O(log(N+1)) |
 | [`FenwickTree(other)`](#copy-construct) | O(N+1) |
 
@@ -53,9 +53,10 @@ documentation_of: //blueberry/extra-fast/fenwick-tree.hpp
 - 移動元には破棄と再代入だけを行ってください。構築・コピーの確保失敗では標準例外を送出します。更新時の追加allocationはありません。
 - Nは要素数、Vは代入前の代入先の要素数です。計算量はすべて最悪計算量です。縮小代入後の未使用capacityをC語とすると保持領域はO(N+C+1)になる場合があります。
 - 通常版やACLを変更せず、個別includeする実験版です。`blueberry/all.hpp`には含まれません。
-- `0 <= N < INT_MAX`で領域を確保できることが必要です。配列は`N + floor(N/1024) + 1`語です。
+- `0 <= N < INT_MAX`で領域を確保できることが必要です。N=0では16語、N>0では`16 * sum(ceil(N / 16^k), k=1..L)`語を保持します。`L = max(1, ceil(log16(N)))`です。paddingを除く主項は約16N/15語で、従来の二進BITより保持量が増えます。
 - prefix探索では現在の要素の合計がUINT64_MAX以下で、全prefixが単調非減少であることが必要です。
-- 手書きasmやISA必須化は行いません。BITの依存したメモリアクセスをSIMD化するより、配置とO(N)構築を優先します。
+- GCC/Clangのx86環境では実行時にAVX2の有無を確認します。非対応CPUや他の環境では同じ16分木のscalar経路を使います。prefix探索の比較はuint64_tの全範囲に対応します。
+- include前に`BLUEBERRY_EXTRA_FAST_USE_ASM`を定義すると、更新カーネルがGNU inline asmの`vpaddq`を使います。`BLUEBERRY_EXTRA_FAST_FORCE_SCALAR`でSIMDを無効にできます。これらの設定は全翻訳単位で統一してください。
 
 </details>
 
@@ -157,7 +158,7 @@ tree.set(1, 10);
 </details>
 
 <details class="api-operation" id="get" markdown="1">
-<summary><code>tree.get(p) → uint64_t</code> — O(log(N+1))</summary>
+<summary><code>tree.get(p) → uint64_t</code> — O(1)</summary>
 
 `0 <= p < N`の現在の値を返します。
 
@@ -167,7 +168,7 @@ auto x = tree.get(1);
 ```
 {% endraw %}
 
-注意点: 内部のFenwick部分木の差から復元します。
+注意点: 最下層の隣接prefixの差から復元します。
 
 </details>
 
@@ -202,7 +203,7 @@ auto x = tree.prod(0, 2);
 </details>
 
 <details class="api-operation" id="all-prod" markdown="1">
-<summary><code>tree.all_prod() → uint64_t</code> — O(log(N+1))</summary>
+<summary><code>tree.all_prod() → uint64_t</code> — O(1)</summary>
 
 全体の総和を返します。
 
@@ -315,6 +316,6 @@ copy = std::move(moved);
 
 - [LC Point Add Range Sum](https://judge.yosupo.jp/problem/point_add_range_sum)と固定seedの境界・ランダム愚直比較。
 - [Algorithmica: Segment Trees](https://en.algorithmica.org/hpc/data-structures/segment-trees/)のcache配置の議論を参考に、独立に実装しました。
-- [上位提出調査と比較測定]({{ '/docs/development/measurements/extra-fast-more/lazy-bit/README.html' | relative_url }})。
+- [従来版の調査と比較測定]({{ '/docs/development/measurements/extra-fast-more/lazy-bit/README.html' | relative_url }})はpadding付き二進BITの記録です。今回のSIMD版の速度は、ユーザーの指定により測定していません。
 
 </details>

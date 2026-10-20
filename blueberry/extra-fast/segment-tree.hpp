@@ -113,6 +113,8 @@ class SumSegmentTree {
   }
 
  private:
+  friend class FenwickTree;
+
   static int checked_size(std::size_t n) {
     assert(n <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
     return static_cast<int>(n);

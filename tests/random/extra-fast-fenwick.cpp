@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
     std::cerr << '\n';
     std::exit(1);
   };
-  for (int n : {0, 1, 2, 15, 16, 17, 1023, 1024, 1025, 4096, 65537}) {
+  for (int n : {0, 1, 2, 15, 16, 17, 255, 256, 257, 1023, 1024, 1025, 4096, 65537}) {
     a.resize(n);
     for (auto& x : a) x = rng();
     blueberry::extra_fast::FenwickTree tree(a), zero(n);
@@ -73,4 +73,14 @@ int main(int argc, char** argv) {
         fail("lower_bound", 0, n, expected, tree.lower_bound(x));
     }
   }
+  // Unsigned SIMD comparisons must also work above INT64_MAX.
+  a = {0, U64(1) << 63, 0, 5, 0};
+  blueberry::extra_fast::FenwickTree high(a);
+  if (high.lower_bound(U64(1) << 63) != 2 ||
+      high.lower_bound((U64(1) << 63) + 1) != 4 ||
+      high.lower_bound(~U64(0)) != 6)
+    fail("unsigned-search", 0, 5, 4, high.lower_bound((U64(1) << 63) + 1));
+  high.set(1, ~U64(0) - 5);
+  if (high.lower_bound(~U64(0)) != 4)
+    fail("max-search-after-set", 0, 5, 4, high.lower_bound(~U64(0)));
 }
