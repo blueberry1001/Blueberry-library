@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+"""Interleave baseline/current checked Fast I/O on reproducible Many A+B cases."""
+import argparse
+import hashlib
+import itertools
+import json
+import os
+from pathlib import Path
+import platform
+import random
+import statistics
+import subprocess
+import tempfile
+import time
+
+ROOT = Path(__file__).resolve().parents[1]
+PROFILES = {'gcc': ['g++', '-std=gnu++20', '-O2', '-DNDEBUG'],
+            'clang': ['clang++', '-std=gnu++20', '-O2', '-DNDEBUG']}
+TYPES = ['i64', 'u64', 'i128', 'u128']
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def save(path, value):
+    path.write_text(json.dumps(value, indent=2)+'\n')
+
+
+def digest_sources(paths):
+    return {str(p.relative_to(ROOT)) if p.is_relative_to(ROOT) else str(p): sha(p.read_bytes()) for p in paths}
+
+
+def generate(kind, count, directory):
+    bits = 128 if '128' in kind else 64
+    signed = kind.startswith('i')
+    lo = -(1 << (bits-1)) if signed else 0
+    hi = (1 << (bits-1))-1 if signed else (1 << bits)-1
+    rng = random.Random(20261020 + TYPES.index(kind))
+    boundaries = [(0, 0), (hi, 0), (0, hi), (lo, 0), (1, hi-1)]
+    if signed: boundaries += [(lo+1, -1), (hi, lo), (-1, 1)]
+    source = directory / (kind+'.in')
+    output = directory / (kind+'.out')
+    checksum = 0
+    with source.open('wb') as src, output.open('wb') as dest:
+        src.write(f'{count}\n'.encode())
+        for i in range(count):
+            if i % 997 < len(boundaries):
+                a, b = boundaries[i % 997]
+            else:
+                # Alternate wide values, short decimal tokens and many zeros.
+                bound = hi//2 if i % 8 else min(hi//2, 10000)
+                a = rng.randrange(-bound if signed else 0, bound+1)
+                b = rng.randrange(-bound if signed else 0, bound+1)
+            total = a+b
+            assert lo <= a <= hi and lo <= b <= hi and lo <= total <= hi
+            src.write(f'{a} {b}\n'.encode())
+            dest.write(f'{total}\n'.encode())
+            checksum = (checksum+total) % (1 << 64)
+    data, expected = source.read_bytes(), output.read_bytes()
+    return {'name': kind, 'type': kind, 'count': count, 'input': data,
+            'expected': expected, 'checksum': f'{checksum}\n'.encode(),
+            'origin': 'Python integer oracle, seed '+str(20261020+TYPES.index(kind))}
+
+
+def official(case, directory, kind):
+    data = (directory / (case+'.in')).read_bytes()
+    expected = (directory / (case+'.out')).read_bytes()
+    tokens = iter(data.split())
+    count = int(next(tokens))
+    sums = [int(next(tokens))+int(next(tokens)) for _ in range(count)]
+    assert next(tokens, None) is None
+    assert expected == b''.join(f'{value}\n'.encode() for value in sums), 'Official expected output disagrees with independent Python oracle'
+    return {'name': 'official-'+case, 'type': kind, 'count': count, 'input': data,
+            'expected': expected, 'checksum': f'{sum(sums) % (1<<64)}\n'.encode(),
+            'origin': str(directory / (case+'.in'))}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--baseline-header', type=Path, required=True)
+    parser.add_argument('--acl-root', type=Path, default=ROOT / '.deps/ac-library')
+    parser.add_argument('--revision', help='Explicit Windows git revision for WSL worktrees')
+    parser.add_argument('--cpu', type=int, default=2)
+    parser.add_argument('--count', type=int, default=1000000)
+    parser.add_argument('--repeats', type=int, default=5)
+    parser.add_argument('--profile', choices=list(PROFILES), action='append')
+    parser.add_argument('--type', choices=TYPES, action='append')
+    parser.add_argument('--mode', choices=['input', 'output', 'end-to-end'], action='append')
+    parser.add_argument('--transport', choices=['file', 'pipe'], action='append')
+    parser.add_argument('--facade', choices=['global', 'direct'], action='append')
+    parser.add_argument('--variant', choices=['baseline', 'current'], action='append')
+    parser.add_argument('--official-dir', type=Path)
+    parser.add_argument('--official-case', action='append', default=[])
+    parser.add_argument('--official-type', choices=TYPES, default='u64')
+    parser.add_argument('--official-only', action='store_true')
+    args = parser.parse_args()
+    if args.repeats < 3 or args.count <= 0: parser.error('positive count and >=3 repeats required')
+    if args.official_case and not args.official_dir: parser.error('--official-case needs --official-dir')
+    if args.official_only and not args.official_case: parser.error('--official-only needs --official-case')
+    if args.cpu not in os.sched_getaffinity(0): parser.error('CPU not allowed')
+    args.output.mkdir(parents=True, exist_ok=False)
+    os.sched_setaffinity(0, {args.cpu})
+    profiles = {p: PROFILES[p] for p in args.profile or PROFILES}
+    facades = args.facade or ['global', 'direct']
+    variants = args.variant or ['baseline', 'current']
+    modes = args.mode or ['input', 'output', 'end-to-end']
+    transports = args.transport or ['file', 'pipe']
+    args.baseline_header = args.baseline_header.resolve()
+    tracked = [ROOT / p for p in ['benchmark/fast-io-throughput.cpp', 'benchmark/fast-io-throughput.py',
+               'blueberry/utility/fast-io.hpp', 'blueberry/utility/contest-fast-io.hpp',
+               'blueberry/utility/internal/contest-template-base.hpp']] + [args.baseline_header]
+    hashes = digest_sources(tracked)
+    env = {'timestamp_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+           'git_revision': args.revision or subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+           'platform': platform.platform(), 'cpuinfo': Path('/proc/cpuinfo').read_text().split('\n\n')[0],
+           'cpu_affinity': args.cpu, 'profiles': profiles, 'repeats': args.repeats, 'warmups': 1,
+           'source_sha256': hashes, 'baseline_header': str(args.baseline_header),
+           'compilers': {c: subprocess.check_output([c, '--version'], text=True) for c in {p[0] for p in profiles.values()}},
+           'timing': 'operation_ms includes parse/checksum or format/write/flush; output mode preloads sums before timer. setup_ms includes Backend construction only (global buffers lazy on first use). process_ms includes all preload/initialization/destruction, time wrapper and startup. Peak RSS whole-process incl preload vectors.',
+           'ordering': 'Seed20261020 shuffle each round; pinned single child at a time. file/pipe stdin, cached regular /tmp stdout. Never modify other processes.'}
+    save(args.output / 'environment.json', env)
+    rows = []
+    try:
+        with tempfile.TemporaryDirectory(prefix='blueberry-fast-io-throughput-') as directory:
+            temp = Path(directory)
+            overlay = temp / 'baseline/blueberry/utility/fast-io.hpp'
+            overlay.parent.mkdir(parents=True)
+            overlay.write_bytes(args.baseline_header.read_bytes())
+            cases = [] if args.official_only else [generate(t, args.count, temp) for t in args.type or TYPES]
+            cases += [official(c, args.official_dir, args.official_type) for c in args.official_case]
+            by_name = {c['name']: c for c in cases}
+            env['cases'] = {c['name']: {'type': c['type'], 'count': c['count'], 'origin': c['origin'],
+                           'input_sha256': sha(c['input']), 'input_bytes': len(c['input']),
+                           'output_sha256': sha(c['expected']), 'output_bytes': len(c['expected']),
+                           'checksum_sha256': sha(c['checksum'])} for c in cases}
+            save(args.output / 'environment.json', env)
+            for case in cases: (temp / (case['name']+'.input')).write_bytes(case['input'])
+            binaries = {}
+            with (args.output / 'compile.log').open('w') as log:
+                for profile, variant, facade in itertools.product(profiles, variants, facades):
+                    binary = temp / f'{profile}-{variant}-{facade}'
+                    extra = ['-I'+str(temp / 'baseline')] if variant == 'baseline' else []
+                    cmd = [*profiles[profile], '-DIO_FACADE='+str(int(facade == 'global')), *extra,
+                           '-I'+str(ROOT), '-isystem', str(args.acl_root), str(ROOT / 'benchmark/fast-io-throughput.cpp'), '-o', str(binary)]
+                    log.write(json.dumps(cmd)+'\n'); log.flush()
+                    subprocess.run(cmd, stdout=log, stderr=log, check=True)
+                    binaries[profile, variant, facade] = binary
+            configs = list(itertools.product(profiles, variants, facades, by_name, modes, transports))
+            rng = random.Random(20261020)
+            with (args.output / 'samples.jsonl').open('w') as log:
+                for run in range(-1, args.repeats):
+                    rng.shuffle(configs)
+                    for profile, variant, facade, name, mode, transport in configs:
+                        case = by_name[name]
+                        dest_path, rss = temp / 'output', temp / 'rss'
+                        cmd = ['/usr/bin/time', '-f', '%M', '-o', str(rss), str(binaries[profile, variant, facade]), case['type'], mode, str(case['count'])]
+                        with dest_path.open('wb') as dest:
+                            begin = time.perf_counter()
+                            if transport == 'file':
+                                with (temp / (name+'.input')).open('rb') as source:
+                                    result = subprocess.run(cmd, stdin=source, stdout=dest, stderr=subprocess.PIPE, timeout=90)
+                            else:
+                                result = subprocess.run(cmd, input=case['input'], stdout=dest, stderr=subprocess.PIPE, timeout=90)
+                            process_ms = (time.perf_counter()-begin)*1000
+                        row = {'profile': profile, 'variant': variant, 'facade': facade, 'case': name,
+                               'mode': mode, 'transport': transport, 'run': run, 'warmup': run < 0, 'returncode': result.returncode}
+                        expected = case['checksum'] if mode == 'input' else case['expected']
+                        actual = dest_path.read_bytes()
+                        if result.returncode or actual != expected:
+                            save(args.output / 'failure.json', {**row, 'stderr': result.stderr.decode(errors='replace'),
+                                 'actual_sha256': sha(actual), 'expected_sha256': sha(expected)})
+                            raise RuntimeError('Execution/output mismatch; see failure.json')
+                        row.update(json.loads(result.stderr), process_ms=process_ms, peak_rss_kib=int(rss.read_text()), output_byte_match=True)
+                        log.write(json.dumps(row)+'\n'); log.flush()
+                        if run >= 0: rows.append(row)
+                    print('Finished round', run, flush=True)
+        if hashes != digest_sources(tracked): raise RuntimeError('Sources changed during measurement')
+        summary = []
+        keys = ['profile', 'variant', 'facade', 'case', 'mode', 'transport']
+        for config in sorted(configs):
+            group = [r for r in rows if tuple(r[k] for k in keys) == config]
+            row = dict(zip(keys, config))
+            for field in ['setup_ms', 'operation_ms', 'process_ms', 'peak_rss_kib']:
+                row[field] = {'median': statistics.median(r[field] for r in group), 'min': min(r[field] for r in group), 'max': max(r[field] for r in group)}
+            summary.append(row)
+        save(args.output / 'summary.json', summary)
+    except Exception as error:
+        save(args.output / 'run-error.json', {'type': type(error).__name__, 'message': str(error)})
+        raise
+
+
+if __name__ == '__main__':
+    main()

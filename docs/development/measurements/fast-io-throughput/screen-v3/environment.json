@@ -1,0 +1,110 @@
+{
+  "timestamp_utc": "2026-10-20T05:33:00Z",
+  "git_revision": "617acd6d63affe95308fee3fec1c9698096f10ad",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpuinfo": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 183\nmodel name\t: Intel(R) Core(TM) i7-14650HX\nstepping\t: 1\nmicrocode\t: 0xffffffff\ncpu MHz\t\t: 2419.198\ncache size\t: 30720 KB\nphysical id\t: 0\nsiblings\t: 24\ncore id\t\t: 0\ncpu cores\t: 12\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nvmx flags\t: vnmi invvpid ept_x_only ept_ad ept_1gb tsc_offset vtpr ept vpid unrestricted_guest ept_mode_based_exec tsc_scaling usr_wait_pause\nbugs\t\t: spectre_v1 spectre_v2 spec_store_bypass swapgs retbleed eibrs_pbrsb rfds bhi\nbogomips\t: 4838.39\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 39 bits physical, 48 bits virtual\npower management:",
+  "cpu_affinity": 2,
+  "profiles": {
+    "gcc": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "clang": [
+      "clang++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ]
+  },
+  "repeats": 3,
+  "warmups": 1,
+  "source_sha256": {
+    "benchmark/fast-io-throughput.cpp": "68dd66ce31ba4c4fb9db144db90ce8c344cc8aa35edb6c6efd9ae110b7927137",
+    "benchmark/fast-io-throughput.py": "195b2a014ace45d4339b016c4234ba48b17cf297da03393226efdd7270b242a5",
+    "blueberry/utility/fast-io.hpp": "3847e5b1c399d46279ace85a2db581946b24621452a5d8863f5a1db37f3cf406",
+    "blueberry/utility/contest-fast-io.hpp": "ff8bf013f0e32e5b9e3de0681abaf994b0a2357ace02d2ea99afb1a700e18b76",
+    "blueberry/utility/internal/contest-template-base.hpp": "80e8f767f2b813b0ffdad4498c5f5d67dc94e3e56c0ac5a5c825788fa7a699cc",
+    ".build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp": "b8b9c274f93c3906b8f6fc26dd945ec0679b3c246685da3108789aa677d73b30"
+  },
+  "baseline_header": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/fast-io-throughput/.build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp",
+  "compilers": {
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n",
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  "timing": "operation_ms includes parse/checksum or format/write/flush; output mode preloads sums before timer. setup_ms includes Backend construction only (global buffers lazy on first use). process_ms includes all preload/initialization/destruction, time wrapper and startup. Peak RSS whole-process incl preload vectors.",
+  "ordering": "Seed20261020 shuffle each round; pinned single child at a time. file/pipe stdin, cached regular /tmp stdout. Never modify other processes.",
+  "cases": {
+    "i64": {
+      "type": "i64",
+      "count": 200000,
+      "origin": "Python integer oracle, seed 20261020",
+      "input_sha256": "73c20eaaebccddc9da9f39c7a54874f987e0a6957db92bd16cb8886c5811c747",
+      "input_bytes": 7333339,
+      "output_sha256": "1952badd210f5ea23755a204f177f2474062cfd3ed64f9617da82c3e86cce19c",
+      "output_bytes": 3680424,
+      "checksum_sha256": "0e322e3f7cd73aacac441450e1ca89329896f7ef54be194cb95647b01853b1cf"
+    },
+    "u64": {
+      "type": "u64",
+      "count": 200000,
+      "origin": "Python integer oracle, seed 20261021",
+      "input_sha256": "180dc55f04fd28cf2e324c67b54d444601b524c719bd83268ed43884529e968f",
+      "input_bytes": 7181556,
+      "output_sha256": "17cb204457d2db703f15fe94e6351b9dd2fb9b6e8d42a115830d8800cf2b67bd",
+      "output_bytes": 3704292,
+      "checksum_sha256": "f75a727c0881c8487645166f912d6babcb2997322600ec40002c8245610af300"
+    },
+    "i128": {
+      "type": "i128",
+      "count": 200000,
+      "origin": "Python integer oracle, seed 20261022",
+      "input_sha256": "22cd7f29eea13dcb6a66dd117c4f1bded19876ca794a9b7a4bc0281a47af06fd",
+      "input_bytes": 13996502,
+      "output_sha256": "25621b496cda33f26a93c7e854dce8bd500ba3e32cec31880f70589e4c190f81",
+      "output_bytes": 7046197,
+      "checksum_sha256": "4350360c540be49ca1ad897d9dcd0d086417e2b1ea61c5c0f424b3aa3f5f3370"
+    },
+    "u128": {
+      "type": "u128",
+      "count": 200000,
+      "origin": "Python integer oracle, seed 20261023",
+      "input_sha256": "fd668d2d3fcf8593d50c685bf8cf14d2f37c43747cf794bb3b31910bbccd199f",
+      "input_bytes": 13972148,
+      "output_sha256": "885f61aa3761c959e086040db2a1e1c0d7db70f9572dda992d0c484e390ae6db",
+      "output_bytes": 7095998,
+      "checksum_sha256": "fc5ebe6c650924234eb55d19edb13003d7a2a94bd851ea3a7f98b4f1744b590f"
+    },
+    "official-all_zero_00": {
+      "type": "u64",
+      "count": 1000000,
+      "origin": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in",
+      "input_sha256": "bb70dc765611ddde462b8be4fe35fb7690b39d299d3ea7a223c3b0d8a99cf83c",
+      "input_bytes": 4000008,
+      "output_sha256": "8c8d88267427078992f1e46e4990f40f30276b2e20fbb1cd25ccb7b7512e2e50",
+      "output_bytes": 2000000,
+      "checksum_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "official-digit_random_00": {
+      "type": "u64",
+      "count": 1000000,
+      "origin": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in",
+      "input_sha256": "3739bd43fa96187c1455d02b3ef0816948f001081b4200fd56b735d36534783f",
+      "input_bytes": 21018982,
+      "output_sha256": "60c22c9ae581131514eb4ba6a0a01d53b33298ca1cf20f7a54e3e1d4e5fa3fa7",
+      "output_bytes": 11106340,
+      "checksum_sha256": "bd70cc0c44a51bf77f229e27b4125af9faf1365eba2fb681170336e36f751cf1"
+    },
+    "official-max_random_00": {
+      "type": "u64",
+      "count": 1000000,
+      "origin": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in",
+      "input_sha256": "06b2cdb5098d9a3e2f676cfb61c7a00717ec300ef85b752ec91d63835260c58c",
+      "input_bytes": 37777705,
+      "output_sha256": "ad1bc3db5d1284fc4faaa0e6658c80b33538ebb9d5ef1abf65920d4b71909a3a",
+      "output_bytes": 19493862,
+      "checksum_sha256": "d6822e272ebf37e06b52f89f1a69706f9027bf4907dab89ecdf6e3bfff3d4989"
+    }
+  }
+}

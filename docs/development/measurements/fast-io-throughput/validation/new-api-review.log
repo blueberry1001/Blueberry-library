@@ -1,0 +1,40 @@
+Independent read-only review of the final fast I/O candidate
+Core commit: 8729666f80f04e080f945506fd3cb94be7081185
+Header SHA256: 8f08950cfc12f2babdd0eaa6ed0b38ce90e999ce7e24ee5105cdbb4cfc7ad406
+Reviewer scope: tests/random/fast-io.cpp additions and fast-io.hpp diff review.
+The reviewer did not edit the implementation, docs API pages, or benchmark code.
+
+No blocking correctness or compatibility finding was identified.
+
+Checked implementation properties:
+- The grouped input load begins at pos_-1, where next() returned the current
+  byte, and requires at least seven more filled bytes. It neither reads past
+  end_ nor requires alignment. Interactive and non-little-endian input use the
+  scalar path.
+- Group digit validation restricts all bytes to 0x30..0x39. The nibble checks
+  reject 0x3a..0x3f; after the initial high-nibble check, adding six cannot
+  propagate a carry between bytes. The reduction uses unsigned arithmetic.
+- Group overflow is checked before multiplying the accumulated value by 10^8.
+  On failure, discard starts from the current byte and consumes the entire
+  malformed token. The output reference remains unchanged.
+- The one-digit shortcut runs after unsigned-negative rejection and checks FILE
+  failure before assigning. All accepted digit magnitudes fit every supported
+  integral destination. Final-token EOF continues through the scalar path.
+- Integer output reserves enough buffer space for the complete unsigned
+  magnitude and optional sign, including the signed 128-bit minimum.
+- A 128-bit magnitude needs at most two lower base-10^19 chunks. Each chunk is
+  below 10^19 and fits its 19-byte conversion storage; zero padding preserves
+  interior zero chunks. Negative magnitudes use unsigned subtraction.
+- Buffer drain/error state, EOF handling, container recursion, floating-point
+  behavior, and the public signatures retain their existing contracts.
+
+Validation evidence: new-api-final.sh and new-api-final.log.
+All four GCC/Clang and GNU++20/23 combinations ran seeds 1..20. The fixed large
+refill/output-boundary suite runs on seed 1, which was included in all four
+combinations and the ASan/UBSan run. Every seed exercises randomized standard
+integers and signed/unsigned 128-bit values, malformed grouped input, long leading
+zeros, overflow recovery, and the existing Fast I/O checks.
+
+Runtime validation was on little-endian x86_64 WSL. No big-endian execution was
+performed; its scalar fallback was reviewed. Timing comparisons are recorded by
+the separate benchmark workflow and are not inferred from these test results.

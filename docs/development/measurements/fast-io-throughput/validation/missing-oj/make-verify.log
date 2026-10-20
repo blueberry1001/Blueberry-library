@@ -1,0 +1,217 @@
+CPLUS_INCLUDE_PATH="/tmp/blueberry-fast-io-validation-eElRFy/repo/.deps/ac-library" python3 scripts/verify_with_metrics.py --repeats 3 --timeout 1200 verify/utility/fast-io.test.cpp verify/utility/fast-io-128bit.test.cpp verify/utility/contest-fast-io.test.cpp verify/utility/contest-fast-io-128bit.test.cpp verify/utility/contest-template-128bit.test.cpp verify/utility/all-headers.test.cpp
+INFO:onlinejudge_verify.config:config file loaded: .verify-helper/config.toml: {'languages': {'cpp': {'environments': [{'CXX': 'g++', 'CXXFLAGS': ['-std=gnu++20', '-O2', '-pipe', '-Wall', '-Wextra', '-Wshadow', '-D_GLIBCXX_ASSERTIONS']}]}}}
+INFO:onlinejudge_verify.verify:verify: verify/utility/all-headers.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /tmp/blueberry-fast-io-validation-eElRFy/repo -o .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/a.out verify/utility/all-headers.test.cpp
+git version 2.43.0
+INFO:onlinejudge.service.library_checker:$ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/info.toml --compile-checker
+[33m15:31:27 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m15:31:27 [INFO] Start many_aplusb[0m
+[37m15:31:27 [INFO] generate params.h[0m
+[37m15:31:27 [INFO] Test cases are already generated[0m
+[37m15:31:27 [INFO] The checker is already compiled[0m
+::group::verify/utility/all-headers.test.cpp measurement 1/3
+::endgroup::
+Traceback (most recent call last):
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 112, in verify_file
+    exec_command(command)
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 371, in <lambda>
+    patch.object(verify, "exec_command", lambda cmd: recorder.execute(original_exec, cmd)), \
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 239, in execute
+    completed = subprocess.run(timed_command, check=False)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'oj'
+INFO:onlinejudge_verify.verify:verify: verify/utility/contest-fast-io-128bit.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb_128bit
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test --silent https://judge.yosupo.jp/problem/many_aplusb_128bit
+Traceback (most recent call last):
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 87, in verify_file
+    exec_command(command)
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 371, in <lambda>
+    patch.object(verify, "exec_command", lambda cmd: recorder.execute(original_exec, cmd)), \
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 217, in execute
+    return original(command)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 42, in exec_command
+    subprocess.check_call(command)
+  File "/usr/lib/python3.12/subprocess.py", line 408, in check_call
+    retcode = call(*popenargs, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 389, in call
+    with Popen(*popenargs, **kwargs) as p:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'oj'
+INFO:onlinejudge_verify.verify:verify: verify/utility/contest-fast-io.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /tmp/blueberry-fast-io-validation-eElRFy/repo -o .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/a.out verify/utility/contest-fast-io.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/info.toml --compile-checker
+[33m15:31:46 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m15:31:46 [INFO] Start many_aplusb[0m
+[37m15:31:46 [INFO] generate params.h[0m
+[37m15:31:46 [INFO] Test cases are already generated[0m
+[37m15:31:46 [INFO] The checker is already compiled[0m
+::error file=verify/utility/all-headers.test.cpp::failed to verify
+::error file=verify/utility/contest-fast-io-128bit.test.cpp::failed to verify
+::group::verify/utility/contest-fast-io.test.cpp measurement 1/3
+::endgroup::
+Traceback (most recent call last):
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 112, in verify_file
+    exec_command(command)
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 371, in <lambda>
+    patch.object(verify, "exec_command", lambda cmd: recorder.execute(original_exec, cmd)), \
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 239, in execute
+    completed = subprocess.run(timed_command, check=False)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'oj'
+INFO:onlinejudge_verify.verify:verify: verify/utility/contest-template-128bit.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb_128bit
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test --silent https://judge.yosupo.jp/problem/many_aplusb_128bit
+Traceback (most recent call last):
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 87, in verify_file
+    exec_command(command)
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 371, in <lambda>
+    patch.object(verify, "exec_command", lambda cmd: recorder.execute(original_exec, cmd)), \
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 217, in execute
+    return original(command)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 42, in exec_command
+    subprocess.check_call(command)
+  File "/usr/lib/python3.12/subprocess.py", line 408, in check_call
+    retcode = call(*popenargs, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 389, in call
+    with Popen(*popenargs, **kwargs) as p:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'oj'
+INFO:onlinejudge_verify.verify:verify: verify/utility/fast-io-128bit.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb_128bit
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test --silent https://judge.yosupo.jp/problem/many_aplusb_128bit
+Traceback (most recent call last):
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 87, in verify_file
+    exec_command(command)
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 371, in <lambda>
+    patch.object(verify, "exec_command", lambda cmd: recorder.execute(original_exec, cmd)), \
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 217, in execute
+    return original(command)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 42, in exec_command
+    subprocess.check_call(command)
+  File "/usr/lib/python3.12/subprocess.py", line 408, in check_call
+    retcode = call(*popenargs, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 389, in call
+    with Popen(*popenargs, **kwargs) as p:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'oj'
+INFO:onlinejudge_verify.verify:verify: verify/utility/fast-io.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /tmp/blueberry-fast-io-validation-eElRFy/repo -o .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/a.out verify/utility/fast-io.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/info.toml --compile-checker
+[33m15:32:07 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m15:32:07 [INFO] Start many_aplusb[0m
+[37m15:32:07 [INFO] generate params.h[0m
+[37m15:32:07 [INFO] Test cases are already generated[0m
+[37m15:32:07 [INFO] The checker is already compiled[0m
+::error file=verify/utility/contest-fast-io.test.cpp::failed to verify
+::error file=verify/utility/contest-template-128bit.test.cpp::failed to verify
+::error file=verify/utility/fast-io-128bit.test.cpp::failed to verify
+::group::verify/utility/fast-io.test.cpp measurement 1/3
+::endgroup::
+Traceback (most recent call last):
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 112, in verify_file
+    exec_command(command)
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 371, in <lambda>
+    patch.object(verify, "exec_command", lambda cmd: recorder.execute(original_exec, cmd)), \
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/blueberry-fast-io-validation-eElRFy/repo/scripts/verify_with_metrics.py", line 239, in execute
+    completed = subprocess.run(timed_command, check=False)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'oj'
+ERROR:onlinejudge_verify.verify:6 tests failed
+ERROR:onlinejudge_verify.verify:failed: verify/utility/all-headers.test.cpp
+ERROR:onlinejudge_verify.verify:failed: verify/utility/contest-fast-io-128bit.test.cpp
+ERROR:onlinejudge_verify.verify:failed: verify/utility/contest-fast-io.test.cpp
+ERROR:onlinejudge_verify.verify:failed: verify/utility/contest-template-128bit.test.cpp
+ERROR:onlinejudge_verify.verify:failed: verify/utility/fast-io-128bit.test.cpp
+ERROR:onlinejudge_verify.verify:failed: verify/utility/fast-io.test.cpp
+::error file=verify/utility/fast-io.test.cpp::failed to verify
+# Verification timings
+
+Commit: 8729666f80f04e080f945506fd3cb94be7081185 / UTC: 2026-10-20T06:31:18.276157+00:00
+Baseline: なし（初回）
+
+単位は秒。直列実行・各ケースの solution elapsed 合計の中央値。コンパイル・DL・checkerは合計から除外。
+プロセス起動とI/Oは含みます。Yosupo提出画面の時間ではありません。共有runnerの小さな差は誤差として扱ってください。
+
+| Verify / 環境番号 | 状態 | コンパイル | 実行合計（中央値） | 最大ケース（中央値） | 基準との差 |
+| --- | --- | ---: | ---: | ---: | --- |
+| verify/utility/all-headers.test.cpp / 0 | failed | 4.043489 s | — | — | 未完了 / 失敗 |
+| verify/utility/contest-fast-io-128bit.test.cpp / 0 | failed | — | — | — | 未完了 / 失敗 |
+| verify/utility/contest-fast-io.test.cpp / 0 | failed | 8.061421 s | — | — | 未完了 / 失敗 |
+| verify/utility/contest-template-128bit.test.cpp / 0 | failed | — | — | — | 未完了 / 失敗 |
+| verify/utility/fast-io-128bit.test.cpp / 0 | failed | — | — | — | 未完了 / 失敗 |
+| verify/utility/fast-io.test.cpp / 0 | failed | 3.323874 s | — | — | 未完了 / 失敗 |
+
+## Environment
+
+~~~json
+{
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "tools": {
+    "online-judge-verify-helper": "5.6.0",
+    "online-judge-tools": "11.5.1",
+    "online-judge-api-client": "10.10.1"
+  },
+  "method": "oj-elapsed-log-v1",
+  "recorder_sha256": "3ee628d2aa014ded1096cfaa43a315a355f3aa75c0fe7cc598efb0184a1c26b6",
+  "jobs": 1,
+  "tle_seconds": 60
+}
+~~~
+
+make: *** [Makefile:37: verify] Error 1

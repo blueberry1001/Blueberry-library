@@ -91,7 +91,8 @@ documentation_of: //blueberry/utility/fast-io.hpp
 
 - 通常の入力はbatch向けの`fread`経路です。対話用は1文字ずつ`fgetc`を呼びます。通常入力のままflushだけを追加しても、短い応答を待つ対話には対応できません。
 - `writeln`自体はflushしません。
-- mmap・固定入力桁数・特定CPUの命令に依存しません。バッファを初期zero-fillせず、整数出力は2桁ずつ変換します。ACLには対応機能がありません。
+- mmap・固定入力桁数・特定CPUの命令に依存しません。little-endian環境では、バッファ内の連続した8桁をまとめて変換・範囲検査し、それ以外は1桁ずつ処理します。バッファの有効範囲外は読みません。
+- 整数出力は必要な容量を一度確保して変換し、128bit整数は10^19単位に分けて64bitの変換を使います。入出力バッファのサイズはそれぞれ64 KiBです。ACLには対応機能がありません。
 
 </details>
 
@@ -589,5 +590,6 @@ out.write(std::array<int, 2>{1, 2}); // "1 2"
 - `tests/random/contest-fast-io.cpp`: 固定精度・入れ子コンテナ・vector&lt;bool&gt;とテンプレート形式APIの検証。
 - 2桁変換とportable bufferを独自実装。Fastest提出のmmap/SIMD専用I/Oはコピーしていません。
 - [性能改善方針]({{ '/docs/development/fastest-performance-plan.html' | relative_url }})。
+- [Many A+Bを用いた整数入出力の改善記録]({{ '/docs/development/fast-io-throughput.html' | relative_url }})。
 
 </details>

@@ -59,6 +59,189 @@ template<class T> void floating() {
     }
   } std::fclose(file);
 }
+
+// Independent one-digit conversion also supports the GNU 128-bit integer types.
+template<class T> std::string decimal(T value) {
+  using U = std::make_unsigned_t<T>;
+  const bool negative = std::is_signed_v<T> && value < 0;
+  U number = negative ? U{0} - static_cast<U>(value) : static_cast<U>(value);
+  std::string result;
+  do { result.push_back(static_cast<char>('0' + number % 10)); number /= 10; } while (number);
+  if (negative) result.push_back('-');
+  std::reverse(result.begin(), result.end());
+  return result;
+}
+std::string decimal_successor(std::string value) {
+  for (std::size_t i = value.size(); i-- > 0;) {
+    if (value[i] != '9') { ++value[i]; return value; }
+    value[i] = '0';
+  }
+  return '1' + value;
+}
+#if defined(__SIZEOF_INT128__)
+template<class T> void wide_integers(std::mt19937_64& rng) {
+  std::vector<T> values{0, 1, std::numeric_limits<T>::min(), std::numeric_limits<T>::max()};
+  for (int i = 0; i < 1000; ++i)
+    values.push_back(static_cast<T>((static_cast<__uint128_t>(rng()) << 64) | rng()));
+  std::string expected;
+  for (T value : values) expected += decimal(value) + '\n';
+  auto* file = input(expected.substr(0, expected.size() - 1));
+  {
+    blueberry::FastInput in(file);
+    for (T value : values) {
+      T actual = 7;
+      if (!in.read(actual) || actual != value) {
+        std::cerr << "seed=" << seed << " input=" << decimal(value)
+                  << " expected=" << decimal(value) << " actual=" << decimal(actual) << '\n';
+        std::exit(1);
+      }
+    }
+  }
+  std::fclose(file);
+  file = std::tmpfile(); check(file != nullptr, "random 128-bit output tmpfile");
+  { blueberry::FastOutput out(file); for (T value : values) check(out.writeln(value), "random 128-bit write"); }
+  std::rewind(file);
+  std::string actual(expected.size() + 1, '\0');
+  actual.resize(std::fread(actual.data(), 1, actual.size(), file));
+  check(actual == expected, "random 128-bit output oracle");
+  std::fclose(file);
+}
+#endif
+template<class T> void integer_boundaries(bool all_lengths) {
+  constexpr std::size_t capacity = 1 << 16;
+  struct Case { std::string token; T expected; std::size_t split; };
+  std::vector<Case> cases;
+  auto* file = std::tmpfile(); check(file != nullptr, "boundary input tmpfile");
+  const std::string spaces(capacity, ' ');
+  std::size_t position = 0;
+  auto append = [&](const std::string& token, T expected) {
+    // Put every digit, sign, and the terminating delimiter at a refill boundary.
+    for (std::size_t split = 0; split <= token.size(); ++split) {
+      const auto padding = (capacity - (position + split) % capacity) % capacity;
+      check(std::fwrite(spaces.data(), 1, padding, file) == padding, "boundary input padding");
+      check(std::fwrite(token.data(), 1, token.size(), file) == token.size(), "boundary input token");
+      check(std::fputc('\n', file) != EOF, "boundary input delimiter");
+      position += padding + token.size() + 1;
+      cases.push_back({token, expected, split});
+    }
+  };
+  if (all_lengths) {
+    for (T power = 1;;) {
+      append(decimal(power), power);
+      if constexpr (std::is_signed_v<T>) append(decimal(T(-power)), T(-power));
+      if (power > std::numeric_limits<T>::max() / 10) break;
+      power *= 10;
+    }
+  }
+  append(decimal(std::numeric_limits<T>::max()), std::numeric_limits<T>::max());
+  append('+' + decimal(std::numeric_limits<T>::max()), std::numeric_limits<T>::max());
+  append(decimal(std::numeric_limits<T>::min()), std::numeric_limits<T>::min());
+  std::rewind(file);
+  {
+    blueberry::FastInput in(file);
+    for (const auto& test : cases) {
+      T actual = 7;
+      if (!in.read(actual) || actual != test.expected) {
+        std::cerr << "seed=" << seed << " token=" << test.token << " split=" << test.split
+                  << " expected=" << decimal(test.expected) << " actual=" << decimal(actual) << '\n';
+        std::exit(1);
+      }
+    }
+    T unchanged = 7; check(!in.read(unchanged) && unchanged == 7, "boundary input EOF");
+  }
+  std::fclose(file);
+
+  // Exercise direct integer writes with every possible insufficient tail length.
+  file = std::tmpfile(); check(file != nullptr, "boundary output tmpfile");
+  struct Output { std::size_t padding; std::string token; };
+  std::vector<Output> output_cases;
+  const std::string fill(capacity, 'x');
+  position = 0;
+  {
+    blueberry::FastOutput out(file);
+    auto emit = [&](T value) {
+      const auto token = decimal(value);
+      for (std::size_t remaining = 0; remaining <= token.size() + 1; ++remaining) {
+        const auto used = (capacity - remaining) % capacity;
+        const auto padding = (used + capacity - position % capacity) % capacity;
+        check(out.write(std::string_view(fill.data(), padding)) && out.write(value) && out.write('\n'), "boundary integer output");
+        position += padding + token.size() + 1;
+        output_cases.push_back({padding, token});
+      }
+    };
+    if (all_lengths) {
+      for (T power = 1;;) {
+        emit(power); emit(T(power - 1));
+        if constexpr (std::is_signed_v<T>) emit(T(-power));
+        if (power > std::numeric_limits<T>::max() / 10) break;
+        power *= 10;
+      }
+    }
+    emit(std::numeric_limits<T>::min()); emit(std::numeric_limits<T>::max());
+  }
+  std::rewind(file);
+  for (const auto& test : output_cases) {
+    char buffer[4096];
+    for (auto remaining = test.padding; remaining;) {
+      const auto count = std::min(remaining, sizeof buffer);
+      check(std::fread(buffer, 1, count, file) == count, "boundary output padding size");
+      check(std::all_of(buffer, buffer + count, [](char c) { return c == 'x'; }), "boundary output padding bytes");
+      remaining -= count;
+    }
+    std::string actual(test.token.size(), '\0');
+    check(std::fread(actual.data(), 1, actual.size(), file) == actual.size(), "boundary output token size");
+    if (actual != test.token) {
+      std::cerr << "seed=" << seed << " padding=" << test.padding
+                << " expected=" << test.token << " actual=" << actual << '\n';
+      std::exit(1);
+    }
+    check(std::fgetc(file) == '\n', "boundary output newline");
+  }
+  check(std::fgetc(file) == EOF, "boundary output no extra bytes");
+  std::fclose(file);
+}
+template<class T, bool Interactive = false> void integer_token_recovery() {
+  const auto maximum = decimal(std::numeric_limits<T>::max());
+  const auto minimum = decimal(std::numeric_limits<T>::min());
+  std::vector<std::string> invalid{"+", "-", "+-1", "-+1", "++1", "--1", "123x", "0.0", "0x10",
+      std::string("12\0tail", 7), std::string("12\xff", 3), decimal_successor(maximum),
+      std::string(150000, '0') + decimal_successor(maximum), std::string(150000, '9')};
+  if constexpr (std::is_signed_v<T>) invalid.push_back('-' + decimal_successor(minimum.substr(1)));
+  else { invalid.push_back("-0"); invalid.push_back("-1"); }
+  // Reject non-digits in every byte of several complete eight-digit groups.
+  // The unchanged 24-digit magnitude fits in 128 bits, so overflow alone cannot
+  // hide an incorrect grouped digit check in the 128-bit instantiations.
+  for (unsigned char byte : std::array<unsigned char, 8>{'/', ':', ';', '?', '@', 0, 0x80, 0xff}) {
+    for (std::size_t offset = 0; offset < 24; ++offset) {
+      std::string token(24, '7'); token[offset] = static_cast<char>(byte);
+      invalid.push_back(token);
+    }
+  }
+  std::string text;
+  for (const auto& token : invalid) text += token + " 17 ";
+  // Leading zeros do not turn a representable integer into an overflow.
+  text += std::string(150000, '0') + maximum + " +0000000 0000019 " + minimum;
+  auto* file = input(text);
+  {
+    blueberry::FastInput<Interactive> in(file);
+    for (const auto& token : invalid) {
+      T value = 7;
+      if (in.read(value) || value != 7) {
+        std::cerr << "seed=" << seed << " invalid-token-size=" << token.size()
+                  << " expected=unchanged-7 actual=" << decimal(value) << '\n';
+        std::exit(1);
+      }
+      check(in.read(value) && value == 17, "integer recovery after invalid token");
+    }
+    T value = 7;
+    check(in.read(value) && value == std::numeric_limits<T>::max(), "long leading zeros");
+    check(in.read(value) && value == 0, "positive signed zero");
+    check(in.read(value) && value == 19, "short leading zeros");
+    check(in.read(value) && value == std::numeric_limits<T>::min(), "minimum exactly at EOF");
+    check(!in.read(value) && value == std::numeric_limits<T>::min(), "recovery EOF unchanged");
+  }
+  std::fclose(file);
+}
 int main(int argc, char** argv) {
   seed = argc > 1 ? std::strtoull(argv[1], nullptr, 10) : 1;
   std::mt19937_64 rng(seed);
@@ -69,6 +252,22 @@ int main(int argc, char** argv) {
   integers<int>(rng); integers<unsigned>(rng);
   integers<long>(rng); integers<unsigned long>(rng);
   integers<long long>(rng); integers<unsigned long long>(rng);
+  integers<wchar_t>(rng); integers<char8_t>(rng); integers<char16_t>(rng); integers<char32_t>(rng);
+  // The standard runner includes seed 1. Run its fixed large-file cases once,
+  // while every seed still exercises randomized values and token recovery.
+  if (seed == 1) {
+    integer_boundaries<long long>(true); integer_boundaries<unsigned long long>(false);
+#if defined(__SIZEOF_INT128__)
+    integer_boundaries<__int128_t>(false); integer_boundaries<__uint128_t>(true);
+#endif
+  }
+  integer_token_recovery<long long>(); integer_token_recovery<unsigned long long>();
+  integer_token_recovery<signed char>(); integer_token_recovery<unsigned char>();
+  integer_token_recovery<long long, true>();
+#if defined(__SIZEOF_INT128__)
+  wide_integers<__int128_t>(rng); wide_integers<__uint128_t>(rng);
+  integer_token_recovery<__int128_t>(); integer_token_recovery<__uint128_t>();
+#endif
   floating<float>(); floating<double>(); floating<long double>();
   auto* bool_output = std::tmpfile(); check(bool_output != nullptr, "bool output file");
   { blueberry::FastOutput out(bool_output);

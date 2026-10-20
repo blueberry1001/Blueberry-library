@@ -1,0 +1,1553 @@
+{
+  "research_date_jst": "2026-10-20",
+  "written_at_utc": "2026-10-20T05:32:30.391524+00:00",
+  "repository_revision": "617acd6d63affe95308fee3fec1c9698096f10ad",
+  "purpose": "Read-only source-method research; no third-party source copied into library or tracked artifacts; no same-condition benchmark was run by this research subtask.",
+  "retrieval_environment": {
+    "python": "3.13.0",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "initial_attempts": [
+    {
+      "command": "python scripts/fetch_lc_fastest.py many_aplusb --limit 5 --dedup-user --save-source --out-dir .build/research-fast-io/many-aplusb",
+      "status": "failed",
+      "reason": "sandbox DNS: socket.gaierror [Errno 11001] getaddrinfo failed",
+      "measured_time": null
+    },
+    {
+      "command": "python scripts/fetch_lc_fastest.py many_aplusb_128bit --limit 5 --dedup-user --save-source --out-dir .build/research-fast-io/many-aplusb-128bit",
+      "status": "failed",
+      "reason": "sandbox DNS: socket.gaierror [Errno 11001] getaddrinfo failed",
+      "measured_time": null
+    }
+  ],
+  "successful_retrieval": "same commands with limits recorded in queries, read-only network access enabled",
+  "queries": [
+    {
+      "problem": "many_aplusb",
+      "limit": 6,
+      "lang": null,
+      "dedup_user": true,
+      "order": "+time",
+      "rows": [
+        {
+          "id": 409103,
+          "overview": {
+            "id": 409103,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21012480,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-10-09T08:24:27.447099Z",
+            "time": 0.018,
+            "user_name": "Aiyiyi"
+          },
+          "case_max_seconds": 0.018,
+          "profile": {
+            "lines": 916,
+            "bytes": 42714,
+            "includes": 18,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": true
+          },
+          "url": "https://judge.yosupo.jp/submission/409103",
+          "downloaded_source_sha256": "003fed3dde661856b3b5d7ee355be27ea2a1c37291a441206510fe6c08ebf6c9",
+          "downloaded_source_bytes": 43629,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb/submission-409103.cpp"
+        },
+        {
+          "id": 402646,
+          "overview": {
+            "id": 402646,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21012480,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-09-15T15:18:32.020792Z",
+            "time": 0.023,
+            "user_name": "nandhagk"
+          },
+          "case_max_seconds": 0.023,
+          "profile": {
+            "lines": 934,
+            "bytes": 40371,
+            "includes": 32,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/402646",
+          "downloaded_source_sha256": "f1a8719e0f9a38c91d8858722cefe481feb5fb6c6b1920c69086b7a523d7b8e9",
+          "downloaded_source_bytes": 41304,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb/submission-402646.cpp"
+        },
+        {
+          "id": 407732,
+          "overview": {
+            "id": 407732,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 20992000,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-10-03T21:01:22.098925Z",
+            "time": 0.024
+          },
+          "case_max_seconds": 0.024,
+          "profile": {
+            "lines": 3271,
+            "bytes": 140812,
+            "includes": 144,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": true
+          },
+          "url": "https://judge.yosupo.jp/submission/407732",
+          "downloaded_source_sha256": "e75cb2c941c1b4dcdc319105350b2f5cc6ca19a4da7e942dd45589dd3178c531",
+          "downloaded_source_bytes": 144082,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb/submission-407732.cpp"
+        },
+        {
+          "id": 402692,
+          "overview": {
+            "id": 402692,
+            "is_latest": true,
+            "lang": "rust",
+            "memory": 20729856,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-09-15T18:55:03.606673Z",
+            "time": 0.024,
+            "user_name": "toomer"
+          },
+          "case_max_seconds": 0.024,
+          "profile": {
+            "lines": 29,
+            "bytes": 55262,
+            "includes": 0,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/402692",
+          "downloaded_source_sha256": "88a66ea1d5163d179a8a3128f26d5ad0eae4c2e9472df087c56e70ffca729d23",
+          "downloaded_source_bytes": 55290,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb/submission-402692.cpp"
+        },
+        {
+          "id": 392126,
+          "overview": {
+            "id": 392126,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21364736,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-08-12T02:30:30.588465Z",
+            "time": 0.024,
+            "user_name": "QgQ"
+          },
+          "case_max_seconds": 0.024,
+          "profile": {
+            "lines": 325,
+            "bytes": 11832,
+            "includes": 11,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/392126",
+          "downloaded_source_sha256": "261258672ba83726ae8f877e9af08e91e457e76fc871edb03d45638e1188023f",
+          "downloaded_source_bytes": 12156,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb/submission-392126.cpp"
+        },
+        {
+          "id": 393713,
+          "overview": {
+            "id": 393713,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21442560,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-08-15T14:48:43.266101Z",
+            "time": 0.025,
+            "user_name": "chaihf"
+          },
+          "case_max_seconds": 0.025,
+          "profile": {
+            "lines": 745,
+            "bytes": 26848,
+            "includes": 5,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/393713",
+          "downloaded_source_sha256": "09a9eabd537478c3f3134c952b0ec20c7fb3d787c0b035a2a882953b0ad79d30",
+          "downloaded_source_bytes": 27592,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb/submission-393713.cpp"
+        }
+      ]
+    },
+    {
+      "problem": "many_aplusb_128bit",
+      "limit": 6,
+      "lang": null,
+      "dedup_user": true,
+      "order": "+time",
+      "rows": [
+        {
+          "id": 400962,
+          "overview": {
+            "id": 400962,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21008384,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-09-09T08:55:55.249191Z",
+            "time": 0.029,
+            "user_name": "Rohan_Kapri"
+          },
+          "case_max_seconds": 0.029,
+          "profile": {
+            "lines": 726,
+            "bytes": 26769,
+            "includes": 5,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/400962",
+          "downloaded_source_sha256": "896693fa1358247a2c50140d7632c33103ad57f470c932598c4ede51c8921e7e",
+          "downloaded_source_bytes": 27494,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit/submission-400962.cpp"
+        },
+        {
+          "id": 393714,
+          "overview": {
+            "id": 393714,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21069824,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-08-15T14:49:14.306204Z",
+            "time": 0.03,
+            "user_name": "chaihf"
+          },
+          "case_max_seconds": 0.03,
+          "profile": {
+            "lines": 733,
+            "bytes": 26486,
+            "includes": 5,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/393714",
+          "downloaded_source_sha256": "00e8195bc9e385d61b1cc6502044b697ce7ac428a596f0fdca29a02b4e18c128",
+          "downloaded_source_bytes": 27218,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit/submission-393714.cpp"
+        },
+        {
+          "id": 392686,
+          "overview": {
+            "id": 392686,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21311488,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-08-13T14:50:14.602564Z",
+            "time": 0.031,
+            "user_name": "QgQ"
+          },
+          "case_max_seconds": 0.031,
+          "profile": {
+            "lines": 582,
+            "bytes": 20831,
+            "includes": 11,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/392686",
+          "downloaded_source_sha256": "6e902040bdd8358ab6e17ac4138626874bf52a6d09b1bcd3cadf2676aa21b644",
+          "downloaded_source_bytes": 21412,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit/submission-392686.cpp"
+        },
+        {
+          "id": 384987,
+          "overview": {
+            "id": 384987,
+            "is_latest": true,
+            "lang": "rust",
+            "memory": 20975616,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-07-11T11:32:54.498319Z",
+            "time": 0.031,
+            "user_name": "learningstud"
+          },
+          "case_max_seconds": 0.031,
+          "profile": {
+            "lines": 564,
+            "bytes": 19433,
+            "includes": 0,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": false,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/384987",
+          "downloaded_source_sha256": "1ec99bcb8fb6487c523a6ac2ebc8e25e1b03c91f51b5dca719899c3c4416d9eb",
+          "downloaded_source_bytes": 19996,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit/submission-384987.cpp"
+        },
+        {
+          "id": 405450,
+          "overview": {
+            "id": 405450,
+            "is_latest": true,
+            "lang": "rust",
+            "memory": 20463616,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-09-23T09:31:28.382703Z",
+            "time": 0.032,
+            "user_name": "toomer"
+          },
+          "case_max_seconds": 0.032,
+          "profile": {
+            "lines": 29,
+            "bytes": 61262,
+            "includes": 0,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/405450",
+          "downloaded_source_sha256": "13f7a2792de4abc9c5b0df037f5f9a39f4d69f1d71f46457580320a048c40879",
+          "downloaded_source_bytes": 61290,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit/submission-405450.cpp"
+        },
+        {
+          "id": 384983,
+          "overview": {
+            "id": 384983,
+            "is_latest": true,
+            "lang": "rust",
+            "memory": 21299200,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-07-11T11:17:14.504102Z",
+            "time": 0.032
+          },
+          "case_max_seconds": 0.032,
+          "profile": {
+            "lines": 564,
+            "bytes": 19433,
+            "includes": 0,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": false,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/384983",
+          "downloaded_source_sha256": "03c08dcbfb7a67dcb9bb1f128acc1e034fd33569d1c788e756597fba63671352",
+          "downloaded_source_bytes": 19996,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit/submission-384983.cpp"
+        }
+      ]
+    },
+    {
+      "problem": "many_aplusb",
+      "limit": 15,
+      "lang": "cpp",
+      "dedup_user": true,
+      "order": "+time",
+      "rows": [
+        {
+          "id": 409103,
+          "overview": {
+            "id": 409103,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21012480,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-10-09T08:24:27.447099Z",
+            "time": 0.018,
+            "user_name": "Aiyiyi"
+          },
+          "case_max_seconds": 0.018,
+          "profile": {
+            "lines": 916,
+            "bytes": 42714,
+            "includes": 18,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": true
+          },
+          "url": "https://judge.yosupo.jp/submission/409103",
+          "downloaded_source_sha256": "003fed3dde661856b3b5d7ee355be27ea2a1c37291a441206510fe6c08ebf6c9",
+          "downloaded_source_bytes": 43629,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-409103.cpp"
+        },
+        {
+          "id": 402646,
+          "overview": {
+            "id": 402646,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21012480,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-09-15T15:18:32.020792Z",
+            "time": 0.023,
+            "user_name": "nandhagk"
+          },
+          "case_max_seconds": 0.023,
+          "profile": {
+            "lines": 934,
+            "bytes": 40371,
+            "includes": 32,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/402646",
+          "downloaded_source_sha256": "f1a8719e0f9a38c91d8858722cefe481feb5fb6c6b1920c69086b7a523d7b8e9",
+          "downloaded_source_bytes": 41304,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-402646.cpp"
+        },
+        {
+          "id": 407732,
+          "overview": {
+            "id": 407732,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 20992000,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-10-03T21:01:22.098925Z",
+            "time": 0.024
+          },
+          "case_max_seconds": 0.024,
+          "profile": {
+            "lines": 3271,
+            "bytes": 140812,
+            "includes": 144,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": true
+          },
+          "url": "https://judge.yosupo.jp/submission/407732",
+          "downloaded_source_sha256": "e75cb2c941c1b4dcdc319105350b2f5cc6ca19a4da7e942dd45589dd3178c531",
+          "downloaded_source_bytes": 144082,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-407732.cpp"
+        },
+        {
+          "id": 392126,
+          "overview": {
+            "id": 392126,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21364736,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-08-12T02:30:30.588465Z",
+            "time": 0.024,
+            "user_name": "QgQ"
+          },
+          "case_max_seconds": 0.024,
+          "profile": {
+            "lines": 325,
+            "bytes": 11832,
+            "includes": 11,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/392126",
+          "downloaded_source_sha256": "261258672ba83726ae8f877e9af08e91e457e76fc871edb03d45638e1188023f",
+          "downloaded_source_bytes": 12156,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-392126.cpp"
+        },
+        {
+          "id": 393713,
+          "overview": {
+            "id": 393713,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21442560,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-08-15T14:48:43.266101Z",
+            "time": 0.025,
+            "user_name": "chaihf"
+          },
+          "case_max_seconds": 0.025,
+          "profile": {
+            "lines": 745,
+            "bytes": 26848,
+            "includes": 5,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/393713",
+          "downloaded_source_sha256": "09a9eabd537478c3f3134c952b0ec20c7fb3d787c0b035a2a882953b0ad79d30",
+          "downloaded_source_bytes": 27592,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-393713.cpp"
+        },
+        {
+          "id": 291927,
+          "overview": {
+            "id": 291927,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 22327296,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2025-06-09T15:16:50.165371Z",
+            "time": 0.025,
+            "user_name": "Rac"
+          },
+          "case_max_seconds": 0.025,
+          "profile": {
+            "lines": 2509,
+            "bytes": 102425,
+            "includes": 20,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/291927",
+          "downloaded_source_sha256": "b5cca27c69cdf62541409acb92a15aa126bc8548c231d7f335b1915a3e4e3145",
+          "downloaded_source_bytes": 104933,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-291927.cpp"
+        },
+        {
+          "id": 357181,
+          "overview": {
+            "id": 357181,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21430272,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-03-03T06:05:19.295543Z",
+            "time": 0.026,
+            "user_name": "IceKylin"
+          },
+          "case_max_seconds": 0.026,
+          "profile": {
+            "lines": 664,
+            "bytes": 15372,
+            "includes": 5,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/357181",
+          "downloaded_source_sha256": "9d9a2a1363149b0da21f71e250982914cbcb6c2c27b0b74eea8a1db13c1cca2b",
+          "downloaded_source_bytes": 16035,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-357181.cpp"
+        },
+        {
+          "id": 351848,
+          "overview": {
+            "id": 351848,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 22089728,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-02-10T08:41:46.973714Z",
+            "time": 0.027,
+            "user_name": "csharpython"
+          },
+          "case_max_seconds": 0.027,
+          "profile": {
+            "lines": 158,
+            "bytes": 5815,
+            "includes": 7,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/351848",
+          "downloaded_source_sha256": "b801dba302ceff3c405f0c60ffd3370135cb59965a7d898dcc6174f7c1e86d17",
+          "downloaded_source_bytes": 5972,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-351848.cpp"
+        },
+        {
+          "id": 338380,
+          "overview": {
+            "id": 338380,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 22323200,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2025-12-19T01:33:06.370296Z",
+            "time": 0.027,
+            "user_name": "bay"
+          },
+          "case_max_seconds": 0.027,
+          "profile": {
+            "lines": 142,
+            "bytes": 4685,
+            "includes": 3,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": false,
+            "has_target_pragma": false,
+            "uses_fast_io": false,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/338380",
+          "downloaded_source_sha256": "3bc45f8ade0a1f78f03a5b32a59f61afba41a8a2ccee4b8f2d2b4260578d5fe1",
+          "downloaded_source_bytes": 4826,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-338380.cpp"
+        },
+        {
+          "id": 269738,
+          "overview": {
+            "id": 269738,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 22327296,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2025-02-25T09:22:22.102564Z",
+            "time": 0.027,
+            "user_name": "mukundan314"
+          },
+          "case_max_seconds": 0.027,
+          "profile": {
+            "lines": 105,
+            "bytes": 3231,
+            "includes": 3,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": false,
+            "has_target_pragma": false,
+            "uses_fast_io": false,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/269738",
+          "downloaded_source_sha256": "eb5dc9af45481ba455923b792eca5b9f9b3d02e6a2f6c0990d713d78aa05f9d1",
+          "downloaded_source_bytes": 3335,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-269738.cpp"
+        },
+        {
+          "id": 342278,
+          "overview": {
+            "id": 342278,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 22343680,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-01-02T03:05:13.408323Z",
+            "time": 0.029,
+            "user_name": "aqxa2k"
+          },
+          "case_max_seconds": 0.029,
+          "profile": {
+            "lines": 171,
+            "bytes": 4764,
+            "includes": 10,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": false,
+            "has_target_pragma": false,
+            "uses_fast_io": false,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/342278",
+          "downloaded_source_sha256": "73e47c07b8bf0b63e31a5bb133052235b4c59663c1ba5e851c0b0e17092053c6",
+          "downloaded_source_bytes": 4934,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-342278.cpp"
+        },
+        {
+          "id": 281556,
+          "overview": {
+            "id": 281556,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 22900736,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2025-04-25T09:33:10.961831Z",
+            "time": 0.029,
+            "user_name": "cscba"
+          },
+          "case_max_seconds": 0.029,
+          "profile": {
+            "lines": 234,
+            "bytes": 6972,
+            "includes": 11,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": false,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/281556",
+          "downloaded_source_sha256": "5752eec752016080172b4998c288838d5c5d6d9cd454417c9529529715c38498",
+          "downloaded_source_bytes": 7205,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-281556.cpp"
+        },
+        {
+          "id": 351703,
+          "overview": {
+            "id": 351703,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21655552,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2026-02-09T08:03:41.980666Z",
+            "time": 0.031,
+            "user_name": "LXcjh4998"
+          },
+          "case_max_seconds": 0.031,
+          "profile": {
+            "lines": 508,
+            "bytes": 10830,
+            "includes": 13,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/351703",
+          "downloaded_source_sha256": "599ee6cfee589941369aab71ce15e91e9e16d9c16fa11080e39480738f2b81c4",
+          "downloaded_source_bytes": 11337,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-351703.cpp"
+        },
+        {
+          "id": 252641,
+          "overview": {
+            "id": 252641,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21045248,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2024-11-26T23:53:26.218107Z",
+            "time": 0.031,
+            "user_name": "liouzhou_101"
+          },
+          "case_max_seconds": 0.031,
+          "profile": {
+            "lines": 412,
+            "bytes": 8768,
+            "includes": 8,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/252641",
+          "downloaded_source_sha256": "0fcfc6cfec2ef6b19eb27cb774bc2c802029362f5eea5147f3c3a9278270c604",
+          "downloaded_source_bytes": 9179,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-252641.cpp"
+        },
+        {
+          "id": 215767,
+          "overview": {
+            "id": 215767,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21086208,
+            "problem_name": "many_aplusb",
+            "problem_title": "Many A + B",
+            "status": "AC",
+            "submission_time": "2024-06-18T11:20:26.563721Z",
+            "time": 0.031,
+            "user_name": "sortA0329"
+          },
+          "case_max_seconds": 0.031,
+          "profile": {
+            "lines": 1642,
+            "bytes": 64533,
+            "includes": 39,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/215767",
+          "downloaded_source_sha256": "af05c62ac6cf4c41b35ac9abdd965ead6a5eab76c314f4296d31cfed6bc6b353",
+          "downloaded_source_bytes": 66174,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-cpp/submission-215767.cpp"
+        }
+      ]
+    },
+    {
+      "problem": "many_aplusb_128bit",
+      "limit": 12,
+      "lang": "cpp",
+      "dedup_user": true,
+      "order": "+time",
+      "rows": [
+        {
+          "id": 400962,
+          "overview": {
+            "id": 400962,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21008384,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-09-09T08:55:55.249191Z",
+            "time": 0.029,
+            "user_name": "Rohan_Kapri"
+          },
+          "case_max_seconds": 0.029,
+          "profile": {
+            "lines": 726,
+            "bytes": 26769,
+            "includes": 5,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/400962",
+          "downloaded_source_sha256": "896693fa1358247a2c50140d7632c33103ad57f470c932598c4ede51c8921e7e",
+          "downloaded_source_bytes": 27494,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-400962.cpp"
+        },
+        {
+          "id": 393714,
+          "overview": {
+            "id": 393714,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21069824,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-08-15T14:49:14.306204Z",
+            "time": 0.03,
+            "user_name": "chaihf"
+          },
+          "case_max_seconds": 0.03,
+          "profile": {
+            "lines": 733,
+            "bytes": 26486,
+            "includes": 5,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/393714",
+          "downloaded_source_sha256": "00e8195bc9e385d61b1cc6502044b697ce7ac428a596f0fdca29a02b4e18c128",
+          "downloaded_source_bytes": 27218,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-393714.cpp"
+        },
+        {
+          "id": 392686,
+          "overview": {
+            "id": 392686,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21311488,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-08-13T14:50:14.602564Z",
+            "time": 0.031,
+            "user_name": "QgQ"
+          },
+          "case_max_seconds": 0.031,
+          "profile": {
+            "lines": 582,
+            "bytes": 20831,
+            "includes": 11,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/392686",
+          "downloaded_source_sha256": "6e902040bdd8358ab6e17ac4138626874bf52a6d09b1bcd3cadf2676aa21b644",
+          "downloaded_source_bytes": 21412,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-392686.cpp"
+        },
+        {
+          "id": 357182,
+          "overview": {
+            "id": 357182,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 20885504,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-03-03T06:06:49.397699Z",
+            "time": 0.033,
+            "user_name": "IceKylin"
+          },
+          "case_max_seconds": 0.033,
+          "profile": {
+            "lines": 664,
+            "bytes": 15388,
+            "includes": 5,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/357182",
+          "downloaded_source_sha256": "4899405767a044902f4939d9c511bb82471112c61d3088b0fa4c7c04f1f58a0d",
+          "downloaded_source_bytes": 16051,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-357182.cpp"
+        },
+        {
+          "id": 377385,
+          "overview": {
+            "id": 377385,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 41660416,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-06-06T13:21:03.209235Z",
+            "time": 0.034,
+            "user_name": "Kazusa_kyoyama"
+          },
+          "case_max_seconds": 0.034,
+          "profile": {
+            "lines": 194,
+            "bytes": 6626,
+            "includes": 6,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/377385",
+          "downloaded_source_sha256": "95aec69eeedd76c4448a748f70358fb656c5ba35d20abcd5a5b3357c739a6ca3",
+          "downloaded_source_bytes": 6819,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-377385.cpp"
+        },
+        {
+          "id": 343891,
+          "overview": {
+            "id": 343891,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 20951040,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2026-01-07T13:33:01.994245Z",
+            "time": 0.037,
+            "user_name": "Rac"
+          },
+          "case_max_seconds": 0.037,
+          "profile": {
+            "lines": 1922,
+            "bytes": 71145,
+            "includes": 23,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/343891",
+          "downloaded_source_sha256": "2ba8ed61399eedd1fc44224d8b9979a37b90f6676cea40301c8c519f6b7dc5b4",
+          "downloaded_source_bytes": 73066,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-343891.cpp"
+        },
+        {
+          "id": 241436,
+          "overview": {
+            "id": 241436,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 20840448,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2024-10-11T09:55:44.915705Z",
+            "time": 0.038
+          },
+          "case_max_seconds": 0.038,
+          "profile": {
+            "lines": 1502,
+            "bytes": 52504,
+            "includes": 19,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": true
+          },
+          "url": "https://judge.yosupo.jp/submission/241436",
+          "downloaded_source_sha256": "f7508588a0ca3fabda992eb5d191e3abbab72947fcfe034e22fe4cb52cfac877",
+          "downloaded_source_bytes": 54005,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-241436.cpp"
+        },
+        {
+          "id": 228633,
+          "overview": {
+            "id": 228633,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 20770816,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2024-08-15T11:20:19.229614Z",
+            "time": 0.038,
+            "user_name": "sortA0329"
+          },
+          "case_max_seconds": 0.038,
+          "profile": {
+            "lines": 1502,
+            "bytes": 53980,
+            "includes": 19,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": true,
+            "uses_fast_io": true,
+            "uses_vector": true
+          },
+          "url": "https://judge.yosupo.jp/submission/228633",
+          "downloaded_source_sha256": "16108af1a0eab2e9f326aa9b7474404da757de2cb4a5f42b6356f45451ea6d0e",
+          "downloaded_source_bytes": 55481,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-228633.cpp"
+        },
+        {
+          "id": 213635,
+          "overview": {
+            "id": 213635,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 21557248,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2024-06-08T05:30:24.787711Z",
+            "time": 0.041,
+            "user_name": "andyli"
+          },
+          "case_max_seconds": 0.041,
+          "profile": {
+            "lines": 626,
+            "bytes": 19413,
+            "includes": 4,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": true,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": true
+          },
+          "url": "https://judge.yosupo.jp/submission/213635",
+          "downloaded_source_sha256": "01bc208a174725a1d00e56cc6f82c0d9dd540e99260dba874209db9b6ef0776e",
+          "downloaded_source_bytes": 20038,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-213635.cpp"
+        },
+        {
+          "id": 212804,
+          "overview": {
+            "id": 212804,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 20754432,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2024-06-03T19:57:18.951617Z",
+            "time": 0.042,
+            "user_name": "drken"
+          },
+          "case_max_seconds": 0.042,
+          "profile": {
+            "lines": 318,
+            "bytes": 8610,
+            "includes": 13,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": false,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/212804",
+          "downloaded_source_sha256": "049d3347a151e6150406866a86daa9ed0823a047824e7d905cd628a9de2ba9f1",
+          "downloaded_source_bytes": 8927,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-212804.cpp"
+        },
+        {
+          "id": 325269,
+          "overview": {
+            "id": 325269,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 20205568,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2025-11-02T02:36:56.641506Z",
+            "time": 0.043,
+            "user_name": "kagemeka"
+          },
+          "case_max_seconds": 0.043,
+          "profile": {
+            "lines": 316,
+            "bytes": 7046,
+            "includes": 1,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": false,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": true
+          },
+          "url": "https://judge.yosupo.jp/submission/325269",
+          "downloaded_source_sha256": "bcb7507aa67eb36b280770235ba704bd87493b5114187105dba05fbb07045328",
+          "downloaded_source_bytes": 7361,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-325269.cpp"
+        },
+        {
+          "id": 203527,
+          "overview": {
+            "id": 203527,
+            "is_latest": true,
+            "lang": "cpp",
+            "memory": 20492288,
+            "problem_name": "many_aplusb_128bit",
+            "problem_title": "Many A + B (128 bit)",
+            "status": "AC",
+            "submission_time": "2024-04-21T05:16:19.478754Z",
+            "time": 0.043,
+            "user_name": "risujiroh"
+          },
+          "case_max_seconds": 0.043,
+          "profile": {
+            "lines": 300,
+            "bytes": 6618,
+            "includes": 13,
+            "uses_acl_convolution": false,
+            "uses_ntt": false,
+            "uses_simd": false,
+            "has_target_pragma": false,
+            "uses_fast_io": true,
+            "uses_vector": false
+          },
+          "url": "https://judge.yosupo.jp/submission/203527",
+          "downloaded_source_sha256": "293cb722cfee361c5661355fe3697b9cd77f593bab8fb8913f9d5030790f0af2",
+          "downloaded_source_bytes": 6917,
+          "source_local_ignored": ".build/research-fast-io/many-aplusb-128bit-cpp/submission-203527.cpp"
+        }
+      ]
+    }
+  ],
+  "libraries": {
+    "retrieved_at_utc": "2026-10-20T05:28:59.619411+00:00",
+    "sources": [
+      {
+        "repo": "maspypy/library",
+        "commit": "f2882db8097a2899fd501dc9a4d0ba6851de0044",
+        "path": "other/io.hpp",
+        "url": "https://raw.githubusercontent.com/maspypy/library/f2882db8097a2899fd501dc9a4d0ba6851de0044/other/io.hpp",
+        "local": ".build\\research-fast-io\\libraries\\maspypy_library\\other\\io.hpp",
+        "sha256": "34bbd5990f19868b44ddf25b3ee4ae2d6d51eaabe57639b308df798ff4e3331e",
+        "bytes": 9449
+      },
+      {
+        "repo": "NyaanNyaan/library",
+        "commit": "b3981adc80a800b2584980b01821324ea6c77183",
+        "path": "LICENSE",
+        "url": "https://raw.githubusercontent.com/NyaanNyaan/library/b3981adc80a800b2584980b01821324ea6c77183/LICENSE",
+        "local": ".build\\research-fast-io\\libraries\\NyaanNyaan_library\\LICENSE",
+        "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+        "bytes": 7048
+      },
+      {
+        "repo": "NyaanNyaan/library",
+        "commit": "b3981adc80a800b2584980b01821324ea6c77183",
+        "path": "misc/fastio.hpp",
+        "url": "https://raw.githubusercontent.com/NyaanNyaan/library/b3981adc80a800b2584980b01821324ea6c77183/misc/fastio.hpp",
+        "local": ".build\\research-fast-io\\libraries\\NyaanNyaan_library\\misc\\fastio.hpp",
+        "sha256": "e249eb7a4b1e3d2a9ab8c3a33f49ee3bc70c497f5a5c0ff9d6bbd919a4b66873",
+        "bytes": 3979
+      }
+    ]
+  },
+  "official_problem_sources": {
+    "retrieved_at_utc": "2026-10-20T05:30:47.687672+00:00",
+    "sources": [
+      {
+        "repo": "yosupo06/library-checker-problems",
+        "commit": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+        "path": "sample/many_aplusb/info.toml",
+        "url": "https://raw.githubusercontent.com/yosupo06/library-checker-problems/1814c4e5205517e368bb57a8d1127eb961cfeaae/sample/many_aplusb/info.toml",
+        "local": ".build\\research-fast-io\\problem-metadata\\many_aplusb\\info.toml",
+        "sha256": "47f0abbe710c873eaac4eddbffc2202417794261073e2ab7a1d48ae74f486a33",
+        "bytes": 495
+      },
+      {
+        "repo": "yosupo06/library-checker-problems",
+        "commit": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+        "path": "sample/many_aplusb/task.md",
+        "url": "https://raw.githubusercontent.com/yosupo06/library-checker-problems/1814c4e5205517e368bb57a8d1127eb961cfeaae/sample/many_aplusb/task.md",
+        "local": ".build\\research-fast-io\\problem-metadata\\many_aplusb\\task.md",
+        "sha256": "05d01d36746ce090ba78375a9afa60c74a37d1d405ca52f76b6c5d91984d06c8",
+        "bytes": 535
+      },
+      {
+        "repo": "yosupo06/library-checker-problems",
+        "commit": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+        "path": "sample/many_aplusb/gen/random.cpp",
+        "url": "https://raw.githubusercontent.com/yosupo06/library-checker-problems/1814c4e5205517e368bb57a8d1127eb961cfeaae/sample/many_aplusb/gen/random.cpp",
+        "local": ".build\\research-fast-io\\problem-metadata\\many_aplusb\\gen\\random.cpp",
+        "sha256": "8e89ec363a258b701f93dce2e47ea627fa4f464bea071f8cabee63792304891b",
+        "bytes": 457
+      },
+      {
+        "repo": "yosupo06/library-checker-problems",
+        "commit": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+        "path": "sample/many_aplusb_128bit/info.toml",
+        "url": "https://raw.githubusercontent.com/yosupo06/library-checker-problems/1814c4e5205517e368bb57a8d1127eb961cfeaae/sample/many_aplusb_128bit/info.toml",
+        "local": ".build\\research-fast-io\\problem-metadata\\many_aplusb_128bit\\info.toml",
+        "sha256": "4559170acad34d87f7ea186cfdf9683047472ce7296bbb34bbb689b910283bce",
+        "bytes": 542
+      },
+      {
+        "repo": "yosupo06/library-checker-problems",
+        "commit": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+        "path": "sample/many_aplusb_128bit/task.md",
+        "url": "https://raw.githubusercontent.com/yosupo06/library-checker-problems/1814c4e5205517e368bb57a8d1127eb961cfeaae/sample/many_aplusb_128bit/task.md",
+        "local": ".build\\research-fast-io\\problem-metadata\\many_aplusb_128bit\\task.md",
+        "sha256": "01ca5bb5f66a03cb12c2ac52a9612c3846b61102976ab4a70c2d770909896512",
+        "bytes": 578
+      },
+      {
+        "repo": "yosupo06/library-checker-problems",
+        "commit": "1814c4e5205517e368bb57a8d1127eb961cfeaae",
+        "path": "sample/many_aplusb_128bit/gen/random.cpp",
+        "url": "https://raw.githubusercontent.com/yosupo06/library-checker-problems/1814c4e5205517e368bb57a8d1127eb961cfeaae/sample/many_aplusb_128bit/gen/random.cpp",
+        "local": ".build\\research-fast-io\\problem-metadata\\many_aplusb_128bit\\gen\\random.cpp",
+        "sha256": "9beebee580d2fcf40b73a1765e403e12a310fdb2c67f99aa4c3e3cad3b48b1f3",
+        "bytes": 552
+      },
+      {
+        "url": "https://v3.api.judge.yosupo.jp/info",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "https://v3.api.judge.yosupo.jp/languages",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "url": "https://v3.api.judge.yosupo.jp/langs",
+        "local": ".build\\research-fast-io\\problem-metadata\\langs.json",
+        "sha256": "1cd48668ee7097850a23ed25b5472c2c8c662775aa031629785c05142254a7ee",
+        "bytes": 1218,
+        "retrieved_at_utc": "2026-10-20T05:31:06.668011+00:00"
+      },
+      {
+        "url": "https://judge.yosupo.jp/help",
+        "local": ".build\\research-fast-io\\problem-metadata\\help.html",
+        "sha256": "c7a0b1ed40de74239a8e3c8a059380b4b2ea85d6bcf3f6bebd3314daf49c71c7",
+        "bytes": 500,
+        "retrieved_at_utc": "2026-10-20T05:31:06.810199+00:00"
+      }
+    ]
+  },
+  "judge_current_languages": {
+    "langs": [
+      {
+        "id": "cpp",
+        "name": "C++23",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp20",
+        "name": "C++20",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp17",
+        "name": "C++17",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "cpp-func",
+        "name": "C++23(Function)",
+        "version": "GCC 15.2 + AC Library(1.6)"
+      },
+      {
+        "id": "rust",
+        "name": "Rust",
+        "version": "rustc(1.94.1 edition 2024)"
+      },
+      {
+        "id": "d",
+        "name": "LDC2",
+        "version": "ldc2 1.36.0"
+      },
+      {
+        "id": "java",
+        "name": "Java",
+        "version": "openjdk 17"
+      },
+      {
+        "id": "javascript",
+        "name": "JavaScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "typescript",
+        "name": "TypeScript",
+        "version": "Deno 2.7.14"
+      },
+      {
+        "id": "python3",
+        "name": "Python3",
+        "version": "python3.10 + numpy + scipy"
+      },
+      {
+        "id": "pypy3",
+        "name": "PyPy3",
+        "version": "pypy3.9-7.3.9"
+      },
+      {
+        "id": "haskell",
+        "name": "GHC",
+        "version": "ghc 9.6.7"
+      },
+      {
+        "id": "haskell-llvm",
+        "name": "GHC (LLVM)",
+        "version": "ghc 9.6.7 + LLVM 11"
+      },
+      {
+        "id": "nim",
+        "name": "Nim",
+        "version": "Nim 2.2.4"
+      },
+      {
+        "id": "csharp",
+        "name": "C#",
+        "version": "dotnet 10.0"
+      },
+      {
+        "id": "go",
+        "name": "Go",
+        "version": "go 1.18.2"
+      },
+      {
+        "id": "lisp",
+        "name": "Common Lisp",
+        "version": "sbcl 2.1.5"
+      },
+      {
+        "id": "crystal",
+        "name": "Crystal",
+        "version": "crystal 1.9.1"
+      },
+      {
+        "id": "ruby",
+        "name": "Ruby",
+        "version": "ruby 2.7.1"
+      },
+      {
+        "id": "swift",
+        "name": "Swift",
+        "version": "swift 6.1.2"
+      }
+    ]
+  },
+  "judge_environment": {
+    "url": "https://judge.yosupo.jp/help",
+    "observed_2026_10_20": {
+      "machine": "c2d-highcpu-8 (GCP)",
+      "cpu": "AMD EPYC 7B13, 1 core limit",
+      "memory_limit": "1 GiB",
+      "cpp": "GCC 15.2 + AC Library 1.6"
+    },
+    "caveat": "current display only; per-submission historical compiler, flags, machine revision and repetitions are unavailable from the saved overview"
+  },
+  "reimplementation_candidates": [
+    {
+      "name": "contiguous-buffer token parsing",
+      "preserve": [
+        "64KiB fread path",
+        "pipe",
+        "exact ASCII whitespace",
+        "valid EOF final token",
+        "strict syntax/range",
+        "unchanged destination on scalar failure"
+      ],
+      "hypothesis": "avoid next/refill branch and state store per byte within current buffer",
+      "not_measured": true
+    },
+    {
+      "name": "integer output capacity reservation once per token",
+      "preserve": [
+        "all integer widths",
+        "signed minimum",
+        "unsigned maximum",
+        "short fwrite handling",
+        "sticky error"
+      ],
+      "hypothesis": "reserve maximum decimal digits plus sign, then emit bytes directly to buffer rather than string_view copy loop",
+      "not_measured": true
+    },
+    {
+      "name": "128bit output split by 10^16 or generic 10^19 chunks",
+      "preserve": [
+        "unsigned128 full range",
+        "signed128 minimum",
+        "leading/interior zero groups"
+      ],
+      "hypothesis": "perform few wide divisions, format each 64bit part with 2digit or 4digit groups",
+      "not_measured": true
+    },
+    {
+      "name": "4digit grouping with existing 200byte pair table",
+      "preserve": [
+        "small read-only table",
+        "scalar portable path",
+        "full integer range"
+      ],
+      "hypothesis": "fewer divisions than 2digit grouping without 40KB LUT",
+      "not_measured": true
+    },
+    {
+      "name": "checked block parsing",
+      "preserve": [
+        "no reads past buffer end",
+        "strict 0..9 checks",
+        "overflow before multiply-add",
+        "portable endian behavior or scalar fallback"
+      ],
+      "hypothesis": "8digit block conversion cuts dependency depth, especially for 128bit",
+      "not_measured": true
+    }
+  ]
+}
