@@ -1,0 +1,28 @@
+// Diagnostic adapter only: fetch the original source separately, never vendor it.
+#define main canard_original_main
+#include "research-affine/submission-402323.cpp"
+#undef main
+#define main blueberry_phase_main
+#include "affine-phase.cpp"
+#undef main
+
+using Profile = canard::wide::configuration<16, 500000,
+    canard::wide::representation::ordinary, canard::wide::execution::avx2>;
+using CanardTree = decltype(canard::wide_lazy_segment_tree{
+    std::span<const std::uint32_t>{}, canard::algebra::modular_sum<998244353>{},
+    canard::algebra::affine_on_sum<998244353>{}, Profile{}});
+struct CanardAdapter {
+  CanardTree tree;
+  explicit CanardAdapter(const std::vector<std::uint32_t>& a)
+      : tree(std::span<const std::uint32_t>{a},
+             canard::algebra::modular_sum<998244353>{},
+             canard::algebra::affine_on_sum<998244353>{}, Profile{}) {}
+  __attribute__((always_inline)) void apply(int l, int r, std::uint32_t a, std::uint32_t b) {
+    tree.apply(l, r, {.multiplier = a, .translation = b});
+  }
+  __attribute__((always_inline)) std::uint32_t prod(int l, int r) { return tree.fold(l, r); }
+};
+int main(int argc, char** argv) {
+  if (std::string(argv[1]) == "reference-core") return run<CanardAdapter>(true);
+  return blueberry_phase_main(argc, argv);
+}

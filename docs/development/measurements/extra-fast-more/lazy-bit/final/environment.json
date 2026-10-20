@@ -1,0 +1,56 @@
+{
+  "utc": "2026-10-20T05:06:15Z",
+  "seed": 20261020,
+  "q": 100000,
+  "profiles": {
+    "assert": [
+      "-O2"
+    ],
+    "portable": [
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "native": [
+      "-O3",
+      "-DNDEBUG",
+      "-march=native"
+    ]
+  },
+  "standard": "gnu++20",
+  "affinity": 0,
+  "runs": 5,
+  "cases": [
+    {
+      "shape": "random",
+      "n": 65536,
+      "q": 100000,
+      "input_sha256": "de0d542fb6029bb0753ad68538b7baca13bb0e2e02621c728d4a2bb8047c268f",
+      "bytes": 4758307
+    },
+    {
+      "shape": "random",
+      "n": 500000,
+      "q": 100000,
+      "input_sha256": "8ae7171d4d8274c9a495bed4a9fe95254049abf76da6ec9453b83377183ab754",
+      "bytes": 13813789
+    },
+    {
+      "shape": "short",
+      "n": 65536,
+      "q": 100000,
+      "input_sha256": "4692cfb8856e1807d07492507a2f93d531d5470f0fda9cc9f6e0ce6aedc371ed",
+      "bytes": 4742533
+    },
+    {
+      "shape": "update90",
+      "n": 65536,
+      "q": 100000,
+      "input_sha256": "c498456e6cab648885fa41cad1451d23f77e23f5776d201f1ef59ff9a0530c0a",
+      "bytes": 4758307
+    }
+  ],
+  "coordination": "Dedicated team CPU window. Other team members paused CPU workloads. OS/background load uncontrolled.",
+  "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n",
+  "end_utc": "2026-10-20T05:07:39Z"
+}

@@ -1,0 +1,489 @@
+{
+  "finished": "2026-10-20T05:30:44.093009+00:00",
+  "seed": 20261020,
+  "source_sha256": {
+    "blueberry/extra-fast/formal-power-series.hpp": "17e342a4f9daac64ac2ee936e0c94a144555600c3bf6de8849530238db977bd1",
+    "tests/random/extra-fast-fps.cpp": "21eadc1f1186d0f4bddcb714522527e4327c8bfcae24f54d99709e9a2f31bc67"
+  },
+  "records": [
+    {
+      "label": "g++-gnu++20-intrinsics",
+      "started": "2026-10-20T05:29:27.884444+00:00",
+      "finished": "2026-10-20T05:29:31.698806+00:00",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-g++-gnu++20-intrinsics"
+      ]
+    },
+    {
+      "label": "g++-gnu++20-asm",
+      "started": "2026-10-20T05:29:31.698869+00:00",
+      "finished": "2026-10-20T05:29:35.720718+00:00",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "-DBLUEBERRY_EXTRA_FAST_INLINE_ASM",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-g++-gnu++20-asm"
+      ]
+    },
+    {
+      "label": "g++-gnu++20-asm-intel",
+      "started": "2026-10-20T05:29:35.720772+00:00",
+      "finished": "2026-10-20T05:29:38.936705+00:00",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "-DBLUEBERRY_EXTRA_FAST_INLINE_ASM",
+        "-masm=intel",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-g++-gnu++20-asm-intel"
+      ]
+    },
+    {
+      "label": "g++-gnu++23-intrinsics",
+      "started": "2026-10-20T05:29:38.936762+00:00",
+      "finished": "2026-10-20T05:29:42.577985+00:00",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-g++-gnu++23-intrinsics"
+      ]
+    },
+    {
+      "label": "g++-gnu++23-asm",
+      "started": "2026-10-20T05:29:42.578040+00:00",
+      "finished": "2026-10-20T05:29:46.765440+00:00",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "-DBLUEBERRY_EXTRA_FAST_INLINE_ASM",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-g++-gnu++23-asm"
+      ]
+    },
+    {
+      "label": "g++-gnu++23-asm-intel",
+      "started": "2026-10-20T05:29:46.765494+00:00",
+      "finished": "2026-10-20T05:29:51.396976+00:00",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "-DBLUEBERRY_EXTRA_FAST_INLINE_ASM",
+        "-masm=intel",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-g++-gnu++23-asm-intel"
+      ]
+    },
+    {
+      "label": "g++-sanitizer",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-I.",
+        "-I.deps/ac-library",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/g++-sanitizer"
+      ]
+    },
+    {
+      "label": "clang++-gnu++20-intrinsics",
+      "started": "2026-10-20T05:30:01.459211+00:00",
+      "finished": "2026-10-20T05:30:05.073516+00:00",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-clang++-gnu++20-intrinsics"
+      ]
+    },
+    {
+      "label": "clang++-gnu++20-asm",
+      "started": "2026-10-20T05:30:05.073573+00:00",
+      "finished": "2026-10-20T05:30:05.853823+00:00",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "-DBLUEBERRY_EXTRA_FAST_INLINE_ASM",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-clang++-gnu++20-asm"
+      ]
+    },
+    {
+      "label": "clang++-gnu++20-asm-intel",
+      "started": "2026-10-20T05:30:05.853908+00:00",
+      "finished": "2026-10-20T05:30:09.182939+00:00",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "-DBLUEBERRY_EXTRA_FAST_INLINE_ASM",
+        "-masm=intel",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-clang++-gnu++20-asm-intel"
+      ]
+    },
+    {
+      "label": "clang++-gnu++23-intrinsics",
+      "started": "2026-10-20T05:30:09.182991+00:00",
+      "finished": "2026-10-20T05:30:11.908111+00:00",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-clang++-gnu++23-intrinsics"
+      ]
+    },
+    {
+      "label": "clang++-gnu++23-asm",
+      "started": "2026-10-20T05:30:11.908165+00:00",
+      "finished": "2026-10-20T05:30:14.945522+00:00",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "-DBLUEBERRY_EXTRA_FAST_INLINE_ASM",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-clang++-gnu++23-asm"
+      ]
+    },
+    {
+      "label": "clang++-gnu++23-asm-intel",
+      "started": "2026-10-20T05:30:14.945578+00:00",
+      "finished": "2026-10-20T05:30:19.122799+00:00",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "-DBLUEBERRY_EXTRA_FAST_INLINE_ASM",
+        "-masm=intel",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/random-clang++-gnu++23-asm-intel"
+      ]
+    },
+    {
+      "label": "clang++-sanitizer",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O1",
+        "-g",
+        "-fsanitize=address,undefined",
+        "-fno-omit-frame-pointer",
+        "-I.",
+        "-I.deps/ac-library",
+        "tests/random/extra-fast-fps.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/clang++-sanitizer"
+      ]
+    },
+    {
+      "label": "g++-gnu++20-standalone",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/fps/include.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/include"
+      ]
+    },
+    {
+      "label": "g++-gnu++23-standalone",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/fps/include.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/include"
+      ]
+    },
+    {
+      "label": "clang++-gnu++20-standalone",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/fps/include.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/include"
+      ]
+    },
+    {
+      "label": "clang++-gnu++23-standalone",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/fps/include.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/include"
+      ]
+    },
+    {
+      "label": "g++-gnu++23-fps-convolution",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "verify/extra-fast/fps-convolution.test.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/verify"
+      ]
+    },
+    {
+      "label": "g++-gnu++23-fps-inverse",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "verify/extra-fast/fps-inverse.test.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/verify"
+      ]
+    },
+    {
+      "label": "g++-gnu++23-fps-log",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "verify/extra-fast/fps-log.test.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/verify"
+      ]
+    },
+    {
+      "label": "g++-gnu++23-fps-exp",
+      "returncode": 0,
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "verify/extra-fast/fps-exp.test.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/verify"
+      ]
+    },
+    {
+      "label": "clang++-gnu++20-fps-convolution",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "verify/extra-fast/fps-convolution.test.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/verify"
+      ]
+    },
+    {
+      "label": "clang++-gnu++20-fps-inverse",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "verify/extra-fast/fps-inverse.test.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/verify"
+      ]
+    },
+    {
+      "label": "clang++-gnu++20-fps-log",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "verify/extra-fast/fps-log.test.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/verify"
+      ]
+    },
+    {
+      "label": "clang++-gnu++20-fps-exp",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "-I.deps/ac-library",
+        "verify/extra-fast/fps-exp.test.cpp",
+        "-o",
+        "/tmp/blueberry-fps-validation-kezxf8bn/verify"
+      ]
+    }
+  ],
+  "passed": true
+}

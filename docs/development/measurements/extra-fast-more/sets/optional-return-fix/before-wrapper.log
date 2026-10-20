@@ -1,0 +1,7 @@
+g++ before {'compiler': 'g++', 'command': ['g++', '-std=gnu++20', '-O2', '-Wall', '-Wextra', '-Wshadow', '-Werror', '-I.', '/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/optional-return.cpp', '-o', '/tmp/blueberry-optional-g++-before'], 'compile_code': 0, 'stdout': '', 'stderr': '', 'run_code': 1, 'run_stdout': '0 exception=43\n1 exception=43\n2 exception=43\n3 exception=43\nfailures=4\n', 'run_stderr': ''}
+clang++ before {'compiler': 'clang++', 'command': ['clang++', '-std=gnu++20', '-O2', '-Wall', '-Wextra', '-Wshadow', '-Werror', '-I.', '/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/optional-return.cpp', '-o', '/tmp/blueberry-optional-clang++-before'], 'compile_code': 0, 'stdout': '', 'stderr': '', 'run_code': 0, 'run_stdout': '0 value=42\n1 value=42\n2 value=42\n3 value=42\nfailures=0\n', 'run_stderr': ''}
+Traceback (most recent call last):
+  File "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.build/optional_fix.py", line 26, in <module>
+    assert all(r['compile_code']==0 and r.get('run_code')==1 for r in rows)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

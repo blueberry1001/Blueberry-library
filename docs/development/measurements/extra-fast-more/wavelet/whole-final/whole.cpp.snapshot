@@ -1,0 +1,18 @@
+#include <array>
+#include <vector>
+#include "blueberry/data-structure/wavelet-matrix.hpp"
+#include "blueberry/extra-fast/wavelet-matrix.hpp"
+#include "blueberry/utility/fast-io.hpp"
+int main(){
+ blueberry::FastInput in;blueberry::FastOutput out;int n,q;in.read(n,q);std::vector<int>a(n);for(auto&x:a)in.read(x);
+#if WAVELET_MODE == 0
+ blueberry::WaveletMatrix<int> wm(a);
+#else
+ blueberry::extra_fast::WaveletMatrix<int> wm(a);
+#endif
+#if WAVELET_MODE == 2
+ std::vector<std::array<int,3>> queries(q);for(auto&x:queries)in.read(x[0],x[1],x[2]);for(auto x:wm.kth_smallest_batch(queries))out.writeln(x);
+#else
+ while(q--){int l,r,k;in.read(l,r,k);out.writeln(wm.kth_smallest(l,r,k));}
+#endif
+}

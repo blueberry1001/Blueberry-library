@@ -1,0 +1,94 @@
+"""Run committed-source integration checks without touching .verification."""
+from pathlib import Path
+import argparse
+import datetime
+import hashlib
+import json
+import os
+import platform
+import shlex
+import subprocess
+import time
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--expected-revision", default="d8ee7990fb84e4319a65c3999f58f4a73a1699d0")
+parser.add_argument("--output", type=Path, default=Path(".build/integration-validation"))
+args = parser.parse_args()
+ROOT = Path.cwd().resolve()
+OUT = ROOT / args.output
+OUT.mkdir(parents=True, exist_ok=True)
+
+def get(command):
+    return subprocess.check_output(command, text=True).strip()
+
+def source_paths():
+    paths = set()
+    for directory, suffixes in [("blueberry", {".hpp"}), ("tests", {".cpp", ".py"}),
+                                ("verify", {".cpp"}), ("scripts", {".py"})]:
+        paths.update(p for p in (ROOT / directory).rglob("*") if p.is_file() and p.suffix in suffixes)
+    paths.update(p for p in (ROOT / "docs").rglob("*.md") if "development" not in p.relative_to(ROOT / "docs").parts)
+    paths.update(ROOT / name for name in ["Makefile", "AGENTS.md", "IMPLEMENTATION_POLICY.md",
+        "requirements-dev.txt", ".verify-helper/config.toml", ".verify-helper/docs/static/_data/libraries.yml"])
+    return sorted(paths)
+
+SOURCES = source_paths()
+def fingerprint():
+    return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() if p.exists() else None
+            for p in SOURCES}
+
+records = []
+manifest = {
+    "schema": 1,
+    "started_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    "revision": get(["git", "rev-parse", "HEAD"]),
+    "expected_revision": args.expected_revision,
+    "platform": platform.platform(),
+    "compiler_versions": {compiler: get([compiler, "--version"]) for compiler in ["g++", "clang++"]},
+    "source_sha256": fingerprint(),
+    "commands": records,
+    "timing_scope": "Elapsed times describe validation wall time only; they are not performance-comparison measurements.",
+    "verification_scope": "This runner does not execute or modify .verification; official judging and documentation are handled independently.",
+}
+if manifest["revision"] != manifest["expected_revision"]:
+    raise SystemExit("Unexpected source revision")
+
+def save():
+    manifest["final_source_sha256"] = fingerprint()
+    manifest["source_unchanged"] = manifest["source_sha256"] == manifest["final_source_sha256"]
+    manifest["successful"] = bool(records) and all(row["exit_code"] == 0 for row in records) and manifest["source_unchanged"]
+    manifest["updated_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+    (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+
+def run(name, command, flags, timeout=3600):
+    print("START", name, flush=True)
+    log = OUT / (name + ".log")
+    started = time.monotonic()
+    with log.open("wb") as stream:
+        stream.write(("$ " + shlex.join(command) + "\n").encode())
+        stream.flush()
+        try:
+            result = subprocess.run(command, stdout=stream, stderr=subprocess.STDOUT, timeout=timeout,
+                                    env=dict(os.environ, PYTHONUNBUFFERED="1"))
+            code = result.returncode
+        except subprocess.TimeoutExpired:
+            stream.write(f"\nINTEGRATION VALIDATION TIMEOUT after {timeout}s\n".encode())
+            code = 124
+    records.append({"name": name, "command": command, "flags": flags, "exit_code": code,
+        "wall_seconds": time.monotonic() - started, "log": log.name,
+        "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest()})
+    save()
+    print("PASS" if code == 0 else "FAIL", name, f"{records[-1]['wall_seconds']:.2f}s", flush=True)
+
+common = ["COMPILE_JOBS=8", "CPPFLAGS=-isystem .deps/ac-library"]
+run("make-check-gcc20", ["make", "check", *common, "CXX=g++", "CXX_STANDARD=gnu++20",
+    "CXXFLAGS=", "RANDOM_RUNS=20", "RANDOM_SEED=1", "RANDOM_TIMEOUT=5"],
+    {"compiler": "g++", "standard": "gnu++20", "CPPFLAGS": "-isystem .deps/ac-library",
+     "CXXFLAGS": "", "random_runs": 20, "random_seed": 1, "random_timeout_seconds": 5})
+for compiler in ["g++", "clang++"]:
+    for standard in ["gnu++20", "gnu++23"]:
+        name = f"release-include-{compiler.replace('+', 'p')}-{standard.replace('+', 'p')}"
+        run(name, ["make", "include-test", *common, f"CXX={compiler}", f"CXX_STANDARD={standard}", "CXXFLAGS=-DNDEBUG"],
+            {"compiler": compiler, "standard": standard, "CPPFLAGS": "-isystem .deps/ac-library", "CXXFLAGS": "-DNDEBUG"})
+manifest["completed_at"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+save()
+raise SystemExit(0 if manifest["successful"] else 1)

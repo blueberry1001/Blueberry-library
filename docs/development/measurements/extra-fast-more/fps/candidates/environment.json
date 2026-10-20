@@ -1,0 +1,18 @@
+{
+  "started": "2026-10-20T05:12:05.197473+00:00",
+  "finished": "2026-10-20T05:12:56.561115+00:00",
+  "runs": 5,
+  "seed": 20261020,
+  "affinity": [
+    0
+  ],
+  "flags": "gnu++20 -O2 -DNDEBUG -Wall -Wextra -Werror",
+  "candidate_source_sha256": {
+    "baseline": "1e357b82daea115122fa978aa082d53c2dad954c750c6cfcdb266bac772d018e",
+    "small": "8d8ad9026140931415d5305455725dc0694965f5e4351c53d66803422d7a942b",
+    "roots": "6e43ba61a87aa66079d1722aa502b62100631262c26d1cf53c3f4fc468167461",
+    "both": "bfe861b1e00d02af8ddcda08599da029da4e1defc8f08b34cd62d7c58aa25821"
+  },
+  "description": "Same canonical input/output API; roots and all allocations included in operation_ms. Rotate order of four candidates. Kernel h<8 uses lane permutation in small, inverse roots use w^-j = -w^(h-j) in roots. Both applies both candidates. All files in /tmp. No public changes until measured.",
+  "memory_metric_status": "Do not use max_rss_kib in this phase: direct fork from Python retained its large parent footprint. Authoritative memory is memory-final, which uses a small exec helper before forking the byte-identical executable."
+}

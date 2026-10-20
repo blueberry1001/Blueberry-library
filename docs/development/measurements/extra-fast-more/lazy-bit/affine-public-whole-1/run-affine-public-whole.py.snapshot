@@ -1,0 +1,45 @@
+import hashlib,json,random,statistics,subprocess,time
+from pathlib import Path
+root=Path.cwd();base=root/'.benchmark/extra-fast-more/lazy-bit';out=root/'docs/development/measurements/extra-fast-more/lazy-bit/affine-public-whole-1';out.mkdir(parents=True,exist_ok=True)
+rows=[];fail=[];meta={'utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'seed':20261020,'flags':['-std=gnu++23','-O2','-DNDEBUG','-march=native'],'affinity':0,'runs':5,'cases':[],'note':'Third-party original unchanged. Fixed-max/offline/prefetch/specialized I/O differ from general API. Regular Linux files, not pipes. Dedicated team CPU window; OS load uncontrolled.'}
+for cc in ['g++','clang++']:
+ cmd=[cc,*meta['flags'],'-I.','verify/extra-fast/affine-range-sum.test.cpp','-o',str(base/('affine-public-'+cc))];p=subprocess.run(cmd,text=True,capture_output=True);(out/(cc+'-compile.log')).write_text('COMMAND '+repr(cmd)+'\n'+p.stdout+p.stderr)
+ if p.returncode:fail.append({'stage':'compile','compiler':cc,'returncode':p.returncode})
+(out/'affine-range-sum.test.cpp.snapshot').write_bytes((root/'verify/extra-fast/affine-range-sum.test.cpp').read_bytes())
+(out/'affine-sum-segment-tree.hpp.snapshot').write_bytes((root/'blueberry/extra-fast/affine-sum-segment-tree.hpp').read_bytes())
+(out/'run-affine-public-whole.py.snapshot').write_bytes((base/'run-affine-public-whole.py').read_bytes())
+meta['reference_sha256']=hashlib.sha256((base/'research-affine/submission-402323.cpp').read_bytes()).hexdigest()
+for cc in ['g++','clang++']:
+ cmd=[cc,*meta['flags'],str(base/'research-affine/submission-402323.cpp'),'-o',str(base/('affine-fastest-'+cc))];p=subprocess.run(cmd,text=True,capture_output=True)
+ lines=[x for x in p.stderr.splitlines()if ' | 'not in x and not x.strip().startswith('|')]
+ (out/(cc+'-reference-compile.log')).write_text('COMMAND '+repr(cmd)+'\nRETURN '+str(p.returncode)+'\n'+'\n'.join(lines)+'\n')
+ if p.returncode:fail.append({'stage':'reference-compile','compiler':cc,'returncode':p.returncode})
+for name,n,q in [('small',37,200),('random',500000,100000),('short',65536,100000)]:
+ rng=random.Random(20261020);a=[rng.randrange(998244353)for _ in range(n)];text=[f'{n} {q}',' '.join(map(str,a))];expected=[]
+ for k in range(q):
+  l=rng.randrange(n);r=min(n,l+rng.randrange(1,33))if name=='short' else rng.randrange(l+1,n+1)
+  if rng.randrange(2):
+   x=rng.randrange(998244353);y=rng.randrange(998244353);text.append(f'0 {l} {r} {x} {y}')
+   if name=='small':
+    for i in range(l,r):a[i]=(a[i]*x+y)%998244353
+  else:
+   text.append(f'1 {l} {r}')
+   if name=='small':expected.append(str(sum(a[l:r])%998244353))
+ data=('\n'.join(text)+'\n').encode();source=Path('/tmp')/('blueberry-affine-'+name+'-20261020.in');source.write_bytes(data);meta['cases'].append({'name':name,'n':n,'q':q,'input_sha256':hashlib.sha256(data).hexdigest(),'input_bytes':len(data)})
+ known=('\n'.join(expected)+'\n').encode()if name=='small'else None
+ for cc in ['g++','clang++']:
+  variants=[('public',base/('affine-public-'+cc)),('fastest402323',base/('affine-fastest-'+cc))]
+  for run in range(5):
+   for variant,binary in variants[run%2:]+variants[:run%2]:
+    dest=Path('/tmp')/('blueberry-affine-'+name+'-'+cc+'-'+variant+'.out');rss=base/'rss.txt';cmd=['taskset','-c','0','/usr/bin/time','-f','%M','-o',str(rss),str(binary)]
+    with source.open('rb')as src,dest.open('wb')as dst:
+     start=time.perf_counter_ns();p=subprocess.run(cmd,stdin=src,stdout=dst,stderr=subprocess.PIPE,timeout=120);wall=(time.perf_counter_ns()-start)/1e6
+    output=dest.read_bytes()
+    if known is None:known=output
+    if p.returncode or output!=known:fail.append({'stage':'run','case':name,'compiler':cc,'variant':variant,'run':run,'returncode':p.returncode,'correct':output==known,'stderr':p.stderr.decode(errors='replace')})
+    rows.append({'case':name,'compiler':cc,'variant':variant,'run':run,'wall_ms':wall,'rss_kib':int(rss.read_text().strip()),'correct':output==known,'returncode':p.returncode,'output_sha256':hashlib.sha256(output).hexdigest()})
+meta['end_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime());(out/'environment.json').write_text(json.dumps(meta,indent=2));(out/'samples.json').write_text(json.dumps(rows,indent=2));(out/'failures.json').write_text(json.dumps(fail,indent=2));summary=[]
+for key in sorted({(r['case'],r['compiler'],r['variant'])for r in rows}):
+ group=[r for r in rows if(r['case'],r['compiler'],r['variant'])==key and r['correct'] and r['returncode']==0];summary.append(dict(zip(['case','compiler','variant'],key))|{'successful_samples':len(group),'wall_ms_median':statistics.median(r['wall_ms']for r in group)if group else None,'rss_kib_max':max((r['rss_kib']for r in group),default=None)})
+(out/'summary.json').write_text(json.dumps(summary,indent=2));print('whole samples',len(rows),'failures',len(fail),flush=True)
+

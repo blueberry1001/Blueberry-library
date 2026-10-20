@@ -1,0 +1,10 @@
+from pathlib import Path
+for name in ['ordered-map','hash-map']:
+    p=Path('docs/extra-fast')/(name+'.md')
+    body=p.read_text(encoding='utf8')
+    start=body.index('## 概要・前提 {#概要前提}')
+    end=body.index('</details>',start)
+    section=body[start:end]
+    lines=section.splitlines()
+    updated='\n'.join(line if not line or line.startswith(('## ','- ')) else '- '+line for line in lines)+'\n'
+    p.write_text(body[:start]+updated+body[end:],encoding='utf8')

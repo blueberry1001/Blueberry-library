@@ -1,0 +1,28 @@
+import hashlib,json,statistics,subprocess,time
+from pathlib import Path
+root=Path.cwd();base=root/'.benchmark/extra-fast-more/lazy-bit';out=root/'docs/development/measurements/extra-fast-more/lazy-bit/wide-reference-core-1';out.mkdir(parents=True,exist_ok=True);rows=[];fail=[]
+meta={'utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'standard':'gnu++23','flags':['-O2','-DNDEBUG','-march=native'],'runs':5,'affinity':0,'case_generator':'run-wide-pilot.py snapshot','coordination':'Dedicated team CPU window; OS/background load uncontrolled.','reference':'402323 source unchanged; original whole I/O+offline+lookahead differs. reference-core uses same FastInput/FastOutput/query-buffer driver without lookahead.'}
+for name in ['affine-reference-phase.cpp','affine-phase.cpp','wide-affine.hpp','wide-affine16.hpp']:(out/(name+'.snapshot')).write_bytes((base/name).read_bytes())
+reference=json.loads((root/'docs/development/measurements/extra-fast-more/lazy-bit/wide-pilot-1/samples.jsonl').read_text().splitlines()[0])
+for cc in ['g++','clang++']:
+ binary=base/('affine-reference-'+cc);cmd=[cc,'-std=gnu++23',*meta['flags'],'-I.','-I.deps/ac-library',str(base/'affine-reference-phase.cpp'),'-o',str(binary)];p=subprocess.run(cmd,text=True,capture_output=True,timeout=120);(base/(cc+'-reference-compile-raw.log')).write_text(p.stderr);lines=[x for x in p.stderr.splitlines()if' | 'not in x and not x.strip().startswith('|')];(out/(cc+'-compile.log')).write_text('COMMAND '+repr(cmd)+'\nRETURN '+str(p.returncode)+'\n'+'\n'.join(lines)+'\n')
+ if p.returncode:fail.append({'stage':'compile','command':cmd,'returncode':p.returncode});continue
+ for name,n in [('random',500000),('random',65536),('short',65536),('update90',65536)]:
+  src=Path('/tmp')/f'blueberry-wide-affine-{name}-{n}-20261020.in';expected=next(json.loads(line)['output_sha256']for line in(root/'docs/development/measurements/extra-fast-more/lazy-bit/wide-pilot-1/samples.jsonl').read_text().splitlines()if json.loads(line)['compiler']=='g++'and json.loads(line)['profile']=='assert'and json.loads(line)['shape']==name and json.loads(line)['n']==n and json.loads(line)['variant']=='acl')
+  variants=['acl','wide','wide16','reference-core','reference-whole']
+  for run in range(5):
+   for variant in variants[run:]+variants[:run]:
+    dst=Path('/tmp')/'blueberry-affine-reference.out';rss=base/'rss.txt';program=[str(base/('affine-fastest-'+cc))]if variant=='reference-whole'else[str(binary),variant];cmd=['taskset','-c','0','/usr/bin/time','-f','%M','-o',str(rss),*program]
+    with src.open('rb')as inp,dst.open('wb')as output:
+     start=time.perf_counter_ns();p=subprocess.run(cmd,stdin=inp,stdout=output,stderr=subprocess.PIPE,timeout=60);wall=(time.perf_counter_ns()-start)/1e6
+    actual=hashlib.sha256(dst.read_bytes()).hexdigest()
+    if p.returncode or actual!=expected:fail.append({'stage':'run','command':cmd,'shape':name,'n':n,'run':run,'returncode':p.returncode,'expected':expected,'actual':actual,'stderr':p.stderr.decode(errors='replace')});continue
+    fields={}if variant=='reference-whole'else json.loads(p.stderr)
+    rows.append({'compiler':cc,'shape':name,'n':n,'variant':variant,'run':run,'wall_ms':wall,'rss_kib':int(rss.read_text().strip()),'output_sha256':actual}|fields);(out/'samples.jsonl').open('a').write(json.dumps(rows[-1])+'\n')
+meta['end_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime());(out/'environment.json').write_text(json.dumps(meta,indent=2));(out/'failures.json').write_text(json.dumps(fail,indent=2));summary=[]
+for key in sorted({(r['compiler'],r['shape'],r['n'],r['variant'])for r in rows}):
+ group=[r for r in rows if(r['compiler'],r['shape'],r['n'],r['variant'])==key];entry=dict(zip(['compiler','shape','n','variant'],key))|{'successful_samples':len(group)}
+ for k in ['parse_ms','build_ms','ops_ms','format_ms','total_ms','wall_ms','rss_kib']:
+  vals=[r[k]for r in group if k in r];entry[k+'_median']=statistics.median(vals)if vals else None
+ summary.append(entry)
+(out/'summary.json').write_text(json.dumps(summary,indent=2));print('reference samples',len(rows),'failures',len(fail),flush=True)

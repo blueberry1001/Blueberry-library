@@ -1,0 +1,53 @@
+#!/usr/bin/env python3
+import datetime,hashlib,json,random,statistics,subprocess,time
+from pathlib import Path
+ROOT=Path.cwd();WORK=ROOT/'.benchmark/extra-fast-more/fps';OUT=ROOT/'docs/development/measurements/extra-fast-more/fps/candidates'
+FILES={'baseline':'baseline-before-small.hpp','small':'small-candidate.hpp','roots':'roots-candidate.hpp','both':'small-roots-candidate.hpp'}
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+ OUT.mkdir(parents=True,exist_ok=True);started=now();failures=[];binaries=[]
+ for compiler in ['g++','clang++']:
+  for name,filename in FILES.items():
+   binary=WORK/f'candidate-{compiler}-{name}';header=WORK/filename
+   cmd=[compiler,'-std=gnu++20','-O2','-DNDEBUG','-Wall','-Wextra','-Werror','-DBACKEND=1',f'-DBLUEBERRY_FPS_HEADER="{header}"','-I.','-I.deps/ac-library',str(WORK/'phase.cpp'),'-o',str(binary)]
+   result=subprocess.run(cmd,capture_output=True,text=True);(OUT/f'{compiler}-{name}.compile.log').write_text(json.dumps(cmd)+'\n'+result.stderr)
+   if result.returncode:failures.append({'stage':'compile','name':name,'compiler':compiler,'returncode':result.returncode})
+   else:binaries.append((compiler,name,binary))
+ for name,filename in FILES.items():(OUT/(filename+'.snapshot')).write_bytes((WORK/filename).read_bytes())
+ samples=[];rng=random.Random(20261020)
+ for n in [1025,131072,500000]:
+  for op in ['convolution','inv','log','exp']:
+   a=[rng.randrange(998244353) for _ in range(n)];b=[rng.randrange(998244353) for _ in range(n-1)] if op=='convolution' else []
+   if op=='inv':a[0]=3
+   if op=='log':a[0]=1
+   if op=='exp':a[0]=0
+   data=(f'{n} {len(b)}' if b else str(n))+'\n'+' '.join(map(str,a))+'\n'+(' '.join(map(str,b))+'\n' if b else '')
+   path=Path('/tmp')/f'blueberry-fps-candidate-{n}-{op}.txt';path.write_text(data);inputsha=sha(path);expected=None
+   for ri in range(5):
+    for compiler in ['g++','clang++']:
+     group=[x for x in binaries if x[0]==compiler];rotation=ri%len(group);group=group[rotation:]+group[:rotation]
+     for compiler,name,binary in group:
+      output=Path('/tmp')/'blueberry-fps-candidate-output.txt'
+      with path.open('rb') as inp,output.open('wb') as dest:
+       result=subprocess.run(['taskset','-c','0',str(binary),op],stdin=inp,stdout=dest,stderr=subprocess.PIPE)
+      digest=hashlib.sha256(output.read_bytes()).hexdigest()
+      if expected is None and result.returncode==0:expected=digest
+      row={'compiler':compiler,'name':name,'n':n,'op':op,'run':ri,'input_sha256':inputsha,'output_sha256':digest,'correct':result.returncode==0 and digest==expected,'returncode':result.returncode}
+      try:row.update(json.loads(result.stderr))
+      except Exception:row['stderr']=result.stderr.decode(errors='replace')
+      samples.append(row)
+      with (OUT/'samples.jsonl').open('a') as log:log.write(json.dumps(row)+'\n')
+      if not row['correct']:failures.append(row)
+ summary=[]
+ for compiler,name,binary in binaries:
+  for n in [1025,131072,500000]:
+   for op in ['convolution','inv','log','exp']:
+    subset=[s for s in samples if s['compiler']==compiler and s['name']==name and s['n']==n and s['op']==op and s['correct']]
+    row={'compiler':compiler,'name':name,'n':n,'op':op,'correct_runs':len(subset)}
+    for field in ['parse_ms','operation_ms','format_ms','total_ms','max_rss_kib']:
+     values=[s[field] for s in subset if field in s]
+     if values:row[field]={'median':statistics.median(values),'min':min(values)}
+    summary.append(row)
+ (OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');(OUT/'failures.json').write_text(json.dumps(failures,indent=2)+'\n');(OUT/'environment.json').write_text(json.dumps({'started':started,'finished':now(),'runs':5,'seed':20261020,'affinity':[0],'flags':'gnu++20 -O2 -DNDEBUG -Wall -Wextra -Werror','candidate_source_sha256':{name:sha(WORK/filename) for name,filename in FILES.items()},'description':'Same canonical input/output API; roots and all allocations included in operation_ms. Rotate order of four candidates. Kernel h<8 uses lane permutation in small, inverse roots use w^-j = -w^(h-j) in roots. Both applies both candidates. All files in /tmp. No public changes until measured.'},indent=2)+'\n');(OUT/'phase.cpp.snapshot').write_bytes((WORK/'phase.cpp').read_bytes());(OUT/'runner.py.snapshot').write_bytes(Path(__file__).read_bytes());print(json.dumps({'samples':len(samples),'failures':len(failures)}))
+if __name__=='__main__':main()

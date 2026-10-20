@@ -1,0 +1,61 @@
+import argparse, hashlib, json, pathlib, subprocess, time
+
+HERE = pathlib.Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+parser = argparse.ArgumentParser()
+parser.add_argument('--out', default='final')
+parser.add_argument('--expected-header-sha256', required=True)
+args = parser.parse_args()
+HEADER = ROOT / 'blueberry/extra-fast/ordered-map.hpp'
+TEST = ROOT / 'tests/random/extra-fast-ordered-iterator.cpp'
+assert hashlib.sha256(HEADER.read_bytes()).hexdigest() == args.expected_header_sha256
+OUT = HERE / args.out
+OUT.mkdir(parents=True, exist_ok=False)
+sources = [(HEADER, 'header.hpp.snapshot'), (TEST, 'iterator.cpp.snapshot'),
+           (pathlib.Path(__file__).resolve(), 'runner.py.snapshot')]
+for source, name in sources:
+    (OUT / name).write_bytes(source.read_bytes())
+(OUT / 'metadata.json').write_text(json.dumps({
+    'seeds': [20261020, 20261021],
+    'kind': 'correctness matrix; elapsed times are not performance measurements',
+    'sources': {str(s.relative_to(ROOT)): hashlib.sha256(s.read_bytes()).hexdigest()
+                for s, _ in sources},
+}, indent=2))
+records = []
+
+def run(name, command):
+    print(name, flush=True)
+    start = time.monotonic()
+    result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
+    log = OUT / (name + '.log')
+    log.write_text(result.stdout + result.stderr)
+    records.append({'name': name, 'command': command, 'returncode': result.returncode,
+                    'seconds': time.monotonic() - start,
+                    'log_sha256': hashlib.sha256(log.read_bytes()).hexdigest()})
+    (OUT / 'results.json').write_text(json.dumps(records, indent=2))
+    result.check_returncode()
+
+for compiler in ['g++', 'clang++']:
+    run(compiler + '-version', [compiler, '--version'])
+    for standard in ['gnu++20', 'gnu++23']:
+        for backend, flags in [
+            ('intrinsics', []),
+            ('asm-att', ['-DBLUEBERRY_EXTRA_FAST_USE_ASM']),
+            ('asm-intel', ['-DBLUEBERRY_EXTRA_FAST_USE_ASM', '-masm=intel']),
+            ('forced-scalar', ['-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR']),
+        ]:
+            name = compiler + '-' + standard + '-' + backend
+            binary = '/tmp/blueberry-iterator-final-' + name
+            run(name + '-compile', [compiler, '-std=' + standard, '-O2', '-DNDEBUG',
+                '-Wall', '-Wextra', '-Wshadow', '-Werror', *flags, '-I.', str(TEST), '-o', binary])
+            for seed in ([20261020, 20261021] if backend == 'intrinsics' else [20261020]):
+                run(name + '-seed-' + str(seed), [binary, str(seed)])
+    name = compiler + '-sanitizer'
+    binary = '/tmp/blueberry-iterator-final-' + name
+    run(name + '-compile', [compiler, '-std=gnu++20', '-O1', '-g',
+        '-fsanitize=address,undefined', '-fno-sanitize-recover=all', '-fno-omit-frame-pointer',
+        '-I.', str(TEST), '-o', binary])
+    run(name + '-run', [binary, '20261020'])
+for source, name in sources:
+    assert source.read_bytes() == (OUT / name).read_bytes(), 'source changed during matrix'
+print(json.dumps({'commands': len(records), 'failures': 0}), flush=True)

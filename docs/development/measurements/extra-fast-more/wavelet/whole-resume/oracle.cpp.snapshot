@@ -1,0 +1,8 @@
+#include <algorithm>
+#include <vector>
+#include "blueberry/utility/fast-io.hpp"
+struct Node{int left=0,right=0,count=0;};
+std::vector<Node> tree(1);
+int insert(int prev,int l,int r,int p){int v=tree.size();tree.push_back(tree[prev]);++tree[v].count;if(l+1<r){int mid=l+(r-l)/2;if(p<mid){int x=insert(tree[prev].left,l,mid,p);tree[v].left=x;}else{int x=insert(tree[prev].right,mid,r,p);tree[v].right=x;}}return v;}
+int kth(int a,int b,int l,int r,int k){while(l+1<r){int mid=l+(r-l)/2;int zeros=tree[tree[b].left].count-tree[tree[a].left].count;if(k<zeros){a=tree[a].left;b=tree[b].left;r=mid;}else{k-=zeros;a=tree[a].right;b=tree[b].right;l=mid;}}return l;}
+int main(){blueberry::FastInput in;blueberry::FastOutput out;int n,q;in.read(n,q);std::vector<int>a(n);for(auto&x:a)in.read(x);auto values=a;std::sort(values.begin(),values.end());values.erase(std::unique(values.begin(),values.end()),values.end());std::vector<int> roots(n+1);for(int i=0;i<n;++i)roots[i+1]=insert(roots[i],0,values.size(),std::lower_bound(values.begin(),values.end(),a[i])-values.begin());while(q--){int l,r,k;in.read(l,r,k);out.writeln(values[kth(roots[l],roots[r],0,values.size(),k)]);}}

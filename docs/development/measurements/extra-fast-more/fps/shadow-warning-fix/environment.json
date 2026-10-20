@@ -1,0 +1,103 @@
+{
+  "started": "2026-10-20T10:52:04.909985+00:00",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python_oracle": "Independent quadratic convolution, inverse recurrence, derivative/inverse log, derivative recurrence exp; seed 20261020, N=33 and 1025. All returned coefficients checked.",
+  "temporary_tree": "/tmp/blueberry-fps-shadow-5e6xwtph",
+  "same_path": "Before and after bytes overwrite the exact same temporary blueberry/extra-fast/formal-power-series.hpp; phase.cpp and -o path also identical. This includes identical assert __FILE__ paths. Public tree remains unchanged.",
+  "profiles": [
+    [
+      "release",
+      [
+        "-O2",
+        "-DNDEBUG"
+      ]
+    ],
+    [
+      "assert",
+      [
+        "-O2"
+      ]
+    ],
+    [
+      "native",
+      [
+        "-O3",
+        "-march=native",
+        "-DNDEBUG"
+      ]
+    ]
+  ],
+  "old_header_sha256": "ecf2644b7b34a2463ffd006e8867f1e107df0e6dd2098543747f57f86cbf825a",
+  "new_header_sha256": "917225b88fe2336549d4a936ec69749a7b6daed73edafb1a18ff2d228a9bf821",
+  "phase_fast_io_sha256": "60366b981d669bacb6c2dbf9f9f00372f75fcf5eb2810286c81c7e9aaaa70001",
+  "current_fast_io_sha256": "8f08950cfc12f2babdd0eaa6ed0b38ce90e999ce7e24ee5105cdbb4cfc7ad406",
+  "driver_sha256": "b74adb6d390bfb9fa61634447ff17fc8944ca4849c95f2d1f6a4d86f842f6a99",
+  "public_sources": {
+    "blueberry/extra-fast/formal-power-series.hpp": "917225b88fe2336549d4a936ec69749a7b6daed73edafb1a18ff2d228a9bf821",
+    "blueberry/utility/fast-io.hpp": "8f08950cfc12f2babdd0eaa6ed0b38ce90e999ce7e24ee5105cdbb4cfc7ad406",
+    "docs/development/measurements/extra-fast-more/fps/final/phase.cpp.snapshot": "b74adb6d390bfb9fa61634447ff17fc8944ca4849c95f2d1f6a4d86f842f6a99"
+  },
+  "compiler_versions": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+  },
+  "fixtures": [
+    {
+      "n": 33,
+      "op": "convolution",
+      "input_sha256": "7bb7bc2e91fa64fb68dc9a1f364a56351f41eec953ef684ece1c46c79faca6be",
+      "expected_sha256": "3b0e3fba4e25910c21ccdaac430d6d5f1c129ad50afeb0b2b03eea48fa1d7531",
+      "expected_count": 64
+    },
+    {
+      "n": 33,
+      "op": "inv",
+      "input_sha256": "9a0375a2310b35cb5426eff6a512cac9a83d89a9c655e177af31a80c488e572a",
+      "expected_sha256": "0bde60d19c46fd5ae4b85c37dc37a7a09c1eb17f89ff657550915fc1375a9048",
+      "expected_count": 33
+    },
+    {
+      "n": 33,
+      "op": "log",
+      "input_sha256": "b5cacaa83f983a15205a0bdb2ab42bb94cefa4ce40e14b54041f3744122a02c9",
+      "expected_sha256": "09c1c44bce5b72e8525daff2579fa8f1c25aba90530360d84e24686ae070336b",
+      "expected_count": 33
+    },
+    {
+      "n": 33,
+      "op": "exp",
+      "input_sha256": "fd80892bbff2fd3191b91e6ed52e20c83af233fb43ffe5701597e5eb8471f8fe",
+      "expected_sha256": "a3cbfa9c9d78a924ea54a2ed0bee700808751891a87ecb43cf0999418b08c9fe",
+      "expected_count": 33
+    },
+    {
+      "n": 1025,
+      "op": "convolution",
+      "input_sha256": "23d9d32decc8b2dc088e68ca68ec7e42fd7e6d9c77662f2c575964f7d6b1ffa1",
+      "expected_sha256": "beed738ceaf3450031f506e82e24e031d2d7d2e3c1fd27a410c9c74b652bac3b",
+      "expected_count": 2048
+    },
+    {
+      "n": 1025,
+      "op": "inv",
+      "input_sha256": "9f69d465eea5ae81d0b99a1ea93e82667c44815a56518d97cb60eaa4323ed945",
+      "expected_sha256": "e6982915439b9a706a8562d7957024809a90a24aa732a950f9f733033222c3b2",
+      "expected_count": 1025
+    },
+    {
+      "n": 1025,
+      "op": "log",
+      "input_sha256": "9878d78e5ae5df107bced8b3d19124511df41baf618e35417b19a2d67cb50908",
+      "expected_sha256": "e3af70cd06b577948a09be2baee4ae6374211903366ee6ee0c74a460254fad11",
+      "expected_count": 1025
+    },
+    {
+      "n": 1025,
+      "op": "exp",
+      "input_sha256": "88755175d7434028548733ea91c05cc0005f774ecfe6098a88dd103340c6b2c8",
+      "expected_sha256": "0252280a1b0c749c7a69a73ae2cd2ee3843d038ad18c762530ead3d740d5e6c6",
+      "expected_count": 1025
+    }
+  ],
+  "finished": "2026-10-20T10:54:57.346461+00:00"
+}

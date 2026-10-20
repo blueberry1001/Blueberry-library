@@ -1,0 +1,45 @@
+#include <array>
+#include <chrono>
+#include <cstdio>
+#include <fstream>
+#include <string>
+#include <sys/resource.h>
+#include <vector>
+#include "blueberry/data-structure/wavelet-matrix.hpp"
+#include "blueberry/extra-fast/wavelet-matrix.hpp"
+#include "blueberry/utility/fast-io.hpp"
+using Clock=std::chrono::steady_clock;
+static double ms(Clock::time_point a,Clock::time_point b){return std::chrono::duration<double,std::milli>(b-a).count();}
+struct Query {int l,r,k; long long x;};
+template<class W> int run(const char* mode,const char* operation,bool hardware,bool batch){
+  auto begin=Clock::now(); blueberry::FastInput in; int n,q; in.read(n,q);
+  std::vector<long long>a(n);for(auto&x:a)in.read(x);
+  std::vector<Query> queries(q); for(auto&x:queries)in.read(x.l,x.r,x.k,x.x);
+  auto parsed=Clock::now();
+  W wm = [&](){if constexpr(requires {W(a,hardware);})return W(a,hardware);else return W(a);}();
+  auto built=Clock::now(); std::vector<long long> answers(q);
+  if(batch){
+    if constexpr(requires {wm.kth_smallest_batch(std::vector<std::array<int,3>>{});}){
+      std::vector<std::array<int,3>> work;work.reserve(q);
+      for(auto x:queries)work.push_back({x.l,x.r,x.k});
+      answers=wm.kth_smallest_batch(work);
+    }
+  }else if(std::string(operation)=="kth"){
+    for(int i=0;i<q;++i){const auto x=queries[i];answers[i]=wm.kth_smallest(x.l,x.r,x.k);}
+  }else if(std::string(operation)=="count"){
+    for(int i=0;i<q;++i){const auto x=queries[i];answers[i]=wm.count(x.l,x.r,x.x);}
+  }else{
+    for(int i=0;i<q;++i){const auto x=queries[i];answers[i]=wm.range_freq(x.l,x.r,x.x);}
+  }
+  auto operated=Clock::now();std::uint64_t hash=0;
+  {blueberry::FastOutput out;for(auto x:answers){out.writeln(x);hash=(hash*1000000007)+std::uint64_t(x);}}
+  auto formatted=Clock::now();rusage usage{};getrusage(RUSAGE_SELF,&usage);
+  std::fprintf(stderr,"{\"mode\":\"%s\",\"operation\":\"%s\",\"parse_ms\":%.9g,\"build_ms\":%.9g,\"ops_ms\":%.9g,\"format_ms\":%.9g,\"total_ms\":%.9g,\"rss_kib\":%ld,\"hash\":\"%llu\"}\n",mode,operation,ms(begin,parsed),ms(parsed,built),ms(built,operated),ms(operated,formatted),ms(begin,formatted),usage.ru_maxrss,(unsigned long long)hash);
+  return 0;
+}
+int main(int argc,char**argv){
+  if(argc<3)return 2;
+  std::string mode=argv[1];
+  if(mode=="normal")return run<blueberry::WaveletMatrix<long long>>(argv[1],argv[2],false,false);
+  return run<blueberry::extra_fast::WaveletMatrix<long long>>(argv[1],argv[2],mode!="portable",mode=="batch");
+}

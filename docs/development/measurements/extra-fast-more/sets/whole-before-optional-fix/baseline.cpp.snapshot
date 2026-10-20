@@ -1,0 +1,57 @@
+#include <cstdint>
+#include <map>
+#include <unordered_map>
+#include "blueberry/utility/fast-io.hpp"
+#ifdef BASELINE_ORDERED_SET
+#include "blueberry/data-structure/ordered-set.hpp"
+#endif
+#ifdef BASELINE_RESERVED_HASH
+#include "blueberry/extra-fast/hash-map.hpp"
+#endif
+int main() {
+  blueberry::FastInput in;
+  blueberry::FastOutput out;
+#ifdef BASELINE_ORDERED_SET
+  int n, q;
+  if (!in.read(n, q)) return 0;
+  blueberry::OrderedSet<std::uint32_t> set;
+  for (int i = 0; i < n; ++i) { std::uint32_t x; in.read(x); set.insert(x); }
+  while (q--) {
+    int t; std::uint32_t x; in.read(t, x);
+    if (t == 0) set.insert(x);
+    else if (t == 1) set.erase(x);
+    else if (t == 3) out.writeln(set.rank(x + 1));
+    else {
+      auto answer = t == 2 ? set.kth(static_cast<int>(x) - 1)
+                  : t == 4 ? set.floor(x) : set.lower_bound(x);
+      out.writeln(answer ? static_cast<std::int64_t>(*answer) : -1);
+    }
+  }
+#else
+  int q;
+  if (!in.read(q)) return 0;
+#ifdef BASELINE_STD_MAP
+  std::map<std::uint64_t, std::uint64_t> map;
+#elif defined(BASELINE_RESERVED_HASH)
+  blueberry::extra_fast::HashMap<> map;
+  map.reserve(q);
+#else
+  std::unordered_map<std::uint64_t, std::uint64_t> map;
+#ifdef BASELINE_RESERVE
+  map.reserve(q);
+#endif
+#endif
+  while (q--) {
+    int t; std::uint64_t k; in.read(t, k);
+    if (t == 0) { std::uint64_t v; in.read(v); map.insert_or_assign(k, v); }
+    else {
+#ifdef BASELINE_RESERVED_HASH
+      out.writeln(map.get(k).value_or(0));
+#else
+      auto it = map.find(k);
+      out.writeln(it == map.end() ? 0 : it->second);
+#endif
+    }
+  }
+#endif
+}

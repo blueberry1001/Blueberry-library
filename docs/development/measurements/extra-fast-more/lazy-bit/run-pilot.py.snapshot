@@ -1,0 +1,33 @@
+import csv,hashlib,json,os,platform,statistics,subprocess,time
+from pathlib import Path
+root=Path.cwd(); target=root/'docs/development/measurements/extra-fast-more/lazy-bit/pilot';target.mkdir(parents=True,exist_ok=True)
+base=root/'.benchmark/extra-fast-more/lazy-bit'
+profiles={'assert':['-O2'],'native':['-O3','-DNDEBUG','-march=native']}
+variants=['bit-acl','bit-pad','bit-raw','bit-pad9','bit-wide','bit-wide-scalar','range-wide','range-wide-scalar','range-acl','range-pad','range-raw','affine-soa','affine-acl']
+fixtures=[('random',65536),('short',65536),('update90',65536),('random',500000)]
+meta={'utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'platform':platform.platform(),'cpu':subprocess.check_output(['lscpu'],text=True),'seed':20261020,'q':100000,'runs':3,'affinity':0,'profiles':profiles,'files':{}}
+for f in [base/'bench.cpp',base/'affine-soa.hpp',root/'blueberry/extra-fast/fenwick-tree.hpp',root/'blueberry/extra-fast/range-add-sum.hpp',root/'blueberry/extra-fast/segment-tree.hpp']:
+ data=f.read_bytes();out=target/(f.name+'.snapshot');out.write_bytes(data);meta['files'][str(f.relative_to(root))]=hashlib.sha256(data).hexdigest()
+rows=[];fail=[]
+for compiler in ['g++','clang++']:
+ meta[compiler]=subprocess.check_output([compiler,'--version'],text=True)
+ for profile,flags in profiles.items():
+  binary=base/('bench-'+compiler+'-'+profile);cmd=[compiler,'-std=gnu++20',*flags,'-I.','-I.deps/ac-library',str(base/'bench.cpp'),'-o',str(binary)]
+  p=subprocess.run(cmd,text=True,capture_output=True);(target/(compiler+'-'+profile+'-compile.log')).write_text('COMMAND '+repr(cmd)+'\n'+p.stdout+p.stderr)
+  if p.returncode:fail.append({'stage':'compile','compiler':compiler,'profile':profile,'returncode':p.returncode});continue
+  for shape,n in fixtures:
+   hashes={}
+   for run in range(3):
+    order=variants[run:]+variants[:run]
+    for variant in order:
+     cmd=['taskset','-c','0',str(binary),variant,shape,str(n),'100000'];p=subprocess.run(cmd,text=True,capture_output=True,timeout=60)
+     if p.returncode:fail.append({'stage':'run','command':cmd,'returncode':p.returncode,'stderr':p.stderr});continue
+     build,ops,checksum=p.stdout.strip().split(',');key=variant.split('-')[0];old=hashes.setdefault(key,checksum)
+     if checksum!=old:fail.append({'stage':'checksum','command':cmd,'expected':old,'actual':checksum})
+     rows.append({'compiler':compiler,'profile':profile,'shape':shape,'n':n,'q':100000,'run':run,'variant':variant,'build_ms':float(build),'ops_ms':float(ops),'checksum':checksum})
+     (target/'samples.jsonl').open('a').write(json.dumps(rows[-1])+'\n')
+summary=[]
+for key in sorted(set((r['compiler'],r['profile'],r['shape'],r['n'],r['variant'])for r in rows)):
+ group=[r for r in rows if (r['compiler'],r['profile'],r['shape'],r['n'],r['variant'])==key]
+ summary.append(dict(zip(['compiler','profile','shape','n','variant'],key))|{'samples':len(group),'build_ms_median':statistics.median(r['build_ms']for r in group),'ops_ms_median':statistics.median(r['ops_ms']for r in group),'ops_ms_min':min(r['ops_ms']for r in group)})
+(target/'environment.json').write_text(json.dumps(meta,indent=2));(target/'failures.json').write_text(json.dumps(fail,indent=2));(target/'summary.json').write_text(json.dumps(summary,indent=2));print('samples',len(rows),'failures',len(fail),flush=True)

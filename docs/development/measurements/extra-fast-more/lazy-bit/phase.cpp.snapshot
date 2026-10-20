@@ -1,0 +1,26 @@
+#define main ignored_benchmark_main
+#include "bench.cpp"
+#undef main
+#include "blueberry/utility/fast-io.hpp"
+#include <cstdio>
+
+template<class Tree>int phase(bool range) {
+  auto begin=Clock::now();
+  blueberry::FastInput in;
+  int n,q;in.read(n,q);
+  std::vector<U>a(n);for(auto&x:a)in.read(x);
+  std::vector<Query> queries(q);
+  for(auto&x:queries)in.read(x.type,x.l,x.r,x.a);
+  auto parsed=Clock::now();
+  Tree tree(a);
+  auto built=Clock::now();
+  std::vector<U>answers;answers.reserve(q);
+  for(auto x:queries){if(x.type){if constexpr(requires{tree.apply(x.l,x.r,x.a);})tree.apply(x.l,x.r,x.a);else tree.add(x.l,x.a);}else answers.push_back(tree.prod(x.l,x.r));}
+  auto operated=Clock::now();
+  blueberry::FastOutput out;for(U x:answers)out.writeln(x);out.flush();
+  auto formatted=Clock::now();
+  auto ms=[](auto a,auto b){return std::chrono::duration<double,std::milli>(b-a).count();};
+  std::fprintf(stderr,"{\"parse_ms\":%.9f,\"build_ms\":%.9f,\"ops_ms\":%.9f,\"format_ms\":%.9f,\"total_ms\":%.9f}\n",ms(begin,parsed),ms(parsed,built),ms(built,operated),ms(operated,formatted),ms(begin,formatted));
+  return 0;
+}
+int main(int argc,char**argv){std::string v=argv[1];if(v=="bit-acl")return phase<ACLBit>(false);if(v=="bit-pad")return phase<blueberry::extra_fast::FenwickTree>(false);if(v=="bit-wide")return phase<blueberry::extra_fast::SumSegmentTree>(false);if(v=="range-wide")return phase<blueberry::extra_fast::RangeAddSum>(true);if(v=="range-scalar")return phase<RangeScalar>(true);if(v=="range-acl")return phase<ACLRange>(true);if(v=="range-pad")return phase<PairBit<RawBit<10>>>(true);return 2;}

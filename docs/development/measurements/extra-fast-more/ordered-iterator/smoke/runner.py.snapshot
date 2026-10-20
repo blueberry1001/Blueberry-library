@@ -1,0 +1,54 @@
+import argparse, hashlib, json, pathlib, subprocess, time
+
+HERE = pathlib.Path(__file__).resolve().parent
+ROOT = HERE.parents[2]
+parser = argparse.ArgumentParser()
+parser.add_argument('--out', default='smoke')
+args = parser.parse_args()
+OUT = HERE / args.out
+OUT.mkdir(parents=True, exist_ok=False)
+records = []
+sources = [
+    (ROOT / 'blueberry/extra-fast/ordered-map.hpp', 'header.hpp.snapshot'),
+    (ROOT / 'blueberry/extra-fast/hash-map.hpp', 'hash-header.hpp.snapshot'),
+    (ROOT / 'tests/random/extra-fast-ordered-iterator.cpp', 'iterator.cpp.snapshot'),
+    (ROOT / 'tests/random/extra-fast-associative.cpp', 'associative.cpp.snapshot'),
+    (pathlib.Path(__file__).resolve(), 'runner.py.snapshot'),
+]
+for source, name in sources:
+    (OUT / name).write_bytes(source.read_bytes())
+(OUT / 'metadata.json').write_text(json.dumps({
+    'seed': 20261020,
+    'kind': 'correctness smoke; elapsed times are not performance measurements',
+    'sources': {str(s.relative_to(ROOT)): hashlib.sha256(s.read_bytes()).hexdigest()
+                for s, _ in sources},
+}, indent=2))
+
+def run(name, command):
+    print(name, flush=True)
+    start = time.monotonic()
+    result = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
+    log = OUT / (name + '.log')
+    log.write_text(result.stdout + result.stderr)
+    records.append({'name': name, 'command': command, 'returncode': result.returncode,
+                    'seconds': time.monotonic() - start,
+                    'log_sha256': hashlib.sha256(log.read_bytes()).hexdigest()})
+    (OUT / 'results.json').write_text(json.dumps(records, indent=2))
+    result.check_returncode()
+
+for source in ['extra-fast-ordered-iterator.cpp', 'extra-fast-associative.cpp']:
+    for compiler in ['g++', 'clang++']:
+        name = source.removesuffix('.cpp') + '-' + compiler
+        binary = '/tmp/blueberry-' + name
+        run(name + '-compile', [compiler, '-std=gnu++20', '-O2', '-Wall', '-Wextra',
+            '-Wshadow', '-Werror', '-I.', str(ROOT / 'tests/random' / source), '-o', binary])
+        run(name + '-run', [binary, '20261020'])
+name = 'iterator-sanitizer'
+binary = '/tmp/blueberry-' + name
+run(name + '-compile', ['g++', '-std=gnu++20', '-O1', '-g',
+    '-fsanitize=address,undefined', '-fno-sanitize-recover=all', '-fno-omit-frame-pointer',
+    '-I.', str(ROOT / 'tests/random/extra-fast-ordered-iterator.cpp'), '-o', binary])
+run(name + '-run', [binary, '20261020'])
+for source, name in sources:
+    assert source.read_bytes() == (OUT / name).read_bytes(), 'source changed during smoke'
+print(json.dumps({'commands': len(records), 'failures': 0}), flush=True)

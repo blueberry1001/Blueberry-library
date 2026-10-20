@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -eu
+export PATH=/home/blueberry/.local/bin:$PATH
+export BUNDLE_PATH=/home/blueberry/.cache/blueberry-gems
+cd /home/blueberry/.cache/blueberry-extra-fast-more-d8ee799
+date -u +%FT%TZ > .build/integration-validation/site-start.txt
+set +e
+(cd .verify-helper/markdown && JEKYLL_ENV=production bundle exec jekyll build --source . --destination ../../.build/site) > .build/integration-validation/jekyll-build.log 2>&1
+result=$?
+set -e
+printf '%s\n' "$result" > .build/integration-validation/jekyll-exit.txt
+if test "$result" = 0; then
+  set +e
+  python3 scripts/check_site.py > .build/integration-validation/check-site.log 2>&1
+  result=$?
+  set -e
+  printf '%s\n' "$result" > .build/integration-validation/check-site-exit.txt
+fi
+date -u +%FT%TZ > .build/integration-validation/site-end.txt
+echo "site validation exit $result"
+exit "$result"

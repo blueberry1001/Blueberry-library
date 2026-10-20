@@ -1,0 +1,208 @@
+#!/usr/bin/env python3
+"""Run only after the public header freeze and exclusive CPU-window notice."""
+import argparse,datetime,hashlib,json,math,os,platform,random,re,signal,statistics,subprocess,sys,tempfile,time
+from pathlib import Path
+
+ROOT=Path.cwd()
+WORK=ROOT/'.benchmark/extra-fast-more'
+OUT=ROOT/'docs/development/measurements/extra-fast-more/sets/iteration'
+HEADER=ROOT/'blueberry/extra-fast/ordered-map.hpp'
+IO=ROOT/'blueberry/utility/fast-io.hpp'
+DRIVER=WORK/'sets-iteration.cpp'
+MASK=(1<<64)-1
+OFFSET=14695981039346656037
+PRIME=1099511628211
+TIME_FIELDS=['parse_ms','build_ms','forward_ms','reverse_ms','value_update_ms',
+             'update_check_ms','erase_ms','post_forward_ms','post_reverse_ms','reported_ms']
+
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
+def digest(entries,is_map):
+    value=OFFSET
+    for key,item in entries:
+        value=((value^key)*PRIME)&MASK
+        if is_map:value=((value^item)*PRIME)&MASK
+    return value
+
+def oracle(records,kind):
+    # This uses Python dict + sort, independent of either C++ tree.
+    values=dict(records)
+    keys=sorted(values)
+    before=[(key,values[key]) for key in keys]
+    expected={'initial_size':len(keys),'forward_digest':digest(before,kind=='map'),
+              'forward_count':len(keys),'reverse_digest':digest(reversed(before),kind=='map'),
+              'reverse_count':len(keys)}
+    if kind=='map':
+        for key in keys:values[key]=(values[key]+key)&MASK
+        after=[(key,values[key]) for key in keys]
+        expected.update(updated_digest=digest(after,True),updated_count=len(keys))
+    else:expected.update(updated_digest=None,updated_count=None)
+    remaining=keys[1::2]
+    survivors=[(key,values[key]) for key in remaining]
+    expected.update(final_size=len(remaining),erased=len(keys)-len(remaining),
+                    post_forward_digest=digest(survivors,kind=='map'),
+                    post_forward_count=len(remaining),
+                    post_reverse_digest=digest(reversed(survivors),kind=='map'),
+                    post_reverse_count=len(remaining))
+    return expected
+
+def make_fixture(directory,n,distribution,seed):
+    rng=random.Random(seed)
+    if distribution=='monotone':keys=list(range(n-1))+[MASK] if n else []
+    else:
+        unique={0,MASK} if n>=2 else {0} if n else set()
+        while len(unique)<n:unique.add(rng.getrandbits(64))
+        keys=sorted(unique);rng.shuffle(keys)
+    records=[(key,rng.getrandbits(64)) for key in keys]
+    path=directory/f'input-{n}-{distribution}.txt'
+    path.write_text(str(n)+'\n'+''.join(f'{key} {value}\n' for key,value in records))
+    return {'name':f'n{n}-{distribution}','n':n,'distribution':distribution,'seed':seed,
+            'path':path,'input_sha256':sha(path),
+            'expected':{kind:oracle(records,kind) for kind in ['map','set']}}
+
+def check_result(result,expected,kind):
+    mismatches={}
+    for key,value in expected.items():
+        if result.get(key,'MISSING')!=value:mismatches[key]={'expected':value,'actual':result.get(key,'MISSING')}
+    for field in TIME_FIELDS:
+        value=result.get(field,'MISSING')
+        if kind=='set' and field in ['value_update_ms','update_check_ms']:
+            if value is not None:mismatches[field]={'expected':None,'actual':value}
+        elif not isinstance(value,(int,float)) or not math.isfinite(value) or value<0:
+            mismatches[field]={'expected':'finite nonnegative time','actual':value}
+    return mismatches
+
+def run_measured(command,input_path,timeout):
+    # The small time helper execs before forking the target. A direct Python
+    # fork would contaminate target ru_maxrss with the oracle's large heap.
+    with input_path.open('rb') as inp:
+        begin=time.perf_counter()
+        process=subprocess.Popen(['/usr/bin/time','-f','__RSS_KIB__=%M',
+                                 'taskset','-c','0',*command],stdin=inp,
+                                 stdout=subprocess.PIPE,stderr=subprocess.PIPE,
+                                 start_new_session=True)
+        timed_out=False
+        try:stdout,stderr=process.communicate(timeout=timeout)
+        except subprocess.TimeoutExpired:
+            timed_out=True
+            os.killpg(process.pid,signal.SIGKILL)
+            stdout,stderr=process.communicate()
+        wall=(time.perf_counter()-begin)*1000
+    return process.returncode,stdout,stderr,wall,timed_out
+
+def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--self-check-only',action='store_true')
+    parser.add_argument('--expected-header-sha256')
+    parser.add_argument('--expected-io-sha256')
+    parser.add_argument('--timeout',type=float,default=120)
+    args=parser.parse_args()
+    # Small, independently calculated checks for unsigned wrap, reverse order,
+    # duplicates, empty containers and alternating iterator erase semantics.
+    assert oracle([], 'map')['final_size']==0
+    assert oracle([(MASK,1)],'map')['updated_digest']==digest([(MASK,0)],True)
+    assert oracle([(2,10),(0,20),(1,30)],'set')['post_forward_digest']==digest([(1,0)],False)
+    assert oracle([(4,7),(4,9)],'map')['initial_size']==1
+    if args.self_check_only:
+        print('iteration oracle self-check passed');return
+    OUT.mkdir(parents=True,exist_ok=True)
+    if (OUT/'samples.jsonl').exists():raise RuntimeError('Preserve/rename the previous phase before rerunning; do not append mixed runs')
+    binary_dir=Path(tempfile.mkdtemp(prefix='blueberry-sets-iteration-'))
+    frozen={'blueberry/extra-fast/ordered-map.hpp':sha(HEADER),
+            'blueberry/utility/fast-io.hpp':sha(IO),
+            '.benchmark/extra-fast-more/sets-iteration.cpp':sha(DRIVER)}
+    if args.expected_header_sha256:assert frozen['blueberry/extra-fast/ordered-map.hpp']==args.expected_header_sha256
+    if args.expected_io_sha256:assert frozen['blueberry/utility/fast-io.hpp']==args.expected_io_sha256
+    def check_frozen():
+        for path,checksum in frozen.items():
+            if sha(ROOT/path)!=checksum:raise RuntimeError('Source changed during measurement: '+path)
+    env={'started':now(),'python':sys.version,'platform':platform.platform(),
+         'cpu':Path('/proc/cpuinfo').read_text().split('model name\t: ')[-1].splitlines()[0],
+         'affinity':[0],'runs':5,'flags':['-std=gnu++20','-O2','-DNDEBUG'],
+         'source_sha256':frozen,'binary_storage':str(binary_dir),'input_storage':str(binary_dir),
+         'clock':'std::chrono::steady_clock',
+         'phases':'Fixed order: parse, build, const forward digest, const reverse digest, map range-for value += key, map updated-value check, erase(iterator) alternating sorted positions, const forward/reverse post-erase checks. Set update fields are null.',
+         'digest':'Per uint64 word: hash=(hash XOR word)*1099511628211 modulo 2^64, offset=14695981039346656037. Map key then value; set key only. Digest work is included in scan time, and updated-value verification is separated from the value-update body.',
+         'oracle':'Python dict + sort; all value updates wrap modulo 2^64. Erase even sorted indices, retain odd indices; verify both directions and final size.',
+         'iterator_contract':'Map loops bind real pair<const uint64_t,uint64_t>&. All operations use public begin/end/crbegin/crend/erase(pos). No for_each/get/key erase substitution. After erase only its returned iterator is retained; end() is re-evaluated because structural mutation invalidates all old iterators.',
+         'comparison_limit':'std erase(pos) is amortized O(1); the experimental erase(pos) performs O(log N) key lookup/rebalancing and successor lookup. Record this potential regression. No absolute cross-compiler or phase-order claims.',
+         'wall_rss':'Fresh process wall includes parse/format/runtime/destruction and the time helper. RSS is peak KiB from /usr/bin/time, separate from C++ phase times; the small helper avoids inheriting Python oracle heap.'}
+    records=[];failures=[];binaries={}
+    for source,name in [(HEADER,'ordered-map.hpp.snapshot'),(IO,'fast-io.hpp.snapshot'),(DRIVER,'driver.cpp.snapshot')]:
+        (OUT/name).write_bytes(source.read_bytes())
+    (OUT/'runner.py.snapshot').write_bytes(Path(__file__).read_bytes())
+    (OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+    for compiler in ['g++','clang++']:
+        check_frozen()
+        env[compiler]=subprocess.run([compiler,'--version'],capture_output=True,text=True).stdout
+        binary=binary_dir/compiler
+        command=[compiler,'-std=gnu++20','-O2','-DNDEBUG','-Wall','-Wextra','-Werror',
+                 '-I.',str(DRIVER),'-o',str(binary)]
+        result=subprocess.run(command,capture_output=True,text=True)
+        (OUT/f'{compiler}.compile.log').write_text(json.dumps(command)+'\n'+result.stdout+result.stderr)
+        check_frozen()
+        records.append({'compiler':compiler,'stage':'compile','returncode':result.returncode,'command':command})
+        if result.returncode:failures.append(records[-1])
+        else:
+            binaries[compiler]=binary
+            env.setdefault('binary_sha256',{})[compiler]=sha(binary)
+    fixtures=[make_fixture(binary_dir,n,dist,seed) for n,dist,seed in
+              [(50000,'random',20261020),(50000,'monotone',20261021),(500000,'random',20261022)]]
+    env['fixtures']=[{key:value for key,value in case.items() if key!='path'} for case in fixtures]
+    (OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+    samples=[]
+    for case_index,case in enumerate(fixtures):
+        for repeat in range(5):
+            for compiler,binary in binaries.items():
+                kinds=['map','set'] if (repeat+case_index)%2==0 else ['set','map']
+                for kind_index,kind in enumerate(kinds):
+                    variants=['std','new'] if (repeat+case_index+kind_index)%2==0 else ['new','std']
+                    for variant in variants:
+                        check_frozen()
+                        returncode,stdout,stderr,wall,timed_out=run_measured([str(binary),kind,variant],case['path'],args.timeout)
+                        text=stderr.decode(errors='replace');rss=re.search(r'__RSS_KIB__=(\d+)',text)
+                        sample={'compiler':compiler,'kind':kind,'variant':variant,'fixture':case['name'],
+                                'n':case['n'],'distribution':case['distribution'],'run':repeat,
+                                'input_sha256':case['input_sha256'],'returncode':returncode,
+                                'timed_out':timed_out,'process_wall_ms':wall,'stderr':text}
+                        try:
+                            metrics=json.loads(stdout)
+                            mismatches=check_result(metrics,case['expected'][kind],kind)
+                            sample.update(metrics)
+                        except Exception as error:
+                            mismatches={'parse_output':str(error)}
+                            sample['stdout']=stdout.decode(errors='replace')
+                        if not rss:mismatches['rss']='missing'
+                        else:sample['peak_rss_kib']=int(rss.group(1))
+                        sample['mismatches']=mismatches
+                        sample['correct']=not mismatches and returncode==0 and not timed_out
+                        samples.append(sample)
+                        with (OUT/'samples.jsonl').open('a') as log:log.write(json.dumps(sample)+'\n')
+                        if not sample['correct']:failures.append(sample)
+                        check_frozen()
+    summary=[]
+    for compiler in ['g++','clang++']:
+        for case in fixtures:
+            for kind in ['map','set']:
+                for variant in ['std','new']:
+                    group=[row for row in samples if row['compiler']==compiler and row['fixture']==case['name']
+                           and row['kind']==kind and row['variant']==variant]
+                    correct=[row for row in group if row['correct']]
+                    row={'compiler':compiler,'fixture':case['name'],'n':case['n'],
+                         'distribution':case['distribution'],'kind':kind,'variant':variant,
+                         'attempted_runs':len(group),'correct_runs':len(correct)}
+                    for field in TIME_FIELDS+['process_wall_ms','peak_rss_kib']:
+                        if kind=='set' and field in ['value_update_ms','update_check_ms']:
+                            row[field]=None
+                        else:
+                            values=[x[field] for x in correct if isinstance(x.get(field),(float,int))]
+                            if values:row[field]={'median':statistics.median(values),'min':min(values)}
+                    summary.append(row)
+    env['finished']=now();env['compile_records']=records
+    (OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+    (OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+    (OUT/'failures.json').write_text(json.dumps(failures,indent=2)+'\n')
+    print(json.dumps({'samples':len(samples),'expected_samples':120,'failures':len(failures),
+                      'outputs_correct':len(samples)==120 and all(x['correct'] for x in samples)}))
+
+if __name__=='__main__':main()

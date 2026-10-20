@@ -1,0 +1,15 @@
+import datetime,json,subprocess
+from pathlib import Path
+r=Path.cwd();out=r/'docs/development/measurements/extra-fast-more/lazy-bit/validation';base=r/'.benchmark/extra-fast-more/lazy-bit'
+(out/'docs-paths.json').write_text(json.dumps(['docs/extra-fast/fenwick-tree.md','docs/extra-fast/range-add-sum.md']))
+import re
+for name in ['fenwick-tree','range-add-sum']:
+ text=(r/'docs/extra-fast'/str(name+'.md')).read_text();source=next(x for x in re.findall(r'```cpp\n(.*?)```',text,re.S) if 'int main(' in x);f=base/(name+'-docs.cpp');f.write_text(source);binary=base/(name+'-docs');cmd=['g++','-std=gnu++20','-O2','-I.',str(f),'-o',str(binary)];p=subprocess.run(cmd,text=True,capture_output=True);log='COMMAND '+repr(cmd)+'\n'+p.stdout+p.stderr
+ if not p.returncode:
+  p=subprocess.run([str(binary)],text=True,capture_output=True);log+='\nRUN '+str(p.returncode)+'\n'+p.stdout+p.stderr
+ (out/(name+'-docs-direct.log')).write_text(log);print(name,'docs direct',p.returncode)
+for cc in ['g++','clang++']:
+ cmd=[cc,'-std=gnu++23','-O2','-DNDEBUG','-march=native',str(base/'research-affine/submission-402323.cpp'),'-o',str(base/('affine-fastest-'+cc))];p=subprocess.run(cmd,text=True,capture_output=True,timeout=120)
+ # Suppress potentially copyrighted source snippets from compiler diagnostics.
+ lines=[line for line in p.stderr.splitlines() if not (' | ' in line or line.strip().startswith('|'))]
+ (out/(cc+'-affine-fastest-native-compile.log')).write_text('COMMAND '+repr(cmd)+'\nRETURN '+str(p.returncode)+'\n'+'\n'.join(lines)+'\n');print(cc,'fastest',p.returncode)

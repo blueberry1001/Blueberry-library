@@ -1,0 +1,78 @@
+#!/usr/bin/env python3
+import argparse,datetime,hashlib,json,os,platform,random,statistics,subprocess,time
+from pathlib import Path
+P=998244353
+ROOT=Path.cwd()
+WORK=ROOT/'.benchmark/extra-fast-more/fps'
+OUT=ROOT/'docs/development/measurements/extra-fast-more/fps/final'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def run(args,**kwargs):return subprocess.run(args,check=False,**kwargs)
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+def main():
+ parser=argparse.ArgumentParser();parser.add_argument('--pilot',action='store_true');parser.add_argument('--compile-only',action='store_true');args=parser.parse_args()
+ out=OUT if not args.pilot else OUT.parent/'fps-pilot';out.mkdir(parents=True,exist_ok=True)
+ env={'started':now(),'platform':platform.platform(),'cpu':Path('/proc/cpuinfo').read_text().split('model name\t: ')[-1].splitlines()[0],'affinity':[0],'seed':20261020,'runs':5,'clock':'std::chrono::steady_clock','input_output_storage':'Regular files in Linux /tmp, outside timing fixture creation and digest checking','adapter':'All backends receive const vector<uint32_t>, return owned canonical vector<uint32_t>. NTT root allocation/build, conversions and scratch allocations are included in operation_ms. No cross-call cache. Fixed same FastInput/FastOutput. rss from fresh process ru_maxrss. Source compiler flags differ only backend macro.','source_sha256':{str(p):sha(ROOT/p) for p in [Path('blueberry/extra-fast/formal-power-series.hpp'),Path('blueberry/math/formal-power-series.hpp'),Path('blueberry/utility/fast-io.hpp')]},'compiler_versions':{}}
+ (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+ binaries=[];failures=[]
+ for compiler in ['g++','clang++']:
+  env['compiler_versions'][compiler]=run([compiler,'--version'],capture_output=True,text=True).stdout
+  for profile,flags in [('release',['-O2','-DNDEBUG']),('assert',['-O2']),('native',['-O3','-march=native','-DNDEBUG'])]:
+   if args.pilot and profile!='release':continue
+   for backend in [0,1,2,3]:
+    label=f'{compiler}-{profile}-{backend}';binary=WORK/label
+    command=[compiler,'-std=gnu++20',*flags,'-Wall','-Wextra','-Werror','-I.','-I.deps/ac-library',f'-DBACKEND={backend}']
+    if backend==2:command+=['-DBLUEBERRY_EXTRA_FAST_INLINE_ASM']
+    command += [str(WORK/'phase.cpp'),'-o',str(binary)]
+    result=run(command,capture_output=True,text=True);(out/f'{label}.compile.log').write_text(json.dumps(command)+'\n'+result.stdout+result.stderr)
+    if result.returncode:failures.append({'stage':'compile','label':label,'returncode':result.returncode})
+    else:binaries.append((compiler,profile,backend,label,binary))
+ (out/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+ (out/'phase.cpp.snapshot').write_bytes((WORK/'phase.cpp').read_bytes());(out/'runner.py.snapshot').write_bytes(Path(__file__).read_bytes())
+ (out/'formal-power-series.hpp.snapshot').write_bytes((ROOT/'blueberry/extra-fast/formal-power-series.hpp').read_bytes());(out/'normal-formal-power-series.hpp.snapshot').write_bytes((ROOT/'blueberry/math/formal-power-series.hpp').read_bytes())
+ if args.compile_only:(out/'failures.json').write_text(json.dumps(failures,indent=2)+'\n');return
+ fixtures=[];rng=random.Random(20261020)
+ for n,distribution in ([(16384,'random'),(131072,'random')] if args.pilot else [(n,'random') for n in [64,1025,16384,131072,500000]]+[(131072,'zero'),(131072,'max')]):
+  for op in ['convolution','inv','log','exp']:
+   coefficient=lambda: rng.randrange(P) if distribution=='random' else 0 if distribution=='zero' else P-1
+   f=[coefficient() for _ in range(n)];b=[coefficient() for _ in range(n-1)] if op=='convolution' else []
+   if op=='inv':f[0]=rng.randrange(1,P)
+   if op=='log':f[0]=1
+   if op=='exp':f[0]=0
+   text=(f'{n} {len(b)}' if op=='convolution' else str(n))+'\n'+' '.join(map(str,f))+'\n'
+   if b:text+=' '.join(map(str,b))+'\n'
+   suffix='' if distribution=='random' else '-'+distribution
+   path=WORK/f'input-{n}-{op}{suffix}.txt';path.write_text(text);fixtures.append((n,op,path,sha(path),distribution))
+ samples=[];oracles={}
+ for ci,(n,op,source_path,inputsha,distribution) in enumerate(fixtures):
+  path=Path('/tmp')/f'blueberry-fps-phase-{n}-{op}-{distribution}.txt';path.write_bytes(source_path.read_bytes())
+  for ri in range(5):
+   for compiler in ['g++','clang++']:
+    for profile in ['release','assert','native']:
+     group=[x for x in binaries if x[0]==compiler and x[1]==profile]
+     if not group:continue
+     rotation=(ri+ci)%len(group);group=group[rotation:]+group[:rotation]
+     for compiler,profile,backend,label,binary in group:
+      output=Path('/tmp')/'blueberry-fps-phase-output.txt'
+      with path.open('rb') as inp,output.open('wb') as dest:
+       start=time.perf_counter();result=run(['taskset','-c','0',str(binary),op],stdin=inp,stdout=dest,stderr=subprocess.PIPE);wall=(time.perf_counter()-start)*1000
+      values=output.read_bytes().split();digest=hashlib.sha256(b' '.join(values)).hexdigest()
+      key=(n,op,distribution)
+      if key not in oracles and result.returncode==0:oracles[key]=digest
+      correct=result.returncode==0 and digest==oracles.get(key)
+      sample={'compiler':compiler,'profile':profile,'backend':backend,'label':label,'n':n,'op':op,'distribution':distribution,'run':ri,'input_sha256':inputsha,'output_normalized_sha256':digest,'correct':correct,'returncode':result.returncode,'wall_ms':wall}
+      try:sample.update(json.loads(result.stderr))
+      except Exception:sample['stderr']=result.stderr.decode(errors='replace')
+      samples.append(sample)
+      if not correct:failures.append(sample)
+      with (out/'samples.jsonl').open('a') as log:log.write(json.dumps(sample)+'\n')
+ summary=[]
+ for compiler,profile,backend,label,binary in binaries:
+  for n,op,path,inputsha,distribution in fixtures:
+   subset=[s for s in samples if s['label']==label and s['n']==n and s['op']==op and s['distribution']==distribution and s['correct']]
+   row={'compiler':compiler,'profile':profile,'backend':backend,'label':label,'n':n,'op':op,'distribution':distribution,'correct_runs':len(subset),'attempted_runs':5,'input_sha256':inputsha}
+   for field in ['parse_ms','operation_ms','format_ms','total_ms','max_rss_kib','wall_ms']:
+    v=[s[field] for s in subset if field in s]
+    if v:row[field]={'median':statistics.median(v),'min':min(v)}
+   summary.append(row)
+ env['finished']=now();(out/'environment.json').write_text(json.dumps(env,indent=2)+'\n');(out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');(out/'failures.json').write_text(json.dumps(failures,indent=2)+'\n');print(json.dumps({'samples':len(samples),'failures':len(failures),'out':str(out)}))
+if __name__=='__main__':main()

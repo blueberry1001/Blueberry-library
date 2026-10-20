@@ -1,0 +1,220 @@
+#pragma once
+
+#include <algorithm>
+#include <array>
+#include <bit>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <numeric>
+#include <optional>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+namespace blueberry::extra_fast {
+
+// Compressed integer Wavelet Matrix. Rank metadata shares a block with its bits;
+// independent kth queries may also be processed level by level (LC 393928).
+template <class T>
+class WaveletMatrix {
+  static_assert(std::is_integral_v<T> && !std::is_same_v<T, bool>);
+  struct Block { std::uint64_t bits = 0; int before = 0; };
+  int n_ = 0, height_ = 0, stride_ = 0;
+  bool popcnt_ = popcnt_available();
+  std::vector<T> values_;
+  std::vector<Block> blocks_;
+  std::vector<int> zeros_;
+
+  template <bool Hardware> static int popcount(std::uint64_t x) {
+#if defined(__x86_64__) && (defined(__GNUC__) || defined(__clang__))
+    if constexpr (Hardware) {
+      std::uint64_t result;
+      __asm__("popcnt{q %1, %0| %0, %1}" : "=r"(result) : "r"(x) : "cc");
+      return static_cast<int>(result);
+    }
+#endif
+    return std::popcount(x);
+  }
+  template <bool Hardware> static int rank(const Block* row, int p) {
+    const auto& b = row[p >> 6];
+    return b.before + popcount<Hardware>(b.bits & ((std::uint64_t{1} << (p & 63)) - 1));
+  }
+  void check_range([[maybe_unused]] int l, [[maybe_unused]] int r) const {
+    assert(0 <= l && l <= r && r <= n_);
+  }
+  int lower(T x) const {
+    return static_cast<int>(std::lower_bound(values_.begin(), values_.end(), x) - values_.begin());
+  }
+  template <bool Hardware> T get_impl(int p) const {
+    int code = 0;
+    for (int h = 0; h < height_; ++h) {
+      const Block* row = blocks_.data() + std::size_t(h) * stride_;
+      const int bit = (row[p >> 6].bits >> (p & 63)) & 1;
+      code = (code << 1) | bit;
+      const int ones = rank<Hardware>(row, p);
+      p = bit ? zeros_[h] + ones : p - ones;
+    }
+    return values_[code];
+  }
+  template <bool Hardware> T kth_impl(int l, int r, int k) const {
+    int code = 0;
+    for (int h = 0; h < height_; ++h) {
+      const Block* row = blocks_.data() + std::size_t(h) * stride_;
+      const int a = rank<Hardware>(row, l), b = rank<Hardware>(row, r);
+      const int count = (r - b) - (l - a), mask = -int(k >= count);
+      l = ((l - a) & ~mask) | ((zeros_[h] + a) & mask);
+      r = ((r - b) & ~mask) | ((zeros_[h] + b) & mask);
+      k -= count & mask;
+      code = (code << 1) | (mask & 1);
+    }
+    return values_[code];
+  }
+  template <bool Hardware, bool Less> int count_impl(int l, int r, int code) const {
+    if (code == int(values_.size())) return Less ? r - l : 0;
+    int result = 0;
+    for (int h = 0; h < height_; ++h) {
+      if (l == r) return Less ? result : 0;
+      const Block* row = blocks_.data() + std::size_t(h) * stride_;
+      const int a = rank<Hardware>(row, l), b = rank<Hardware>(row, r);
+      if ((code >> (height_ - 1 - h)) & 1) {
+        if constexpr (Less) result += (r - l) - (b - a);
+        l = zeros_[h] + a; r = zeros_[h] + b;
+      } else { l -= a; r -= b; }
+    }
+    return Less ? result : r - l;
+  }
+  int less(int l, int r, T x) const {
+    const int code = lower(x);
+    return popcnt_ ? count_impl<true, true>(l, r, code) : count_impl<false, true>(l, r, code);
+  }
+  template <bool Hardware> std::vector<T> batch_impl(std::vector<std::array<int, 3>> q) const {
+    std::vector<int> codes(q.size());
+    for (int h = 0; h < height_; ++h) {
+      const Block* row = blocks_.data() + std::size_t(h) * stride_;
+      for (std::size_t i = 0; i < q.size(); ++i) {
+        auto& [l, r, k] = q[i];
+        const int a = rank<Hardware>(row, l), b = rank<Hardware>(row, r);
+        const int count = (r - b) - (l - a), mask = -int(k >= count);
+        l = ((l - a) & ~mask) | ((zeros_[h] + a) & mask);
+        r = ((r - b) & ~mask) | ((zeros_[h] + b) & mask);
+        k -= count & mask;
+        codes[i] = (codes[i] << 1) | (mask & 1);
+      }
+    }
+    std::vector<T> answer(q.size());
+    for (std::size_t i = 0; i < q.size(); ++i) answer[i] = values_[codes[i]];
+    return answer;
+  }
+
+ public:
+  WaveletMatrix() = default;
+  explicit WaveletMatrix(const std::vector<T>& a, bool use_popcnt = true)
+      : popcnt_(use_popcnt && popcnt_available()), values_(a) {
+    assert(a.size() <= std::size_t(std::numeric_limits<int>::max()));
+    n_ = static_cast<int>(a.size());
+    if (!n_) return;
+    std::vector<int> current(n_), next(n_);
+    std::iota(next.begin(), next.end(), 0);
+    using U = std::make_unsigned_t<T>;
+    const auto [minimum, maximum] = std::minmax_element(a.begin(), a.end());
+    const U base = static_cast<U>(*minimum);
+    U remaining = U(static_cast<U>(*maximum) - base);
+    int passes = 0;
+    for (U width = remaining; width; width = U(width >> 8)) ++passes;
+    if (n_ < 64 || n_ < 128 * passes) {
+      std::sort(next.begin(), next.end(), [&](int i, int j) { return a[i] < a[j]; });
+    } else {
+      for (int shift = 0; remaining; shift += 8, remaining = U(remaining >> 8)) {
+        std::array<int, 256> offsets{};
+        for (int p : next) ++offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255];
+        int offset = 0;
+        for (int& count : offsets) { const int size = count; count = offset; offset += size; }
+        for (int p : next) current[offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255]++] = p;
+        current.swap(next);
+      }
+    }
+    int distinct = 0;
+    for (int p : next) {
+      if (!distinct || values_[distinct - 1] != a[p]) values_[distinct++] = a[p];
+      current[p] = distinct - 1;
+    }
+    values_.resize(distinct);
+    height_ = std::bit_width(static_cast<unsigned>(distinct - 1));
+    stride_ = n_ / 64 + 1;
+    blocks_.resize(std::size_t(height_) * stride_);
+    zeros_.resize(height_);
+    for (int h = 0; h < height_; ++h) {
+      Block* row = blocks_.data() + std::size_t(h) * stride_;
+      const int shift = height_ - 1 - h;
+      for (int i = 0; i < n_; ++i) row[i >> 6].bits |= std::uint64_t((current[i] >> shift) & 1) << (i & 63);
+      for (int b = 1; b < stride_; ++b) row[b].before = row[b - 1].before + std::popcount(row[b - 1].bits);
+      zeros_[h] = n_ - rank<false>(row, n_);
+      std::array<int, 2> cursor{0, zeros_[h]};
+      for (int code : current) next[cursor[(code >> shift) & 1]++] = code;
+      current.swap(next);
+    }
+  }
+  WaveletMatrix(const WaveletMatrix&) = default;
+  WaveletMatrix(WaveletMatrix&&) noexcept = default;
+  WaveletMatrix& operator=(const WaveletMatrix& other) {
+    if (this != &other) {
+      WaveletMatrix next(other);
+      std::swap(n_, next.n_); std::swap(height_, next.height_);
+      std::swap(stride_, next.stride_); std::swap(popcnt_, next.popcnt_);
+      values_.swap(next.values_); blocks_.swap(next.blocks_); zeros_.swap(next.zeros_);
+    }
+    return *this;
+  }
+  WaveletMatrix& operator=(WaveletMatrix&&) noexcept = default;
+  int size() const { return n_; }
+  bool uses_popcnt() const { return popcnt_; }
+  static bool popcnt_available() {
+#if defined(__x86_64__) && (defined(__GNUC__) || defined(__clang__)) && !defined(BLUEBERRY_EXTRA_FAST_FORCE_SCALAR)
+    return __builtin_cpu_supports("popcnt");
+#else
+    return false;
+#endif
+  }
+  T get(int p) const {
+    assert(0 <= p && p < n_);
+    return popcnt_ ? get_impl<true>(p) : get_impl<false>(p);
+  }
+  T kth_smallest(int l, int r, int k) const {
+    check_range(l, r); assert(0 <= k && k < r - l);
+    return popcnt_ ? kth_impl<true>(l, r, k) : kth_impl<false>(l, r, k);
+  }
+  T kth_largest(int l, int r, int k) const {
+    check_range(l, r); assert(0 <= k && k < r - l);
+    return kth_smallest(l, r, r - l - 1 - k);
+  }
+  std::vector<T> kth_smallest_batch(const std::vector<std::array<int, 3>>& queries) const {
+    if (queries.empty()) return {};
+    for ([[maybe_unused]] const auto& q : queries) {
+      check_range(q[0], q[1]); assert(0 <= q[2] && q[2] < q[1] - q[0]);
+    }
+    return popcnt_ ? batch_impl<true>(queries) : batch_impl<false>(queries);
+  }
+  int count(int l, int r, T x) const {
+    check_range(l, r);
+    const int code = lower(x);
+    if (code == int(values_.size()) || values_[code] != x) return 0;
+    return popcnt_ ? count_impl<true, false>(l, r, code) : count_impl<false, false>(l, r, code);
+  }
+  int range_freq(int l, int r, T upper) const { check_range(l, r); return less(l, r, upper); }
+  int range_freq(int l, int r, T lower_value, T upper) const {
+    check_range(l, r); assert(lower_value <= upper);
+    return less(l, r, upper) - less(l, r, lower_value);
+  }
+  std::optional<T> prev_value(int l, int r, T upper) const {
+    const int k = range_freq(l, r, upper);
+    return k ? std::optional<T>(kth_smallest(l, r, k - 1)) : std::nullopt;
+  }
+  std::optional<T> next_value(int l, int r, T lower_value) const {
+    const int k = range_freq(l, r, lower_value);
+    return k == r - l ? std::nullopt : std::optional<T>(kth_smallest(l, r, k));
+  }
+};
+
+}  // namespace blueberry::extra_fast

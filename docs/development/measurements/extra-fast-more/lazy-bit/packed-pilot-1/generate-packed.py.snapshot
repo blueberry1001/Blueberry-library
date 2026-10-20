@@ -1,0 +1,43 @@
+from pathlib import Path
+base=Path('.benchmark/extra-fast-more/lazy-bit')
+s=(base/'wide-affine-shift.hpp').read_text(encoding='utf-8-sig').replace('ShiftAffineControl','PackedAffineControl')
+start=s.index('      if constexpr (fanout_ == 8) return fold_simd')
+end=s.index('    }\n#endif',start)
+s=s[:start]+'      return fold_simd(sums_.data() + base, first, last);\n'+s[end:]
+start=s.index('      if constexpr (fanout_ == 8) {')
+end=s.index('      return;\n',start)
+s=s[:start]+'      transform_simd(sums_.data() + base, scales, shifts, first, last, a, b, shift);\n'+s[end:]
+start=s.index('    const auto x = _mm256_and_si256(interval_simd(first, last),')
+end=s.index('    auto sum =',start)
+s=s[:start]+'''    auto x = _mm256_setzero_si256();
+    if (first < 8)
+      x = _mm256_and_si256(interval_simd(first, last < 8 ? last : 8),
+          _mm256_load_si256(reinterpret_cast<const __m256i*>(values)));
+    if (last > 8)
+      x = add_simd(x, _mm256_and_si256(
+          interval_simd(first > 8 ? first - 8 : 0, last - 8),
+          _mm256_load_si256(reinterpret_cast<const __m256i*>(values + 8))));
+'''+s[end:]
+start=s.index('    const auto selected = interval_simd(first, last);')
+end=s.index('\n  }\n#endif',start)
+s=s[:start]+'''    const auto multiplier = _mm256_set1_epi32(a);
+    const auto adjusted = _mm256_set1_epi32(static_cast<int>(a * inverse_));
+    const auto sum_offset = _mm256_set1_epi32(sum_shift);
+    const auto tag_offset = _mm256_set1_epi32(b);
+    for (unsigned offset = (first / 8) * 8; offset < last; offset += 8) {
+      const auto selected = interval_simd(first > offset ? first - offset : 0,
+                                          last - offset < 8 ? last - offset : 8);
+      const auto old = _mm256_load_si256(reinterpret_cast<const __m256i*>(sums + offset));
+      _mm256_store_si256(reinterpret_cast<__m256i*>(sums + offset),
+                         transform_one_simd(old, multiplier, adjusted, sum_offset, selected));
+      if (scales) {
+        const auto old_a = _mm256_load_si256(reinterpret_cast<const __m256i*>(scales + offset));
+        const auto old_b = _mm256_load_si256(reinterpret_cast<const __m256i*>(shifts + offset));
+        _mm256_store_si256(reinterpret_cast<__m256i*>(scales + offset),
+            transform_one_simd(old_a, multiplier, adjusted, _mm256_setzero_si256(), selected));
+        _mm256_store_si256(reinterpret_cast<__m256i*>(shifts + offset),
+            transform_one_simd(old_b, multiplier, adjusted, tag_offset, selected));
+      }
+    }'''+s[end:]
+(base/'wide-affine-packed.hpp').write_text(s)
+print('packed lines',len(s.splitlines()))

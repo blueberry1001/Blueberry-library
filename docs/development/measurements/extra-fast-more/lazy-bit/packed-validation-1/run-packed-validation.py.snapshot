@@ -1,0 +1,15 @@
+import datetime,hashlib,json,subprocess,sys
+from pathlib import Path
+root=Path.cwd();base=root/'.benchmark/extra-fast-more/lazy-bit';out=root/'docs/development/measurements/extra-fast-more/lazy-bit/packed-validation-1';out.mkdir(parents=True,exist_ok=True);rows=[]
+for name in ['wide-affine.hpp','wide-affine16.hpp','wide-affine-shift.hpp','wide-affine-packed.hpp','wide-affine-random.cpp']:(out/(name+'.snapshot')).write_bytes((base/name).read_bytes())
+def call(cmd,label):
+ start=datetime.datetime.now(datetime.timezone.utc).isoformat();p=subprocess.run(cmd,text=True,capture_output=True,timeout=120);(out/(label+'.log')).write_text('COMMAND '+repr(cmd)+'\n'+p.stdout+p.stderr);rows.append({'command':cmd,'returncode':p.returncode,'label':label,'start':start,'end':datetime.datetime.now(datetime.timezone.utc).isoformat()});(out/'commands.json').write_text(json.dumps(rows,indent=2));print(label,p.returncode,flush=True);return p.returncode
+for cc in ['g++','clang++']:
+ for b in [16]:
+  flags=['-DBLUEBERRY_TEST_AFFINE_PACKED'];label=cc+'-b'+str(b);binary=base/label
+  if call([cc,'-std=gnu++20','-O2','-Wall','-Wextra','-Werror','-I.',*flags,str(base/'wide-affine-random.cpp'),'-o',str(binary)],label+'-compile')or call([str(binary),'20261020'],label+'-run'):sys.exit(1)
+for b in [16]:
+ flags=['-DBLUEBERRY_TEST_AFFINE_PACKED'];label='g++-sanitizer-b'+str(b);binary=base/label
+ if call(['g++','-std=gnu++20','-O1','-g','-fsanitize=address,undefined','-fno-omit-frame-pointer','-I.',*flags,str(base/'wide-affine-random.cpp'),'-o',str(binary)],label+'-compile')or call([str(binary),'20261020'],label+'-run'):sys.exit(1)
+print('all wide validation passed',flush=True)
+

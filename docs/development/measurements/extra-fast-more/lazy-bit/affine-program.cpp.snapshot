@@ -1,0 +1,5 @@
+#include "affine-soa.hpp"
+#include "blueberry/utility/fast-io.hpp"
+#include <cstdint>
+#include <vector>
+int main(){blueberry::FastInput in;blueberry::FastOutput out;int n,q;in.read(n,q);std::vector<uint32_t>a(n);for(auto&x:a)in.read(x);AffineSum t(a);while(q--){int type,l,r;in.read(type,l,r);if(type==0){uint32_t x,y;in.read(x,y);t.apply(l,r,x,y);}else out.writeln(t.prod(l,r));}}

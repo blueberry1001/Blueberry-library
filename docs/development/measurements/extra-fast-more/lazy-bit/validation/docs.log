@@ -1,0 +1,12 @@
+COMMAND ['python3', 'scripts/check_docs.py', '--paths-file', '/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/docs/development/measurements/extra-fast-more/lazy-bit/validation/docs-paths.json']
+Traceback (most recent call last):
+  File "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/scripts/check_docs.py", line 138, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/scripts/check_docs.py", line 124, in main
+    headers, examples = collect_examples(ROOT)
+                        ^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/scripts/check_docs.py", line 23, in collect_examples
+    assert set(headers) == expected - COMPATIBILITY_HEADERS, "Register every modern header in libraries.yml"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Register every modern header in libraries.yml

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -eu
+export PATH=/home/blueberry/.local/bin:$PATH
+export BUNDLE_PATH=/home/blueberry/.cache/blueberry-gems
+cd /home/blueberry/.cache/blueberry-extra-fast-more-d8ee799
+cp /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/docs/development/extra-fast-more.md docs/development/extra-fast-more.md
+date -u +%FT%TZ > .build/integration-validation/docs-start.txt
+set +e
+make docs OJ_VERIFY_JOBS=4 > .build/integration-validation/make-docs.log 2>&1
+result=$?
+set -e
+printf '%s\n' "$result" > .build/integration-validation/docs-exit.txt
+date -u +%FT%TZ > .build/integration-validation/docs-end.txt
+echo "make docs exit $result"
+exit "$result"

@@ -1,0 +1,295 @@
+{
+  "storage": "regular Linux /tmp files for inputs, outputs, and executables",
+  "created_utc": "2026-10-20T05:42:51Z",
+  "flags": [
+    "-std=gnu++23",
+    "-O2",
+    "-DNDEBUG",
+    "-march=native"
+  ],
+  "cpu": 0,
+  "runs": 5,
+  "load_before": [
+    1.56494140625,
+    1.388671875,
+    1.0537109375
+  ],
+  "uname": "Linux BlueberryPC 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux\n",
+  "lscpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        39 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               24\nOn-line CPU(s) list:                  0-23\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Core(TM) i7-14650HX\nCPU family:                           6\nModel:                                183\nThread(s) per core:                   2\nCore(s) per socket:                   12\nSocket(s):                            1\nStepping:                             1\nBogoMIPS:                             4838.39\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            576 KiB (12 instances)\nL1i cache:                            384 KiB (12 instances)\nL2 cache:                             24 MiB (12 instances)\nL3 cache:                             30 MiB (1 instance)\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Not affected\nVulnerability Reg file data sampling: Mitigation; Clear Register File\nVulnerability Retbleed:               Mitigation; Enhanced IBRS\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl and seccomp\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Not affected\n",
+  "revision": "617acd6d63affe95308fee3fec1c9698096f10ad",
+  "sources": {
+    ".benchmark/extra-fast-more/wavelet/whole.cpp": "49e71a604af6404b15f3fb8b4b4861baddcd5aa57b8c9a81c00ce149246cddfd",
+    ".benchmark/extra-fast-more/wavelet/oracle.cpp": "fd5e0f69286367930ce652e0f6e656db5193b49ca62ab92b9ea3995eb0a6cfe6",
+    ".benchmark/extra-fast-more/wavelet/whole.py": "1244350fd0e47702536b25cd0357432d08cb47d18b61c584ea576026210a4f8d",
+    "blueberry/extra-fast/wavelet-matrix.hpp": "0996c4ed2409fbd20e18c0901e67df5cdd12fc178c5cfd6e38e1b4a92d046b5c"
+  },
+  "commands": [
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/oracle.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/oracle"
+      ],
+      "returncode": 0
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-diagnostics-show-caret",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "-DWAVELET_MODE=0",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/whole.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/g++-whole-normal"
+      ],
+      "returncode": 0,
+      "seconds": 0.8336992710001141,
+      "source_sha256": "49e71a604af6404b15f3fb8b4b4861baddcd5aa57b8c9a81c00ce149246cddfd"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-diagnostics-show-caret",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "-DWAVELET_MODE=1",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/whole.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/g++-whole-fast-online"
+      ],
+      "returncode": 0,
+      "seconds": 1.0106303509996906,
+      "source_sha256": "49e71a604af6404b15f3fb8b4b4861baddcd5aa57b8c9a81c00ce149246cddfd"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-diagnostics-show-caret",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "-DWAVELET_MODE=2",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/whole.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/g++-whole-fast-batch"
+      ],
+      "returncode": 0,
+      "seconds": 0.9356000930001755,
+      "source_sha256": "49e71a604af6404b15f3fb8b4b4861baddcd5aa57b8c9a81c00ce149246cddfd"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-diagnostics-show-caret",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/range_kth_smallest/submission-403008.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/g++-whole-403008"
+      ],
+      "returncode": 0,
+      "seconds": 3.2843134780000582,
+      "source_sha256": "6b2c915953e1766b65de5c75a6fe297a92366c95da9e205be06ec230bf8df3b2"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-diagnostics-show-caret",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/range_kth_smallest/submission-393928.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/g++-whole-393928"
+      ],
+      "returncode": 0,
+      "seconds": 4.089742800000295,
+      "source_sha256": "e6ab16f7d698f7d8e68e83b6384f8a4d09b070d78ad4d7850846e1a85f86ff9f"
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-diagnostics-show-caret",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/range_kth_smallest/submission-376681.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/g++-whole-376681"
+      ],
+      "returncode": 0,
+      "seconds": 0.5137677309999162,
+      "source_sha256": "945e003a4acdccc7609c17ffdd1b508ee76f09a3587407f67aa841421b424d18"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-caret-diagnostics",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "-DWAVELET_MODE=0",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/whole.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/clang++-whole-normal"
+      ],
+      "returncode": 0,
+      "seconds": 1.8871705809997366,
+      "source_sha256": "49e71a604af6404b15f3fb8b4b4861baddcd5aa57b8c9a81c00ce149246cddfd"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-caret-diagnostics",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "-DWAVELET_MODE=1",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/whole.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/clang++-whole-fast-online"
+      ],
+      "returncode": 0,
+      "seconds": 0.9388633129997288,
+      "source_sha256": "49e71a604af6404b15f3fb8b4b4861baddcd5aa57b8c9a81c00ce149246cddfd"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-caret-diagnostics",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "-DWAVELET_MODE=2",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/whole.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/clang++-whole-fast-batch"
+      ],
+      "returncode": 0,
+      "seconds": 0.7756935489996977,
+      "source_sha256": "49e71a604af6404b15f3fb8b4b4861baddcd5aa57b8c9a81c00ce149246cddfd"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-caret-diagnostics",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/range_kth_smallest/submission-403008.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/clang++-whole-403008"
+      ],
+      "returncode": 0,
+      "seconds": 3.484482780000235,
+      "source_sha256": "6b2c915953e1766b65de5c75a6fe297a92366c95da9e205be06ec230bf8df3b2"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-caret-diagnostics",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/range_kth_smallest/submission-393928.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/clang++-whole-393928"
+      ],
+      "returncode": 0,
+      "seconds": 2.720793032999609,
+      "source_sha256": "e6ab16f7d698f7d8e68e83b6384f8a4d09b070d78ad4d7850846e1a85f86ff9f"
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native",
+        "-fno-caret-diagnostics",
+        "-fmessage-length=0",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/range_kth_smallest/submission-376681.cpp",
+        "-o",
+        "/tmp/blueberry-wavelet-whole-rfmaoeav/clang++-whole-376681"
+      ],
+      "returncode": 0,
+      "seconds": 0.4871700559997407,
+      "source_sha256": "945e003a4acdccc7609c17ffdd1b508ee76f09a3587407f67aa841421b424d18"
+    }
+  ],
+  "inputs": {
+    "small": {
+      "sha256": "a39a50a612c057c4f8b3e3c84da6f8a3ec363fdd6141cde2f66cfcb0380aea58",
+      "bytes": 526203
+    },
+    "wide": {
+      "sha256": "bde7843333d9871040f146e2546fb80fb0714520787e83237c8b40e154d565c3",
+      "bytes": 3855006
+    },
+    "duplicates": {
+      "sha256": "7f6e52ceb19433214b52e410e79cd6c46cf9173e344b2ce518f914fca1d12f65",
+      "bytes": 2351896
+    },
+    "few-query": {
+      "sha256": "36ad534520d11f01f2ee26fdd05ff0555950c8c5fd77b90922726ecc83c9e2c4",
+      "bytes": 1996582
+    }
+  },
+  "compilers": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+  },
+  "oracle_output_hashes": {
+    "small": "2d4babd2bca2df1b1d919b5456727ddddaa0b558d6bf41130cbda2db4886dc84",
+    "wide": "db9fd06e52805410bb7b27c5db9ed1d9cad78707a60d4556ed0d43e478f2a0c2",
+    "duplicates": "26f04c592df1bc6f836a9da798f9a6d3a0a3075181feb1369fd14e86107bfdf7",
+    "few-query": "3e7c17baa7d96300cbd614554483f51dce668581b79917eb5dd19e81ccfbdae7"
+  },
+  "load_after": [
+    1.67822265625,
+    1.44091796875,
+    1.08544921875
+  ]
+}

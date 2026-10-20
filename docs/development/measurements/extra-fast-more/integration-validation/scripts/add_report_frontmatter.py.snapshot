@@ -1,0 +1,9 @@
+from pathlib import Path
+import json
+base=Path('docs/development/measurements/extra-fast-more')
+for p in base.rglob('*.md'):
+    body=p.read_text(encoding='utf8')
+    if body.startswith('---\n'):continue
+    title=next((line[2:].strip() for line in body.splitlines() if line.startswith('# ')),p.parent.name)
+    p.write_text('---\ntitle: '+json.dumps(title,ensure_ascii=False)+'\n---\n\n'+body,encoding='utf8')
+    print(p)

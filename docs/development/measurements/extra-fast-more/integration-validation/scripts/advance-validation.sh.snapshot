@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -eu
+cd /home/blueberry/.cache/blueberry-extra-fast-more-d8ee799
+mkdir -p .build/integration-validation/official-d8ee799
+cp .build/integration-validation/make-verify.log .build/integration-validation/official-*.txt .build/integration-validation/official-plan.log .build/integration-validation/official-d8ee799/
+cp .verification/current.json .verification/state.json .verification/ci-plan.json .build/integration-validation/official-d8ee799/
+if test -d .verification/runs; then cp -a .verification/runs .build/integration-validation/official-d8ee799/; fi
+git fetch --quiet /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.git codex/extra-fast-more
+git merge --ff-only FETCH_HEAD
+cp .verification/state.json .verification/previous-state.json
+git rev-parse HEAD

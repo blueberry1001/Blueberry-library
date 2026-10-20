@@ -1,0 +1,192 @@
+{
+  "started": "2026-10-20T07:03:26.248221+00:00",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "affinity": [
+    0
+  ],
+  "runs": 5,
+  "flags": [
+    "-std=gnu++20",
+    "-O2",
+    "-DNDEBUG"
+  ],
+  "source_sha256": {
+    "blueberry/extra-fast/ordered-map.hpp": "9b4c20e81eff31ebd7636ce645d12fc96ec82b657330244f6d7ab40a2b31d964",
+    "blueberry/utility/fast-io.hpp": "b8b9c274f93c3906b8f6fc26dd945ec0679b3c246685da3108789aa677d73b30",
+    ".benchmark/extra-fast-more/sets-iteration.cpp": "d7b10c2dd5c14331fba5a54734d1b03dd314f7d7b73ee365ae87ef7a817e095d"
+  },
+  "binary_storage": "/tmp/blueberry-sets-iteration-h5htqh2y",
+  "input_storage": "/tmp/blueberry-sets-iteration-h5htqh2y",
+  "clock": "std::chrono::steady_clock",
+  "phases": "Fixed order: parse, build, const forward digest, const reverse digest, map range-for value += key, map updated-value check, erase(iterator) alternating sorted positions, const forward/reverse post-erase checks. Set update fields are null.",
+  "digest": "Per uint64 word: hash=(hash XOR word)*1099511628211 modulo 2^64, offset=14695981039346656037. Map key then value; set key only. Digest work is included in scan time, and updated-value verification is separated from the value-update body.",
+  "oracle": "Python dict + sort; all value updates wrap modulo 2^64. Erase even sorted indices, retain odd indices; verify both directions and final size.",
+  "iterator_contract": "Map loops bind real pair<const uint64_t,uint64_t>&. All operations use public begin/end/crbegin/crend/erase(pos). No for_each/get/key erase substitution. After erase only its returned iterator is retained; end() is re-evaluated because structural mutation invalidates all old iterators.",
+  "comparison_limit": "std erase(pos) is amortized O(1); the experimental erase(pos) performs O(log N) key lookup/rebalancing and successor lookup. Record this potential regression. No absolute cross-compiler or phase-order claims.",
+  "wall_rss": "Fresh process wall includes parse/format/runtime/destruction and the time helper. RSS is peak KiB from /usr/bin/time, separate from C++ phase times; the small helper avoids inheriting Python oracle heap.",
+  "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n",
+  "binary_sha256": {
+    "clang++": "3e9c024b38f71140a22f53ffac4e3db5cdce39e613946c80b4869f9abf8febbb"
+  },
+  "fixtures": [
+    {
+      "name": "n50000-random",
+      "n": 50000,
+      "distribution": "random",
+      "seed": 20261020,
+      "input_sha256": "21af943cfd83b1a45b868d85a59f3afd99c503071bde1236fc7e0d50f34db286",
+      "expected": {
+        "map": {
+          "initial_size": 50000,
+          "forward_digest": 14366965923535617097,
+          "forward_count": 50000,
+          "reverse_digest": 2687858312738390145,
+          "reverse_count": 50000,
+          "updated_digest": 15728359223288858173,
+          "updated_count": 50000,
+          "final_size": 25000,
+          "erased": 25000,
+          "post_forward_digest": 5754111957803504820,
+          "post_forward_count": 25000,
+          "post_reverse_digest": 5955102713303492628,
+          "post_reverse_count": 25000
+        },
+        "set": {
+          "initial_size": 50000,
+          "forward_digest": 6066207899988078937,
+          "forward_count": 50000,
+          "reverse_digest": 7020474160601260301,
+          "reverse_count": 50000,
+          "updated_digest": null,
+          "updated_count": null,
+          "final_size": 25000,
+          "erased": 25000,
+          "post_forward_digest": 8922675605894515626,
+          "post_forward_count": 25000,
+          "post_reverse_digest": 8114025511066297668,
+          "post_reverse_count": 25000
+        }
+      }
+    },
+    {
+      "name": "n50000-monotone",
+      "n": 50000,
+      "distribution": "monotone",
+      "seed": 20261021,
+      "input_sha256": "f653d67105d62744bc3ff15a8de516099ce6c4a70b0e94285ac4232c6f41eb19",
+      "expected": {
+        "map": {
+          "initial_size": 50000,
+          "forward_digest": 6561970090812519239,
+          "forward_count": 50000,
+          "reverse_digest": 12818249077179794607,
+          "reverse_count": 50000,
+          "updated_digest": 8390435201164311579,
+          "updated_count": 50000,
+          "final_size": 25000,
+          "erased": 25000,
+          "post_forward_digest": 14122779784538530481,
+          "post_forward_count": 25000,
+          "post_reverse_digest": 8693590381116209193,
+          "post_reverse_count": 25000
+        },
+        "set": {
+          "initial_size": 50000,
+          "forward_digest": 12020290315422001317,
+          "forward_count": 50000,
+          "reverse_digest": 3175328629685100181,
+          "reverse_count": 50000,
+          "updated_digest": null,
+          "updated_count": null,
+          "final_size": 25000,
+          "erased": 25000,
+          "post_forward_digest": 7427055609586317109,
+          "post_forward_count": 25000,
+          "post_reverse_digest": 13602996871424043461,
+          "post_reverse_count": 25000
+        }
+      }
+    },
+    {
+      "name": "n500000-random",
+      "n": 500000,
+      "distribution": "random",
+      "seed": 20261022,
+      "input_sha256": "ee2076505afe5cdb747e2cbe1100234b1c098473c9f6f8dc49cf8de16ff27be5",
+      "expected": {
+        "map": {
+          "initial_size": 500000,
+          "forward_digest": 16902359512408151412,
+          "forward_count": 500000,
+          "reverse_digest": 4936298530328701112,
+          "reverse_count": 500000,
+          "updated_digest": 13487133864465917597,
+          "updated_count": 500000,
+          "final_size": 250000,
+          "erased": 250000,
+          "post_forward_digest": 11666485946172641387,
+          "post_forward_count": 250000,
+          "post_reverse_digest": 6415186140284219027,
+          "post_reverse_count": 250000
+        },
+        "set": {
+          "initial_size": 500000,
+          "forward_digest": 1136252465637077186,
+          "forward_count": 500000,
+          "reverse_digest": 3271219484856268920,
+          "reverse_count": 500000,
+          "updated_digest": null,
+          "updated_count": null,
+          "final_size": 250000,
+          "erased": 250000,
+          "post_forward_digest": 10710107081486036928,
+          "post_forward_count": 250000,
+          "post_reverse_digest": 7648424065775505446,
+          "post_reverse_count": 250000
+        }
+      }
+    }
+  ],
+  "finished": "2026-10-20T07:03:42.685078+00:00",
+  "compile_records": [
+    {
+      "compiler": "g++",
+      "stage": "compile",
+      "returncode": 1,
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/sets-iteration.cpp",
+        "-o",
+        "/tmp/blueberry-sets-iteration-h5htqh2y/g++"
+      ]
+    },
+    {
+      "compiler": "clang++",
+      "stage": "compile",
+      "returncode": 0,
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-I.",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/sets-iteration.cpp",
+        "-o",
+        "/tmp/blueberry-sets-iteration-h5htqh2y/clang++"
+      ]
+    }
+  ]
+}

@@ -1,3 +1,52 @@
+- name: POPCNT Wavelet Matrix
+  aliases: さらに高速 ウェーブレット行列 kth frequency popcnt batch
+  category: data-structure
+  section: extra-fast
+  path: blueberry/extra-fast/wavelet-matrix.hpp
+  description: 座標圧縮・POPCNTによる静的順位検索とバッチkth
+  role: メモリ配置と命令選択による高速化実験
+- name: SIMD FPS 998244353
+  aliases: さらに高速 FPS NTT 畳み込み inverse log exp SIMD AVX2 asm
+  category: math
+  section: extra-fast
+  path: blueberry/extra-fast/formal-power-series.hpp
+  description: Montgomery AVX2 NTTによる畳み込み・逆元・log・exp
+  role: 法と係数型を限定した高速化実験
+- name: Padded Fenwick Tree
+  aliases: さらに高速 BIT Fenwick フェニック木 点加算 区間和 lower_bound
+  category: data-structure
+  section: extra-fast
+  path: blueberry/extra-fast/fenwick-tree.hpp
+  description: パディング付きuint64_t BITと累積和検索
+  role: メモリ配置による高速化実験
+- name: SIMD Affine Sum Segment Tree
+  aliases: さらに高速 遅延セグ木 lazy affine アフィン変換 区間和 SIMD AVX2 asm
+  category: data-structure
+  section: extra-fast
+  path: blueberry/extra-fast/affine-sum-segment-tree.hpp
+  description: 16分木とMontgomery AVX2による区間アフィン変換・区間和
+  role: 法と作用を限定した高速化実験
+- name: Wide Range Add Sum
+  aliases: さらに高速 区間加算 区間和 SIMD AVX2 asm
+  category: data-structure
+  section: extra-fast
+  path: blueberry/extra-fast/range-add-sum.hpp
+  description: 差分と重み付き差分の多分木で区間加算・区間和
+  role: 演算を限定した高速化実験
+- name: SIMD Ordered Map / Set
+  aliases: さらに高速 B木 順序付き 集合 連想配列 std::map std::set iterator begin end rank kth lower_bound SIMD AVX2 asm
+  category: data-structure
+  section: extra-fast
+  path: blueberry/extra-fast/ordered-map.hpp
+  description: 整数キー用B+木の挿入・削除・順位検索と双方向反復子
+  role: 整数キーに限定した高速化実験
+- name: SIMD Hash Map / Set
+  aliases: さらに高速 ハッシュ 連想配列 集合 unordered SIMD SSE2 asm
+  category: data-structure
+  section: extra-fast
+  path: blueberry/extra-fast/hash-map.hpp
+  description: 16タグ同時比較と動的容量・削除を備える整数ハッシュ表
+  role: 整数キーに限定した高速化実験
 - name: SIMD Static RMQ
   aliases: さらに高速 区間最小値 静的RMQ SIMD AVX2 asm
   category: data-structure

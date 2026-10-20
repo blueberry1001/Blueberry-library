@@ -1,0 +1,205 @@
+$ make check COMPILE_JOBS=8 'CPPFLAGS=-isystem .deps/ac-library' CXX=g++ CXX_STANDARD=gnu++20 RANDOM_RUNS=20 RANDOM_SEED=1 RANDOM_TIMEOUT=5
+python3 -m unittest discover -s tests -v
+test_checksum_validation (test_benchmark_runner.BenchmarkRunnerTests.test_checksum_validation) ... ok
+test_manifest_is_valid (test_benchmark_runner.BenchmarkRunnerTests.test_manifest_is_valid) ... ok
+test_median_absolute_deviation (test_benchmark_runner.BenchmarkRunnerTests.test_median_absolute_deviation) ... ok
+test_output_requires_one_json_line_and_checksum (test_benchmark_runner.BenchmarkRunnerTests.test_output_requires_one_json_line_and_checksum) ... ok
+test_static_rmq_implementations_agree (test_benchmark_runner.BenchmarkRunnerTests.test_static_rmq_implementations_agree) ... ok
+test_compatibility_monoids_still_require_documentation_without_catalog_listing (test_check_docs_selection.CheckDocsSelectionTest.test_compatibility_monoids_still_require_documentation_without_catalog_listing) ... ok
+test_default_compiles_every_example_once (test_check_docs_selection.CheckDocsSelectionTest.test_default_compiles_every_example_once) ... ok
+test_empty_selection_never_launches_compiler (test_check_docs_selection.CheckDocsSelectionTest.test_empty_selection_never_launches_compiler) ... ok
+test_guide_selection_keeps_all_three_examples (test_check_docs_selection.CheckDocsSelectionTest.test_guide_selection_keeps_all_three_examples) ... ok
+test_implementation_precedes_examples_and_api_details (test_check_docs_selection.CheckDocsSelectionTest.test_implementation_precedes_examples_and_api_details) ... ok
+test_library_selection_excludes_other_pages (test_check_docs_selection.CheckDocsSelectionTest.test_library_selection_excludes_other_pages) ... ok
+test_long_quick_tables_require_native_disclosure (test_check_docs_selection.CheckDocsSelectionTest.test_long_quick_tables_require_native_disclosure) ... ok
+test_only_selected_valid_cpp_runs_with_real_compiler (test_check_docs_selection.CheckDocsSelectionTest.test_only_selected_valid_cpp_runs_with_real_compiler) ... ok
+test_selected_invalid_cpp_rejected_by_real_compiler (test_check_docs_selection.CheckDocsSelectionTest.test_selected_invalid_cpp_rejected_by_real_compiler) ... In file included from /usr/include/c++/13/cassert:44,
+                 from <stdin>:1:
+<stdin>: In function ‘int main()’:
+<stdin>:2:21: error: ‘undeclared_identifier’ was not declared in this scope
+ok
+test_selection_schema_is_strict (test_check_docs_selection.CheckDocsSelectionTest.test_selection_schema_is_strict) ... ok
+test_structure_only_never_launches_compiler (test_check_docs_selection.CheckDocsSelectionTest.test_structure_only_never_launches_compiler) ... ok
+test_structure_outside_selection_still_fails (test_check_docs_selection.CheckDocsSelectionTest.test_structure_outside_selection_still_fails) ... ok
+test_summary_template_brackets_must_be_html_escaped (test_check_docs_selection.CheckDocsSelectionTest.test_summary_template_brackets_must_be_html_escaped) ... ok
+test_supplementary_contracts_stay_closed_and_keep_the_premise_anchor (test_check_docs_selection.CheckDocsSelectionTest.test_supplementary_contracts_stay_closed_and_keep_the_premise_anchor) ... ok
+test_unknown_non_document_and_noncanonical_paths_fail (test_check_docs_selection.CheckDocsSelectionTest.test_unknown_non_document_and_noncanonical_paths_fail) ... ok
+test_unregistered_new_header_is_not_treated_as_compatibility (test_check_docs_selection.CheckDocsSelectionTest.test_unregistered_new_header_is_not_treated_as_compatibility) ... ok
+test_angle_local_includes_and_new_verifier (test_ci_plan.CiPlanTests.test_angle_local_includes_and_new_verifier) ... ok
+test_baseline_api_failure_falls_back_to_full (test_ci_plan.CiPlanTests.test_baseline_api_failure_falls_back_to_full) ... ok
+test_changed_test_runs_compile_but_not_unrelated_official_cases (test_ci_plan.CiPlanTests.test_changed_test_runs_compile_but_not_unrelated_official_cases) ... ok
+test_cli_explicit_full_three_repeats_and_empty_paths_file (test_ci_plan.CiPlanTests.test_cli_explicit_full_three_repeats_and_empty_paths_file) ... ok
+test_comments_continuations_and_cycles (test_ci_plan.CiPlanTests.test_comments_continuations_and_cycles) ... ok
+test_deleted_dependency_consumer_preserved_from_base_graph (test_ci_plan.CiPlanTests.test_deleted_dependency_consumer_preserved_from_base_graph) ... ok
+test_deleted_verifier_not_scheduled (test_ci_plan.CiPlanTests.test_deleted_verifier_not_scheduled) ... ok
+test_documentation_ui_has_explicit_empty_selection (test_ci_plan.CiPlanTests.test_documentation_ui_has_explicit_empty_selection) ... ok
+test_failed_prior_push_does_not_hide_unverified_changes (test_ci_plan.CiPlanTests.test_failed_prior_push_does_not_hide_unverified_changes) ... ok
+test_library_docs_select_only_changed_examples (test_ci_plan.CiPlanTests.test_library_docs_select_only_changed_examples) ... ok
+test_macro_or_missing_include_forces_full (test_ci_plan.CiPlanTests.test_macro_or_missing_include_forces_full) ... ok
+test_manifest_tampering_rejected (test_ci_plan.CiPlanTests.test_manifest_tampering_rejected) ... ok
+test_missing_base_full_and_explicit_full (test_ci_plan.CiPlanTests.test_missing_base_full_and_explicit_full) ... ok
+test_pr_merge_base_and_push_before (test_ci_plan.CiPlanTests.test_pr_merge_base_and_push_before) ... ok
+test_publication_push_keeps_docs_only_selection_empty (test_ci_plan.CiPlanTests.test_publication_push_keeps_docs_only_selection_empty) ... ok
+test_rename_uses_old_and_new_paths (test_ci_plan.CiPlanTests.test_rename_uses_old_and_new_paths) ... ok
+test_transitive_relative_dependency_and_independent_target (test_ci_plan.CiPlanTests.test_transitive_relative_dependency_and_independent_target) ... ok
+test_unknown_harness_and_workflow_force_full (test_ci_plan.CiPlanTests.test_unknown_harness_and_workflow_force_full) ... ok
+test_untrusted_pr_and_nonancestor_workflow_cannot_supply_baseline (test_ci_plan.CiPlanTests.test_untrusted_pr_and_nonancestor_workflow_cannot_supply_baseline) ... ok
+test_only_known_cpp_integrations_are_removed (test_ci_plan.UnitSelectionTests.test_only_known_cpp_integrations_are_removed) ... NOT SELECTED (no C++ changes): test_tree_random.T.test_run
+NOT SELECTED (no C++ changes): test_data_structures.T.test_run
+NOT SELECTED (no C++ changes): test_benchmark_runner.BenchmarkRunnerTests.test_static_rmq_implementations_agree
+ok
+test_both_cpp_jobs_use_same_pinned_acl (test_ci_plan.WorkflowGateTests.test_both_cpp_jobs_use_same_pinned_acl) ... ok
+test_existing_required_jobs_fail_closed_on_planner_failure (test_ci_plan.WorkflowGateTests.test_existing_required_jobs_fail_closed_on_planner_failure) ... ok
+test_range_comparison_covers_whole_workload_and_limits (test_comparisons.ComparisonsTest.test_range_comparison_covers_whole_workload_and_limits) ... ok
+test_references_and_table_shapes (test_comparisons.ComparisonsTest.test_references_and_table_shapes) ... ok
+test_randomized_against_naive_implementations (test_data_structures.DataStructureRandomTest.test_randomized_against_naive_implementations) ... ok
+test_documentation_interactions (test_docs_ui.DocumentationUiTest.test_documentation_interactions) ... PASS: catalog filtering/category switching, source toggle/copy/anchors, nested anchors, clipboard success and fallback
+ok
+test_fetches_fastest_rows_and_profiles_source (test_fetch_lc_fastest.FetchFastestTest.test_fetches_fastest_rows_and_profiles_source) ... ok
+test_report_uses_milliseconds (test_fetch_lc_fastest.FetchFastestTest.test_report_uses_milliseconds) ... ok
+test_corrupt_report_waits_and_remains_untouched (test_generated_docs.DocumentationStatusTest.test_corrupt_report_waits_and_remains_untouched) ... ok
+test_current_failure_is_reported (test_generated_docs.DocumentationStatusTest.test_current_failure_is_reported) ... ok
+test_current_failure_overrides_cached_pass (test_generated_docs.DocumentationStatusTest.test_current_failure_overrides_cached_pass) ... ok
+test_current_failure_overrides_valid_saved_success (test_generated_docs.DocumentationStatusTest.test_current_failure_overrides_valid_saved_success) ... ok
+test_invalidated_saved_success_cannot_fall_back_to_timestamp_cache (test_generated_docs.DocumentationStatusTest.test_invalidated_saved_success_cannot_fall_back_to_timestamp_cache) ... ok
+test_no_evidence_waits_instead_of_reporting_failure (test_generated_docs.DocumentationStatusTest.test_no_evidence_waits_instead_of_reporting_failure) ... ok
+test_stale_failure_report_is_not_failure_evidence (test_generated_docs.DocumentationStatusTest.test_stale_failure_report_is_not_failure_evidence) ... ok
+test_unknown_unselected_or_invalid_paths_cannot_claim_failure (test_generated_docs.DocumentationStatusTest.test_unknown_unselected_or_invalid_paths_cannot_claim_failure) ... ok
+test_valid_cached_pass_remains_verified (test_generated_docs.DocumentationStatusTest.test_valid_cached_pass_remains_verified) ... ok
+test_valid_saved_success_does_not_need_timestamp_cache (test_generated_docs.DocumentationStatusTest.test_valid_saved_success_does_not_need_timestamp_cache) ... ok
+test_external_output_is_not_removed (test_generated_docs.GeneratedDocumentationTest.test_external_output_is_not_removed) ... ok
+test_no_generated_directory_is_a_noop (test_generated_docs.GeneratedDocumentationTest.test_no_generated_directory_is_a_noop) ... ok
+test_removed_sources_are_pruned_without_touching_other_pages (test_generated_docs.GeneratedDocumentationTest.test_removed_sources_are_pruned_without_touching_other_pages) ... ok
+test_retired_migration_page_is_pruned_from_previous_build (test_generated_docs.GeneratedDocumentationTest.test_retired_migration_page_is_pruned_from_previous_build) ... ok
+test_exact_catalog_code_and_random_oracles (test_generated_docs.MonoidSnippetTest.test_exact_catalog_code_and_random_oracles) ... ok
+test_fresh_cache_is_used (test_lc_submissions.LibraryCheckerResearchTests.test_fresh_cache_is_used) ... ok
+test_namespaced_nested_vector_is_detected (test_lc_submissions.LibraryCheckerResearchTests.test_namespaced_nested_vector_is_detected) ... ok
+test_problem_ratios_and_markdown (test_lc_submissions.LibraryCheckerResearchTests.test_problem_ratios_and_markdown) ... ok
+test_public_detail_omits_source (test_lc_submissions.LibraryCheckerResearchTests.test_public_detail_omits_source) ... ok
+test_source_profile (test_lc_submissions.LibraryCheckerResearchTests.test_source_profile) ... ok
+test_browser_filter_keeps_implementation_distinct_from_acl (test_library_checker_coverage.CoverageTests.test_browser_filter_keeps_implementation_distinct_from_acl) ... ok
+test_browser_filters_restore_urls_quick_links_and_history (test_library_checker_coverage.CoverageTests.test_browser_filters_restore_urls_quick_links_and_history) ... ok
+test_chronological_driver_does_not_hide_retroactive_gap (test_library_checker_coverage.CoverageTests.test_chronological_driver_does_not_hide_retroactive_gap) ... ok
+test_comment_does_not_create_a_driver (test_library_checker_coverage.CoverageTests.test_comment_does_not_create_a_driver) ... ok
+test_cycles_and_stale_generated_outputs (test_library_checker_coverage.CoverageTests.test_cycles_and_stale_generated_outputs) ... ok
+test_duplicate_or_invalid_problem_id_rejected (test_library_checker_coverage.CoverageTests.test_duplicate_or_invalid_problem_id_rejected) ... ok
+test_extra_fast_catalog_is_retained_for_validation_but_not_discovery (test_library_checker_coverage.CoverageTests.test_extra_fast_catalog_is_retained_for_validation_but_not_discovery) ... ok
+test_extra_fast_driver_does_not_leak_through_shared_dependencies (test_library_checker_coverage.CoverageTests.test_extra_fast_driver_does_not_leak_through_shared_dependencies) ... ok
+test_ignored_driver_does_not_claim_coverage (test_library_checker_coverage.CoverageTests.test_ignored_driver_does_not_claim_coverage) ... ok
+test_inventory_preserves_uncategorized_published_problem (test_library_checker_coverage.CoverageTests.test_inventory_preserves_uncategorized_published_problem) ... ok
+test_library_evidence_accepts_other_judges_without_claiming_lc (test_library_checker_coverage.CoverageTests.test_library_evidence_accepts_other_judges_without_claiming_lc) ... ok
+test_library_evidence_distinguishes_direct_indirect_and_ignored (test_library_checker_coverage.CoverageTests.test_library_evidence_distinguishes_direct_indirect_and_ignored) ... ok
+test_library_evidence_smoke_does_not_cover_all_headers (test_library_checker_coverage.CoverageTests.test_library_evidence_smoke_does_not_cover_all_headers) ... ok
+test_manual_api_and_acl_are_distinct (test_library_checker_coverage.CoverageTests.test_manual_api_and_acl_are_distinct) ... ok
+test_multiple_drivers_and_transitive_dependencies (test_library_checker_coverage.CoverageTests.test_multiple_drivers_and_transitive_dependencies) ... ok
+test_problem_implementations_exclude_automatic_utility_dependencies (test_library_checker_coverage.CoverageTests.test_problem_implementations_exclude_automatic_utility_dependencies) ... ok
+test_reviewed_mapping_can_include_utility_implementation (test_library_checker_coverage.CoverageTests.test_reviewed_mapping_can_include_utility_implementation) ... ok
+test_snapshot_and_markdown_have_every_problem_once (test_library_checker_coverage.CoverageTests.test_snapshot_and_markdown_have_every_problem_once) ... ok
+test_umbrella_smoke_is_not_all_library_coverage (test_library_checker_coverage.CoverageTests.test_umbrella_smoke_is_not_all_library_coverage) ... ok
+test_unknown_problem_and_missing_dependency_are_errors (test_library_checker_coverage.CoverageTests.test_unknown_problem_and_missing_dependency_are_errors) ... ok
+test_utility_library_keeps_direct_verification_evidence (test_library_checker_coverage.CoverageTests.test_utility_library_keeps_direct_verification_evidence) ... ok
+test_generic_monoid_query_does_not_recommend_idempotent_only_table (test_operations.OperationFinderTest.test_generic_monoid_query_does_not_recommend_idempotent_only_table) ... ok
+test_metadata_references_real_documented_apis (test_operations.OperationFinderTest.test_metadata_references_real_documented_apis) ... ok
+test_monoid_recipes_separate_update_contracts (test_operations.OperationFinderTest.test_monoid_recipes_separate_update_contracts) ... ok
+test_progressive_enhancement_and_accessibility_markup (test_operations.OperationFinderTest.test_progressive_enhancement_and_accessibility_markup) ... ok
+test_query_update_and_condition_are_all_required (test_operations.OperationFinderTest.test_query_update_and_condition_are_all_required) ... ok
+test_reset_restores_results_and_focus_without_reload (test_operations.OperationFinderTest.test_reset_restores_results_and_focus_without_reload) ... ok
+test_specialized_structures_match_only_supported_operations (test_operations.OperationFinderTest.test_specialized_structures_match_only_supported_operations) ... ok
+test_target_changes_remove_irrelevant_options_and_clear_stale_choices (test_operations.OperationFinderTest.test_target_changes_remove_irrelevant_options_and_clear_stale_choices) ... ok
+test_unknown_filter_never_silently_shows_unrelated_results (test_operations.OperationFinderTest.test_unknown_filter_never_silently_shows_unrelated_results) ... ok
+test_workload_capabilities_and_target_separation (test_operations.OperationFinderTest.test_workload_capabilities_and_target_separation) ... ok
+test_liquid_data_preserves_every_character (test_original_template.OriginalTemplateTest.test_liquid_data_preserves_every_character) ... ok
+test_original_bytes_and_checkout_preservation (test_original_template.OriginalTemplateTest.test_original_bytes_and_checkout_preservation) ... ok
+test_original_names_with_user_defined_main (test_original_template.OriginalTemplateTest.test_original_names_with_user_defined_main) ... ok
+test_docs_only_publication_preserves_ac_without_copying_old_measurement (test_publish_metrics.PublicationStateTest.test_docs_only_publication_preserves_ac_without_copying_old_measurement) ... ok
+test_docs_only_run_rejects_missing_or_corrupt_saved_ac_before_writing (test_publish_metrics.PublicationStateTest.test_docs_only_run_rejects_missing_or_corrupt_saved_ac_before_writing) ... ok
+test_fresh_success_requires_its_persisted_evidence_too (test_publish_metrics.PublicationStateTest.test_fresh_success_requires_its_persisted_evidence_too) ... ok
+test_no_report_removes_stale_generated_metrics_but_retains_ac (test_publish_metrics.PublicationStateTest.test_no_report_removes_stale_generated_metrics_but_retains_ac) ... No current measurement; retained source-valid AC provenance is published separately.
+ok
+test_saved_ac_ui_names_actual_revision_and_no_current_measurement (test_publish_metrics.PublicationStateTest.test_saved_ac_ui_names_actual_revision_and_no_current_measurement) ... ok
+test_stale_current_report_is_rejected_not_relabelled (test_publish_metrics.PublicationStateTest.test_stale_current_report_is_rejected_not_relabelled) ... ok
+test_unselected_rows_cannot_borrow_historical_timings (test_publish_metrics.PublicationStateTest.test_unselected_rows_cannot_borrow_historical_timings) ... ok
+test_docs_only_zero_run_keeps_source_valid_ac_but_never_old_timings (test_publish_metrics.SavedAcDocumentationIntegrationTest.test_docs_only_zero_run_keeps_source_valid_ac_but_never_old_timings) ... ok
+test_random_and_deep_tree (test_tree_random.TreeRandomTest.test_random_and_deep_tree) ... ok
+test_comparisons_and_initial_run (test_verification_metrics.MetricsTests.test_comparisons_and_initial_run) ... ok
+test_dataset_changes_invalidate_hash (test_verification_metrics.MetricsTests.test_dataset_changes_invalidate_hash) ... ok
+test_discovery_ignores_generated_copies (test_verification_metrics.MetricsTests.test_discovery_ignores_generated_copies) ... ok
+test_docs_only_plan_runs_cli_without_verification_dependencies (test_verification_metrics.MetricsTests.test_docs_only_plan_runs_cli_without_verification_dependencies) ... ok
+test_explicit_empty_selection_never_runs_all (test_verification_metrics.MetricsTests.test_explicit_empty_selection_never_runs_all) ... ok
+test_failed_and_missing_logs_never_become_success (test_verification_metrics.MetricsTests.test_failed_and_missing_logs_never_become_success) ... ::group::verify/test.cpp measurement 1/3
+::endgroup::
+::group::verify/test.cpp measurement 1/3
+::endgroup::
+ok
+test_failed_report_is_written (test_verification_metrics.MetricsTests.test_failed_report_is_written) ... # Verification timings
+
+Commit: test / UTC: now
+Baseline: なし（初回）
+
+単位は秒。直列実行・各ケースの solution elapsed 合計の中央値。コンパイル・DL・checkerは合計から除外。
+プロセス起動とI/Oは含みます。Yosupo提出画面の時間ではありません。共有runnerの小さな差は誤差として扱ってください。
+
+| Verify / 環境番号 | 状態 | コンパイル | 実行合計（中央値） | 最大ケース（中央値） | 基準との差 |
+| --- | --- | ---: | ---: | ---: | --- |
+| verify/test.cpp / 0 | failed | — | — | — | 未完了 / 失敗 |
+
+## Environment
+
+~~~json
+{
+  "cpu": "test"
+}
+~~~
+
+ok
+test_legacy_complete_reports_remain_valid (test_verification_metrics.MetricsTests.test_legacy_complete_reports_remain_valid) ... ok
+test_median_is_total_of_cases_not_median_case (test_verification_metrics.MetricsTests.test_median_is_total_of_cases_not_median_case) ... ok
+test_missing_duplicate_and_invalid_times (test_verification_metrics.MetricsTests.test_missing_duplicate_and_invalid_times) ... ok
+test_missing_failed_and_unmeasured_selected_rows_block_publication (test_verification_metrics.MetricsTests.test_missing_failed_and_unmeasured_selected_rows_block_publication) ... ok
+test_partial_and_documentation_only_reports_publish_honestly (test_verification_metrics.MetricsTests.test_partial_and_documentation_only_reports_publish_honestly) ... ok
+test_runner_repeats_serial_and_preserves_checker (test_verification_metrics.MetricsTests.test_runner_repeats_serial_and_preserves_checker) ... ::group::verify/test.cpp measurement 1/3
+::endgroup::
+::group::verify/test.cpp measurement 2/3
+::endgroup::
+::group::verify/test.cpp measurement 3/3
+::endgroup::
+ok
+test_selection_inventory_and_revision_are_checked (test_verification_metrics.MetricsTests.test_selection_inventory_and_revision_are_checked) ... ok
+test_stale_unselected_measurements_and_unexplained_skips_are_rejected (test_verification_metrics.MetricsTests.test_stale_unselected_measurements_and_unexplained_skips_are_rejected) ... ok
+test_structured_log (test_verification_metrics.MetricsTests.test_structured_log) ... ok
+test_143_saved_receipts_select_zero_for_a_documentation_change (test_verification_state.VerificationStateTest.test_143_saved_receipts_select_zero_for_a_documentation_change) ... ok
+test_all_environments_must_pass_and_driver_digest_must_match (test_verification_state.VerificationStateTest.test_all_environments_must_pass_and_driver_digest_must_match) ... ok
+test_changed_selection_state_is_rejected (test_verification_state.VerificationStateTest.test_changed_selection_state_is_rejected) ... ok
+test_contract_changes_each_select_all (test_verification_state.VerificationStateTest.test_contract_changes_each_select_all) ... ok
+test_corrupted_state_and_missing_measurements_fail_closed (test_verification_state.VerificationStateTest.test_corrupted_state_and_missing_measurements_fail_closed) ... ok
+test_dirty_compiled_header_cannot_create_a_clean_source_receipt (test_verification_state.VerificationStateTest.test_dirty_compiled_header_cannot_create_a_clean_source_receipt) ... ok
+test_dirty_transitive_header_is_not_displayed_as_verified (test_verification_state.VerificationStateTest.test_dirty_transitive_header_is_not_displayed_as_verified) ... ok
+test_docs_only_reuses_ac_without_rewriting_provenance (test_verification_state.VerificationStateTest.test_docs_only_reuses_ac_without_rewriting_provenance) ... ok
+test_execution_core_changes_invalidate_but_report_plumbing_does_not (test_verification_state.VerificationStateTest.test_execution_core_changes_invalidate_but_report_plumbing_does_not) ... ok
+test_execution_dump_is_stable_with_python312_keyword_interface (test_verification_state.VerificationStateTest.test_execution_dump_is_stable_with_python312_keyword_interface) ... ok
+test_failure_at_unresolved_source_still_has_tombstone (test_verification_state.VerificationStateTest.test_failure_at_unresolved_source_still_has_tombstone) ... ok
+test_failure_tombstone_prevents_seed_resurrection (test_verification_state.VerificationStateTest.test_failure_tombstone_prevents_seed_resurrection) ... ok
+test_failure_wins_equal_timestamp_and_stale_pass_does_not_override (test_verification_state.VerificationStateTest.test_failure_wins_equal_timestamp_and_stale_pass_does_not_override) ... ok
+test_manual_full_still_selects_every_target_and_three_repeats (test_verification_state.VerificationStateTest.test_manual_full_still_selects_every_target_and_three_repeats) ... ok
+test_new_driver_runs_and_deleted_driver_is_pruned (test_verification_state.VerificationStateTest.test_new_driver_runs_and_deleted_driver_is_pruned) ... ok
+test_non_acl_workflow_edit_does_not_invalidate_programs (test_verification_state.VerificationStateTest.test_non_acl_workflow_edit_does_not_invalidate_programs) ... ok
+test_overlapping_runs_are_ordered_by_completion_not_start (test_verification_state.VerificationStateTest.test_overlapping_runs_are_ordered_by_completion_not_start) ... ok
+test_present_invalid_execution_ast_is_not_reusable (test_verification_state.VerificationStateTest.test_present_invalid_execution_ast_is_not_reusable) ... ok
+test_transitive_header_change_selects_only_its_consumer (test_verification_state.VerificationStateTest.test_transitive_header_change_selects_only_its_consumer) ... ok
+test_unknown_dependency_invalidates_only_its_consumers (test_verification_state.VerificationStateTest.test_unknown_dependency_invalidates_only_its_consumers) ... ok
+test_unselected_rows_never_create_new_ac_and_local_url_can_be_none (test_verification_state.VerificationStateTest.test_unselected_rows_never_create_new_ac_and_local_url_can_be_none) ... ok
+
+----------------------------------------------------------------------
+Ran 149 tests in 36.839s
+
+OK
+python3 scripts/library_checker_coverage.py --check
+Traceback (most recent call last):
+  File "/home/blueberry/.cache/blueberry-extra-fast-more-d8ee799/scripts/library_checker_coverage.py", line 302, in <module>
+    main()
+  File "/home/blueberry/.cache/blueberry-extra-fast-more-d8ee799/scripts/library_checker_coverage.py", line 295, in main
+    write_or_check(ROOT / ".verify-helper/docs/static/_data/library_verification.json",
+  File "/home/blueberry/.cache/blueberry-extra-fast-more-d8ee799/scripts/library_checker_coverage.py", line 257, in write_or_check
+    raise ValueError(f"Stale coverage output: {path}. Run python3 scripts/library_checker_coverage.py")
+ValueError: Stale coverage output: /home/blueberry/.cache/blueberry-extra-fast-more-d8ee799/.verify-helper/docs/static/_data/library_verification.json. Run python3 scripts/library_checker_coverage.py
+make: *** [Makefile:55: test] Error 1

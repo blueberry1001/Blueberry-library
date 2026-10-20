@@ -1,0 +1,186 @@
+[
+  {
+    "compiler": "g++",
+    "command": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG",
+      "-I.",
+      ".benchmark/extra-fast-more/lazy-bit/probe-affine.cpp",
+      "-S",
+      "-o",
+      "docs/development/measurements/extra-fast-more/lazy-bit/shift-assembly/g++-O2.s"
+    ],
+    "returncode": 0,
+    "functions": [
+      {
+        "symbol": "_ZN9blueberry10extra_fast22AffineSumSegmentTree169fold_simdEPKjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZNK9blueberry10extra_fast22AffineSumSegmentTree165queryEimmm",
+        "div_instructions": [
+          "divq\t%rbp",
+          "divq\t%rbp",
+          "divq\t%rbp"
+        ]
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast22AffineSumSegmentTree1614transform_simdEPjS2_S2_jjjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast22AffineSumSegmentTree169transformEimjjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast22AffineSumSegmentTree1612update_childEimjmmjj",
+        "div_instructions": [
+          "divq\t%r13",
+          "divq\t%r13",
+          "divq\t%r13"
+        ]
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast18ShiftAffineControl9fold_simdEPKjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZNK9blueberry10extra_fast18ShiftAffineControl5queryEimmm",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast18ShiftAffineControl14transform_simdEPjS2_S2_jjjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast18ShiftAffineControl9transformEimjjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast18ShiftAffineControl12update_childEimjmmjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "baseline_prod",
+        "div_instructions": []
+      },
+      {
+        "symbol": "shift_prod",
+        "div_instructions": []
+      },
+      {
+        "symbol": "baseline_apply",
+        "div_instructions": [
+          "divq\t%r14",
+          "divq\t%r14",
+          "divq\t%r14"
+        ]
+      },
+      {
+        "symbol": "shift_apply",
+        "div_instructions": []
+      }
+    ],
+    "baseline_variable_div_count": 6,
+    "shift_variable_div_count": 0
+  },
+  {
+    "compiler": "clang++",
+    "command": [
+      "clang++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG",
+      "-I.",
+      ".benchmark/extra-fast-more/lazy-bit/probe-affine.cpp",
+      "-S",
+      "-o",
+      "docs/development/measurements/extra-fast-more/lazy-bit/shift-assembly/clang++-O2.s"
+    ],
+    "returncode": 0,
+    "functions": [
+      {
+        "symbol": "baseline_prod",
+        "div_instructions": []
+      },
+      {
+        "symbol": "shift_prod",
+        "div_instructions": []
+      },
+      {
+        "symbol": "baseline_apply",
+        "div_instructions": []
+      },
+      {
+        "symbol": "shift_apply",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZNK9blueberry10extra_fast22AffineSumSegmentTree165queryEimmm",
+        "div_instructions": [
+          "divq\t%r13",
+          "divl\t%r13d",
+          "divq\t%r13",
+          "divl\t%r13d",
+          "divq\t%r13",
+          "divl\t%r13d"
+        ]
+      },
+      {
+        "symbol": "_ZNK9blueberry10extra_fast22AffineSumSegmentTree1611query_childEimjmm",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast22AffineSumSegmentTree169fold_simdEPKjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZNK9blueberry10extra_fast18ShiftAffineControl5queryEimmm",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZNK9blueberry10extra_fast18ShiftAffineControl11query_childEimjmm",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast18ShiftAffineControl9fold_simdEPKjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast22AffineSumSegmentTree166updateEimmmjj",
+        "div_instructions": [
+          "divq\t%r13",
+          "divl\t%r13d",
+          "divq\t%r13",
+          "divq\t%r13",
+          "divl\t%r13d",
+          "divl\t%r13d"
+        ]
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast22AffineSumSegmentTree169transformEimjjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast22AffineSumSegmentTree1614transform_simdEPjS2_S2_jjjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast18ShiftAffineControl6updateEimmmjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast18ShiftAffineControl9transformEimjjjj",
+        "div_instructions": []
+      },
+      {
+        "symbol": "_ZN9blueberry10extra_fast18ShiftAffineControl14transform_simdEPjS2_S2_jjjjj",
+        "div_instructions": []
+      }
+    ],
+    "baseline_variable_div_count": 12,
+    "shift_variable_div_count": 0
+  }
+]

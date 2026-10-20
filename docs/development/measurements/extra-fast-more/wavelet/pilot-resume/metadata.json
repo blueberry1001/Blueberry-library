@@ -1,0 +1,105 @@
+{
+  "created_utc": "2026-10-20T04:55:29Z",
+  "runs": 3,
+  "seed": 20261020,
+  "cpu": 0,
+  "load_before": [
+    0.3564453125,
+    0.2470703125,
+    0.10107421875
+  ],
+  "sources": {
+    "blueberry/data-structure/wavelet-matrix.hpp": "ba93f4ad5fee12fd42e4f4da2a1d7cb4d72704be6e5d2595234175bc04c73d8c",
+    "blueberry/extra-fast/wavelet-matrix.hpp": "a535860b98e2e03d74b0b1be0632918c4a4123e449660a2d001ae8ba97d93411",
+    ".benchmark/extra-fast-more/wavelet/bench.cpp": "6174d2131168db5b6084683990b90ace3c830de6aeab04ace256ff56d3cf7cac",
+    ".benchmark/extra-fast-more/wavelet/run.py": "cbc622460d2983cb750a2f14483c51ef3d7107014963fbabf10c38c8d49c3fab"
+  },
+  "uname": "Linux BlueberryPC 5.15.167.4-microsoft-standard-WSL2 #1 SMP Tue Nov 5 00:21:55 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux\n",
+  "inputs": {
+    "small": {
+      "sha256": "3abf1b715eaccbaae2ae474a72e462dcff7385bde163b5e3d75a319ebddd1724",
+      "bytes": 721531
+    },
+    "wide": {
+      "sha256": "243d061965162b56292844a20a52c306a680d8ad31491a4f3f4fd86c977adf6a",
+      "bytes": 4843956
+    },
+    "duplicates": {
+      "sha256": "809ea8e0e439a26010cb61461697151ae929e1bf98abac376649d3a8dfbd9dcf",
+      "bytes": 2589426
+    },
+    "few-query": {
+      "sha256": "89316125079e0faf1185b2143ffeb4c066a1ea90111ea2c2ea9cba98802a8dd5",
+      "bytes": 2006472
+    }
+  },
+  "compilers": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+  },
+  "commands": [
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/bench.cpp",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/g++-O2-release"
+      ],
+      "elapsed": 2.160939554999999,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O3",
+        "-DNDEBUG",
+        "-march=native",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/bench.cpp",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/g++-native-O3"
+      ],
+      "elapsed": 2.570836020999991,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/bench.cpp",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/clang++-O2-release"
+      ],
+      "elapsed": 2.7423059710000075,
+      "returncode": 0
+    },
+    {
+      "command": [
+        "clang++",
+        "-std=gnu++20",
+        "-O3",
+        "-DNDEBUG",
+        "-march=native",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/bench.cpp",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/wavelet/clang++-native-O3"
+      ],
+      "elapsed": 1.510442788000006,
+      "returncode": 0
+    }
+  ],
+  "load_after": [
+    0.76513671875,
+    0.38671875,
+    0.15966796875
+  ]
+}

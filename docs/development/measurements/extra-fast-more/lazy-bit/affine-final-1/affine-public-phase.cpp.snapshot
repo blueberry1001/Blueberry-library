@@ -1,0 +1,42 @@
+#include "blueberry/extra-fast/affine-sum-segment-tree.hpp"
+#include "blueberry/utility/fast-io.hpp"
+#include <atcoder/lazysegtree>
+#include <atcoder/modint>
+#include <chrono>
+#include <cstdint>
+#include <cstdio>
+#include <string>
+#include <vector>
+using Mint=atcoder::modint998244353;
+struct Node{Mint sum,len;};struct Action{Mint a,b;};
+Node op(Node x,Node y){return{x.sum+y.sum,x.len+y.len};}Node e(){return{0,0};}
+Node mapping(Action f,Node x){return{f.a*x.sum+f.b*x.len,x.len};}
+Action composition(Action f,Action g){return{f.a*g.a,f.a*g.b+f.b};}Action id(){return{1,0};}
+using Lazy=atcoder::lazy_segtree<Node,op,e,Action,mapping,composition,id>;
+struct ACLAffine {
+ Lazy tree;
+ explicit ACLAffine(const std::vector<std::uint32_t>&a):tree(nodes(a)){}
+ static std::vector<Node> nodes(const std::vector<std::uint32_t>&a){std::vector<Node>v;v.reserve(a.size());for(auto x:a)v.push_back({x,1});return v;}
+ __attribute__((always_inline)) void apply(int l,int r,std::uint32_t a,std::uint32_t b){tree.apply(l,r,{a,b});}
+ __attribute__((always_inline)) std::uint32_t prod(int l,int r){return tree.prod(l,r).sum.val();}
+};
+struct Query{int type,l,r;std::uint32_t a,b;};
+using Clock=std::chrono::steady_clock;
+template<class Tree>int run(bool simd) {
+ auto begin=Clock::now();blueberry::FastInput in;int n,q;in.read(n,q);std::vector<std::uint32_t>a(n);for(auto&x:a)in.read(x);
+ std::vector<Query>queries(q);for(auto&x:queries){in.read(x.type,x.l,x.r);if(x.type==0)in.read(x.a,x.b);}
+ auto parsed=Clock::now();auto tree=[&](){if constexpr(requires{Tree(a,simd);})return Tree(a,simd);else return Tree(a);}();auto built=Clock::now();
+ std::vector<std::uint32_t>answers;answers.reserve(q);
+ for(auto x:queries){if(x.type==0)tree.apply(x.l,x.r,x.a,x.b);else answers.push_back(tree.prod(x.l,x.r));}
+ auto operated=Clock::now();blueberry::FastOutput out;for(auto x:answers)out.writeln(x);out.flush();auto formatted=Clock::now();
+ auto ms=[](auto l,auto r){return std::chrono::duration<double,std::milli>(r-l).count();};
+ std::fprintf(stderr,"{\"parse_ms\":%.9f,\"build_ms\":%.9f,\"ops_ms\":%.9f,\"format_ms\":%.9f,\"total_ms\":%.9f}\n",ms(begin,parsed),ms(parsed,built),ms(built,operated),ms(operated,formatted),ms(begin,formatted));return 0;
+}
+int main(int argc, char** argv) {
+  (void)argc;
+  const std::string mode = argv[1];
+  if (mode == "simd") return run<blueberry::extra_fast::AffineSumSegmentTree>(true);
+  if (mode == "scalar") return run<blueberry::extra_fast::AffineSumSegmentTree>(false);
+  if (mode == "acl") return run<ACLAffine>(false);
+  return 2;
+}

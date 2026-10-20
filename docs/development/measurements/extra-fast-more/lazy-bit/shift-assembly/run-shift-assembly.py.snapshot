@@ -1,0 +1,17 @@
+import hashlib,json,re,subprocess
+from pathlib import Path
+base=Path('.benchmark/extra-fast-more/lazy-bit');out=Path('docs/development/measurements/extra-fast-more/lazy-bit/shift-assembly');out.mkdir(parents=True,exist_ok=True)
+for f in ['wide-affine16.hpp','wide-affine-shift.hpp','probe-affine.cpp']:(out/(f+'.snapshot')).write_bytes((base/f).read_bytes())
+rows=[]
+for cc in ['g++','clang++']:
+ dest=out/(cc+'-O2.s');cmd=[cc,'-std=gnu++20','-O2','-DNDEBUG','-I.',str(base/'probe-affine.cpp'),'-S','-o',str(dest)];p=subprocess.run(cmd,text=True,capture_output=True);(out/(cc+'-compile.log')).write_text('COMMAND '+repr(cmd)+'\n'+p.stdout+p.stderr)
+ functions=[]
+ if p.returncode==0:
+  current=None
+  for line in dest.read_text().splitlines():
+   m=re.search(r'\.type\s+([^,\s]+),\s*[@%]function',line)
+   if m:current={'symbol':m[1],'div_instructions':[]}
+   if current and re.search(r'\b(?:i?div)[qlw]?\b',line):current['div_instructions'].append(line.strip())
+   if current and re.search(r'\.size\s+'+re.escape(current['symbol'])+r'\s*,',line):functions.append(current);current=None
+ rows.append({'compiler':cc,'command':cmd,'returncode':p.returncode,'functions':functions,'baseline_variable_div_count':sum(len(x['div_instructions'])for x in functions if 'AffineSumSegmentTree16'in x['symbol']),'shift_variable_div_count':sum(len(x['div_instructions'])for x in functions if 'ShiftAffineControl'in x['symbol'])})
+(out/'analysis.json').write_text(json.dumps(rows,indent=2));print([(r['compiler'],r['baseline_variable_div_count'],r['shift_variable_div_count'])for r in rows])

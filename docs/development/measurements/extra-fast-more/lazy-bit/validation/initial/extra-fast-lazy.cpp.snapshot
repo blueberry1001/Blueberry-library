@@ -1,0 +1,27 @@
+#include "blueberry/extra-fast/range-add-sum.hpp"
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <numeric>
+#include <random>
+#include <vector>
+using U=std::uint64_t;
+int main(int argc,char**argv) {
+ U seed=argc>1?std::strtoull(argv[1],nullptr,10):1;std::mt19937_64 rng(seed);
+ auto fail=[&](const char*op,const std::vector<U>&a,int l,int r,U e,U v){std::cerr<<"seed="<<seed<<" op="<<op<<" l="<<l<<" r="<<r<<" expected="<<e<<" actual="<<v<<" input=";for(U x:a)std::cerr<<x<<',';std::cerr<<'\n';std::exit(1);};
+ for(bool simd:{false,true})for(int n:{0,1,2,15,16,17,255,256,257,4096,65537}) {
+  std::vector<U>a(n);for(auto&x:a)x=rng();blueberry::extra_fast::RangeAddSum t(a,simd),z(n,simd);
+  if(t.size()!=n||z.all_prod()!=0||t.uses_simd()!=(simd&&t.simd_available()))fail("construct",a,0,n,n,t.size());
+  for(int k=0;k<180;++k){int l=rng()%(n+1),r=rng()%(n+1);if(l>r)std::swap(l,r);U x=rng();
+   if(k%5==0){l=0;r=n;}if(k%11==0)r=l;
+   t.apply(l,r,x);for(int i=l;i<r;++i)a[i]+=x;
+   if(n&&k%3==0){int p=rng()%n;U v=rng();t.set(p,v);a[p]=v;}
+   l=rng()%(n+1);r=rng()%(n+1);if(l>r)std::swap(l,r);
+   U e=std::accumulate(a.begin()+l,a.begin()+r,U(0));if(t.prod(l,r)!=e)fail("prod",a,l,r,e,t.prod(l,r));
+   e=std::accumulate(a.begin(),a.begin()+r,U(0));if(t.pref(r)!=e)fail("pref",a,0,r,e,t.pref(r));
+   e=std::accumulate(a.begin(),a.end(),U(0));if(t.all_prod()!=e)fail("all_prod",a,0,n,e,t.all_prod());
+   if(n){int p=rng()%n;if(t.get(p)!=a[p])fail("get",a,p,p+1,a[p],t.get(p));}
+   if(k%20==0){auto copy=t;copy=copy;t=std::move(copy);}
+  }
+ }
+}

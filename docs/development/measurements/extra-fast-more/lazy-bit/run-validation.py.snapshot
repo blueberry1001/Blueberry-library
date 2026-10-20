@@ -1,0 +1,19 @@
+import datetime,hashlib,json,subprocess
+from pathlib import Path
+root=Path.cwd();out=root/'docs/development/measurements/extra-fast-more/lazy-bit/validation';out.mkdir(parents=True,exist_ok=True);base=root/'.benchmark/extra-fast-more/lazy-bit';rows=[]
+configs=[('intrinsics',[]),('scalar',['-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR']),('asm',['-DBLUEBERRY_EXTRA_FAST_USE_ASM']),('intel',['-DBLUEBERRY_EXTRA_FAST_USE_ASM','-masm=intel'])]
+def call(cmd,label):
+ p=subprocess.run(cmd,capture_output=True,text=True,timeout=120);(out/(label+'.log')).write_text('COMMAND '+repr(cmd)+'\n'+p.stdout+p.stderr);rows.append({'command':cmd,'returncode':p.returncode,'label':label});return p.returncode
+for cc in ['g++','clang++']:
+ for std in ['gnu++20','gnu++23']:
+  for mode,flags in configs:
+   for kind in ['fenwick','lazy']:
+    label=cc+'-'+std+'-'+mode+'-'+kind;binary=str(base/label);src='tests/random/extra-fast-'+kind+'.cpp';cmd=[cc,'-std='+std,'-O2','-Wall','-Wextra','-Werror','-I.','-I.deps/ac-library',*flags,src,'-o',binary]
+    if call(cmd,label+'-compile')==0:call([binary,'20261020'],label+'-run')
+for kind in ['fenwick','lazy']:
+ label='g++-sanitizer-'+kind;binary=str(base/label)
+ if call(['g++','-std=gnu++20','-O1','-g','-fsanitize=address,undefined','-fno-omit-frame-pointer','-I.','tests/random/extra-fast-'+kind+'.cpp','-o',binary],label+'-compile')==0:call([binary,'20261020'],label+'-run')
+for kind in ['fenwick-tree','range-add-sum']:
+ call(['g++','-std=gnu++20','-O2','-Wall','-Wextra','-Werror','-I.','verify/extra-fast/'+kind+'.test.cpp','-o',str(base/(kind+'-verify'))],kind+'-verify-compile')
+(out/'commands.json').write_text(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'seed':20261020,'rows':rows},indent=2))
+print('commands',len(rows),'failures',sum(bool(r['returncode'])for r in rows),flush=True)

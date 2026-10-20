@@ -1,0 +1,357 @@
+{
+  "started": "2026-10-20T06:58:10.122186+00:00",
+  "mode": "final",
+  "compilers": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+  },
+  "cpu": "Architecture:                         x86_64\nCPU op-mode(s):                       32-bit, 64-bit\nAddress sizes:                        39 bits physical, 48 bits virtual\nByte Order:                           Little Endian\nCPU(s):                               24\nOn-line CPU(s) list:                  0-23\nVendor ID:                            GenuineIntel\nModel name:                           Intel(R) Core(TM) i7-14650HX\nCPU family:                           6\nModel:                                183\nThread(s) per core:                   2\nCore(s) per socket:                   12\nSocket(s):                            1\nStepping:                             1\nBogoMIPS:                             4838.39\nFlags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nVirtualization:                       VT-x\nHypervisor vendor:                    Microsoft\nVirtualization type:                  full\nL1d cache:                            576 KiB (12 instances)\nL1i cache:                            384 KiB (12 instances)\nL2 cache:                             24 MiB (12 instances)\nL3 cache:                             30 MiB (1 instance)\nVulnerability Gather data sampling:   Not affected\nVulnerability Itlb multihit:          Not affected\nVulnerability L1tf:                   Not affected\nVulnerability Mds:                    Not affected\nVulnerability Meltdown:               Not affected\nVulnerability Mmio stale data:        Not affected\nVulnerability Reg file data sampling: Mitigation; Clear Register File\nVulnerability Retbleed:               Mitigation; Enhanced IBRS\nVulnerability Spec rstack overflow:   Not affected\nVulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl and seccomp\nVulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization\nVulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI BHI_DIS_S\nVulnerability Srbds:                  Not affected\nVulnerability Tsx async abort:        Not affected\n",
+  "cpu_affinity": [
+    0
+  ],
+  "host_load_controlled": false,
+  "standard": "gnu++20",
+  "flags": {
+    "portable-O2-release": [
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "native-O3-release": [
+      "-O3",
+      "-march=native",
+      "-DNDEBUG"
+    ]
+  },
+  "repeats": 5,
+  "fixtures": [
+    {
+      "bits": 32,
+      "fixture": "small-lookup",
+      "family": "ordered",
+      "n": 128,
+      "q": 10000,
+      "sha256": "6f5a8f6c8390654f64c4d423e8a505a69446e12fa7cfdc797a740ccfd2122c46",
+      "oracle": {
+        "map": [
+          7702501419496030354,
+          9000,
+          436
+        ],
+        "set": [
+          18104897482970877821,
+          9000,
+          436
+        ]
+      }
+    },
+    {
+      "bits": 32,
+      "fixture": "small-lookup",
+      "family": "hash",
+      "n": 128,
+      "q": 10000,
+      "sha256": "6f5a8f6c8390654f64c4d423e8a505a69446e12fa7cfdc797a740ccfd2122c46",
+      "oracle": {
+        "map": [
+          7702501419496030354,
+          9000,
+          436
+        ],
+        "set": [
+          18104897482970877821,
+          9000,
+          436
+        ]
+      }
+    },
+    {
+      "bits": 32,
+      "fixture": "random",
+      "family": "ordered",
+      "n": 50000,
+      "q": 100000,
+      "sha256": "8f7b86a77121475d0edbb857e21c3c1089c5c85381fc52f9d17aef3f184e6085",
+      "oracle": {
+        "map": [
+          14812144429824355043,
+          49770,
+          45021
+        ],
+        "set": [
+          15876554040887799329,
+          74539,
+          45021
+        ]
+      }
+    },
+    {
+      "bits": 32,
+      "fixture": "random",
+      "family": "hash",
+      "n": 50000,
+      "q": 100000,
+      "sha256": "2c88ad2ef9cf138fae9afbdf920f72760437567423433312de76a41b24b077dc",
+      "oracle": {
+        "map": [
+          8599262824120386700,
+          25001,
+          54176
+        ],
+        "set": [
+          16871094400288232804,
+          25001,
+          54176
+        ]
+      }
+    },
+    {
+      "bits": 32,
+      "fixture": "dense",
+      "family": "ordered",
+      "n": 500000,
+      "q": 100000,
+      "sha256": "ed39021db5b03d9aa466ff35300b65bdf17ee77917fec4619b3443d624679322",
+      "oracle": {
+        "map": [
+          8376161241152765504,
+          49901,
+          508244
+        ],
+        "set": [
+          3417691129481141924,
+          75019,
+          508244
+        ]
+      }
+    },
+    {
+      "bits": 32,
+      "fixture": "dense",
+      "family": "hash",
+      "n": 500000,
+      "q": 100000,
+      "sha256": "fa90c5dd4e3977619552e7d76a29547c998438c65772334647c8a5fd7266e7fd",
+      "oracle": {
+        "map": [
+          3257326832912856165,
+          24783,
+          524480
+        ],
+        "set": [
+          10875126725870502189,
+          24783,
+          524480
+        ]
+      }
+    },
+    {
+      "bits": 32,
+      "fixture": "monotone-growth",
+      "family": "ordered",
+      "n": 50000,
+      "q": 100000,
+      "sha256": "79aa74aa21e3ae97d6e2e2ddd976d1a60984562485b03592e54f00d900fc5682",
+      "oracle": {
+        "map": [
+          14695981039346656037,
+          0,
+          68331
+        ],
+        "set": [
+          14695981039346656037,
+          0,
+          68331
+        ]
+      }
+    },
+    {
+      "bits": 32,
+      "fixture": "monotone-growth",
+      "family": "hash",
+      "n": 50000,
+      "q": 100000,
+      "sha256": "79aa74aa21e3ae97d6e2e2ddd976d1a60984562485b03592e54f00d900fc5682",
+      "oracle": {
+        "map": [
+          14695981039346656037,
+          0,
+          68331
+        ],
+        "set": [
+          14695981039346656037,
+          0,
+          68331
+        ]
+      }
+    },
+    {
+      "bits": 64,
+      "fixture": "small-lookup",
+      "family": "ordered",
+      "n": 128,
+      "q": 10000,
+      "sha256": "db92afe8a99291f79629a7c3363d58d2ad0ba4a497632635ba8580dee20470a6",
+      "oracle": {
+        "map": [
+          13409368724367954012,
+          9000,
+          454
+        ],
+        "set": [
+          5388494198189686189,
+          9000,
+          454
+        ]
+      }
+    },
+    {
+      "bits": 64,
+      "fixture": "small-lookup",
+      "family": "hash",
+      "n": 128,
+      "q": 10000,
+      "sha256": "db92afe8a99291f79629a7c3363d58d2ad0ba4a497632635ba8580dee20470a6",
+      "oracle": {
+        "map": [
+          13409368724367954012,
+          9000,
+          454
+        ],
+        "set": [
+          5388494198189686189,
+          9000,
+          454
+        ]
+      }
+    },
+    {
+      "bits": 64,
+      "fixture": "random",
+      "family": "ordered",
+      "n": 50000,
+      "q": 100000,
+      "sha256": "663404e3f5916f5be1202d391486ec5186da09c0d06d12fc8571e22befae8f8d",
+      "oracle": {
+        "map": [
+          17396450921144769695,
+          49873,
+          44861
+        ],
+        "set": [
+          8836669376250246466,
+          74908,
+          44861
+        ]
+      }
+    },
+    {
+      "bits": 64,
+      "fixture": "random",
+      "family": "hash",
+      "n": 50000,
+      "q": 100000,
+      "sha256": "f1734ee78dcc7be27dfc787df62dfaa72476765b691be23ab4326a48d6edc07d",
+      "oracle": {
+        "map": [
+          17598795685918156640,
+          24838,
+          54065
+        ],
+        "set": [
+          752371626622330852,
+          24838,
+          54065
+        ]
+      }
+    },
+    {
+      "bits": 64,
+      "fixture": "dense",
+      "family": "ordered",
+      "n": 500000,
+      "q": 100000,
+      "sha256": "ee66db6c2603358bd8493641aef6ab86c1229993e5a7cc8e261e0981aa9904fa",
+      "oracle": {
+        "map": [
+          14334734821582472648,
+          50354,
+          508329
+        ],
+        "set": [
+          17808553570291275434,
+          75579,
+          508329
+        ]
+      }
+    },
+    {
+      "bits": 64,
+      "fixture": "dense",
+      "family": "hash",
+      "n": 500000,
+      "q": 100000,
+      "sha256": "9ca6c2c9dd7a7d2b774a0336d30413a7ba3497e6e2ea94706bfc8e04b4ef8dba",
+      "oracle": {
+        "map": [
+          10347358259053956843,
+          25129,
+          524670
+        ],
+        "set": [
+          16018412733128723268,
+          25129,
+          524670
+        ]
+      }
+    },
+    {
+      "bits": 64,
+      "fixture": "monotone-growth",
+      "family": "ordered",
+      "n": 50000,
+      "q": 100000,
+      "sha256": "66ebe69e3c355911cf3607bbd922d90c0785255be6fa7f6e7cd2ccf61d7f9212",
+      "oracle": {
+        "map": [
+          14695981039346656037,
+          0,
+          68381
+        ],
+        "set": [
+          14695981039346656037,
+          0,
+          68381
+        ]
+      }
+    },
+    {
+      "bits": 64,
+      "fixture": "monotone-growth",
+      "family": "hash",
+      "n": 50000,
+      "q": 100000,
+      "sha256": "66ebe69e3c355911cf3607bbd922d90c0785255be6fa7f6e7cd2ccf61d7f9212",
+      "oracle": {
+        "map": [
+          14695981039346656037,
+          0,
+          68381
+        ],
+        "set": [
+          14695981039346656037,
+          0,
+          68381
+        ]
+      }
+    }
+  ],
+  "memory_note": "VmHWM from child /proc/self/status. memory mode excludes query/output vectors but retains initial input and pre-reserve N+Q.",
+  "source_sha256": {
+    ".benchmark/extra-fast-more/sets-benchmark.cpp": "d45e61e62856c606fde4b5cf91b4398795f0759dd0d11ee681d75f0a827dfd7f",
+    "blueberry/extra-fast/ordered-map.hpp": "9b4c20e81eff31ebd7636ce645d12fc96ec82b657330244f6d7ab40a2b31d964",
+    "blueberry/extra-fast/hash-map.hpp": "43e248a3a1293e453ff4a48648a0d98b4936d6f36fa5e0c63cd83d85c076e15d",
+    "blueberry/utility/fast-io.hpp": "b8b9c274f93c3906b8f6fc26dd945ec0679b3c246685da3108789aa677d73b30",
+    "blueberry/data-structure/ordered-set.hpp": "80e3bcc40ac179f2c07406b4e1f8209cc09b74fd6efefcce5c5528615ad28175"
+  },
+  "finished": "2026-10-20T07:00:03.660337+00:00"
+}

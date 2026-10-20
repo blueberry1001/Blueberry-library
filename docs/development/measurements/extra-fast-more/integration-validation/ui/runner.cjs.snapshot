@@ -1,0 +1,95 @@
+const { chromium } = require('C:/Users/kubar/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const site = path.resolve(process.env.BLUEBERRY_SITE || String.raw`\\wsl.localhost\Ubuntu\home\blueberry\.cache\blueberry-extra-fast-more-d8ee799\.build\site`);
+const out = __dirname;
+const repo = path.resolve(site, '../..');
+const blocks = fs.readFileSync(path.join(repo, '.verify-helper/docs/static/_data/libraries.yml'), 'utf8').split(/(?=^- name:)/m);
+const entries = blocks.filter(block => /^  section: extra-fast$/m.test(block)).map(block => [block.match(/^- name: (.+)$/m)[1], block.match(/^  path: blueberry\/extra-fast\/(.+)\.hpp$/m)[1]]);
+const expectedCount = entries.length;
+const base = 'http://blueberry.test/Blueberry-library/';
+async function localAssets(route) {
+  const url = new URL(route.request().url());
+  if (url.host !== 'blueberry.test') return route.fulfill({ status: 200, contentType: route.request().resourceType() === 'stylesheet' ? 'text/css' : 'application/javascript', body: '' });
+  let file = path.resolve(site, decodeURIComponent(url.pathname).replace(/^\/Blueberry-library\//, ''));
+  if (file !== site && !file.startsWith(site + path.sep)) return route.abort();
+  if (fs.existsSync(file) && fs.statSync(file).isDirectory()) file = path.join(file, 'index.html');
+  if (!fs.existsSync(file)) return route.fulfill({ status: 404, body: 'Not found' });
+  const type = { '.html': 'text/html', '.css': 'text/css', '.js': 'application/javascript', '.svg': 'image/svg+xml', '.json': 'application/json' }[path.extname(file)] || 'application/octet-stream';
+  return route.fulfill({ status: 200, contentType: type, body: fs.readFileSync(file) });
+}
+(async () => {
+  const browser = await chromium.launch({ channel: 'msedge', headless: true });
+  console.log('Browser:', browser.version(), 'experimental entries:', expectedCount);
+  const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+  await context.route('**/*', localAssets);
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'error' || message.type() === 'warning') errors.push(message.text()); });
+  await page.goto(base);
+  assert.match(await page.title(), /Blueberry/);
+  assert.equal(await page.locator('main').count(), 1);
+  assert.equal(await page.locator('main a[href*="/extra-fast/"]').count(), 0);
+  await page.locator('.site-more > summary').focus();
+  await page.keyboard.press('Enter');
+  assert.equal(await page.locator('.site-more').evaluate(element => element.open), true);
+  await page.getByRole('link', { name: 'さらに高速なライブラリ', exact: true }).click();
+  assert.equal(page.url(), base + 'extra-fast.html');
+  assert.match(await page.title(), /さらに高速なライブラリ/);
+  assert.equal(await page.getByRole('heading', { name: 'さらに高速なライブラリ', exact: true }).count(), 1);
+  assert.equal(await page.locator('[data-library]:visible').count(), expectedCount);
+  assert.equal(await page.locator('.catalog-categories').count(), 0);
+  await page.keyboard.press('/');
+  assert.equal(await page.locator('#library-search').evaluate(element => element === document.activeElement), true);
+  await page.locator('#library-search').fill('さらに高速');
+  assert.equal(await page.locator('[data-library]:visible').count(), expectedCount);
+  for (const [query, slug] of [['Bitset', 'bitset'], ['RMQ', 'static-rmq'], ['Wavelet', 'wavelet-matrix'], ['FPS', 'formal-power-series'], ['Fenwick', 'fenwick-tree'], ['Ordered Map', 'ordered-map'], ['Hash Map', 'hash-map']]) {
+    await page.locator('#library-search').fill(query);
+    const count = await page.locator('[data-library]:visible').count();
+    assert(count > 0 && count < expectedCount, query);
+    assert.equal(await page.getByRole('link', { name: entries.find(item => item[1] === slug)[0], exact: true }).isVisible(), true);
+  }
+  await page.locator('#library-search').fill('存在しないライブラリ');
+  assert.equal(await page.locator('[data-catalog-empty]').isVisible(), true);
+  await page.locator('[data-catalog-reset]').click();
+  assert.equal(await page.locator('[data-library]:visible').count(), expectedCount);
+  await page.screenshot({ path: path.join(out, 'extra-fast-more-desktop.png'), fullPage: false });
+  await page.getByRole('link', { name: 'SIMD Sum Segment Tree', exact: true }).click();
+  assert.match(page.url(), /blueberry\/extra-fast\/segment-tree.hpp.html$/);
+  assert.equal(await page.locator('[data-source-viewer]').count(), 1);
+  await page.getByRole('link', { name: 'さらに高速なライブラリへ戻る', exact: true }).first().click();
+  for (const item of entries.filter(item => item[1] !== 'segment-tree')) {
+    await page.getByRole('link', { name: item[0], exact: true }).click();
+    assert(page.url().endsWith('/blueberry/extra-fast/' + item[1] + '.hpp.html'));
+    assert.equal(await page.locator('[data-source-viewer]').count(), 1);
+    await page.getByRole('link', { name: 'さらに高速なライブラリへ戻る', exact: true }).first().click();
+  }
+  for (const width of [390, 320]) {
+    await page.setViewportSize({ width, height: 844 });
+    assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
+    await page.locator('.site-more > summary').click();
+    const menu = await page.locator('.site-more-links').boundingBox();
+    assert(menu.x >= 0 && menu.x + menu.width <= width + 1, 'dropdown stays in viewport');
+    if (width === 390) await page.screenshot({ path: path.join(out, 'extra-fast-more-mobile-menu.png'), fullPage: false });
+    await page.locator('.site-more > summary').click();
+  }
+  for (const route of ['', 'categories/data-structure.html', 'operations.html', 'library-checker.html', 'verification-gaps.html', 'benchmarks.html']) {
+    await page.goto(base + route);
+    assert.equal(await page.locator('main a[href*="/extra-fast/"]').count(), 0, route);
+  }
+  const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+  await noJS.route('**/*', localAssets);
+  const fallback = await noJS.newPage();
+  await fallback.goto(base + 'extra-fast.html');
+  assert.equal(await fallback.getByRole('link', { name: 'SIMD Sum Segment Tree', exact: true }).isVisible(), true);
+  assert.equal(await fallback.locator('[data-library]').count(), expectedCount);
+  for (const item of entries) assert.equal(await fallback.getByRole('link', { name: item[0], exact: true }).isVisible(), true);
+  assert.equal(await fallback.getByRole('link', { name: 'SIMD Static RMQ', exact: true }).isVisible(), true);
+  await fallback.goto(base);
+  assert.equal(await fallback.locator('main a[href*="/extra-fast/"]').count(), 0);
+  assert.deepEqual(errors, []);
+  await browser.close();
+  console.log('PASS: dropdown keyboard navigation, section search/reset, API/back links, ordinary-discovery exclusion, desktop/mobile 390/320, JavaScript-disabled catalog, console health');
+})().catch(error => { console.error(error); process.exit(1); });

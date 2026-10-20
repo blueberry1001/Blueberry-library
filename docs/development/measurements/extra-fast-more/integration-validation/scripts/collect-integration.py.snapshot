@@ -1,0 +1,23 @@
+from pathlib import Path
+import hashlib,json,shutil,sys
+root=Path.cwd()
+dst=Path('/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/docs/development/measurements/extra-fast-more/integration-validation')
+src=root/'.build/integration-validation'
+dst.mkdir(parents=True,exist_ok=True)
+for p in src.iterdir():
+    if p.is_dir() and p.name.startswith('checks-'):continue
+    if p.is_dir():shutil.copytree(p,dst/p.name,dirs_exist_ok=True)
+    else:shutil.copyfile(p,dst/p.name)
+for name,target in [('current.json','official-results.json'),('state.json','source-valid-state.json'),('ci-plan.json','official-plan.json')]:
+    shutil.copyfile(root/'.verification'/name,dst/target)
+if (root/'.verification/runs').is_dir():shutil.copytree(root/'.verification/runs',dst/'official-runs',dirs_exist_ok=True)
+for p in (root/'.verification').glob('run-*'):
+    if p.is_dir():shutil.copytree(p,dst/'official-runs'/p.name,dirs_exist_ok=True)
+sys.path.insert(0,str(root))
+from scripts.verification_state import load_state,valid_successes
+report=json.loads((root/'.verification/current.json').read_text())
+manifest={'revision':report['revision'],'official_succeeded':report['succeeded'],
+          'source_valid_ac_records':len(valid_successes(load_state(root/'.verification/state.json'),root)),
+          'files':{str(p.relative_to(dst)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(dst.rglob('*')) if p.is_file() and p.name!='manifest.json'}}
+(dst/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+print('saved',len(manifest['files']),'files; source valid',manifest['source_valid_ac_records'])
