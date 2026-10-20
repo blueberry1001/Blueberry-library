@@ -7,6 +7,8 @@ title: Wavelet Matrix・FPS・集合の高速化調査
 
 2026-10-20にLibrary CheckerのFastestを調査し、通常のライブラリを置き換えず、右上の「さらに高速なライブラリ」に実験版を追加しました。標準的な用途では引き続きACLと通常版を利用できます。`blueberry/all.hpp`には追加しません。
 
+その後、FenwickTreeは[SIMDによる16分累積和木](simd-fenwick.md)へ変更しました。このページとリンク先のBIT測定値は、変更前のpadding付き二進BITの記録です。今回の変更ではユーザーの指定により速度測定を行っていません。
+
 ## 実装の範囲
 
 | 実装 | 高速化の方針 | 主な条件 |

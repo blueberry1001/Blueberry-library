@@ -12,13 +12,13 @@
   path: blueberry/extra-fast/formal-power-series.hpp
   description: Montgomery AVX2 NTTによる畳み込み・逆元・log・exp
   role: 法と係数型を限定した高速化実験
-- name: Padded Fenwick Tree
-  aliases: さらに高速 BIT Fenwick フェニック木 点加算 区間和 lower_bound
+- name: SIMD Fenwick Tree
+  aliases: さらに高速 BIT Fenwick フェニック木 点加算 区間和 lower_bound SIMD AVX2 asm
   category: data-structure
   section: extra-fast
   path: blueberry/extra-fast/fenwick-tree.hpp
-  description: パディング付きuint64_t BITと累積和検索
-  role: メモリ配置による高速化実験
+  description: 16分累積和木のSIMD更新とuint64_t累積和検索
+  role: SIMDと多分木による高速化実験
 - name: SIMD Affine Sum Segment Tree
   aliases: さらに高速 遅延セグ木 lazy affine アフィン変換 区間和 SIMD AVX2 asm
   category: data-structure

@@ -1,91 +1,105 @@
 #pragma once
 
-#include <bit>
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <limits>
 #include <vector>
 
+#include "blueberry/extra-fast/segment-tree.hpp"
+
+#if (defined(__x86_64__) || defined(__i386__)) && \
+    (defined(__GNUC__) || defined(__clang__))
+#include <immintrin.h>
+#define BLUEBERRY_EXTRA_FAST_FENWICK_AVX2 1
+#else
+#define BLUEBERRY_EXTRA_FAST_FENWICK_AVX2 0
+#endif
+
 namespace blueberry::extra_fast {
 
-// uint64_t addition modulo 2^64. Padding separates power-of-two strides
-// that otherwise map to the same cache sets; it adds about 0.1% storage.
+// Fenwick-compatible API over 16-way child prefixes modulo 2^64.
+// Updates reuse the AVX2 suffix-add kernel; searches compare 16 prefixes
+// per level. Runtime CPU detection retains a scalar fallback.
 class FenwickTree {
  public:
-  explicit FenwickTree(int n = 0) : data_(storage(n), 0), n_(n) {}
+  explicit FenwickTree(int n = 0) : tree_(checked_size(n)) {}
 
   explicit FenwickTree(const std::vector<std::uint64_t>& values)
-      : FenwickTree(checked_size(values.size())) {
-    for (int i = 1; i <= n_; ++i) {
-      data_[slot(i)] += values[i - 1];
-      const int jump = i & -i;
-      if (jump <= n_ - i) data_[slot(i + jump)] += data_[slot(i)];
-    }
-  }
+      : tree_(checked_values(values)) {}
 
-  int size() const { return n_; }
+  int size() const { return tree_.size(); }
+  void add(int p, std::uint64_t x) { tree_.add(p, x); }
+  void set(int p, std::uint64_t x) { tree_.set(p, x); }
+  std::uint64_t get(int p) const { return tree_.get(p); }
+  std::uint64_t pref(int r) const { return tree_.pref(r); }
+  std::uint64_t prod(int l, int r) const { return tree_.prod(l, r); }
+  std::uint64_t all_prod() const { return tree_.all_prod(); }
 
-  void add(int p, std::uint64_t x) {
-    assert(0 <= p && p < n_);
-    for (unsigned i = static_cast<unsigned>(p) + 1; i <= static_cast<unsigned>(n_);
-         i += i & -i)
-      data_[slot(i)] += x;
-  }
-
-  std::uint64_t pref(int r) const {
-    assert(0 <= r && r <= n_);
-    std::uint64_t result = 0;
-    for (unsigned i = r; i; i &= i - 1) result += data_[slot(i)];
-    return result;
-  }
-
-  std::uint64_t prod(int l, int r) const {
-    assert(0 <= l && l <= r && r <= n_);
-    return pref(r) - pref(l);
-  }
-
-  std::uint64_t get(int p) const {
-    assert(0 <= p && p < n_);
-    // The element and its smaller Fenwick children share one interval.
-    unsigned i = static_cast<unsigned>(p) + 1;
-    std::uint64_t result = data_[slot(i)];
-    const unsigned end = i & (i - 1);
-    for (--i; i != end; i &= i - 1) result -= data_[slot(i)];
-    return result;
-  }
-
-  void set(int p, std::uint64_t x) { add(p, x - get(p)); }
-  std::uint64_t all_prod() const { return pref(n_); }
-
-  // Requires nondecreasing (non-wrapping) prefix sums. Returns the first r
-  // in [0,n] with pref(r) >= x, or n+1 if no such prefix exists.
+  // Requires nondecreasing, non-wrapping prefix sums. The result is the first
+  // r in [0,n] with pref(r) >= x, or n+1 if none exists; x==0 returns 0.
   int lower_bound(std::uint64_t x) const {
     if (x == 0) return 0;
-    unsigned p = 0;
-    std::uint64_t sum = 0;
-    for (unsigned step = std::bit_floor(static_cast<unsigned>(n_)); step; step >>= 1) {
-      if (step <= static_cast<unsigned>(n_) - p && sum + data_[slot(p + step)] < x) {
-        sum += data_[slot(p + step)];
-        p += step;
+    if (x > all_prod()) return size() + 1;
+#if BLUEBERRY_EXTRA_FAST_FENWICK_AVX2
+    if (tree_.uses_simd()) return lower_bound_simd(x);
+#endif
+    std::size_t p = 0;
+    for (int level = tree_.levels_ - 1; ; --level) {
+      const auto* node = tree_.data_.data() + tree_.offsets_[level] + p;
+      int l = 0, r = 16;
+      while (l < r) {
+        const int m = (l + r) / 2;
+        if (node[m] < x) l = m + 1;
+        else r = m;
       }
+      if (l) x -= node[l - 1];
+      p += l;
+      if (level == 0) return static_cast<int>(p) + 1;
+      p *= 16;
     }
-    return static_cast<int>(p) + 1;
   }
 
  private:
-  static std::size_t slot(unsigned i) { return i + (i >> 10); }
-  static std::size_t storage(int n) {
+  static int checked_size(int n) {
     assert(0 <= n && n < std::numeric_limits<int>::max());
-    return slot(static_cast<unsigned>(n)) + 1;
+    return n;
   }
-  static int checked_size(std::size_t n) {
-    assert(n < static_cast<std::size_t>(std::numeric_limits<int>::max()));
-    return static_cast<int>(n);
+  static const std::vector<std::uint64_t>& checked_values(
+      const std::vector<std::uint64_t>& values) {
+    assert(values.size() < static_cast<std::size_t>(std::numeric_limits<int>::max()));
+    return values;
   }
 
-  std::vector<std::uint64_t> data_;
-  int n_;
+#if BLUEBERRY_EXTRA_FAST_FENWICK_AVX2
+  __attribute__((target("avx2"))) int lower_bound_simd(std::uint64_t x) const {
+    const __m256i sign = _mm256_set1_epi64x(std::numeric_limits<long long>::min());
+    std::size_t p = 0;
+    for (int level = tree_.levels_ - 1; ; --level) {
+      const auto* node = tree_.data_.data() + tree_.offsets_[level] + p;
+      const __m256i target = _mm256_xor_si256(
+          _mm256_set1_epi64x(static_cast<long long>(x)), sign);
+      unsigned mask = 0;
+#pragma GCC unroll 4
+      for (int j = 0; j < 16; j += 4) {
+        const __m256i values = _mm256_xor_si256(
+            _mm256_loadu_si256(reinterpret_cast<const __m256i*>(node + j)), sign);
+        const __m256i less = _mm256_cmpgt_epi64(target, values);
+        mask |= static_cast<unsigned>(_mm256_movemask_pd(_mm256_castsi256_pd(less))) << j;
+      }
+      // Prefixes are sorted, and at least the final one is >= x.
+      const int j = __builtin_ctz(~mask);
+      if (j) x -= node[j - 1];
+      p += j;
+      if (level == 0) return static_cast<int>(p) + 1;
+      p *= 16;
+    }
+  }
+#endif
+
+  SumSegmentTree tree_;
 };
 
 }  // namespace blueberry::extra_fast
+
+#undef BLUEBERRY_EXTRA_FAST_FENWICK_AVX2
