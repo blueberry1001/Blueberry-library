@@ -11,8 +11,12 @@
 - `compatibility-sanitizers.log`: 空の篩・組合せ表と再初期化も含む最終fixtureを、両テンプレート・`BLUEBERRY`定義時にASan+UBSanで実行した結果。
 - `docs-examples-initial-warning.log`と`docs-examples-rerun.log`: 最初に検出したコンパイラ警告と、修正後の両ページ・4コンパイラ構成の確認。失敗を省略していない。
 - `check-initial-coverage-failure.log`: 152 unit test成功後、再生成前の対応表を検出して失敗した初回`make check`。この実行全体を成功として扱わない。
+- `check-rerun.log`: 修正後のmake check、release include-test、公式I/O verify 6本×3回、make docs、production Jekyll/check_siteの成功ログ。
+- `verification/`: 公式6本の範囲限定レポートと18回の反復JSON。全verifyを実行した結果としては扱わない。
+- `validation-sources.json`: ローカル検証cloneと実装commit `caa2911364baddf684b33076f85d6b486068b718`の変更ソース12ファイルのLF換算hash一致。
 
 `results.json`の変更後ヘッダの生byte数・SHAはWindowsのCRLF checkoutで取得した。
 LF換算のbyte数・SHAは`closure-results.json`にあり、両者を同じファイル表現のhashとして比較しない。
 スクリプトの作業パスは実行当時のもので、再実行時はROOT/OUTを手元のパスに合わせる。
 生成assemblyの一致は、今回の短縮でFast I/Oのrelease処理が変わっていないことの確認であり、実行時間の改善率ではない。
+ローカルverifyは基準HEADへ変更ファイルを重ねたcloneで実行したため、生のレポートのrevisionは基準HEADを示す。実際の変更後ソースは`validation-sources.json`で区別しており、未変更のf9ccb0fの測定や、生成コード比較の速度測定として利用しない。

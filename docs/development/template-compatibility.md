@@ -44,4 +44,17 @@ GCC 13.3 / Clang 18.1、`gnu++20 -O2 -DNDEBUG -S`、同一のMany A+B用プロ�
 さらに両テンプレートと`all.hpp`のinclude順8構成、I/Oの依存閉包、UBSanを確認した。
 
 初回`make check`では152 unit testが成功した後、依存の変更によるLibrary Checker対応表の古さを検出した。
-生成データを更新し、失敗ログを保持して全体検証を再実行する。
+生成データを更新し、失敗ログを保持して全体検証を再実行した。
+
+| 確認 | 結果 |
+| --- | --- |
+| `make check`、GCC GNU20 | 152 unit test、123文書の124 C++例、123ヘッダ、167 verifyコード、66 random test×20 seeds成功 |
+| `CXXFLAGS=-DNDEBUG make include-test` | 123ヘッダ成功、ACL由来の警告はisystemで分離 |
+| `make verify`、I/Oの6ドライバ、3回反復 | 64bit各9ケース・128bit各10ケース、すべてAC |
+| `make docs` | 成功 |
+| production Jekyll、`check_site.py --without-metrics` | 5カテゴリ・122 APIページ、footer/navigation確認成功 |
+
+ローカル検証は基準revisionへ変更ファイルを重ねた専用cloneで実行した。
+生のverifyレポートのrevisionはcloneのHEADを示し、未変更の基準ソースを検証したという意味ではない。
+実装commit `caa2911364baddf684b33076f85d6b486068b718`と検証コピーの変更C++/テスト12ファイルの一致は、`validation-sources.json`へhashで記録した。
+公式verifyのログ・反復ごとのJSONをそのまま残し、別revisionの比較測定や全167ドライバの実行結果としては扱わない。
