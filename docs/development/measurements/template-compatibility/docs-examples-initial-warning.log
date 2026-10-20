@@ -1,0 +1,28 @@
+In file included from blueberry/utility/contest-template.hpp:6,
+                 from <stdin>:3:
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat/blueberry/utility/internal/contest-template-base.hpp: In function ‘void COMinit(ll, ll)’:
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat/blueberry/utility/internal/contest-template-base.hpp:103:2: error: this ‘if’ clause does not guard... [-Werror=misleading-indentation]
+  103 |  if(COMINIT)return;fac.assign(n,1);finv.assign(n,1);invv.assign(n,0);if(n>1)invv[1]=1;
+      |  ^~
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat/blueberry/utility/internal/contest-template-base.hpp:103:20: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  103 |  if(COMINIT)return;fac.assign(n,1);finv.assign(n,1);invv.assign(n,0);if(n>1)invv[1]=1;
+      |                    ^~~
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat/blueberry/utility/internal/contest-template-base.hpp: In function ‘std::vector<int> Era(int)’:
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat/blueberry/utility/internal/contest-template-base.hpp:111:2: error: this ‘for’ clause does not guard... [-Werror=misleading-indentation]
+  111 |  for(int i=2;i<n;++i)if(isprime[i]){v.push_back(i);if(i<=(n-1)/i)for(ll j=ll(i)*i;j<n;j+=i)isprime[j]=false;}return v;
+      |  ^~~
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat/blueberry/utility/internal/contest-template-base.hpp:111:110: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘for’
+  111 |  for(int i=2;i<n;++i)if(isprime[i]){v.push_back(i);if(i<=(n-1)/i)for(ll j=ll(i)*i;j<n;j+=i)isprime[j]=false;}return v;
+      |                                                                                                              ^~~~~~
+cc1plus: all warnings being treated as errors
+Traceback (most recent call last):
+  File "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat/scripts/check_docs.py", line 138, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat/scripts/check_docs.py", line 132, in main
+    compile_examples(ROOT, selected)
+  File "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat/scripts/check_docs.py", line 111, in compile_examples
+    subprocess.run(
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['g++', '-isystem', '/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library', '-std=gnu++20', '-O2', '-Wall', '-Wextra', '-Werror', '-I', '/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-compat', '-x', 'c++', '-', '-o', '/tmp/blueberry-docs-lrftm9bt/0']' returned non-zero exit status 1.

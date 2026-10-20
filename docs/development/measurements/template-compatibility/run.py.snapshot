@@ -1,0 +1,62 @@
+import hashlib
+import json
+import os
+from pathlib import Path
+import shlex
+import subprocess
+
+ROOT = Path(__file__).resolve().parents[3]
+OUT = Path(__file__).resolve().parent
+os.chdir(ROOT)
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+commands = []
+def run(args, **kwargs):
+    commands.append(shlex.join(map(str, args)))
+    result = subprocess.run(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE, **kwargs)
+    if result.returncode:
+        raise RuntimeError(f'{shlex.join(args)}\n{result.stdout.decode(errors="replace")}\n{result.stderr.decode(errors="replace")}')
+    return result
+
+old = run(['git', 'show', 'HEAD:blueberry/utility/fast-io.hpp']).stdout
+new_path = ROOT / 'blueberry/utility/fast-io.hpp'
+new = new_path.read_bytes()
+old_path = OUT / 'baseline-fast-io.hpp'
+old_path.write_bytes(old)
+source = OUT / 'driver.cpp'
+source.write_text('''#include IO_HEADER
+#ifdef WIDE_INTEGER
+using Value=__int128;
+#else
+using Value=long long;
+#endif
+int main(){blueberry::FastInput<> in;blueberry::FastOutput out;int t;if(!in.read(t))return 1;while(t--){Value a,b;if(!in.read(a,b)||!out.writeln(a+b))return 1;}return !out.flush();}
+''')
+records=[]
+for compiler in ['g++', 'clang++']:
+    version=run([compiler,'--version']).stdout.decode().splitlines()[0]
+    for bits in [64,128]:
+        paths=[]
+        for label,header in [('before',old_path),('after',new_path)]:
+            assembly=OUT/f'{compiler.replace("+","p")}-{bits}-{label}.s'
+            args=[compiler,'-std=gnu++20','-O2','-DNDEBUG','-S',str(source),f'-DIO_HEADER="{header}"','-o',str(assembly)]
+            if bits==128:
+                args.append('-DWIDE_INTEGER')
+            result=run(args)
+            (OUT/f'{compiler.replace("+","p")}-{bits}-{label}.stderr.txt').write_bytes(result.stderr)
+            paths.append(assembly)
+        before,after=(p.read_bytes() for p in paths)
+        record=dict(compiler=version,bits=bits,flags='-std=gnu++20 -O2 -DNDEBUG -S',before_assembly_sha256=sha(before),after_assembly_sha256=sha(after),byte_equal=before==after,before_assembly_bytes=len(before),after_assembly_bytes=len(after))
+        records.append(record)
+        if before!=after:
+            diff=subprocess.run(['diff','-u',str(paths[0]),str(paths[1])],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+            (OUT/f'{compiler.replace("+","p")}-{bits}.diff').write_bytes(diff.stdout)
+
+summary=dict(baseline_revision=run(['git','rev-parse','HEAD']).stdout.decode().strip(),baseline_blob=run(['git','rev-parse','HEAD:blueberry/utility/fast-io.hpp']).stdout.decode().strip(),before_header_sha256=sha(old),after_header_sha256=sha(new),before_header_bytes=len(old),after_header_bytes=len(new),records=records)
+(OUT/'results.json').write_text(json.dumps(summary,indent=2)+'\n')
+(OUT/'commands.txt').write_text('\n'.join(commands)+'\n')
+print(json.dumps(summary,indent=2))
+if not all(record['byte_equal'] for record in records):
+    raise SystemExit(1)

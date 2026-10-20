@@ -27,13 +27,8 @@
 
 ## Topological Sort
 
-[blueberry/graph/topological-sort.hpp](../blueberry/graph/topological-sort.hpp) — **依存先としてのみ利用**
+[blueberry/graph/topological-sort.hpp](../blueberry/graph/topological-sort.hpp) — **公式verify未登録**
 
-- 間接利用: [verify/utility/contest-fast-io-128bit.test.cpp](../verify/utility/contest-fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 間接利用: [verify/utility/contest-fast-io.test.cpp](../verify/utility/contest-fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
-- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 関連ローカルテスト: [tests/random/contest-fast-io.cpp](../tests/random/contest-fast-io.cpp)
-- 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
 - 関連ローカルテスト: [tests/random/graph-batch-two.cpp](../tests/random/graph-batch-two.cpp)
 - 専用の公式verifyドライバは未登録です。
 - 関連ローカルテストはありますが、公式ジャッジでの専用検証を表すものではありません。
@@ -42,14 +37,10 @@
 
 ## Contest Helpers
 
-[blueberry/utility/contest-helpers.hpp](../blueberry/utility/contest-helpers.hpp) — **依存先としてのみ利用**
+[blueberry/utility/contest-helpers.hpp](../blueberry/utility/contest-helpers.hpp) — **公式verify未登録**
 
-- 間接利用: [verify/utility/contest-fast-io-128bit.test.cpp](../verify/utility/contest-fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 間接利用: [verify/utility/contest-fast-io.test.cpp](../verify/utility/contest-fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
-- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 関連ローカルテスト: [tests/random/contest-fast-io.cpp](../tests/random/contest-fast-io.cpp)
 - 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
-- 128bitの変換は専用入出力verifyの依存先として検証します。補助関数全体は境界・固定seedのランダムテストで検証します。
+- 128bit変換の共通基本処理は互換テンプレートの公式入出力verifyで使用します。この公開ヘッダ単体の公式verifyはなく、補助関数全体は境界・固定seedのランダムテストで検証します。
 - 整数除算・二分探索・圧縮・二部判定・Fillなどは公式の専用問題ではなくローカル検査です。
 - 型の前提と整数端点のテストを維持し、対応する公式問題がある操作には専用ドライバを追加する。
 
@@ -644,10 +635,6 @@
 [blueberry/math/combinations.hpp](../blueberry/math/combinations.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/math/binomial-coefficient-prime-mod.test.cpp](../verify/math/binomial-coefficient-prime-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod)
-- 間接利用: [verify/utility/contest-fast-io-128bit.test.cpp](../verify/utility/contest-fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 間接利用: [verify/utility/contest-fast-io.test.cpp](../verify/utility/contest-fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
-- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 関連ローカルテスト: [tests/random/contest-fast-io.cpp](../tests/random/contest-fast-io.cpp)
 - 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
 
 ## Discrete Logarithm
@@ -680,10 +667,6 @@
 - 専用ドライバ: [verify/math/primality-test.test.cpp](../verify/math/primality-test.test.cpp) / [問題](https://judge.yosupo.jp/problem/primality_test)
 - 間接利用: [verify/math/primitive-root.test.cpp](../verify/math/primitive-root.test.cpp) / [問題](https://judge.yosupo.jp/problem/primitive_root)
 - 間接利用: [verify/math/tetration-mod.test.cpp](../verify/math/tetration-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/tetration_mod)
-- 間接利用: [verify/utility/contest-fast-io-128bit.test.cpp](../verify/utility/contest-fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 間接利用: [verify/utility/contest-fast-io.test.cpp](../verify/utility/contest-fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
-- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 関連ローカルテスト: [tests/random/contest-fast-io.cpp](../tests/random/contest-fast-io.cpp)
 - 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
 - 関連ローカルテスト: [tests/random/math-expansion.cpp](../tests/random/math-expansion.cpp)
 - 関連ローカルテスト: [tests/random/primitive_root.cpp](../tests/random/primitive_root.cpp)
@@ -797,11 +780,6 @@
 [blueberry/math/prime-sieve.hpp](../blueberry/math/prime-sieve.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/math/enumerate-primes.test.cpp](../verify/math/enumerate-primes.test.cpp) / [問題](https://judge.yosupo.jp/problem/enumerate_primes)
-- 間接利用: [verify/utility/contest-fast-io-128bit.test.cpp](../verify/utility/contest-fast-io-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 間接利用: [verify/utility/contest-fast-io.test.cpp](../verify/utility/contest-fast-io.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb)
-- 間接利用: [verify/utility/contest-template-128bit.test.cpp](../verify/utility/contest-template-128bit.test.cpp) / [問題](https://judge.yosupo.jp/problem/many_aplusb_128bit)
-- 関連ローカルテスト: [tests/random/contest-fast-io.cpp](../tests/random/contest-fast-io.cpp)
-- 関連ローカルテスト: [tests/random/contest-helpers.cpp](../tests/random/contest-helpers.cpp)
 
 ## Primitive Root
 

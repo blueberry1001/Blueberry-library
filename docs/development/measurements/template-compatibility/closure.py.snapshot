@@ -1,0 +1,34 @@
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+
+ROOT=Path(__file__).resolve().parents[3]
+OUT=Path(__file__).resolve().parent
+INCLUDE=re.compile(r'^\s*#\s*include\s*["<](blueberry/[^">]+)[">]',re.M)
+
+def read(path,before):
+    if before:
+        result=subprocess.run(['git','show',f'HEAD:{path}'],cwd=ROOT,capture_output=True,check=True)
+        return result.stdout
+    return (ROOT/path).read_bytes()
+
+results=[]
+for facade in ['fast-io','contest-template','contest-fast-io']:
+    for before in [True,False]:
+        seen={}
+        def visit(path):
+            if path in seen:
+                return
+            data=read(path,before).replace(b'\r\n',b'\n')
+            seen[path]=data
+            for child in INCLUDE.findall(data.decode()):
+                visit(child)
+        visit(f'blueberry/utility/{facade}.hpp')
+        payload=b''.join(seen.values())
+        record=dict(facade=facade,revision='before' if before else 'after',local_header_count=len(seen),local_header_utf8_lf_bytes=len(payload),local_header_lines=sum(len(data.splitlines()) for data in seen.values()),closure_payload_sha256=hashlib.sha256(payload).hexdigest(),headers=[dict(path=path,bytes=len(data),lines=len(data.splitlines())) for path,data in seen.items()])
+        results.append(record)
+result=dict(definition='Sum of complete unique local blueberry/ headers in recursive include closure, normalized CRLF to LF. Standard-library and ACL header bodies excluded. This is a local dependency payload size, not the literal output size of oj-bundle.',records=results)
+(OUT/'closure-results.json').write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps(result,indent=2))
