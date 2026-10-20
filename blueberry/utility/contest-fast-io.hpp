@@ -6,8 +6,35 @@
 #include "blueberry/utility/internal/contest-template-base.hpp"
 #include "blueberry/utility/fast-io.hpp"
 namespace blueberry::internal::contest_io{
-inline FastInput<>&input(){static FastInput<>value;return value;}
-inline FastOutput&output(){static FastOutput value;return value;}
+class input_buffer:public std::streambuf{
+ FastInput<>&in;
+ int_type underflow()override{
+  commit();int c=in.next();if(c==EOF)return traits_type::eof();--in.pos_;
+  char*p=reinterpret_cast<char*>(in.buffer_.data());setg(p+in.pos_,p+in.pos_,p+in.end_);return traits_type::to_int_type(*gptr());
+ }
+public:
+ explicit input_buffer(FastInput<>&value):in(value){}
+ void commit(){if(eback()){in.pos_=static_cast<std::size_t>(gptr()-reinterpret_cast<char*>(in.buffer_.data()));setg(nullptr,nullptr,nullptr);}}
+};
+class output_buffer:public std::streambuf{
+ FastOutput&out;
+ int_type overflow(int_type c)override{return traits_type::eq_int_type(c,traits_type::eof())?traits_type::not_eof(c):out.write(traits_type::to_char_type(c))?c:traits_type::eof();}
+ std::streamsize xsputn(const char*p,std::streamsize n)override{return out.write(std::string_view(p,static_cast<std::size_t>(n)))?n:0;}
+ int sync()override{return out.flush()?0:-1;}
+public:
+ explicit output_buffer(FastOutput&value):out(value){}
+};
+struct streams{
+ FastInput<>input;
+ FastOutput output;
+ input_buffer in{input};
+ output_buffer out{output};
+ std::streambuf*old_in,*old_out;
+ streams(){std::ios::sync_with_stdio(false);old_in=std::cin.rdbuf(&in);old_out=std::cout.rdbuf(&out);std::cin.tie(nullptr);}
+ ~streams(){output.flush();std::cin.rdbuf(old_in);std::cout.rdbuf(old_out);}
+};
+inline streams&state(){static streams value;return value;}
+inline FastOutput&output(){return state().output;}
 inline int precision=30;
 template<class T>struct sequence:std::false_type{};
 template<class T,class A>struct sequence<std::vector<T,A>>:std::true_type{};
@@ -28,14 +55,25 @@ template<class T>bool write(FastOutput&out,const T&value){
  }else return out.write(value);
 }
 }
-inline void init_io(int precision=30){blueberry::internal::contest_io::precision=precision;}
+inline void init_io(int precision=30){blueberry::internal::contest_io::state();blueberry::internal::contest_io::precision=precision;std::cout<<std::fixed<<std::setprecision(precision);}
 template<class...Args>bool scan(Args&...values){
  if constexpr(sizeof...(Args)==0)return true;
  else{
-  auto&in=blueberry::internal::contest_io::input();
-  return(in.read(values)&&...);
+  auto&io=blueberry::internal::contest_io::state();io.in.commit();
+  return(io.input.read(values)&&...);
  }
 }
+namespace blueberry::internal::contest_io{
+class fast_input_stream{
+ bool ok=true;
+public:
+ template<class T>fast_input_stream&operator>>(T&value){if(ok)ok=::scan(value);return *this;}
+ explicit operator bool()const{return ok;}
+ bool fail()const{return!ok;}
+ void clear(){ok=true;}
+};
+}
+inline blueberry::internal::contest_io::fast_input_stream fin;
 template<class...Args>bool print(const Args&...values){
  auto&out=blueberry::internal::contest_io::output();
  if constexpr(sizeof...(Args)>0){
@@ -49,6 +87,10 @@ template<class...Args>bool print(const Args&...values){
  }
  return out.write('\n');
 }
+#ifdef __cpp_lib_print
+template<int=0,class T,class...Args>requires(sizeof...(Args)>0&&std::is_convertible_v<T,std::string_view>)
+bool print(T&&first,Args&&...values){return ::print<std::remove_reference_t<T>,std::remove_reference_t<Args>...>(first,values...);}
+#endif
 inline bool flush(){return blueberry::internal::contest_io::output().flush();}
 #define YesNo(x) print((x) ? "Yes" : "No")
 #define YESNO(x) print((x) ? "YES" : "NO")

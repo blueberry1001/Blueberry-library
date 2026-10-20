@@ -1,0 +1,66 @@
+import hashlib,json,pathlib,platform,random,statistics,subprocess,time
+root=pathlib.Path.cwd()
+build=root/'.build/mixed-benchmark'
+build.mkdir(exist_ok=True)
+base=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+headers=['blueberry/utility/contest-fast-io.hpp','blueberry/utility/fast-io.hpp']
+for name in headers:
+    target=build/'before'/name
+    target.parent.mkdir(parents=True,exist_ok=True)
+    target.write_bytes(subprocess.check_output(['git','show',f'{base}:{name}']))
+source='''#include "blueberry/utility/contest-fast-io.hpp"
+int main(int argc,char**argv){
+std::string mode=argc>1?argv[1]:"many";
+if(mode=="output"){for(ll i=0;i<1000000;++i)O(i);return flush()?0:1;}
+init_io();LL(n);vector<ll>a(2);ull hash=0;
+while(n--){if(mode=="mixed"){if(!(cin>>a))return 2;}else if(!scan(a))return 2;
+if(mode=="input")for(ll x:a)hash=hash*1000003+static_cast<ull>(x);else O(sum(a));}
+if(mode=="input")O(hash);return flush()?0:1;
+}
+'''
+(build/'driver.cpp').write_text(source)
+rng=random.Random(467203)
+count=1000000
+hash_value=0
+with (build/'input.txt').open('w') as data,(build/'expected-many.txt').open('w') as expected:
+    data.write(f'{count}\n')
+    for _ in range(count):
+        a,b=rng.randrange(10**18),rng.randrange(10**18)
+        data.write(f'{a} {b}\n');expected.write(f'{a+b}\n')
+        for value in (a,b):hash_value=(hash_value*1000003+value)&((1<<64)-1)
+(build/'expected-input.txt').write_text(f'{hash_value}\n')
+(build/'expected-output.txt').write_text(''.join(f'{i}\n' for i in range(count)))
+digest=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
+result={'baseline_revision':base,'candidate':'working-tree overlay','platform':platform.platform(),
+        'cpu':next(line.split(':',1)[1].strip() for line in pathlib.Path('/proc/cpuinfo').read_text().splitlines() if line.startswith('model name')),
+        'seed':467203,'pairs':count,'warmups':1,'runs':7,'input_bytes':(build/'input.txt').stat().st_size,
+        'input_sha256':digest(build/'input.txt'),'candidate_headers':{name:digest(root/name) for name in headers},'samples':[]}
+for compiler in ('g++','clang++'):
+    version=subprocess.check_output([compiler,'--version'],text=True).splitlines()[0]
+    executables={}
+    for variant in ('before','after'):
+        binary=build/f'{compiler}-{variant}'
+        flags=['-std=gnu++20','-O2','-DNDEBUG','-I'+str(build/'before')] if variant=='before' else ['-std=gnu++20','-O2','-DNDEBUG']
+        command=[compiler,*flags,'-I.','-isystem','.deps/ac-library',str(build/'driver.cpp'),'-o',str(binary)]
+        subprocess.run(command,check=True)
+        executables[variant]=binary
+    for mode in ('input','output','many','mixed'):
+        variants=('after',) if mode=='mixed' else ('before','after')
+        samples={variant:[] for variant in variants}
+        expected=build/('expected-many.txt' if mode in ('many','mixed') else f'expected-{mode}.txt')
+        for run in range(8):
+            order=variants if run%2==0 else variants[::-1]
+            for variant in order:
+                with (build/'input.txt').open('rb') as data,(build/'actual.txt').open('wb') as output:
+                    begin=time.perf_counter()
+                    subprocess.run([str(executables[variant]),mode],stdin=data,stdout=output,check=True)
+                    elapsed=time.perf_counter()-begin
+                if digest(build/'actual.txt')!=digest(expected):raise RuntimeError((compiler,mode,variant,'output mismatch'))
+                if run:samples[variant].append(elapsed)
+        for variant in variants:
+            row={'compiler':version,'flags':'-std=gnu++20 -O2 -DNDEBUG','mode':mode,'variant':variant,
+                 'seconds':samples[variant],'median_seconds':statistics.median(samples[variant]),'min_seconds':min(samples[variant]),
+                 'output_bytes':expected.stat().st_size,'output_sha256':digest(expected)}
+            result['samples'].append(row)
+            print(compiler,mode,variant,f"median={row['median_seconds']:.6f} min={row['min_seconds']:.6f}",flush=True)
+(build/'results.json').write_text(json.dumps(result,indent=2)+'\n')

@@ -13,11 +13,15 @@ GNU libstdc++とACLが必要で、単一translation unitのバッチ問題向け
 
 Sは入出力のbyte数、Nは再帰的に訪れる要素・コンテナの数です。
 整数・文字列とコンテナの入出力は償却O(S+N)、浮動小数点は標準変換の費用を加えます。
-入出力を両方使うと合計128 KiBのバッファが必要です。
+初期化後は入出力用に合計128 KiBのバッファを保持します。
 このほか、入力文字列・浮動小数点token・浮動小数点出力の作業領域を使います。
+`cin/cout`との共有にはO(1)の管理領域を使い、別の入出力バッファは確保しません。
 V/Eはグラフの頂点/辺数、Lは各stream操作のbyte数です。
 
-`cin >> vector`などのstream overloadはこのヘッダでも使えます。標準streamだけで`scan/print`を使う場合は[Contest Template]({{ '/blueberry/utility/contest-template.hpp.html' | relative_url }})を選べます。
+`init_io()`後は`LL(n,m); vector<ll> a(n); cin >> a; O(a);`のように混在できます。
+`cin/cout`は`scan/print`と同じ入力位置・出力順を共有します。
+`fin >> a >> b`なら、`cin`と同じ記法で高速パーサを直接使えます。
+標準streamだけで`scan/print`を使う場合は[Contest Template]({{ '/blueberry/utility/contest-template.hpp.html' | relative_url }})を選べます。
 `FILE*`の指定や対話問題には[Fast I/O]({{ '/blueberry/utility/fast-io.hpp.html' | relative_url }})を使います。
 
 ## 操作一覧
@@ -42,6 +46,12 @@ V/Eはグラフの頂点/辺数、Lは各stream操作のbyte数です。
 
 | 操作 | 計算量 |
 | --- | --- |
+| [`print(T&& first, Args&&... values)`](#print-forward) | 償却O(S+N)+各変換の費用 |
+| [`fin`](#fin) | O(1)参照 |
+| [`fin >> value`](#fin-read) | 償却O(S+N)+各変換の費用 |
+| [`static_cast<bool>(fin)`](#fin-bool) | O(1) |
+| [`fin.fail()`](#fin-fail) | O(1) |
+| [`fin.clear()`](#fin-clear) | O(1) |
 | [`operator>>（input128）`](#input128) | O(L) |
 | [`operator<<（output128）`](#output128) | O(L) |
 | [`operator>>（vector）`](#input-vector) | O(S+N) |
@@ -133,14 +143,18 @@ V/Eはグラフの頂点/辺数、Lは各stream操作のbyte数です。
 - グローバルな型別名・マクロ・stream overloadを追加します。`contest-template.hpp`とは同じtranslation unitで併用できず、両方includeするとコンパイルエラーです。
 - `bits/stdc++.h`とACLを使用します。ACLの非inline関数定義があるため、複数cppから同時にincludeしてlinkする用途には対応しません。
 - `scan`は整数（GNU環境のsigned/unsigned 128bitを含む）、bool、char、string、浮動小数点、これらのpair/vector/deque/arrayと入れ子に対応します。`vector<bool>`も使えます。任意の`operator>>`を持つ独自型やACL modintは直接渡せません。整数に読んでから変換してください。
+- `fin >> value`も`scan`と同じ型・パーサを使います。連結・bool判定が可能で、失敗後は`fin.clear()`するまで読みません。`std::hex`等のmanipulatorや独自のstream演算子を使う場合は`cin`を選びます。
 - `print`は同じ値型とstring_view、文字列literalに対応します。任意の`operator<<`は呼びません。浮動小数点はコンテナ内部も含め、既定で小数点以下30桁のfixed形式です。
 - 入力コンテナは読み取る前にサイズ・入れ子の形状を用意します。空コンテナも1個ずつ訪れるため、Sに加えてNの時間が必要です。出力の形状・サイズ情報は保存しません。
-- 入出力の実体は最初の使用時に構築するstdin/stdout借用のsingletonです。明示的な初期化は不要で、`init_io`は出力精度だけを変更します。同じ入出力への並行アクセスは外部同期が必要です。
-- `stdin`/`stdout`はsingletonの静的破棄まで開いたままにします。最初の使用後のclose・seek・freopenは行わず、同じストリームで`cin`/`cout`やscanf/printf等と混在させないでください。独立したstringstreamでは下記のstream overloadを使えます。
-- 正常終了時には出力をflushします。途中で`flush()`してboolを確認すると出力エラーを検出できます。改行だけではflushせず、quick_exit・異常終了では出力を保証しません。
+- 入出力の実体はstdin/stdout借用のsingletonです。`init_io`で`cin/cout`も同じバッファへ接続し、`sync_with_stdio(false)`、`cin.tie(nullptr)`を設定します。初回の`fin >> value`または`scan/print/flush`でも接続するため、高速関数だけなら明示的な初期化は不要です。`cin/cout`を使う場合は、その最初の操作より前に`init_io()`を呼びます。同じ入出力への並行アクセスは外部同期が必要です。
+- `stdin`/`stdout`はsingletonの静的破棄まで開いたままにします。接続後はclose・seek・freopen・`cin/cout.rdbuf`の置き換え・`sync_with_stdio`の再設定を行わず、同じFILEを`scanf/printf/getchar`等から操作しないでください。独立したstringstreamでは下記のstream overloadを使えます。
+- `cin/cout`は標準の書式指定・独自型のstream演算子をそのまま使えます。標準streamの変換処理の費用は残ります。`scan/print`は高速パーサ・変換処理を使い、streamの書式flagには従いません。
+- `scan`と`cin`はどちらを先に呼んでも残りの入力を順に読みます。整数の`scan`は直後の区切りを1byte消費しますが、`cin >> 整数`は区切りを残します。続けて`getline`する場合はこの違いに注意してください。先頭の空白・改行をまとめて飛ばすなら`getline(cin >> ws, s)`を使います。`unget/putback`は現在の`cin`用読み取り範囲内だけで使い、`scan`やバッファ再充填をまたいで戻さないでください。
+- `fin`の失敗状態、`scan`のbool返り値、`cin`の状態flagは別です。`fin`や`scan`の失敗が`cin.fail()`を設定することはなく、`cin.clear()`や`fin.clear()`でFastInputのFILEエラーは解除されません。`cout`の状態flagと`print/flush`の返り値も別に確認します。
+- `cout`と`print/O`の出力順は呼び出し順です。正常終了時には出力をflushします。`flush()`、`cout << std::flush`、`cout << std::endl`でも排出できます。通常の改行だけではflushせず、quick_exit・異常終了では出力を保証しません。
 - 先読みするため対話問題には使えません。対話用は`FastInput<true>`と`FastOutput`を直接構築し、出力後に`out.flush()`します。
 - 整数入力は10進数で範囲を検査し、空白はASCIIのspace/tab/LF/CR/vertical tab/form feedです。boolは0/1、charは非空白の1byte、stringは非空tokenです。浮動小数点はlocale非依存の一般形式です。
-- 入力失敗時はそれまでに読めた要素が更新済みです。整数・bool・char・浮動小数点の失敗した要素は不変ですが、FILEエラーで文字列の一部が残る場合があります。確保失敗は通常どおり例外を送出します。
+- `scan`の入力失敗時はそれまでに読めた要素が更新済みです。整数・bool・char・浮動小数点の失敗した要素は不変ですが、FILEエラーで文字列の一部が残る場合があります。確保失敗は通常どおり例外を送出します。
 - `rep1`～`rep4`、`overload4`も原文と同じ名前で直接使えます。同名のmacroを先に定義しないでください。include判定の`BLUEBERRY_CONTEST_FAST_IO_INCLUDED`等も内部用です。
 - `Rande`は暗黙のコピー・移動・代入・破棄を利用し、乱数生成器`mt`を公開します。`fac/finv/invv/COMINIT/isprime`と`dx/dy`は変更可能なglobal変数です。
 - 補助関数はテンプレート共通部だけを読み込み、Blueberryの素因数分解・組合せ・素数篩・トポロジカルソートの個別ヘッダには依存しません。`enumdiv/soinsu_bunkai`は原文互換の試し割りです。入出力だけが必要な場合は、標準ヘッダだけに依存する`fast-io.hpp`を直接使えます。
@@ -160,6 +174,10 @@ V/Eはグラフの頂点/辺数、Lは各stream操作のbyte数です。
 int main() {
   init_io(15);
   assert(scan()); // 空引数は入力を待たず成功する。
+  std::vector<ll> empty;
+  fin >> empty;
+  assert(fin && !fin.fail());
+  fin.clear();
   std::vector<ll> a{3, 1, 4};
   ll total = 0; rep(i, len(a)) total += a[i];
   assert(total == 8 && sum(a) == 8);
@@ -185,40 +203,128 @@ int main() {
 <details class="library-notes" markdown="1">
 <summary>提出用の使用例</summary>
 
-NとN個の整数を読み、配列・合計・判定結果を出力します。
-N>=0で確保可能なサイズとし、合計はllに収まるものとします。標準入力には正しい問題形式を渡します。
+n、mとn個の整数を読み、配列を出力します。
+n>=0で確保可能なサイズとし、標準入力には正しい問題形式を渡します。
+入力が`2 3 7 23`なら、出力は`7 23`と改行です。
 
 {% raw %}
 ```cpp
 #include "blueberry/utility/contest-fast-io.hpp"
 int main() {
   init_io();
-  LL(n);
-  std::vector<ll> a(n);
-  if (!scan(a)) return 1;
-  print(a);
-  print(sum(a));
-  YesNo(!a.empty());
+  LL(n,m);
+  vector<ll> a(n); cin >> a;
+  O(a);
   return flush() ? 0 : 1;
 }
 ```
 {% endraw %}
+
+同じ例の`cin >> a`を`fin >> a`へ置き換えると、標準streamの数値変換を通さずに読みます。
+成功を確認する場合は`if (!(fin >> a)) return 1;`と書けます。
 
 </details>
 
 <details class="api-operation" id="init-io" markdown="1">
 <summary><code>void init_io(int precision = 30)</code> — O(1)</summary>
 
-浮動小数点を`print`するときの小数点以下の桁数を設定します。既定値は30です。
-呼び出し前から高速入出力は利用でき、途中で精度を変更できます。
+初回に`cin/cout`を高速入出力と同じstdin/stdoutバッファへ接続します。
+標準stdioとの同期を無効にし、`cin`のtieを外し、`cout`をfixed形式に設定します。
+`print`と`cout`の小数点以下の桁数をprecisionにします。既定値は30です。
+再呼び出しでも`cout`のfixed形式・精度と`print`の精度を設定します。
+入力位置・出力順・streamの状態flagを初期化せず、接続済みのバッファも置き換えません。
 
 {% raw %}
 ```cpp
-init_io(15); // 以降 print(1.25) は小数点以下15桁
+init_io(15);
 ```
 {% endraw %}
 
-注意点: precision >= 0が必要です。cin/coutの設定は変更しません。極端な精度は出力・作業メモリを増やします。
+注意点: precision >= 0が必要です。最初の`cin/cout`操作より前に呼びます。`fin`や`scan/print/flush`だけなら初回の読み書きで自動接続します。`cout`の書式は接続後に通常のmanipulatorで変更できます。極端な精度は出力・作業メモリを増やします。
+
+</details>
+
+<details class="api-operation" id="fin" markdown="1">
+<summary><code>fin</code> — O(1)参照</summary>
+
+stdinの高速入力を`>>`記法で使うグローバルオブジェクトです。
+`LL/STR/scan/cin`と同じ入力位置を共有します。初期状態は成功です。
+
+{% raw %}
+```cpp
+std::vector<ll> a;
+fin >> a;
+assert(fin);
+```
+{% endraw %}
+
+注意点: static寿命です。入力元の指定・差し替えはできません。`fin`自身はO(1)の失敗状態だけを持ち、入力バッファは共有します。最初の読み取りで必要な入出力を初期化します。独自型のstream演算子やmanipulatorには対応しません。
+
+</details>
+
+<details class="api-operation" id="fin-read" markdown="1">
+<summary><code>decltype(fin)&amp; fin.operator&gt;&gt;(T&amp; value)</code> — 償却O(S+N)+各変換の費用</summary>
+
+成功状態なら`scan(value)`で1個の値を読み、`fin`自身への参照を返します。
+`fin >> a >> b`と連結できます。入力失敗を保持し、以降は`clear()`まで読み取りを省略します。
+
+{% raw %}
+```cpp
+ll x=0; std::vector<ll> a(2);
+if (!(fin >> x >> a)) return 1;
+```
+{% endraw %}
+
+注意点: 対応型・範囲検査・区切りの消費・入れ子・部分失敗は`scan`と同じです。コンテナの形状を先に用意してください。空コンテナは成功し、入力を消費しません。失敗前に読めた値は変更済みです。入力失敗は`fin`の状態だけを更新し、`cin`の状態flagは更新しません。
+
+</details>
+
+<details class="api-operation" id="fin-bool" markdown="1">
+<summary><code>explicit operator bool() const</code> — O(1)</summary>
+
+保持している入力失敗がなければtrue、あればfalseを返します。
+`if (fin)`、`while (fin >> x)`、`!fin`で使えます。
+
+{% raw %}
+```cpp
+fin.clear();
+assert(static_cast<bool>(fin) && !(!fin));
+```
+{% endraw %}
+
+注意点: 入力を読みません。EOFを先読みせず、次の入力が存在することも保証しません。失敗状態だけを判定し、EOF専用の状態flagはありません。`cin`の状態とは独立です。
+
+</details>
+
+<details class="api-operation" id="fin-fail" markdown="1">
+<summary><code>bool fin.fail() const</code> — O(1)</summary>
+
+直前の`clear()`以降に`fin`で入力失敗があればtrue、なければfalseを返します。
+
+{% raw %}
+```cpp
+fin.clear();
+assert(!fin.fail());
+```
+{% endraw %}
+
+注意点: `!static_cast<bool>(fin)`と同じです。入力位置・保持状態は変更しません。直接呼んだ`scan`の失敗や`cin.fail()`はここに反映されません。
+
+</details>
+
+<details class="api-operation" id="fin-clear" markdown="1">
+<summary><code>void fin.clear()</code> — O(1)</summary>
+
+`fin`の失敗状態を解除し、次の`>>`から読み取りを再開できる状態にします。
+
+{% raw %}
+```cpp
+fin.clear();
+assert(fin && !fin.fail());
+```
+{% endraw %}
+
+注意点: 入力位置を戻さず、不正tokenやEOFを取り消しません。FastInputのFILEエラー・`cin`の状態flagも解除しません。失敗原因が残っていれば次の読み取りで再び失敗します。入力前でも呼べます。
 
 </details>
 
@@ -227,6 +333,7 @@ init_io(15); // 以降 print(1.25) は小数点以下15桁
 
 stdinから引数を左から順に読み、全て成功するとtrueを返します。空引数は何も読まずtrueです。
 pairはfirst/second、vector/deque/arrayは既存の要素順で再帰的に読みます。
+`cin`の未読部分から続けて読めます。
 
 {% raw %}
 ```cpp
@@ -237,7 +344,7 @@ if (!scan(a)) return 1;
 ```
 {% endraw %}
 
-注意点: 整数の範囲外・不正token・EOF・FILEエラーでfalseを返し、後続を読みません。既に読んだ引数・要素は変更済みです。型ごとの詳細はFast I/Oのreadを参照してください。コンテナのサイズは変更せず、空コンテナは入力を消費しません。
+注意点: 整数の範囲外・不正token・EOF・FILEエラーでfalseを返し、後続を読みません。既に読んだ引数・要素は変更済みです。型ごとの詳細はFast I/Oのreadを参照してください。コンテナのサイズは変更せず、空コンテナは入力を消費しません。整数直後の区切りを1byte消費するため、続く`getline`の開始位置は通常の整数stream入力と異なります。返り値は`cin`の状態flagと独立です。
 
 </details>
 
@@ -247,6 +354,7 @@ if (!scan(a)) return 1;
 stdoutへ引数間を1個の空白で区切って出力し、末尾にLFを付けます。空引数はLFだけです。
 pair/vector/deque/arrayも再帰的に空白で区切ります。全ての要素が非空の値なら、末尾に余分な空白は付けません。
 浮動小数点は`init_io`で指定した桁数のfixed形式、boolは0/1です。
+`cout`と同じ出力バッファへ、呼び出し順に追加します。
 
 {% raw %}
 ```cpp
@@ -256,15 +364,33 @@ init_io(2); print(1.25); // "1.25\n"
 ```
 {% endraw %}
 
-注意点: trueはバッファが出力を受け付けたことを表します。変換または出力に失敗するとfalseで後続を停止し、既に出した部分は取り消しません。空コンテナ自体は何も出力せず、その引数・要素の前後の区切りは残るため、空の入れ子で連続空白になる場合があります。flushしません。
+注意点: trueはバッファが出力を受け付けたことを表します。変換または出力に失敗するとfalseで後続を停止し、既に出した部分は取り消しません。空コンテナ自体は何も出力せず、その引数・要素の前後の区切りは残るため、空の入れ子で連続空白になる場合があります。`cout`の書式flagには従わず、`cout.fail()`も更新しません。flushしません。
+
+</details>
+
+<details class="api-operation" id="print-forward" markdown="1">
+<summary><code>bool print(T&amp;&amp; first, Args&amp;&amp;... values)</code> — 償却O(S+N)+各変換の費用</summary>
+
+標準ライブラリが`__cpp_lib_print`を定義している場合に追加するoverloadです。
+先頭引数が`std::string_view`へ暗黙変換でき、後続引数が1個以上ある場合に使えます。
+同じ名前の`std::print`との衝突を避け、既存の空白区切り出力へ転送します。
+
+{% raw %}
+```cpp
+std::string label="value"; int n=2;
+print(label,n);
+```
+{% endraw %}
+
+注意点: 返り値はboolで、型・出力・失敗・計算量はconst参照版と同じです。コンテナ等の引数をコピーしません。C++20では追加せず、先頭が文字列系でない呼び出しや明示的なテンプレート引数付き呼び出しも従来どおり使えます。文字列系の先頭引数とbit-fieldを渡す場合は`print(label,+obj.field)`か、const参照版を明示する`::print<std::string,unsigned>(label,obj.field)`を使います。
 
 </details>
 
 <details class="api-operation" id="flush" markdown="1">
 <summary><code>bool flush()</code> — O(b)</summary>
 
-出力バッファをstdoutへ排出し、`fflush(stdout)`します。全て成功ならtrue、エラーならfalseです。
-空バッファでもfflushを呼びます。
+`cout`と`print/O`が共有する出力バッファをstdoutへ排出し、`fflush(stdout)`します。
+全て成功ならtrue、エラーならfalseです。空バッファでもfflushを呼びます。
 
 {% raw %}
 ```cpp
@@ -272,7 +398,7 @@ if (!flush()) return 1;
 ```
 {% endraw %}
 
-注意点: FILE出力エラーは保持され、以後の実際のwrite/flushも失敗します。対話用の先読み量には影響しません。stdoutは開いたままにします。
+注意点: FILE出力エラーは保持され、以後の実際のwrite/flushも失敗します。返り値は`cout`の状態flagと独立です。`cout << std::flush`や`std::endl`も同じバッファを排出しますが、こちらの失敗はstreamの状態flagで確認します。対話用の先読み量には影響しません。stdoutは開いたままにします。
 
 </details>
 
@@ -310,6 +436,7 @@ std::ostringstream out; out << __int128(-123); assert(out.str() == "-123");
 <summary><code>std::istream&amp; operator&gt;&gt;(std::istream&amp; in, std::vector&lt;T,Alloc&gt;&amp; a)</code> — O(S+N)</summary>
 
 既存 N 要素を順番に読みます。任意のallocatorを指定できます。
+`init_io()`後の`cin`でも使え、直前の`LL/scan/STR`から続けて読みます。
 
 {% raw %}
 ```cpp
@@ -684,7 +811,7 @@ std::ostringstream out; out << 1 << spa << 2; assert(out.str() == "1 2");
 <details class="api-operation" id="o" markdown="1">
 <summary><code>O(args...)</code> — 償却O(S+N)+各変換の費用</summary>
 
-printの短縮macroです。成功・失敗をboolで返します。
+グローバルな`::print`を呼ぶ短縮macroです。成功・失敗をboolで返します。
 
 {% raw %}
 ```cpp
@@ -692,7 +819,7 @@ const bool ok = O(1, "hello");
 ```
 {% endraw %}
 
-注意点: printと同じ空白・改行・型・失敗規則です。
+注意点: printと同じ空白・改行・型・失敗規則です。`std::print`等は呼びません。
 
 </details>
 
@@ -1581,9 +1708,10 @@ deb(++x); assert(x == 0);
 
 ## 出典・検証 {#出典検証}
 
-- ユーザーテンプレートの短縮名を共通化し、Fast I/Oのバッファ経路で`scan/print`を実装しています。
-- [Many A + B](https://judge.yosupo.jp/problem/many_aplusb)と[128bit版](https://judge.yosupo.jp/problem/many_aplusb_128bit)で高速版の`scan/print`を検証します。
-- 固定精度、入れ子コンテナ、vector&lt;bool&gt;、空入力、部分失敗、128bit境界、正常終了時のflushをテストします。
+- ユーザーテンプレートの短縮名を共通化し、Fast I/Oのバッファを`scan/print`と`cin/cout`で共有します。
+- [Many A + B](https://judge.yosupo.jp/problem/many_aplusb)と[128bit版](https://judge.yosupo.jp/problem/many_aplusb_128bit)で`scan/fin/cin`の混在と`print`を検証します。
+- 固定精度、入れ子コンテナ、vector&lt;bool&gt;、空入力、部分失敗、128bit境界、正常終了時のflushに加え、`LL`と`cin >> vector`の混在・`fin`の連結と失敗状態・入出力順序・標準stream操作をテストします。
 - 入出力型ごとの契約と検証は[Fast I/O]({{ '/blueberry/utility/fast-io.hpp.html' | relative_url }})も参照してください。
+- [標準stream混在修正の検証・測定記録]({{ '/docs/development/mixed-contest-io.html' | relative_url }})を保存しています。
 
 </details>

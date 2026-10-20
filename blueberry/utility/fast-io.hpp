@@ -16,8 +16,10 @@
 #include <utility>
 #include <vector>
 namespace blueberry{
+namespace internal::contest_io{class input_buffer;}
 template<bool Interactive=false>
 class FastInput{
+ friend class internal::contest_io::input_buffer;
  static constexpr std::size_t capacity=1<<16;
  std::FILE*file_;
  std::array<unsigned char,Interactive?1:capacity>buffer_;

@@ -1,0 +1,15 @@
+#include "blueberry/utility/contest-fast-io.hpp"
+#include <cassert>
+struct RestoreObserver{
+ std::streambuf *in=nullptr,*out=nullptr;
+ ~RestoreObserver(){assert(cin.rdbuf()==in&&cout.rdbuf()==out);cout<<"restored\n";}
+}observer;
+int main(){
+ init_io();auto& io=blueberry::internal::contest_io::state();observer.in=io.old_in;observer.out=io.old_out;
+ LL(n);assert(n==131209);string data(n,'\0');cin.read(data.data(),n);assert(cin.gcount()==n&&cin);
+ for(ll i=0;i<n;++i)assert(static_cast<unsigned char>(data[i])==static_cast<unsigned char>(i*73+255));
+ assert(cin.peek()=='Q');char c;cin.get(c);assert(c=='Q');cin.unget();cin.get(c);assert(c=='Q');cin.putback('Q');assert(cin);
+ STR(token);assert(token=="Qtail");ll x,y,z,last;cin>>hex>>x;assert(cin&&x==255);assert(scan(y)&&y==17);cin>>dec>>z;assert(cin&&z==23);assert(scan(last)&&last==42);
+ cin.exceptions(ios::failbit|ios::badbit);bool caught=false;try{cin>>z;}catch(const ios_base::failure&){caught=true;}assert(caught&&cin.fail()&&cin.eof());cin.exceptions(ios::goodbit);cin.clear();assert(cin.peek()==char_traits<char>::eof());cin.clear();
+ cout<<hex<<255<<' ';assert(O(17));cout<<dec<<23<<endl;assert(O("done"));return flush()?0:1;
+}

@@ -22,3 +22,7 @@ template<class...Args>void print(const Args&...values){
  (one(values),...);
  std::cout<<'\n';
 }
+#ifdef __cpp_lib_print
+template<int=0,class T,class...Args>requires(sizeof...(Args)>0&&std::is_convertible_v<T,std::string_view>)
+void print(T&&first,Args&&...values){::print<std::remove_reference_t<T>,std::remove_reference_t<Args>...>(first,values...);}
+#endif
