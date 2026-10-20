@@ -1,0 +1,10 @@
+#include "blueberry/utility/contest-fast-io.hpp"
+using namespace std;
+
+int main() {
+  init_io();
+  LL(n);
+  vector<ll> a(n);
+  if (!scan(a)) return 1;
+  return print(sum(a)) && flush() ? 0 : 1;
+}

@@ -50,6 +50,7 @@ uf.rollback(saved);
 [Fastestとの差を縮める方針](docs/development/fastest-performance-plan.md)では、Static RMQの入出力・構築・クエリを分けた実測と、汎用APIを維持する高速化の優先順位をまとめています。
 [汎用性を保つ高速化の実装結果](docs/development/generic-performance-improvements.md)では、同条件の変更前後・不採用候補・検証結果を確認できます。
 大量の入出力には[Fast I/O](docs/utility/fast-io.md)を使用できます。`FastInput in; FastOutput out;`で始め、`in.read(n, q)` / `out.writeln(answer)`で読み書きします。対話入力は`FastInput<true>`を選び、各応答後に`out.flush()`を呼びます。
+`blueberrytemplate`と同じ呼び方で高速入出力を使う場合は、[Contest Fast I/O](docs/utility/contest-fast-io.md)を読み込みます。`scan(a, b)`、`print(a + b)`、`LL(n)`、`STR(s)`や入れ子のvector・deque・pairを扱えます。[提出用の例](templates/contest-fast-io.cpp.example)も用意しています。
 [ライブラリごとのverify不足・調査状況](https://blueberry1001.github.io/Blueberry-library/verification-gaps.html)では、専用ドライバ未登録・間接利用・主機能の一部だけの検証を区別しています。通常の優先度キューのverifyがあっても、retroactive操作の検証済みとは扱いません。
 
 ## 問題から探す
