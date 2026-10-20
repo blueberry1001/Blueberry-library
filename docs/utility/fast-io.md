@@ -7,12 +7,15 @@ documentation_of: //blueberry/utility/fast-io.hpp
 
 ## 概要
 
-`FastInput<Interactive = false>` / `FastOutput`で、整数・文字列・浮動小数点を読み書きします。
+`FastInput<Interactive = false>` / `FastOutput`で、整数・文字列・浮動小数点と、pair/vector/deque/arrayの入れ子を読み書きします。
 通常ファイルとpipeに対応し、引数を省略するとstdin/stdoutを使います。
 対話問題では`FastInput<true>`を選び、出力後に`out.flush()`を呼びます。
 
-入力文字数をL、出力文字数をKとすると、整数・文字列の全処理はO(L+K)です。
+入力文字数をL、出力文字数をK、再帰的に訪れる要素・コンテナの数をNとすると、
+整数・文字列とコンテナの全処理は償却O(L+K+N)です。
 通常の入出力オブジェクトはそれぞれ64 KiBのバッファを持ち、`FastInput<true>`の補助メモリはO(1)です。
+浮動小数点は標準変換の費用を加え、一時tokenや出力作業領域に追加メモリを使います。
+`scan/print`などの短縮名は[Contest Fast I/O Template]({{ '/blueberry/utility/contest-fast-io.hpp.html' | relative_url }})で使えます。
 
 ## 操作一覧
 
@@ -36,6 +39,20 @@ documentation_of: //blueberry/utility/fast-io.hpp
 
 | 操作 | 計算量 |
 | --- | --- |
+| [`FastInput（コピー構築、使用不可）`](#input-copy) | 使用不可 |
+| [`FastInput（コピー代入、使用不可）`](#input-copy-assign) | 使用不可 |
+| [`in.~FastInput`](#input-destroy) | O(1) |
+| [`in.read（pair）`](#read-pair) | 償却O(d+N)+各変換の費用 |
+| [`in.read（vector）`](#read-vector) | 償却O(d+N)+各変換の費用 |
+| [`in.read（deque）`](#read-deque) | 償却O(d+N)+各変換の費用 |
+| [`in.read（array）`](#read-array) | 償却O(d+N)+各変換の費用 |
+| [`FastOutput（コピー構築、使用不可）`](#output-copy) | 使用不可 |
+| [`FastOutput（コピー代入、使用不可）`](#output-copy-assign) | 使用不可 |
+| [`out.write（固定精度の浮動小数点）`](#write-float-fixed) | 標準変換関数の費用+償却O(d) |
+| [`out.write（pair）`](#write-pair) | 償却O(d+N)+各変換の費用 |
+| [`out.write（vector）`](#write-vector) | 償却O(d+N)+各変換の費用 |
+| [`out.write（deque）`](#write-deque) | 償却O(d+N)+各変換の費用 |
+| [`out.write（array）`](#write-array) | 償却O(d+N)+各変換の費用 |
 | [`out.~FastOutput`](#output-destroy) | O(b) |
 | [`out.write`（浮動小数点）](#write-float) | 標準変換関数の費用+償却O(d) |
 | [`out.writeln`](#writeln) | 各writeと区切りの合計、償却 |
@@ -54,11 +71,13 @@ documentation_of: //blueberry/utility/fast-io.hpp
 - 空白はASCIIのspace、tab、LF、CR、vertical tab、form feedです。localeには依存しません。
 - 整数は10進数、浮動小数点は`from_chars`の一般形式（指数、inf/nanを含む）です。
 - boolは0/1、`char`は1文字、signed/unsigned charは整数として扱います。
-- 文字列入力には格納先の長さ、浮動小数点入力には一時tokenの長さの追加メモリが必要です。FILE内部のバッファは別です。
+- 文字列入力には格納先の長さ、浮動小数点入力には一時tokenの長さの追加メモリが必要です。固定精度の浮動小数点出力は通常128byteのstack領域を使い、収まらないときだけO(precision + 型の最大10進指数)の作業領域を確保します。FILE内部のバッファは別です。
+- pair/vector/deque/arrayは再帰的に処理し、要素も対応するread/writeを持つ型であることが必要です。入力前にコンテナのサイズ・形状を用意します。入れ子の深さに応じたstack領域が必要です。
+- 任意のstream演算子は呼びません。ACL modint等は整数に読み込んでから変換してください。公開フィールドはありません。
 
 ### 操作の補足 {#操作の補足}
 
-- 文字数dは、入力では読み飛ばす空白も含めた消費文字数、出力では出力の長さです。bはその時点の未出力バッファ長（最大64 KiB）です。stdio・OSのI/O待ち時間は計算量に含めません。
+- 文字数dは、入力では読み飛ばす空白も含めた消費文字数、出力では出力の長さです。Nは再帰的に訪れる要素・コンテナの数で、空コンテナも数えます。bはその時点の未出力バッファ長（最大64 KiB）です。stdio・OSのI/O待ち時間は計算量に含めません。
 
 ### FILEの寿命と併用 {#fileの寿命と併用}
 
@@ -203,7 +222,7 @@ if (!in.read(x)) return 1;
 </details>
 
 <details class="api-operation" id="read-many" markdown="1">
-<summary><code>bool read(T&amp; x, U&amp; y, Rest&amp;... rest)</code> — O(総文字数)+各変換の費用</summary>
+<summary><code>bool read(T&amp; x, U&amp; y, Rest&amp;... rest)</code> — 償却O(d+N)+各変換の費用</summary>
 
 2個以上の引数を左から読み、最初の失敗で停止します。既に成功した引数は更新済みで、
 後続の引数/tokenは触りません。注意点: グループ全体を巻き戻す操作ではありません。
@@ -300,7 +319,7 @@ out.write(std::numeric_limits<long long>::min());
 <summary><code>bool write(T value)</code>（浮動小数点） — 標準変換の費用+償却O(d)</summary>
 
 float/double/long doubleを`to_chars`の一般形式・最短round-trip表現で出力します。
-小数点以下の固定桁指定やlocaleはありません。inf/nan・負の0も標準変換に従います。
+このオーバーロードには小数点以下の固定桁指定やlocaleはありません。固定桁には`write(value, precision)`を使います。inf/nan・負の0も標準変換に従います。
 注意点: 変換またはFILE出力エラーでfalse。FILEエラーは以後も保持します。
 
 {% raw %}
@@ -311,7 +330,7 @@ out.write(1.25);
 </details>
 
 <details class="api-operation" id="writeln" markdown="1">
-<summary><code>bool writeln(const Args&amp;... values)</code> — 償却O(総文字数)+各変換の費用</summary>
+<summary><code>bool writeln(const Args&amp;... values)</code> — 償却O(d+N)+各変換の費用</summary>
 
 引数間を1個のspaceで区切り、末尾にLFを付けます。引数0個ではLFだけ。
 注意点: 最初のwrite失敗で後続の出力を停止します。途中までの出力は取り消しません。flushはしません。
@@ -338,6 +357,228 @@ if (!out.flush()) return 1;
 {% endraw %}
 </details>
 
+<details class="api-operation" id="input-copy" markdown="1">
+<summary><code>FastInput(const FastInput&amp;) = delete</code> — O(1)（宣言のみ）</summary>
+
+コピー構築は禁止です。同じFILEのバッファ状態を複製しません。
+
+{% raw %}
+```cpp
+static_assert(!std::is_copy_constructible_v<blueberry::FastInput<>>);
+```
+{% endraw %}
+
+注意点: 独立したFILEについて別のオブジェクトを構築してください。移動構築もできません。
+
+</details>
+
+<details class="api-operation" id="input-copy-assign" markdown="1">
+<summary><code>FastInput&amp; operator=(const FastInput&amp;) = delete</code> — O(1)（宣言のみ）</summary>
+
+コピー代入は禁止です。構築後のFILE付け替えはできません。
+
+{% raw %}
+```cpp
+static_assert(!std::is_copy_assignable_v<blueberry::FastInput<>>);
+```
+{% endraw %}
+
+注意点: 移動代入もできません。代入の代わりに適切なFILEで新しいオブジェクトを構築します。
+
+</details>
+
+<details class="api-operation" id="output-copy" markdown="1">
+<summary><code>FastOutput(const FastOutput&amp;) = delete</code> — O(1)（宣言のみ）</summary>
+
+コピー構築は禁止です。同じFILEのバッファ状態を複製しません。
+
+{% raw %}
+```cpp
+static_assert(!std::is_copy_constructible_v<blueberry::FastOutput>);
+```
+{% endraw %}
+
+注意点: 独立したFILEについて別のオブジェクトを構築してください。移動構築もできません。
+
+</details>
+
+<details class="api-operation" id="output-copy-assign" markdown="1">
+<summary><code>FastOutput&amp; operator=(const FastOutput&amp;) = delete</code> — O(1)（宣言のみ）</summary>
+
+コピー代入は禁止です。構築後のFILE付け替えはできません。
+
+{% raw %}
+```cpp
+static_assert(!std::is_copy_assignable_v<blueberry::FastOutput>);
+```
+{% endraw %}
+
+注意点: 移動代入もできません。代入の代わりに適切なFILEで新しいオブジェクトを構築します。
+
+</details>
+
+<details class="api-operation" id="input-destroy" markdown="1">
+<summary><code>~FastInput()</code> — O(1)</summary>
+
+入力バッファを破棄します。借用しているFILEは閉じません。
+
+{% raw %}
+```cpp
+{ blueberry::FastInput in(f); } // fは開いたまま
+```
+{% endraw %}
+
+注意点: 先読み済みの未消費byteはFILEへ戻しません。オブジェクト破棄後に同じ位置から他のreaderへ引き継ぐ用途には使えません。
+
+</details>
+
+<details class="api-operation" id="read-pair" markdown="1">
+<summary><code>bool read(std::pair&lt;T, U&gt;&amp; value)</code> — 償却O(d+N)+各変換の費用</summary>
+
+first、secondの順に再帰的に読み、両方成功したときtrueを返します。
+
+{% raw %}
+```cpp
+std::pair<int, std::vector<int>> value{0, std::vector<int>(2)};
+if (!in.read(value)) return 1;
+```
+{% endraw %}
+
+注意点: 最初の失敗で停止し、既に読んだ部分は変更済みです。secondの失敗でもfirstは巻き戻しません。コンテナのサイズ変更は行いません。要素の文字列等の確保は各readに従います。
+
+</details>
+
+<details class="api-operation" id="read-vector" markdown="1">
+<summary><code>bool read(std::vector&lt;T, Alloc&gt;&amp; values)</code> — 償却O(d+N)+各変換の費用</summary>
+
+既存の要素を先頭から再帰的に読み、全て成功ならtrueを返します。
+サイズを変更せず、空コンテナは何も読まずtrueです。`vector<bool>`も一時bool経由で読み取れます。
+
+{% raw %}
+```cpp
+std::vector<int> values(2);
+if (!in.read(values)) return 1;
+```
+{% endraw %}
+
+注意点: 最初の失敗で停止し、成功した要素は更新済みです。参照・iteratorはこの操作によって無効化しませんが、要素自身のstring等の再確保は各型の規則に従います。
+
+</details>
+
+<details class="api-operation" id="read-deque" markdown="1">
+<summary><code>bool read(std::deque&lt;T, Alloc&gt;&amp; values)</code> — 償却O(d+N)+各変換の費用</summary>
+
+既存の要素を先頭から再帰的に読み、全て成功ならtrueを返します。
+サイズを変更せず、空コンテナは何も読まずtrueです。
+
+{% raw %}
+```cpp
+std::deque<int> values(2);
+if (!in.read(values)) return 1;
+```
+{% endraw %}
+
+注意点: 最初の失敗で停止し、成功した要素は更新済みです。参照・iteratorはこの操作によって無効化しませんが、要素自身のstring等の再確保は各型の規則に従います。
+
+</details>
+
+<details class="api-operation" id="read-array" markdown="1">
+<summary><code>bool read(std::array&lt;T, M&gt;&amp; values)</code> — 償却O(d+N)+各変換の費用</summary>
+
+既存の要素を先頭から再帰的に読み、全て成功ならtrueを返します。
+サイズを変更せず、空コンテナは何も読まずtrueです。
+
+{% raw %}
+```cpp
+std::array<int, 2> values{};
+if (!in.read(values)) return 1;
+```
+{% endraw %}
+
+注意点: 最初の失敗で停止し、成功した要素は更新済みです。参照・iteratorはこの操作によって無効化しませんが、要素自身のstring等の再確保は各型の規則に従います。
+
+</details>
+
+<details class="api-operation" id="write-float-fixed" markdown="1">
+<summary><code>bool write(T value, int precision)</code> — 標準変換の費用+償却O(d)</summary>
+
+float/double/long doubleをlocale非依存のfixed形式で出力します。
+有限値は小数点以下precision桁に丸めます。0なら小数部分を出しません。
+通常128byteのstack領域に変換し、足りない場合だけ作業領域を確保します。
+
+{% raw %}
+```cpp
+out.write(1.25, 3); // "1.250"
+```
+{% endraw %}
+
+注意点: precision >= 0が必要です。inf/nan・負の0・丸め方はto_charsに従います。極端なprecisionは時間・メモリを増やし、確保失敗は例外になります。変換またはFILEエラーでfalse。出力に失敗しても取り消さず、FILEエラーは保持します。改行・空白は付けません。
+
+</details>
+
+<details class="api-operation" id="write-pair" markdown="1">
+<summary><code>bool write(const std::pair&lt;T, U&gt;&amp; value)</code> — 償却O(d+N)+各変換の費用</summary>
+
+firstとsecondを1個の空白で区切って再帰的に出力します。成功ならtrueです。
+
+{% raw %}
+```cpp
+out.write(std::pair<int, int>{1, 2}); // "1 2"
+```
+{% endraw %}
+
+注意点: 最初の失敗で停止し、途中までの出力は取り消しません。改行・flushをせず、参照も保持しません。空コンテナを要素に持っても間の区切りは出します。
+
+</details>
+
+<details class="api-operation" id="write-vector" markdown="1">
+<summary><code>bool write(const std::vector&lt;T, Alloc&gt;&amp; values)</code> — 償却O(d+N)+各変換の費用</summary>
+
+要素を1個の空白で区切って再帰的に出力し、成功ならtrueを返します。
+空コンテナは何も出力せずtrueです。`vector<bool>`にも対応します。
+
+{% raw %}
+```cpp
+out.write(std::vector<int>{1, 2}); // "1 2"
+```
+{% endraw %}
+
+注意点: 末尾に空白・改行を付けずflushもしません。形状やサイズは保存せず、空の入れ子でも要素間の区切りは残ります。最初の失敗で停止し、途中までの出力は取り消しません。参照を保持しません。既にFILEエラーでも空コンテナはwriteを呼ばずtrueになります。
+
+</details>
+
+<details class="api-operation" id="write-deque" markdown="1">
+<summary><code>bool write(const std::deque&lt;T, Alloc&gt;&amp; values)</code> — 償却O(d+N)+各変換の費用</summary>
+
+要素を1個の空白で区切って再帰的に出力し、成功ならtrueを返します。
+空コンテナは何も出力せずtrueです。
+
+{% raw %}
+```cpp
+out.write(std::deque<int>{1, 2}); // "1 2"
+```
+{% endraw %}
+
+注意点: 末尾に空白・改行を付けずflushもしません。形状やサイズは保存せず、空の入れ子でも要素間の区切りは残ります。最初の失敗で停止し、途中までの出力は取り消しません。参照を保持しません。既にFILEエラーでも空コンテナはwriteを呼ばずtrueになります。
+
+</details>
+
+<details class="api-operation" id="write-array" markdown="1">
+<summary><code>bool write(const std::array&lt;T, M&gt;&amp; values)</code> — 償却O(d+N)+各変換の費用</summary>
+
+要素を1個の空白で区切って再帰的に出力し、成功ならtrueを返します。
+空コンテナは何も出力せずtrueです。
+
+{% raw %}
+```cpp
+out.write(std::array<int, 2>{1, 2}); // "1 2"
+```
+{% endraw %}
+
+注意点: 末尾に空白・改行を付けずflushもしません。形状やサイズは保存せず、空の入れ子でも要素間の区切りは残ります。最初の失敗で停止し、途中までの出力は取り消しません。参照を保持しません。既にFILEエラーでも空コンテナはwriteを呼ばずtrueになります。
+
+</details>
+
 <details class="library-notes" markdown="1">
 <summary>出典・検証</summary>
 
@@ -345,6 +586,7 @@ if (!out.flush()) return 1;
 
 - [Many A + B](https://judge.yosupo.jp/problem/many_aplusb)・[128bit版](https://judge.yosupo.jp/problem/many_aplusb_128bit)で公式verify。
 - `tests/random/fast-io.cpp`: 整数全範囲・overflow・不正token・buffer境界・末尾改行なし・浮動小数点・文字列・出力エラーの検証。
+- `tests/random/contest-fast-io.cpp`: 固定精度・入れ子コンテナ・vector&lt;bool&gt;とテンプレート形式APIの検証。
 - 2桁変換とportable bufferを独自実装。Fastest提出のmmap/SIMD専用I/Oはコピーしていません。
 - [性能改善方針]({{ '/docs/development/fastest-performance-plan.html' | relative_url }})。
 

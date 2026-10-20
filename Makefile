@@ -1,6 +1,7 @@
 OJ_VERIFY_JOBS ?= 2
 VERIFY_REPEATS ?= 3
 VERIFY_TIMEOUT ?= 3600
+VERIFY_PATHS ?=
 CXX ?= g++
 CXX_STANDARD ?= gnu++20
 COMPILE_JOBS ?= 2
@@ -33,7 +34,7 @@ random-test:
 	CPPFLAGS="$(CPPFLAGS)" python3 scripts/check_cpp.py random --compiler "$(CXX)" --standard "$(CXX_STANDARD)" --jobs "$(COMPILE_JOBS)" --random-runs "$(RANDOM_RUNS)" --random-seed "$(RANDOM_SEED)" --random-timeout "$(RANDOM_TIMEOUT)"
 
 verify:
-	CPLUS_INCLUDE_PATH="$(abspath $(ACL_ROOT))$(if $(CPLUS_INCLUDE_PATH),:$(CPLUS_INCLUDE_PATH))" python3 scripts/verify_with_metrics.py --repeats $(VERIFY_REPEATS) --timeout $(VERIFY_TIMEOUT)
+	CPLUS_INCLUDE_PATH="$(abspath $(ACL_ROOT))$(if $(CPLUS_INCLUDE_PATH),:$(CPLUS_INCLUDE_PATH))" python3 scripts/verify_with_metrics.py --repeats $(VERIFY_REPEATS) --timeout $(VERIFY_TIMEOUT) $(VERIFY_PATHS)
 
 benchmark:
 	python3 scripts/run_benchmarks.py

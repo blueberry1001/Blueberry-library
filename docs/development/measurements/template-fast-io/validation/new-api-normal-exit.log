@@ -1,0 +1,13 @@
+Normal-exit flush follow-up; only the 64-bit verify driver changed since new-api-current.log
+2026-10-20T04:01:18Z
+b44d5a50ae8f9a0590dd8f7dc363eaf9d27b3e24
+0e848e0712582f5f11f45e11e1a2298bd3eb382d
+5d6b2d58c4da2e5496308d11f0a1ed03ee5b53e189b7d9addea69d81d1e7c059  blueberry/utility/contest-fast-io.hpp
+07ea901f08d025223b6f9f67d1552e084a78b2e07ccd991a4424b1ab3b9ba393  verify/utility/contest-fast-io.test.cpp
++ g++ -std=gnu++20 -O2 -Wall -Wextra -Wshadow -Werror -I. -isystem /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library verify/utility/contest-fast-io.test.cpp -o .build/io-tests/current/normal-exit
++ printf '3\n1 2\n-8 3\n0 0'
++ .build/io-tests/current/normal-exit
++ diff -u /dev/fd/63 .build/io-tests/current/normal-exit.actual
+++ printf '3\n-5\n0\n'
++ echo PASS singleton-destructor-flush
+PASS singleton-destructor-flush

@@ -6,11 +6,14 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
+#include <deque>
 #include <limits>
 #include <string>
 #include <string_view>
 #include <system_error>
 #include <type_traits>
+#include <utility>
+#include <vector>
 
 namespace blueberry {
 
@@ -125,6 +128,28 @@ class FastInput {
   bool read(T& first_value, U& second_value, Rest&... rest) {
     return read(first_value) && read(second_value) && (read(rest) && ...);
   }
+  template<class T, class U> bool read(std::pair<T, U>& value) {
+    return read(value.first) && read(value.second);
+  }
+  template<class T, class Alloc> bool read(std::vector<T, Alloc>& values) {
+    // vector<bool> returns proxies rather than bool references.
+    for (std::size_t i = 0; i < values.size(); ++i) {
+      if constexpr (std::is_same_v<T, bool>) {
+        bool value;
+        if (!read(value)) return false;
+        values[i] = value;
+      } else if (!read(values[i])) return false;
+    }
+    return true;
+  }
+  template<class T, class Alloc> bool read(std::deque<T, Alloc>& values) {
+    for (auto& value : values) if (!read(value)) return false;
+    return true;
+  }
+  template<class T, std::size_t N> bool read(std::array<T, N>& values) {
+    for (auto& value : values) if (!read(value)) return false;
+    return true;
+  }
 };
 
 class FastOutput {
@@ -203,6 +228,49 @@ class FastOutput {
     const auto result = std::to_chars(text, text + sizeof text, value);
     if (result.ec != std::errc{}) return false;
     return write(std::string_view(text, static_cast<std::size_t>(result.ptr - text)));
+  }
+  template<class T> requires std::is_floating_point_v<T>
+  bool write(T value, int precision) {
+    assert(precision >= 0);
+    char local[128];
+    auto result = std::to_chars(local, local + sizeof local, value, std::chars_format::fixed, precision);
+    if (result.ec == std::errc{})
+      return write(std::string_view(local, static_cast<std::size_t>(result.ptr - local)));
+    if (result.ec != std::errc::value_too_large) return false;
+    std::string text(static_cast<std::size_t>(precision) + std::numeric_limits<T>::max_exponent10 + 32, '\0');
+    result = std::to_chars(text.data(), text.data() + text.size(), value, std::chars_format::fixed, precision);
+    if (result.ec != std::errc{}) return false;
+    return write(std::string_view(text.data(), static_cast<std::size_t>(result.ptr - text.data())));
+  }
+  template<class T, class U> bool write(const std::pair<T, U>& value) {
+    return write(value.first) && write(' ') && write(value.second);
+  }
+  template<class T, class Alloc> bool write(const std::vector<T, Alloc>& values) {
+    bool first = true;
+    for (const T& value : values) {
+      if (!first && !write(' ')) return false;
+      first = false;
+      if (!write(value)) return false;
+    }
+    return true;
+  }
+  template<class T, class Alloc> bool write(const std::deque<T, Alloc>& values) {
+    bool first = true;
+    for (const auto& value : values) {
+      if (!first && !write(' ')) return false;
+      first = false;
+      if (!write(value)) return false;
+    }
+    return true;
+  }
+  template<class T, std::size_t N> bool write(const std::array<T, N>& values) {
+    bool first = true;
+    for (const auto& value : values) {
+      if (!first && !write(' ')) return false;
+      first = false;
+      if (!write(value)) return false;
+    }
+    return true;
   }
   template<class... Args> bool writeln(const Args&... values) {
     bool ok = true;

@@ -1,0 +1,1785 @@
+CPLUS_INCLUDE_PATH="/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.deps/ac-library" python3 scripts/verify_with_metrics.py --repeats 3 --timeout 1200 verify/utility/contest-fast-io.test.cpp verify/utility/contest-fast-io-128bit.test.cpp verify/utility/fast-io.test.cpp verify/utility/fast-io-128bit.test.cpp verify/utility/contest-template-128bit.test.cpp verify/utility/all-headers.test.cpp
+INFO:onlinejudge_verify.config:config file loaded: .verify-helper/config.toml: {'languages': {'cpp': {'environments': [{'CXX': 'g++', 'CXXFLAGS': ['-std=gnu++20', '-O2', '-pipe', '-Wall', '-Wextra', '-Wshadow', '-D_GLIBCXX_ASSERTIONS']}]}}}
+INFO:onlinejudge_verify.verify:verify: verify/utility/all-headers.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test --silent https://judge.yosupo.jp/problem/many_aplusb
+[INFO] GET: https://pypi.org/pypi/online-judge-tools/json
+[INFO] 200 OK
+[INFO] GET: https://pypi.org/pypi/online-judge-api-client/json
+[INFO] 200 OK
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] load cookie from: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+git version 2.43.0
+[INFO] $ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+[INFO] $ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/info.toml
+[37m13:02:38 [INFO] Start many_aplusb[0m
+[37m13:02:38 [INFO] generate params.h[0m
+[37m13:02:38 [INFO] Test cases are already generated[0m
+[37m13:02:38 [INFO] The checker is already compiled[0m
+[INFO] save cookie to: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+
+[INFO] sample 0
+[INFO] input: all_max_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in
+[INFO] output: all_max_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+
+[INFO] sample 1
+[INFO] input: all_zero_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in
+[INFO] output: all_zero_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+
+[INFO] sample 2
+[INFO] input: digit_random_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in
+[INFO] output: digit_random_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+
+[INFO] sample 3
+[INFO] input: digit_random_01
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in
+[INFO] output: digit_random_01
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+
+[INFO] sample 4
+[INFO] input: example_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in
+[INFO] output: example_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+
+[INFO] sample 5
+[INFO] input: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in
+[INFO] output: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+
+[INFO] sample 6
+[INFO] input: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in
+[INFO] output: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+
+[INFO] sample 7
+[INFO] input: random_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in
+[INFO] output: random_00
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+
+[INFO] sample 8
+[INFO] input: random_01
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in
+[INFO] output: random_01
+[SUCCESS] saved to: .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io -o .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/a.out verify/utility/all-headers.test.cpp
+git version 2.43.0
+INFO:onlinejudge.service.library_checker:$ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/info.toml --compile-checker
+[33m13:02:50 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m13:02:50 [INFO] Start many_aplusb[0m
+[37m13:02:50 [INFO] generate params.h[0m
+[37m13:02:50 [INFO] Test cases are already generated[0m
+[37m13:02:50 [INFO] The checker is already compiled[0m
+::group::verify/utility/all-headers.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 9 cases found
+
+[INFO] all_max_00
+[INFO] time: 0.880061 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in /tmp/tmpazzef40j/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.331647 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in /tmp/tmpbgrq5u0r/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.620157 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in /tmp/tmpkbjq32mu/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 1.520679 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in /tmp/tmpqiyegvnl/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.022204 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in /tmp/tmpfqt1gvq2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 2.662991 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in /tmp/tmphtsapptr/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 5.969888 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in /tmp/tmpe9vwg33f/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 1.146848 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in /tmp/tmpe4bcmpku/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.920556 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in /tmp/tmp1lrhjy0x/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 5.969888 sec  (for max_random_01)
+[INFO] max memory: 3.860000 MB  (for all_max_00)
+[SUCCESS] test success: 9 cases
+::endgroup::
+::group::verify/utility/all-headers.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 9 cases found
+
+[INFO] all_max_00
+[INFO] time: 1.771169 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in /tmp/tmp0j5y3la3/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.268112 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in /tmp/tmpeohcrfuy/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 1.061319 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in /tmp/tmpe6x4u1cy/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 3.207564 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in /tmp/tmpo095j7v9/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.009039 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in /tmp/tmp1fdc3ysv/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 3.408963 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in /tmp/tmpk9vxk449/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 4.249325 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in /tmp/tmpkx9dtadj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 1.500627 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in /tmp/tmpjflmfi5i/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 1.018986 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in /tmp/tmp5ymoles1/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 4.249325 sec  (for max_random_01)
+[INFO] max memory: 3.860000 MB  (for digit_random_00)
+[SUCCESS] test success: 9 cases
+::endgroup::
+::group::verify/utility/all-headers.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 9 cases found
+
+[INFO] all_max_00
+[INFO] time: 3.224618 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in /tmp/tmpku0w1e_0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.794487 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in /tmp/tmp2jg8t7r2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 2.895053 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in /tmp/tmp_ghyplx9/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 1.372709 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in /tmp/tmpa_f4lltt/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.010042 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in /tmp/tmppxv4mr0g/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 4.062615 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in /tmp/tmpkisit5ul/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 3.473590 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in /tmp/tmpytjkwc3u/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 1.415413 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in /tmp/tmpssndylew/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 1.239147 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in /tmp/tmp78vjzzg6/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 4.062615 sec  (for max_random_00)
+[INFO] max memory: 3.864000 MB  (for all_max_00)
+[SUCCESS] test success: 9 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:verify: verify/utility/contest-fast-io-128bit.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb_128bit
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test --silent https://judge.yosupo.jp/problem/many_aplusb_128bit
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] load cookie from: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+git version 2.43.0
+[INFO] $ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+[INFO] $ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/info.toml
+[37m13:04:22 [INFO] Start many_aplusb_128bit[0m
+[37m13:04:22 [INFO] generate params.h[0m
+[37m13:04:22 [INFO] The checker is already compiled[0m
+[37m13:04:22 [INFO] compile solution[0m
+[37m13:04:29 [INFO] compile generators[0m
+[37m13:04:29 [INFO] compile example.in[0m
+[37m13:04:29 [INFO] compile random.cpp[0m
+[37m13:04:36 [INFO] compile max_random.cpp[0m
+[37m13:04:39 [INFO] compile digit_random.cpp[0m
+[37m13:04:42 [INFO] compile all_max_abs.cpp[0m
+[37m13:04:45 [INFO] compile all_zero.cpp[0m
+[37m13:04:49 [INFO] compile carry_up.cpp[0m
+[37m13:04:51 [INFO] clear input /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/in[0m
+[37m13:04:51 [INFO] gen example.in 1cases[0m
+[37m13:04:51 [INFO] gen random.cpp 2cases[0m
+[37m13:04:51 [INFO] gen max_random.cpp 2cases[0m
+[37m13:04:52 [INFO] gen digit_random.cpp 2cases[0m
+[37m13:04:52 [INFO] gen all_max_abs.cpp 1cases[0m
+[37m13:04:52 [INFO] gen all_zero.cpp 1cases[0m
+[37m13:04:52 [INFO] gen carry_up.cpp 1cases[0m
+[37m13:04:53 [INFO] clear output /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/out[0m
+[37m13:04:53 [INFO] ANS      1 msecs : example_00 : b''[0m
+[37m13:04:53 [INFO] ANS    233 msecs : random_00 : b''[0m
+[37m13:04:53 [INFO] ANS    278 msecs : random_01 : b''[0m
+[37m13:04:54 [INFO] ANS    294 msecs : max_random_00 : b''[0m
+[37m13:04:54 [INFO] ANS    296 msecs : max_random_01 : b''[0m
+[37m13:04:54 [INFO] ANS    220 msecs : digit_random_00 : b''[0m
+[37m13:04:54 [INFO] ANS    221 msecs : digit_random_01 : b''[0m
+[37m13:04:55 [INFO] ANS    235 msecs : all_max_abs_00 : b''[0m
+[37m13:04:55 [INFO] ANS     45 msecs : all_zero_00 : b''[0m
+[37m13:04:55 [INFO] ANS    306 msecs : carry_up_00 : b''[0m
+[INFO] save cookie to: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+
+[INFO] sample 0
+[INFO] input: all_max_abs_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in
+[INFO] output: all_max_abs_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+
+[INFO] sample 1
+[INFO] input: all_zero_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in
+[INFO] output: all_zero_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+
+[INFO] sample 2
+[INFO] input: carry_up_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in
+[INFO] output: carry_up_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+
+[INFO] sample 3
+[INFO] input: digit_random_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in
+[INFO] output: digit_random_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+
+[INFO] sample 4
+[INFO] input: digit_random_01
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in
+[INFO] output: digit_random_01
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+
+[INFO] sample 5
+[INFO] input: example_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in
+[INFO] output: example_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+
+[INFO] sample 6
+[INFO] input: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in
+[INFO] output: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+
+[INFO] sample 7
+[INFO] input: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in
+[INFO] output: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+
+[INFO] sample 8
+[INFO] input: random_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in
+[INFO] output: random_00
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+
+[INFO] sample 9
+[INFO] input: random_01
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in
+[INFO] output: random_01
+[SUCCESS] saved to: .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io -o .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/a.out verify/utility/contest-fast-io-128bit.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/info.toml --compile-checker
+[33m13:05:13 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m13:05:13 [INFO] Start many_aplusb_128bit[0m
+[37m13:05:13 [INFO] generate params.h[0m
+[37m13:05:13 [INFO] Test cases are already generated[0m
+[37m13:05:13 [INFO] The checker is already compiled[0m
+::group::verify/utility/contest-fast-io-128bit.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 10 cases found
+
+[INFO] all_max_abs_00
+[INFO] time: 1.670341 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in /tmp/tmpu2ld8uoe/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.070136 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in /tmp/tmpngu75wp6/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] carry_up_00
+[INFO] time: 0.941929 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in /tmp/tmp4l_2ttz6/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.321841 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in /tmp/tmp9ozljuyn/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 0.832063 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in /tmp/tmp0fprcbzc/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.022698 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in /tmp/tmps6r36k8e/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+ok 5 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.832034 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in /tmp/tmpmqjtf46r/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.773326 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in /tmp/tmpt5gdqg_m/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.755784 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in /tmp/tmpr3s5tt33/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 1.140770 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in /tmp/tmppv_inio0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.832034 sec  (for max_random_00)
+[INFO] max memory: 3.900000 MB  (for digit_random_00)
+[SUCCESS] test success: 10 cases
+::endgroup::
+::group::verify/utility/contest-fast-io-128bit.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 10 cases found
+
+[INFO] all_max_abs_00
+[INFO] time: 1.814923 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in /tmp/tmpmtf9ypct/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.249669 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in /tmp/tmpdo6firx6/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] carry_up_00
+[INFO] time: 1.801113 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in /tmp/tmpptr_khs8/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 1.653076 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in /tmp/tmpja0qkapb/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 0.473722 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in /tmp/tmp3ggzhg_c/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.014822 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in /tmp/tmpgj2bydb0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+ok 5 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.805683 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in /tmp/tmpbz6d1pgr/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.754164 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in /tmp/tmp912iycm8/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.430821 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in /tmp/tmpwdr61l2u/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.818869 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in /tmp/tmp1oikrj6m/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.814923 sec  (for all_max_abs_00)
+[INFO] max memory: 3.984000 MB  (for max_random_00)
+[SUCCESS] test success: 10 cases
+::endgroup::
+::group::verify/utility/contest-fast-io-128bit.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 10 cases found
+
+[INFO] all_max_abs_00
+[INFO] time: 0.994566 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in /tmp/tmp0keebr31/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.048472 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in /tmp/tmpcy1d57hi/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] carry_up_00
+[INFO] time: 0.649019 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in /tmp/tmp26gax4lj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.512074 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in /tmp/tmpzshtke6k/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 1.570982 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in /tmp/tmphte7szs5/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.011287 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in /tmp/tmpqigncw6z/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+ok 5 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.531158 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in /tmp/tmpqnda53m5/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.485193 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in /tmp/tmp3s0v2l7i/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.760366 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in /tmp/tmpef6_vi_y/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 1.537848 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in /tmp/tmpqv87luqh/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.570982 sec  (for digit_random_01)
+[INFO] max memory: 4.008000 MB  (for max_random_00)
+[SUCCESS] test success: 10 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:verify: verify/utility/contest-fast-io.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io -o .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/a.out verify/utility/contest-fast-io.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/info.toml --compile-checker
+[33m13:06:54 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m13:06:54 [INFO] Start many_aplusb[0m
+[37m13:06:54 [INFO] generate params.h[0m
+[37m13:06:54 [INFO] Test cases are already generated[0m
+[37m13:06:54 [INFO] The checker is already compiled[0m
+::group::verify/utility/contest-fast-io.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 9 cases found
+
+[INFO] all_max_00
+[INFO] time: 1.268092 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in /tmp/tmpvzouq1a8/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.206892 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in /tmp/tmpbizncg07/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.693168 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in /tmp/tmpbdhj7czx/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 0.880914 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in /tmp/tmps1c9mwxy/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.066498 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in /tmp/tmpm2qcqyn_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.353903 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in /tmp/tmpp4wtznaj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.167199 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in /tmp/tmp5i7bokep/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.594647 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in /tmp/tmpx0_pzd0z/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.444393 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in /tmp/tmp287l684o/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.353903 sec  (for max_random_00)
+[INFO] max memory: 3.912000 MB  (for random_00)
+[SUCCESS] test success: 9 cases
+::endgroup::
+::group::verify/utility/contest-fast-io.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 9 cases found
+
+[INFO] all_max_00
+[INFO] time: 0.831387 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in /tmp/tmpbqqmh_ef/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.233059 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in /tmp/tmp8tna592v/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.804597 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in /tmp/tmpzirwk4u1/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 0.607973 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in /tmp/tmpyiwr2n00/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.079761 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in /tmp/tmpmuregels/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.839962 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in /tmp/tmplip_oaps/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.457081 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in /tmp/tmpidlnp_da/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.605427 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in /tmp/tmpv5ejx9yp/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.385274 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in /tmp/tmpe3zzleni/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.839962 sec  (for max_random_00)
+[INFO] max memory: 3.852000 MB  (for max_random_01)
+[SUCCESS] test success: 9 cases
+::endgroup::
+::group::verify/utility/contest-fast-io.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 9 cases found
+
+[INFO] all_max_00
+[INFO] time: 1.346034 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in /tmp/tmp5twwpo3x/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.178723 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in /tmp/tmp3juhzpkz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.430466 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in /tmp/tmp1p1jjoft/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 0.628288 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in /tmp/tmp4l6dtilm/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.092573 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in /tmp/tmpk5l6rawe/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.857167 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in /tmp/tmp2pv0vc0a/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 2.414025 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in /tmp/tmpq_xyv3h0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.488475 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in /tmp/tmpbbw6owg3/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.648201 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in /tmp/tmprwjrda_y/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 2.414025 sec  (for max_random_01)
+[INFO] max memory: 4.000000 MB  (for all_zero_00)
+[SUCCESS] test success: 9 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:verify: verify/utility/contest-template-128bit.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb_128bit
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io -o .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/a.out verify/utility/contest-template-128bit.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/info.toml --compile-checker
+[33m13:08:33 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m13:08:33 [INFO] Start many_aplusb_128bit[0m
+[37m13:08:33 [INFO] generate params.h[0m
+[37m13:08:33 [INFO] Test cases are already generated[0m
+[37m13:08:33 [INFO] The checker is already compiled[0m
+::group::verify/utility/contest-template-128bit.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 10 cases found
+
+[INFO] all_max_abs_00
+[INFO] time: 11.397065 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in /tmp/tmpu7lmw6li/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 1.014697 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in /tmp/tmpnvtzhd71/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] carry_up_00
+[INFO] time: 19.062696 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in /tmp/tmpim84sh_e/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 3.344958 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in /tmp/tmpvizkayip/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 4.168260 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in /tmp/tmps2plr_oz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.080000 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in /tmp/tmpl1cp7w54/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+ok 5 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 9.183389 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in /tmp/tmp8cbk_1pe/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 9.677343 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in /tmp/tmporynecmb/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 9.587329 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in /tmp/tmp8ujkjoob/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 8.996547 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in /tmp/tmpw_4a26v7/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 19.062696 sec  (for carry_up_00)
+[INFO] max memory: 3.892000 MB  (for max_random_01)
+[SUCCESS] test success: 10 cases
+::endgroup::
+::group::verify/utility/contest-template-128bit.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 10 cases found
+
+[INFO] all_max_abs_00
+[INFO] time: 8.517636 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in /tmp/tmpc46fkbtz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.251174 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in /tmp/tmpvksivvhl/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] carry_up_00
+[INFO] time: 4.309553 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in /tmp/tmplzmu37a0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 2.504735 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in /tmp/tmp9puo7a93/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 1.769327 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in /tmp/tmpsvur11rn/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.035897 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in /tmp/tmppi1r381i/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+ok 5 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 5.720831 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in /tmp/tmp23spylgu/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 7.261440 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in /tmp/tmp29up4m7x/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 5.100653 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in /tmp/tmp7d3uv__e/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 6.137732 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in /tmp/tmpl_q1chri/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 8.517636 sec  (for all_max_abs_00)
+[INFO] max memory: 3.864000 MB  (for digit_random_01)
+[SUCCESS] test success: 10 cases
+::endgroup::
+::group::verify/utility/contest-template-128bit.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 10 cases found
+
+[INFO] all_max_abs_00
+[INFO] time: 3.439221 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in /tmp/tmpuui2_hda/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.245950 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in /tmp/tmpmlkqsr35/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] carry_up_00
+[INFO] time: 2.827348 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in /tmp/tmpuwm5dwxh/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 2.331010 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in /tmp/tmpkkx6eo0_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 3.859730 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in /tmp/tmps5tuh05k/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.041618 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in /tmp/tmpqywz7g_q/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+ok 5 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 5.311837 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in /tmp/tmpbazf1_ml/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 4.516878 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in /tmp/tmp5sos41jg/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 2.643378 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in /tmp/tmp0hcmh0ou/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 3.429480 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in /tmp/tmpios7rn63/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 5.311837 sec  (for max_random_00)
+[INFO] max memory: 3.824000 MB  (for random_00)
+[SUCCESS] test success: 10 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:verify: verify/utility/fast-io-128bit.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb_128bit
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io -o .verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/a.out verify/utility/fast-io-128bit.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/info.toml --compile-checker
+[33m13:12:28 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m13:12:28 [INFO] Start many_aplusb_128bit[0m
+[37m13:12:28 [INFO] generate params.h[0m
+[37m13:12:28 [INFO] Test cases are already generated[0m
+[37m13:12:28 [INFO] The checker is already compiled[0m
+::group::verify/utility/fast-io-128bit.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 10 cases found
+
+[INFO] all_max_abs_00
+[INFO] time: 1.639795 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in /tmp/tmp59ygp0g2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.057228 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in /tmp/tmp3t2q8nxn/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] carry_up_00
+[INFO] time: 1.431872 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in /tmp/tmpydu7c3tb/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.637598 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in /tmp/tmpkf96wtcb/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 0.638587 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in /tmp/tmpeapwc3sb/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.021355 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in /tmp/tmpp4grhrsj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+ok 5 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.271043 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in /tmp/tmp91b7ingf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.882160 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in /tmp/tmpqs73_qaa/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.679995 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in /tmp/tmpnq8chdm4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 1.026549 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in /tmp/tmp378v59w4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.882160 sec  (for max_random_01)
+[INFO] max memory: 3.928000 MB  (for all_zero_00)
+[SUCCESS] test success: 10 cases
+::endgroup::
+::group::verify/utility/fast-io-128bit.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 10 cases found
+
+[INFO] all_max_abs_00
+[INFO] time: 1.641442 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in /tmp/tmpyzlaqbro/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.045051 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in /tmp/tmpslj_xuys/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] carry_up_00
+[INFO] time: 1.709476 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in /tmp/tmpnl5pqvak/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 1.178272 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in /tmp/tmprha6n_i9/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 0.928383 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in /tmp/tmpx5n4dd7l/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.052273 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in /tmp/tmpwn_5uidj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+ok 5 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 4.391786 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in /tmp/tmpig3ozm8x/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 2.439452 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in /tmp/tmpuvakl2tn/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 1.244634 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in /tmp/tmp5jayjv0t/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 1.678253 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in /tmp/tmpuw8ey_du/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 4.391786 sec  (for max_random_00)
+[INFO] max memory: 3.936000 MB  (for digit_random_00)
+[SUCCESS] test success: 10 cases
+::endgroup::
+::group::verify/utility/fast-io-128bit.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 10 cases found
+
+[INFO] all_max_abs_00
+[INFO] time: 1.642827 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.in /tmp/tmp5_yh3lvy/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_max_abs_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.143722 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in /tmp/tmpge3y36aa/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] carry_up_00
+[INFO] time: 1.468361 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in /tmp/tmpblssxk5o/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 1.165537 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in /tmp/tmpsmu5nu8w/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 1.527575 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.in /tmp/tmpupjuyd1_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.020660 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.in /tmp/tmp5o1pv2t3/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/example_00.out
+ok 5 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.495137 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in /tmp/tmp3xnmr0jq/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.782298 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.in /tmp/tmpr1oxxzmc/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.816382 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.in /tmp/tmp2pm1echv/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 1.260621 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb_128bit/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.in /tmp/tmp4e4_b5bo/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.782298 sec  (for max_random_01)
+[INFO] max memory: 3.860000 MB  (for digit_random_00)
+[SUCCESS] test success: 10 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:verify: verify/utility/fast-io.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/many_aplusb
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io -o .verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/a.out verify/utility/fast-io.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/info.toml --compile-checker
+[33m13:14:27 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m13:14:27 [INFO] Start many_aplusb[0m
+[37m13:14:27 [INFO] generate params.h[0m
+[37m13:14:27 [INFO] Test cases are already generated[0m
+[37m13:14:27 [INFO] The checker is already compiled[0m
+::group::verify/utility/fast-io.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 9 cases found
+
+[INFO] all_max_00
+[INFO] time: 1.805377 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in /tmp/tmpl9a86hkf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.129930 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in /tmp/tmpcuc27ivw/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.812405 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in /tmp/tmpj94zb2hi/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 1.268224 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in /tmp/tmp07ol87l2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.022149 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in /tmp/tmp5q0ubuoy/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.330574 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in /tmp/tmprycnsgqk/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.654645 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in /tmp/tmp5x4hy0l0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 1.045434 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in /tmp/tmpvcwcm9pr/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.589112 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in /tmp/tmplbmeeyn_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.805377 sec  (for all_max_00)
+[INFO] max memory: 3.960000 MB  (for max_random_00)
+[SUCCESS] test success: 9 cases
+::endgroup::
+::group::verify/utility/fast-io.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 9 cases found
+
+[INFO] all_max_00
+[INFO] time: 1.715539 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in /tmp/tmp7wcms6ft/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.237697 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in /tmp/tmpg1qyn4xw/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.583071 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in /tmp/tmplcz7w36k/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 0.760960 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in /tmp/tmpz1vaahi2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.047058 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in /tmp/tmp6c6gxxfb/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.766583 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in /tmp/tmpaoi4od_o/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.889094 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in /tmp/tmpjpzqljoz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.395087 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in /tmp/tmpqi3yi4f3/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.206414 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in /tmp/tmphiby_c74/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.889094 sec  (for max_random_01)
+[INFO] max memory: 3.960000 MB  (for digit_random_00)
+[SUCCESS] test success: 9 cases
+::endgroup::
+::group::verify/utility/fast-io.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 9 cases found
+
+[INFO] all_max_00
+[INFO] time: 1.614092 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.in /tmp/tmpm0ubhrdw/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_max_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] all_zero_00
+[INFO] time: 0.157705 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.in /tmp/tmpcrgbfopn/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/all_zero_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_00
+[INFO] time: 0.911986 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.in /tmp/tmpe90wfnyg/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] digit_random_01
+[INFO] time: 0.647710 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.in /tmp/tmpna_yl52u/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/digit_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.021781 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.in /tmp/tmpr47gkdl0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.713924 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.in /tmp/tmpt8u1u8u8/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_00.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.092704 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.in /tmp/tmpu_vtkif3/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/max_random_01.out
+ok 1000000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.587769 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.in /tmp/tmpqo049776/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_00.out
+ok 389813 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.406698 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/sample/many_aplusb/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.in /tmp/tmpguhnld6p/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/4eadb574dcb743b83b4a231fcab69002/test/random_01.out
+ok 463046 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.713924 sec  (for max_random_00)
+[INFO] max memory: 3.932000 MB  (for all_max_00)
+[SUCCESS] test success: 9 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:all tests succeeded
+# Verification timings
+
+Commit: 46a723272443c91bef717730e7931d4492e51236 / UTC: 2026-10-20T04:02:29.053871+00:00
+Baseline: なし（初回）
+
+単位は秒。直列実行・各ケースの solution elapsed 合計の中央値。コンパイル・DL・checkerは合計から除外。
+プロセス起動とI/Oは含みます。Yosupo提出画面の時間ではありません。共有runnerの小さな差は誤差として扱ってください。
+
+| Verify / 環境番号 | 状態 | コンパイル | 実行合計（中央値） | 最大ケース（中央値） | 基準との差 |
+| --- | --- | ---: | ---: | ---: | --- |
+| verify/utility/all-headers.test.cpp / 0 | passed | 6.739513 s | 16.495104 s | 4.249325 s | 初回（基準なし） |
+| verify/utility/contest-fast-io-128bit.test.cpp / 0 | passed | 10.461090 s | 9.100966 s | 1.814923 s | 初回（基準なし） |
+| verify/utility/contest-fast-io.test.cpp / 0 | passed | 13.861466 s | 6.844520 s | 1.839962 s | 初回（基準なし） |
+| verify/utility/contest-template-128bit.test.cpp / 0 | passed | 15.022081 s | 41.608978 s | 8.517636 s | 初回（基準なし） |
+| verify/utility/fast-io-128bit.test.cpp / 0 | passed | 4.503251 s | 11.323122 s | 1.882160 s | 初回（基準なし） |
+| verify/utility/fast-io.test.cpp / 0 | passed | 6.812946 s | 7.601503 s | 1.805377 s | 初回（基準なし） |
+
+## Environment
+
+~~~json
+{
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "tools": {
+    "online-judge-verify-helper": "5.6.0",
+    "online-judge-tools": "11.5.1",
+    "online-judge-api-client": "10.10.1"
+  },
+  "method": "oj-elapsed-log-v1",
+  "recorder_sha256": "3ee628d2aa014ded1096cfaa43a315a355f3aa75c0fe7cc598efb0184a1c26b6",
+  "jobs": 1,
+  "tle_seconds": 60
+}
+~~~
+
+EXIT: 
+Outer wrapper exit: 1
+Captured stderr: bash: line 1: exit: : numeric argument required
+The make verify target completed and current.json reports succeeded=true for all six drivers with three runs each.
+The empty EXIT line above came from the outer inline shell wrapper, not the verification runner.
+See official-result-check.log and official-results.json for the independently checked result.

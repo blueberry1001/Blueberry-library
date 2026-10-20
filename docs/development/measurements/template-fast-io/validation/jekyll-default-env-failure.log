@@ -1,0 +1,17 @@
+Scoped official measurements retained in .verification/scoped-current.json and validation/official-results.json.
+COMMAND: python3 scripts/publish_metrics.py (standard preflight without current publication measurements)
+No current measurement; retained source-valid AC provenance is published separately.
+COMMAND: bundle exec jekyll build
+Configuration file: .verify-helper/markdown/_config.yml
+            Source: .verify-helper/markdown
+       Destination: .build/site
+ Incremental build: disabled. Enable with --incremental
+      Generating... 
+                    done in 62.714 seconds.
+ Auto-regeneration: disabled. Use --watch to enable.
+COMMAND: python3 scripts/check_site.py --without-metrics
+Traceback (most recent call last):
+  File "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/scripts/check_site.py", line 22, in <module>
+    assert head.count('https://www.googletagmanager.com/gtag/js?id=G-6NFBCLHFK6') == 1, page
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.build/site/benchmarks.html
