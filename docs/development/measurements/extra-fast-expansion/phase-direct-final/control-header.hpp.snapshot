@@ -1,0 +1,212 @@
+#pragma once
+
+#include <algorithm>
+#include <array>
+#include <bit>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+#if (defined(__x86_64__) || defined(__i386__)) && \
+    (defined(__GNUC__) || defined(__clang__))
+#include <immintrin.h>
+#define BLUEBERRY_EXTRA_FAST_RMQ_AVX2 1
+#else
+#define BLUEBERRY_EXTRA_FAST_RMQ_AVX2 0
+#endif
+
+namespace blueberry::extra_fast {
+
+// Immutable, value-only RMQ. Independently implemented from the block
+// prefix/suffix + sparse-table idea in LC submissions 402567 and 362370.
+// Neither their I/O assumptions nor their third-party code are reused.
+template <class T = std::int32_t>
+class StaticRangeMin {
+  static_assert(std::is_same_v<T, std::int32_t> ||
+                std::is_same_v<T, std::uint32_t>,
+                "StaticRangeMin requires int32_t or uint32_t");
+
+ public:
+  StaticRangeMin() = default;
+
+  explicit StaticRangeMin(std::vector<T> values, bool use_simd = true)
+      : values_(std::move(values)), simd_(use_simd && simd_available()) {
+    assert(values_.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
+    build();
+  }
+
+  StaticRangeMin(const StaticRangeMin&) = default;
+  StaticRangeMin(StaticRangeMin&& other) noexcept { swap_state(other); }
+
+  StaticRangeMin& operator=(const StaticRangeMin& other) {
+    if (this != &other) {
+      StaticRangeMin next(other);
+      swap_state(next);
+    }
+    return *this;
+  }
+
+  StaticRangeMin& operator=(StaticRangeMin&& other) noexcept {
+    if (this != &other) {
+      StaticRangeMin next(std::move(other));
+      swap_state(next);
+    }
+    return *this;
+  }
+
+  int size() const { return static_cast<int>(values_.size()); }
+
+  T get(int p) const {
+    assert(0 <= p && p < size());
+    return values_[p];
+  }
+
+#if defined(__GNUC__) || defined(__clang__)
+  __attribute__((always_inline))
+#endif
+  T prod(int l, int r) const {
+    assert(0 <= l && l <= r && r <= size());
+    if (l == r) return std::numeric_limits<T>::max();
+    const int left_block = l >> 4, right_block = (r - 1) >> 4;
+    if (left_block == right_block) {
+#if BLUEBERRY_EXTRA_FAST_RMQ_AVX2
+      if (simd_ && r - l >= 8) return short_min_simd(values_.data() + l, r - l);
+#endif
+      T answer = values_[l];
+      for (int i = l + 1; i < r; ++i) answer = std::min(answer, values_[i]);
+      return answer;
+    }
+    T answer = std::min(suffix_[l], prefix_[r - 1]);
+    const unsigned count = static_cast<unsigned>(right_block - left_block - 1);
+    if (count) {
+      const int k = static_cast<int>(std::bit_width(count)) - 1;
+      const std::size_t offset = offsets_[k];
+      answer = std::min(answer, std::min(table_[offset + left_block + 1],
+          table_[offset + right_block - (std::size_t(1) << k)]));
+    }
+    return answer;
+  }
+
+  T all_prod() const { return minimum_; }
+  bool uses_simd() const { return simd_; }
+
+  static bool simd_available() {
+#if BLUEBERRY_EXTRA_FAST_RMQ_AVX2 && !defined(BLUEBERRY_EXTRA_FAST_FORCE_SCALAR)
+    return __builtin_cpu_supports("avx2");
+#else
+    return false;
+#endif
+  }
+
+ private:
+  void swap_state(StaticRangeMin& other) noexcept {
+    values_.swap(other.values_);
+    prefix_.swap(other.prefix_);
+    suffix_.swap(other.suffix_);
+    table_.swap(other.table_);
+    offsets_.swap(other.offsets_);
+    std::swap(minimum_, other.minimum_);
+    std::swap(simd_, other.simd_);
+  }
+
+  void build() {
+    const std::size_t n = values_.size();
+    if (n == 0) return;
+    const std::size_t blocks = (n + 15) / 16;
+    const int levels = static_cast<int>(std::bit_width(blocks));
+    std::size_t total = 0;
+    for (int k = 0; k < levels; ++k) {
+      offsets_[k] = total;
+      total += blocks - (std::size_t(1) << k) + 1;
+    }
+    prefix_.resize(n);
+    suffix_.resize(n);
+    table_.resize(total);
+    for (std::size_t begin = 0; begin < n; begin += 16) {
+      const std::size_t end = std::min(n, begin + 16);
+      T value = values_[begin];
+      prefix_[begin] = value;
+      for (std::size_t i = begin + 1; i < end; ++i)
+        prefix_[i] = value = std::min(value, values_[i]);
+      value = values_[end - 1];
+      suffix_[end - 1] = value;
+      for (std::size_t i = end - 1; i > begin;)
+        --i, suffix_[i] = value = std::min(value, values_[i]);
+      table_[begin >> 4] = value;
+      minimum_ = std::min(minimum_, value);
+    }
+#if BLUEBERRY_EXTRA_FAST_RMQ_AVX2
+    if (simd_) {
+      build_table_simd(blocks, levels);
+      return;
+    }
+#endif
+    for (int k = 1; k < levels; ++k) {
+      const auto half = std::size_t(1) << (k - 1);
+      const auto count = blocks - (half << 1) + 1;
+      const T* previous = table_.data() + offsets_[k - 1];
+      T* current = table_.data() + offsets_[k];
+      for (std::size_t i = 0; i < count; ++i)
+        current[i] = std::min(previous[i], previous[i + half]);
+    }
+  }
+
+#if BLUEBERRY_EXTRA_FAST_RMQ_AVX2
+  __attribute__((target("avx2"), always_inline))
+  static inline __m256i min8(__m256i a, __m256i b) {
+#if defined(BLUEBERRY_EXTRA_FAST_USE_ASM)
+    // All operands are registers; there are no hidden memory or flags effects.
+    if constexpr (std::is_signed_v<T>)
+      asm("vpminsd {%2, %1, %0|%0, %1, %2}" : "=x"(a) : "x"(a), "x"(b));
+    else
+      asm("vpminud {%2, %1, %0|%0, %1, %2}" : "=x"(a) : "x"(a), "x"(b));
+    return a;
+#else
+    if constexpr (std::is_signed_v<T>) return _mm256_min_epi32(a, b);
+    else return _mm256_min_epu32(a, b);
+#endif
+  }
+
+  __attribute__((target("avx2")))
+  static T short_min_simd(const T* data, int length) {
+    // Both eight-lane loads stay inside [data, data + length), including at N.
+    __m256i value = min8(_mm256_loadu_si256(reinterpret_cast<const __m256i*>(data)),
+        _mm256_loadu_si256(reinterpret_cast<const __m256i*>(data + length - 8)));
+    value = min8(value, _mm256_permute2x128_si256(value, value, 1));
+    value = min8(value, _mm256_shuffle_epi32(value, 0x4e));
+    value = min8(value, _mm256_shuffle_epi32(value, 0xb1));
+    return static_cast<T>(_mm_cvtsi128_si32(_mm256_castsi256_si128(value)));
+  }
+
+  __attribute__((target("avx2")))
+  void build_table_simd(std::size_t blocks, int levels) {
+    for (int k = 1; k < levels; ++k) {
+      const auto half = std::size_t(1) << (k - 1);
+      const auto count = blocks - (half << 1) + 1;
+      const T* previous = table_.data() + offsets_[k - 1];
+      T* current = table_.data() + offsets_[k];
+      std::size_t i = 0;
+      for (; i + 8 <= count; i += 8) {
+        const __m256i value = min8(
+            _mm256_loadu_si256(reinterpret_cast<const __m256i*>(previous + i)),
+            _mm256_loadu_si256(reinterpret_cast<const __m256i*>(previous + i + half)));
+        _mm256_storeu_si256(reinterpret_cast<__m256i*>(current + i), value);
+      }
+      for (; i < count; ++i) current[i] = std::min(previous[i], previous[i + half]);
+    }
+  }
+#endif
+
+  std::vector<T> values_, prefix_, suffix_, table_;
+  std::array<std::size_t, 32> offsets_{};
+  T minimum_ = std::numeric_limits<T>::max();
+  bool simd_ = false;
+};
+
+}  // namespace blueberry::extra_fast
+
+#undef BLUEBERRY_EXTRA_FAST_RMQ_AVX2

@@ -1,0 +1,13 @@
+#include <cstddef>
+#include <cstdint>
+#include <utility>
+#ifndef BLUEBERRY_RMQ_HEADER
+#define BLUEBERRY_RMQ_HEADER "blueberry/extra-fast/static-rmq.hpp"
+#endif
+#include BLUEBERRY_RMQ_HEADER
+std::uint64_t query_many(const blueberry::extra_fast::StaticRangeMin<std::uint32_t>& rmq,
+                         const std::pair<int, int>* query, std::size_t count) {
+  std::uint64_t result = 0;
+  for (std::size_t i = 0; i < count; ++i) result += rmq.prod(query[i].first, query[i].second);
+  return result;
+}

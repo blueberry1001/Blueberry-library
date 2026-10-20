@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+"""New RMQ/Bitset phase comparisons; CPU affinity must be set by taskset."""
+import argparse,hashlib,json,os,platform,statistics,subprocess,tempfile
+from datetime import datetime,timezone
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[4];HERE=Path(__file__).resolve().parent
+PROFILES={'portable-o2-release':['-O2','-DNDEBUG'],'portable-o2-debug':['-O2'],'native-o3-release':['-O3','-DNDEBUG','-march=native']}
+CASES={'rmq':[(1024,200000,'short'),(65536,200000,'wide'),(500000,200000,'wide'),(65536,200000,'boundary')], 'bitset':[(64,200000,'dp'),(65,200000,'near'),(1024,20000,'logic'),(262144,4000,'dp'),(262144,4000,'near'),(262144,4000,'logic')]}
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def save(p,v):p.write_text(json.dumps(v,indent=2)+'\n')
+def main():
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',required=True,type=Path);p.add_argument('--pilot',action='store_true');p.add_argument('--group',action='append',choices=CASES);p.add_argument('--rmq-control',type=Path);p.add_argument('--repeats',type=int,default=5);a=p.parse_args();out=a.output.resolve()
+ if out.exists()and any(out.iterdir()):p.error('nonempty output')
+ out.mkdir(parents=True,exist_ok=True)
+ control=a.rmq_control.resolve()if a.rmq_control else None
+ headers=[ROOT/'blueberry/extra-fast/static-rmq.hpp',ROOT/'blueberry/extra-fast/bitset.hpp',*[ROOT/f'blueberry/data-structure/{name}.hpp'for name in ['sparse-table','disjoint-sparse-table','sqrt-tree','linear-rmq']]]
+ files=[Path(__file__).resolve(),HERE/'expansion-benchmark.cpp.snapshot',*headers]+([control]if control else[])
+ hashes={str(f):sha(f)for f in files}
+ env={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'platform':platform.platform(),'python':platform.python_version(),'cpu_affinity':sorted(os.sched_getaffinity(0)),'cpuinfo':Path('/proc/cpuinfo').read_text().split('\n\n')[0],'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_sha256':hashes,'profiles':PROFILES,'cases':CASES,'runs':a.repeats,'seed':20261020,'compilers':{},'timing':'same serialized input/from_chars parse; tree construction includes input copying; bitset construction initializes both operands via public set; operation results stored for RMQ, Bitset output read in format; format/to_chars or binary output; generation/oracle/hash/destruction excluded','memory':'separate process Linux VmHWM; no oracle/text/operations/output buffers; RMQ input vector plus live tree, Bitset two live operands','oracle':'every timed process first checks all small nonempty RMQ intervals against scalar scan; bitsets checked at every bit after 80 operations against vector<bool> and self XOR; not merely shared checksum','contracts':'RMQ uint32 value-only nonempty intervals, no argmin guarantee; Bitset exactly same N and truncation for std::bitset<N>, dynamic Bitset has runtime N; shifts B|=B<<k and separate OR/XOR/AND','order':'rotate candidate order by run/case, fresh process each; inherit recorded taskset affinity'}
+ save(out/'environment.json',env)
+ env['selected_groups']=a.group or list(CASES)
+ for f in [Path(__file__).resolve(),HERE/'expansion-benchmark.cpp.snapshot']:(out/f.name).write_bytes(f.read_bytes())
+ if control:(out/'control-header.hpp.snapshot').write_bytes(control.read_bytes())
+ for f in headers:(out/(f.name+'.snapshot')).write_bytes(f.read_bytes())
+ rows=[];failures=[]
+ with tempfile.TemporaryDirectory(prefix='expansion-phase-')as tmp,(out/'compile.log').open('w')as log,(out/'samples.jsonl').open('w')as stream:
+  for compiler in(['g++']if a.pilot else['g++','clang++']):
+   env['compilers'][compiler]=subprocess.check_output([compiler,'--version'],text=True)
+   for profile in(['portable-o2-release']if a.pilot else list(PROFILES)):
+    bins={}
+    modes=[('intrinsics',[]),('asm',['-DBLUEBERRY_EXTRA_FAST_USE_ASM']),('scalar',['-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR'])]
+    if control:modes.append(('control',[f'-DBLUEBERRY_RMQ_HEADER="{control}"']))
+    for backend,extra in modes:
+     binary=Path(tmp)/(compiler+'-'+backend);cmd=[compiler,'-x','c++','-std=gnu++20',*PROFILES[profile],*extra,'-I',str(ROOT),str(HERE/'expansion-benchmark.cpp.snapshot'),'-o',str(binary)];r=subprocess.run(cmd,capture_output=True,text=True);log.write(json.dumps(cmd)+'\n'+r.stdout+r.stderr);log.flush()
+     if r.returncode:failures.append({'stage':'compile','command':cmd,'returncode':r.returncode,'stderr':r.stderr})
+     else:bins[backend]=binary
+    if 'intrinsics'not in bins:continue
+    for group,cases in ((g,CASES[g])for g in(a.group or list(CASES))):
+     variants={('fast-'+k):(v,'fast')for k,v in bins.items()if k!='control'or group=='rmq'}
+     for name in(['sparse','disjoint','sqrt','linear']if group=='rmq'else['std']):variants[name]=(bins['intrinsics'],name)
+     names=list(variants)
+     for caseid,(n,q,distribution)in enumerate(cases):
+      for run in range(a.repeats):
+       shift=(run+caseid)%len(names)
+       for name in names[shift:]+names[:shift]:
+        binary,variant=variants[name]
+        for phase in(['timing','memory']if n not in[x[0]for x in cases[:caseid]]else['timing']):
+         cmd=[str(binary),group,variant,str(n),str(q),distribution,phase];r=subprocess.run(cmd,capture_output=True,text=True,timeout=60)
+         if r.returncode:failures.append({'stage':'run','command':cmd,'returncode':r.returncode,'stderr':r.stderr});continue
+         row=json.loads(r.stdout);row.update(compiler=compiler,profile=profile,group=group,variant=name,n=n,q=q,distribution=distribution,phase=phase,run=run);rows.append(row);stream.write(json.dumps(row)+'\n');stream.flush()
+      selected=[r for r in rows if(r['compiler'],r['profile'],r['group'],r['n'],r['distribution'],r['phase'])==(compiler,profile,group,n,distribution,'timing')]
+      for field in['input_hash','checksum']:
+       if len({r[field]for r in selected})!=1:failures.append({'stage':'validation','field':field,'compiler':compiler,'profile':profile,'group':group,'n':n,'distribution':distribution})
+     print(compiler,profile,group,'complete',flush=True)
+ save(out/'environment.json',env)
+ if hashes!={str(f):sha(f)for f in files}:failures.append({'stage':'integrity','error':'source changed during measurements'})
+ fields=['compiler','profile','group','variant','n','q','distribution','phase'];summary=[]
+ for key in sorted({tuple(r[f]for f in fields)for r in rows}):
+  selected=[r for r in rows if tuple(r[f]for f in fields)==key];entry=dict(zip(fields,key));entry['samples']=len(selected)
+  for metric in(['peak_rss_kib']if key[-1]=='memory'else['parse_ms','build_ms','operations_ms','format_ms','end_to_end_ms','peak_rss_kib']):entry['median_'+metric]=statistics.median(r[metric]for r in selected);entry['min_'+metric]=min(r[metric]for r in selected)
+  summary.append(entry)
+ save(out/'summary.json',summary);save(out/'failures.json',failures);print(len(rows),'samples',len(failures),'failures',flush=True);return int(bool(failures))
+if __name__=='__main__':raise SystemExit(main())

@@ -1,0 +1,173 @@
+#pragma once
+
+#include <array>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <vector>
+
+#if (defined(__x86_64__) || defined(__i386__)) && \
+    (defined(__GNUC__) || defined(__clang__))
+#include <immintrin.h>
+#define BLUEBERRY_EXTRA_FAST_X86_AVX2 1
+#else
+#define BLUEBERRY_EXTRA_FAST_X86_AVX2 0
+#endif
+
+namespace blueberry::extra_fast {
+
+// Opt-in, uint64_t addition modulo 2^64. Each 16-way node stores inclusive
+// child prefixes, so an update adds to one suffix per level. Independently
+// implemented after studying LC submissions 258491 and 403014 (see docs).
+class SumSegmentTree {
+ public:
+  explicit SumSegmentTree(int n, bool use_simd = true)
+      : n_(n), simd_(use_simd && simd_available()) {
+    assert(n >= 0);
+    initialize(static_cast<std::size_t>(n));
+  }
+
+  explicit SumSegmentTree(const std::vector<std::uint64_t>& values,
+                          bool use_simd = true)
+      : n_(checked_size(values.size())), simd_(use_simd && simd_available()) {
+    initialize(values.size());
+    for (std::size_t i = 0; i < values.size(); ++i) data_[i] = values[i];
+    // Fill each node's prefixes, then pass its total to the next level.
+    for (int level = 0; level < levels_; ++level) {
+      const std::size_t begin = offsets_[level];
+      const std::size_t end = level + 1 < levels_ ? offsets_[level + 1] : data_.size();
+      for (std::size_t base = begin; base < end; base += 16) {
+        for (int j = 1; j < 16; ++j) data_[base + j] += data_[base + j - 1];
+        if (level + 1 < levels_)
+          data_[offsets_[level + 1] + (base - begin) / 16] = data_[base + 15];
+      }
+    }
+  }
+
+  int size() const { return n_; }
+
+  std::uint64_t get(int p) const {
+    assert(0 <= p && p < n_);
+    return data_[p] - ((p & 15) ? data_[p - 1] : 0);
+  }
+
+  void set(int p, std::uint64_t x) { add(p, x - get(p)); }
+
+  void add(int p, std::uint64_t x) {
+    assert(0 <= p && p < n_);
+#if BLUEBERRY_EXTRA_FAST_X86_AVX2
+    if (simd_) {
+      add_simd(static_cast<std::size_t>(p), x);
+      return;
+    }
+#endif
+    for (int level = 0; level < levels_; ++level, p >>= 4) {
+      const auto base = offsets_[level] + (static_cast<std::size_t>(p) & ~std::size_t(15));
+      for (int j = p & 15; j < 16; ++j) data_[base + j] += x;
+    }
+  }
+
+  std::uint64_t pref(int r) const {
+    assert(0 <= r && r <= n_);
+    if (r == 0) return 0;
+    std::size_t p = static_cast<std::size_t>(r - 1);
+    std::uint64_t result = data_[p];
+    for (int level = 1; level < levels_; ++level) {
+      p >>= 4;
+      if (p & 15) result += data_[offsets_[level] + p - 1];
+    }
+    return result;
+  }
+
+  std::uint64_t prod(int l, int r) const {
+    assert(0 <= l && l <= r && r <= n_);
+    if (l == r) return 0;
+    if (l == 0) return pref(r);
+    std::size_t p = static_cast<std::size_t>(r - 1);
+    std::size_t q = static_cast<std::size_t>(l - 1);
+    std::uint64_t result = data_[p] - data_[q];
+    for (int level = 1; level < levels_; ++level) {
+      p >>= 4;
+      q >>= 4;
+      if (p == q) break;
+      if (p & 15) result += data_[offsets_[level] + p - 1];
+      if (q & 15) result -= data_[offsets_[level] + q - 1];
+    }
+    return result;
+  }
+
+  std::uint64_t all_prod() const { return data_.back(); }
+  bool uses_simd() const { return simd_; }
+
+  static bool simd_available() {
+#if BLUEBERRY_EXTRA_FAST_X86_AVX2 && !defined(BLUEBERRY_EXTRA_FAST_FORCE_SCALAR)
+    return __builtin_cpu_supports("avx2");
+#else
+    return false;
+#endif
+  }
+
+ private:
+  static int checked_size(std::size_t n) {
+    assert(n <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
+    return static_cast<int>(n);
+  }
+
+  void initialize(std::size_t n) {
+    std::size_t total = 0;
+    do {
+      offsets_[levels_++] = total;
+      n = (n + 15) / 16;
+      if (n == 0) n = 1;
+      total += n * 16;
+    } while (n > 1);
+    data_.assign(total, 0);
+  }
+
+#if BLUEBERRY_EXTRA_FAST_X86_AVX2
+  alignas(32) inline static constexpr auto masks_ = [] {
+    std::array<std::array<std::uint64_t, 16>, 16> result{};
+    for (int p = 0; p < 16; ++p)
+      for (int j = p; j < 16; ++j) result[p][j] = ~std::uint64_t(0);
+    return result;
+  }();
+
+  __attribute__((target("avx2"))) void add_simd(std::size_t p, std::uint64_t x) {
+    // bit_cast is unnecessary: the signed conversion preserves all bits on
+    // supported GCC/Clang x86 targets, including x >= 2^63.
+    const __m256i delta = _mm256_set1_epi64x(static_cast<long long>(x));
+    for (int level = 0; level < levels_; ++level, p >>= 4) {
+      auto* node = data_.data() + offsets_[level] + (p & ~std::size_t(15));
+      const auto* mask = masks_[p & 15].data();
+      #pragma GCC unroll 4
+      for (int j = 0; j < 16; j += 4) {
+        const __m256i selected = _mm256_and_si256(
+            delta, _mm256_load_si256(reinterpret_cast<const __m256i*>(mask + j)));
+        __m256i values = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(node + j));
+#if defined(BLUEBERRY_EXTRA_FAST_USE_ASM)
+        // Both assembler dialects are supported. No memory/flags are touched;
+        // loads/stores remain compiler-visible intrinsics (no hidden aliasing).
+        asm("vpaddq {%2, %1, %0|%0, %1, %2}"
+            : "=x"(values) : "x"(values), "x"(selected));
+#else
+        values = _mm256_add_epi64(values, selected);
+#endif
+        _mm256_storeu_si256(reinterpret_cast<__m256i*>(node + j), values);
+      }
+    }
+  }
+#endif
+
+  // Copy the allocation before the metadata so a failed copy assignment leaves
+  // the original object usable (uint64_t element copies cannot throw).
+  std::vector<std::uint64_t> data_;
+  int n_;
+  int levels_ = 0;
+  bool simd_;
+  std::array<std::size_t, 8> offsets_{};
+};
+
+}  // namespace blueberry::extra_fast
+
+#undef BLUEBERRY_EXTRA_FAST_X86_AVX2

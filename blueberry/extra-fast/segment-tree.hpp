@@ -75,7 +75,9 @@ class SumSegmentTree {
     std::uint64_t result = data_[p];
     for (int level = 1; level < levels_; ++level) {
       p >>= 4;
-      if (p & 15) result += data_[offsets_[level] + p - 1];
+      // offsets_[level] >= 16: even p == 0 reads allocated storage; mask it out.
+      result += data_[offsets_[level] + p - 1] &
+                (std::uint64_t(0) - bool(p & 15));
     }
     return result;
   }
@@ -87,12 +89,14 @@ class SumSegmentTree {
     std::size_t p = static_cast<std::size_t>(r - 1);
     std::size_t q = static_cast<std::size_t>(l - 1);
     std::uint64_t result = data_[p] - data_[q];
+    if ((p >> 4) == (q >> 4)) return result;
     for (int level = 1; level < levels_; ++level) {
       p >>= 4;
       q >>= 4;
-      if (p == q) break;
-      if (p & 15) result += data_[offsets_[level] + p - 1];
-      if (q & 15) result -= data_[offsets_[level] + q - 1];
+      result += data_[offsets_[level] + p - 1] &
+                (std::uint64_t(0) - bool(p & 15));
+      result -= data_[offsets_[level] + q - 1] &
+                (std::uint64_t(0) - bool(q & 15));
     }
     return result;
   }
@@ -140,6 +144,7 @@ class SumSegmentTree {
     for (int level = 0; level < levels_; ++level, p >>= 4) {
       auto* node = data_.data() + offsets_[level] + (p & ~std::size_t(15));
       const auto* mask = masks_[p & 15].data();
+#pragma GCC unroll 4
       for (int j = 0; j < 16; j += 4) {
         const __m256i selected = _mm256_and_si256(
             delta, _mm256_load_si256(reinterpret_cast<const __m256i*>(mask + j)));

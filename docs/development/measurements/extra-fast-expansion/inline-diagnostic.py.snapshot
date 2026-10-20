@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+"""Compile-only direct API diagnostic; no runtime performance measurement."""
+import hashlib,json,platform,re,subprocess
+from pathlib import Path
+HERE=Path(__file__).resolve().parent;ROOT=HERE.parents[3];out=HERE/'inline-diagnostic'
+if out.exists() and any(out.iterdir()):raise SystemExit('nonempty output')
+out.mkdir(exist_ok=True)
+source=ROOT/'.benchmark/extra-fast-expansion/rmq-inline-diagnostics/direct.cpp'
+headers={'baseline':HERE/'rmq-direct-resume-pilot/static-rmq.hpp.snapshot','candidate':HERE/'phase-direct-final/static-rmq.hpp.snapshot'}
+(out/'direct.cpp.snapshot').write_bytes(source.read_bytes())
+data={'purpose':'Compile-only illustration of direct public prod inlining, not a timing experiment. The headers differ only by the always_inline prod annotation. Measurement adapter policy is independently saved in each environment.json.','compiler':subprocess.check_output(['g++','--version'],text=True),'platform':platform.platform(),'source_sha256':{},'results':[]}
+for name,header in headers.items():
+ saved=out/(name+'.hpp.snapshot');saved.write_bytes(header.read_bytes());data['source_sha256'][saved.name]=hashlib.sha256(saved.read_bytes()).hexdigest()
+ assembly=out/(name+'.s');report=out/(name+'-inline.log')
+ cmd=['g++','-x','c++','-std=gnu++20','-O2','-DNDEBUG',f'-DBLUEBERRY_RMQ_HEADER="{saved}"','-I',str(ROOT),'-S',f'-fopt-info-inline-missed={report}',str(out/'direct.cpp.snapshot'),'-o',str(assembly)]
+ r=subprocess.run(cmd,capture_output=True,text=True);(out/(name+'-compile.log')).write_text(json.dumps(cmd)+'\n'+r.stdout+r.stderr)
+ row={'variant':name,'command':cmd,'returncode':r.returncode}
+ if not r.returncode:row.update(prod_call_remains=bool(re.search(r'\bcall\s+[^\n]*4prodEii',assembly.read_text())),short_simd_call_remains=bool(re.search(r'\bcall\s+[^\n]*short_min_simd',assembly.read_text())))
+ data['results'].append(row)
+data['source_sha256']['direct.cpp.snapshot']=hashlib.sha256((out/'direct.cpp.snapshot').read_bytes()).hexdigest()
+(out/'diagnostic.json').write_text(json.dumps(data,indent=2)+'\n');print(json.dumps(data['results'],indent=2))

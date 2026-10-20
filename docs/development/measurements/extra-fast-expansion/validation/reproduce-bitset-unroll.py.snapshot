@@ -1,0 +1,34 @@
+from pathlib import Path
+import hashlib
+import json
+import shlex
+import shutil
+import subprocess
+
+root = Path.cwd()
+out = root / "docs/development/measurements/extra-fast-expansion/validation"
+snapshot = out / "bitset-unroll.hpp.snapshot"
+shutil.copyfile(root / ".benchmark/extra-fast-expansion/bitset-unroll.hpp", snapshot)
+driver = out / "bitset-unroll-random.cpp.snapshot"
+driver.write_text((root / "tests/random/extra-fast-bitset.cpp").read_text().replace(
+    '#include "blueberry/extra-fast/bitset.hpp"',
+    '#include "docs/development/measurements/extra-fast-expansion/validation/bitset-unroll.hpp.snapshot"'))
+records = []
+for compiler in ["g++", "clang++"]:
+    name = compiler.replace("+", "p")
+    command = [compiler, "-std=gnu++23", "-O2", "-Wall", "-Wextra", "-Wshadow", "-Werror",
+               "-I.", "-x", "c++", str(driver.relative_to(root)), "-o", f".build/bitset-unroll-{name}"]
+    log = out / f"bitset-unroll-{name}.log"
+    with log.open("wb") as stream:
+        stream.write(("$ " + shlex.join(command) + "\n").encode())
+        stream.flush()
+        result = subprocess.run(command, stdout=stream, stderr=subprocess.STDOUT, timeout=180)
+    records.append({"compiler": subprocess.check_output([compiler, "--version"], text=True),
+        "command": command, "exit_code": result.returncode, "log": log.name,
+        "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest()})
+    print(name, result.returncode, flush=True)
+metadata = {"candidate_sha256": hashlib.sha256(snapshot.read_bytes()).hexdigest(),
+    "driver_sha256": hashlib.sha256(driver.read_bytes()).hexdigest(),
+    "records": records,
+    "expected_failure": "GCC 13 rejects an ignored loop annotation under -Werror; Clang 18 compiles successfully. This is a rejected candidate, not a failure of the public header."}
+(out / "bitset-unroll.json").write_text(json.dumps(metadata, indent=2) + "\n")
