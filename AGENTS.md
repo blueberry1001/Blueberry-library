@@ -526,6 +526,12 @@ maspypy
 
 ## 17. 作業終了時
 
+mainへのマージ後は、WSL Ubuntuの `/home/blueberry/lib/Blueberry-library` も同期してください。
+対象が同じoriginのmainブランチで、未commitの変更がないことを確認してから、
+`git -C /home/blueberry/lib/Blueberry-library pull --ff-only origin main` を実行します。
+最後にHEADとorigin/mainの一致、作業ツリーがcleanであることを確認してください。
+ローカル変更・別ブランチ・履歴の分岐がある場合は、破棄や強制更新をせず同期できなかった理由を報告してください。
+
 作業を終了する前に可能な範囲で以下を実行してください。
 
 ```text
@@ -665,6 +671,8 @@ Review diff
 Commit
 ↓
 Push / PR / Merge after review and required checks
+↓
+Sync WSL /home/blueberry/lib/Blueberry-library with main
 ↓
 Report
 ```
