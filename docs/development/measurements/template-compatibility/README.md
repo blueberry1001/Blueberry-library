@@ -1,6 +1,6 @@
 # Template compatibilityの検証記録
 
-基準は`f9ccb0f704ee47974b372062684b4295bdc0ebea`。変更後はこのディレクトリと同じcommitのヘッダを用いる。
+基準は`f9ccb0f704ee47974b372062684b4295bdc0ebea`。初回の変更後ヘッダは実装commit `caa2911364baddf684b33076f85d6b486068b718`を用いる。
 
 - `results.json`: GCC13.3 / Clang18.1、GNU20 `-O2 -DNDEBUG -S`、同じMany A+Bの64/128bitコードのassembly比較。全4件が完全一致した。
 - `closure-results.json`: 自作ヘッダのinclude閉包のコード量。CRLFをLFに正規化し、ACL・標準ライブラリは除外した。
@@ -20,3 +20,5 @@ LF換算のbyte数・SHAは`closure-results.json`にあり、両者を同じフ�
 スクリプトの作業パスは実行当時のもので、再実行時はROOT/OUTを手元のパスに合わせる。
 生成assemblyの一致は、今回の短縮でFast I/Oのrelease処理が変わっていないことの確認であり、実行時間の改善率ではない。
 ローカルverifyは基準HEADへ変更ファイルを重ねたcloneで実行したため、生のレポートのrevisionは基準HEADを示す。実際の変更後ソースは`validation-sources.json`で区別しており、未変更のf9ccb0fの測定や、生成コード比較の速度測定として利用しない。
+
+`comparator-followup/`はa88f9f7からの比較関数判定の追補。初回記録とは分離し、修正前header/reproducer、source hash、16構成の再実行ログを保存する。`operator() &`と明示的bool変換の返り値を回帰テストへ加えた。
