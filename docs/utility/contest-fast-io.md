@@ -17,8 +17,8 @@ Sは入出力のbyte数、Nは再帰的に訪れる要素・コンテナの数�
 このほか、入力文字列・浮動小数点token・浮動小数点出力の作業領域を使います。
 V/Eはグラフの頂点/辺数、Lは各stream操作のbyte数です。
 
-`cin`/`cout`の独自overloadを使う場合は[Contest Template]({{ '/docs/utility/contest-template.html' | relative_url }})を選べます。
-`FILE*`の指定や対話問題には[Fast I/O]({{ '/docs/utility/fast-io.html' | relative_url }})を使います。
+`cin`/`cout`の独自overloadを使う場合は[Contest Template]({{ '/blueberry/utility/contest-template.hpp.html' | relative_url }})を選べます。
+`FILE*`の指定や対話問題には[Fast I/O]({{ '/blueberry/utility/fast-io.hpp.html' | relative_url }})を使います。
 
 ## 操作一覧
 
@@ -971,6 +971,6 @@ target = std::move(rng);
 - ユーザーテンプレートの短縮名を共通化し、Fast I/Oのバッファ経路で`scan/print`を実装しています。
 - [Many A + B](https://judge.yosupo.jp/problem/many_aplusb)と[128bit版](https://judge.yosupo.jp/problem/many_aplusb_128bit)で高速版の`scan/print`を検証します。
 - 固定精度、入れ子コンテナ、vector&lt;bool&gt;、空入力、部分失敗、128bit境界、正常終了時のflushをテストします。
-- 入出力型ごとの契約と検証は[Fast I/O]({{ '/docs/utility/fast-io.html' | relative_url }})も参照してください。
+- 入出力型ごとの契約と検証は[Fast I/O]({{ '/blueberry/utility/fast-io.hpp.html' | relative_url }})も参照してください。
 
 </details>

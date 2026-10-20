@@ -15,7 +15,7 @@ documentation_of: //blueberry/utility/fast-io.hpp
 整数・文字列とコンテナの全処理は償却O(L+K+N)です。
 通常の入出力オブジェクトはそれぞれ64 KiBのバッファを持ち、`FastInput<true>`の補助メモリはO(1)です。
 浮動小数点は標準変換の費用を加え、一時tokenや出力作業領域に追加メモリを使います。
-`scan/print`などの短縮名は[Contest Fast I/O Template]({{ '/docs/utility/contest-fast-io.html' | relative_url }})で使えます。
+`scan/print`などの短縮名は[Contest Fast I/O Template]({{ '/blueberry/utility/contest-fast-io.hpp.html' | relative_url }})で使えます。
 
 ## 操作一覧
 

@@ -8,7 +8,7 @@ documentation_of: //blueberry/utility/contest-template.hpp
 競技用の短い型別名・ループ・入出力を、必要なときだけ追加するヘッダです。
 GNU libstdc++とACLが必要で、単一translation unitの提出用です。
 `all.hpp`には含まれません。`main`と`init_io()`の呼び出しは自分で書きます。
-同じ短縮名で高速入出力を使う場合は[Contest Fast I/O Template]({{ '/docs/utility/contest-fast-io.html' | relative_url }})を選べます。
+同じ短縮名で高速入出力を使う場合は[Contest Fast I/O Template]({{ '/blueberry/utility/contest-fast-io.hpp.html' | relative_url }})を選べます。
 両方のヘッダを同じtranslation unitでincludeすることはできません。
 
 Nは要素数、S/Lは入出力のbyte数、V/Eはグラフの頂点/辺数です。操作ごとの計算量は下表に示します。

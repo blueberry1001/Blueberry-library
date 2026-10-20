@@ -1,0 +1,69 @@
+{
+  "timestamp_utc": "2026-10-20T03:54:22Z",
+  "git_revision": "eaff59910886d5b378ab0dd85037ce6b6bc7953d",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpuinfo": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 183\nmodel name\t: Intel(R) Core(TM) i7-14650HX\nstepping\t: 1\nmicrocode\t: 0xffffffff\ncpu MHz\t\t: 2419.198\ncache size\t: 30720 KB\nphysical id\t: 0\nsiblings\t: 24\ncore id\t\t: 0\ncpu cores\t: 12\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nvmx flags\t: vnmi invvpid ept_x_only ept_ad ept_1gb tsc_offset vtpr ept vpid unrestricted_guest ept_mode_based_exec tsc_scaling usr_wait_pause\nbugs\t\t: spectre_v1 spectre_v2 spec_store_bypass swapgs retbleed eibrs_pbrsb rfds bhi\nbogomips\t: 4838.39\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 39 bits physical, 48 bits virtual\npower management:",
+  "cpu_affinity": 0,
+  "profiles": {
+    "gcc-release": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "gcc-assert": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-D_GLIBCXX_ASSERTIONS"
+    ],
+    "clang-release": [
+      "clang++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ]
+  },
+  "repeats": 5,
+  "warmups": 1,
+  "count": 1000000,
+  "float_count": 250000,
+  "source_sha256": {
+    "benchmark/contest-fast-io.cpp": "8c2297972b2b3ac820a7727438122b5045e280342396355460c101a598aeb8f1",
+    "benchmark/contest-fast-io.py": "c853aa58b1c81cab089abf6c258da71e40670b1abb96a4df31750f93a1e6a3cc",
+    "blueberry/utility/fast-io.hpp": "b8b9c274f93c3906b8f6fc26dd945ec0679b3c246685da3108789aa677d73b30",
+    "blueberry/utility/contest-fast-io.hpp": "fb145a86567f35dc91dcd76661857cf46ff84cce4a488766b19733cbe0bc8ab6",
+    "blueberry/utility/contest-template.hpp": "ccde339a4c23402c9cd0915b6c061e55731a9f81fe370df90b932a52331ac4b6",
+    "blueberry/utility/internal/contest-template-base.hpp": "80e8f767f2b813b0ffdad4498c5f5d67dc94e3e56c0ac5a5c825788fa7a699cc"
+  },
+  "compilers": {
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n",
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  "contract": "Valid signed 64-bit operands within +/-10^18; sums fit. Same bytes and order; fixed float precision=30. Input checksum modulo 2^64.",
+  "timing": "construction_ms: Backend initialization; operation_ms: parse/checksum or format/write/flush; process_ms includes startup, initialization, data generation, destruction and time wrapper. Peak RSS is whole-process.",
+  "ordering": "Seed 20261020 shuffle each round; one pinned process at a time; file and pipe stdin; stdout regular cached /tmp file.",
+  "input": {
+    "sha256": "650050f9cecd5bca6b6619d52067582e5fc34b867355099a19e2d51ffa078015",
+    "bytes": 38778310,
+    "seed": 20261020
+  },
+  "expected": {
+    "input": {
+      "sha256": "28ed3c648e9d5ab6c4ab6dc00a62bcfa586fed3789b333f90cc7b7cd031a687f",
+      "bytes": 20
+    },
+    "end-to-end": {
+      "sha256": "88e31b59547fb3d5a318e43b02cc5404f40da9c9622bbf76c64dc41ed6d50f42",
+      "bytes": 19641395
+    },
+    "output": {
+      "sha256": "7c42c60799d2e444a2272ade2d6b2dbe347f34cc386b3bea425ee27d501e45ce",
+      "bytes": 20000001
+    },
+    "float-output": {
+      "sha256": "c87aba459a9c3237b2f8bf97ca0e4d9dc66dfc375af349185579200e3f569903",
+      "bytes": 9061209
+    }
+  }
+}

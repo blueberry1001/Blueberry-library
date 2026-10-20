@@ -1,0 +1,82 @@
+Fast I/O new API validation — initial implementation
+Date: 2026-10-20 (Asia/Tokyo)
+Worktree: .build/worktrees/template-fast-io
+
+This file preserves commands and output copied from the execution tool transcript.
+The initial source hashes were not recorded. These results predate the later
+facade optimization that caches the singleton reference once per scan/print call.
+See new-api-current.log for validation of the later source snapshot.
+All commands below ran under WSL from the worktree root. The ACL include path was
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library.
+
+1. Initial strict GCC compile — FAILED (exit 1; preserved, not counted as a pass)
+
+Command:
+g++ -std=gnu++20 -O2 -Wall -Wextra -Wshadow -Werror -I. -isystem /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library tests/random/contest-fast-io.cpp -o .build/io-tests/contest-fast-io-gcc20
+
+Captured compiler output:
+In file included from tests/random/contest-fast-io.cpp:1:
+./blueberry/utility/contest-fast-io.hpp: In instantiation of ‘bool print(const Args& ...) [with Args = {}]’:
+tests/random/contest-fast-io.cpp:179:16:   required from here
+./blueberry/utility/contest-fast-io.hpp:49:8: error: variable ‘one’ set but not used [-Werror=unused-but-set-variable]
+   49 |   [[maybe_unused]] auto one = [&](const auto& value) {
+      |        ^~~
+cc1plus: all warnings being treated as errors
+
+The empty-argument print() branch was subsequently protected with if constexpr.
+
+2. Behavioral check while warning fix was being applied — PASSED (exit 0)
+
+Command:
+g++ -std=gnu++20 -O2 -Wall -Wextra -Wshadow -Werror -Wno-error=unused-but-set-variable -I. -isystem /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library tests/random/contest-fast-io.cpp -o .build/io-tests/contest-fast-io-gcc20 && .build/io-tests/contest-fast-io-gcc20 1
+
+Captured output: no compiler/test diagnostics. The edit and compile overlapped;
+this run alone does not establish which header version reached the compiler.
+The subsequent strict matrix below independently validated the corrected header.
+
+3. Strict compiler/standard matrix — PASSED (exit 0)
+
+Command:
+for compiler in g++ clang++; do
+  for standard in gnu++20 gnu++23; do
+    for source in tests/random/contest-fast-io.cpp verify/utility/contest-fast-io.test.cpp verify/utility/contest-fast-io-128bit.test.cpp; do
+      output=.build/io-tests/$(basename "$source")-$compiler-$standard
+      "$compiler" -std=$standard -O2 -Wall -Wextra -Wshadow -Werror -I. -isystem /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library "$source" -o "$output" || exit
+      if [[ "$source" == tests/random/* ]]; then
+        for seed in {1..20}; do "$output" "$seed" || exit; done
+      else
+        printf "3\n1 2\n-8 3\n0 0" | "$output" > "$output.actual" || exit
+        diff -u <(printf "3\n-5\n0\n") "$output.actual" || exit
+      fi
+      echo PASS "$compiler" "$standard" "$source"
+    done
+  done
+done
+
+Captured output:
+PASS g++ gnu++20 tests/random/contest-fast-io.cpp
+PASS g++ gnu++20 verify/utility/contest-fast-io.test.cpp
+PASS g++ gnu++20 verify/utility/contest-fast-io-128bit.test.cpp
+PASS g++ gnu++23 tests/random/contest-fast-io.cpp
+PASS g++ gnu++23 verify/utility/contest-fast-io.test.cpp
+PASS g++ gnu++23 verify/utility/contest-fast-io-128bit.test.cpp
+PASS clang++ gnu++20 tests/random/contest-fast-io.cpp
+PASS clang++ gnu++20 verify/utility/contest-fast-io.test.cpp
+PASS clang++ gnu++20 verify/utility/contest-fast-io-128bit.test.cpp
+PASS clang++ gnu++23 tests/random/contest-fast-io.cpp
+PASS clang++ gnu++23 verify/utility/contest-fast-io.test.cpp
+PASS clang++ gnu++23 verify/utility/contest-fast-io-128bit.test.cpp
+
+4. AddressSanitizer + UndefinedBehaviorSanitizer — PASSED (exit 0)
+
+Command:
+g++ -std=gnu++20 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -Wall -Wextra -Wshadow -Werror -I. -isystem /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library tests/random/contest-fast-io.cpp -o .build/io-tests/contest-fast-io-sanitized && .build/io-tests/contest-fast-io-sanitized 42
+
+Captured output: no compiler, test, or sanitizer diagnostics.
+
+Coverage: randomized nested pair/array/vector/deque round trips; vector<bool>;
+empty container separators; partial updates and short-circuit after invalid bool,
+overflow, and EOF; no final newline; signed 128-bit minimum through global scan;
+fixed precision 0/1/2/30/512 against std::ostringstream, maximum long double;
+LL/STR/O/YesNo/YESNO/scan/print/flush facade and precision changes.
+These sample-driver checks are separate from official Library Checker verification.
