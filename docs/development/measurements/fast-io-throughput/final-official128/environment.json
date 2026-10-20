@@ -1,0 +1,80 @@
+{
+  "timestamp_utc": "2026-10-20T05:45:15Z",
+  "git_revision": "8729666f80f04e080f945506fd3cb94be7081185",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpuinfo": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 183\nmodel name\t: Intel(R) Core(TM) i7-14650HX\nstepping\t: 1\nmicrocode\t: 0xffffffff\ncpu MHz\t\t: 2419.198\ncache size\t: 30720 KB\nphysical id\t: 0\nsiblings\t: 24\ncore id\t\t: 0\ncpu cores\t: 12\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nvmx flags\t: vnmi invvpid ept_x_only ept_ad ept_1gb tsc_offset vtpr ept vpid unrestricted_guest ept_mode_based_exec tsc_scaling usr_wait_pause\nbugs\t\t: spectre_v1 spectre_v2 spec_store_bypass swapgs retbleed eibrs_pbrsb rfds bhi\nbogomips\t: 4838.39\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 39 bits physical, 48 bits virtual\npower management:",
+  "cpu_affinity": 2,
+  "profiles": {
+    "gcc": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "clang": [
+      "clang++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ]
+  },
+  "repeats": 5,
+  "warmups": 1,
+  "source_sha256": {
+    "benchmark/fast-io-throughput.cpp": "68dd66ce31ba4c4fb9db144db90ce8c344cc8aa35edb6c6efd9ae110b7927137",
+    "benchmark/fast-io-throughput.py": "195b2a014ace45d4339b016c4234ba48b17cf297da03393226efdd7270b242a5",
+    "blueberry/utility/fast-io.hpp": "8f08950cfc12f2babdd0eaa6ed0b38ce90e999ce7e24ee5105cdbb4cfc7ad406",
+    "blueberry/utility/contest-fast-io.hpp": "ff8bf013f0e32e5b9e3de0681abaf994b0a2357ace02d2ea99afb1a700e18b76",
+    "blueberry/utility/internal/contest-template-base.hpp": "80e8f767f2b813b0ffdad4498c5f5d67dc94e3e56c0ac5a5c825788fa7a699cc",
+    ".build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp": "b8b9c274f93c3906b8f6fc26dd945ec0679b3c246685da3108789aa677d73b30"
+  },
+  "baseline_header": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/fast-io-throughput/.build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp",
+  "compilers": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n"
+  },
+  "timing": "operation_ms includes parse/checksum or format/write/flush; output mode preloads sums before timer. setup_ms includes Backend construction only (global buffers lazy on first use). process_ms includes all preload/initialization/destruction, time wrapper and startup. Peak RSS whole-process incl preload vectors.",
+  "ordering": "Seed20261020 shuffle each round; pinned single child at a time. file/pipe stdin, cached regular /tmp stdout. Never modify other processes.",
+  "cases": {
+    "official-all_zero_00": {
+      "type": "i128",
+      "count": 500000,
+      "origin": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/all_zero_00.in",
+      "input_sha256": "6ede1b303f7133930399cc72fb65df245170bcf857e5a43569269f0cfe57fa3a",
+      "input_bytes": 2000007,
+      "output_sha256": "5a9061de234dcdec007b25ff8fd4a4491b247fcb33d79774fe9958339ef61947",
+      "output_bytes": 1000000,
+      "checksum_sha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+    },
+    "official-digit_random_00": {
+      "type": "i128",
+      "count": 500000,
+      "origin": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/digit_random_00.in",
+      "input_sha256": "7727f2061cb319df3b85a5cfaffa8d2c64993a5a45bd01969c146be80d30f19e",
+      "input_bytes": 20512937,
+      "output_sha256": "eb5166ece80eedf696b8eaf85cb326d08c54ec244a0df73bf052dc331eff6b6d",
+      "output_bytes": 13340448,
+      "checksum_sha256": "b836e64af89c2f21521c593e0c980c20b1f2d8a8877e1fc443f106233cec013a"
+    },
+    "official-max_random_00": {
+      "type": "i128",
+      "count": 500000,
+      "origin": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/max_random_00.in",
+      "input_sha256": "145f1ec3cead416dbfd3c6eb265ab3d943d292630b0939db21d1d74d0361891d",
+      "input_bytes": 38389522,
+      "output_sha256": "de7e471e69b9e93e9f9c3d6fcbe0aaeb40adec903768081e26b9bf9e37695e46",
+      "output_bytes": 19321054,
+      "checksum_sha256": "5279781bd1a73ddd7c1a17222870622bc9b00349389a9ad0341a1c903ff2ef8d"
+    },
+    "official-carry_up_00": {
+      "type": "i128",
+      "count": 500000,
+      "origin": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/template-fast-io/.verify-helper/cache/1bbdc5ce4fc1dd381053cf9c08492ff5/test/carry_up_00.in",
+      "input_sha256": "504745be0847f86a99040ba1691f505461f226c0787d6f32614eb87ea9c7a885",
+      "input_bytes": 34112354,
+      "output_sha256": "de29926dddf21ca3005142c4c682d4ba61b06a684aa1d6df4dcf45600a0bcfe1",
+      "output_bytes": 19750006,
+      "checksum_sha256": "382c50e057c633bdfb4a4facafcf48588b06a74873453ef74b0e8f9fdf49aecc"
+    }
+  }
+}

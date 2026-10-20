@@ -590,5 +590,6 @@ out.write(std::array<int, 2>{1, 2}); // "1 2"
 - `tests/random/contest-fast-io.cpp`: 固定精度・入れ子コンテナ・vector&lt;bool&gt;とテンプレート形式APIの検証。
 - 2桁変換とportable bufferを独自実装。Fastest提出のmmap/SIMD専用I/Oはコピーしていません。
 - [性能改善方針]({{ '/docs/development/fastest-performance-plan.html' | relative_url }})。
+- [Many A+Bを用いた整数入出力の改善記録]({{ '/docs/development/fast-io-throughput.html' | relative_url }})。
 
 </details>

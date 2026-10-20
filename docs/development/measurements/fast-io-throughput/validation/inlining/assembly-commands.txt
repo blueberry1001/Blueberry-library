@@ -1,0 +1,8 @@
+# GCC 13.3; run from the repository root. These are analysis builds, not new timing samples.
+taskset -c 4 g++ -std=gnu++20 -O2 -DNDEBUG -DIO_FACADE=0 -I.build/fast-io-throughput/baseline -I. -isystem /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library -S -fverbose-asm -fopt-info-inline-optimized-missed=.build/fast-io-throughput/inlining-review/baseline.inline.log benchmark/fast-io-throughput.cpp -o .build/fast-io-throughput/inlining-review/baseline.s
+taskset -c 4 g++ -std=gnu++20 -O2 -DNDEBUG -DIO_FACADE=0 -I. -isystem /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library -S -fverbose-asm -fopt-info-inline-optimized-missed=.build/fast-io-throughput/inlining-review/current.inline.log benchmark/fast-io-throughput.cpp -o .build/fast-io-throughput/inlining-review/current.s
+as .build/fast-io-throughput/inlining-review/baseline.s -o .build/fast-io-throughput/inlining-review/baseline.o
+as .build/fast-io-throughput/inlining-review/current.s -o .build/fast-io-throughput/inlining-review/current.o
+objdump -t .build/fast-io-throughput/inlining-review/baseline.o
+objdump -t .build/fast-io-throughput/inlining-review/current.o
+# observed read<long long> symbol sizes: baseline 0x4bd = 1213 bytes; current 0x7ca = 1994 bytes.

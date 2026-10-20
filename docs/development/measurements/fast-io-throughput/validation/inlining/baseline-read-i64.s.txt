@@ -1,0 +1,453 @@
+_ZN9blueberry9FastInputILb0EE4readIxEEbRT_:
+.LFB7105:
+	.cfi_startproc
+	endbr64	
+	pushq	%r15	#
+	.cfi_def_cfa_offset 16
+	.cfi_offset 15, -16
+	pushq	%r14	#
+	.cfi_def_cfa_offset 24
+	.cfi_offset 14, -24
+	pushq	%r13	#
+	.cfi_def_cfa_offset 32
+	.cfi_offset 13, -32
+	pushq	%r12	#
+	.cfi_def_cfa_offset 40
+	.cfi_offset 12, -40
+# /usr/include/c++/13/array:277:       { return static_cast<pointer>(_M_elems); }
+	leaq	8(%rdi), %r12	#, tmp260
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:61:   bool read(T& value) {
+	pushq	%rbp	#
+	.cfi_def_cfa_offset 48
+	.cfi_offset 6, -48
+	movq	%rsi, %rbp	# tmp262, value
+	pushq	%rbx	#
+	.cfi_def_cfa_offset 56
+	.cfi_offset 3, -56
+	movq	%rdi, %rbx	# tmp261, this
+	subq	$8, %rsp	#,
+	.cfi_def_cfa_offset 64
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	movq	65544(%rdi), %rax	# this_23(D)->pos_, prephitmp_26
+	.p2align 4,,10
+	.p2align 3
+.L429:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	cmpq	65552(%rbx), %rax	# this_23(D)->end_, prephitmp_26
+	je	.L437	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movq	%rax, %rdx	# prephitmp_26, prephitmp_15
+	addq	$1, %rax	#, prephitmp_26
+.L375:
+	movq	%rax, 65544(%rbx)	# prephitmp_26, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movzbl	8(%rbx,%rdx), %r14d	# MEM <struct array> [(value_type &)this_23(D) + 8]._M_elems[prephitmp_15], _71
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:46:     return c == ' ' || (c >= '\t' && c <= '\r');
+	leal	-9(%r14), %edx	#, tmp200
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:50:     do { c = next(); } while (space(c));
+	cmpl	$4, %edx	#, tmp200
+	jbe	.L429	#,
+	cmpl	$32, %r14d	#, _71
+	je	.L429	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:66:     if (negative || c == '+') c = next();
+	leal	-43(%r14), %edx	#, tmp249
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:66:     if (negative || c == '+') c = next();
+	andl	$-3, %edx	#, tmp249
+	je	.L417	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:63:     int c = first();
+	movl	%r14d, %edx	# _71, c
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:70:     const U remainder = negative ? negative_limit % 10 : positive_limit % 10;
+	movl	$7, %r13d	#, iftmp.69_18
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:71:     if ((negative && !std::is_signed_v<T>) || static_cast<unsigned>(c - '0') > 9) {
+	leal	-48(%rdx), %eax	#, _9
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:71:     if ((negative && !std::is_signed_v<T>) || static_cast<unsigned>(c - '0') > 9) {
+	cmpl	$9, %eax	#, _9
+	ja	.L384	#,
+.L442:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:77:       if (result > quotient || (result == quotient && digit > remainder)) {
+	movabsq	$922337203685477580, %r15	#, tmp259
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:74:     U result = 0;
+	xorl	%r12d, %r12d	# result
+	cltq
+	.p2align 4,,10
+	.p2align 3
+.L385:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:80:       result = U(result * 10 + digit);
+	leaq	(%r12,%r12,4), %rdx	#, tmp228
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:80:       result = U(result * 10 + digit);
+	leaq	(%rax,%rdx,2), %r12	#, result
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	movq	65544(%rbx), %rax	# this_23(D)->pos_, _143
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	leaq	1(%rax), %rdx	#, prephitmp_213
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	cmpq	65552(%rbx), %rax	# this_23(D)->end_, _143
+	je	.L438	#,
+.L402:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movq	%rdx, 65544(%rbx)	# prephitmp_213, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movzbl	8(%rbx,%rax), %edx	# MEM <struct array> [(value_type &)this_23(D) + 8]._M_elems[prephitmp_172], c
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:75:     while (static_cast<unsigned>(c - '0') <= 9) {
+	leal	-48(%rdx), %eax	#, _9
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:75:     while (static_cast<unsigned>(c - '0') <= 9) {
+	cmpl	$9, %eax	#, _9
+	ja	.L439	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:77:       if (result > quotient || (result == quotient && digit > remainder)) {
+	cmpq	%r12, %r15	# result, tmp259
+	jb	.L395	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:77:       if (result > quotient || (result == quotient && digit > remainder)) {
+	cltq
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:77:       if (result > quotient || (result == quotient && digit > remainder)) {
+	cmpq	%r15, %r12	# tmp259, result
+	jne	.L385	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:77:       if (result > quotient || (result == quotient && digit > remainder)) {
+	cmpq	%rax, %r13	# _9, iftmp.69_18
+	jnb	.L385	#,
+.L395:
+	movabsq	$8589966337, %rbp	#, tmp257
+	jmp	.L393	#
+	.p2align 4,,10
+	.p2align 3
+.L399:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movq	%rdx, 65544(%rbx)	# _84, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movzbl	8(%rbx,%rax), %edx	# MEM <struct array> [(value_type &)this_23(D) + 8]._M_elems[prephitmp_105], c
+.L393:
+	addl	$1, %edx	#, _51
+	cmpl	$33, %edx	#, _51
+	ja	.L396	#,
+	btq	%rdx, %rbp	# _51, tmp257
+	jc	.L376	#,
+.L396:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	movq	65544(%rbx), %rax	# this_23(D)->pos_, prephitmp_105
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	leaq	1(%rax), %rdx	#, _84
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	cmpq	65552(%rbx), %rax	# this_23(D)->end_, prephitmp_105
+	jne	.L399	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:36:         if (exhausted_) return EOF;
+	cmpb	$0, 65560(%rbx)	#, this_23(D)->exhausted_
+	jne	.L376	#,
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movq	(%rbx), %rcx	# this_23(D)->file_, this_23(D)->file_
+# /usr/include/c++/13/array:277:       { return static_cast<pointer>(_M_elems); }
+	leaq	8(%rbx), %rdi	#, tmp223
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movl	$65536, %edx	#,
+	movl	$1, %esi	#,
+	call	fread@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	movq	(%rbx), %rdi	# this_23(D)->file_, this_23(D)->file_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:37:         end_ = std::fread(buffer_.data(), 1, capacity, file_);
+	movq	%rax, 65552(%rbx)	# tmp269, this_23(D)->end_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	call	ferror@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:39:         pos_ = 0;
+	movq	$0, 65544(%rbx)	#, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	testl	%eax, %eax	# tmp270
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	setne	65561(%rbx)	#, this_23(D)->failed_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:40:         if (!end_) { exhausted_ = true; return EOF; }
+	cmpq	$0, 65552(%rbx)	#, this_23(D)->end_
+	je	.L436	#,
+	movl	$1, %edx	#, _84
+	xorl	%eax, %eax	# prephitmp_105
+	jmp	.L399	#
+	.p2align 4,,10
+	.p2align 3
+.L437:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:36:         if (exhausted_) return EOF;
+	cmpb	$0, 65560(%rbx)	#, this_23(D)->exhausted_
+	jne	.L376	#,
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movq	(%rbx), %rcx	# this_23(D)->file_, this_23(D)->file_
+	movl	$65536, %edx	#,
+	movl	$1, %esi	#,
+	movq	%r12, %rdi	# tmp260,
+	call	fread@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	movq	(%rbx), %rdi	# this_23(D)->file_, this_23(D)->file_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:37:         end_ = std::fread(buffer_.data(), 1, capacity, file_);
+	movq	%rax, 65552(%rbx)	# tmp263, this_23(D)->end_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	call	ferror@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:39:         pos_ = 0;
+	movq	$0, 65544(%rbx)	#, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	testl	%eax, %eax	# tmp264
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	setne	65561(%rbx)	#, this_23(D)->failed_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:40:         if (!end_) { exhausted_ = true; return EOF; }
+	cmpq	$0, 65552(%rbx)	#, this_23(D)->end_
+	je	.L436	#,
+	movl	$1, %eax	#, prephitmp_26
+	xorl	%edx, %edx	# prephitmp_15
+	jmp	.L375	#
+	.p2align 4,,10
+	.p2align 3
+.L438:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:36:         if (exhausted_) return EOF;
+	cmpb	$0, 65560(%rbx)	#, this_23(D)->exhausted_
+	jne	.L406	#,
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movq	(%rbx), %rcx	# this_23(D)->file_, this_23(D)->file_
+# /usr/include/c++/13/array:277:       { return static_cast<pointer>(_M_elems); }
+	leaq	8(%rbx), %rdi	#, tmp232
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movl	$65536, %edx	#,
+	movl	$1, %esi	#,
+	call	fread@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	movq	(%rbx), %rdi	# this_23(D)->file_, this_23(D)->file_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:37:         end_ = std::fread(buffer_.data(), 1, capacity, file_);
+	movq	%rax, 65552(%rbx)	# tmp271, this_23(D)->end_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	call	ferror@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:39:         pos_ = 0;
+	movq	$0, 65544(%rbx)	#, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	testl	%eax, %eax	# tmp272
+	setne	%al	#, prephitmp_142
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:40:         if (!end_) { exhausted_ = true; return EOF; }
+	cmpq	$0, 65552(%rbx)	#, this_23(D)->end_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	movb	%al, 65561(%rbx)	# prephitmp_142, this_23(D)->failed_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:40:         if (!end_) { exhausted_ = true; return EOF; }
+	je	.L440	#,
+	movl	$1, %edx	#, prephitmp_213
+	xorl	%eax, %eax	# _143
+	jmp	.L402	#
+.L436:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:40:         if (!end_) { exhausted_ = true; return EOF; }
+	movb	$1, 65560(%rbx)	#, this_23(D)->exhausted_
+	.p2align 4,,10
+	.p2align 3
+.L376:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:64:     if (c == EOF) return false;
+	xorl	%eax, %eax	# <retval>
+.L372:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:92:   }
+	addq	$8, %rsp	#,
+	.cfi_remember_state
+	.cfi_def_cfa_offset 56
+	popq	%rbx	#
+	.cfi_def_cfa_offset 48
+	popq	%rbp	#
+	.cfi_def_cfa_offset 40
+	popq	%r12	#
+	.cfi_def_cfa_offset 32
+	popq	%r13	#
+	.cfi_def_cfa_offset 24
+	popq	%r14	#
+	.cfi_def_cfa_offset 16
+	popq	%r15	#
+	.cfi_def_cfa_offset 8
+	ret	
+	.p2align 4,,10
+	.p2align 3
+.L417:
+	.cfi_restore_state
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	leaq	1(%rax), %rdx	#, prephitmp_44
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	cmpq	65552(%rbx), %rax	# this_23(D)->end_, _73
+	je	.L441	#,
+.L381:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movq	%rdx, 65544(%rbx)	# prephitmp_44, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movzbl	8(%rbx,%rax), %edx	# MEM <struct array> [(value_type &)this_23(D) + 8]._M_elems[prephitmp_126], c
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:70:     const U remainder = negative ? negative_limit % 10 : positive_limit % 10;
+	xorl	%r13d, %r13d	# iftmp.69_18
+	cmpl	$45, %r14d	#, _71
+	sete	%r13b	#, iftmp.69_18
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:71:     if ((negative && !std::is_signed_v<T>) || static_cast<unsigned>(c - '0') > 9) {
+	leal	-48(%rdx), %eax	#, _9
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:70:     const U remainder = negative ? negative_limit % 10 : positive_limit % 10;
+	addq	$7, %r13	#, iftmp.69_18
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:71:     if ((negative && !std::is_signed_v<T>) || static_cast<unsigned>(c - '0') > 9) {
+	cmpl	$9, %eax	#, _9
+	jbe	.L442	#,
+.L384:
+	movabsq	$8589966337, %rbp	#, tmp256
+	jmp	.L382	#
+	.p2align 4,,10
+	.p2align 3
+.L390:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movq	%rdx, 65544(%rbx)	# _175, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movzbl	8(%rbx,%rax), %edx	# MEM <struct array> [(value_type &)this_23(D) + 8]._M_elems[prephitmp_174], c
+.L382:
+	addl	$1, %edx	#, _184
+	cmpl	$33, %edx	#, _184
+	ja	.L386	#,
+	btq	%rdx, %rbp	# _184, tmp256
+	jc	.L376	#,
+.L386:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	movq	65544(%rbx), %rax	# this_23(D)->pos_, _97
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	leaq	1(%rax), %rdx	#, _175
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	cmpq	65552(%rbx), %rax	# this_23(D)->end_, _97
+	jne	.L390	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:36:         if (exhausted_) return EOF;
+	cmpb	$0, 65560(%rbx)	#, this_23(D)->exhausted_
+	jne	.L376	#,
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movq	(%rbx), %rcx	# this_23(D)->file_, this_23(D)->file_
+# /usr/include/c++/13/array:277:       { return static_cast<pointer>(_M_elems); }
+	leaq	8(%rbx), %rdi	#, tmp213
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movl	$65536, %edx	#,
+	movl	$1, %esi	#,
+	call	fread@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	movq	(%rbx), %rdi	# this_23(D)->file_, this_23(D)->file_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:37:         end_ = std::fread(buffer_.data(), 1, capacity, file_);
+	movq	%rax, 65552(%rbx)	# tmp267, this_23(D)->end_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	call	ferror@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:39:         pos_ = 0;
+	movq	$0, 65544(%rbx)	#, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	testl	%eax, %eax	# tmp268
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	setne	65561(%rbx)	#, this_23(D)->failed_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:40:         if (!end_) { exhausted_ = true; return EOF; }
+	cmpq	$0, 65552(%rbx)	#, this_23(D)->end_
+	je	.L436	#,
+	movl	$1, %edx	#, _175
+	xorl	%eax, %eax	# _97
+	jmp	.L390	#
+	.p2align 4,,10
+	.p2align 3
+.L439:
+	addl	$1, %edx	#, _259
+	cmpl	$33, %edx	#, _259
+	ja	.L405	#,
+	movabsq	$8589966337, %rax	#, tmp237
+	btq	%rdx, %rax	# _259, tmp237
+	jnc	.L405	#,
+.L406:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:84:     if (failed_) return false;
+	movzbl	65561(%rbx), %eax	# this_23(D)->failed_, prephitmp_142
+.L416:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:84:     if (failed_) return false;
+	testb	%al, %al	# prephitmp_142
+	jne	.L376	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:87:       if (negative) value = result == U(std::numeric_limits<T>::max()) + U{1}
+	cmpl	$45, %r14d	#, _71
+	jne	.L415	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:88:           ? std::numeric_limits<T>::min() : T(-T(result));
+	movabsq	$-9223372036854775808, %rdx	#, tmp246
+	movq	%r12, %rax	# result.74_14, tmp254
+	negq	%rax	# tmp254
+	cmpq	%rdx, %r12	# tmp246, result.74_14
+	cmovne	%rax, %r12	# tmp254,, result.74_14
+.L415:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:87:       if (negative) value = result == U(std::numeric_limits<T>::max()) + U{1}
+	movq	%r12, 0(%rbp)	# result.74_14, *value_33(D)
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:91:     return true;
+	movl	$1, %eax	#, <retval>
+	jmp	.L372	#
+.L441:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:36:         if (exhausted_) return EOF;
+	cmpb	$0, 65560(%rbx)	#, this_23(D)->exhausted_
+	jne	.L380	#,
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movq	(%rbx), %rcx	# this_23(D)->file_, this_23(D)->file_
+# /usr/include/c++/13/array:277:       { return static_cast<pointer>(_M_elems); }
+	leaq	8(%rbx), %rdi	#, tmp206
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movl	$65536, %edx	#,
+	movl	$1, %esi	#,
+	call	fread@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	movq	(%rbx), %rdi	# this_23(D)->file_, this_23(D)->file_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:37:         end_ = std::fread(buffer_.data(), 1, capacity, file_);
+	movq	%rax, 65552(%rbx)	# tmp265, this_23(D)->end_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	call	ferror@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:39:         pos_ = 0;
+	movq	$0, 65544(%rbx)	#, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	testl	%eax, %eax	# tmp266
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	setne	65561(%rbx)	#, this_23(D)->failed_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:40:         if (!end_) { exhausted_ = true; return EOF; }
+	cmpq	$0, 65552(%rbx)	#, this_23(D)->end_
+	je	.L443	#,
+	movl	$1, %edx	#, prephitmp_44
+	xorl	%eax, %eax	# _73
+	jmp	.L381	#
+.L405:
+	movabsq	$8589966337, %rbp	#, tmp258
+	jmp	.L407	#
+	.p2align 4,,10
+	.p2align 3
+.L412:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movq	%rdx, 65544(%rbx)	# _16, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	movzbl	8(%rbx,%rax), %edx	# MEM <struct array> [(value_type &)this_23(D) + 8]._M_elems[prephitmp_102], c
+	addl	$1, %edx	#, _259
+.L407:
+	cmpl	$33, %edx	#, _259
+	ja	.L409	#,
+	btq	%rdx, %rbp	# _259, tmp258
+	jc	.L376	#,
+.L409:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	movq	65544(%rbx), %rax	# this_23(D)->pos_, prephitmp_102
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:42:       return buffer_[pos_++];
+	leaq	1(%rax), %rdx	#, _16
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:35:       if (pos_ == end_) {
+	cmpq	65552(%rbx), %rax	# this_23(D)->end_, prephitmp_102
+	jne	.L412	#,
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:36:         if (exhausted_) return EOF;
+	cmpb	$0, 65560(%rbx)	#, this_23(D)->exhausted_
+	jne	.L376	#,
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movq	(%rbx), %rcx	# this_23(D)->file_, this_23(D)->file_
+# /usr/include/c++/13/array:277:       { return static_cast<pointer>(_M_elems); }
+	leaq	8(%rbx), %rdi	#, tmp243
+# /usr/include/x86_64-linux-gnu/bits/stdio2.h:212:     return __fread_alias (__ptr, __size, __n, __stream);
+	movl	$65536, %edx	#,
+	movl	$1, %esi	#,
+	call	fread@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	movq	(%rbx), %rdi	# this_23(D)->file_, this_23(D)->file_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:37:         end_ = std::fread(buffer_.data(), 1, capacity, file_);
+	movq	%rax, 65552(%rbx)	# tmp273, this_23(D)->end_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	call	ferror@PLT	#
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:39:         pos_ = 0;
+	movq	$0, 65544(%rbx)	#, this_23(D)->pos_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	testl	%eax, %eax	# tmp274
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:38:         failed_ = std::ferror(file_) != 0;
+	setne	65561(%rbx)	#, this_23(D)->failed_
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:40:         if (!end_) { exhausted_ = true; return EOF; }
+	cmpq	$0, 65552(%rbx)	#, this_23(D)->end_
+	je	.L436	#,
+	movl	$1, %edx	#, _16
+	xorl	%eax, %eax	# prephitmp_102
+	jmp	.L412	#
+.L440:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:40:         if (!end_) { exhausted_ = true; return EOF; }
+	movb	$1, 65560(%rbx)	#, this_23(D)->exhausted_
+	jmp	.L416	#
+.L443:
+	movb	$1, 65560(%rbx)	#, this_23(D)->exhausted_
+.L380:
+# .build/fast-io-throughput/baseline/blueberry/utility/fast-io.hpp:36:         if (exhausted_) return EOF;
+	orl	$-1, %edx	#, c
+	jmp	.L384	#
+	.cfi_endproc
+.LFE7105:
