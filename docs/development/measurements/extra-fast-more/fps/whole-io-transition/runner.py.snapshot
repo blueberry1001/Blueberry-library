@@ -1,0 +1,63 @@
+#!/usr/bin/env python3
+import datetime,hashlib,json,platform,re,statistics,subprocess,time,tempfile
+from pathlib import Path
+ROOT=Path.cwd();WORK=ROOT/'.benchmark/extra-fast-more/fps';OUT=ROOT/'docs/development/measurements/extra-fast-more/fps/whole'
+SOURCE={'convolution':('convolution',409465),'inv':('inv',409370),'log':('log',409452),'exp':('exp',409662)}
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+def run(args,**kw):return subprocess.run(args,**kw)
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def main():
+ OUT.mkdir(parents=True,exist_ok=True)
+ binary_dir=Path(tempfile.mkdtemp(prefix='blueberry-fps-whole-'))
+ env={'started':now(),'platform':platform.platform(),'flags':['-std=gnu++23','-O3','-march=native','-DNDEBUG'],'runs':5,'affinity':[0],'binary_storage':str(binary_dir),'input':'Same input files as phase final. Regular Linux /tmp files for whole-program mmap readers.','comparison':'Original complete submitted program unchanged vs our same FastIO driver. I/O, batching, buffer ownership, maximum degree guarantees and transform/Newton algorithms differ. Not an isolated kernel speedup.','sources':{},'own_source_sha256':{str(path):sha(ROOT/path) for path in [Path('blueberry/extra-fast/formal-power-series.hpp'),Path('blueberry/utility/fast-io.hpp'),Path('.benchmark/extra-fast-more/fps/phase.cpp')]}}
+ binaries={};failures=[]
+ for compiler in ['g++','clang++']:
+  env[compiler]=run([compiler,'--version'],capture_output=True,text=True).stdout
+  base=[compiler,'-std=gnu++23','-O3','-march=native','-DNDEBUG','-fno-diagnostics-show-caret'] if compiler=='g++' else [compiler,'-std=gnu++23','-O3','-march=native','-DNDEBUG','-fno-caret-diagnostics']
+  own=binary_dir/f'whole-{compiler}-own';cmd=base+['-DBACKEND=1','-I.','-I.deps/ac-library',str(WORK/'phase.cpp'),'-o',str(own)]
+  result=run(cmd,capture_output=True,text=True);(OUT/f'{compiler}-own.compile.log').write_text(json.dumps(cmd)+'\n'+result.stderr)
+  if not result.returncode:binaries[(compiler,'own')]=own
+  else:failures.append({'compiler':compiler,'candidate':'own','stage':'compile','returncode':result.returncode})
+  for op,(folder,ident) in SOURCE.items():
+   path=WORK/folder/f'submission-{ident}.cpp';env['sources'][op]={'submission':ident,'url':f'https://judge.yosupo.jp/submission/{ident}','sha256':sha(path),'redistributed':False}
+   binary=binary_dir/f'whole-{compiler}-{ident}';cmd=base+[str(path),'-o',str(binary)]
+   result=run(cmd,capture_output=True,text=True);(OUT/f'{compiler}-{ident}.compile.log').write_text(json.dumps(cmd)+'\n'+result.stderr)
+   if not result.returncode:binaries[(compiler,op)]=binary
+   else:failures.append({'compiler':compiler,'candidate':ident,'stage':'compile','returncode':result.returncode})
+ samples=[]
+ for n in [16384,131072,500000]:
+  for op in SOURCE:
+   original=WORK/f'input-{n}-{op}.txt';path=Path('/tmp')/f'blueberry-fps-{n}-{op}.txt';path.write_bytes(original.read_bytes());inputsha=sha(path)
+   expected=None
+   for ri in range(5):
+    for compiler in ['g++','clang++']:
+     labels=['own',op] if ri%2==0 else [op,'own']
+     for label in labels:
+      if (compiler,label) not in binaries:continue
+      binary=binaries[(compiler,label)];dest=Path('/tmp')/'blueberry-fps-output.txt'
+      cmd=['/usr/bin/time','-f','__RSS_KIB__=%M','taskset','-c','0',str(binary)]+([op] if label=='own' else [])
+      with path.open('rb') as inp,dest.open('wb') as out:
+       start=time.perf_counter();result=run(cmd,stdin=inp,stdout=out,stderr=subprocess.PIPE);wall=(time.perf_counter()-start)*1000
+      raw=dest.read_bytes()
+      try:digest=hashlib.sha256(b' '.join(str(int(x)).encode() for x in raw.split())).hexdigest()
+      except Exception:digest=None
+      if expected is None and result.returncode==0:expected=digest
+      text=result.stderr.decode(errors='replace');rss=re.search(r'__RSS_KIB__=(\d+)',text)
+      row={'compiler':compiler,'label':label,'op':op,'n':n,'run':ri,'input_sha256':inputsha,'output_normalized_sha256':digest,'correct':result.returncode==0 and digest==expected,'returncode':result.returncode,'wall_ms':wall,'stderr':text}
+      if rss:row['max_rss_kib']=int(rss.group(1))
+      samples.append(row)
+      with (OUT/'samples.jsonl').open('a') as log:log.write(json.dumps(row)+'\n')
+      if not row['correct']:failures.append(row)
+ summary=[]
+ for compiler in ['g++','clang++']:
+  for n in [16384,131072,500000]:
+   for op in SOURCE:
+    for label in ['own',op]:
+     subset=[s for s in samples if s['compiler']==compiler and s['n']==n and s['op']==op and s['label']==label and s['correct']]
+     row={'compiler':compiler,'n':n,'op':op,'label':label,'correct_runs':len(subset),'attempted_runs':sum(s['compiler']==compiler and s['n']==n and s['op']==op and s['label']==label for s in samples)}
+     for field in ['wall_ms','max_rss_kib']:
+      v=[s[field] for s in subset if field in s]
+      if v:row[field]={'median':statistics.median(v),'min':min(v)}
+     summary.append(row)
+ env['finished']=now();(OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n');(OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');(OUT/'failures.json').write_text(json.dumps(failures,indent=2)+'\n');(OUT/'runner.py.snapshot').write_bytes(Path(__file__).read_bytes());print(json.dumps({'samples':len(samples),'failures':len(failures)}))
+if __name__=='__main__':main()

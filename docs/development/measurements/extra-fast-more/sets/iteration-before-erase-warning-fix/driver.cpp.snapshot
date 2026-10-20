@@ -1,0 +1,154 @@
+#include "blueberry/extra-fast/ordered-map.hpp"
+#include "blueberry/utility/fast-io.hpp"
+
+#include <chrono>
+#include <cinttypes>
+#include <cstdint>
+#include <cstdio>
+#include <iterator>
+#include <map>
+#include <set>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+using U = std::uint64_t;
+using Clock = std::chrono::steady_clock;
+constexpr U offset = 14695981039346656037ULL;
+constexpr U prime = 1099511628211ULL;
+double ms(Clock::time_point a, Clock::time_point b) {
+  return std::chrono::duration<double, std::milli>(b - a).count();
+}
+struct Scan {
+  U digest = offset;
+  U count = 0;
+};
+void feed(U& hash, U value) { hash = (hash ^ value) * prime; }
+
+template <bool Map, class Container>
+Scan forward(const Container& container) {
+  Scan result;
+  for (const auto& item : container) {
+    if constexpr (Map) { feed(result.digest, item.first); feed(result.digest, item.second); }
+    else feed(result.digest, item);
+    ++result.count;
+  }
+  return result;
+}
+
+template <bool Map, class Container>
+Scan reverse(const Container& container) {
+  Scan result;
+  for (auto it = container.crbegin(); it != container.crend(); ++it) {
+    if constexpr (Map) { feed(result.digest, it->first); feed(result.digest, it->second); }
+    else feed(result.digest, *it);
+    ++result.count;
+  }
+  return result;
+}
+
+template <bool Map, class Container>
+int measure(const std::vector<std::pair<U, U>>& input,
+            Clock::time_point parse_start, Clock::time_point parse_end) {
+  static_assert(std::bidirectional_iterator<typename Container::iterator>);
+  static_assert(std::bidirectional_iterator<typename Container::const_iterator>);
+  if constexpr (Map) {
+    static_assert(std::is_same_v<decltype(*std::declval<typename Container::iterator&>()),
+                                 std::pair<const U, U>&>);
+    static_assert(std::is_same_v<decltype(*std::declval<typename Container::const_iterator&>()),
+                                 const std::pair<const U, U>&>);
+  } else {
+    static_assert(std::is_same_v<decltype(*std::declval<typename Container::iterator&>()),
+                                 const U&>);
+  }
+
+  const auto build_start = Clock::now();
+  Container container;
+  for (const auto& [key, value] : input) {
+    if constexpr (Map) container.insert_or_assign(key, value);
+    else container.insert(key);
+  }
+  const auto build_end = Clock::now();
+  const U initial_size = container.size();
+
+  const auto forward_start = Clock::now();
+  const Scan first = forward<Map>(std::as_const(container));
+  const auto forward_end = Clock::now();
+  const Scan backwards = reverse<Map>(std::as_const(container));
+  const auto reverse_end = Clock::now();
+
+  [[maybe_unused]] double update_ms = 0, update_check_ms = 0;
+  [[maybe_unused]] Scan updated;
+  if constexpr (Map) {
+    const auto update_start = Clock::now();
+    for (auto& [key, value] : container) value += key;
+    const auto update_end = Clock::now();
+    updated = forward<Map>(std::as_const(container));
+    const auto update_checked = Clock::now();
+    update_ms = ms(update_start, update_end);
+    update_check_ms = ms(update_end, update_checked);
+  }
+
+  // Only the returned iterator survives erase. Re-evaluate end() after every
+  // mutation: the experimental container invalidates all prior iterators.
+  const auto erase_start = Clock::now();
+  bool remove = true;
+  U erased = 0;
+  for (auto it = container.begin(); it != container.end();) {
+    if (remove) { it = container.erase(it); ++erased; }
+    else ++it;
+    remove = !remove;
+  }
+  const auto erase_end = Clock::now();
+  const Scan post = forward<Map>(std::as_const(container));
+  const auto post_forward_end = Clock::now();
+  const Scan post_reverse = reverse<Map>(std::as_const(container));
+  const auto post_reverse_end = Clock::now();
+  const U final_size = container.size();
+
+  std::printf("{\"parse_ms\":%.9f,\"build_ms\":%.9f,"
+              "\"forward_ms\":%.9f,\"reverse_ms\":%.9f,",
+              ms(parse_start, parse_end), ms(build_start, build_end),
+              ms(forward_start, forward_end), ms(forward_end, reverse_end));
+  if constexpr (Map)
+    std::printf("\"value_update_ms\":%.9f,\"update_check_ms\":%.9f,"
+                "\"updated_digest\":%" PRIu64 ",\"updated_count\":%" PRIu64 ",",
+                update_ms, update_check_ms, updated.digest, updated.count);
+  else
+    std::printf("\"value_update_ms\":null,\"update_check_ms\":null,"
+                "\"updated_digest\":null,\"updated_count\":null,");
+  std::printf("\"erase_ms\":%.9f,\"post_forward_ms\":%.9f,"
+              "\"post_reverse_ms\":%.9f,\"reported_ms\":%.9f,"
+              "\"initial_size\":%" PRIu64 ",\"final_size\":%" PRIu64 ","
+              "\"erased\":%" PRIu64 ",\"forward_digest\":%" PRIu64 ","
+              "\"forward_count\":%" PRIu64 ",\"reverse_digest\":%" PRIu64 ","
+              "\"reverse_count\":%" PRIu64 ",\"post_forward_digest\":%" PRIu64 ","
+              "\"post_forward_count\":%" PRIu64 ",\"post_reverse_digest\":%" PRIu64 ","
+              "\"post_reverse_count\":%" PRIu64 "}\n",
+              ms(erase_start, erase_end), ms(erase_end, post_forward_end),
+              ms(post_forward_end, post_reverse_end), ms(parse_start, post_reverse_end),
+              initial_size, final_size, erased, first.digest, first.count,
+              backwards.digest, backwards.count, post.digest, post.count,
+              post_reverse.digest, post_reverse.count);
+  return 0;
+}
+
+int main(int argc, char** argv) {
+  if (argc != 3) return 2;
+  const std::string kind = argv[1], variant = argv[2];
+  if ((kind != "map" && kind != "set") || (variant != "std" && variant != "new")) return 2;
+  const auto parse_start = Clock::now();
+  blueberry::FastInput in;
+  int n;
+  if (!in.read(n) || n < 0) return 2;
+  std::vector<std::pair<U, U>> input(n);
+  for (auto& [key, value] : input) if (!in.read(key, value)) return 2;
+  const auto parse_end = Clock::now();
+  if (kind == "map") {
+    if (variant == "std") return measure<true, std::map<U, U>>(input, parse_start, parse_end);
+    return measure<true, blueberry::extra_fast::OrderedMap<U, U>>(input, parse_start, parse_end);
+  }
+  if (variant == "std") return measure<false, std::set<U>>(input, parse_start, parse_end);
+  return measure<false, blueberry::extra_fast::OrderedSet<U>>(input, parse_start, parse_end);
+}

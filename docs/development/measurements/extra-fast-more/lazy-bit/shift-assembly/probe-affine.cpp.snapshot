@@ -1,0 +1,6 @@
+#include "wide-affine16.hpp"
+#include "wide-affine-shift.hpp"
+extern "C" std::uint32_t baseline_prod(const blueberry::extra_fast::AffineSumSegmentTree16& t, int l, int r) { return t.prod(l, r); }
+extern "C" std::uint32_t shift_prod(const blueberry::extra_fast::ShiftAffineControl& t, int l, int r) { return t.prod(l, r); }
+extern "C" void baseline_apply(blueberry::extra_fast::AffineSumSegmentTree16& t, int l, int r, std::uint32_t a, std::uint32_t b) { t.apply(l, r, a, b); }
+extern "C" void shift_apply(blueberry::extra_fast::ShiftAffineControl& t, int l, int r, std::uint32_t a, std::uint32_t b) { t.apply(l, r, a, b); }

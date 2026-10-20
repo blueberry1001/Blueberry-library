@@ -1,0 +1,101 @@
+#include "blueberry/utility/fast-io.hpp"
+#include "blueberry/data-structure/ordered-set.hpp"
+#ifndef ORDERED_HEADER
+#define ORDERED_HEADER "ordered-map.hpp"
+#endif
+#ifndef HASH_HEADER
+#define HASH_HEADER "hash-map.hpp"
+#endif
+#include ORDERED_HEADER
+#include HASH_HEADER
+#include <chrono>
+#include <charconv>
+#include <fstream>
+#include <iostream>
+#include <map>
+#include <set>
+#include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+using namespace std;
+using U=uint64_t;
+#ifndef KEY_BITS
+#define KEY_BITS 64
+#endif
+using K=conditional_t<KEY_BITS==32,uint32_t,uint64_t>;
+struct Op{int type;U key,value;};
+struct Answer{U found,key,value;};
+using Clock=chrono::steady_clock;
+double ms(Clock::time_point a,Clock::time_point b){return chrono::duration<double,milli>(b-a).count();}
+size_t rss(){ifstream f("/proc/self/status");string key;size_t x;while(f>>key){if(key=="VmHWM:"){f>>x;return x;}getline(f,key);}return 0;}
+U digest(const string& s){U h=14695981039346656037ull;for(unsigned char c:s){h^=c;h*=1099511628211ull;}return h;}
+template<class Map,bool Hash,bool Standard> void run_map(int n,int q,const vector<pair<U,U>>& initial,const vector<Op>& ops,bool simd,bool memory,bool reserved,Clock::time_point parse_begin,Clock::time_point parse_end){
+ auto t=Clock::now();
+ Map map=[&](){if constexpr(Standard)return Map{};else return Map(simd);}();
+ if constexpr(Hash)if(reserved)map.reserve(size_t(n)+q);
+ for(auto [k,v]:initial)map.insert_or_assign(k,v);
+ auto built=Clock::now();
+ if(memory){cout<<"{\"rss_kib\":"<<rss()<<",\"size\":"<<map.size()<<"}\n";return;}
+ vector<Answer> answers;answers.reserve(q);
+ auto start=Clock::now();
+ for(const auto& op:ops){
+  if(op.type==0)map.insert_or_assign(op.key,op.value);
+  else if(op.type==1)map.erase(op.key);
+  else if(op.type==2){
+   if constexpr(Standard){auto it=map.find(op.key);answers.push_back({it!=map.end(),0,it==map.end()?0:it->second});}
+   else {auto v=map.get(op.key);answers.push_back({bool(v),0,v.value_or(0)});}
+  } else if constexpr(!Hash){
+   if constexpr(Standard){auto it=map.lower_bound(op.key);answers.push_back({it!=map.end(),it==map.end()?0:it->first,it==map.end()?0:it->second});}
+   else {auto p=map.lower_bound(op.key);answers.push_back({bool(p),p?p->first:0,p?p->second:0});}
+  }
+ }
+ auto end=Clock::now();
+ string text;text.reserve(answers.size()*48);char buf[64];
+ for(auto a:answers)for(U x:{a.found,a.key,a.value}){auto p=to_chars(buf,buf+64,x).ptr;text.append(buf,p);text+=' ';}
+ auto formatted=Clock::now();
+ cout<<"{\"parse_ms\":"<<ms(parse_begin,parse_end)<<",\"build_ms\":"<<ms(t,built)<<",\"operations_ms\":"<<ms(start,end)<<",\"format_ms\":"<<ms(end,formatted)<<",\"checksum\":"<<digest(text)<<",\"answer_count\":"<<answers.size()<<",\"size\":"<<map.size()<<",\"rss_kib\":"<<rss()<<"}\n";
+}
+template<class Set,bool Standard,bool Hash=false> void run_set(int n,int q,const vector<pair<U,U>>& initial,const vector<Op>& ops,bool simd,bool memory,bool reserved,Clock::time_point parse_begin,Clock::time_point parse_end){
+ auto t=Clock::now();Set set=[&](){if constexpr(Standard)return Set{};else return Set(simd);}();
+ if constexpr(Hash)if(reserved)set.reserve(size_t(n)+q);
+ for(auto [k,v]:initial){(void)v;set.insert(k);}
+ auto built=Clock::now();if(memory){cout<<"{\"rss_kib\":"<<rss()<<",\"size\":"<<set.size()<<"}\n";return;}
+ vector<U> answers;answers.reserve(q*2);
+ auto start=Clock::now();
+ for(const auto& op:ops){
+  if(op.type==0)set.insert(op.key);
+  else if(op.type==1)set.erase(op.key);
+  else if(op.type==2)answers.push_back(set.contains(op.key));
+  else if constexpr(!Hash){
+   if constexpr(Standard){auto it=set.lower_bound(op.key);answers.push_back(it!=set.end());answers.push_back(it==set.end()?0:*it);}
+   else {auto k=set.lower_bound(op.key);answers.push_back(bool(k));answers.push_back(k.value_or(0));}
+  }
+ }
+ auto end=Clock::now();string text;text.reserve(answers.size()*24);char buf[64];
+ for(U x:answers){auto p=to_chars(buf,buf+64,x).ptr;text.append(buf,p);text+=' ';}
+ auto formatted=Clock::now();cout<<"{\"parse_ms\":"<<ms(parse_begin,parse_end)<<",\"build_ms\":"<<ms(t,built)<<",\"operations_ms\":"<<ms(start,end)<<",\"format_ms\":"<<ms(end,formatted)<<",\"checksum\":"<<digest(text)<<",\"answer_count\":"<<answers.size()<<",\"size\":"<<set.size()<<",\"rss_kib\":"<<rss()<<"}\n";
+}
+int main(int argc,char**argv){
+ if(argc<3)return 2;
+ string kind=argv[1],variant=argv[2];bool memory=argc>3&&string(argv[3])=="memory",reserved=argc<=4||string(argv[4])!="growth";
+ auto parse_begin=Clock::now();blueberry::FastInput input;int n,q;input.read(n,q);
+ vector<pair<U,U>> initial(n);for(auto&[k,v]:initial)input.read(k,v);
+ vector<Op> ops(memory?0:q);for(auto&o:ops)input.read(o.type,o.key,o.value);
+ auto parse_end=Clock::now();bool simd=variant!="scalar";
+ if(kind=="map"){
+  if(variant=="std")run_map<map<K,U>,false,true>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+  else run_map<blueberry::extra_fast::OrderedMap<K,U>,false,false>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+ }else if(kind=="hash"){
+  if(variant=="std")run_map<unordered_map<K,U>,true,true>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+  else if(variant=="ordered-std")run_map<map<K,U>,false,true>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+  else run_map<blueberry::extra_fast::HashMap<K,U>,true,false>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+ }else if(kind=="set"){
+  if(variant=="std")run_set<set<K>,true>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+  else run_set<blueberry::extra_fast::OrderedSet<K>,false>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+ }else if(kind=="hashset"){
+  if(variant=="std")run_set<unordered_set<K>,true,true>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+  else if(variant=="ordered-std")run_set<set<K>,true,false>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+  else run_set<blueberry::extra_fast::HashSet<K>,false,true>(n,q,initial,ops,simd,memory,reserved,parse_begin,parse_end);
+ }
+}

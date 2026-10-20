@@ -1,0 +1,114 @@
+#include "wide-affine.hpp"
+#include "wide-affine-shift.hpp"
+#include "wide-affine-packed.hpp"
+#include "wide-affine16.hpp"
+
+#include <algorithm>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <numeric>
+#include <random>
+#include <utility>
+#include <vector>
+
+#if defined(BLUEBERRY_TEST_AFFINE_PACKED)
+using Tree = blueberry::extra_fast::PackedAffineControl;
+#elif defined(BLUEBERRY_TEST_AFFINE_SHIFT)
+using Tree = blueberry::extra_fast::ShiftAffineControl;
+#elif defined(BLUEBERRY_TEST_AFFINE16)
+using Tree = blueberry::extra_fast::AffineSumSegmentTree16;
+#else
+using Tree = blueberry::extra_fast::AffineSumSegmentTree;
+#endif
+using U32 = std::uint32_t;
+constexpr U32 mod = 998244353;
+
+int main(int argc, char** argv) {
+  const std::uint64_t seed = argc > 1 ? std::strtoull(argv[1], nullptr, 10) : 20261020;
+  std::mt19937_64 rng(seed);
+  int step = 0;
+  auto fail = [&](const char* op, const std::vector<U32>& a, int l, int r,
+                  U32 expected, U32 actual) {
+    std::cerr << "seed=" << seed << " step=" << step << " op=" << op
+              << " n=" << a.size() << " l=" << l << " r=" << r
+              << " expected=" << expected << " actual=" << actual << " input=";
+    for (auto x : a) std::cerr << x << ',';
+    std::cerr << '\n';
+    std::exit(1);
+  };
+  for (bool simd : {false, true}) {
+    for (int n : {0, 1, 2, 7, 8, 9, 15, 16, 17, 63, 64, 65, 255, 256, 257, 511, 512, 513,
+                  4095, 4096, 4097, 32767, 32768, 32769, 65535, 65536, 65537, 262145, 1048575, 1048576, 1048577}) {
+      std::vector<U32> a(n), supplied(n);
+      for (int i = 0; i < n; ++i) {
+        supplied[i] = rng();
+        a[i] = supplied[i] % mod;
+      }
+      Tree tree(supplied, simd), zero(n, simd);
+      if (tree.size() != n || zero.all_prod() != 0 ||
+          tree.uses_simd() != (simd && Tree::simd_available()))
+        fail("construct", a, 0, n, n, tree.size());
+      for (step = 0; step < (n > 262144 ? 6 : n > 32768 ? 70 : 200); ++step) {
+        int l = rng() % (n + 1), r = rng() % (n + 1);
+        if (l > r) std::swap(l, r);
+        if (step % 4 == 0) { l = 0; r = n; }
+        if (step % 13 == 0) r = l;
+        U32 x = step % 7 == 0 ? 0 : step % 7 == 1 ? 1 : step % 7 == 2 ? ~U32(0) : rng();
+        U32 y = step % 5 == 0 ? 0 : step % 5 == 1 ? ~U32(0) : rng();
+        tree.apply(l, r, x, y);
+        for (int i = l; i < r; ++i)
+          a[i] = (static_cast<std::uint64_t>(x % mod) * a[i] + y % mod) % mod;
+        if (n && step % 3 == 0) {
+          const int p = rng() % n;
+          const U32 value = rng();
+          tree.set(p, value);
+          a[p] = value % mod;
+        }
+        l = rng() % (n + 1);
+        r = rng() % (n + 1);
+        if (l > r) std::swap(l, r);
+        const auto& read_only = tree;
+        U32 expected = std::accumulate(a.begin() + l, a.begin() + r, std::uint64_t(0)) % mod;
+        if (read_only.prod(l, r) != expected)
+          fail("prod", a, l, r, expected, read_only.prod(l, r));
+        expected = std::accumulate(a.begin(), a.end(), std::uint64_t(0)) % mod;
+        if (read_only.all_prod() != expected)
+          fail("all_prod", a, 0, n, expected, read_only.all_prod());
+        if (n) {
+          int p = rng() % n;
+          if (read_only.get(p) != a[p]) fail("get", a, p, p + 1, a[p], read_only.get(p));
+        }
+        if (step % 20 == 0) {
+          auto copy = tree;
+          auto* self = &copy;
+          copy = *self;
+          if (n) {
+            const auto before = tree.all_prod();
+            copy.apply(0, n, 0, 7);
+            if (tree.all_prod() != before)
+              fail("independent copy", a, 0, n, before, tree.all_prod());
+            copy = tree;
+          }
+          auto moved = std::move(copy);
+          if (copy.size() != 0 || copy.all_prod() != 0 || copy.prod(0, 0) != 0)
+            fail("move construct source", a, 0, n, 0, copy.size());
+          copy.apply(0, 0, 2, 3);
+          Tree empty_copy(copy);
+          if (empty_copy.size() != 0 || empty_copy.all_prod() != 0)
+            fail("copy moved empty", a, 0, n, 0, empty_copy.size());
+          tree = std::move(moved);
+          if (moved.size() != 0 || moved.all_prod() != 0)
+            fail("move assign source", a, 0, n, 0, moved.size());
+          copy = Tree(0);
+          auto* own = &tree;
+          tree = std::move(*own);
+          if (tree.all_prod() != expected)
+            fail("self move", a, 0, n, expected, tree.all_prod());
+        }
+      }
+    }
+  }
+  std::cout << "seed=" << seed << " avx2=" << Tree::simd_available() << '\n';
+}
+

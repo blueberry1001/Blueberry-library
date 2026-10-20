@@ -1,0 +1,61 @@
+#pragma once
+#include <cassert>
+#include <cstdint>
+#include <vector>
+class AffineSum {
+  static constexpr uint32_t mod = 998244353;
+  std::vector<uint32_t> sums, muls, adds;
+  int n_, size_ = 1, height_ = 0;
+  static uint32_t plus(uint32_t x, uint32_t y) { x += y; return x >= mod ? x-mod:x; }
+  static uint32_t mult(uint32_t x,uint32_t y) { return uint64_t(x)*y%mod; }
+  void act(int p, uint32_t a,uint32_t b,unsigned len) {
+    sums[p] = plus(mult(a,sums[p]),mult(b,len));
+    if (p<size_) { muls[p]=mult(a,muls[p]); adds[p]=plus(mult(a,adds[p]),b); }
+  }
+  void push(int p,unsigned len) {
+    if(muls[p]!=1 || adds[p]!=0) {
+      act(p*2,muls[p],adds[p],len/2); act(p*2+1,muls[p],adds[p],len/2);
+      muls[p]=1; adds[p]=0;
+    }
+  }
+  void pull(int p) { sums[p]=plus(sums[2*p],sums[2*p+1]); }
+public:
+  explicit AffineSum(const std::vector<uint32_t>& a):n_(a.size()) {
+    while(size_<n_) {size_*=2; ++height_;}
+    sums.resize(2*size_); muls.assign(size_,1); adds.resize(size_);
+    for(int i=0;i<n_;++i)sums[size_+i]=a[i];
+    for(int i=size_-1;i;--i)pull(i);
+  }
+  void apply(int l,int r,uint32_t a,uint32_t b) {
+    if(l==r)return;
+    l+=size_;r+=size_;
+    for(int h=height_;h;--h) {
+      if((l>>h)<<h!=l)push(l>>h,1u<<h);
+      if((r>>h)<<h!=r)push((r-1)>>h,1u<<h);
+    }
+    int left=l,right=r;unsigned len=1;
+    while(l<r) {
+      if(l&1)act(l++,a,b,len);
+      if(r&1)act(--r,a,b,len);
+      l>>=1;r>>=1;len*=2;
+    }
+    for(int h=1;h<=height_;++h) {
+      if((left>>h)<<h!=left)pull(left>>h);
+      if((right>>h)<<h!=right)pull((right-1)>>h);
+    }
+  }
+  uint32_t prod(int l,int r) {
+    if(l==r)return 0;
+    l+=size_;r+=size_;
+    for(int h=height_;h;--h) {
+      if((l>>h)<<h!=l)push(l>>h,1u<<h);
+      if((r>>h)<<h!=r)push((r-1)>>h,1u<<h);
+    }
+    uint32_t answer=0;
+    for(;l<r;l>>=1,r>>=1) {
+      if(l&1)answer=plus(answer,sums[l++]);
+      if(r&1)answer=plus(answer,sums[--r]);
+    }
+    return answer;
+  }
+};

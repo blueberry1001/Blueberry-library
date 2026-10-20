@@ -1,0 +1,166 @@
+#pragma once
+#include <algorithm>
+#include <bit>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <optional>
+#include <stdexcept>
+#include <type_traits>
+#include <utility>
+#include <vector>
+#if defined(__SSE2__) && (defined(__GNUC__) || defined(__clang__))
+#include <emmintrin.h>
+#define BLUEBERRY_HASH_SSE2 1
+#else
+#define BLUEBERRY_HASH_SSE2 0
+#endif
+namespace blueberry::extra_fast {
+template<class Key=std::uint64_t,class Value=std::uint64_t>
+class HashMap {
+  static_assert(std::is_integral_v<Key> && !std::is_same_v<Key,bool> && sizeof(Key)<=8);
+  static_assert(std::is_trivial_v<Value>);
+  static constexpr std::uint8_t Empty=128,Deleted=254;
+  static constexpr std::size_t Missing=std::numeric_limits<std::size_t>::max();
+  std::vector<std::uint8_t> control_;
+  std::vector<std::pair<Key,Value>> entries_;
+  std::size_t size_=0,used_=0;
+  bool simd_=false;
+  struct Position {std::size_t slot;bool found;};
+  static std::uint64_t hash(Key key){
+    std::uint64_t x=static_cast<std::make_unsigned_t<Key>>(key)+std::uint64_t(0x9e3779b97f4a7c15);
+    x=(x^(x>>30))*0xbf58476d1ce4e5b9;
+    x=(x^(x>>27))*0x94d049bb133111eb;
+    return x^(x>>31);
+  }
+  unsigned match(std::size_t group,std::uint8_t value)const{
+#if BLUEBERRY_HASH_SSE2
+    if(simd_){
+      auto bytes=_mm_loadu_si128(reinterpret_cast<const __m128i*>(control_.data()+group));
+      auto target=_mm_set1_epi8(static_cast<char>(value));
+#ifdef BLUEBERRY_EXTRA_FAST_USE_ASM
+      asm("pcmpeqb {%1,%0|%0,%1}" : "+x"(bytes) : "x"(target));
+      return static_cast<unsigned>(_mm_movemask_epi8(bytes));
+#else
+      return static_cast<unsigned>(_mm_movemask_epi8(_mm_cmpeq_epi8(bytes,target)));
+#endif
+    }
+#endif
+    unsigned mask=0;
+    for(unsigned i=0;i<16;++i)mask|=unsigned(control_[group+i]==value)<<i;
+    return mask;
+  }
+  Position locate(Key key)const{
+    if(control_.empty())return{Missing,false};
+    auto h=hash(key);auto tag=static_cast<std::uint8_t>(h&127);
+    std::size_t groups=control_.size()/16,group=(h>>7)&(groups-1),step=0,first=Missing;
+    while(true){
+      auto offset=group*16;unsigned candidates=match(offset,tag);
+      while(candidates){unsigned at=std::countr_zero(candidates);candidates&=candidates-1;
+        if(entries_[offset+at].first==key)return{offset+at,true};
+      }
+      unsigned holes=match(offset,Empty);
+      if(first==Missing){unsigned deleted=match(offset,Deleted);if(deleted)first=offset+std::countr_zero(deleted);}
+      if(holes)return{first!=Missing?first:offset+std::countr_zero(holes),false};
+      group=(group+(++step))&(groups-1);
+    }
+  }
+  void rehash(std::size_t capacity){
+    HashMap next(simd_);next.control_.assign(capacity,Empty);next.entries_.resize(capacity);
+    for(std::size_t i=0;i<control_.size();++i)if(control_[i]<128){
+      auto pos=next.locate(entries_[i].first).slot;
+      next.control_[pos]=static_cast<std::uint8_t>(hash(entries_[i].first)&127);
+      next.entries_[pos]=entries_[i];++next.size_;++next.used_;
+    }
+    swap(next);
+  }
+  Position prepare(Key key){
+    auto p=locate(key);if(p.found)return p;
+    if(control_.empty())rehash(16);
+    else if(control_[p.slot]==Empty && used_>=control_.size()-control_.size()/8){
+      auto cap=control_.size();
+      if(size_>cap/2){if(cap>entries_.max_size()/2)throw std::length_error("HashMap capacity");cap*=2;}
+      rehash(cap);
+    } else return p;
+    return locate(key);
+  }
+  void occupy(std::size_t p,Key key,Value value){
+    if(control_[p]==Empty)++used_;
+    control_[p]=static_cast<std::uint8_t>(hash(key)&127);
+    entries_[p]={key,value};++size_;
+  }
+ public:
+  explicit HashMap(bool use_simd=true):simd_(use_simd&&simd_available()){}
+  HashMap(const HashMap&)=default;
+  HashMap(HashMap&& other)noexcept:control_(std::move(other.control_)),entries_(std::move(other.entries_)),
+    size_(std::exchange(other.size_,0)),used_(std::exchange(other.used_,0)),simd_(other.simd_){
+    other.control_.clear();other.entries_.clear();
+  }
+  HashMap& operator=(const HashMap& other){if(this!=&other){HashMap next(other);swap(next);}return *this;}
+  HashMap& operator=(HashMap&& other)noexcept{if(this!=&other){HashMap next(std::move(other));swap(next);}return *this;}
+  void swap(HashMap& other)noexcept{
+    control_.swap(other.control_);entries_.swap(other.entries_);
+    std::swap(size_,other.size_);std::swap(used_,other.used_);std::swap(simd_,other.simd_);
+  }
+  std::size_t size()const{return size_;}
+  bool empty()const{return size_==0;}
+  std::size_t capacity()const{return control_.size();}
+  bool uses_simd()const{return simd_;}
+  static bool simd_available(){
+#if BLUEBERRY_HASH_SSE2 && !defined(BLUEBERRY_EXTRA_FAST_FORCE_SCALAR)
+    return true;
+#else
+    return false;
+#endif
+  }
+  void reserve(std::size_t count){
+    std::size_t cap=std::max<std::size_t>(16,control_.size());
+    while(count>cap-cap/8){if(cap>entries_.max_size()/2)throw std::length_error("HashMap capacity");cap*=2;}
+    if(cap>control_.size())rehash(cap);
+  }
+  bool insert(Key key,Value value){auto p=prepare(key);if(p.found)return false;occupy(p.slot,key,value);return true;}
+  bool insert_or_assign(Key key,Value value){
+    auto p=prepare(key);if(p.found){entries_[p.slot].second=value;return false;}
+    occupy(p.slot,key,value);return true;
+  }
+  Value& operator[](Key key){auto p=prepare(key);if(!p.found)occupy(p.slot,key,Value{});return entries_[p.slot].second;}
+  std::optional<Value> get(Key key)const{auto p=locate(key);if(!p.found)return{};return entries_[p.slot].second;}
+  bool contains(Key key)const{return locate(key).found;}
+  bool erase(Key key){auto p=locate(key);if(!p.found)return false;control_[p.slot]=Deleted;--size_;return true;}
+  void clear(){std::fill(control_.begin(),control_.end(),Empty);size_=used_=0;}
+};
+template<class Key=std::uint64_t>
+class HashSet {
+  HashMap<Key,std::uint8_t> map_;
+ public:
+  explicit HashSet(bool use_simd=true):map_(use_simd){}
+  std::size_t size()const{return map_.size();}
+  bool empty()const{return map_.empty();}
+  std::size_t capacity()const{return map_.capacity();}
+  bool uses_simd()const{return map_.uses_simd();}
+  static bool simd_available(){return HashMap<Key,std::uint8_t>::simd_available();}
+  void reserve(std::size_t count){map_.reserve(count);}
+  bool insert(Key key){return map_.insert(key,0);}
+  bool erase(Key key){return map_.erase(key);}
+  bool contains(Key key)const{return map_.contains(key);}
+  void clear(){map_.clear();}
+};
+template<class Key=std::uint64_t>
+class HashSet {
+  HashMap<Key,std::uint8_t> map_;
+ public:
+  explicit HashSet(bool use_simd=true):map_(use_simd){}
+  std::size_t size()const{return map_.size();}
+  bool empty()const{return map_.empty();}
+  std::size_t capacity()const{return map_.capacity();}
+  bool uses_simd()const{return map_.uses_simd();}
+  static bool simd_available(){return HashMap<Key,std::uint8_t>::simd_available();}
+  void reserve(std::size_t count){map_.reserve(count);}
+  bool insert(Key key){return map_.insert(key,0);}
+  bool erase(Key key){return map_.erase(key);}
+  bool contains(Key key)const{return map_.contains(key);}
+  void clear(){map_.clear();}
+};
+}
+#undef BLUEBERRY_HASH_SSE2

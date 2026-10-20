@@ -1,0 +1,181 @@
+#include <algorithm>
+#include <concepts>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <iterator>
+#include <limits>
+#include <map>
+#include <memory>
+#include <optional>
+#include <random>
+#include <set>
+#include <string>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+#include "blueberry/extra-fast/ordered-map.hpp"
+
+namespace {
+using blueberry::extra_fast::OrderedMap;
+using blueberry::extra_fast::OrderedSet;
+std::uint64_t seed = 20261020;
+int step;
+std::string input;
+void check(bool ok, const char* operation) {
+  if (ok) return;
+  std::cerr << "seed=" << seed << " step=" << step << " input=" << input
+            << " operation=" << operation << " expected=oracle actual=mismatch\n";
+  std::exit(1);
+}
+
+template <class K>
+void run(bool simd) {
+  using M = OrderedMap<K>;
+  using S = OrderedSet<K>;
+  using I = typename M::iterator;
+  using CI = typename M::const_iterator;
+  using SI = typename S::iterator;
+  static_assert(std::bidirectional_iterator<I> && std::bidirectional_iterator<CI>);
+  static_assert(std::bidirectional_iterator<SI>);
+  static_assert(std::is_same_v<std::iter_reference_t<I>, std::pair<const K, std::uint64_t>&>);
+  static_assert(std::is_same_v<std::iter_reference_t<CI>, const std::pair<const K, std::uint64_t>&>);
+  static_assert(std::is_same_v<std::iter_reference_t<SI>, const K&>);
+  static_assert(std::is_convertible_v<I, CI> && !std::is_convertible_v<CI, I>);
+  static_assert(!std::is_assignable_v<decltype((std::declval<I>()->first)), K>);
+  static_assert(std::is_assignable_v<decltype((std::declval<I>()->second)), std::uint64_t>);
+  M map(simd);
+  S set(simd);
+  std::map<K, std::uint64_t> oracle;
+  std::mt19937_64 rng(seed);
+  check(I{} == I{} && CI{} == CI{} && I{} == CI{}, "default iterator equality");
+  auto audit = [&] {
+    const M& cm = map;
+    const S& cs = set;
+    auto it = map.begin();
+    auto sit = set.begin();
+    auto previous = oracle.begin();
+    for (const auto& [key, value] : oracle) {
+      check(it != map.end() && sit != set.end(), "forward length");
+      check(it->first == key && it->second == value && *sit == key, "forward entry");
+      check(map.get(key) == value && std::addressof(it->second) == std::addressof(map[key]),
+            "stored mapped lvalue");
+      CI cit = it;
+      check(cit == it && it == cit && std::addressof(*it) == it.operator->(), "const conversion/lvalue");
+      auto post = it++;
+      check(post == map.find(key) && cm.find(key) == post, "postincrement/find");
+      check(set.find(key) == sit && cs.find(key) == sit, "set find");
+      check(*sit++ == key, "set postincrement");
+      if (previous != oracle.begin()) {
+        auto back = post;
+        --back;
+        check(back->first == std::prev(previous)->first, "leaf predecessor");
+      }
+      ++previous;
+    }
+    check(it == map.end() && sit == set.end(), "end after traversal");
+    check(cm.begin() == cm.cbegin() && cm.end() == cm.cend(), "const endpoints");
+    check(cs.begin() == cs.cbegin() && cs.end() == cs.cend(), "set const endpoints");
+    check(std::distance(cm.cbegin(), cm.cend()) == map.size(), "iterator distance");
+    auto rit = map.rbegin();
+    auto rsit = set.rbegin();
+    auto crit = cm.crbegin();
+    auto crsit = cs.crbegin();
+    for (auto ref = oracle.rbegin(); ref != oracle.rend(); ++ref) {
+      check(rit != map.rend() && rsit != set.rend(), "reverse length");
+      check(rit->first == ref->first && rit->second == ref->second && *rsit == ref->first,
+            "reverse entry");
+      check(crit->first == ref->first && *crsit == ref->first, "const reverse entry");
+      ++rit; ++rsit; ++crit; ++crsit;
+    }
+    check(rit == map.rend() && rsit == set.rend() && crit == cm.crend() && crsit == cs.crend(),
+          "reverse endpoints");
+    if (!oracle.empty()) {
+      auto last = map.end();
+      auto slast = set.end();
+      check((last-- == map.end()) && last->first == oracle.rbegin()->first, "postdecrement end");
+      check(*--slast == oracle.rbegin()->first, "set decrement end");
+    }
+  };
+  audit();
+  for (step = 0; step < 6000; ++step) {
+    const K key = step < 3 ? (step == 0 ? std::numeric_limits<K>::min()
+                                          : step == 1 ? std::numeric_limits<K>::max() : K{})
+                          : static_cast<K>(rng() % 1200);
+    const std::uint64_t value = rng();
+    const int operation = step < 1600 ? 0 : rng() % 6;
+    input = "bits=" + std::to_string(sizeof(K) * 8) + " signed=" + std::to_string(std::is_signed_v<K>) +
+            " simd=" + std::to_string(simd) + " key=" + std::to_string(key) +
+            " operation=" + std::to_string(operation);
+    if (operation <= 1) {
+      map.insert_or_assign(key, value);
+      set.insert(key);
+      oracle[key] = value;
+    } else if (operation == 2) {
+      const bool exists = oracle.erase(key);
+      check(map.erase(key) == exists && set.erase(key) == exists, "erase key");
+    } else if (operation == 3) {
+      auto it = map.find(key);
+      if (it != map.end()) {
+        it->second ^= value;
+        oracle[key] ^= value;
+      } else check(!oracle.count(key) && set.find(key) == set.end(), "missing find");
+    } else if (!oracle.empty()) {
+      auto ref = oracle.begin();
+      std::advance(ref, rng() % oracle.size());
+      const auto next = std::next(ref);
+      const auto next_key = next == oracle.end() ? std::optional<K>{} : std::optional<K>{next->first};
+      auto it = map.find(ref->first);
+      CI cit = it;
+      auto got = operation == 4 ? map.erase(it) : map.erase(cit);
+      auto sgot = set.erase(set.find(ref->first));
+      check(next_key ? (got != map.end() && got->first == *next_key &&
+                        sgot != set.end() && *sgot == *next_key)
+                     : (got == map.end() && sgot == set.end()), "erase iterator successor");
+      oracle.erase(ref);
+    }
+    if (step % 97 == 0) audit();
+  }
+  for (auto& [key, value] : map) value = oracle[key] += 3;
+  audit();
+  M copy(map), assigned;
+  assigned = copy;
+  M moved(std::move(copy));
+  check(copy.begin() == copy.end(), "move source endpoints");
+  copy = std::move(moved);
+  check(moved.begin() == moved.end(), "move assignment source endpoints");
+  map.swap(copy);
+  check(std::equal(map.begin(), map.end(), assigned.begin(), assigned.end()), "copy/move/swap traversal");
+  S scopy(set), smoved(std::move(scopy));
+  check(scopy.begin() == scopy.end() && std::equal(set.begin(), set.end(), smoved.begin(), smoved.end()),
+        "set copy/move traversal");
+  // Repeated successor erasure exercises all leaf merges, recycling, and root collapse.
+  for (auto it = map.begin(); it != map.end();) it = map.erase(it);
+  for (auto it = set.begin(); it != set.end();) it = set.erase(it);
+  oracle.clear();
+  audit();
+  for (int i = 0; i < 1500; ++i) { map.insert(K(i), i); set.insert(K(i)); oracle[K(i)] = i; }
+  audit();
+  // Delete in reverse order to exercise predecessor links through left merges.
+  while (!map.empty()) {
+    auto it = map.end();
+    auto sit = set.end();
+    check(map.erase(--it) == map.end() && set.erase(--sit) == set.end(), "erase last");
+  }
+  map.clear(); set.clear(); oracle.clear();
+  map.insert(K(7), 11); set.insert(K(7)); oracle[K(7)] = 11;
+  audit();
+}
+}
+
+int main(int argc, char** argv) {
+  if (argc > 1) seed = std::strtoull(argv[1], nullptr, 10);
+  for (bool simd : {false, true}) {
+    run<std::uint32_t>(simd);
+    run<std::int32_t>(simd);
+    run<std::uint64_t>(simd);
+    run<std::int64_t>(simd);
+  }
+  std::cout << "ordered iterator random OK seed=" << seed << '\n';
+}

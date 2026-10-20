@@ -1,0 +1,284 @@
+#pragma once
+#include <algorithm>
+#include <array>
+#include <bit>
+#include <cassert>
+#include <cstdint>
+#include <limits>
+#include <memory>
+#include <optional>
+#include <type_traits>
+#include <utility>
+#include <vector>
+#if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
+#include <immintrin.h>
+#define BLUEBERRY_ORDERED_AVX 1
+#else
+#define BLUEBERRY_ORDERED_AVX 0
+#endif
+namespace blueberry::extra_fast {
+template<class Key = std::uint32_t, class Value = std::uint64_t>
+class OrderedMap {
+  static_assert(std::is_integral_v<Key> && (sizeof(Key)==4 || sizeof(Key)==8));
+  static_assert(std::is_trivial_v<Value> && std::is_copy_constructible_v<Value> && std::is_copy_assignable_v<Value>);
+  static constexpr int B=16, C=B+1;
+  struct alignas(64) Node {
+    std::array<Key,24> key{};
+    union Data {
+      std::array<Value,C> value;
+      std::array<int,C> child;
+      Data() : value{} {}
+    } data;
+    int n=0, total=0;
+    bool leaf=true;
+    explicit Node(bool is_leaf=true) : leaf(is_leaf) {
+      if(!leaf) std::construct_at(&data.child);
+    }
+  };
+  struct Path {
+    std::array<int,32> node, child;
+    int depth=0, leaf=-1, pos=0, rank=0;
+  };
+  std::vector<Node> nodes_;
+  int root_=-1, free_=-1;
+  bool simd_=false;
+  int allocate(bool leaf) {
+    if(free_!=-1) {
+      int id=free_; free_=nodes_[id].data.child[0];
+      nodes_[id]=Node(leaf); return id;
+    }
+    nodes_.emplace_back(leaf); return static_cast<int>(nodes_.size())-1;
+  }
+  void recycle(int id) {
+    nodes_[id]=Node(false); nodes_[id].data.child[0]=free_; free_=id;
+  }
+  void pull(int id) {
+    auto& n=nodes_[id];
+    if(n.leaf) { n.total=n.n; return; }
+    n.total=0;
+    for(int i=0;i<n.n;++i) {
+      const auto& c=nodes_[n.data.child[i]];
+      n.key[i]=c.key[c.n-1]; n.total+=c.total;
+    }
+  }
+  static int lower_scalar(const Node& n, Key key) {
+    return static_cast<int>(std::lower_bound(n.key.begin(),n.key.begin()+n.n,key)-n.key.begin());
+  }
+#if BLUEBERRY_ORDERED_AVX
+  __attribute__((target("avx2"))) static int lower_simd(const Node& n, Key key) {
+    const auto sign=std::is_unsigned_v<Key> ? (std::make_unsigned_t<Key>(1)<<(sizeof(Key)*8-1)):0;
+    unsigned mask=0;
+    if constexpr(sizeof(Key)==4) {
+      auto x=_mm256_set1_epi32(static_cast<std::int32_t>(std::make_unsigned_t<Key>(key)^sign));
+      auto flip=_mm256_set1_epi32(static_cast<std::int32_t>(sign));
+      for(int i=0;i<n.n;i+=8) {
+        auto v=_mm256_xor_si256(_mm256_loadu_si256(reinterpret_cast<const __m256i*>(n.key.data()+i)),flip);
+        __m256i cmp;
+#ifdef BLUEBERRY_EXTRA_FAST_USE_ASM
+        asm("vpcmpgtd {%2,%1,%0|%0,%1,%2}" : "=x"(cmp) : "x"(x), "x"(v));
+#else
+        cmp=_mm256_cmpgt_epi32(x,v);
+#endif
+        mask|=static_cast<unsigned>(_mm256_movemask_ps(_mm256_castsi256_ps(cmp)))<<i;
+      }
+    } else {
+      auto x=_mm256_set1_epi64x(static_cast<std::int64_t>(std::make_unsigned_t<Key>(key)^sign));
+      auto flip=_mm256_set1_epi64x(static_cast<std::int64_t>(sign));
+      for(int i=0;i<n.n;i+=4) {
+        auto v=_mm256_xor_si256(_mm256_loadu_si256(reinterpret_cast<const __m256i*>(n.key.data()+i)),flip);
+        __m256i cmp;
+#ifdef BLUEBERRY_EXTRA_FAST_USE_ASM
+        asm("vpcmpgtq {%2,%1,%0|%0,%1,%2}" : "=x"(cmp) : "x"(x), "x"(v));
+#else
+        cmp=_mm256_cmpgt_epi64(x,v);
+#endif
+        mask|=static_cast<unsigned>(_mm256_movemask_pd(_mm256_castsi256_pd(cmp)))<<i;
+      }
+    }
+    return std::countr_zero((~mask & ((1u<<n.n)-1)) | (1u<<n.n));
+  }
+#endif
+  int lower(const Node& n,Key key) const {
+#if BLUEBERRY_ORDERED_AVX
+    if(simd_) return lower_simd(n,key);
+#endif
+    return lower_scalar(n,key);
+  }
+  template<bool NeedRank=false> Path seek(Key key) const {
+    Path p; int id=root_;
+    while(id!=-1) {
+      const auto& n=nodes_[id]; int at=lower(n,key);
+      if(n.leaf) {p.leaf=id;p.pos=at;return p;}
+      at=std::min(at,n.n-1);
+      p.node[p.depth]=id;p.child[p.depth++]=at;
+      if constexpr(NeedRank)for(int i=0;i<at;++i)p.rank+=nodes_[n.data.child[i]].total;
+      id=n.data.child[at];
+    }
+    return p;
+  }
+  std::optional<std::pair<Key,Value>> bound(Key key,int direction)const{
+    auto p=seek(key);
+    if(p.leaf==-1)return{};
+    int id=p.leaf,at=p.pos;
+    if(direction>0 && at<nodes_[id].n && nodes_[id].key[at]==key)++at;
+    if(direction<0 && (at==nodes_[id].n || nodes_[id].key[at]!=key))--at;
+    if(0<=at && at<nodes_[id].n)return std::pair{nodes_[id].key[at],nodes_[id].data.value[at]};
+    for(int d=p.depth-1;d>=0;--d){
+      int parent=p.node[d],next=p.child[d]+(direction<0?-1:1);
+      if(next<0||next>=nodes_[parent].n)continue;
+      id=nodes_[parent].data.child[next];
+      while(!nodes_[id].leaf)id=nodes_[id].data.child[direction<0?nodes_[id].n-1:0];
+      at=direction<0?nodes_[id].n-1:0;
+      return std::pair{nodes_[id].key[at],nodes_[id].data.value[at]};
+    }
+    return{};
+  }
+  void slot(int to,int at,int from,int source) {
+    nodes_[to].key[at]=nodes_[from].key[source];
+    if(nodes_[to].leaf) nodes_[to].data.value[at]=nodes_[from].data.value[source];
+    else nodes_[to].data.child[at]=nodes_[from].data.child[source];
+  }
+  void remove_slot(int id,int at) {
+    for(int i=at+1;i<nodes_[id].n;++i)slot(id,i-1,id,i);
+    --nodes_[id].n;pull(id);
+  }
+  void rebalance(int parent,int at) {
+    int child=nodes_[parent].data.child[at];
+    if(nodes_[child].n>=B/2 || nodes_[parent].n==1)return;
+    int neighbor=at ? at-1 : at+1;
+    int sib=nodes_[parent].data.child[neighbor];
+    if(nodes_[sib].n>B/2) {
+      if(neighbor<at) {
+        for(int i=nodes_[child].n;i>0;--i)slot(child,i,child,i-1);
+        slot(child,0,sib,nodes_[sib].n-1);
+      } else {
+        slot(child,nodes_[child].n,sib,0);
+        for(int i=1;i<nodes_[sib].n;++i)slot(sib,i-1,sib,i);
+      }
+      ++nodes_[child].n;--nodes_[sib].n;pull(child);pull(sib);
+    } else {
+      int left=neighbor<at?sib:child,right=neighbor<at?child:sib;
+      for(int i=0;i<nodes_[right].n;++i)slot(left,nodes_[left].n+i,right,i);
+      nodes_[left].n+=nodes_[right].n;pull(left);
+      remove_slot(parent,std::max(at,neighbor));recycle(right);
+    }
+    pull(parent);
+  }
+  bool put(Key key,Value value,bool assign) {
+    auto path=seek(key);
+    if(path.leaf!=-1 && path.pos<nodes_[path.leaf].n && nodes_[path.leaf].key[path.pos]==key) {
+      if(assign)nodes_[path.leaf].data.value[path.pos]=value;
+      return false;
+    }
+    assert(size()<std::numeric_limits<int>::max());
+    const auto needed=nodes_.size()+path.depth+2;
+    if(needed>nodes_.capacity())nodes_.reserve(std::max(needed,nodes_.capacity()*2));
+    if(root_==-1)root_=path.leaf=allocate(true);
+    int id=path.leaf;
+    for(int i=nodes_[id].n;i>path.pos;--i)slot(id,i,id,i-1);
+    nodes_[id].key[path.pos]=key;nodes_[id].data.value[path.pos]=value;++nodes_[id].n;
+    for(int level=path.depth;;--level) {
+      pull(id);int right=-1;
+      if(nodes_[id].n>B) {
+        right=allocate(nodes_[id].leaf);
+        int split=nodes_[id].n/2;
+        nodes_[right].n=nodes_[id].n-split;
+        for(int i=0;i<nodes_[right].n;++i)slot(right,i,id,split+i);
+        nodes_[id].n=split;pull(id);pull(right);
+      }
+      if(level==0) {
+        if(right!=-1) {
+          root_=allocate(false);nodes_[root_].n=2;
+          nodes_[root_].data.child[0]=id;nodes_[root_].data.child[1]=right;pull(root_);
+        }
+        return true;
+      }
+      int parent=path.node[level-1],at=path.child[level-1];
+      if(right!=-1) {
+        for(int i=nodes_[parent].n;i>at+1;--i)slot(parent,i,parent,i-1);
+        nodes_[parent].data.child[at+1]=right;++nodes_[parent].n;
+      }
+      id=parent;
+    }
+  }
+ public:
+  explicit OrderedMap(bool use_simd=true):simd_(use_simd&&simd_available()){}
+  OrderedMap(const OrderedMap&)=default;
+  OrderedMap& operator=(const OrderedMap& other){if(this!=&other){OrderedMap next(other);swap(next);}return *this;}
+  OrderedMap(OrderedMap&& other)noexcept:nodes_(std::move(other.nodes_)),root_(std::exchange(other.root_,-1)),
+    free_(std::exchange(other.free_,-1)),simd_(other.simd_){other.nodes_.clear();}
+  OrderedMap& operator=(OrderedMap&& other)noexcept{if(this!=&other){OrderedMap next(std::move(other));swap(next);}return *this;}
+  void swap(OrderedMap& other)noexcept{nodes_.swap(other.nodes_);std::swap(root_,other.root_);std::swap(free_,other.free_);std::swap(simd_,other.simd_);}
+  int size() const {return root_==-1?0:nodes_[root_].total;}
+  bool empty() const {return root_==-1;}
+  bool uses_simd()const{return simd_;}
+  static bool simd_available(){
+#if BLUEBERRY_ORDERED_AVX && !defined(BLUEBERRY_EXTRA_FAST_FORCE_SCALAR)
+    return __builtin_cpu_supports("avx2");
+#else
+    return false;
+#endif
+  }
+  bool insert(Key key,Value value){return put(key,value,false);}
+  bool insert_or_assign(Key key,Value value){return put(key,value,true);}
+  Value& operator[](Key key){
+    auto p=seek(key);
+    if(p.leaf==-1||p.pos==nodes_[p.leaf].n||nodes_[p.leaf].key[p.pos]!=key){put(key,Value{},false);p=seek(key);}
+    return nodes_[p.leaf].data.value[p.pos];
+  }
+  std::optional<Value> get(Key key)const{
+    auto p=seek(key);
+    if(p.leaf==-1||p.pos==nodes_[p.leaf].n||nodes_[p.leaf].key[p.pos]!=key)return{};
+    return nodes_[p.leaf].data.value[p.pos];
+  }
+  bool contains(Key key)const{return get(key).has_value();}
+  int rank(Key key)const{auto p=seek<true>(key);return p.rank+p.pos;}
+  std::optional<std::pair<Key,Value>> kth(int k)const{
+    if(k<0||k>=size())return{};
+    int id=root_;
+    while(!nodes_[id].leaf){
+      int at=0;
+      while(k>=nodes_[nodes_[id].data.child[at]].total){k-=nodes_[nodes_[id].data.child[at]].total;++at;}
+      id=nodes_[id].data.child[at];
+    }
+    return std::pair{nodes_[id].key[k],nodes_[id].data.value[k]};
+  }
+  std::optional<std::pair<Key,Value>> lower_bound(Key key)const{return bound(key,0);}
+  std::optional<std::pair<Key,Value>> upper_bound(Key key)const{return bound(key,1);}
+  std::optional<std::pair<Key,Value>> floor(Key key)const{return bound(key,-1);}
+  bool erase(Key key){
+    auto p=seek(key);
+    if(p.leaf==-1||p.pos==nodes_[p.leaf].n||nodes_[p.leaf].key[p.pos]!=key)return false;
+    int id=p.leaf;remove_slot(id,p.pos);
+    for(int d=p.depth-1;d>=0;--d){int parent=p.node[d];rebalance(parent,p.child[d]);pull(parent);id=parent;}
+    if(nodes_[root_].n==0){int old=root_;root_=-1;recycle(old);}
+    else if(!nodes_[root_].leaf&&nodes_[root_].n==1){int old=root_;root_=nodes_[old].data.child[0];recycle(old);}
+    return true;
+  }
+  void clear(){nodes_.clear();root_=free_=-1;}
+};
+template<class Key=std::uint32_t>
+class OrderedSet {
+  OrderedMap<Key,std::uint8_t> tree_;
+  static std::optional<Key> key_of(std::optional<std::pair<Key,std::uint8_t>> entry){
+    if(entry)return entry->first;
+    return{};
+  }
+ public:
+  explicit OrderedSet(bool use_simd=true):tree_(use_simd){}
+  int size()const{return tree_.size();}
+  bool empty()const{return tree_.empty();}
+  bool uses_simd()const{return tree_.uses_simd();}
+  static bool simd_available(){return OrderedMap<Key,std::uint8_t>::simd_available();}
+  bool insert(Key key){return tree_.insert(key,0);}
+  bool erase(Key key){return tree_.erase(key);}
+  bool contains(Key key)const{return tree_.contains(key);}
+  int rank(Key key)const{return tree_.rank(key);}
+  std::optional<Key> kth(int k)const{return key_of(tree_.kth(k));}
+  std::optional<Key> lower_bound(Key key)const{return key_of(tree_.lower_bound(key));}
+  std::optional<Key> upper_bound(Key key)const{return key_of(tree_.upper_bound(key));}
+  std::optional<Key> floor(Key key)const{return key_of(tree_.floor(key));}
+  void clear(){tree_.clear();}
+};
+}
+#undef BLUEBERRY_ORDERED_AVX

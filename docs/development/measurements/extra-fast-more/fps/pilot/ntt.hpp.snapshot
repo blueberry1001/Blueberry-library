@@ -1,0 +1,45 @@
+#pragma once
+#include <algorithm>
+#include <bit>
+#include <cassert>
+#include <cstdint>
+#include <vector>
+#include <immintrin.h>
+namespace prototype {
+using U=std::uint32_t;
+static constexpr U P=998244353, P2=P*2, NI=998244351, R=301989884, R2=932051910;
+inline U red(std::uint64_t t) { return (t+std::uint64_t(U(t)*NI)*P)>>32; }
+inline U norm(U a) { return a>=P?a-P:a; }
+inline U add(U a,U b) { return a+b>=P2?a+b-P2:a+b; }
+inline U sub(U a,U b) { return a>=b?a-b:a+P2-b; }
+inline U mul(U a,U b) {return red(std::uint64_t(a)*b);}
+inline U power(U a,U e) { U r=R;for(;e;e>>=1,a=mul(a,a))if(e&1)r=mul(r,a);return r; }
+struct NTT {
+ std::vector<U> roots,iroots; bool simd;
+ NTT(int n,bool simd):roots(n),iroots(n),simd(simd){
+  for(int h=1;h<n;h<<=1){U w=power(mul(3,R2),(P-1)/(h*2)),iw=power(w,P-2);roots[h]=iroots[h]=R;for(int j=1;j<h;++j){roots[h+j]=mul(roots[h+j-1],w);iroots[h+j]=mul(iroots[h+j-1],iw);}}
+ }
+ __attribute__((target("avx2"))) static __m256i vmul(__m256i a,__m256i b){
+  auto p=_mm256_set1_epi32(P),ni=_mm256_set1_epi32(NI);
+  auto x=_mm256_mul_epu32(a,b),y=_mm256_mul_epu32(_mm256_srli_epi64(a,32),_mm256_srli_epi64(b,32));
+  x=_mm256_srli_epi64(_mm256_add_epi64(x,_mm256_mul_epu32(_mm256_mul_epu32(x,ni),p)),32);
+  y=_mm256_add_epi64(y,_mm256_mul_epu32(_mm256_mul_epu32(y,ni),p));
+  return _mm256_blend_epi32(x,y,0xaa);
+ }
+ __attribute__((target("avx2"))) static void block(U*a,U*b,const U*w,int h,bool inverse){
+  auto p=_mm256_set1_epi32(P2);
+  for(int j=0;j<h;j+=8){auto x=_mm256_loadu_si256((const __m256i*)(a+j)),y=_mm256_loadu_si256((const __m256i*)(b+j)),z=_mm256_loadu_si256((const __m256i*)(w+j));
+   if(inverse)y=vmul(y,z);
+   auto s=_mm256_add_epi32(x,y),d=_mm256_sub_epi32(_mm256_add_epi32(x,p),y);
+   s=_mm256_min_epu32(s,_mm256_sub_epi32(s,p));d=_mm256_min_epu32(d,_mm256_sub_epi32(d,p));
+   if(!inverse)d=vmul(d,z);
+   _mm256_storeu_si256((__m256i*)(a+j),s);_mm256_storeu_si256((__m256i*)(b+j),d);
+  }
+ }
+ void transform(std::vector<U>&a,bool inverse=false){int n=a.size();for(int hh=1;hh<n;hh<<=1){int h=inverse?hh:n/(hh*2);const U*w=(inverse?iroots:roots).data()+h;
+  for(int k=0;k<n;k+=h*2){U*x=a.data()+k,*y=x+h;if(simd&&h>=8)block(x,y,w,h,inverse);else for(int j=0;j<h;++j){U v=inverse?mul(y[j],w[j]):y[j],u=x[j];x[j]=add(u,v);y[j]=sub(u,v);if(!inverse)y[j]=mul(y[j],w[j]);}}
+ }
+ if(inverse){U scale=power(mul(n,R2),P-2);for(U&x:a)x=mul(x,scale);}}
+ std::vector<U> conv(std::vector<U>a,std::vector<U>b){if(a.empty()||b.empty())return{};int m=a.size()+b.size()-1,n=std::bit_ceil(unsigned(m));a.resize(n);b.resize(n);transform(a);transform(b);for(int i=0;i<n;++i)a[i]=mul(a[i],b[i]);transform(a,true);a.resize(m);return a;}
+};
+}

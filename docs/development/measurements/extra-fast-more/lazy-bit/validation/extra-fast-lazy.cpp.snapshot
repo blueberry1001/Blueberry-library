@@ -1,0 +1,73 @@
+#include "blueberry/extra-fast/range-add-sum.hpp"
+
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <numeric>
+#include <random>
+#include <utility>
+#include <vector>
+
+using U64 = std::uint64_t;
+
+int main(int argc, char** argv) {
+  const U64 seed = argc > 1 ? std::strtoull(argv[1], nullptr, 10) : 1;
+  std::mt19937_64 rng(seed);
+  int step = 0;
+  auto fail = [&](const char* operation, const std::vector<U64>& a, int l, int r,
+                  U64 expected, U64 actual) {
+    std::cerr << "seed=" << seed << " step=" << step << " op=" << operation
+              << " l=" << l << " r=" << r << " expected=" << expected
+              << " actual=" << actual << " input=";
+    for (U64 x : a) std::cerr << x << ',';
+    std::cerr << '\n';
+    std::exit(1);
+  };
+  for (bool simd : {false, true}) {
+    for (int n : {0, 1, 2, 15, 16, 17, 255, 256, 257, 4096, 65537}) {
+      std::vector<U64> a(n);
+      for (auto& x : a) x = rng();
+      blueberry::extra_fast::RangeAddSum tree(a, simd), zero(n, simd);
+      if (tree.size() != n || zero.all_prod() != 0 ||
+          tree.uses_simd() != (simd && tree.simd_available()))
+        fail("construct", a, 0, n, n, tree.size());
+      for (step = 0; step < 180; ++step) {
+        int l = rng() % (n + 1), r = rng() % (n + 1);
+        if (l > r) std::swap(l, r);
+        const U64 x = rng();
+        if (step % 5 == 0) { l = 0; r = n; }
+        if (step % 11 == 0) r = l;
+        tree.apply(l, r, x);
+        for (int i = l; i < r; ++i) a[i] += x;
+        if (n && step % 3 == 0) {
+          const int p = rng() % n;
+          const U64 value = rng();
+          tree.set(p, value);
+          a[p] = value;
+        }
+        l = rng() % (n + 1);
+        r = rng() % (n + 1);
+        if (l > r) std::swap(l, r);
+        U64 expected = std::accumulate(a.begin() + l, a.begin() + r, U64(0));
+        if (tree.prod(l, r) != expected)
+          fail("prod", a, l, r, expected, tree.prod(l, r));
+        expected = std::accumulate(a.begin(), a.begin() + r, U64(0));
+        if (tree.pref(r) != expected)
+          fail("pref", a, 0, r, expected, tree.pref(r));
+        expected = std::accumulate(a.begin(), a.end(), U64(0));
+        if (tree.all_prod() != expected)
+          fail("all_prod", a, 0, n, expected, tree.all_prod());
+        if (n) {
+          const int p = rng() % n;
+          if (tree.get(p) != a[p]) fail("get", a, p, p + 1, a[p], tree.get(p));
+        }
+        if (step % 20 == 0) {
+          auto copy = tree;
+          auto* self = &copy;
+          copy = *self;
+          tree = std::move(copy);
+        }
+      }
+    }
+  }
+}

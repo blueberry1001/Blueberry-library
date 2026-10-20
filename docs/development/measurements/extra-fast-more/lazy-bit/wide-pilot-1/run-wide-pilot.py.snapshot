@@ -1,0 +1,39 @@
+import hashlib,json,random,statistics,subprocess,time
+from pathlib import Path
+root=Path.cwd();base=root/'.benchmark/extra-fast-more/lazy-bit';out=root/'docs/development/measurements/extra-fast-more/lazy-bit/wide-pilot-1';out.mkdir(parents=True,exist_ok=True)
+rows=[];fail=[];profiles={'assert':['-O2'],'portable':['-O2','-DNDEBUG'],'native':['-O3','-DNDEBUG','-march=native']};meta={'utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'seed':20261020,'profiles':profiles,'standard':'gnu++20','affinity':0,'runs':3,'cases':[],'coordination':'Dedicated team CPU window. Other team members paused CPU workloads. OS/background load uncontrolled.'}
+for name in ['wide-affine.hpp','wide-affine16.hpp','wide-affine-all-encoded.hpp','wide-affine-unaligned.hpp','affine-phase.cpp','affine-soa-checked.hpp']:(out/(name+'.snapshot')).write_bytes((base/name).read_bytes())
+cases=[]
+for name,n,q in [('small',37,300),('random',65536,100000),('short',65536,100000),('update90',65536,100000),('random',500000,100000)]:
+ rng=random.Random(20261020);a=[rng.randrange(998244353)for _ in range(n)];text=[f'{n} {q}',' '.join(map(str,a))];expected=[]
+ for k in range(q):
+  l=rng.randrange(n);r=min(n,l+rng.randrange(1,33))if name=='short'else rng.randrange(l+1,n+1)
+  if rng.randrange(100)<(90 if name=='update90'else 50):
+   x=rng.randrange(998244353);y=rng.randrange(998244353);text.append(f'0 {l} {r} {x} {y}')
+   if name=='small':
+    for i in range(l,r):a[i]=(a[i]*x+y)%998244353
+  else:
+   text.append(f'1 {l} {r}')
+   if name=='small':expected.append(str(sum(a[l:r])%998244353))
+ data=('\n'.join(text)+'\n').encode();source=Path('/tmp')/f'blueberry-wide-affine-{name}-{n}-20261020.in';source.write_bytes(data);meta['cases'].append({'shape':name,'n':n,'q':q,'input_sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)});cases.append((name,n,source,hashlib.sha256(('\n'.join(expected)+'\n').encode()).hexdigest()if name=='small'else None))
+for cc in ['g++','clang++']:
+ meta[cc]=subprocess.check_output([cc,'--version'],text=True)
+ for profile,flags in profiles.items():
+  binary=base/('affine-phase-'+cc+'-'+profile);cmd=[cc,'-std=gnu++20',*flags,'-I.','-I.deps/ac-library',str(base/'affine-phase.cpp'),'-o',str(binary)];p=subprocess.run(cmd,text=True,capture_output=True);(out/(cc+'-'+profile+'-compile.log')).write_text('COMMAND '+repr(cmd)+'\n'+p.stdout+p.stderr)
+  if p.returncode:fail.append({'stage':'compile','command':cmd,'returncode':p.returncode});continue
+  for name,n,src,known in cases:
+   variants=['acl','binary-soa','wide','wide16','scalar','scalar16','all-encoded','unaligned']
+   for run in range(1 if name=='small'else 3):
+    order=variants[run:]+variants[:run]
+    for variant in order:
+     dst=Path('/tmp')/'blueberry-wide-affine.out';rss=base/'rss.txt';cmd=['taskset','-c','0','/usr/bin/time','-f','%M','-o',str(rss),str(binary),variant]
+     with src.open('rb')as inp,dst.open('wb')as output:
+      start=time.perf_counter_ns();p=subprocess.run(cmd,stdin=inp,stdout=output,stderr=subprocess.PIPE,timeout=60);wall=(time.perf_counter_ns()-start)/1e6
+     actual=hashlib.sha256(dst.read_bytes()).hexdigest()
+     if known is None:known=actual
+     if p.returncode or actual!=known:fail.append({'stage':'run','command':cmd,'shape':name,'n':n,'run':run,'returncode':p.returncode,'expected':known,'actual':actual,'stderr':p.stderr.decode(errors='replace')});continue
+     fields=json.loads(p.stderr);rows.append({'compiler':cc,'profile':profile,'shape':name,'n':n,'variant':variant,'run':run,'wall_ms':wall,'rss_kib':int(rss.read_text().strip()),'output_sha256':actual}|fields);(out/'samples.jsonl').open('a').write(json.dumps(rows[-1])+'\n')
+meta['end_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime());(out/'environment.json').write_text(json.dumps(meta,indent=2));(out/'failures.json').write_text(json.dumps(fail,indent=2));summary=[]
+for key in sorted({(r['compiler'],r['profile'],r['shape'],r['n'],r['variant'])for r in rows}):
+ group=[r for r in rows if(r['compiler'],r['profile'],r['shape'],r['n'],r['variant'])==key];summary.append(dict(zip(['compiler','profile','shape','n','variant'],key))|{'successful_samples':len(group)}|{k+'_median':statistics.median(r[k]for r in group)for k in ['parse_ms','build_ms','ops_ms','format_ms','total_ms','wall_ms','rss_kib']}|{'ops_ms_min':min(r['ops_ms']for r in group)})
+(out/'summary.json').write_text(json.dumps(summary,indent=2));print('wide pilot samples',len(rows),'failures',len(fail),flush=True)

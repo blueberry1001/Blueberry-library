@@ -1,0 +1,31 @@
+#include <iostream>
+#include <type_traits>
+#ifndef ORDERED_HEADER
+#define ORDERED_HEADER "blueberry/extra-fast/ordered-map.hpp"
+#endif
+#include ORDERED_HEADER
+struct V {
+  int x;
+  V() = default;
+  V(const V&) = default;
+  V& operator=(const V&) = default;
+  template<class T> V(T&&) { throw 43; }
+};
+static_assert(std::is_trivial_v<V> && std::is_trivially_copy_constructible_v<V> &&
+              std::is_trivially_copy_assignable_v<V>);
+int main() {
+  blueberry::extra_fast::OrderedMap<int,V> map;
+  V value; value.x=42;
+  for(int i=0;i<100;++i)map.insert(i,std::as_const(value));
+  int failures=0;
+  for(int op=0;op<4;++op) {
+    try {
+      auto got=op==0 ? map.kth(0) : op==1 ? map.lower_bound(0) :
+               op==2 ? map.upper_bound(0) : map.floor(0);
+      if(!got || got->second.x!=42)++failures;
+      std::cout<<op<<" value="<<(got?got->second.x:-1)<<'\n';
+    } catch(int e) {++failures;std::cout<<op<<" exception="<<e<<'\n';}
+  }
+  std::cout<<"failures="<<failures<<'\n';
+  return failures==0 ? 0 : 1;
+}

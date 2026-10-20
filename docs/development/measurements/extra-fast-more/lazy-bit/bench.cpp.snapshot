@@ -1,0 +1,34 @@
+#include "blueberry/extra-fast/fenwick-tree.hpp"
+#include "blueberry/extra-fast/range-add-sum.hpp"
+#include "affine-soa.hpp"
+#include <atcoder/fenwicktree>
+#include <atcoder/lazysegtree>
+#include <atcoder/modint>
+#include <algorithm>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <memory>
+#include <random>
+#include <vector>
+using U=std::uint64_t;
+struct Query{int l,r,type;U a,b;};
+struct Node{U sum,len;};Node op(Node x,Node y){return {x.sum+y.sum,x.len+y.len};}Node e(){return {0,0};}Node mapping(U x,Node y){return {y.sum+x*y.len,y.len};}U composition(U x,U y){return x+y;}U id(){return 0;}
+using Lazy=atcoder::lazy_segtree<Node,op,e,U,mapping,composition,id>;
+struct ACLRange{Lazy t;explicit ACLRange(const std::vector<U>&a):t(nodes(a)){}static std::vector<Node>nodes(const std::vector<U>&a){std::vector<Node>x;for(U y:a)x.push_back({y,1});return x;}__attribute__((always_inline)) void apply(int l,int r,U x){t.apply(l,r,x);}__attribute__((always_inline)) U prod(int l,int r){return t.prod(l,r).sum;}};
+struct ACLBit{atcoder::fenwick_tree<U>t;explicit ACLBit(const std::vector<U>&a):t(a.size()){for(int i=0;i<int(a.size());++i)t.add(i,a[i]);}__attribute__((always_inline)) void add(int p,U x){t.add(p,x);}__attribute__((always_inline)) U prod(int l,int r){return t.sum(l,r);}};
+template<int Shift>struct RawBit{std::vector<U>t;int n;static unsigned s(unsigned i){if constexpr(Shift<32)return i+(i>>Shift);else return i;}explicit RawBit(const std::vector<U>&a):t(s(a.size())+1),n(a.size()){for(int i=1;i<=n;++i){t[s(i)]+=a[i-1];if(i+(i&-i)<=n)t[s(i+(i&-i))]+=t[s(i)];}}void add(int p,U x){for(unsigned i=p+1;i<=unsigned(n);i+=i&-i)t[s(i)]+=x;}U pref(int r)const{U x=0;for(unsigned i=r;i;i&=i-1)x+=t[s(i)];return x;}U prod(int l,int r)const{return pref(r)-pref(l);}};
+template<class Bit>struct PairBit{Bit d,w;explicit PairBit(const std::vector<U>&a):d(diff(a,false)),w(diff(a,true)){}static std::vector<U>diff(const std::vector<U>&a,bool weighted){std::vector<U>x(a.size());U prev=0;for(unsigned i=0;i<a.size();++i){x[i]=(a[i]-prev)*(weighted?i:1);prev=a[i];}return x;}void apply(int l,int r,U x){if(l==r)return;d.add(l,x);w.add(l,x*U(l));if(r<d.n){d.add(r,-x);w.add(r,-x*U(r));}}U pref(int r)const{return U(r)*d.pref(r)-w.pref(r);}U prod(int l,int r)const{return pref(r)-pref(l);}};
+struct WideScalar:blueberry::extra_fast::SumSegmentTree{explicit WideScalar(const std::vector<U>&a):SumSegmentTree(a,false){}};
+struct RangeScalar:blueberry::extra_fast::RangeAddSum{explicit RangeScalar(const std::vector<U>&a):RangeAddSum(a,false){}};
+using Mint=atcoder::modint998244353;
+struct MNode{Mint sum,len;};struct F{Mint a,b;};MNode mop(MNode x,MNode y){return{x.sum+y.sum,x.len+y.len};}MNode me(){return {0,0};}MNode mmap(F f,MNode x){return{f.a*x.sum+f.b*x.len,x.len};}F comp(F f,F g){return{f.a*g.a,f.a*g.b+f.b};}F mi(){return{1,0};}
+using MLazy=atcoder::lazy_segtree<MNode,mop,me,F,mmap,comp,mi>;
+struct ACLAffine{MLazy t;explicit ACLAffine(const std::vector<uint32_t>&a):t(nodes(a)){}static std::vector<MNode>nodes(const std::vector<uint32_t>&a){std::vector<MNode>x;for(auto v:a)x.push_back({v,1});return x;}void apply(int l,int r,uint32_t a,uint32_t b){t.apply(l,r,{a,b});}uint32_t prod(int l,int r){return t.prod(l,r).sum.val();}};
+using Clock=std::chrono::steady_clock;
+template<class Tree>void run(const std::vector<U>&a,const std::vector<Query>&qs,bool range){auto t0=Clock::now();Tree t(a);auto t1=Clock::now();U hash=0;for(auto q:qs){if(q.type){if constexpr(requires{t.apply(q.l,q.r,q.a);})t.apply(q.l,q.r,q.a);else t.add(q.l,q.a);}else hash=hash*0x9e3779b97f4a7c15ULL+t.prod(q.l,q.r);}auto t2=Clock::now();std::cout<<std::chrono::duration<double,std::milli>(t1-t0).count()<<','<<std::chrono::duration<double,std::milli>(t2-t1).count()<<','<<hash<<'\n';}
+template<class Tree>void run_affine(const std::vector<U>&a,const std::vector<Query>&qs){std::vector<uint32_t>v;for(U x:a)v.push_back(x%998244353);auto t0=Clock::now();Tree t(v);auto t1=Clock::now();U hash=0;for(auto q:qs){if(q.type)t.apply(q.l,q.r,q.a%998244353,q.b%998244353);else hash=hash*0x9e3779b97f4a7c15ULL+t.prod(q.l,q.r);}auto t2=Clock::now();std::cout<<std::chrono::duration<double,std::milli>(t1-t0).count()<<','<<std::chrono::duration<double,std::milli>(t2-t1).count()<<','<<hash<<'\n';}
+int main(int argc,char**argv){std::string variant=argv[1],shape=argv[2];int n=std::atoi(argv[3]),q=std::atoi(argv[4]);bool range=variant.starts_with("range-");std::mt19937_64 rng(20261020);std::vector<U>a(n);for(U&x:a)x=rng();std::vector<Query>qs;for(int i=0;i<q;++i){int l=rng()%n,r=rng()%(n+1);if(l>r)std::swap(l,r);if(shape=="short")r=std::min(n,l+int(rng()%32));if(shape=="prefix")l=0;int type=(rng()%100)<(shape=="update90"?90:50);qs.push_back({l,r,type,rng(),rng()});}
+ if(variant=="bit-acl")run<ACLBit>(a,qs,false);else if(variant=="bit-pad")run<blueberry::extra_fast::FenwickTree>(a,qs,false);else if(variant=="bit-raw")run<RawBit<32>>(a,qs,false);else if(variant=="bit-pad9")run<RawBit<9>>(a,qs,false);else if(variant=="bit-wide")run<blueberry::extra_fast::SumSegmentTree>(a,qs,false);else if(variant=="bit-wide-scalar")run<WideScalar>(a,qs,false);else if(variant=="range-wide")run<blueberry::extra_fast::RangeAddSum>(a,qs,true);else if(variant=="range-wide-scalar")run<RangeScalar>(a,qs,true);else if(variant=="range-acl")run<ACLRange>(a,qs,true);else if(variant=="range-pad")run<PairBit<RawBit<10>>>(a,qs,true);else if(variant=="range-raw")run<PairBit<RawBit<32>>>(a,qs,true);else if(variant=="affine-soa")run_affine<AffineSum>(a,qs);else if(variant=="affine-acl")run_affine<ACLAffine>(a,qs);else return 2;
+}

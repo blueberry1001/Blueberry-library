@@ -1,0 +1,59 @@
+import hashlib,json,random,statistics,subprocess,time
+from pathlib import Path
+root=Path.cwd();base=root/'.benchmark/extra-fast-more/lazy-bit';out=root/'docs/development/measurements/extra-fast-more/lazy-bit/final';out.mkdir(parents=True,exist_ok=True)
+rows=[];fail=[];profiles={'assert':['-O2'],'portable':['-O2','-DNDEBUG'],'native':['-O3','-DNDEBUG','-march=native']};meta={'utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'seed':20261020,'q':100000,'profiles':profiles,'standard':'gnu++20','affinity':0,'runs':5,'cases':[],'coordination':'Dedicated team CPU window. Other team members paused CPU workloads. OS/background load uncontrolled.'}
+cases=[]
+for name,n in [('random',65536),('random',500000),('short',65536),('update90',65536)]:
+ rng=random.Random(20261020);q=100000;a=[rng.getrandbits(64)for _ in range(n)];qs=[]
+ for i in range(q):
+  l=rng.randrange(n);r=rng.randrange(l+1,n+1)
+  if name=='short':r=min(n,l+rng.randrange(1,33))
+  qs.append((int(rng.randrange(100)<(90 if name=='update90'else 50)),l,r,rng.getrandbits(64)))
+ data=(f'{n} {q}\n'+' '.join(map(str,a))+'\n'+'\n'.join(' '.join(map(str,x))for x in qs)+'\n').encode();src=Path('/tmp')/f'blueberry-lazy-bit-{name}-{n}-20261020.in';src.write_bytes(data);meta['cases'].append({'shape':name,'n':n,'q':q,'input_sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)})
+ # Independent Python two-Fenwick and one-Fenwick oracle, reduced modulo 2^64.
+ for family in ['bit','range']:
+  ds=[0]*(n+1);ws=[0]*(n+1);mask=(1<<64)-1
+  def add(t,p,x):
+   p+=1
+   while p<=n:t[p]=(t[p]+x)&mask;p+=p&-p
+  def pref(t,p):
+   x=0
+   while p:x+=t[p];p&=p-1
+   return x&mask
+  def ps(p):return (p*pref(ds,p)-pref(ws,p))&mask
+  if family=='bit':
+   for i,x in enumerate(a):
+    ds[i+1]=(ds[i+1]+x)&mask
+    j=i+1+((i+1)&-(i+1))
+    if j<=n:ds[j]=(ds[j]+ds[i+1])&mask
+  else:
+   prev=0
+   for i,x in enumerate(a):v=(x-prev)&mask;add(ds,i,v);add(ws,i,v*i);prev=x
+  answers=[]
+  for typ,l,r,x in qs:
+   if typ:
+    if family=='bit':add(ds,l,x)
+    else:
+     add(ds,l,x);add(ws,l,l*x)
+     if r<n:add(ds,r,-x);add(ws,r,-r*x)
+   else:answers.append(str(((pref(ds,r)-pref(ds,l))if family=='bit'else(ps(r)-ps(l)))&mask))
+  expected=('\n'.join(answers)+'\n').encode();cases.append((family,name,n,src,hashlib.sha256(expected).hexdigest()))
+for cc in ['g++','clang++']:
+ meta[cc]=subprocess.check_output([cc,'--version'],text=True)
+ for profile,flags in profiles.items():
+  binary=base/('phase-'+cc+'-'+profile);cmd=[cc,'-std=gnu++20',*flags,'-I.','-I.deps/ac-library',str(base/'phase.cpp'),'-o',str(binary)];p=subprocess.run(cmd,text=True,capture_output=True);(out/(cc+'-'+profile+'-compile.log')).write_text('COMMAND '+repr(cmd)+'\n'+p.stdout+p.stderr)
+  if p.returncode:fail.append({'stage':'compile','command':cmd,'returncode':p.returncode});continue
+  for family,name,n,src,expected in cases:
+   variants=['bit-acl','bit-pad','bit-wide']if family=='bit'else ['range-wide','range-scalar','range-acl','range-pad']
+   for run in range(5):
+    for variant in variants[run%len(variants):]+variants[:run%len(variants)]:
+     dst=Path('/tmp')/'blueberry-lazy-bit.out';rss=base/'rss.txt';cmd=['taskset','-c','0','/usr/bin/time','-f','%M','-o',str(rss),str(binary),variant]
+     with src.open('rb')as inp,dst.open('wb')as output:
+      start=time.perf_counter_ns();p=subprocess.run(cmd,stdin=inp,stdout=output,stderr=subprocess.PIPE,timeout=60);wall=(time.perf_counter_ns()-start)/1e6
+     actual=hashlib.sha256(dst.read_bytes()).hexdigest()
+     if p.returncode or actual!=expected:fail.append({'stage':'run','command':cmd,'shape':name,'n':n,'run':run,'returncode':p.returncode,'expected':expected,'actual':actual,'stderr':p.stderr.decode(errors='replace')});continue
+     fields=json.loads(p.stderr);rows.append({'compiler':cc,'profile':profile,'shape':name,'n':n,'q':100000,'variant':variant,'run':run,'wall_ms':wall,'rss_kib':int(rss.read_text().strip()),'output_sha256':actual}|fields);(out/'samples.jsonl').open('a').write(json.dumps(rows[-1])+'\n')
+meta['end_utc']=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime());(out/'environment.json').write_text(json.dumps(meta,indent=2));(out/'failures.json').write_text(json.dumps(fail,indent=2));summary=[]
+for key in sorted({(r['compiler'],r['profile'],r['shape'],r['n'],r['variant'])for r in rows}):
+ group=[r for r in rows if (r['compiler'],r['profile'],r['shape'],r['n'],r['variant'])==key];summary.append(dict(zip(['compiler','profile','shape','n','variant'],key))|{'successful_samples':len(group)}|{k+'_median':statistics.median(r[k]for r in group)for k in ['parse_ms','build_ms','ops_ms','format_ms','total_ms','wall_ms','rss_kib']}|{'ops_ms_min':min(r['ops_ms']for r in group)})
+(out/'summary.json').write_text(json.dumps(summary,indent=2));print('final samples',len(rows),'failures',len(fail),flush=True)

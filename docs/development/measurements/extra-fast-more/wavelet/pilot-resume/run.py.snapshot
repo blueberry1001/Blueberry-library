@@ -1,0 +1,58 @@
+import argparse,hashlib,json,os,pathlib,random,statistics,subprocess,time
+P=pathlib.Path(__file__).resolve().parent
+ROOT=P.parents[2]
+p=argparse.ArgumentParser();p.add_argument('--out',required=True);p.add_argument('--runs',type=int,default=3);p.add_argument('--native-only',action='store_true');args=p.parse_args()
+out=ROOT/args.out;out.mkdir(parents=True,exist_ok=False)
+log=[]
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+meta={'created_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'runs':args.runs,'seed':20261020,'cpu':0,'load_before':os.getloadavg(),'sources':{str(p.relative_to(ROOT)):sha(p) for p in [ROOT/'blueberry/data-structure/wavelet-matrix.hpp',ROOT/'blueberry/extra-fast/wavelet-matrix.hpp',P/'bench.cpp',P/'run.py']},'uname':subprocess.check_output(['uname','-a'],text=True)}
+for name in ['bench.cpp','run.py']:(out/(name+'.snapshot')).write_bytes((P/name).read_bytes())
+for name in ['wavelet-matrix.hpp']:
+ (out/'normal.hpp.snapshot').write_bytes((ROOT/'blueberry/data-structure'/name).read_bytes());(out/'candidate.hpp.snapshot').write_bytes((ROOT/'blueberry/extra-fast'/name).read_bytes())
+inputs=[]
+rng=random.Random(20261020)
+for name,n,q,distinct,short in [('small',1024,50000,1024,True),('wide',200000,100000,1000000000,False),('duplicates',200000,100000,16,False),('few-query',200000,1000,1000000000,False)]:
+ a=[rng.randrange(distinct) for _ in range(n)]; path=P/(name+'.in')
+ with path.open('w') as f:
+  f.write(f'{n} {q}\n');f.write(' '.join(map(str,a))+'\n')
+  for i in range(q):
+   l=rng.randrange(n);r=rng.randrange(l+1,min(n,l+64)+1) if short else rng.randrange(l+1,n+1);k=rng.randrange(r-l);x=a[rng.randrange(n)] if i%2 else rng.randrange(distinct)
+   f.write(f'{l} {r} {k} {x}\n')
+ inputs.append((name,path))
+meta['inputs']={name:{'sha256':sha(path),'bytes':path.stat().st_size} for name,path in inputs}
+meta['compilers']={}
+for cxx in ['g++','clang++']:
+ meta['compilers'][cxx]=subprocess.check_output([cxx,'--version'],text=True)
+ for profile,flags in [('O2-release',['-O2','-DNDEBUG']),('native-O3',['-O3','-DNDEBUG','-march=native'])]:
+  if args.native_only and profile!='native-O3':continue
+  binary=P/(cxx+'-'+profile)
+  cmd=[cxx,'-std=gnu++20',*flags,'-I'+str(ROOT),str(P/'bench.cpp'),'-o',str(binary)]
+  start=time.monotonic();comp=subprocess.run(cmd,text=True,capture_output=True)
+  (out/(cxx+'-'+profile+'-compile.log')).write_text(comp.stdout+comp.stderr)
+  meta.setdefault('commands',[]).append({'command':cmd,'elapsed':time.monotonic()-start,'returncode':comp.returncode})
+  if comp.returncode:continue
+  for fixture,path in inputs:
+   for op in ['kth','count','less']:
+    modes=['normal','fast','portable']+(['batch']if op=='kth'else[])
+    expected=None
+    for repeat in range(args.runs):
+     order=modes[repeat%len(modes):]+modes[:repeat%len(modes)]
+     for mode in order:
+      cmd=['taskset','-c','0',str(binary),mode,op]
+      with path.open('rb') as inp: res=subprocess.run(cmd,stdin=inp,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+      outputsha=hashlib.sha256(res.stdout).hexdigest()
+      if expected is None and res.returncode==0:expected=outputsha
+      row={'compiler':cxx,'profile':profile,'fixture':fixture,'operation':op,'mode':mode,'repeat':repeat,'returncode':res.returncode,'stdout_sha256':outputsha,'correct':res.returncode==0 and expected==outputsha}
+      if res.returncode==0:row.update(json.loads(res.stderr))
+      else:row['error']=res.stderr.decode(errors='replace')
+      log.append(row)
+      with (out/'samples.jsonl').open('a') as f:f.write(json.dumps(row)+'\n')
+      if not row['correct']:raise RuntimeError(row)
+summary=[]
+for key in sorted({(r['compiler'],r['profile'],r['fixture'],r['operation'],r['mode'])for r in log}):
+ rows=[r for r in log if (r['compiler'],r['profile'],r['fixture'],r['operation'],r['mode'])==key]
+ row=dict(zip(['compiler','profile','fixture','operation','mode'],key));row['runs']=len(rows)
+ for metric in ['parse_ms','build_ms','ops_ms','format_ms','total_ms','rss_kib']:
+  vals=[r[metric]for r in rows];row[metric]={'median':statistics.median(vals),'min':min(vals)}
+ summary.append(row)
+meta['load_after']=os.getloadavg();(out/'metadata.json').write_text(json.dumps(meta,indent=2));(out/'summary.json').write_text(json.dumps(summary,indent=2));print(json.dumps({'samples':len(log),'failures':sum(not r['correct']for r in log),'out':str(out)}))

@@ -1,0 +1,35 @@
+#include "blueberry/extra-fast/fenwick-tree.hpp"
+#include <algorithm>
+#include <cstdlib>
+#include <iostream>
+#include <numeric>
+#include <random>
+#include <vector>
+using U = std::uint64_t;
+int main(int argc,char** argv) {
+  U seed=argc>1?std::strtoull(argv[1],nullptr,10):1;
+  std::mt19937_64 rng(seed);
+  auto fail=[&](const char* op,int n,int l,int r,U expected,U actual) {
+    std::cerr<<"seed="<<seed<<" op="<<op<<" n="<<n<<" l="<<l<<" r="<<r<<" expected="<<expected<<" actual="<<actual<<'\n'; std::exit(1);
+  };
+  for(int n:{0,1,2,15,16,17,1023,1024,1025,4096,65537}) {
+    std::vector<U>a(n);
+    for(auto&x:a)x=rng();
+    blueberry::extra_fast::FenwickTree t(a), zero(n);
+    if(t.size()!=n||zero.all_prod()!=0)fail("construct",n,0,n,n,t.size());
+    for(int k=0;k<200;++k) {
+      if(n) {int p=rng()%n;U x=rng();if(k&1){t.add(p,x);a[p]+=x;}else{t.set(p,x);a[p]=x;}}
+      int l=rng()%(n+1),r=rng()%(n+1);if(l>r)std::swap(l,r);
+      U expected=std::accumulate(a.begin()+l,a.begin()+r,U(0));
+      if(t.prod(l,r)!=expected)fail("prod",n,l,r,expected,t.prod(l,r));
+      expected=std::accumulate(a.begin(),a.end(),U(0));
+      if(t.all_prod()!=expected)fail("all_prod",n,0,n,expected,t.all_prod());
+      if(n){int p=rng()%n;if(t.get(p)!=a[p])fail("get",n,p,p+1,a[p],t.get(p));}
+      if(k%20==0){auto copy=t;copy=copy;t=std::move(copy);}
+    }
+    for(auto&x:a)x=rng()%5;
+    t=blueberry::extra_fast::FenwickTree(a);
+    std::vector<U>pref(n+1);for(int i=0;i<n;++i)pref[i+1]=pref[i]+a[i];
+    for(int k=0;k<100;++k){U x=k<4?U(k==0?0:k==1?pref.back():k==2?pref.back()+1:~U(0)):rng()%(pref.back()+2);int expected=std::lower_bound(pref.begin(),pref.end(),x)-pref.begin();if(t.lower_bound(x)!=expected)fail("lower_bound",n,0,n,expected,t.lower_bound(x));}
+  }
+}

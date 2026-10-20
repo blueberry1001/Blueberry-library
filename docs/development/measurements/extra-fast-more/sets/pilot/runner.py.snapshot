@@ -1,0 +1,46 @@
+from pathlib import Path
+import json,subprocess,random,hashlib,shutil,time,statistics,datetime,os
+root=Path.cwd();out=root/'docs/development/measurements/extra-fast-more/sets/pilot';out.mkdir(parents=True,exist_ok=False)
+source=root/'.benchmark/extra-fast-more';binary=root/'.build/more-root/sets-pilot'
+for f in ['ordered-map.hpp','hash-map.hpp','sets-benchmark.cpp']:
+ shutil.copyfile(source/f,out/(f+'.snapshot'))
+shutil.copyfile(Path(__file__),out/'runner.py.snapshot')
+meta={'started':datetime.datetime.now(datetime.timezone.utc).isoformat(),'compiler':subprocess.check_output(['g++','--version'],text=True),'flags':['-std=gnu++20','-O2','-DNDEBUG','-Wall','-Wextra','-Wshadow','-Werror','-I.'],'cpu':subprocess.check_output(['lscpu'],text=True),'cpu_affinity':[0],'os_load_controlled':False,'N':50000,'Q':100000,'repeats':3,'source_sha256':{f:hashlib.sha256((source/f).read_bytes()).hexdigest() for f in ['ordered-map.hpp','hash-map.hpp','sets-benchmark.cpp']}}
+(out/'environment.json').write_text(json.dumps(meta,indent=2)+'\n')
+rng=random.Random(20261020);n=50000;q=100000
+initial=[(rng.getrandbits(64),rng.getrandbits(64)) for _ in range(n)]
+operations=[]
+for _ in range(q):
+ key=initial[rng.randrange(n)][0] if rng.randrange(10)<7 else rng.getrandbits(64)
+ operations.append((rng.randrange(4),key,rng.getrandbits(64)))
+inputs={}
+for typ in ['ordered','hash']:
+ p=Path('/tmp')/('blueberry-map-pilot-'+typ+'.txt')
+ with p.open('w') as f:
+  f.write(f'{n} {q}\n')
+  for k,v in initial:f.write(f'{k} {v}\n')
+  for t,k,v in operations:f.write(f'{t if typ=="ordered" else t%3} {k} {v}\n')
+ inputs[typ]=p
+meta['input_sha256']={k:hashlib.sha256(p.read_bytes()).hexdigest() for k,p in inputs.items()};(out/'environment.json').write_text(json.dumps(meta,indent=2)+'\n')
+samples=[];failures=[]
+with (out/'samples.jsonl').open('w') as log:
+ for kind in ['map','set','hash','hashset']:
+  expected=None
+  for repeat in range(3):
+   variants=['std','new','scalar'];variants=variants[repeat%3:]+variants[:repeat%3]
+   for variant in variants:
+    with inputs['ordered' if kind in ['map','set'] else 'hash'].open('rb') as f:
+     begin=time.monotonic();r=subprocess.run(['taskset','-c','0',str(binary),kind,variant],stdin=f,capture_output=True,text=True,timeout=30)
+    if r.returncode:failures.append({'kind':kind,'variant':variant,'code':r.returncode,'stderr':r.stderr});continue
+    data=json.loads(r.stdout);data.update(kind=kind,variant=variant,repeat=repeat,wall_ms=(time.monotonic()-begin)*1000)
+    key=(data['checksum'],data['answer_count'],data['size'])
+    if expected is None:expected=key
+    if key!=expected:failures.append({'kind':kind,'variant':variant,'expected':expected,'actual':key})
+    samples.append(data);log.write(json.dumps(data)+'\n');log.flush()
+summary=[]
+for kind in ['map','set','hash','hashset']:
+ for variant in ['std','new','scalar']:
+  rows=[r for r in samples if r['kind']==kind and r['variant']==variant]
+  summary.append({'kind':kind,'variant':variant,**{k:{'median':statistics.median(r[k] for r in rows),'min':min(r[k] for r in rows)} for k in ['parse_ms','build_ms','operations_ms','format_ms','wall_ms']}})
+(out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');(out/'failures.json').write_text(json.dumps(failures,indent=2)+'\n')
+print(json.dumps({'samples':len(samples),'failures':failures,'summary':summary},indent=2))

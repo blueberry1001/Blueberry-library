@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+import datetime,hashlib,json,re,shutil,statistics,subprocess,tempfile
+from pathlib import Path
+ROOT=Path.cwd();WORK=ROOT/'.benchmark/extra-fast-more/fps';BASE=ROOT/'docs/development/measurements/extra-fast-more/fps';OUT=BASE/'memory-final'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+def main():
+ OUT.mkdir(parents=True,exist_ok=True);started=now();binary_dir=Path(tempfile.mkdtemp(prefix='blueberry-fps-memory-'));binaries=[];sources={}
+ phase_env=json.loads((BASE/'final/environment.json').read_text());expected={}
+ for line in (BASE/'final/samples.jsonl').read_text().splitlines():
+  sample=json.loads(line)
+  if sample['distribution']=='random':expected[(sample['n'],sample['op'])]=sample['output_normalized_sha256']
+ for compiler in ['g++','clang++']:
+  for backend in [0,1,2,3]:
+   label=f'{compiler}-release-{backend}';original=WORK/label;binary=binary_dir/label;shutil.copyfile(original,binary);binary.chmod(0o755);assert sha(binary)==sha(original);sources[label]={'sha256':sha(binary),'original':str(original),'copy':str(binary)};binaries.append((compiler,backend,label,binary))
+ rows=[];failures=[]
+ for n in [131073,500000]:
+  for op in ['convolution','inv','log','exp']:
+   source=WORK/f'input-{n}-{op}.txt';path=binary_dir/'input.txt';path.write_bytes(source.read_bytes());inputsha=sha(path)
+   for ri in range(5):
+    for compiler in ['g++','clang++']:
+     group=[b for b in binaries if b[0]==compiler];rotation=ri%len(group);group=group[rotation:]+group[:rotation]
+     for compiler,backend,label,binary in group:
+      output=binary_dir/'output.txt'
+      with path.open('rb') as inp,output.open('wb') as dest:
+       result=subprocess.run(['/usr/bin/time','-f','__RSS_KIB__=%M','taskset','-c','0',str(binary),op],stdin=inp,stdout=dest,stderr=subprocess.PIPE)
+      text=result.stderr.decode(errors='replace');rss=re.search(r'__RSS_KIB__=(\d+)',text);digest=hashlib.sha256(output.read_bytes().rstrip()).hexdigest();correct=result.returncode==0 and digest==expected[(n,op)] and bool(rss)
+      row={'compiler':compiler,'backend':backend,'label':label,'n':n,'op':op,'run':ri,'correct':correct,'returncode':result.returncode,'input_sha256':inputsha,'output_sha256':digest,'stderr':text}
+      if rss:row['max_rss_kib']=int(rss.group(1))
+      rows.append(row)
+      with (OUT/'samples.jsonl').open('a') as log:log.write(json.dumps(row)+'\n')
+      if not correct:failures.append(row)
+ summary=[]
+ for compiler,backend,label,binary in binaries:
+  for n in [131073,500000]:
+   for op in ['convolution','inv','log','exp']:
+    values=[x['max_rss_kib'] for x in rows if x['compiler']==compiler and x['backend']==backend and x['n']==n and x['op']==op and x['correct']]
+    row={'compiler':compiler,'backend':backend,'label':label,'n':n,'op':op,'correct_runs':len(values)}
+    if values:row['max_rss_kib']={'median':statistics.median(values),'min':min(values)}
+    summary.append(row)
+ env={'started':started,'finished':now(),'runs':5,'profiles':['release'],'flags':'Identical byte-for-byte copies of phase final O2 NDEBUG binaries; no recompile','binary_sha256':sources,'phase_source_sha256':phase_env['source_sha256'],'reason':'Direct Python subprocess child ru_maxrss includes the large fork parent footprint and is unsuitable. /usr/bin/time starts a fresh small helper before forking the measured executable. Only this separate phase is authoritative for memory.','affinity':[0]}
+ (OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n');(OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');(OUT/'failures.json').write_text(json.dumps(failures,indent=2)+'\n');(OUT/'runner.py.snapshot').write_bytes(Path(__file__).read_bytes());print(json.dumps({'samples':len(rows),'failures':len(failures)}))
+if __name__=='__main__':main()

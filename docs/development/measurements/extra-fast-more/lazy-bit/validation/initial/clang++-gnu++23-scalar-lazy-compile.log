@@ -1,0 +1,5 @@
+COMMAND ['clang++', '-std=gnu++23', '-O2', '-Wall', '-Wextra', '-Werror', '-I.', '-I.deps/ac-library', '-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR', 'tests/random/extra-fast-lazy.cpp', '-o', '/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/lazy-bit/clang++-gnu++23-scalar-lazy']
+tests/random/extra-fast-lazy.cpp:24:32: error: explicitly assigning value of variable of type 'blueberry::extra_fast::RangeAddSum' to itself [-Werror,-Wself-assign-overloaded]
+   24 |    if(k%20==0){auto copy=t;copy=copy;t=std::move(copy);}
+      |                            ~~~~^~~~~
+1 error generated.

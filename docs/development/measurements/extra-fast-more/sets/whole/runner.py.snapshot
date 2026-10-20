@@ -1,0 +1,155 @@
+#!/usr/bin/env python3
+"""Prepare after API freeze; run only in the agreed exclusive CPU window."""
+import argparse,bisect,datetime,hashlib,json,platform,random,re,shutil,statistics,subprocess,sys,tempfile,time
+from pathlib import Path
+ROOT=Path.cwd();WORK=ROOT/'.benchmark/extra-fast-more';OUT=ROOT/'docs/development/measurements/extra-fast-more/sets/whole'
+MAXKEY=10**9;MAXMAP=10**18
+HEADERS=['blueberry/extra-fast/ordered-map.hpp','blueberry/extra-fast/hash-map.hpp','blueberry/data-structure/ordered-set.hpp','blueberry/utility/fast-io.hpp']
+SOURCES=['verify/extra-fast/ordered-set.test.cpp','verify/extra-fast/ordered-map.test.cpp','verify/extra-fast/hash-map.test.cpp']
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+class FenwickOracle:
+ def __init__(self,initial,queries):
+  self.keys=sorted(set(initial)|{x for t,x in queries if t==0});self.index={x:i for i,x in enumerate(self.keys)};self.present=[0]*len(self.keys)
+  for x in initial:self.present[self.index[x]]=1
+  self.bit=[0]+self.present.copy();self.size=len(initial)
+  for i in range(1,len(self.bit)):
+   j=i+(i&-i)
+   if j<len(self.bit):self.bit[j]+=self.bit[i]
+ def prefix(self,index):
+  value=0
+  while index:value+=self.bit[index];index-=index&-index
+  return value
+ def update(self,x,present):
+  index=self.index.get(x)
+  if index is None:return
+  delta=present-self.present[index]
+  if not delta:return
+  self.present[index]=present;self.size+=delta;index+=1
+  while index<len(self.bit):self.bit[index]+=delta;index+=index&-index
+ def kth(self,k):
+  if k<1 or k>self.size:return -1
+  index=0;step=1<<(len(self.keys).bit_length()-1)
+  while step:
+   nxt=index+step
+   if nxt<len(self.bit) and self.bit[nxt]<k:k-=self.bit[nxt];index=nxt
+   step>>=1
+  return self.keys[index]
+ def query(self,t,x):
+  if t<2:self.update(x,t==0);return None
+  if t==2:return self.kth(x)
+  if t==3:return self.prefix(bisect.bisect_right(self.keys,x))
+  if t==4:return self.kth(self.prefix(bisect.bisect_right(self.keys,x)))
+  return self.kth(self.prefix(bisect.bisect_left(self.keys,x))+1)
+def ordered_oracle(initial,queries):
+ oracle=FenwickOracle(initial,queries);answer=[]
+ for t,x in queries:
+  result=oracle.query(t,x)
+  if result is not None:answer.append(result)
+ return answer
+def self_check():
+ rng=random.Random(20261020);initial=[0,1,7,MAXKEY];queries=[(2,1),(2,8),(3,0),(4,0),(5,MAXKEY)]
+ queries += [(rng.randrange(6),rng.randrange(1,25)) for _ in range(1000)]
+ expected=[];values=initial.copy()
+ for t,x in queries:
+  lo=bisect.bisect_left(values,x);hi=bisect.bisect_right(values,x)
+  if t==0:
+   if lo==len(values) or values[lo]!=x:values.insert(lo,x)
+  elif t==1:
+   if lo<len(values) and values[lo]==x:values.pop(lo)
+  elif t==2:expected.append(values[x-1] if x<=len(values) else -1)
+  elif t==3:expected.append(hi)
+  elif t==4:expected.append(values[hi-1] if hi else -1)
+  else:expected.append(values[lo] if lo<len(values) else -1)
+ assert ordered_oracle(initial,queries)==expected
+ assert ordered_oracle([],[(2,1),(3,0),(4,0),(5,0)])==[-1,0,-1,-1]
+def fixture(path,problem,name,n,q,mode,seed):
+ rng=random.Random(seed);text=[];expected=[]
+ if problem=='ordered_set':
+  initial=sorted([0,MAXKEY]+rng.sample(range(1,MAXKEY),n-2)) if n>=2 else [0] if n else []
+  hot=[0,MAXKEY]+[rng.randrange(MAXKEY+1) for _ in range(1022)]
+  weights=[5,5,22,23,23,22] if mode=='queries' else [20,20,15,15,15,15]
+  queries=[]
+  for i in range(q):
+   t=rng.choices(range(6),weights)[0]
+   if t==2:x=rng.randrange(1,max(2,n+q//4+1))
+   elif rng.random()<0.45:x=hot[rng.randrange(len(hot))]
+   else:x=rng.randrange(MAXKEY+1)
+   queries.append((t,x))
+  expected=ordered_oracle(initial,queries);text=[f'{n} {q}',' '.join(map(str,initial))]+[f'{t} {x}' for t,x in queries]
+ else:
+  oracle={};hot=[0,MAXMAP]+[rng.randrange(MAXMAP+1) for _ in range(1022)];text=[str(q)]
+  for i in range(q):
+   t=0 if rng.random()<(0.9 if mode=='updates' else 0.5) else 1
+   key=hot[rng.randrange(len(hot))] if mode=='hot' or rng.random()<0.25 else rng.randrange(MAXMAP+1)
+   if t==0:
+    value=0 if i%13==0 else rng.randrange(MAXMAP+1);text.append(f'0 {key} {value}');oracle[key]=value
+   else:text.append(f'1 {key}');expected.append(oracle.get(key,0))
+ path.write_text('\n'.join(text)+'\n');answer=' '.join(map(str,expected)).encode()
+ return {'problem':problem,'name':name,'n':n,'q':q,'mode':mode,'seed':seed,'input_sha256':sha(path),'expected_sha256':hashlib.sha256(answer).hexdigest(),'expected_outputs':len(expected),'path':path}
+def main():
+ parser=argparse.ArgumentParser();parser.add_argument('--self-check-only',action='store_true');parser.add_argument('--expected-sources',type=Path);args=parser.parse_args()
+ self_check()
+ if args.self_check_only:print('oracle self-check passed');return
+ OUT.mkdir(parents=True,exist_ok=True)
+ if (OUT/'samples.jsonl').exists():raise RuntimeError('Preserve/rename the previous phase before rerunning; do not append mixed runs')
+ binary_dir=Path(tempfile.mkdtemp(prefix='blueberry-sets-whole-'));frozen={p:sha(ROOT/p) for p in HEADERS+SOURCES}
+ if args.expected_sources:
+  wanted=json.loads(args.expected_sources.read_text())
+  for path,digest in wanted.items():assert sha(ROOT/path)==digest,(path,'source changed before compile')
+ def check_frozen():
+  for path,digest in frozen.items():assert sha(ROOT/path)==digest,(path,'source changed during measurement')
+ env={'started':now(),'python':sys.version,'platform':platform.platform(),'cpu':Path('/proc/cpuinfo').read_text().split('model name\t: ')[-1].splitlines()[0],'flags':['-std=gnu++23','-O2','-DNDEBUG','-march=native'],'runs':5,'affinity':[0],'sources':frozen,'binaries':{},'binary_storage':str(binary_dir),'oracle':'Ordered set: independent offline Fenwick presence/count/kth, checked against Python bisect list on 1005 queries. Map: Python dict, missing reads do not insert. Candidate public online APIs receive streaming input, no compression.','contracts':'All generated inputs satisfy official LC constraints: ordered_set N/Q<=500000, initial strictly increasing, keys<=1e9, kth query x>=1; associative_array Q<=1000000, key/value<=1e18. Offline source 410556 is labeled a full-problem solver and not equivalent to the online API. reserve(q) candidates are labeled separately.','constraint_sources':['https://raw.githubusercontent.com/yosupo06/library-checker-problems/master/data_structure/ordered_set/info.toml','https://raw.githubusercontent.com/yosupo06/library-checker-problems/master/data_structure/ordered_set/verifier.cpp','https://raw.githubusercontent.com/yosupo06/library-checker-problems/master/data_structure/associative_array/info.toml']}
+ (OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+ candidates=[('ordered_set','treap',WORK/'sets-whole-baseline.cpp',['-DBASELINE_ORDERED_SET']),('ordered_set','new-ordered-set',ROOT/'verify/extra-fast/ordered-set.test.cpp',[]),('associative_array','std-map',WORK/'sets-whole-baseline.cpp',['-DBASELINE_STD_MAP']),('associative_array','std-unordered',WORK/'sets-whole-baseline.cpp',[]),('associative_array','std-unordered-reserved',WORK/'sets-whole-baseline.cpp',['-DBASELINE_RESERVE']),('associative_array','new-ordered-map',ROOT/'verify/extra-fast/ordered-map.test.cpp',[]),('associative_array','new-hash-map',ROOT/'verify/extra-fast/hash-map.test.cpp',[]),('associative_array','new-hash-reserved',WORK/'sets-whole-baseline.cpp',['-DBASELINE_RESERVED_HASH'])]
+ for ident in [409360,409538,410556]:candidates.append(('ordered_set',f'original-{ident}'+('-offline' if ident==410556 else '-online'),WORK/f'research/ordered_set/submission-{ident}.cpp',[]))
+ candidates.append(('associative_array','original-362188-fixed',WORK/'research/associative_array/submission-362188.cpp',[]))
+ binaries=[];failures=[]
+ for compiler in ['g++','clang++']:
+  env[compiler]=subprocess.run([compiler,'--version'],capture_output=True,text=True).stdout
+  for problem,label,source,flags in candidates:
+   check_frozen();binary=binary_dir/(compiler+'-'+label);command=[compiler,'-std=gnu++23','-O2','-DNDEBUG','-march=native','-fno-diagnostics-show-caret' if compiler=='g++' else '-fno-caret-diagnostics','-I.','-isystem','.deps/ac-library',*flags,str(source),'-o',str(binary)]
+   result=subprocess.run(command,capture_output=True,text=True);(OUT/f'{compiler}-{label}.compile.log').write_text(json.dumps(command)+'\n'+result.stdout+result.stderr);check_frozen()
+   env['binaries'][compiler+'-'+label]={'source':str(source),'source_sha256':sha(source),'compile_returncode':result.returncode}
+   if result.returncode:failures.append({'stage':'compile','compiler':compiler,'problem':problem,'label':label,'returncode':result.returncode})
+   else:
+    env['binaries'][compiler+'-'+label]['binary_sha256']=sha(binary);binaries.append((compiler,problem,label,binary))
+ (OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n');(OUT/'failures.json').write_text(json.dumps(failures,indent=2)+'\n')
+ fixtures=[]
+ for i,(n,q,mode) in enumerate([(0,20000,'mixed'),(65536,200000,'mixed'),(200000,200000,'queries'),(500000,500000,'mixed')]):fixtures.append(fixture(binary_dir/f'ordered-{i}.in','ordered_set',f'ordered-{n}-{q}-{mode}',n,q,mode,20261020+i))
+ for i,(q,mode) in enumerate([(200000,'mixed'),(1000000,'updates'),(200000,'hot')]):fixtures.append(fixture(binary_dir/f'map-{i}.in','associative_array',f'map-{q}-{mode}',0,q,mode,20261030+i))
+ samples=[]
+ for fi,case in enumerate(fixtures):
+  for ri in range(5):
+   for compiler in ['g++','clang++']:
+    group=[x for x in binaries if x[0]==compiler and x[1]==case['problem']];rotation=(ri+fi)%len(group);group=group[rotation:]+group[:rotation]
+    for compiler,problem,label,binary in group:
+     check_frozen();output=binary_dir/'output.txt'
+     with case['path'].open('rb') as inp,output.open('wb') as dest:
+      begin=time.perf_counter();result=subprocess.run(['/usr/bin/time','-f','__RSS_KIB__=%M','taskset','-c','0',str(binary)],stdin=inp,stdout=dest,stderr=subprocess.PIPE);wall=(time.perf_counter()-begin)*1000
+     raw=output.read_bytes()
+     try:tokens=[str(int(x)).encode() for x in raw.split()];digest=hashlib.sha256(b' '.join(tokens)).hexdigest();count=len(tokens)
+     except Exception:digest=None;count=-1
+     text=result.stderr.decode(errors='replace');rss=re.search(r'__RSS_KIB__=(\d+)',text);correct=result.returncode==0 and digest==case['expected_sha256'] and count==case['expected_outputs'] and bool(rss)
+     row={'compiler':compiler,'problem':problem,'label':label,'fixture':case['name'],'n':case['n'],'q':case['q'],'mode':case['mode'],'run':ri,'returncode':result.returncode,'correct':correct,'input_sha256':case['input_sha256'],'output_sha256':digest,'expected_sha256':case['expected_sha256'],'output_count':count,'expected_outputs':case['expected_outputs'],'wall_ms':wall,'stderr':text}
+     if rss:row['max_rss_kib']=int(rss.group(1))
+     samples.append(row)
+     with (OUT/'samples.jsonl').open('a') as log:log.write(json.dumps(row)+'\n')
+     if not correct:
+      failures.append(row);(OUT/f'failed-{compiler}-{label}-{fi}-{ri}.stdout').write_bytes(raw)
+     check_frozen()
+ check_frozen();summary=[]
+ for compiler in ['g++','clang++']:
+  for case in fixtures:
+   for problem,label,source,flags in candidates:
+    if problem!=case['problem']:continue
+    subset=[x for x in samples if x['compiler']==compiler and x['fixture']==case['name'] and x['label']==label and x['correct']]
+    row={'compiler':compiler,'fixture':case['name'],'problem':problem,'label':label,'correct_runs':len(subset),'attempted_runs':sum(x['compiler']==compiler and x['fixture']==case['name'] and x['label']==label for x in samples)}
+    for field in ['wall_ms','max_rss_kib']:
+     values=[x[field] for x in subset if field in x]
+     if values:row[field]={'median':statistics.median(values),'min':min(values)}
+    summary.append(row)
+ env['finished']=now();env['fixtures']=[{k:v for k,v in x.items() if k!='path'} for x in fixtures];(OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n');(OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');(OUT/'failures.json').write_text(json.dumps(failures,indent=2)+'\n');(OUT/'runner.py.snapshot').write_bytes(Path(__file__).read_bytes());(OUT/'baseline.cpp.snapshot').write_bytes((WORK/'sets-whole-baseline.cpp').read_bytes())
+ for source in HEADERS+SOURCES:(OUT/(source.replace('/','-')+'.snapshot')).write_bytes((ROOT/source).read_bytes())
+ print(json.dumps({'samples':len(samples),'failures':len(failures),'outputs_correct':all(x['correct'] for x in samples)}))
+if __name__=='__main__':main()

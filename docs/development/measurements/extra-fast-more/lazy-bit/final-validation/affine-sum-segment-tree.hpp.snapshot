@@ -1,0 +1,348 @@
+#pragma once
+
+#include <array>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <new>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+#if (defined(__x86_64__) || defined(__i386__)) && \
+    (defined(__GNUC__) || defined(__clang__))
+#include <immintrin.h>
+#define BLUEBERRY_EXTRA_FAST_LAZY_AVX2 1
+#else
+#define BLUEBERRY_EXTRA_FAST_LAZY_AVX2 0
+#endif
+
+namespace blueberry::extra_fast {
+
+// Dynamic sixteen-way lazy tree for affine maps and sums modulo 998244353.
+// Independently implemented: sums are ordinary residues; pending maps use Montgomery form.
+class AffineSumSegmentTree {
+  template<class T> struct AlignedAllocator {
+    using value_type = T;
+    using is_always_equal = std::true_type;
+    static constexpr std::size_t alignment = alignof(T) > 32 ? alignof(T) : 32;
+    AlignedAllocator() = default;
+    template<class U> AlignedAllocator(const AlignedAllocator<U>&) noexcept {}
+    T* allocate(std::size_t n) {
+      if (n > std::numeric_limits<std::size_t>::max() / sizeof(T))
+        throw std::bad_array_new_length();
+      return static_cast<T*>(::operator new(n * sizeof(T), std::align_val_t(alignment)));
+    }
+    void deallocate(T* p, std::size_t) noexcept {
+      ::operator delete(p, std::align_val_t(alignment));
+    }
+    template<class U> bool operator==(const AlignedAllocator<U>&) const noexcept {
+      return alignment == AlignedAllocator<U>::alignment;
+    }
+  };
+  using Storage = std::vector<std::uint32_t, AlignedAllocator<std::uint32_t>>;
+
+ public:
+  explicit AffineSumSegmentTree(int n = 0, bool use_simd = true)
+      : n_(n), simd_(use_simd && simd_available()) {
+    assert(n >= 0);
+    initialize(static_cast<std::size_t>(n));
+  }
+
+  explicit AffineSumSegmentTree(const std::vector<std::uint32_t>& values,
+                                bool use_simd = true)
+      : AffineSumSegmentTree(checked_size(values.size()), use_simd) {
+    for (std::size_t i = 0; i < values.size(); ++i) sums_[i] = values[i] % modulus_;
+    for (int h = 0; h + 1 < levels_; ++h) {
+      const std::size_t nodes = (offsets_[h + 1] - offsets_[h]) / fanout_;
+      for (std::size_t node = 0; node < nodes; ++node)
+        sums_[offsets_[h + 1] + node] = fold(h, node, 0, fanout_);
+    }
+  }
+
+  AffineSumSegmentTree(const AffineSumSegmentTree&) = default;
+  AffineSumSegmentTree(AffineSumSegmentTree&& other) noexcept
+      : sums_(std::move(other.sums_)), multipliers_(std::move(other.multipliers_)),
+        translations_(std::move(other.translations_)), n_(std::exchange(other.n_, 0)),
+        simd_(other.simd_), levels_(std::exchange(other.levels_, 0)),
+        offsets_(other.offsets_),
+        length_residues_(other.length_residues_) {}
+  AffineSumSegmentTree& operator=(AffineSumSegmentTree other) noexcept {
+    std::swap(sums_, other.sums_);
+    std::swap(multipliers_, other.multipliers_);
+    std::swap(translations_, other.translations_);
+    std::swap(n_, other.n_);
+    std::swap(simd_, other.simd_);
+    std::swap(levels_, other.levels_);
+    std::swap(offsets_, other.offsets_);
+    std::swap(length_residues_, other.length_residues_);
+    return *this;
+  }
+
+  int size() const { return n_; }
+
+  void apply(int l, int r, std::uint32_t a, std::uint32_t b) {
+    assert(0 <= l && l <= r && r <= n_);
+    if (l == r) return;
+    const auto scale = encode(a), shift = encode(b);
+    if (scale != one_ || shift != 0) update(levels_ - 1, 0, l, r, scale, shift);
+  }
+
+  std::uint32_t prod(int l, int r) const {
+    assert(0 <= l && l <= r && r <= n_);
+    return l == r ? 0 : query(levels_ - 1, 0, l, r);
+  }
+  std::uint32_t get(int p) const {
+    assert(0 <= p && p < n_);
+    return prod(p, p + 1);
+  }
+  void set(int p, std::uint32_t x) {
+    assert(0 <= p && p < n_);
+    apply(p, p + 1, 0, x);
+  }
+  std::uint32_t all_prod() const { return n_ ? fold(levels_ - 1, 0, 0, fanout_) : 0; }
+  bool uses_simd() const { return simd_; }
+  static bool simd_available() {
+#if BLUEBERRY_EXTRA_FAST_LAZY_AVX2 && !defined(BLUEBERRY_EXTRA_FAST_FORCE_SCALAR)
+    return __builtin_cpu_supports("avx2");
+#else
+    return false;
+#endif
+  }
+
+ private:
+  static constexpr unsigned fanout_ = 16;
+  static constexpr std::uint32_t modulus_ = 998244353;
+  static constexpr std::uint32_t one_ = 301989884;  // 2^32 modulo modulus.
+  static constexpr std::uint32_t inverse_ = 998244351;  // -modulus^-1 modulo 2^32.
+  static std::uint32_t encode(std::uint32_t x) {
+    return (static_cast<std::uint64_t>(x) << 32) % modulus_;
+  }
+  static std::uint32_t add(std::uint32_t x, std::uint32_t y) {
+    x += y;
+    return x >= modulus_ ? x - modulus_ : x;
+  }
+  static std::uint32_t multiply(std::uint32_t x, std::uint32_t y) {
+    const std::uint64_t product = static_cast<std::uint64_t>(x) * y;
+    const std::uint32_t correction = static_cast<std::uint32_t>(product) * inverse_;
+    const auto result = static_cast<std::uint32_t>(
+        (product + static_cast<std::uint64_t>(correction) * modulus_) >> 32);
+    return result >= modulus_ ? result - modulus_ : result;
+  }
+  static int checked_size(std::size_t n) {
+    assert(n <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
+    return static_cast<int>(n);
+  }
+  void initialize(std::size_t n) {
+    if (n == 0) return;
+    std::size_t nodes = (n + fanout_ - 1) / fanout_;
+    std::size_t total = 0;
+    std::uint64_t length = 1;
+    do {
+      offsets_[levels_] = total;
+      length_residues_[levels_++] = length % modulus_;
+      total += nodes * fanout_;
+      if (nodes == 1) break;
+      nodes = (nodes + fanout_ - 1) / fanout_;
+      length *= fanout_;
+    } while (true);
+    sums_.assign(total, 0);
+    const auto leaves = levels_ == 1 ? total : offsets_[1];
+    multipliers_.assign(total - leaves, one_);
+    translations_.assign(total - leaves, 0);
+  }
+
+  std::uint32_t fold(int h, std::size_t node, unsigned first, unsigned last) const {
+    const auto base = offsets_[h] + node * fanout_;
+#if BLUEBERRY_EXTRA_FAST_LAZY_AVX2
+    if (simd_) {
+      return fold_simd(sums_.data() + base, first, last);
+    }
+#endif
+    std::uint64_t result = 0;
+    for (unsigned j = first; j < last; ++j) result += sums_[base + j];
+    return result % modulus_;
+  }
+
+  void transform(int h, std::size_t node, unsigned first, unsigned last,
+                 std::uint32_t a, std::uint32_t b) {
+    const auto base = offsets_[h] + node * fanout_;
+    const auto shift = multiply(b, length_residues_[h]);
+    auto* scales = h ? multipliers_.data() + base - offsets_[1] : nullptr;
+    auto* shifts = h ? translations_.data() + base - offsets_[1] : nullptr;
+#if BLUEBERRY_EXTRA_FAST_LAZY_AVX2
+    if (simd_) {
+      transform_simd(sums_.data() + base, scales, shifts, first, last, a, b, shift);
+      return;
+    }
+#endif
+    for (unsigned j = first; j < last; ++j) {
+      sums_[base + j] = add(multiply(a, sums_[base + j]), shift);
+      if (h) {
+        scales[j] = multiply(a, scales[j]);
+        shifts[j] = add(multiply(a, shifts[j]), b);
+      }
+    }
+  }
+
+  void push(int h, std::size_t node, unsigned child) {
+    const auto index = offsets_[h] + node * fanout_ + child - offsets_[1];
+    const auto a = multipliers_[index], b = translations_[index];
+    if (a == one_ && b == 0) return;
+    transform(h - 1, node * fanout_ + child, 0, fanout_, a, b);
+    multipliers_[index] = one_;
+    translations_[index] = 0;
+  }
+
+  void update_child(int h, std::size_t node, unsigned child, std::uint64_t l,
+                    std::uint64_t r, std::uint32_t a, std::uint32_t b) {
+    push(h, node, child);
+    update(h - 1, node * fanout_ + child, l, r, a, b);
+    sums_[offsets_[h] + node * fanout_ + child] = fold(h - 1, node * fanout_ + child, 0, fanout_);
+  }
+
+  void update(int h, std::size_t node, std::uint64_t l, std::uint64_t r,
+              std::uint32_t a, std::uint32_t b) {
+    const unsigned shift = h * (fanout_ == 8 ? 3 : 4);
+    const std::uint64_t length = std::uint64_t(1) << shift;
+    const unsigned first = (l + length - 1) >> shift, last = r >> shift;
+    if (first < last) transform(h, node, first, last, a, b);
+    if (h == 0) return;
+    const unsigned left = l >> shift, right = r >> shift;
+    if ((l & (length - 1)))
+      update_child(h, node, left, (l & (length - 1)),
+                   (r < (left + 1) * length ? r - left * length : length), a, b);
+    if ((r & (length - 1)) && ((l & (length - 1)) == 0 || left != right))
+      update_child(h, node, right, 0, (r & (length - 1)), a, b);
+  }
+
+  std::uint32_t query_child(int h, std::size_t node, unsigned child,
+                            std::uint64_t l, std::uint64_t r) const {
+    auto result = query(h - 1, node * fanout_ + child, l, r);
+    const auto index = offsets_[h] + node * fanout_ + child - offsets_[1];
+    const auto a = multipliers_[index], b = translations_[index];
+    if (a == one_ && b == 0) return result;
+    return add(multiply(a, result), multiply(b, static_cast<std::uint32_t>(r - l) % modulus_));
+  }
+
+  std::uint32_t query(int h, std::size_t node, std::uint64_t l, std::uint64_t r) const {
+    const unsigned shift = h * (fanout_ == 8 ? 3 : 4);
+    const std::uint64_t length = std::uint64_t(1) << shift;
+    const unsigned first = (l + length - 1) >> shift, last = r >> shift;
+    std::uint32_t result = first < last ? fold(h, node, first, last) : 0;
+    if (h == 0) return result;
+    const unsigned left = l >> shift, right = r >> shift;
+    if ((l & (length - 1)))
+      result = add(result, query_child(h, node, left, (l & (length - 1)),
+                   (r < (left + 1) * length ? r - left * length : length)));
+    if ((r & (length - 1)) && ((l & (length - 1)) == 0 || left != right))
+      result = add(result, query_child(h, node, right, 0, (r & (length - 1))));
+    return result;
+  }
+
+#if BLUEBERRY_EXTRA_FAST_LAZY_AVX2
+  __attribute__((target("avx2"), always_inline)) static inline __m256i
+  add_simd(__m256i x, __m256i y) {
+    const auto sum = _mm256_add_epi32(x, y);
+    return _mm256_min_epu32(sum, _mm256_sub_epi32(sum, _mm256_set1_epi32(modulus_)));
+  }
+
+  __attribute__((target("avx2"), always_inline)) static inline __m256i
+  multiply_even_simd(__m256i x, __m256i y) {
+#if defined(BLUEBERRY_EXTRA_FAST_USE_ASM)
+    __m256i result;
+    asm("vpmuludq {%2, %1, %0|%0, %1, %2}"
+        : "=x"(result) : "x"(x), "x"(y));
+    return result;
+#else
+    return _mm256_mul_epu32(x, y);
+#endif
+  }
+
+  __attribute__((target("avx2"), always_inline)) static inline __m256i
+  multiply_simd(__m256i x, __m256i a, __m256i adjusted_a) {
+    const auto modulus = _mm256_set1_epi32(modulus_);
+    const auto correction = _mm256_mullo_epi32(x, adjusted_a);
+    const auto even = _mm256_srli_epi64(_mm256_add_epi64(
+        multiply_even_simd(x, a), multiply_even_simd(correction, modulus)), 32);
+    const auto odd = _mm256_srli_epi64(_mm256_add_epi64(
+        multiply_even_simd(_mm256_srli_epi64(x, 32), a),
+        multiply_even_simd(_mm256_srli_epi64(correction, 32), modulus)), 32);
+    const auto result = _mm256_or_si256(even, _mm256_slli_epi64(odd, 32));
+    return _mm256_min_epu32(result, _mm256_sub_epi32(result, modulus));
+  }
+
+  __attribute__((target("avx2"), always_inline)) static inline __m256i
+  interval_simd(unsigned first, unsigned last) {
+    const auto lanes = _mm256_setr_epi32(0, 1, 2, 3, 4, 5, 6, 7);
+    return _mm256_andnot_si256(
+        _mm256_cmpgt_epi32(_mm256_set1_epi32(first), lanes),
+        _mm256_cmpgt_epi32(_mm256_set1_epi32(last), lanes));
+  }
+
+  __attribute__((target("avx2"))) static std::uint32_t
+  fold_simd(const std::uint32_t* values, unsigned first, unsigned last) {
+    auto x = _mm256_setzero_si256();
+    if (first < 8)
+      x = _mm256_and_si256(interval_simd(first, last < 8 ? last : 8),
+          _mm256_load_si256(reinterpret_cast<const __m256i*>(values)));
+    if (last > 8)
+      x = add_simd(x, _mm256_and_si256(
+          interval_simd(first > 8 ? first - 8 : 0, last - 8),
+          _mm256_load_si256(reinterpret_cast<const __m256i*>(values + 8))));
+    auto sum = _mm_add_epi32(_mm256_castsi256_si128(x), _mm256_extracti128_si256(x, 1));
+    const auto modulus = _mm_set1_epi32(modulus_);
+    sum = _mm_min_epu32(sum, _mm_sub_epi32(sum, modulus));
+    auto next = _mm_add_epi32(sum, _mm_shuffle_epi32(sum, _MM_SHUFFLE(1, 0, 3, 2)));
+    sum = _mm_min_epu32(next, _mm_sub_epi32(next, modulus));
+    next = _mm_add_epi32(sum, _mm_shuffle_epi32(sum, _MM_SHUFFLE(2, 3, 0, 1)));
+    return _mm_cvtsi128_si32(_mm_min_epu32(next, _mm_sub_epi32(next, modulus)));
+  }
+
+  __attribute__((target("avx2"), always_inline)) static inline __m256i
+  transform_one_simd(__m256i old, __m256i multiplier, __m256i adjusted,
+                      __m256i offset, __m256i selected) {
+    return _mm256_blendv_epi8(old,
+        add_simd(multiply_simd(old, multiplier, adjusted), offset), selected);
+  }
+
+  __attribute__((target("avx2"))) static void
+  transform_simd(std::uint32_t* sums, std::uint32_t* scales, std::uint32_t* shifts,
+                 unsigned first, unsigned last, std::uint32_t a, std::uint32_t b,
+                 std::uint32_t sum_shift) {
+    const auto multiplier = _mm256_set1_epi32(a);
+    const auto adjusted = _mm256_set1_epi32(static_cast<int>(a * inverse_));
+    const auto sum_offset = _mm256_set1_epi32(sum_shift);
+    const auto tag_offset = _mm256_set1_epi32(b);
+    for (unsigned offset = (first / 8) * 8; offset < last; offset += 8) {
+      const auto selected = interval_simd(first > offset ? first - offset : 0,
+                                          last - offset < 8 ? last - offset : 8);
+      const auto old = _mm256_load_si256(reinterpret_cast<const __m256i*>(sums + offset));
+      _mm256_store_si256(reinterpret_cast<__m256i*>(sums + offset),
+                         transform_one_simd(old, multiplier, adjusted, sum_offset, selected));
+      if (scales) {
+        const auto old_a = _mm256_load_si256(reinterpret_cast<const __m256i*>(scales + offset));
+        const auto old_b = _mm256_load_si256(reinterpret_cast<const __m256i*>(shifts + offset));
+        _mm256_store_si256(reinterpret_cast<__m256i*>(scales + offset),
+            transform_one_simd(old_a, multiplier, adjusted, _mm256_setzero_si256(), selected));
+        _mm256_store_si256(reinterpret_cast<__m256i*>(shifts + offset),
+            transform_one_simd(old_b, multiplier, adjusted, tag_offset, selected));
+      }
+    }
+  }
+#endif
+
+  // Copy-swap assignment keeps all three arrays and geometry consistent.
+  Storage sums_, multipliers_, translations_;
+  int n_;
+  bool simd_;
+  int levels_ = 0;
+  std::array<std::size_t, 12> offsets_{};
+  std::array<std::uint32_t, 12> length_residues_{};
+};
+
+}  // namespace blueberry::extra_fast
+
+#undef BLUEBERRY_EXTRA_FAST_LAZY_AVX2
+

@@ -1,0 +1,56 @@
+import argparse,hashlib,json,os,pathlib,shutil,statistics,subprocess,tempfile,time
+P=pathlib.Path(__file__).resolve().parent;ROOT=P.parents[2]
+ap=argparse.ArgumentParser();ap.add_argument('--out',required=True);ap.add_argument('--runs',type=int,default=5);args=ap.parse_args()
+out=ROOT/args.out;out.mkdir(parents=True,exist_ok=False)
+tempdir=tempfile.TemporaryDirectory(prefix='blueberry-wavelet-whole-');TEMP=pathlib.Path(tempdir.name)
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+def semantic_sha(data):return hashlib.sha256(b" ".join(str(int(x)).encode() for x in data.split())).hexdigest()
+meta={'storage':'regular Linux /tmp files for inputs, outputs, and executables','created_utc':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'flags':['-std=gnu++23','-O2','-DNDEBUG','-march=native'],'cpu':0,'runs':args.runs,'load_before':os.getloadavg(),'uname':subprocess.check_output(['uname','-a'],text=True),'lscpu':subprocess.check_output(['lscpu'],text=True),'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'sources':{},'commands':[],'inputs':{},'compilers':{}}
+for file in ['whole.cpp','oracle.cpp','whole.py']:(out/(file+'.snapshot')).write_bytes((P/file).read_bytes())
+for file in ['blueberry/data-structure/wavelet-matrix.hpp','blueberry/extra-fast/wavelet-matrix.hpp']:(out/(file.split('/')[1]+'-header.hpp.snapshot')).write_bytes((ROOT/file).read_bytes())
+for path in [P/'whole.cpp',P/'oracle.cpp',P/'whole.py',ROOT/'blueberry/extra-fast/wavelet-matrix.hpp']:meta['sources'][str(path.relative_to(ROOT))]=sha(path)
+inputs=[]
+for fixture in ['small','wide','duplicates','few-query']:
+ path=P/(fixture+'-whole.in');original=P/(fixture+'.in')
+ with original.open()as f,path.open('w')as g:
+  g.write(f.readline());g.write(f.readline())
+  for line in f:g.write(' '.join(line.split()[:3])+'\n')
+ inputs.append((fixture,path));meta['inputs'][fixture]={'sha256':sha(path),'bytes':path.stat().st_size}
+inputs=[(name,pathlib.Path(shutil.copyfile(path,TEMP/path.name)))for name,path in inputs]
+oracle=TEMP/'oracle';cmd=['g++','-std=gnu++20','-O2','-I'+str(ROOT),str(P/'oracle.cpp'),'-o',str(oracle)]
+c=subprocess.run(cmd,capture_output=True,text=True);(out/'oracle-compile.log').write_text(c.stderr);meta['commands'].append({'command':cmd,'returncode':c.returncode});c.check_returncode()
+expected={}
+for fixture,path in inputs:
+ with path.open('rb')as f:r=subprocess.run([str(oracle)],stdin=f,capture_output=True);r.check_returncode();expected[fixture]=semantic_sha(r.stdout)
+meta['oracle_output_hashes']=expected
+samples=[];failures=[]
+(out/"metadata.json").write_text(json.dumps(meta,indent=2))
+for cxx in ['g++','clang++']:
+ meta['compilers'][cxx]=subprocess.check_output([cxx,'--version'],text=True)
+ variants=[]
+ for name,source,extra in [('normal',P/'whole.cpp',['-DWAVELET_MODE=0']),('fast-online',P/'whole.cpp',['-DWAVELET_MODE=1']),('fast-batch',P/'whole.cpp',['-DWAVELET_MODE=2'])]+[(str(i),P/'range_kth_smallest'/f'submission-{i}.cpp',[])for i in [403008,393928,376681]]:
+  binary=TEMP/(cxx+'-whole-'+name);cmd=[cxx,*meta['flags'],('-fno-diagnostics-show-caret' if cxx=='g++' else '-fno-caret-diagnostics'),'-fmessage-length=0','-I'+str(ROOT),*extra,str(source),'-o',str(binary)]
+  start=time.monotonic();res=subprocess.run(cmd,text=True,capture_output=True);(out/(cxx+'-'+name+'-compile.log')).write_text(res.stdout+res.stderr);meta['commands'].append({'command':cmd,'returncode':res.returncode,'seconds':time.monotonic()-start,'source_sha256':sha(source)})
+  (out/'metadata.json').write_text(json.dumps(meta,indent=2))
+  if res.returncode:failures.append({'stage':'compile','compiler':cxx,'variant':name});continue
+  variants.append((name,binary))
+ if not variants:continue
+ for fixture,path in inputs:
+  for repeat in range(args.runs):
+   order=variants[repeat%len(variants):]+variants[:repeat%len(variants)]
+   for name,binary in order:
+    rss=TEMP/'whole-rss.tmp';cmd=['/usr/bin/time','-f','%M','-o',str(rss),'taskset','-c','0',str(binary)]
+    start=time.perf_counter()
+    output=TEMP/'output.txt'
+    with path.open('rb')as inp,output.open('wb')as dest:res=subprocess.run(cmd,stdin=inp,stdout=dest,stderr=subprocess.PIPE)
+    elapsed=(time.perf_counter()-start)*1000;outputbytes=output.read_bytes();outputhash=hashlib.sha256(outputbytes).hexdigest();normalized=semantic_sha(outputbytes) if res.returncode==0 else None;correct=res.returncode==0 and normalized==expected[fixture]
+    row={'compiler':cxx,'variant':name,'fixture':fixture,'repeat':repeat,'returncode':res.returncode,'correct':correct,'output_sha256':outputhash,'normalized_integer_output_sha256':normalized,'wall_ms':elapsed,'rss_kib':int(rss.read_text().strip().splitlines()[-1])}
+    if not correct:failures.append({'stage':'run',**row,'stderr':res.stderr.decode(errors='replace')})
+    samples.append(row)
+    with (out/'samples.jsonl').open('a')as f:f.write(json.dumps(row)+'\n')
+summary=[]
+for key in sorted({(r['compiler'],r['variant'],r['fixture'])for r in samples}):
+ rows=[r for r in samples if (r['compiler'],r['variant'],r['fixture'])==key];good=[r for r in rows if r['correct']];row=dict(zip(['compiler','variant','fixture'],key));row['successes']=len(good);row['attempts']=len(rows)
+ for metric in ['wall_ms','rss_kib']:row[metric]={'median':statistics.median(r[metric]for r in good),'min':min(r[metric]for r in good)} if good else None
+ summary.append(row)
+meta['load_after']=os.getloadavg();(out/'metadata.json').write_text(json.dumps(meta,indent=2));(out/'summary.json').write_text(json.dumps(summary,indent=2));(out/'failures.json').write_text(json.dumps(failures,indent=2));tempdir.cleanup();print(json.dumps({'samples':len(samples),'failures':len(failures)}))

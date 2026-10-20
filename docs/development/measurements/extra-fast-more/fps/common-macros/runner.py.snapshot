@@ -1,0 +1,29 @@
+#!/usr/bin/env python3
+import datetime,difflib,hashlib,json,subprocess,tempfile
+from pathlib import Path
+ROOT=Path.cwd();WORK=ROOT/'.benchmark/extra-fast-more/fps';OUT=ROOT/'docs/development/measurements/extra-fast-more/fps/common-macros'
+def sha(data):return hashlib.sha256(data).hexdigest()
+def main():
+ OUT.mkdir(parents=True,exist_ok=True);records=[];proof=[];binary_dir=Path(tempfile.mkdtemp(prefix='blueberry-fps-common-'))
+ old=WORK/'pre-common-macros.hpp';new=ROOT/'blueberry/extra-fast/formal-power-series.hpp'
+ (OUT/'before.hpp.snapshot').write_bytes(old.read_bytes());(OUT/'after.hpp.snapshot').write_bytes(new.read_bytes());(OUT/'guards.diff').write_text(''.join(difflib.unified_diff(old.read_text().splitlines(True),new.read_text().splitlines(True),fromfile='before.hpp',tofile='after.hpp')))
+ for compiler in ['g++','clang++']:
+  outputs={}
+  for name,header,flags in [('before-default',old,[]),('after-default',new,[]),('before-legacy',old,['-DBLUEBERRY_EXTRA_FAST_INLINE_ASM']),('after-legacy',new,['-DBLUEBERRY_EXTRA_FAST_INLINE_ASM']),('after-common',new,['-DBLUEBERRY_EXTRA_FAST_USE_ASM'])]:
+   command=[compiler,'-std=gnu++20','-O2','-DNDEBUG','-E','-P','-DBACKEND=1',f'-DBLUEBERRY_FPS_HEADER="{header}"','-I.','-isystem','.deps/ac-library',*flags,str(WORK/'phase.cpp')]
+   result=subprocess.run(command,capture_output=True);outputs[name]=sha(result.stdout);proof.append({'compiler':compiler,'name':name,'command':command,'returncode':result.returncode,'preprocessed_sha256':outputs[name]})
+  for a,b in [('before-default','after-default'),('before-legacy','after-legacy'),('before-legacy','after-common')]:
+   proof.append({'compiler':compiler,'comparison':[a,b],'equal':outputs[a]==outputs[b]})
+  for standard in ['gnu++20','gnu++23']:
+   for mode,flags in [('common-asm',['-DBLUEBERRY_EXTRA_FAST_USE_ASM']),('common-intel',['-DBLUEBERRY_EXTRA_FAST_USE_ASM','-masm=intel']),('force-scalar',['-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR']),('force-scalar-asm',['-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR','-DBLUEBERRY_EXTRA_FAST_USE_ASM'])]:
+    label=f'{compiler}-{standard}-{mode}';binary=binary_dir/label;command=[compiler,f'-std={standard}','-O2','-Wall','-Wextra','-Werror','-I.','-isystem','.deps/ac-library',*flags,'tests/random/extra-fast-fps.cpp','-o',str(binary)];result=subprocess.run(command,capture_output=True,text=True);log=json.dumps(command)+'\n'+result.stdout+result.stderr
+    if result.returncode==0:
+     result=subprocess.run([str(binary),'20261020'],capture_output=True,text=True);log+=result.stdout+result.stderr
+    (OUT/(label+'.log')).write_text(log);records.append({'label':label,'returncode':result.returncode,'command':command})
+ label='g++-common-sanitizer';binary=binary_dir/label;command=['g++','-std=gnu++23','-O1','-g','-fsanitize=address,undefined','-fno-omit-frame-pointer','-DBLUEBERRY_EXTRA_FAST_USE_ASM','-I.','-isystem','.deps/ac-library','tests/random/extra-fast-fps.cpp','-o',str(binary)];result=subprocess.run(command,capture_output=True,text=True);log=json.dumps(command)+'\n'+result.stdout+result.stderr
+ if result.returncode==0:
+  result=subprocess.run([str(binary),'20261020'],capture_output=True,text=True);log+=result.stdout+result.stderr
+ (OUT/(label+'.log')).write_text(log);records.append({'label':label,'returncode':result.returncode,'command':command})
+ state={'finished':datetime.datetime.now(datetime.timezone.utc).isoformat(),'before_sha256':sha(old.read_bytes()),'after_sha256':sha(new.read_bytes()),'proof':proof,'records':records,'passed':all(x['returncode']==0 for x in records) and all(x.get('equal',True) for x in proof)}
+ (OUT/'results.json').write_text(json.dumps(state,indent=2)+'\n');(OUT/'runner.py.snapshot').write_bytes(Path(__file__).read_bytes());print(json.dumps({'records':len(records),'passed':state['passed'],'all_token_streams_equal':all(x.get('equal',True) for x in proof)}))
+if __name__=='__main__':main()

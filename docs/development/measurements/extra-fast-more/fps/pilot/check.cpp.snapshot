@@ -1,0 +1,6 @@
+#include "ntt.hpp"
+#include <atcoder/convolution>
+#include <chrono>
+#include <cstdio>
+#include <random>
+int main(int argc,char**argv){int n=argc>1?atoi(argv[1]):1024;bool simd=argc<3||atoi(argv[2]);std::mt19937 rng(20261020);std::vector<prototype::U>a(n),b(n);std::vector<atcoder::modint998244353>x(n),y(n);for(int i=0;i<n;++i){x[i]=a[i]=rng()%prototype::P;y[i]=b[i]=rng()%prototype::P;a[i]=prototype::mul(a[i],prototype::R2);b[i]=prototype::mul(b[i],prototype::R2);}auto t=std::chrono::steady_clock::now();prototype::NTT z(std::bit_ceil(unsigned(2*n-1)),simd);auto t1=std::chrono::steady_clock::now();auto c=z.conv(a,b);auto t2=std::chrono::steady_clock::now();auto d=atcoder::convolution(x,y);auto t3=std::chrono::steady_clock::now();for(int i=0;i<2*n-1;++i)if(prototype::norm(prototype::red(c[i]))!=d[i].val()){printf("FAIL %d %u %d\n",i,prototype::norm(prototype::red(c[i])),d[i].val());return 1;}printf("n=%d simd=%d build=%.3f conv=%.3f acl=%.3f\n",n,simd,1e3*std::chrono::duration<double>(t1-t).count(),1e3*std::chrono::duration<double>(t2-t1).count(),1e3*std::chrono::duration<double>(t3-t2).count());}

@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+import datetime,hashlib,json,subprocess,tempfile
+from pathlib import Path
+ROOT=Path.cwd();WORK=ROOT/'.benchmark/extra-fast-more/fps';OUT=ROOT/'docs/development/measurements/extra-fast-more/fps/validation'
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+def main():
+ OUT.mkdir(parents=True,exist_ok=True);records=[];binary_dir=Path(tempfile.mkdtemp(prefix='blueberry-fps-validation-'))
+ for compiler in ['g++','clang++']:
+  for standard in ['gnu++20','gnu++23']:
+   for backend,flags in [('intrinsics',[]),('asm',['-DBLUEBERRY_EXTRA_FAST_INLINE_ASM']),('asm-intel',['-DBLUEBERRY_EXTRA_FAST_INLINE_ASM','-masm=intel'])]:
+    label=f'{compiler}-{standard}-{backend}';binary=binary_dir/('random-'+label)
+    command=[compiler,f'-std={standard}','-O2','-Wall','-Wextra','-Werror','-I.','-I.deps/ac-library',*flags,'tests/random/extra-fast-fps.cpp','-o',str(binary)]
+    start=now();result=subprocess.run(command,capture_output=True,text=True);log=json.dumps(command)+'\n'+result.stdout+result.stderr
+    if result.returncode==0:
+     result=subprocess.run([str(binary),'20261020'],capture_output=True,text=True);log+=result.stdout+result.stderr
+    (OUT/(label+'.log')).write_text(log);records.append({'label':label,'started':start,'finished':now(),'returncode':result.returncode,'command':command})
+  label=compiler+'-sanitizer';binary=binary_dir/label
+  command=[compiler,'-std=gnu++23','-O1','-g','-fsanitize=address,undefined','-fno-omit-frame-pointer','-I.','-I.deps/ac-library','tests/random/extra-fast-fps.cpp','-o',str(binary)]
+  result=subprocess.run(command,capture_output=True,text=True);log=json.dumps(command)+'\n'+result.stdout+result.stderr
+  if result.returncode==0:
+   result=subprocess.run([str(binary),'20261020'],capture_output=True,text=True);log+=result.stdout+result.stderr
+  (OUT/(label+'.log')).write_text(log);records.append({'label':label,'returncode':result.returncode,'command':command})
+ source=WORK/'include.cpp';source.write_text('#include "blueberry/extra-fast/formal-power-series.hpp"\n#include "blueberry/extra-fast/formal-power-series.hpp"\nint main(){return blueberry::extra_fast::FPS998244353(false).uses_simd();}\n')
+ for compiler in ['g++','clang++']:
+  for standard in ['gnu++20','gnu++23']:
+   label=f'{compiler}-{standard}-standalone';command=[compiler,f'-std={standard}','-O2','-DNDEBUG','-Wall','-Wextra','-Werror','-I.',str(source),'-o',str(binary_dir/'include')];result=subprocess.run(command,capture_output=True,text=True);log=json.dumps(command)+'\n'+result.stdout+result.stderr
+   if result.returncode==0:
+    result=subprocess.run([str(binary_dir/'include')],capture_output=True,text=True);log+=result.stdout+result.stderr
+   (OUT/(label+'.log')).write_text(log);records.append({'label':label,'returncode':result.returncode,'command':command})
+ for compiler,standard in [('g++','gnu++23'),('clang++','gnu++20')]:
+  for name in ['fps-convolution','fps-inverse','fps-log','fps-exp']:
+   label=f'{compiler}-{standard}-{name}';command=[compiler,f'-std={standard}','-O2','-Wall','-Wextra','-Werror','-I.','-I.deps/ac-library',f'verify/extra-fast/{name}.test.cpp','-o',str(binary_dir/'verify')];result=subprocess.run(command,capture_output=True,text=True);(OUT/(label+'.log')).write_text(json.dumps(command)+'\n'+result.stdout+result.stderr);records.append({'label':label,'returncode':result.returncode,'command':command})
+ state={'finished':now(),'seed':20261020,'source_sha256':{str(path):hashlib.sha256(path.read_bytes()).hexdigest() for path in [Path('blueberry/extra-fast/formal-power-series.hpp'),Path('tests/random/extra-fast-fps.cpp')]},'records':records,'passed':all(x['returncode']==0 for x in records)}
+ (OUT/'results.json').write_text(json.dumps(state,indent=2)+'\n');(OUT/'runner.py.snapshot').write_bytes(Path(__file__).read_bytes());(OUT/'random.cpp.snapshot').write_bytes(Path('tests/random/extra-fast-fps.cpp').read_bytes());print(json.dumps({'records':len(records),'passed':state['passed']}))
+if __name__=='__main__':main()

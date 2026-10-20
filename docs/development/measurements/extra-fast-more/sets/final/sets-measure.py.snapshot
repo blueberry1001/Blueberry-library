@@ -1,0 +1,211 @@
+from pathlib import Path
+import bisect, datetime, hashlib, json, os, random, shutil, statistics, subprocess, sys, time
+
+root = Path.cwd()
+src = root / '.benchmark/extra-fast-more'
+mode = sys.argv[1] if len(sys.argv) > 1 else 'candidate'
+label = sys.argv[2] if len(sys.argv) > 2 else mode
+out = root / 'docs/development/measurements/extra-fast-more/sets' / label
+out.mkdir(parents=True, exist_ok=False)
+temporary = Path('/tmp/blueberry-extra-fast-sets-20261020') / label
+temporary.mkdir(parents=True, exist_ok=True)
+for p in [src/'sets-benchmark.cpp', Path(__file__), root/'blueberry/extra-fast/ordered-map.hpp', root/'blueberry/extra-fast/hash-map.hpp', root/'blueberry/utility/fast-io.hpp', root/'blueberry/data-structure/ordered-set.hpp']:
+    shutil.copyfile(p, out/(p.name+'.snapshot'))
+
+class Counts:
+    def __init__(self, n): self.tree = [0] * (n + 1)
+    def add(self, p, delta):
+        p += 1
+        while p < len(self.tree): self.tree[p] += delta; p += p & -p
+    def prefix(self, p):
+        result = 0
+        while p: result += self.tree[p]; p -= p & -p
+        return result
+    def select(self, k):
+        p = 0
+        step = 1 << (len(self.tree).bit_length() - 1)
+        while step:
+            q = p + step
+            if q < len(self.tree) and self.tree[q] <= k: k -= self.tree[q]; p = q
+            step >>= 1
+        return p
+
+def digest(values):
+    h = 14695981039346656037
+    for x in values:
+        for b in (str(x)+' ').encode(): h = ((h ^ b) * 1099511628211) & ((1 << 64) - 1)
+    return h
+
+def oracle(initial, operations, hashed):
+    keys = sorted(set(k for k, _ in initial) | set(k for _, k, _ in operations))
+    index = {key: i for i, key in enumerate(keys)}
+    counts = Counts(len(keys)); values = {}
+    for k, v in initial:
+        if k not in values: counts.add(index[k], 1)
+        values[k] = v
+    map_answers = []; set_answers = []
+    for t, k, v in operations:
+        if hashed: t %= 3
+        if t == 0:
+            if k not in values: counts.add(index[k], 1)
+            values[k] = v
+        elif t == 1:
+            if k in values: del values[k]; counts.add(index[k], -1)
+        elif t == 2:
+            found = int(k in values)
+            map_answers.extend([found, 0, values.get(k, 0)]); set_answers.append(found)
+        else:
+            rank = counts.prefix(index[k])
+            found = int(rank < len(values))
+            lower = keys[counts.select(rank)] if found else 0
+            map_answers.extend([found, lower, values[lower] if found else 0])
+            set_answers.extend([found, lower])
+    return {'map': (digest(map_answers), len(map_answers)//3, len(values)),
+            'set': (digest(set_answers), len(set_answers), len(values))}
+
+fixtures = [
+    ('small-lookup', 128, 10000, 'lookup'),
+    ('random', 50000, 100000, 'random'),
+    ('dense', 500000 if mode != 'candidate' else 100000, 100000, 'dense'),
+    ('monotone-growth', 50000, 100000, 'growth'),
+]
+inputs = {}; expected = {}; fixture_metadata = []
+for bits in [32, 64]:
+    for label, n, q, style in fixtures:
+        rng = random.Random(20261020 + bits + n)
+        initial_keys = rng.sample(range(n*3), n) if style == 'dense' else [rng.getrandbits(bits) for _ in range(n)]
+        if style == 'growth': initial_keys = list(range(n))
+        initial = [(k, rng.getrandbits(64)) for k in initial_keys]
+        operations = []
+        for i in range(q):
+            k = initial_keys[rng.randrange(n)] if rng.randrange(10) < 7 else rng.getrandbits(bits)
+            t = rng.randrange(4)
+            if style == 'lookup': t = 2 if i % 10 else 0
+            if style == 'dense': k = rng.randrange(n*3)
+            if style == 'growth': k = n + i if i & 1 else rng.randrange(n); t = 0 if i & 1 else 1
+            operations.append((t, k, rng.getrandbits(64)))
+        for hashed in [False, True]:
+            family = 'hash' if hashed else 'ordered'
+            p = temporary/f'{bits}-{label}-{family}.in'
+            with p.open('w') as f:
+                f.write(f'{n} {q}\n')
+                for k, v in initial: f.write(f'{k} {v}\n')
+                for t, k, v in operations: f.write(f'{t%3 if hashed else t} {k} {v}\n')
+            inputs[bits, label, family] = p
+            expected[bits, label, family] = oracle(initial, operations, hashed)
+            fixture_metadata.append({'bits':bits,'fixture':label,'family':family,'n':n,'q':q,'sha256':hashlib.sha256(p.read_bytes()).hexdigest(), 'oracle':expected[bits,label,family]})
+
+profiles = {'portable-O2-release':['-O2','-DNDEBUG']}
+if mode != 'candidate': profiles['native-O3-release'] = ['-O3','-march=native','-DNDEBUG']
+headers = {'selected': (root/'blueberry/extra-fast/ordered-map.hpp', root/'blueberry/extra-fast/hash-map.hpp')}
+if mode == 'candidate':
+    ordered = headers['selected'][0].read_text()
+    compact = ordered.replace('std::array<Key, 24>', 'std::array<Key, C>')
+    (temporary/'ordered-compact.hpp').write_text(compact)
+    headers['compact'] = (temporary/'ordered-compact.hpp', headers['selected'][1])
+    (temporary/'ordered-b32.hpp').write_text(compact.replace('B = 16, C = B + 1', 'B = 32, C = B + 1'))
+    headers['b32'] = (temporary/'ordered-b32.hpp', headers['selected'][1])
+    # SIMD search only sees balanced nodes with <=B keys, so C=B+1 also covers
+    # every final AVX load. The overflow slot is consumed before the next seek.
+    begin = compact.index('  int lower(const Node&')
+    end = compact.index('  std::optional<std::pair<Key, Value>> bound')
+    seek = compact[compact.index('  template <bool NeedRank = false>',begin):end]
+    scalar = seek.replace('NeedRank = false','NeedRank').replace('Path seek(', 'Path seek_scalar(').replace('lower(n, key)','lower_scalar(n, key)')
+    simd = scalar.replace('  Path seek_scalar(', '  __attribute__((target("avx2"))) Path seek_simd(').replace('lower_scalar(n, key)','lower_simd(n, key)')
+    wrapper = '''  template<bool NeedRank = false> Path seek(Key key) const {
+#if BLUEBERRY_ORDERED_AVX
+    if(simd_) return seek_simd<NeedRank>(key);
+#endif
+    return seek_scalar<NeedRank>(key);
+  }
+'''
+    dispatch = compact[:begin] + scalar + '#if BLUEBERRY_ORDERED_AVX\n' + simd + '#endif\n' + wrapper + compact[end:]
+    dispatch = dispatch.replace('__attribute__((target("avx2"))) static int lower_simd', '__attribute__((target("avx2"), always_inline)) static int lower_simd')
+    (temporary/'ordered-dispatch.hpp').write_text(dispatch)
+    headers['dispatch'] = (temporary/'ordered-dispatch.hpp', headers['selected'][1])
+    # Iterators already maintain leaf links; bounds can cross one link instead
+    # of retracing an ancestor path. Measure this independently of dispatch.
+    start = compact.index('    for (int d = p.depth - 1; d >= 0; --d) {', compact.index('  std::optional<std::pair<Key, Value>> bound'))
+    end = compact.index('  void slot(', start)
+    linked = compact[:start] + '''    id = direction < 0 ? nodes_[id].prev : nodes_[id].next;
+    if (id == -1) return {};
+    at = direction < 0 ? nodes_[id].n - 1 : 0;
+    return std::pair{nodes_[id].key[at], value(id, at)};
+  }
+''' + compact[end:]
+    (temporary/'ordered-linked.hpp').write_text(linked)
+    headers['linked'] = (temporary/'ordered-linked.hpp', headers['selected'][1])
+    hashed = headers['selected'][1].read_text()
+    read_fast = hashed.replace('  Position locate(Key key) const {', '  template<bool Inserting = false> Position locate(Key key) const {')
+    read_fast = read_fast.replace('if (first == Missing) {', 'if constexpr (Inserting) if (first == Missing) {')
+    read_fast = read_fast.replace('next.locate(keys_[i])', 'next.template locate<true>(keys_[i])')
+    start = read_fast.index('  Position prepare(')
+    end = read_fast.index('  void occupy(', start)
+    read_fast = read_fast[:start] + read_fast[start:end].replace('locate(key)', 'locate<true>(key)') + read_fast[end:]
+    (temporary/'hash-read.hpp').write_text(read_fast)
+    headers['read'] = (headers['selected'][0], temporary/'hash-read.hpp')
+    headers['aos'] = (headers['selected'][0], src/'hash-map-aos.hpp')
+for label, pair in headers.items():
+    for kind, path in zip(['ordered','hash'],pair): shutil.copyfile(path,out/f'{label}-{kind}.hpp.snapshot')
+metadata = {'started': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'mode':mode,
+            'compilers':{c:subprocess.check_output([c,'--version'],text=True) for c in ['g++','clang++']},
+            'cpu':subprocess.check_output(['lscpu'],text=True), 'cpu_affinity':[0], 'host_load_controlled':False,
+            'standard':'gnu++20', 'flags':profiles, 'repeats':5, 'fixtures':fixture_metadata,
+            'memory_note':'VmHWM from child /proc/self/status. memory mode excludes query/output vectors but retains initial input and pre-reserve N+Q.',
+            'source_sha256':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [src/'sets-benchmark.cpp', *headers['selected'], root/'blueberry/utility/fast-io.hpp', root/'blueberry/data-structure/ordered-set.hpp']}}
+(out/'environment.json').write_text(json.dumps(metadata,indent=2)+'\n')
+failures = []; builds = []; binaries = {}
+for compiler in ['g++','clang++']:
+    for profile, flags in profiles.items():
+        for bits in [32,64]:
+            for variant, (ordered, hashed) in headers.items():
+                binary = temporary/f'{compiler}-{profile}-{bits}-{variant}'
+                command = [compiler,'-std=gnu++20',*flags,'-Wall','-Wextra','-Wshadow','-Werror','-I.',f'-DKEY_BITS={bits}',f'-DORDERED_HEADER="{ordered}"',f'-DHASH_HEADER="{hashed}"',str(src/'sets-benchmark.cpp'),'-o',str(binary)]
+                t = time.monotonic(); r = subprocess.run(command,capture_output=True,text=True)
+                row = {'compiler':compiler,'profile':profile,'bits':bits,'variant':variant,'command':command,'code':r.returncode,'seconds':time.monotonic()-t,'stdout':r.stdout,'stderr':r.stderr}
+                builds.append(row); (out/'builds.json').write_text(json.dumps(builds,indent=2)+'\n')
+                if r.returncode: failures.append(row)
+                else: binaries[compiler,profile,bits,variant] = binary
+samples = []
+with (out/'samples.jsonl').open('w') as log:
+    for (compiler, profile, bits, variant), binary in binaries.items():
+        for kind in ['map','set','hash','hashset']:
+            if variant in ['b32','compact','dispatch','linked'] and kind in ['hash','hashset']: continue
+            if variant in ['aos','read'] and kind in ['map','set']: continue
+            for label, n, q, style in fixtures:
+                modes = ['new'] if mode == 'candidate' else ['std','new','scalar']
+                if mode == 'candidate' and variant == 'selected': modes = ['new']
+                for repeat in range(5):
+                    for backend in modes[repeat%len(modes):]+modes[:repeat%len(modes)]:
+                        family = 'hash' if kind in ['hash','hashset'] else 'ordered'
+                        input_path = inputs[bits,label,family]
+                        args = [str(binary),kind,backend,'normal','growth' if style == 'growth' else 'reserve']
+                        with input_path.open('rb') as f:
+                            begin=time.monotonic(); r=subprocess.run(['taskset','-c','0',*args],stdin=f,capture_output=True,text=True,timeout=60)
+                        row={'compiler':compiler,'profile':profile,'bits':bits,'variant':variant,'kind':kind,'fixture':label,'backend':backend,'repeat':repeat,'command':args,'finished_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'wall_ms':(time.monotonic()-begin)*1000,'code':r.returncode}
+                        if r.returncode: failures.append({**row,'stderr':r.stderr});continue
+                        row.update(json.loads(r.stdout))
+                        want = expected[bits,label,family]['set' if kind in ['set','hashset'] else 'map']
+                        actual = (row['checksum'],row['answer_count'],row['size'])
+                        if tuple(want) != actual: failures.append({**row,'expected':want,'actual':actual})
+                        if repeat == 0:
+                            with input_path.open('rb') as f:
+                                m=subprocess.run(['taskset','-c','0',str(binary),kind,backend,'memory','growth' if style=='growth' else 'reserve'],stdin=f,capture_output=True,text=True,timeout=60)
+                            if m.returncode: failures.append({**row,'memory_error':m.stderr})
+                            else: row['data_only_rss_kib']=json.loads(m.stdout)['rss_kib']
+                        samples.append(row);log.write(json.dumps(row)+'\n');log.flush()
+summary=[]
+groups={tuple(r[k] for k in ['compiler','profile','bits','variant','kind','fixture','backend']) for r in samples}
+for group in sorted(groups):
+    names=['compiler','profile','bits','variant','kind','fixture','backend']; rows=[r for r in samples if tuple(r[k] for k in names)==group]
+    result=dict(zip(names,group));result['count']=len(rows)
+    for k in ['parse_ms','build_ms','operations_ms','format_ms','wall_ms','rss_kib']:
+        result[k]={'median':statistics.median(r[k] for r in rows),'min':min(r[k] for r in rows)}
+    result['data_only_rss_kib']=next((r['data_only_rss_kib'] for r in rows if 'data_only_rss_kib' in r),None)
+    summary.append(result)
+(out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+(out/'failures.json').write_text(json.dumps(failures,indent=2)+'\n')
+metadata['finished'] = datetime.datetime.now(datetime.timezone.utc).isoformat()
+(out/'environment.json').write_text(json.dumps(metadata,indent=2)+'\n')
+print(json.dumps({'mode':mode,'samples':len(samples),'failures':len(failures),'directory':str(out)}),flush=True)
+sys.exit(bool(failures))

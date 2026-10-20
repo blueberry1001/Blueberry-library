@@ -1,0 +1,29 @@
+import argparse,hashlib,json,pathlib,subprocess,time
+P=pathlib.Path(__file__).resolve().parent;ROOT=P.parents[2]
+p=argparse.ArgumentParser();p.add_argument('--out',default='docs/development/measurements/extra-fast-more/wavelet/validation');args=p.parse_args();OUT=ROOT/args.out;OUT.mkdir(parents=True,exist_ok=False)
+records=[]
+for source,name in [(ROOT/'blueberry/extra-fast/wavelet-matrix.hpp','header.hpp.snapshot'),(ROOT/'tests/random/extra-fast-wavelet.cpp','random.cpp.snapshot'),(ROOT/'tests/random/extra-fast-wavelet-copy.cpp','copy.cpp.snapshot'),(pathlib.Path(__file__).resolve(),'runner.py.snapshot')]:
+ (OUT/name).write_bytes(source.read_bytes())
+(OUT/'metadata.json').write_text(json.dumps({'seed':20261020,'header_sha256':hashlib.sha256((ROOT/'blueberry/extra-fast/wavelet-matrix.hpp').read_bytes()).hexdigest(),'test_sha256':hashlib.sha256((ROOT/'tests/random/extra-fast-wavelet.cpp').read_bytes()).hexdigest()},indent=2))
+def run(name,cmd):
+ start=time.monotonic();r=subprocess.run(cmd,cwd=ROOT,capture_output=True,text=True);log=OUT/(name+'.log');log.write_text(r.stdout+r.stderr);records.append({'name':name,'command':cmd,'returncode':r.returncode,'seconds':time.monotonic()-start,'log_sha256':hashlib.sha256(log.read_bytes()).hexdigest()});(OUT/'results.json').write_text(json.dumps(records,indent=2));r.check_returncode()
+for compiler in ['g++','clang++']:
+ for std in ['gnu++20','gnu++23']:
+  for dialect,extra in [('att',[]),('intel',['-masm=intel'])]:
+   name=compiler+'-'+std+'-'+dialect;binary=P/('validate-'+name)
+   run(name+'-compile',[compiler,'-std='+std,'-O2','-Wall','-Wextra','-Wshadow','-Werror',*extra,'-I.',str(ROOT/'tests/random/extra-fast-wavelet.cpp'),'-o',str(binary)])
+   for backend in ['hardware','portable']:run(name+'-'+backend,[str(binary),'20261020',backend])
+for compiler in ['g++','clang++']:
+ for std in ['gnu++20','gnu++23']:
+  name=compiler+'-'+std+'-copy-failure';binary=P/('validate-'+name)
+  run(name+'-compile',[compiler,'-std='+std,'-O2','-Wall','-Wextra','-Wshadow','-Werror','-I.',str(ROOT/'tests/random/extra-fast-wavelet-copy.cpp'),'-o',str(binary)])
+  run(name,[str(binary)])
+for compiler in ['g++','clang++']:
+ name=compiler+'-forced-scalar';binary=P/('validate-'+name)
+ run(name+'-compile',[compiler,'-std=gnu++20','-O2','-Wall','-Wextra','-Wshadow','-Werror','-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR','-I.',str(ROOT/'tests/random/extra-fast-wavelet.cpp'),'-o',str(binary)])
+ run(name,[str(binary),'20261020','hardware'])
+for compiler in ['g++','clang++']:
+ name=compiler+'-sanitizer';binary=P/('validate-'+name)
+ run(name+'-compile',[compiler,'-std=gnu++20','-O1','-g','-fsanitize=address,undefined','-fno-sanitize-recover=all','-fno-omit-frame-pointer','-I.',str(ROOT/'tests/random/extra-fast-wavelet.cpp'),'-o',str(binary)])
+ for backend in ['hardware','portable']:run(name+'-'+backend,[str(binary),'20261020',backend])
+(OUT/'runner.py.snapshot').write_bytes(pathlib.Path(__file__).read_bytes());(OUT/'header.hpp.snapshot').write_bytes((ROOT/'blueberry/extra-fast/wavelet-matrix.hpp').read_bytes());print(json.dumps({'commands':len(records),'failures':sum(r['returncode']!=0 for r in records)}))

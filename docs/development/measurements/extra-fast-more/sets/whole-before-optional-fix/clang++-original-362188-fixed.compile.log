@@ -1,0 +1,27 @@
+["clang++", "-std=gnu++23", "-O2", "-DNDEBUG", "-march=native", "-fno-caret-diagnostics", "-I.", "-isystem", ".deps/ac-library", "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/research/associative_array/submission-362188.cpp", "-o", "/tmp/blueberry-sets-whole-750ta257/clang++-original-362188-fixed"]
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/research/associative_array/submission-362188.cpp:492:25: error: constexpr variable 'LUT' must be initialized by a constant expression
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/research/associative_array/submission-362188.cpp:553:10: note: in instantiation of template class 'fast_io::FastOutput<524288>' requested here
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/research/associative_array/submission-362188.cpp:643:26: note: in instantiation of member function 'fast_io::FastIO<1048576, 524288>::~FastIO' requested here
+/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_pair.h:317:4: note: subobject '_M_elems' is not initialized
+/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_pair.h:317:4: note: in call to 'array(a)'
+/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/bits/stl_pair.h:927:14: note: in call to 'pair<std::array<std::array<char, 4>, 10000> &, std::array<std::array<char, 4>, 10000> &>(a, b)'
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/research/associative_array/submission-362188.cpp:508:12: note: in call to 'make_pair<std::array<std::array<char, 4>, 10000> &, std::array<std::array<char, 4>, 10000> &>(a, b)'
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast-more/.benchmark/extra-fast-more/research/associative_array/submission-362188.cpp:492:31: note: in call to '[] {
+    std::array<std::array<char, 4>, 10000> a, b;
+    for (int i = 0; i < 10000; ++i) {
+        b[i][0] = '0' + i / 1000;
+        b[i][1] = '0' + i / 100 % 10;
+        b[i][2] = '0' + i / 10 % 10;
+        b[i][3] = '0' + i % 10;
+        int j = 0;
+        if (i >= 1000)
+            a[i][j++] = b[i][0];
+        if (i >= 100)
+            a[i][j++] = b[i][1];
+        if (i >= 10)
+            a[i][j++] = b[i][2];
+        a[i][j] = b[i][3];
+    }
+    return std::make_pair(a, b);
+}.operator()()'
+/usr/bin/../lib/gcc/x86_64-linux-gnu/13/../../../../include/c++/13/array:109:55: note: subobject declared here

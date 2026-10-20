@@ -1,0 +1,23 @@
+#!/usr/bin/env python3
+import hashlib,json,subprocess,datetime
+from pathlib import Path
+ROOT=Path.cwd();OUT=ROOT/'docs/development/measurements/extra-fast-more/sets/whole'
+def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+env=json.loads((OUT/'environment.json').read_text())
+header=ROOT/'blueberry/extra-fast/ordered-map.hpp'
+current='30a686b7a5185aef2052e94608d802dada79fc7dab9f1234bc84ff37758bc0cc'
+assert sha(header)==current
+records=[]
+for compiler in ['g++','clang++']:
+ for label in ['new-ordered-set','new-ordered-map']:
+  command=json.loads((OUT/f'{compiler}-{label}.compile.log').read_text().splitlines()[0]);old=Path(command[-1]);measured=env['binaries'][compiler+'-'+label]['binary_sha256']
+  assert sha(old)==measured
+  new=old.with_name(old.name+'-current-header');command[-1]=str(new)
+  result=subprocess.run(command,capture_output=True,text=True)
+  (OUT/f'{compiler}-{label}.current-header.compile.log').write_text(json.dumps(command)+'\n'+result.stdout+result.stderr)
+  checksum=sha(new) if result.returncode==0 else None
+  records.append({'compiler':compiler,'label':label,'command':command,'returncode':result.returncode,'measured_binary_sha256':measured,'current_binary_sha256':checksum,'identical':checksum==measured})
+  assert sha(header)==current
+proof={'recorded':datetime.datetime.now(datetime.timezone.utc).isoformat(),'measured_source_sha256':env['sources']['blueberry/extra-fast/ordered-map.hpp'],'current_source_sha256':current,'scope':'Only the unused erase(iterator) body changed: guarded optional<Key> became bool has_next and initialized Key. Compile whole ordered-set/map public drivers with identical compiler/flags/source; output paths differ. Hash drivers and all other sources unchanged. Timing is retained only if every compared binary is byte-identical.','records':records,'all_identical':all(x['identical'] for x in records)}
+(OUT/'current-header-equivalence.json').write_text(json.dumps(proof,indent=2)+'\n');(OUT/'current-ordered-map.hpp.snapshot').write_bytes(header.read_bytes());(OUT/'equivalence-runner.py.snapshot').write_bytes(Path(__file__).read_bytes());print(json.dumps({'builds':len(records),'all_identical':proof['all_identical']}))
+assert proof['all_identical']

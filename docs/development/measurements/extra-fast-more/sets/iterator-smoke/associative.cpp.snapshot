@@ -1,0 +1,273 @@
+#include <cstdlib>
+#include <iostream>
+#include <limits>
+#include <map>
+#include <random>
+#include <set>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "blueberry/extra-fast/hash-map.hpp"
+#include "blueberry/extra-fast/ordered-map.hpp"
+
+namespace {
+std::uint64_t seed;
+int step;
+std::string input;
+// A trivial const copy can coexist with a throwing non-const assignment template.
+struct TrivialValue {
+  int x;
+  template <class T>
+  TrivialValue& operator=(T&) {
+    throw 42;
+  }
+};
+static_assert(std::is_trivial_v<TrivialValue>);
+struct TrivialConstructor {
+  int x;
+  TrivialConstructor() = default;
+  TrivialConstructor(const TrivialConstructor&) = default;
+  TrivialConstructor& operator=(const TrivialConstructor&) = default;
+  template<class T> TrivialConstructor(T&&) { throw 43; }
+};
+static_assert(std::is_trivial_v<TrivialConstructor>);
+void check(bool ok, const char* operation) {
+  if (!ok) {
+    std::cerr << "seed=" << seed << " step=" << step << " input=" << input
+              << " operation=" << operation << " expected=oracle actual=mismatch\n";
+    std::exit(1);
+  }
+}
+
+template <class K>
+void run(bool simd) {
+  using namespace blueberry::extra_fast;
+  OrderedMap<K> ordered(simd);
+  HashMap<K> hashed(simd);
+  OrderedSet<K> ordered_set(simd);
+  HashSet<K> hash_set(simd);
+  check(ordered.uses_simd() == (simd && ordered.simd_available()) &&
+            hashed.uses_simd() == (simd && hashed.simd_available()) &&
+            ordered_set.uses_simd() == ordered.uses_simd() &&
+            hash_set.uses_simd() == hashed.uses_simd(),
+        "backend selection");
+#ifdef BLUEBERRY_EXTRA_FAST_FORCE_SCALAR
+  check(!ordered.simd_available() && !hashed.simd_available(), "forced scalar detection");
+#endif
+  std::map<K, std::uint64_t> reference;
+  std::mt19937_64 rng(seed);
+  auto audit = [&] {
+    std::vector<std::pair<K, std::uint64_t>> got;
+    ordered.for_each([&](const K& k, const std::uint64_t& v) { got.emplace_back(k, v); });
+    check(got == std::vector<std::pair<K, std::uint64_t>>(reference.begin(), reference.end()),
+          "ordered traversal");
+    std::map<K, std::uint64_t> unordered_got;
+    hashed.for_each([&](const K& k, const std::uint64_t& v) {
+      check(unordered_got.emplace(k, v).second, "unique hash traversal");
+    });
+    check(unordered_got == reference, "hash traversal");
+    std::vector<K> keys;
+    ordered_set.for_each([&](const K& k) { keys.push_back(k); });
+    std::set<K> unordered_keys;
+    hash_set.for_each(
+        [&](const K& k) { check(unordered_keys.insert(k).second, "unique hash set traversal"); });
+    check(keys.size() == reference.size() && unordered_keys.size() == reference.size(),
+          "set traversal size");
+    int at = 0;
+    for (auto [k, v] : reference) {
+      check(keys[at] == k && unordered_keys.count(k), "set traversal");
+      check(ordered.kth(at) == std::optional(std::pair{k, v}) && ordered_set.kth(at) == k, "kth");
+      ++at;
+    }
+    check(!ordered.kth(-1) && !ordered.kth(at) && !ordered_set.kth(at), "invalid kth");
+  };
+  for (step = 0; step < 3000; ++step) {
+    K key = static_cast<K>((step & 3) ? rng() % 500 : rng());
+    if (step < 3)
+      key = step == 0   ? std::numeric_limits<K>::min()
+            : step == 1 ? std::numeric_limits<K>::max()
+                        : K{};
+    const auto value = rng();
+    const int type = rng() % 5;
+    input = "keybits=" + std::to_string(sizeof(K) * 8) +
+            " signed=" + std::to_string(std::is_signed_v<K>) + " simd=" + std::to_string(simd) +
+            " type=" + std::to_string(type) + " key=" + std::to_string(key) +
+            " value=" + std::to_string(value);
+    bool exists = reference.count(key);
+    if (type == 0) {
+      check(ordered.insert(key, value) == !exists && hashed.insert(key, value) == !exists,
+            "insert");
+      check(ordered_set.insert(key) == !exists && hash_set.insert(key) == !exists, "set insert");
+      reference.emplace(key, value);
+    } else if (type == 1 || type == 3) {
+      if (type == 1)
+        check(ordered.insert_or_assign(key, value) == !exists &&
+                  hashed.insert_or_assign(key, value) == !exists,
+              "assign");
+      else {
+        ordered[key] = value;
+        hashed[key] = value;
+      }
+      ordered_set.insert(key);
+      hash_set.insert(key);
+      reference[key] = value;
+    } else if (type == 2) {
+      check(ordered.erase(key) == exists && hashed.erase(key) == exists, "erase");
+      check(ordered_set.erase(key) == exists && hash_set.erase(key) == exists, "set erase");
+      reference.erase(key);
+    }
+    auto it = reference.find(key);
+    std::optional<std::uint64_t> expected;
+    if (it != reference.end()) expected = it->second;
+    check(ordered.get(key) == expected && hashed.get(key) == expected, "get");
+    check(ordered.contains(key) == bool(expected) && hashed.contains(key) == bool(expected) &&
+              ordered_set.contains(key) == bool(expected) &&
+              hash_set.contains(key) == bool(expected),
+          "contains");
+    check(ordered.size() == int(reference.size()) && hashed.size() == reference.size() &&
+              ordered_set.size() == int(reference.size()) && hash_set.size() == reference.size(),
+          "size");
+    auto lower = reference.lower_bound(key), upper = reference.upper_bound(key);
+    auto compare_bound = [&](auto actual, auto position) {
+      check(bool(actual) == (position != reference.end()), "bound presence");
+      if (actual)
+        check(actual->first == position->first && actual->second == position->second,
+              "bound value");
+    };
+    compare_bound(ordered.lower_bound(key), lower);
+    compare_bound(ordered.upper_bound(key), upper);
+    auto floor = upper;
+    if (floor == reference.begin())
+      floor = reference.end();
+    else
+      --floor;
+    compare_bound(ordered.floor(key), floor);
+    check(ordered.rank(key) == std::distance(reference.begin(), lower) &&
+              ordered_set.rank(key) == ordered.rank(key),
+          "rank");
+    auto set_bound = [&](auto x, auto p) {
+      check(bool(x) == (p != reference.end()), "set bound presence");
+      if (x) check(*x == p->first, "set bound value");
+    };
+    set_bound(ordered_set.lower_bound(key), lower);
+    set_bound(ordered_set.upper_bound(key), upper);
+    set_bound(ordered_set.floor(key), floor);
+    if (step % 127 == 0) {
+      audit();
+      auto oc = ordered;
+      auto hc = hashed;
+      auto os = ordered_set;
+      auto hs = hash_set;
+      ordered = oc;
+      hashed = hc;
+      ordered_set = os;
+      hash_set = hs;
+      auto om = std::move(oc);
+      auto hm = std::move(hc);
+      auto osm = std::move(os);
+      auto hsm = std::move(hs);
+      check(oc.empty() && hc.empty() && os.empty() && hs.empty(), "move source");
+      oc[key] = value;
+      hc[key] = value;
+      os.insert(key);
+      hs.insert(key);
+      check(om.size() == int(reference.size()) && hm.size() == reference.size() &&
+                osm.size() == int(reference.size()) && hsm.size() == reference.size(),
+            "move destination");
+      auto* oa = &ordered;
+      auto* ha = &hashed;
+      ordered = *oa;
+      hashed = *ha;
+      ordered = std::move(*oa);
+      hashed = std::move(*ha);
+      ordered.swap(om);
+      hashed.swap(hm);
+      hashed.reserve(reference.size() * 2);
+      hash_set.reserve(reference.size() * 2);
+      check(hashed.capacity() >= reference.size() && hash_set.capacity() >= reference.size(),
+            "capacity");
+    }
+  }
+  audit();
+  // Shrink through leaf/internal borrowing and merging, then reuse recycled nodes.
+  while (!reference.empty()) {
+    K key = (reference.size() & 1) ? reference.begin()->first : reference.rbegin()->first;
+    check(ordered.erase(key) && hashed.erase(key) && ordered_set.erase(key) && hash_set.erase(key),
+          "drain");
+    reference.erase(key);
+  }
+  check(ordered.empty() && hashed.empty() && ordered_set.empty() && hash_set.empty(), "drained");
+  for (int i = 0; i < 2000; ++i) {
+    ordered.insert(K(i), i);
+    hashed.insert(K(i), i);
+    reference[K(i)] = i;
+    ordered_set.insert(K(i));
+    hash_set.insert(K(i));
+  }
+  audit();
+  ordered.clear();
+  hashed.clear();
+  ordered_set.clear();
+  hash_set.clear();
+  check(ordered.empty() && hashed.empty() && ordered_set.empty() && hash_set.empty(), "clear");
+  check(!ordered.erase(K{}) && !hashed.erase(K{}), "empty erase");
+  hashed.reserve(0);
+  check(hashed.capacity() >= 16, "reserve zero");
+}
+}  // namespace
+
+int main(int argc, char** argv) {
+  seed = argc > 1 ? std::strtoull(argv[1], nullptr, 10) : 1;
+  for (bool simd : {false, true}) {
+    run<std::int32_t>(simd);
+    run<std::uint32_t>(simd);
+    run<std::int64_t>(simd);
+    run<std::uint64_t>(simd);
+  }
+  blueberry::extra_fast::OrderedMap<int, bool> ob;
+  blueberry::extra_fast::HashMap<std::int8_t, bool> hb;
+  ob[0] = true;
+  hb[0] = true;
+  check(ob.get(0) == true && hb.get(0) == true, "bool values");
+  for (bool simd : {false, true}) {
+    blueberry::extra_fast::HashMap<> churn(simd);
+    for (std::uint64_t round = 0; round < 100; ++round) {
+      for (std::uint64_t k = 0; k < 64; ++k)
+        check(churn.insert(round * 64 + k, k), "tombstone insert");
+      check(churn.size() == 64, "tombstone size");
+      for (std::uint64_t k = 0; k < 64; ++k) {
+        check(churn.get(round * 64 + k) == k, "tombstone lookup");
+        check(churn.erase(round * 64 + k), "tombstone erase");
+      }
+      check(churn.empty() && !churn.get(round * 64), "tombstone empty");
+    }
+  }
+  struct Pair {
+    int a;
+    int b;
+  };
+  blueberry::extra_fast::OrderedMap<int, Pair> op;
+  blueberry::extra_fast::HashMap<int, Pair> hp;
+  op.insert(0, {3, 4});
+  hp.insert(0, {3, 4});
+  check(op.get(0)->a == 3 && hp.get(0)->b == 4, "trivial struct values");
+  blueberry::extra_fast::OrderedMap<int, TrivialValue> ot;
+  blueberry::extra_fast::HashMap<int, TrivialValue> ht;
+  for (int i = 0; i < 1000; ++i) {
+    ot.insert(i, TrivialValue{i});
+    ht.insert(i, TrivialValue{i});
+    ot.insert_or_assign(i, TrivialValue{i + 1});
+    ht.insert_or_assign(i, TrivialValue{i + 1});
+  }
+  for (int i = 0; i < 1000; ++i) {
+    check(ot.get(i)->x == i + 1 && ht.get(i)->x == i + 1, "const trivial copy");
+    check(ot.erase(i) && ht.erase(i), "const trivial copy erase");
+  }
+  blueberry::extra_fast::OrderedMap<int, TrivialConstructor> oc;
+  blueberry::extra_fast::HashMap<int, TrivialConstructor> hc;
+  TrivialConstructor value;
+  value.x = 42;
+  oc.insert(0, std::as_const(value)); hc.insert(0, std::as_const(value));
+  check(oc.get(0)->x == 42 && hc.get(0)->x == 42, "const trivial construction");
+}
