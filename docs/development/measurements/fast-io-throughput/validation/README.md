@@ -30,4 +30,9 @@ PR/mainのCIでも公開前ゲートとして確認する。
 ローカルdocsのpreflightではreportを退避して`check_site.py --without-metrics`を使い、
 完全な検証stateと公開結果はPR/mainのCIで確認する。
 
+最初のdocs生成は、今回保存した3本のPython検証スクリプトがライブラリ扱いされ、
+importlabの依存解析でtimeoutになった。`make-docs-python-analysis-timeout.log`を保持し、
+既存の測定用スクリプトと同様に`.verify-helper/docs/_config.yml`で対象3本を除外した。
+`docs-only-fast-io.sh`がこの設定修正後の再開手順である。
+
 短い入力の回帰と追加2候補の採否は[inlining-review.md](inlining-review.md)を参照。
