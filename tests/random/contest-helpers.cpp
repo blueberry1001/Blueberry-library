@@ -1,9 +1,10 @@
 #include "blueberry/utility/contest-template.hpp"
+#include "blueberry/utility/contest-helpers.hpp"
+#include "blueberry/math/combinations.hpp"
 #include <cstdlib>
 
 namespace {
 unsigned long long test_seed;
-// A field without ACL's raw()/mod() APIs exercises the generic fallback.
 struct SmallField {
   int value;
   SmallField(int x = 0) : value((x % 7 + 7) % 7) {}
@@ -79,7 +80,7 @@ void streams() {
   { LL(n); STR(s); std::vector<int> v(2); scan(v); scan(); assert(n == 17 && s == "ok" && v[1] == 4); }
   std::cin.rdbuf(original_in);
 }
-}  // namespace
+}
 int main(int argc, char** argv) {
   test_seed = argc > 1 ? std::strtoull(argv[1], nullptr, 10) : 1;
   std::mt19937_64 rng(test_seed);

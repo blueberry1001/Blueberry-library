@@ -1,0 +1,7 @@
+#include IO_HEADER
+#ifdef WIDE_INTEGER
+using Value=__int128;
+#else
+using Value=long long;
+#endif
+int main(){blueberry::FastInput<> in;blueberry::FastOutput out;int t;if(!in.read(t))return 1;while(t--){Value a,b;if(!in.read(a,b)||!out.writeln(a+b))return 1;}return !out.flush();}

@@ -13,7 +13,7 @@ GNU libstdc++とACLが必要で、単一translation unitの提出用です。
 
 Nは要素数、S/Lは入出力のbyte数、V/Eはグラフの頂点/辺数です。操作ごとの計算量は下表に示します。
 
-元の名前・定義のまま使う場合は[blueberrytemplate.h（原文）]({{ '/blueberrytemplate.html' | relative_url }})をコピーしてください。
+元テンプレートの保存原文は[blueberrytemplate.h（原文）]({{ '/blueberrytemplate.html' | relative_url }})です。
 
 ## 操作一覧
 
@@ -66,16 +66,54 @@ Nは要素数、S/Lは入出力のbyte数、V/Eはグラフの頂点/辺数で�
 | [`rng(a,b)`](#rande-range) | O(1) expected |
 | [`rng(b)`](#rande-bound) | O(1) expected |
 | [`ll / ld / ull / uint / str / mint / mint1 / pqg<T>`](#aliases) | O(1) |
-| [`constexpr ll INF`](#inf) | O(1) |
+| [`INF`](#inf) | O(1) |
 | [`constexpr ld CPS`](#cps) | O(1) |
-| [`constexpr std::array<ll,8> dx`](#dx) | O(1) |
-| [`constexpr std::array<ll,8> dy`](#dy) | O(1) |
+| [`ll dx[8]`](#dx) | O(1) |
+| [`ll dy[8]`](#dy) | O(1) |
 | [`bin_search / chmin / chmax / Fill / len / sum / min_of / max_of / my_distance / parse128 / to_string128`](#imports) | O(各関数の計算量) |
 | [`Rande`（コピー構築）](#rande-copy) | O(1) |
 | [`Rande& operator=`（コピー代入）](#rande-copy-assign) | O(1) |
 | [`Rande`（移動構築）](#rande-move) | O(1) |
 | [`Rande& operator=`（移動代入）](#rande-move-assign) | O(1) |
 | [`~Rande`](#rande-destruct) | O(1) |
+| [`using namespace std; using namespace atcoder;`](#namespace-imports) | O(1) |
+| [`constexpr auto min(T... values)`](#min-variadic) | O(K) |
+| [`constexpr auto min(const T& a, const T& b, U c)`](#min-three) | O(1) |
+| [`T min(const std::vector<T, Alloc>& values)`](#min-vector-const) | O(N) |
+| [`constexpr auto max(T... values)`](#max-variadic) | O(K) |
+| [`constexpr auto max(const T& a, const T& b, U c)`](#max-three) | O(1) |
+| [`T max(const std::vector<T, Alloc>& values)`](#max-vector-const) | O(N) |
+| [`__int128 parsetoint128(std::string_view text)`](#parse-original) | O(L) |
+| [`std::vector<ll> enumdiv(ll n)`](#enumdiv) | O(√n) |
+| [`std::vector<std::pair<ll,ll>> soinsu_bunkai(ll n)`](#soinsu-bunkai) | O(√n) |
+| [`std::vector<ll> topo_sort(const std::vector<std::vector<ll>>& graph, std::vector<ll>& indeg, ll n)`](#topo-sort-original) | O(E+V log V) |
+| [`void COMinit(ll MAX, ll MOD)`](#com-init) | O(MAX) |
+| [`ll COM(int n, int k, ll MOD)`](#com-original) | O(1) |
+| [`ll nPr(int n, int k, ll MOD)`](#npr-original) | O(1) |
+| [`std::vector<ll> fac`](#fac) | O(1)参照 |
+| [`std::vector<ll> finv`](#finv) | O(1)参照 |
+| [`std::vector<ll> invv`](#invv) | O(1)参照 |
+| [`bool COMINIT`](#cominit-flag) | O(1) |
+| [`std::vector<int> Era(int n)`](#era) | O(n log log n) |
+| [`std::vector<bool> isprime`](#isprime-original) | O(1)参照 |
+| [`UnionFind()`](#unionfind-default) | O(1) |
+| [`explicit UnionFind(std::size_t n)`](#unionfind-size-ctor) | O(n) |
+| [`int find(int v)`](#unionfind-find) | 償却O(α(n)) |
+| [`void merge(int a, int b)`](#unionfind-merge) | 償却O(α(n)) |
+| [`bool connected(int a, int b)`](#unionfind-connected) | 償却O(α(n)) |
+| [`int size(int v)`](#unionfind-size) | 償却O(α(n)) |
+| [`UnionFind(const UnionFind& other)`](#unionfind-copy) | O(n) |
+| [`UnionFind& operator=(const UnionFind& other)`](#unionfind-copy-assign) | O(n) |
+| [`UnionFind(UnionFind&& other)`](#unionfind-move) | O(1) |
+| [`UnionFind& operator=(UnionFind&& other)`](#unionfind-move-assign) | O(n_old) |
+| [`~UnionFind()`](#unionfind-destruct) | O(n) |
+| [`std::mt19937 Rande::mt`](#rande-mt) | O(1)参照 |
+| [`rep1(n)`](#rep-helper-1) | O(反復回数) |
+| [`rep2(i,n)`](#rep-helper-2) | O(反復回数) |
+| [`rep3(i,a,b)`](#rep-helper-3) | O(反復回数) |
+| [`rep4(i,a,b,c)`](#rep-helper-4) | O(反復回数) |
+| [`overload4(a,b,c,d,e,...)`](#overload4) | O(1) |
+| [`deb(args...)`](#deb) | 無効時O(1)、有効時O(print) |
 
 </details>
 
@@ -87,10 +125,12 @@ Nは要素数、S/Lは入出力のbyte数、V/Eはグラフの頂点/辺数で�
 ## 概要・前提 {#概要前提}
 
 - グローバルな型別名・マクロ・stream overloadを追加します。名前空間内の補助関数だけが必要ならContest Helpersを使えます。
-- `bits/stdc++.h`を使用します。自動終了・未呼び出しのグローバル初期化・可変グローバルテーブルはありません。
-- ACLの非inline関数定義があるため、複数cppから同時にincludeしてlinkする用途には対応しません。ACLを含まないContest HelpersとCombinations自体は、複数translation unitで利用できます。
-- `BLUEBERRY_REP1`～`BLUEBERRY_REP4`と`BLUEBERRY_REP_SELECT`は`rep`の展開用内部マクロです。直接呼ばず、同名のマクロを定義しないでください。
-- `Rande`は暗黙のコピー・移動・代入・破棄を利用します。公開フィールドはありません。
+- `bits/stdc++.h`とACLを使用します。原文の短縮名・補助関数を提供しますが、`main`と`_main`は定義せず、自動終了もしません。組合せ表はCOMinit、素数表はEraを呼んだときだけ作ります。
+- ACLの非inline関数定義があるため、複数cppから同時にincludeしてlinkする用途には対応しません。ACLを含まないContest Helpers自体は、複数translation unitで利用できます。
+- `rep1`～`rep4`、`overload4`も原文と同じ名前で直接使えます。同名のmacroを先に定義しないでください。
+- `Rande`は暗黙のコピー・移動・代入・破棄を利用し、乱数生成器`mt`を公開します。`fac/finv/invv/COMINIT/isprime`と`dx/dy`は変更可能なglobal変数です。
+- 補助関数はテンプレート共通部だけを読み込み、Blueberryの素因数分解・組合せ・素数篩・トポロジカルソートの個別ヘッダには依存しません。`enumdiv/soinsu_bunkai`は原文互換の試し割りです。入出力だけが必要な場合は、標準ヘッダだけに依存する`fast-io.hpp`を直接使えます。
+- `COMinit(MAX,MOD)`の表は合計O(MAX)、`Era(n)`の表と返り値はO(n)のメモリを使います。これらを呼ばない場合、可変長テーブルは空です。
 
 </details>
 
@@ -109,7 +149,8 @@ int main() {
   int x = 8; assert(chmin(x, 2) && x == 2);
   std::istringstream in("1 -2 3"); std::vector<ll> b(3); in >> b;
   std::ostringstream out; out << b; assert(out.str() == "1 -2 3");
-  blueberry::Combinations<mint> comb(5); assert(comb.C(5,2).val() == 10);
+  assert(max(1, 4LL, 2.0) == 4);
+  COMinit(6,1000000007); assert(COM(5,2,1000000007) == 10);
 }
 ```
 {% endraw %}
@@ -190,9 +231,9 @@ std::ostringstream out; out << __int128(-123); assert(out.str() == "-123");
 </details>
 
 <details class="api-operation" id="input-vector" markdown="1">
-<summary><code>std::istream&amp; operator&gt;&gt;(std::istream&amp; in, std::vector&lt;T&gt;&amp; a)</code> — O(S+N)</summary>
+<summary><code>std::istream&amp; operator&gt;&gt;(std::istream&amp; in, std::vector&lt;T,Alloc&gt;&amp; a)</code> — O(S+N)</summary>
 
-既存 N 要素を順番に読みます。
+既存 N 要素を順番に読みます。任意のallocatorを指定できます。
 
 {% raw %}
 ```cpp
@@ -200,12 +241,12 @@ std::vector<int> a(3); std::istringstream in("1 2 3"); in >> a;
 ```
 {% endraw %}
 
-注意点: 要素数は変更しません。空 vector は何も読みません。vector<bool> は proxy 型のため対象外です。失敗時は一部変更されます。入れ子の vector/deque/pair に対応します。
+注意点: 要素数は変更しません。空 vector は何も読みません。vector&lt;bool&gt;にも対応します。boolの字句・boolalphaの扱いは通常のistream入力に従います。失敗時は一部変更されます。入れ子の vector/deque/pair に対応します。
 
 </details>
 
 <details class="api-operation" id="output-vector" markdown="1">
-<summary><code>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const std::vector&lt;T&gt;&amp; a)</code> — O(S+N)</summary>
+<summary><code>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const std::vector&lt;T,Alloc&gt;&amp; a)</code> — O(S+N)</summary>
 
 要素を空白区切りで出力します。
 
@@ -220,9 +261,9 @@ std::ostringstream out; out << std::vector<int>{1,2}; assert(out.str() == "1 2")
 </details>
 
 <details class="api-operation" id="input-deque" markdown="1">
-<summary><code>std::istream&amp; operator&gt;&gt;(std::istream&amp; in, std::deque&lt;T&gt;&amp; a)</code> — O(S+N)</summary>
+<summary><code>std::istream&amp; operator&gt;&gt;(std::istream&amp; in, std::deque&lt;T,Alloc&gt;&amp; a)</code> — O(S+N)</summary>
 
-既存 N 要素を順番に読みます。
+既存 N 要素を順番に読みます。任意のallocatorを指定できます。
 
 {% raw %}
 ```cpp
@@ -235,7 +276,7 @@ std::deque<int> a(2); std::istringstream in("4 5"); in >> a;
 </details>
 
 <details class="api-operation" id="output-deque" markdown="1">
-<summary><code>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const std::deque&lt;T&gt;&amp; a)</code> — O(S+N)</summary>
+<summary><code>std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const std::deque&lt;T,Alloc&gt;&amp; a)</code> — O(S+N)</summary>
 
 要素を空白区切りで出力します。
 
@@ -725,14 +766,14 @@ mint x = 2; pqg<ll> q; q.push(3); q.push(1); assert(q.top() == 1);
 ```
 {% endraw %}
 
-注意点: 型別名の宣言自体に実行コストはありません。各型の構築・操作・寿命・overflow は元の型に従います。using namespace std/atcoder は自動で行いません。
+注意点: 型別名の宣言自体に実行コストはありません。各型の構築・操作・寿命・overflow は元の型に従います。原文と同じusing namespace std/atcoderを追加します。
 
 </details>
 
 <details class="api-operation" id="inf" markdown="1">
-<summary><code>constexpr ll INF</code> — O(1)</summary>
+<summary><code>INF</code> — O(1)</summary>
 
-(1LL<<62)-(1LL<<31) の定数です。
+原文と同じmacroで、`((1LL<<62)-(1LL<<31))`というlong longの定数式に展開します。
 
 {% raw %}
 ```cpp
@@ -740,7 +781,7 @@ assert(INF == 4611686016279904256LL);
 ```
 {% endraw %}
 
-注意点: 全型共通の無限大ではありません。INF を含む加算・乗算の overflow は利用者の責任です。inline constexpr で書換え不可です。
+注意点: 全型共通の無限大ではありません。INFを含む加算・乗算のoverflowは利用者の責任です。変数ではないためアドレスは取れません。include時に定義するmacroなので、名前空間に関係なく後続のソースへ適用され、`#ifdef INF`でも判定できます。
 
 </details>
 
@@ -760,7 +801,7 @@ assert(CPS > 0);
 </details>
 
 <details class="api-operation" id="dx" markdown="1">
-<summary><code>constexpr std::array&lt;ll,8&gt; dx</code> — O(1)</summary>
+<summary><code>ll dx[8]</code> — O(1)</summary>
 
 8 近傍の x 差分 {0,1,0,-1,-1,-1,1,1} です。
 
@@ -770,12 +811,12 @@ assert(dx[0] == 0 && dx[1] == 1);
 ```
 {% endraw %}
 
-注意点: 添字は [0,8)。dy と同じ添字で使い、先頭 4 個が 4 近傍です。静的寿命で書換え不可です。
+注意点: 添字は [0,8)。dy と同じ添字で使い、先頭 4 個が 4 近傍です。静的寿命です。原文と同じく要素を書き換えられます。
 
 </details>
 
 <details class="api-operation" id="dy" markdown="1">
-<summary><code>constexpr std::array&lt;ll,8&gt; dy</code> — O(1)</summary>
+<summary><code>ll dy[8]</code> — O(1)</summary>
 
 8 近傍の y 差分 {1,0,-1,0,-1,1,-1,1} です。
 
@@ -785,7 +826,7 @@ assert(dy[0] == 1 && dy[1] == 0);
 ```
 {% endraw %}
 
-注意点: 添字は [0,8)。dx と同じ添字で使います。静的寿命で書換え不可です。
+注意点: 添字は [0,8)。dx と同じ添字で使います。静的寿命です。原文と同じく要素を書き換えられます。
 
 </details>
 
@@ -801,7 +842,7 @@ assert(parse128("-4").value() == -4);
 ```
 {% endraw %}
 
-注意点: 全オーバーロード・範囲・空入力・メモリ条件は Contest Helpers の操作一覧を参照してください。元 min/max の可変長 overload は std::min/std::max と衝突するため追加していません。
+注意点: 全オーバーロード・範囲・空入力・メモリ条件は Contest Helpers の操作一覧を参照してください。原文のmin/maxは下記の可変長・vector overloadでも利用できます。
 
 </details>
 
@@ -882,7 +923,580 @@ target = std::move(rng);
 ```
 {% endraw %}
 
-注意点: 移動元も破棄できます。内部の mt19937 や参照・iteratorは公開しません。
+注意点: 移動元も破棄できます。公開フィールドmtへの参照も同時に無効になります。
+
+</details>
+
+<details class="api-operation" id="namespace-imports" markdown="1">
+<summary><code>using namespace std; using namespace atcoder;</code> — O(1)</summary>
+
+原文と同じく、標準ライブラリとACLの名前を修飾なしで使えます。
+
+{% raw %}
+```cpp
+vector<ll> a{1,2}; dsu uf(2); assert(a.size() == 2 && uf.size(0) == 1);
+```
+{% endraw %}
+
+注意点: グローバルな名前解決に影響します。同名の独自関数がある場合はstd::やatcoder::で修飾してください。
+
+</details>
+
+<details class="api-operation" id="min-variadic" markdown="1">
+<summary><code>constexpr auto min(T... values)</code> — O(K)</summary>
+
+1個以上の比較可能な値から最小値を値で返します。異なる型はstd::common_type_t<T...>にそろえて比較します。Kは引数の個数です。
+
+{% raw %}
+```cpp
+assert(min(1, 4LL, 2.0) == 1);
+```
+{% endraw %}
+
+注意点: 共通型への変換と比較が定義される必要があります。符号付き・符号なしの混在などの変換規則はC++に従います。同型2引数やinitializer_listなどの標準overloadも利用できます。比較関数付きの呼び出しはstd::min/std::maxと修飾すると確実です。返り値の型と参照性は選ばれたoverloadに従います。
+
+</details>
+
+<details class="api-operation" id="min-three" markdown="1">
+<summary><code>constexpr auto min(const T&amp; a, const T&amp; b, U c)</code> — O(1)</summary>
+
+先頭2引数が同型の3値を共通型にそろえ、最小値を値で返します。
+
+{% raw %}
+```cpp
+assert(min(1,4,2LL) == 1);
+```
+{% endraw %}
+
+注意点: 型T,Uの共通型への変換と比較が必要です。比較関数付きの標準overloadとの競合を避けて3値を受けるためのoverloadです。比較関数を渡す場合はstd::minと修飾してください。追加メモリO(1)です。
+
+</details>
+
+<details class="api-operation" id="min-vector-const" markdown="1">
+<summary><code>T min(const std::vector&lt;T, Alloc&gt;&amp; values)</code> — O(N)</summary>
+
+空でないvectorの最小値を値で返します。const・非constのvector、任意のallocator、vector&lt;bool&gt;に対応します。
+
+{% raw %}
+```cpp
+const vector<int> a{1,4,2}; assert(min(a) == 1);
+```
+{% endraw %}
+
+注意点: 空vectorは禁止です。要素に比較とコピーが必要です。入力は変更せず、参照・iteratorも無効化しません。比較・コピーをO(1)とした計算量です。
+
+</details>
+
+<details class="api-operation" id="max-variadic" markdown="1">
+<summary><code>constexpr auto max(T... values)</code> — O(K)</summary>
+
+1個以上の比較可能な値から最大値を値で返します。異なる型はstd::common_type_t<T...>にそろえて比較します。Kは引数の個数です。
+
+{% raw %}
+```cpp
+assert(max(1, 4LL, 2.0) == 4);
+```
+{% endraw %}
+
+注意点: 共通型への変換と比較が定義される必要があります。符号付き・符号なしの混在などの変換規則はC++に従います。同型2引数やinitializer_listなどの標準overloadも利用できます。比較関数付きの呼び出しはstd::min/std::maxと修飾すると確実です。返り値の型と参照性は選ばれたoverloadに従います。
+
+</details>
+
+<details class="api-operation" id="max-three" markdown="1">
+<summary><code>constexpr auto max(const T&amp; a, const T&amp; b, U c)</code> — O(1)</summary>
+
+先頭2引数が同型の3値を共通型にそろえ、最大値を値で返します。
+
+{% raw %}
+```cpp
+assert(max(1,4,2LL) == 4);
+```
+{% endraw %}
+
+注意点: 型T,Uの共通型への変換と比較が必要です。比較関数付きの標準overloadとの競合を避けて3値を受けるためのoverloadです。比較関数を渡す場合はstd::maxと修飾してください。追加メモリO(1)です。
+
+</details>
+
+<details class="api-operation" id="max-vector-const" markdown="1">
+<summary><code>T max(const std::vector&lt;T, Alloc&gt;&amp; values)</code> — O(N)</summary>
+
+空でないvectorの最大値を値で返します。const・非constのvector、任意のallocator、vector&lt;bool&gt;に対応します。
+
+{% raw %}
+```cpp
+const vector<int> a{1,4,2}; assert(max(a) == 4);
+```
+{% endraw %}
+
+注意点: 空vectorは禁止です。要素に比較とコピーが必要です。入力は変更せず、参照・iteratorも無効化しません。比較・コピーをO(1)とした計算量です。
+
+</details>
+
+<details class="api-operation" id="parse-original" markdown="1">
+<summary><code>__int128 parsetoint128(std::string_view text)</code> — O(L)</summary>
+
+文字列中のASCII数字だけを左からつなげた非負整数を返します。Lはbyte数です。
+
+{% raw %}
+```cpp
+assert(parsetoint128("-12x3") == 123); assert(parsetoint128("abc") == 0);
+```
+{% endraw %}
+
+注意点: 符号も数字以外も無視する原文互換の関数です。結果がsigned 128bitに収まる必要があります。空文字列は0です。厳密な符号・範囲検査にはparse128を使います。入力文字列を所有せず、返り値に寿命の依存はありません。
+
+</details>
+
+<details class="api-operation" id="enumdiv" markdown="1">
+<summary><code>std::vector&lt;ll&gt; enumdiv(ll n)</code> — O(√n)</summary>
+
+正のnの約数を返します。iを1から昇順に試し、割り切れたらi、異なる場合はn/iの順に追加します。
+
+{% raw %}
+```cpp
+assert((enumdiv(12) == vector<ll>{1,12,2,6,3,4})); assert(enumdiv(1) == vector<ll>{1});
+```
+{% endraw %}
+
+注意点: n>=1が前提です。結果は昇順ではありません。返り値は独立したvectorで、約数の個数をDとしてO(D)メモリです。64bit最大値付近では試し割りに時間がかかります。
+
+</details>
+
+<details class="api-operation" id="soinsu-bunkai" markdown="1">
+<summary><code>std::vector&lt;std::pair&lt;ll,ll&gt;&gt; soinsu_bunkai(ll n)</code> — O(√n)</summary>
+
+正のnを素因数分解し、素数の昇順に{素数, 指数}を返します。
+
+{% raw %}
+```cpp
+assert((soinsu_bunkai(12) == vector<pair<ll,ll>>{{2,2},{3,1}})); assert(soinsu_bunkai(1).empty());
+```
+{% endraw %}
+
+注意点: n>=1が前提です。1では空vectorです。試し割りなので、大きな素数には適しません。返り値は独立して所有し、異なる素因数の個数をDとしてO(D)メモリです。高速な64bit分解が必要ならmath/factorize.hppを明示的にincludeしてください。
+
+</details>
+
+<details class="api-operation" id="topo-sort-original" markdown="1">
+<summary><code>std::vector&lt;ll&gt; topo_sort(const std::vector&lt;std::vector&lt;ll&gt;&gt;&amp; graph, std::vector&lt;ll&gt;&amp; indeg, ll n)</code> — O(E+V log V)</summary>
+
+頂点[0,n)から、現在入次数0の最小頂点を順に取り出します。取り出した頂点の出辺ごとにindegを減らし、順序を返します。
+
+{% raw %}
+```cpp
+vector<vector<ll>> g{{2},{2},{}}; vector<ll> indeg{0,0,2}; assert((topo_sort(g,indeg,3) == vector<ll>{0,1,2}));
+```
+{% endraw %}
+
+注意点: n>=0、graph/indegの長さはn以上、辺の行き先は[0,n)、indegは正しい入次数とします。graphは変更せず、indegは変更します。閉路がある場合は取り出せた部分だけを返し、検出は返り値の長さとnの比較で行います。空グラフは空vector。追加メモリO(V)です。
+
+</details>
+
+<details class="api-operation" id="com-init" markdown="1">
+<summary><code>void COMinit(ll MAX, ll MOD)</code> — O(MAX)</summary>
+
+初回に0<=n<MAX用の階乗fac、逆階乗finv、整数逆元invvを準備し、COMINITをtrueにします。
+
+{% raw %}
+```cpp
+COMinit(6,1000000007); assert(COM(5,2,1000000007) == 10);
+```
+{% endraw %}
+
+注意点: 2<=MOD<=LLONG_MAXの素数、0<=MAX<=MODで、必要なサイズを確保できることが前提です。MAXは上限を含みません。COMINITがtrueなら何もせずO(1)です。法を自動で記録・照合しません。再構築する場合はCOMINIT=falseにし、同じ法をCOM/nPrに渡してください。O(MAX)メモリを保持し、vectorの再確保で旧要素への参照は無効になります。
+
+</details>
+
+<details class="api-operation" id="com-original" markdown="1">
+<summary><code>ll COM(int n, int k, ll MOD)</code> — O(1)</summary>
+
+二項係数nCkをMODで割った余り[0,MOD)で返します。
+
+{% raw %}
+```cpp
+COMinit(6,1000000007); assert(COM(5,2,1000000007) == 10);
+```
+{% endraw %}
+
+注意点: n<0、k<0、n<kなら0、0<=nかつk==0なら1です。それ以外はCOMinit済み、n<MAX、同じ素数MODが必要です。テーブルを変更せず、追加メモリO(1)です。
+
+</details>
+
+<details class="api-operation" id="npr-original" markdown="1">
+<summary><code>ll nPr(int n, int k, ll MOD)</code> — O(1)</summary>
+
+順列数nPkをMODで割った余り[0,MOD)で返します。
+
+{% raw %}
+```cpp
+COMinit(6,1000000007); assert(nPr(5,2,1000000007) == 20);
+```
+{% endraw %}
+
+注意点: n<0、k<0、n<kなら0、0<=nかつk==0なら1です。それ以外はCOMinit済み、n<MAX、同じ素数MODが必要です。テーブルを変更せず、追加メモリO(1)です。
+
+</details>
+
+<details class="api-operation" id="fac" markdown="1">
+<summary><code>std::vector&lt;ll&gt; fac</code> — O(1)参照</summary>
+
+COMinitが準備する公開テーブルです。fac[n]=n! mod MODを保持します。
+
+{% raw %}
+```cpp
+COMinit(6,1000000007); assert(fac[0] == 1);
+```
+{% endraw %}
+
+注意点: 初期状態は空、COMinit後の長さはMAXです。添字は[0,MAX)とし、invv[0]は逆元を表しません。変更するとCOM/nPrの結果に影響します。static寿命ですが、再確保で要素への参照・iteratorが無効になります。保持メモリO(MAX)です。
+
+</details>
+
+<details class="api-operation" id="finv" markdown="1">
+<summary><code>std::vector&lt;ll&gt; finv</code> — O(1)参照</summary>
+
+COMinitが準備する公開テーブルです。finv[n]=(n!)の逆元 mod MODを保持します。
+
+{% raw %}
+```cpp
+COMinit(6,1000000007); assert(finv[0] == 1);
+```
+{% endraw %}
+
+注意点: 初期状態は空、COMinit後の長さはMAXです。添字は[0,MAX)とし、invv[0]は逆元を表しません。変更するとCOM/nPrの結果に影響します。static寿命ですが、再確保で要素への参照・iteratorが無効になります。保持メモリO(MAX)です。
+
+</details>
+
+<details class="api-operation" id="invv" markdown="1">
+<summary><code>std::vector&lt;ll&gt; invv</code> — O(1)参照</summary>
+
+COMinitが準備する公開テーブルです。1<=n<MAXに対しinvv[n]=nの逆元 mod MODを保持します。
+
+{% raw %}
+```cpp
+COMinit(6,1000000007); assert(invv[1] == 1);
+```
+{% endraw %}
+
+注意点: 初期状態は空、COMinit後の長さはMAXです。添字は[0,MAX)とし、invv[0]は逆元を表しません。変更するとCOM/nPrの結果に影響します。static寿命ですが、再確保で要素への参照・iteratorが無効になります。保持メモリO(MAX)です。
+
+</details>
+
+<details class="api-operation" id="cominit-flag" markdown="1">
+<summary><code>bool COMINIT</code> — O(1)</summary>
+
+COMinitの初回準備を管理する公開フラグです。初期値はfalseです。
+
+{% raw %}
+```cpp
+COMINIT=false; COMinit(4,7); assert(COMINIT);
+```
+{% endraw %}
+
+注意点: trueの間はCOMinitが何もしません。falseに戻すと次回呼び出しでテーブルを再構築できます。テーブルと法を一致させる責任は呼び出し側にあります。static寿命、追加メモリO(1)です。
+
+</details>
+
+<details class="api-operation" id="era" markdown="1">
+<summary><code>std::vector&lt;int&gt; Era(int n)</code> — O(n log log n)</summary>
+
+n未満の素数を昇順に返し、公開テーブルisprimeを更新します。
+
+{% raw %}
+```cpp
+assert((Era(10) == vector<int>{2,3,5,7})); assert(isprime[7] && !isprime[8]);
+```
+{% endraw %}
+
+注意点: n>=0が必要です。n<=2の返り値は空です。毎回isprimeを長さnで作り直し、再呼び出し前の要素への参照・proxy・iteratorを保持しないでください。返り値とテーブルを合わせO(n)メモリです。
+
+</details>
+
+<details class="api-operation" id="isprime-original" markdown="1">
+<summary><code>std::vector&lt;bool&gt; isprime</code> — O(1)参照</summary>
+
+最後のEra(n)で作った、添字が素数かどうかの表です。初期状態は空です。
+
+{% raw %}
+```cpp
+Era(3); assert(!isprime[0] && !isprime[1] && isprime[2]);
+```
+{% endraw %}
+
+注意点: 添字は[0,n)。変更すると保持している判定結果が変わります。static寿命ですが、Eraの再呼び出しで参照・proxy・iteratorを無効化し得ます。O(n)bitの保存領域です。
+
+</details>
+
+<details class="api-operation" id="unionfind-default" markdown="1">
+<summary><code>UnionFind()</code> — O(1)</summary>
+
+頂点数0のUnion-Findを構築します。ACL dsuを利用します。
+
+{% raw %}
+```cpp
+UnionFind uf; uf=UnionFind(2); assert(uf.size(0) == 1);
+```
+{% endraw %}
+
+注意点: 頂点を取る操作は頂点数1以上に再代入してから使います。保持メモリO(1)です。
+
+</details>
+
+<details class="api-operation" id="unionfind-size-ctor" markdown="1">
+<summary><code>explicit UnionFind(std::size_t n)</code> — O(n)</summary>
+
+n頂点をそれぞれ独立した集合として構築します。
+
+{% raw %}
+```cpp
+UnionFind uf(3); assert(!uf.connected(0,1));
+```
+{% endraw %}
+
+注意点: 0<=n<=INT_MAXかつ確保可能なサイズが必要です。空構築も可能です。保持メモリO(n)です。
+
+</details>
+
+<details class="api-operation" id="unionfind-find" markdown="1">
+<summary><code>int find(int v)</code> — 償却O(α(n))</summary>
+
+vの属する集合の代表頂点を返します。
+
+{% raw %}
+```cpp
+UnionFind uf(3); uf.merge(0,1); assert(uf.find(0) == uf.find(1));
+```
+{% endraw %}
+
+注意点: 頂点番号は[0,n)です。経路圧縮によって内部状態を変更します。代表の番号は併合後に変わる場合があります。追加作業メモリO(log n)以下です。
+
+</details>
+
+<details class="api-operation" id="unionfind-merge" markdown="1">
+<summary><code>void merge(int a, int b)</code> — 償却O(α(n))</summary>
+
+a,bの集合を併合します。既に同じ集合なら何もしません。
+
+{% raw %}
+```cpp
+UnionFind uf(3); uf.merge(0,1); uf.merge(1,2); assert(uf.connected(0,2));
+```
+{% endraw %}
+
+注意点: 頂点番号は[0,n)です。経路圧縮によって内部状態を変更します。代表の番号は併合後に変わる場合があります。追加作業メモリO(log n)以下です。
+
+</details>
+
+<details class="api-operation" id="unionfind-connected" markdown="1">
+<summary><code>bool connected(int a, int b)</code> — 償却O(α(n))</summary>
+
+a,bが同じ集合に属するか返します。
+
+{% raw %}
+```cpp
+UnionFind uf(3); uf.merge(0,1); assert(uf.connected(0,1));
+```
+{% endraw %}
+
+注意点: 頂点番号は[0,n)です。経路圧縮によって内部状態を変更します。代表の番号は併合後に変わる場合があります。追加作業メモリO(log n)以下です。
+
+</details>
+
+<details class="api-operation" id="unionfind-size" markdown="1">
+<summary><code>int size(int v)</code> — 償却O(α(n))</summary>
+
+vを含む集合の頂点数を返します。
+
+{% raw %}
+```cpp
+UnionFind uf(3); uf.merge(0,1); assert(uf.size(0) == 2);
+```
+{% endraw %}
+
+注意点: 頂点番号は[0,n)です。経路圧縮によって内部状態を変更します。代表の番号は併合後に変わる場合があります。追加作業メモリO(log n)以下です。
+
+</details>
+
+<details class="api-operation" id="unionfind-copy" markdown="1">
+<summary><code>UnionFind(const UnionFind&amp; other)</code> — O(n)</summary>
+
+集合の状態を独立にコピーします。
+
+{% raw %}
+```cpp
+UnionFind a(2); UnionFind b(a); assert(!b.connected(0,1));
+```
+{% endraw %}
+
+注意点: コピー後の変更は元に影響しません。保持メモリO(n)です。
+
+</details>
+
+<details class="api-operation" id="unionfind-copy-assign" markdown="1">
+<summary><code>UnionFind&amp; operator=(const UnionFind&amp; other)</code> — O(n)</summary>
+
+集合の状態をコピー代入し、自身への参照を返します。
+
+{% raw %}
+```cpp
+UnionFind a(2), b; b=a; assert(b.size(0) == 1);
+```
+{% endraw %}
+
+注意点: 自己代入できます。以前の状態は置き換わり、保持メモリO(n)です。
+
+</details>
+
+<details class="api-operation" id="unionfind-move" markdown="1">
+<summary><code>UnionFind(UnionFind&amp;&amp; other)</code> — O(1)</summary>
+
+集合の状態を移動構築します。
+
+{% raw %}
+```cpp
+UnionFind a(2); UnionFind b(std::move(a)); assert(b.size(0) == 1);
+```
+{% endraw %}
+
+注意点: 移動元を頂点操作に使う前に再代入してください。保持メモリO(n)です。
+
+</details>
+
+<details class="api-operation" id="unionfind-move-assign" markdown="1">
+<summary><code>UnionFind&amp; operator=(UnionFind&amp;&amp; other)</code> — O(n_old)</summary>
+
+集合の状態を移動代入し、自身への参照を返します。
+
+{% raw %}
+```cpp
+UnionFind a(2), b; b=std::move(a); assert(b.size(0) == 1);
+```
+{% endraw %}
+
+注意点: 移動元は破棄・再代入できます。n_oldは置き換える以前の頂点数です。
+
+</details>
+
+<details class="api-operation" id="unionfind-destruct" markdown="1">
+<summary><code>~UnionFind()</code> — O(n)</summary>
+
+集合の保存領域を解放します。
+
+{% raw %}
+```cpp
+{ UnionFind uf(2); }
+```
+{% endraw %}
+
+注意点: 移動元も破棄できます。
+
+</details>
+
+<details class="api-operation" id="rande-mt" markdown="1">
+<summary><code>std::mt19937 Rande::mt</code> — O(1)参照</summary>
+
+乱数生成器を原文と同じ公開名で参照できます。seedや状態の取得・更新も可能です。
+
+{% raw %}
+```cpp
+Rande rng(7); rng.mt.seed(9); assert(rng(1) == 0);
+```
+{% endraw %}
+
+注意点: rng自身と同じ寿命です。直接操作すると以降のrng(...)の列も変わります。mt19937の固定長状態を保持し、別オブジェクトにコピーした状態は独立です。
+
+</details>
+
+<details class="api-operation" id="rep-helper-1" markdown="1">
+<summary><code>rep1(n)</code> — O(反復回数)</summary>
+
+rep(n)の展開先を直接呼ぶ原文互換のmacroです。
+
+{% raw %}
+```cpp
+ll s=0; rep1(3) s+=i; assert(s == 3);
+```
+{% endraw %}
+
+注意点: 範囲・評価回数・変数の型・増分の条件は対応するrep overloadと同じです。入れ子では変数名を重複させないでください。
+
+</details>
+
+<details class="api-operation" id="rep-helper-2" markdown="1">
+<summary><code>rep2(i,n)</code> — O(反復回数)</summary>
+
+rep(i,n)の展開先を直接呼ぶ原文互換のmacroです。
+
+{% raw %}
+```cpp
+ll s=0; rep2(j,3) s+=j; assert(s == 3);
+```
+{% endraw %}
+
+注意点: 範囲・評価回数・変数の型・増分の条件は対応するrep overloadと同じです。入れ子では変数名を重複させないでください。
+
+</details>
+
+<details class="api-operation" id="rep-helper-3" markdown="1">
+<summary><code>rep3(i,a,b)</code> — O(反復回数)</summary>
+
+rep(i,a,b)の展開先を直接呼ぶ原文互換のmacroです。
+
+{% raw %}
+```cpp
+ll s=0; rep3(j,0,3) s+=j; assert(s == 3);
+```
+{% endraw %}
+
+注意点: 範囲・評価回数・変数の型・増分の条件は対応するrep overloadと同じです。入れ子では変数名を重複させないでください。
+
+</details>
+
+<details class="api-operation" id="rep-helper-4" markdown="1">
+<summary><code>rep4(i,a,b,c)</code> — O(反復回数)</summary>
+
+rep(i,a,b,c)の展開先を直接呼ぶ原文互換のmacroです。
+
+{% raw %}
+```cpp
+ll s=0; rep4(j,0,3,1) s+=j; assert(s == 3);
+```
+{% endraw %}
+
+注意点: 範囲・評価回数・変数の型・増分の条件は対応するrep overloadと同じです。入れ子では変数名を重複させないでください。
+
+</details>
+
+<details class="api-operation" id="overload4" markdown="1">
+<summary><code>overload4(a,b,c,d,e,...)</code> — O(1)</summary>
+
+5番目のmacro引数eを選ぶ、repの引数数切り替え用macroです。
+
+{% raw %}
+```cpp
+static_assert(overload4(0,0,0,0,7) == 7);
+```
+{% endraw %}
+
+注意点: 少なくとも5引数が必要です。選ばれない引数はC++の式として評価されません。
+
+</details>
+
+<details class="api-operation" id="deb" markdown="1">
+<summary><code>deb(args...)</code> — 無効時O(1)、有効時O(print)</summary>
+
+ヘッダをincludeする前にBLUEBERRYを定義するとdebはO、すなわちprintになります。未定義ならdeb(...)は空に展開します。
+
+{% raw %}
+```cpp
+int x=0;
+#ifndef BLUEBERRY
+deb(++x); assert(x == 0);
+#endif
+```
+{% endraw %}
+
+注意点: 無効時は引数の副作用も実行されません。有効時の出力先・改行・返り値・flushはprintと同じです。有効・無効の両方で使う場合は文として呼んでください。
 
 </details>
 

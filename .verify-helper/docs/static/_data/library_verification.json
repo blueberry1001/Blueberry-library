@@ -41,23 +41,8 @@
       "path": "blueberry/graph/topological-sort.hpp",
       "name": "Topological Sort",
       "direct": [],
-      "indirect": [
-        {
-          "path": "verify/utility/contest-fast-io-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
-        },
-        {
-          "path": "verify/utility/contest-fast-io.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb"
-        },
-        {
-          "path": "verify/utility/contest-template-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
-        }
-      ],
+      "indirect": [],
       "random_tests": [
-        "tests/random/contest-fast-io.cpp",
-        "tests/random/contest-helpers.cpp",
         "tests/random/graph-batch-two.cpp"
       ],
       "ignored": [],
@@ -67,40 +52,26 @@
         "next": "DAGの順序制約・閉路時の返り値を確かめられる問題を選び、専用ドライバを追加する。",
         "issue": "https://github.com/blueberry1001/Blueberry-library/issues/24"
       },
-      "status": "indirect",
-      "label": "依存先としてのみ利用"
+      "status": "missing",
+      "label": "公式verify未登録"
     },
     {
       "path": "blueberry/utility/contest-helpers.hpp",
       "name": "Contest Helpers",
       "direct": [],
-      "indirect": [
-        {
-          "path": "verify/utility/contest-fast-io-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
-        },
-        {
-          "path": "verify/utility/contest-fast-io.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb"
-        },
-        {
-          "path": "verify/utility/contest-template-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
-        }
-      ],
+      "indirect": [],
       "random_tests": [
-        "tests/random/contest-fast-io.cpp",
         "tests/random/contest-helpers.cpp"
       ],
       "ignored": [],
       "note": {
         "partial": true,
-        "reason": "128bitの変換は専用入出力verifyの依存先として検証します。補助関数全体は境界・固定seedのランダムテストで検証します。",
+        "reason": "128bit変換の共通基本処理は互換テンプレートの公式入出力verifyで使用します。この公開ヘッダ単体の公式verifyはなく、補助関数全体は境界・固定seedのランダムテストで検証します。",
         "limits": "整数除算・二分探索・圧縮・二部判定・Fillなどは公式の専用問題ではなくローカル検査です。",
         "next": "型の前提と整数端点のテストを維持し、対応する公式問題がある操作には専用ドライバを追加する。"
       },
-      "status": "indirect",
-      "label": "依存先としてのみ利用"
+      "status": "missing",
+      "label": "公式verify未登録"
     },
     {
       "path": "blueberry/utility/contest-template.hpp",
@@ -1677,22 +1648,8 @@
           "problem": "https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod"
         }
       ],
-      "indirect": [
-        {
-          "path": "verify/utility/contest-fast-io-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
-        },
-        {
-          "path": "verify/utility/contest-fast-io.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb"
-        },
-        {
-          "path": "verify/utility/contest-template-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
-        }
-      ],
+      "indirect": [],
       "random_tests": [
-        "tests/random/contest-fast-io.cpp",
         "tests/random/contest-helpers.cpp"
       ],
       "ignored": [],
@@ -1779,22 +1736,9 @@
         {
           "path": "verify/math/tetration-mod.test.cpp",
           "problem": "https://judge.yosupo.jp/problem/tetration_mod"
-        },
-        {
-          "path": "verify/utility/contest-fast-io-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
-        },
-        {
-          "path": "verify/utility/contest-fast-io.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb"
-        },
-        {
-          "path": "verify/utility/contest-template-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
         }
       ],
       "random_tests": [
-        "tests/random/contest-fast-io.cpp",
         "tests/random/contest-helpers.cpp",
         "tests/random/math-expansion.cpp",
         "tests/random/primitive_root.cpp",
@@ -2096,24 +2040,8 @@
           "problem": "https://judge.yosupo.jp/problem/enumerate_primes"
         }
       ],
-      "indirect": [
-        {
-          "path": "verify/utility/contest-fast-io-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
-        },
-        {
-          "path": "verify/utility/contest-fast-io.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb"
-        },
-        {
-          "path": "verify/utility/contest-template-128bit.test.cpp",
-          "problem": "https://judge.yosupo.jp/problem/many_aplusb_128bit"
-        }
-      ],
-      "random_tests": [
-        "tests/random/contest-fast-io.cpp",
-        "tests/random/contest-helpers.cpp"
-      ],
+      "indirect": [],
+      "random_tests": [],
       "ignored": [],
       "note": {},
       "status": "direct",
@@ -2433,8 +2361,7 @@
     }
   ],
   "counts": {
-    "missing": 2,
-    "indirect": 2,
+    "missing": 4,
     "partial": 2,
     "direct": 106
   }

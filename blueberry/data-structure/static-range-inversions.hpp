@@ -29,18 +29,18 @@ std::vector<long long> static_range_inversions(
     if (bx != by) return bx < by;
     return (bx & 1) ? queries[x].second > queries[y].second : queries[x].second < queries[y].second;
   });
-  atcoder::fenwick_tree<int> bit(static_cast<int>(values.size()));
+  atcoder::fenwick_tree<int> fenwick(static_cast<int>(values.size()));
   std::vector<long long> answer(q);
   int l = 0, r = 0;
   long long inversions = 0;
   for (int id : order) {
     auto [ql, qr] = queries[id];
-    while (l > ql) { int x = rank[--l]; inversions += bit.sum(0, x); bit.add(x, 1); }
-    while (r < qr) { int x = rank[r]; inversions += r - l - bit.sum(0, x + 1); bit.add(x, 1); ++r; }
-    while (l < ql) { int x = rank[l++]; inversions -= bit.sum(0, x); bit.add(x, -1); }
-    while (r > qr) { int x = rank[--r]; bit.add(x, -1); inversions -= r - l - bit.sum(0, x + 1); }
+    while (l > ql) { int x = rank[--l]; inversions += fenwick.sum(0, x); fenwick.add(x, 1); }
+    while (r < qr) { int x = rank[r]; inversions += r - l - fenwick.sum(0, x + 1); fenwick.add(x, 1); ++r; }
+    while (l < ql) { int x = rank[l++]; inversions -= fenwick.sum(0, x); fenwick.add(x, -1); }
+    while (r > qr) { int x = rank[--r]; fenwick.add(x, -1); inversions -= r - l - fenwick.sum(0, x + 1); }
     answer[id] = inversions;
   }
   return answer;
 }
-}  // namespace blueberry
+}
