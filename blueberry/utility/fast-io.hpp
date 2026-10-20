@@ -1,10 +1,12 @@
 #pragma once
 #include <algorithm>
 #include <array>
+#include <bit>
 #include <cassert>
 #include <charconv>
 #include <cstddef>
 #include <cstdio>
+#include <cstdint>
 #include <cstring>
 #include <deque>
 #include <limits>
@@ -71,7 +73,39 @@ class FastInput {
     if ((negative && !std::is_signed_v<T>) || static_cast<unsigned>(c - '0') > 9) {
       discard(c); return false;
     }
+    if constexpr (!Interactive) {
+      if (pos_ < end_ && space(buffer_[pos_])) {
+        ++pos_;
+        if (failed_) return false;
+        const T digit = static_cast<T>(c - '0');
+        value = negative ? T(-digit) : digit;
+        return true;
+      }
+    }
     U result = 0;
+    if constexpr (!Interactive && sizeof(U) >= 4 && std::endian::native == std::endian::little) {
+      const U block_quotient = negative ? negative_limit / 100000000 : positive_limit / 100000000;
+      const U block_remainder = negative ? negative_limit % 100000000 : positive_limit % 100000000;
+      // Once a block contains a delimiter, finish this token in the scalar loop.
+      while (end_ - pos_ >= 7 && static_cast<unsigned>(buffer_[pos_] - '0') <= 9) {
+        // next() has already consumed c. Load only bytes inside the filled buffer.
+        std::uint64_t block;
+        std::memcpy(&block, buffer_.data() + pos_ - 1, sizeof block);
+        constexpr std::uint64_t high = 0xf0f0f0f0f0f0f0f0ULL;
+        if ((block & high) != 0x3030303030303030ULL ||
+            ((block + 0x0606060606060606ULL) & high) != 0x3030303030303030ULL) break;
+        block &= 0x0f0f0f0f0f0f0f0fULL;
+        block = (block * 10 + (block >> 8)) & 0x00ff00ff00ff00ffULL;
+        block = (block * 100 + (block >> 16)) & 0x0000ffff0000ffffULL;
+        const auto digits = static_cast<unsigned>((block * 10000 + (block >> 32)) & 0xffffffffULL);
+        if (result > block_quotient || (result == block_quotient && digits > block_remainder)) {
+          discard(c); return false;
+        }
+        result = U(result * 100000000 + digits);
+        pos_ += 7;
+        c = next();
+      }
+    }
     while (static_cast<unsigned>(c - '0') <= 9) {
       const unsigned digit = static_cast<unsigned>(c - '0');
       if (result > quotient || (result == quotient && digit > remainder)) {
@@ -200,27 +234,57 @@ class FastOutput {
   template<class T> requires (std::is_integral_v<T> && !std::is_same_v<T, bool> && !std::is_same_v<T, char>)
   bool write(T value) {
     using U = std::make_unsigned_t<T>;
-    static constexpr char pairs[] = "0001020304050607080910111213141516171819"
-        "2021222324252627282930313233343536373839"
-        "4041424344454647484950515253545556575859"
-        "6061626364656667686970717273747576777879"
-        "8081828384858687888990919293949596979899";
-    char digits[std::numeric_limits<U>::digits10 + 3];
-    char* end = digits + sizeof digits;
-    char* begin = end;
+    constexpr std::size_t maximum = std::numeric_limits<U>::digits10 + 2;
+    if (failed_ || (capacity - used_ < maximum && !drain())) return false;
+    char* begin = buffer_.data() + used_;
     bool negative = false;
     if constexpr (std::is_signed_v<T>) negative = value < 0;
     U number = negative ? U{0} - static_cast<U>(value) : static_cast<U>(value);
-    while (number >= 100) {
-      const unsigned remainder = static_cast<unsigned>(number % 100);
-      number /= 100;
-      *--begin = pairs[remainder * 2 + 1];
-      *--begin = pairs[remainder * 2];
+    if (negative) *begin++ = '-';
+    if (number < 10) {
+      *begin++ = static_cast<char>('0' + number);
+    } else if constexpr (sizeof(U) > sizeof(std::uint64_t)) {
+      // At most two wide divisions for 128-bit values; format the rest as 64-bit.
+      constexpr std::uint64_t base = 10000000000000000000ULL;
+      std::uint64_t chunks[2];
+      unsigned count = 0;
+      while (number >= base) {
+        chunks[count++] = static_cast<std::uint64_t>(number % base);
+        number /= base;
+      }
+      begin = std::to_chars(begin, buffer_.data() + capacity, static_cast<std::uint64_t>(number)).ptr;
+      while (count) {
+        char digits[19];
+        const auto end = std::to_chars(digits, digits + sizeof digits, chunks[--count]).ptr;
+        const auto size = static_cast<std::size_t>(end - digits);
+        std::memset(begin, '0', 19 - size);
+        begin += 19 - size;
+        std::memcpy(begin, digits, size);
+        begin += size;
+      }
+    } else {
+      static constexpr char pairs[] = "0001020304050607080910111213141516171819"
+          "2021222324252627282930313233343536373839"
+          "4041424344454647484950515253545556575859"
+          "6061626364656667686970717273747576777879"
+          "8081828384858687888990919293949596979899";
+      char digits[maximum];
+      char* const end = digits + sizeof digits;
+      char* start = end;
+      while (number >= 100) {
+        const auto remainder = static_cast<unsigned>(number % 100);
+        number /= 100;
+        *--start = pairs[remainder * 2 + 1];
+        *--start = pairs[remainder * 2];
+      }
+      if (number >= 10) { *--start = pairs[number * 2 + 1]; *--start = pairs[number * 2]; }
+      else *--start = static_cast<char>('0' + number);
+      const auto size = static_cast<std::size_t>(end - start);
+      std::memcpy(begin, start, size);
+      begin += size;
     }
-    if (number >= 10) { *--begin = pairs[number * 2 + 1]; *--begin = pairs[number * 2]; }
-    else *--begin = static_cast<char>('0' + number);
-    if (negative) *--begin = '-';
-    return write(std::string_view(begin, static_cast<std::size_t>(end - begin)));
+    used_ = static_cast<std::size_t>(begin - buffer_.data());
+    return true;
   }
   template<class T> requires std::is_floating_point_v<T>
   bool write(T value) {
