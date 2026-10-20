@@ -1,0 +1,2299 @@
+$ python3 scripts/verify_with_metrics.py verify/extra-fast/point-add-range-sum.test.cpp verify/extra-fast/static-rmq.test.cpp verify/extra-fast/bit-matrix-product.test.cpp --repeats 3 --timeout 1500 --state .verification/state.json --output .verification/extra-fast-expansion
+INFO:onlinejudge_verify.config:config file loaded: .verify-helper/config.toml: {'languages': {'cpp': {'environments': [{'CXX': 'g++', 'CXXFLAGS': ['-std=gnu++20', '-O2', '-pipe', '-Wall', '-Wextra', '-Wshadow', '-D_GLIBCXX_ASSERTIONS']}]}}}
+INFO:onlinejudge_verify.verify:verify: verify/extra-fast/bit-matrix-product.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/matrix_product_mod_2
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test --silent https://judge.yosupo.jp/problem/matrix_product_mod_2
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] load cookie from: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+git version 2.43.0
+[INFO] $ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+[INFO] $ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/info.toml
+[37m13:10:46 [INFO] Start matrix_product_mod_2[0m
+[37m13:10:46 [INFO] generate params.h[0m
+[37m13:10:46 [INFO] compile checker[0m
+[37m13:10:55 [INFO] compile solution[0m
+[37m13:11:00 [INFO] compile generators[0m
+[37m13:11:00 [INFO] compile example.in[0m
+[37m13:11:00 [INFO] compile random.cpp[0m
+[37m13:11:04 [INFO] compile max_random.cpp[0m
+[37m13:11:09 [INFO] compile small.cpp[0m
+[37m13:11:13 [INFO] compile middle.cpp[0m
+[37m13:11:19 [INFO] compile many_1.cpp[0m
+[37m13:11:25 [INFO] clear input /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/in[0m
+[37m13:11:25 [INFO] gen example.in 3cases[0m
+[37m13:11:25 [INFO] gen random.cpp 3cases[0m
+[37m13:11:27 [INFO] gen max_random.cpp 3cases[0m
+[37m13:11:31 [INFO] gen small.cpp 10cases[0m
+[37m13:11:31 [INFO] gen middle.cpp 5cases[0m
+[37m13:11:31 [INFO] gen many_1.cpp 2cases[0m
+[37m13:11:35 [INFO] clear output /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/out[0m
+[37m13:11:35 [INFO] ANS      1 msecs : example_00 : b''[0m
+[37m13:11:35 [INFO] ANS      1 msecs : example_01 : b''[0m
+[37m13:11:35 [INFO] ANS      1 msecs : example_02 : b''[0m
+[37m13:11:36 [INFO] ANS    947 msecs : random_00 : b''[0m
+[37m13:11:36 [INFO] ANS    757 msecs : random_01 : b''[0m
+[37m13:11:37 [INFO] ANS    873 msecs : random_02 : b''[0m
+[37m13:11:39 [INFO] ANS   1699 msecs : max_random_00 : b''[0m
+[37m13:11:40 [INFO] ANS   1380 msecs : max_random_01 : b''[0m
+[37m13:11:42 [INFO] ANS   1250 msecs : max_random_02 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_00 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_01 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_02 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_03 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_04 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_05 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_06 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_07 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_08 : b''[0m
+[37m13:11:42 [INFO] ANS      1 msecs : small_09 : b''[0m
+[37m13:11:42 [INFO] ANS     27 msecs : middle_00 : b''[0m
+[37m13:11:42 [INFO] ANS      5 msecs : middle_01 : b''[0m
+[37m13:11:42 [INFO] ANS      5 msecs : middle_02 : b''[0m
+[37m13:11:42 [INFO] ANS      5 msecs : middle_03 : b''[0m
+[37m13:11:42 [INFO] ANS     29 msecs : middle_04 : b''[0m
+[37m13:11:43 [INFO] ANS   1364 msecs : many_1_00 : b''[0m
+[37m13:11:45 [INFO] ANS   1454 msecs : many_1_01 : b''[0m
+[INFO] save cookie to: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+
+[INFO] sample 0
+[INFO] input: example_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_00.in
+[INFO] output: example_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_00.out
+
+[INFO] sample 1
+[INFO] input: example_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_01.in
+[INFO] output: example_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_01.out
+
+[INFO] sample 2
+[INFO] input: example_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_02.in
+[INFO] output: example_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_02.out
+
+[INFO] sample 3
+[INFO] input: many_1_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_00.in
+[INFO] output: many_1_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_00.out
+
+[INFO] sample 4
+[INFO] input: many_1_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_01.in
+[INFO] output: many_1_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_01.out
+
+[INFO] sample 5
+[INFO] input: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_00.in
+[INFO] output: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_00.out
+
+[INFO] sample 6
+[INFO] input: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_01.in
+[INFO] output: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_01.out
+
+[INFO] sample 7
+[INFO] input: max_random_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_02.in
+[INFO] output: max_random_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_02.out
+
+[INFO] sample 8
+[INFO] input: middle_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_00.in
+[INFO] output: middle_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_00.out
+
+[INFO] sample 9
+[INFO] input: middle_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_01.in
+[INFO] output: middle_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_01.out
+
+[INFO] sample 10
+[INFO] input: middle_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_02.in
+[INFO] output: middle_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_02.out
+
+[INFO] sample 11
+[INFO] input: middle_03
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_03.in
+[INFO] output: middle_03
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_03.out
+
+[INFO] sample 12
+[INFO] input: middle_04
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_04.in
+[INFO] output: middle_04
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_04.out
+
+[INFO] sample 13
+[INFO] input: random_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_00.in
+[INFO] output: random_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_00.out
+
+[INFO] sample 14
+[INFO] input: random_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_01.in
+[INFO] output: random_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_01.out
+
+[INFO] sample 15
+[INFO] input: random_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_02.in
+[INFO] output: random_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_02.out
+
+[INFO] sample 16
+[INFO] input: small_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_00.in
+[INFO] output: small_00
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_00.out
+
+[INFO] sample 17
+[INFO] input: small_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_01.in
+[INFO] output: small_01
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_01.out
+
+[INFO] sample 18
+[INFO] input: small_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_02.in
+[INFO] output: small_02
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_02.out
+
+[INFO] sample 19
+[INFO] input: small_03
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_03.in
+[INFO] output: small_03
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_03.out
+
+[INFO] sample 20
+[INFO] input: small_04
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_04.in
+[INFO] output: small_04
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_04.out
+
+[INFO] sample 21
+[INFO] input: small_05
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_05.in
+[INFO] output: small_05
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_05.out
+
+[INFO] sample 22
+[INFO] input: small_06
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_06.in
+[INFO] output: small_06
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_06.out
+
+[INFO] sample 23
+[INFO] input: small_07
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_07.in
+[INFO] output: small_07
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_07.out
+
+[INFO] sample 24
+[INFO] input: small_08
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_08.in
+[INFO] output: small_08
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_08.out
+
+[INFO] sample 25
+[INFO] input: small_09
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_09.in
+[INFO] output: small_09
+[SUCCESS] saved to: .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_09.out
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast -o .verify-helper/cache/158715a058540d744ba47b0eec52cd7e/a.out verify/extra-fast/bit-matrix-product.test.cpp
+git version 2.43.0
+INFO:onlinejudge.service.library_checker:$ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/info.toml --compile-checker
+[33m13:12:01 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m13:12:01 [INFO] Start matrix_product_mod_2[0m
+[37m13:12:01 [INFO] generate params.h[0m
+[37m13:12:01 [INFO] Test cases are already generated[0m
+[37m13:12:01 [INFO] The checker is already compiled[0m
+::group::verify/extra-fast/bit-matrix-product.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 26 cases found
+
+[INFO] example_00
+[INFO] time: 0.009907 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_00.in /tmp/tmpax2g_4ft/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_00.out
+ok 2 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_01
+[INFO] time: 0.010203 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_01.in /tmp/tmpz79ck_i8/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_01.out
+ok "101"
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_02
+[INFO] time: 0.011838 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_02.in /tmp/tmpxk9nqlik/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_02.out
+ok "0"
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] many_1_00
+[INFO] time: 0.858258 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_00.in /tmp/tmpoexxiuke/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_00.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] many_1_01
+[INFO] time: 0.897625 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_01.in /tmp/tmpevbdovjf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_01.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.895827 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_00.in /tmp/tmpcw1a_6ej/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_00.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.910377 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_01.in /tmp/tmpot1jnum9/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_01.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 1.351555 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_02.in /tmp/tmpi1yh92wm/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_02.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_00
+[INFO] time: 0.092782 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_00.in /tmp/tmplkxurt4e/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_00.out
+ok 693 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_01
+[INFO] time: 0.045602 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_01.in /tmp/tmpdu1hrtcv/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_01.out
+ok 198 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_02
+[INFO] time: 0.049418 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_02.in /tmp/tmp0_zujyt2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_02.out
+ok 88 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_03
+[INFO] time: 0.011927 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_03.in /tmp/tmpakon_1cu/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_03.out
+ok 193 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_04
+[INFO] time: 0.078885 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_04.in /tmp/tmpz9k8e_31/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_04.out
+ok 532 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.834346 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_00.in /tmp/tmpbdgehbgc/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_00.out
+ok 2740 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.461980 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_01.in /tmp/tmpnjabx4zj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_01.out
+ok 2245 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.566509 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_02.in /tmp/tmp1h63w51d/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_02.out
+ok 2135 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_00
+[INFO] time: 0.036660 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_00.in /tmp/tmpz05uuj17/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_00.out
+ok 53 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_01
+[INFO] time: 0.032677 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_01.in /tmp/tmp_q6u_dp9/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_01.out
+ok 70 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_02
+[INFO] time: 0.020783 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_02.in /tmp/tmpreeejyhi/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_02.out
+ok 88 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_03
+[INFO] time: 0.030371 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_03.in /tmp/tmpaqxd_nhi/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_03.out
+ok 65 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_04
+[INFO] time: 0.023037 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_04.in /tmp/tmp4usgellt/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_04.out
+ok 20 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_05
+[INFO] time: 0.026833 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_05.in /tmp/tmp98ravpse/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_05.out
+ok 106 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_06
+[INFO] time: 0.018778 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_06.in /tmp/tmpivxs1njm/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_06.out
+ok 6 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_07
+[INFO] time: 0.021519 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_07.in /tmp/tmp1t8eh82v/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_07.out
+ok 91 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_08
+[INFO] time: 0.020640 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_08.in /tmp/tmp3iuzq4uf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_08.out
+ok 64 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_09
+[INFO] time: 0.027951 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_09.in /tmp/tmp88t0o6u7/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_09.out
+ok 97 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.910377 sec  (for max_random_01)
+[INFO] max memory: 36.844000 MB  (for many_1_00)
+[SUCCESS] test success: 26 cases
+::endgroup::
+::group::verify/extra-fast/bit-matrix-product.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 26 cases found
+
+[INFO] example_00
+[INFO] time: 0.036544 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_00.in /tmp/tmp9q4qh578/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_00.out
+ok 2 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_01
+[INFO] time: 0.024207 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_01.in /tmp/tmpr2vc4i_z/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_01.out
+ok "101"
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_02
+[INFO] time: 0.012184 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_02.in /tmp/tmpcgp9vex4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_02.out
+ok "0"
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] many_1_00
+[INFO] time: 1.015607 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_00.in /tmp/tmp4tde6jvc/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_00.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] many_1_01
+[INFO] time: 1.317458 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_01.in /tmp/tmp0msnd1t3/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_01.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.308531 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_00.in /tmp/tmpj70oiu26/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_00.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 1.491420 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_01.in /tmp/tmptxq6kpdt/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_01.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 0.991158 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_02.in /tmp/tmpj55d92tc/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_02.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_00
+[INFO] time: 0.043853 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_00.in /tmp/tmp1kg9c3g4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_00.out
+ok 693 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_01
+[INFO] time: 0.070637 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_01.in /tmp/tmpi5c7w61t/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_01.out
+ok 198 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_02
+[INFO] time: 0.076149 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_02.in /tmp/tmpxa77zgb1/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_02.out
+ok 88 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_03
+[INFO] time: 0.016256 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_03.in /tmp/tmp4bw0yg8x/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_03.out
+ok 193 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_04
+[INFO] time: 0.071484 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_04.in /tmp/tmpat8e_h04/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_04.out
+ok 532 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 1.173886 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_00.in /tmp/tmpztd1pcf6/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_00.out
+ok 2740 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 1.139149 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_01.in /tmp/tmpv83ho0g8/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_01.out
+ok 2245 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 1.013487 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_02.in /tmp/tmp71w9nzzd/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_02.out
+ok 2135 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_00
+[INFO] time: 0.015827 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_00.in /tmp/tmpm95bsu92/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_00.out
+ok 53 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_01
+[INFO] time: 0.013958 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_01.in /tmp/tmpxhgiwvjr/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_01.out
+ok 70 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_02
+[INFO] time: 0.016197 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_02.in /tmp/tmpi7k07rdo/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_02.out
+ok 88 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_03
+[INFO] time: 0.030413 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_03.in /tmp/tmp4itnpqj2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_03.out
+ok 65 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_04
+[INFO] time: 0.037226 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_04.in /tmp/tmpcm66jgql/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_04.out
+ok 20 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_05
+[INFO] time: 0.022176 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_05.in /tmp/tmpj80obdic/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_05.out
+ok 106 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_06
+[INFO] time: 0.030029 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_06.in /tmp/tmpxspakvoo/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_06.out
+ok 6 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_07
+[INFO] time: 0.047027 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_07.in /tmp/tmp7n5o9wc7/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_07.out
+ok 91 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_08
+[INFO] time: 0.049024 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_08.in /tmp/tmp5j7vo2wd/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_08.out
+ok 64 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_09
+[INFO] time: 0.060182 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_09.in /tmp/tmpt1ih293i/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_09.out
+ok 97 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.491420 sec  (for max_random_01)
+[INFO] max memory: 36.876000 MB  (for many_1_01)
+[SUCCESS] test success: 26 cases
+::endgroup::
+::group::verify/extra-fast/bit-matrix-product.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 26 cases found
+
+[INFO] example_00
+[INFO] time: 0.045578 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_00.in /tmp/tmpafhgumx_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_00.out
+ok 2 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_01
+[INFO] time: 0.079627 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_01.in /tmp/tmpdo6r1rd4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_01.out
+ok "101"
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_02
+[INFO] time: 0.083629 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_02.in /tmp/tmpqvr322le/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/example_02.out
+ok "0"
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] many_1_00
+[INFO] time: 2.563672 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_00.in /tmp/tmp3t3agp9l/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_00.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] many_1_01
+[INFO] time: 1.692410 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_01.in /tmp/tmpcl0etqj_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/many_1_01.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 1.504848 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_00.in /tmp/tmp_nuufuih/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_00.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 2.536366 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_01.in /tmp/tmp8jxb2lot/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_01.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 1.713583 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_02.in /tmp/tmpyslrf8t4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/max_random_02.out
+ok 4096 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_00
+[INFO] time: 0.053453 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_00.in /tmp/tmp_bm3fllz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_00.out
+ok 693 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_01
+[INFO] time: 0.029331 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_01.in /tmp/tmpnsish1iu/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_01.out
+ok 198 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_02
+[INFO] time: 0.032086 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_02.in /tmp/tmp9lcee5d2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_02.out
+ok 88 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_03
+[INFO] time: 0.020849 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_03.in /tmp/tmpcj5o75kz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_03.out
+ok 193 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] middle_04
+[INFO] time: 0.060551 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_04.in /tmp/tmp98p7ajtm/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/middle_04.out
+ok 532 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 1.917799 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_00.in /tmp/tmp4x7xpv3k/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_00.out
+ok 2740 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.966554 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_01.in /tmp/tmpjw77azs0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_01.out
+ok 2245 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.827835 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_02.in /tmp/tmpvrn6f55m/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/random_02.out
+ok 2135 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_00
+[INFO] time: 0.026199 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_00.in /tmp/tmptxb8rkgt/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_00.out
+ok 53 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_01
+[INFO] time: 0.038110 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_01.in /tmp/tmppbhg1v67/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_01.out
+ok 70 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_02
+[INFO] time: 0.026675 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_02.in /tmp/tmpvpxzs1he/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_02.out
+ok 88 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_03
+[INFO] time: 0.026352 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_03.in /tmp/tmpncyn3e8n/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_03.out
+ok 65 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_04
+[INFO] time: 0.020667 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_04.in /tmp/tmp0u61hafo/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_04.out
+ok 20 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_05
+[INFO] time: 0.032040 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_05.in /tmp/tmpspasmm15/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_05.out
+ok 106 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_06
+[INFO] time: 0.036012 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_06.in /tmp/tmpxmi1a997/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_06.out
+ok 6 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_07
+[INFO] time: 0.026846 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_07.in /tmp/tmpmofb52pt/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_07.out
+ok 91 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_08
+[INFO] time: 0.051174 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_08.in /tmp/tmp11ftz703/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_08.out
+ok 64 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_09
+[INFO] time: 0.054537 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/linear_algebra/matrix_product_mod_2/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_09.in /tmp/tmpxbsq3d5g/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/158715a058540d744ba47b0eec52cd7e/test/small_09.out
+ok 97 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 2.563672 sec  (for many_1_00)
+[INFO] max memory: 36.880000 MB  (for max_random_02)
+[SUCCESS] test success: 26 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:verify: verify/extra-fast/point-add-range-sum.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/point_add_range_sum
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast -o .verify-helper/cache/ee63f5ff9809eba20833125130487a91/a.out verify/extra-fast/point-add-range-sum.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/info.toml --compile-checker
+[33m13:14:18 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m13:14:18 [INFO] Start point_add_range_sum[0m
+[37m13:14:18 [INFO] generate params.h[0m
+[37m13:14:18 [INFO] Test cases are already generated[0m
+[37m13:14:18 [INFO] The checker is already compiled[0m
+::group::verify/extra-fast/point-add-range-sum.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 21 cases found
+
+[INFO] example_00
+[INFO] time: 0.020470 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/example_00.in /tmp/tmpjw7zmr8v/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/example_00.out
+ok 4 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.371847 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_00.in /tmp/tmpmrbkcw_4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_00.out
+ok 250120 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.593079 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_01.in /tmp/tmpuwq6j1f2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_01.out
+ok 250195 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 0.494636 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_02.in /tmp/tmpd0q93j6v/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_02.out
+ok 250386 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_03
+[INFO] time: 0.658205 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_03.in /tmp/tmpgczufxyl/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_03.out
+ok 249615 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_04
+[INFO] time: 0.585073 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_04.in /tmp/tmpk78e005_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_04.out
+ok 250355 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.574529 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_00.in /tmp/tmpem_ntxre/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_00.out
+ok 205948 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.302307 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_01.in /tmp/tmpdegrgn8s/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_01.out
+ok 206569 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.433401 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_02.in /tmp/tmpihh9jlfy/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_02.out
+ok 190976 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_03
+[INFO] time: 0.138409 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_03.in /tmp/tmp0wgyr1lx/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_03.out
+ok 12991 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_04
+[INFO] time: 0.461378 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_04.in /tmp/tmpxuj3pd66/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_04.out
+ok 49203 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_00
+[INFO] time: 0.046764 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_00.in /tmp/tmpn75xyudf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_00.out
+ok 504 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_01
+[INFO] time: 0.023850 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_01.in /tmp/tmpl9uzf31q/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_01.out
+ok 492 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_02
+[INFO] time: 0.025351 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_02.in /tmp/tmp34xqhjez/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_02.out
+ok 508 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_03
+[INFO] time: 0.034966 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_03.in /tmp/tmpc5q53zan/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_03.out
+ok 499 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_04
+[INFO] time: 0.027151 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_04.in /tmp/tmpjuugyvr0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_04.out
+ok 497 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_05
+[INFO] time: 0.017499 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_05.in /tmp/tmpp7kvxvmi/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_05.out
+ok 503 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_06
+[INFO] time: 0.014280 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_06.in /tmp/tmpva0ktum2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_06.out
+ok 500 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_07
+[INFO] time: 0.016962 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_07.in /tmp/tmpbqcaumw3/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_07.out
+ok 485 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_08
+[INFO] time: 0.015430 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_08.in /tmp/tmp_e5uji2k/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_08.out
+ok 497 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_09
+[INFO] time: 0.015572 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_09.in /tmp/tmpph4f8uke/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_09.out
+ok 516 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.658205 sec  (for max_random_03)
+[INFO] max memory: 11.592000 MB  (for max_random_00)
+[SUCCESS] test success: 21 cases
+::endgroup::
+::group::verify/extra-fast/point-add-range-sum.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 21 cases found
+
+[INFO] example_00
+[INFO] time: 0.031325 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/example_00.in /tmp/tmpz2uirizz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/example_00.out
+ok 4 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.969574 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_00.in /tmp/tmp8dg9c3yb/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_00.out
+ok 250120 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.791320 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_01.in /tmp/tmpu2fr43zy/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_01.out
+ok 250195 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 0.916129 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_02.in /tmp/tmp2vcl84bc/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_02.out
+ok 250386 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_03
+[INFO] time: 0.995351 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_03.in /tmp/tmp5u_1z9r6/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_03.out
+ok 249615 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_04
+[INFO] time: 0.878493 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_04.in /tmp/tmpw2insosu/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_04.out
+ok 250355 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.752336 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_00.in /tmp/tmps9pnru94/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_00.out
+ok 205948 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.748356 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_01.in /tmp/tmpi4g1_3q0/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_01.out
+ok 206569 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.182138 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_02.in /tmp/tmpax6qgy5r/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_02.out
+ok 190976 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_03
+[INFO] time: 0.087276 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_03.in /tmp/tmp3by8s69g/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_03.out
+ok 12991 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_04
+[INFO] time: 0.111414 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_04.in /tmp/tmpknub6xs3/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_04.out
+ok 49203 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_00
+[INFO] time: 0.050913 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_00.in /tmp/tmpvznf_ccf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_00.out
+ok 504 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_01
+[INFO] time: 0.041727 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_01.in /tmp/tmpj09i60y9/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_01.out
+ok 492 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_02
+[INFO] time: 0.007491 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_02.in /tmp/tmpe0trh0oo/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_02.out
+ok 508 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_03
+[INFO] time: 0.008778 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_03.in /tmp/tmpbjv_krnj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_03.out
+ok 499 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_04
+[INFO] time: 0.031287 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_04.in /tmp/tmpy0g95aos/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_04.out
+ok 497 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_05
+[INFO] time: 0.022961 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_05.in /tmp/tmp1zt5fy49/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_05.out
+ok 503 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_06
+[INFO] time: 0.039825 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_06.in /tmp/tmpt46adyj4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_06.out
+ok 500 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_07
+[INFO] time: 0.008876 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_07.in /tmp/tmpljuf9x7e/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_07.out
+ok 485 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_08
+[INFO] time: 0.013609 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_08.in /tmp/tmprjsui7ke/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_08.out
+ok 497 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_09
+[INFO] time: 0.037477 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_09.in /tmp/tmpkxxxskc2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_09.out
+ok 516 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.995351 sec  (for max_random_03)
+[INFO] max memory: 11.416000 MB  (for max_random_04)
+[SUCCESS] test success: 21 cases
+::endgroup::
+::group::verify/extra-fast/point-add-range-sum.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 21 cases found
+
+[INFO] example_00
+[INFO] time: 0.025290 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/example_00.in /tmp/tmpktwvxkqw/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/example_00.out
+ok 4 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.287624 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_00.in /tmp/tmp1j62kn_e/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_00.out
+ok 250120 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.308493 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_01.in /tmp/tmpui516nuc/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_01.out
+ok 250195 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 1.084469 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_02.in /tmp/tmpw8whiszi/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_02.out
+ok 250386 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_03
+[INFO] time: 0.551347 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_03.in /tmp/tmpiqca_vpa/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_03.out
+ok 249615 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_04
+[INFO] time: 0.599228 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_04.in /tmp/tmpomb6v881/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/max_random_04.out
+ok 250355 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.405377 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_00.in /tmp/tmpqk3kis7v/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_00.out
+ok 205948 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.345739 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_01.in /tmp/tmpm5briet_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_01.out
+ok 206569 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.561632 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_02.in /tmp/tmpd681t19o/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_02.out
+ok 190976 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_03
+[INFO] time: 0.261814 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_03.in /tmp/tmp928cu0rv/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_03.out
+ok 12991 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_04
+[INFO] time: 0.156198 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_04.in /tmp/tmp11x0spu7/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/random_04.out
+ok 49203 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_00
+[INFO] time: 0.054240 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_00.in /tmp/tmp47vh1vuk/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_00.out
+ok 504 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_01
+[INFO] time: 0.024647 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_01.in /tmp/tmph3isyvuf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_01.out
+ok 492 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_02
+[INFO] time: 0.022922 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_02.in /tmp/tmph966dglz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_02.out
+ok 508 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_03
+[INFO] time: 0.020945 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_03.in /tmp/tmpy6wup2q5/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_03.out
+ok 499 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_04
+[INFO] time: 0.026379 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_04.in /tmp/tmpdhuy1z6s/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_04.out
+ok 497 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_05
+[INFO] time: 0.020928 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_05.in /tmp/tmpq2me9any/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_05.out
+ok 503 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_06
+[INFO] time: 0.028276 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_06.in /tmp/tmpg8mpbshx/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_06.out
+ok 500 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_07
+[INFO] time: 0.024476 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_07.in /tmp/tmp4l13n17z/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_07.out
+ok 485 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_08
+[INFO] time: 0.027594 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_08.in /tmp/tmp0x5_2vyt/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_08.out
+ok 497 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_09
+[INFO] time: 0.020453 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/point_add_range_sum/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_09.in /tmp/tmpi5hicvaf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/ee63f5ff9809eba20833125130487a91/test/small_09.out
+ok 516 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 1.084469 sec  (for max_random_02)
+[INFO] max memory: 11.412000 MB  (for max_random_04)
+[SUCCESS] test success: 21 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:verify: verify/extra-fast/static-rmq.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/staticrmq
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test --silent https://judge.yosupo.jp/problem/staticrmq
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] load cookie from: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+git version 2.43.0
+[INFO] $ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+[INFO] $ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/info.toml
+[37m13:15:41 [INFO] Start staticrmq[0m
+[37m13:15:41 [INFO] generate params.h[0m
+[37m13:15:41 [INFO] Test cases are already generated[0m
+[37m13:15:41 [INFO] The checker is already compiled[0m
+[INFO] save cookie to: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+
+[INFO] sample 0
+[INFO] input: example_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/example_00.in
+[INFO] output: example_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/example_00.out
+
+[INFO] sample 1
+[INFO] input: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_00.in
+[INFO] output: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_00.out
+
+[INFO] sample 2
+[INFO] input: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_01.in
+[INFO] output: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_01.out
+
+[INFO] sample 3
+[INFO] input: max_random_02
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_02.in
+[INFO] output: max_random_02
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_02.out
+
+[INFO] sample 4
+[INFO] input: max_random_03
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_03.in
+[INFO] output: max_random_03
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_03.out
+
+[INFO] sample 5
+[INFO] input: max_random_04
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_04.in
+[INFO] output: max_random_04
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_04.out
+
+[INFO] sample 6
+[INFO] input: random_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_00.in
+[INFO] output: random_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_00.out
+
+[INFO] sample 7
+[INFO] input: random_01
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_01.in
+[INFO] output: random_01
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_01.out
+
+[INFO] sample 8
+[INFO] input: random_02
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_02.in
+[INFO] output: random_02
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_02.out
+
+[INFO] sample 9
+[INFO] input: random_03
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_03.in
+[INFO] output: random_03
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_03.out
+
+[INFO] sample 10
+[INFO] input: random_04
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_04.in
+[INFO] output: random_04
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_04.out
+
+[INFO] sample 11
+[INFO] input: small_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_00.in
+[INFO] output: small_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_00.out
+
+[INFO] sample 12
+[INFO] input: small_01
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_01.in
+[INFO] output: small_01
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_01.out
+
+[INFO] sample 13
+[INFO] input: small_02
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_02.in
+[INFO] output: small_02
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_02.out
+
+[INFO] sample 14
+[INFO] input: small_03
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_03.in
+[INFO] output: small_03
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_03.out
+
+[INFO] sample 15
+[INFO] input: small_04
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_04.in
+[INFO] output: small_04
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_04.out
+
+[INFO] sample 16
+[INFO] input: small_05
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_05.in
+[INFO] output: small_05
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_05.out
+
+[INFO] sample 17
+[INFO] input: small_06
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_06.in
+[INFO] output: small_06
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_06.out
+
+[INFO] sample 18
+[INFO] input: small_07
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_07.in
+[INFO] output: small_07
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_07.out
+
+[INFO] sample 19
+[INFO] input: small_08
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_08.in
+[INFO] output: small_08
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_08.out
+
+[INFO] sample 20
+[INFO] input: small_09
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_09.in
+[INFO] output: small_09
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_09.out
+
+[INFO] sample 21
+[INFO] input: small_values_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_values_00.in
+[INFO] output: small_values_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_values_00.out
+
+[INFO] sample 22
+[INFO] input: small_width_query_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_00.in
+[INFO] output: small_width_query_00
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_00.out
+
+[INFO] sample 23
+[INFO] input: small_width_query_01
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_01.in
+[INFO] output: small_width_query_01
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_01.out
+
+[INFO] sample 24
+[INFO] input: small_width_query_02
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_02.in
+[INFO] output: small_width_query_02
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_02.out
+
+[INFO] sample 25
+[INFO] input: small_width_query_03
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_03.in
+[INFO] output: small_width_query_03
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_03.out
+
+[INFO] sample 26
+[INFO] input: small_width_query_04
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_04.in
+[INFO] output: small_width_query_04
+[SUCCESS] saved to: .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_04.out
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast -o .verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/a.out verify/extra-fast/static-rmq.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/info.toml --compile-checker
+[33m13:15:53 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m13:15:53 [INFO] Start staticrmq[0m
+[37m13:15:53 [INFO] generate params.h[0m
+[37m13:15:53 [INFO] Test cases are already generated[0m
+[37m13:15:53 [INFO] The checker is already compiled[0m
+::group::verify/extra-fast/static-rmq.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 27 cases found
+
+[INFO] example_00
+[INFO] time: 0.006362 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/example_00.in /tmp/tmpsktet_xz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/example_00.out
+ok 10 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.202570 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_00.in /tmp/tmplaypcpd7/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.445173 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_01.in /tmp/tmpn0q2ls9l/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 0.468667 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_02.in /tmp/tmprrszazj5/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_02.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_03
+[INFO] time: 0.420838 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_03.in /tmp/tmpy4pl2jw2/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_03.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_04
+[INFO] time: 0.172075 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_04.in /tmp/tmp4fr2xl99/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_04.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.123175 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_00.in /tmp/tmpzofoalem/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_00.out
+ok 410923 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.139250 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_01.in /tmp/tmp86l65yv4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_01.out
+ok 412907 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.075450 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_02.in /tmp/tmpr4pzj18d/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_02.out
+ok 382347 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_03
+[INFO] time: 0.052249 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_03.in /tmp/tmppd14nsiz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_03.out
+ok 25839 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_04
+[INFO] time: 0.066067 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_04.in /tmp/tmp57gjl6vt/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_04.out
+ok 99117 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_00
+[INFO] time: 0.026856 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_00.in /tmp/tmpbbdqi7om/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_00.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_01
+[INFO] time: 0.018900 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_01.in /tmp/tmpqka_9e0e/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_01.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_02
+[INFO] time: 0.009435 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_02.in /tmp/tmpfxxljyiz/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_02.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_03
+[INFO] time: 0.011115 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_03.in /tmp/tmpjcpnhw37/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_03.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_04
+[INFO] time: 0.018886 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_04.in /tmp/tmpwppnan5k/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_04.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_05
+[INFO] time: 0.009365 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_05.in /tmp/tmpl9qf6w_m/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_05.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_06
+[INFO] time: 0.010241 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_06.in /tmp/tmph683s7o1/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_06.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_07
+[INFO] time: 0.010628 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_07.in /tmp/tmpd7oyswcn/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_07.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_08
+[INFO] time: 0.011380 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_08.in /tmp/tmp7cqqteqi/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_08.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_09
+[INFO] time: 0.008150 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_09.in /tmp/tmph7i2czsf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_09.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_values_00
+[INFO] time: 0.420075 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_values_00.in /tmp/tmpa28328rc/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_values_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_00
+[INFO] time: 0.174776 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_00.in /tmp/tmp2zb5eyfj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_01
+[INFO] time: 0.167823 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_01.in /tmp/tmps5k6gily/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_02
+[INFO] time: 0.618906 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_02.in /tmp/tmptzaup4sp/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_02.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_03
+[INFO] time: 0.593349 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_03.in /tmp/tmpa14mxyzu/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_03.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_04
+[INFO] time: 0.644214 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_04.in /tmp/tmpwpcfl0bs/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_04.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.644214 sec  (for small_width_query_04)
+[INFO] max memory: 10.824000 MB  (for small_width_query_04)
+[SUCCESS] test success: 27 cases
+::endgroup::
+::group::verify/extra-fast/static-rmq.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 27 cases found
+
+[INFO] example_00
+[INFO] time: 0.019645 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/example_00.in /tmp/tmp4gx89wht/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/example_00.out
+ok 10 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.334155 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_00.in /tmp/tmp6udx72mh/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.268960 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_01.in /tmp/tmpbq1sbpz_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 0.300256 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_02.in /tmp/tmpdeb44330/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_02.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_03
+[INFO] time: 0.355649 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_03.in /tmp/tmpk8y73tvq/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_03.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_04
+[INFO] time: 0.358872 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_04.in /tmp/tmpe9ghi74c/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_04.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.284531 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_00.in /tmp/tmp803op7n7/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_00.out
+ok 410923 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.499308 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_01.in /tmp/tmpglf53a8h/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_01.out
+ok 412907 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.138661 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_02.in /tmp/tmpb9ol12lk/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_02.out
+ok 382347 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_03
+[INFO] time: 0.105442 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_03.in /tmp/tmppt29si7c/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_03.out
+ok 25839 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_04
+[INFO] time: 0.139696 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_04.in /tmp/tmpm0wg4khk/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_04.out
+ok 99117 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_00
+[INFO] time: 0.020196 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_00.in /tmp/tmpu44hrisv/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_00.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_01
+[INFO] time: 0.017660 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_01.in /tmp/tmpy2uiw8wj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_01.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_02
+[INFO] time: 0.019554 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_02.in /tmp/tmpgl4dyr0h/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_02.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_03
+[INFO] time: 0.020388 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_03.in /tmp/tmps1x55og7/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_03.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_04
+[INFO] time: 0.008083 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_04.in /tmp/tmp_s3vy_gp/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_04.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_05
+[INFO] time: 0.008557 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_05.in /tmp/tmp3k0kln2k/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_05.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_06
+[INFO] time: 0.007834 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_06.in /tmp/tmp8hiopz4b/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_06.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_07
+[INFO] time: 0.010673 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_07.in /tmp/tmp8lpw6zne/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_07.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_08
+[INFO] time: 0.006804 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_08.in /tmp/tmpvu1nvb_i/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_08.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_09
+[INFO] time: 0.032158 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_09.in /tmp/tmpmlzmllow/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_09.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_values_00
+[INFO] time: 0.369736 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_values_00.in /tmp/tmpx64_1m7h/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_values_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_00
+[INFO] time: 0.603690 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_00.in /tmp/tmpugiqa974/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_01
+[INFO] time: 0.529605 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_01.in /tmp/tmpz41nxhgg/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_02
+[INFO] time: 0.339929 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_02.in /tmp/tmpymuckaal/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_02.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_03
+[INFO] time: 0.278979 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_03.in /tmp/tmpn_qco2yg/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_03.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_04
+[INFO] time: 0.472628 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_04.in /tmp/tmp6bilo4lu/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_04.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.603690 sec  (for small_width_query_00)
+[INFO] max memory: 10.816000 MB  (for max_random_02)
+[SUCCESS] test success: 27 cases
+::endgroup::
+::group::verify/extra-fast/static-rmq.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 27 cases found
+
+[INFO] example_00
+[INFO] time: 0.008377 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/example_00.in /tmp/tmpuminda1p/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/example_00.out
+ok 10 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.443595 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_00.in /tmp/tmpmspzmjbf/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.807548 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_01.in /tmp/tmp5j04_rd1/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 0.445891 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_02.in /tmp/tmppl75vkfx/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_02.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_03
+[INFO] time: 0.494713 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_03.in /tmp/tmp169ovhv3/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_03.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_04
+[INFO] time: 0.685692 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_04.in /tmp/tmpkxbfki9c/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/max_random_04.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.449983 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_00.in /tmp/tmp4th9v5no/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_00.out
+ok 410923 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.397533 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_01.in /tmp/tmpv3fnc8jx/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_01.out
+ok 412907 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.301494 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_02.in /tmp/tmp33j_wb7v/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_02.out
+ok 382347 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_03
+[INFO] time: 0.358332 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_03.in /tmp/tmplhfkmr_4/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_03.out
+ok 25839 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_04
+[INFO] time: 0.191447 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_04.in /tmp/tmp2g8nnch_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/random_04.out
+ok 99117 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_00
+[INFO] time: 0.022929 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_00.in /tmp/tmpkxqewyjj/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_00.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_01
+[INFO] time: 0.040420 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_01.in /tmp/tmpyvrvbnga/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_01.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_02
+[INFO] time: 0.037939 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_02.in /tmp/tmpdug2pi96/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_02.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_03
+[INFO] time: 0.021103 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_03.in /tmp/tmpnv4m423l/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_03.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_04
+[INFO] time: 0.028150 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_04.in /tmp/tmpso2ri2xr/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_04.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_05
+[INFO] time: 0.023549 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_05.in /tmp/tmpvc7o2vi7/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_05.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_06
+[INFO] time: 0.033870 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_06.in /tmp/tmp8msjgyag/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_06.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_07
+[INFO] time: 0.026519 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_07.in /tmp/tmpwui1q1nl/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_07.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_08
+[INFO] time: 0.022522 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_08.in /tmp/tmpmb0t9jbc/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_08.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_09
+[INFO] time: 0.032951 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_09.in /tmp/tmpthondg26/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_09.out
+ok 1000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_values_00
+[INFO] time: 0.401433 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_values_00.in /tmp/tmp2y6o3py_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_values_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_00
+[INFO] time: 0.623246 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_00.in /tmp/tmpvv8cmp0r/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_00.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_01
+[INFO] time: 0.971390 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_01.in /tmp/tmpxeosevp_/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_01.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_02
+[INFO] time: 0.579443 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_02.in /tmp/tmp6faf9q7y/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_02.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_03
+[INFO] time: 0.938330 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_03.in /tmp/tmpe0503zrw/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_03.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] small_width_query_04
+[INFO] time: 0.604494 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/staticrmq/checker /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_04.in /tmp/tmprgnv50i7/actual.out /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.verify-helper/cache/bc2a1caa059e3da5036fdc52a5a4fae3/test/small_width_query_04.out
+ok 500000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.971390 sec  (for small_width_query_01)
+[INFO] max memory: 10.828000 MB  (for small_width_query_03)
+[SUCCESS] test success: 27 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:all tests succeeded
+# Verification timings
+
+Commit: 0f26207aec79a8f832c7ffd77cc4ee4ff605c133 / UTC: 2026-10-20T04:10:10.537811+00:00
+Baseline: なし（初回）
+
+単位は秒。直列実行・各ケースの solution elapsed 合計の中央値。コンパイル・DL・checkerは合計から除外。
+プロセス起動とI/Oは含みます。Yosupo提出画面の時間ではありません。共有runnerの小さな差は誤差として扱ってください。
+
+| Verify / 環境番号 | 状態 | コンパイル | 実行合計（中央値） | 最大ケース（中央値） | 基準との差 |
+| --- | --- | ---: | ---: | ---: | --- |
+| verify/extra-fast/bit-matrix-product.test.cpp / 0 | passed | 7.997867 s | 10.124069 s | 1.910377 s | 初回（基準なし） |
+| verify/extra-fast/point-add-range-sum.test.cpp / 0 | passed | 7.745852 s | 4.871159 s | 0.995351 s | 初回（基準なし） |
+| verify/extra-fast/static-rmq.test.cpp / 0 | passed | 6.533339 s | 5.551650 s | 0.644214 s | 初回（基準なし） |
+
+## Environment
+
+~~~json
+{
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "tools": {
+    "online-judge-verify-helper": "5.6.0",
+    "online-judge-tools": "11.5.1",
+    "online-judge-api-client": "10.10.1"
+  },
+  "method": "oj-elapsed-log-v1",
+  "recorder_sha256": "3ee628d2aa014ded1096cfaa43a315a355f3aa75c0fe7cc598efb0184a1c26b6",
+  "jobs": 1,
+  "tle_seconds": 60
+}
+~~~
+

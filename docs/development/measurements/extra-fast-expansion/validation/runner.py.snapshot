@@ -1,0 +1,149 @@
+"""Record final-source validation without changing shared verification state."""
+from pathlib import Path
+import argparse
+import datetime
+import hashlib
+import json
+import os
+import platform
+import shlex
+import shutil
+import subprocess
+import time
+
+ROOT = Path(os.environ.get("EXTRA_FAST_ROOT", Path.cwd())).resolve()
+OUT = ROOT / "docs/development/measurements/extra-fast-expansion/validation"
+BIN = ROOT / ".build/extra-fast-expansion-validation"
+SOURCES = [*(ROOT / "blueberry/extra-fast").glob("*.hpp"),
+           *(ROOT / "tests/random").glob("extra-fast*.cpp"),
+           *(ROOT / "verify/extra-fast").glob("*.cpp")]
+OUT.mkdir(parents=True, exist_ok=True)
+BIN.mkdir(parents=True, exist_ok=True)
+os.chdir(ROOT)
+
+def fingerprint():
+    return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted(SOURCES)}
+
+def output(command):
+    return subprocess.check_output(command, text=True).strip()
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("stage", choices=["check", "backends", "official", "budget"])
+    args = parser.parse_args()
+    records = []
+    metadata = {
+        "stage": args.stage,
+        "started_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "revision": output(["git", "rev-parse", "HEAD"]),
+        "tracked_working_tree": output(["git", "status", "--short", "--untracked-files=no"]),
+        "platform": platform.platform(),
+        "compiler_versions": {c: output([c, "--version"]) for c in ["g++", "clang++"]},
+        "source_sha256": fingerprint(),
+        "commands": records,
+    }
+    def save():
+        metadata["final_source_sha256"] = fingerprint()
+        metadata["source_unchanged"] = metadata["source_sha256"] == metadata["final_source_sha256"]
+        metadata["successful"] = bool(records) and all(r["exit_code"] == 0 for r in records) and metadata["source_unchanged"]
+        (OUT / f"{args.stage}.json").write_text(json.dumps(metadata, indent=2) + "\n")
+
+    def run(name, command, timeout=1800, env=None):
+        print("START", name, flush=True)
+        log = OUT / f"{name}.log"
+        started = time.monotonic()
+        with log.open("wb") as stream:
+            stream.write(("$ " + shlex.join(command) + "\n").encode())
+            stream.flush()
+            try:
+                result = subprocess.run(command, stdout=stream, stderr=subprocess.STDOUT,
+                                        timeout=timeout, env=env)
+                code = result.returncode
+            except subprocess.TimeoutExpired:
+                stream.write(f"\nVALIDATION TIMEOUT after {timeout}s\n".encode())
+                code = 124
+        records.append({"name": name, "command": command, "exit_code": code,
+                        "wall_seconds": time.monotonic() - started,
+                        "log": log.name, "log_sha256": hashlib.sha256(log.read_bytes()).hexdigest()})
+        save()
+        print("PASS" if code == 0 else "FAIL", name, f"({records[-1]['wall_seconds']:.2f}s)", flush=True)
+        return code == 0
+
+    if args.stage == "check":
+        run("make-check-gcc20", ["make", "check", "COMPILE_JOBS=8"])
+        run("release-headers-gcc20", ["make", "include-test", "COMPILE_JOBS=8", "CXXFLAGS=-DNDEBUG",
+            "CPPFLAGS=-isystem .deps/ac-library"])
+    elif args.stage == "backends":
+        modes = {"default": [], "asm": ["-DBLUEBERRY_EXTRA_FAST_USE_ASM"],
+                 "intel": ["-DBLUEBERRY_EXTRA_FAST_USE_ASM", "-masm=intel"],
+                 "scalar": ["-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR"]}
+        for compiler in ["g++", "clang++"]:
+            for standard in ["gnu++20", "gnu++23"]:
+                for mode, flags in modes.items():
+                    for library in ["bitset", "rmq"]:
+                        name = f"{compiler.replace('+','p')}-{standard.replace('+','p')}-{mode}-{library}"
+                        executable = BIN / name
+                        command = [compiler, f"-std={standard}", "-O2", "-Wall", "-Wextra", "-Wshadow", "-Werror",
+                                   *flags, "-I.", f"tests/random/extra-fast-{library}.cpp", "-o", str(executable)]
+                        if run(name + "-compile", command, 180):
+                            for seed in [1, 20261020]:
+                                run(name + f"-seed{seed}", [str(executable), str(seed)], 120)
+        for compiler in ["g++", "clang++"]:
+            for library in ["bitset", "rmq"]:
+                name = f"{compiler.replace('+','p')}-asan-ubsan-{library}"
+                executable = BIN / name
+                if run(name + "-compile", [compiler, "-std=gnu++20", "-O1", "-g", "-fsanitize=address,undefined",
+                    "-fno-omit-frame-pointer", "-I.", f"tests/random/extra-fast-{library}.cpp", "-o", str(executable)], 180):
+                    env = dict(os.environ, ASAN_OPTIONS="detect_leaks=1:halt_on_error=1", UBSAN_OPTIONS="halt_on_error=1:print_stacktrace=1")
+                    run(name + "-seed20261020", [str(executable), "20261020"], 180, env)
+    elif args.stage == "official":
+        env = dict(os.environ, CPLUS_INCLUDE_PATH=str(ROOT / ".deps/ac-library"))
+        run("official-three-repeats", ["python3", "scripts/verify_with_metrics.py",
+            "verify/extra-fast/point-add-range-sum.test.cpp", "verify/extra-fast/static-rmq.test.cpp",
+            "verify/extra-fast/bit-matrix-product.test.cpp", "--repeats", "3", "--timeout", "1500",
+            "--state", ".verification/state.json", "--output", ".verification/extra-fast-expansion"], 1800, env)
+        verification = ROOT / ".verification/extra-fast-expansion"
+        saved = OUT / "official"
+        saved.mkdir(exist_ok=True)
+        for name in ["current.json", "report.md", "state.json"]:
+            if (verification / name).exists():
+                shutil.copyfile(verification / name, saved / name)
+        for source in verification.glob("run-*/*.json"):
+            target = saved / source.parent.name / source.name
+            target.parent.mkdir(exist_ok=True)
+            shutil.copyfile(source, target)
+    else:
+        verification = ROOT / ".verification"
+        names = ["current.json", "report.md"]
+        original = {name: (verification / name).read_bytes() if (verification / name).exists() else None
+                    for name in names}
+        prior_runs = set(verification.glob("run-*"))
+        saved = OUT / "full-budget"
+        saved.mkdir(exist_ok=True)
+        metadata["limitation"] = "The full verify run has a 120-second budget. Not-run targets are not passed; the targeted three-repeat report is the canonical current verification."
+        try:
+            run("full-verify-budget", ["make", "verify", "VERIFY_REPEATS=1", "VERIFY_TIMEOUT=120"], 900)
+            for name in names:
+                if (verification / name).exists():
+                    shutil.copyfile(verification / name, saved / name)
+            for directory in set(verification.glob("run-*")) - prior_runs:
+                for source in directory.glob("*.json"):
+                    target = saved / source.parent.name / source.name
+                    target.parent.mkdir(exist_ok=True)
+                    shutil.copyfile(source, target)
+        finally:
+            for name, content in original.items():
+                target = verification / name
+                if content is None:
+                    target.unlink(missing_ok=True)
+                else:
+                    target.write_bytes(content)
+            metadata["previous_reports_restored"] = all(
+                ((verification / name).read_bytes() if (verification / name).exists() else None) == content
+                for name, content in original.items())
+    save()
+    raise SystemExit(0 if metadata["successful"] else 1)
+
+if __name__ == "__main__":
+    main()

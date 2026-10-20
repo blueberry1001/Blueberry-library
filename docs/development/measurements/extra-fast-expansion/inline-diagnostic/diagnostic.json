@@ -1,0 +1,56 @@
+{
+  "purpose": "Compile-only illustration of direct public prod inlining, not a timing experiment. The headers differ only by the always_inline prod annotation. Measurement adapter policy is independently saved in each environment.json.",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "source_sha256": {
+    "baseline.hpp.snapshot": "bbc324bbcf006ea37c344c99b6666c3dbe3c123284048225681931ce63d96c0b",
+    "candidate.hpp.snapshot": "3ad59b892e8d13a7cc4c722d5dfe709b8979ea5af6f2dd26d93ced563b22a144",
+    "direct.cpp.snapshot": "2a6c3779c6bbe0233c7c01ecc3c309425c92327a323ebcdd7f59102b339bb196"
+  },
+  "results": [
+    {
+      "variant": "baseline",
+      "command": [
+        "g++",
+        "-x",
+        "c++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-DBLUEBERRY_RMQ_HEADER=\"/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/inline-diagnostic/baseline.hpp.snapshot\"",
+        "-I",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast",
+        "-S",
+        "-fopt-info-inline-missed=/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/inline-diagnostic/baseline-inline.log",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/inline-diagnostic/direct.cpp.snapshot",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/inline-diagnostic/baseline.s"
+      ],
+      "returncode": 0,
+      "prod_call_remains": true,
+      "short_simd_call_remains": false
+    },
+    {
+      "variant": "candidate",
+      "command": [
+        "g++",
+        "-x",
+        "c++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-DBLUEBERRY_RMQ_HEADER=\"/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/inline-diagnostic/candidate.hpp.snapshot\"",
+        "-I",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast",
+        "-S",
+        "-fopt-info-inline-missed=/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/inline-diagnostic/candidate-inline.log",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/inline-diagnostic/direct.cpp.snapshot",
+        "-o",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/inline-diagnostic/candidate.s"
+      ],
+      "returncode": 0,
+      "prod_call_remains": false,
+      "short_simd_call_remains": true
+    }
+  ]
+}

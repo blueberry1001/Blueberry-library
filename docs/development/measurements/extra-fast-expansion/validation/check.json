@@ -1,0 +1,63 @@
+{
+  "stage": "check",
+  "started_at": "2026-10-20T04:00:45.516728+00:00",
+  "revision": "eaff59910886d5b378ab0dd85037ce6b6bc7953d",
+  "working_tree": "M .gitattributes\n M .verify-helper/docs/static/_data/libraries.yml\n M blueberry/extra-fast/segment-tree.hpp\n M docs/extra-fast/segment-tree.md\n?? blueberry/extra-fast/bitset.hpp\n?? blueberry/extra-fast/static-rmq.hpp\n?? docs/development/extra-fast-expansion.md\n?? docs/development/measurements/extra-fast-expansion/\n?? docs/extra-fast/bitset.md\n?? docs/extra-fast/static-rmq.md\n?? tests/random/extra-fast-bitset.cpp\n?? tests/random/extra-fast-rmq.cpp\n?? verify/extra-fast/bit-matrix-product.test.cpp\n?? verify/extra-fast/static-rmq.test.cpp",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "compiler_versions": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+    "clang++": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin"
+  },
+  "source_sha256": {
+    "blueberry/extra-fast/bitset.hpp": "38b0ff5ec99ac097bf1a94692b762320033a7970f3002742b15b4925d92883a0",
+    "blueberry/extra-fast/segment-tree.hpp": "9ae4c462bbbdd25b559516c5361834a37b1186bfbc819a8e50a391c7fbf75a5b",
+    "blueberry/extra-fast/static-rmq.hpp": "3ad59b892e8d13a7cc4c722d5dfe709b8979ea5af6f2dd26d93ced563b22a144",
+    "tests/random/extra-fast-bitset.cpp": "2f30ba589836d1b1c2367efaeb9b68141194d1839b5c0db3c0113532f90b0518",
+    "tests/random/extra-fast-rmq.cpp": "1f660afc1f8b10cc25037654bc8eff471d9753b2c74ec596f47d74e1b0f915f7",
+    "tests/random/extra-fast.cpp": "2303afa3c48e7d404a2f8186fa37afaf32d73a9245f4b7de387953f283321e46",
+    "verify/extra-fast/bit-matrix-product.test.cpp": "4a38bf47ea57a47f40dd5b23cdf617fcef0209af86a8c0f69f790f1927950619",
+    "verify/extra-fast/point-add-range-sum.test.cpp": "077e34162cee264efde591ab948acd3c1e1cbec99bffd14b182aef8f2930b336",
+    "verify/extra-fast/static-rmq.test.cpp": "4ad606502e24947fcf3d5d1f3e35e06c7106c28444ad8de745913b5dedb5d664"
+  },
+  "commands": [
+    {
+      "name": "make-check-gcc20",
+      "command": [
+        "make",
+        "check",
+        "COMPILE_JOBS=8"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 726.5649074770001,
+      "log": "make-check-gcc20.log",
+      "log_sha256": "6c5be46c46bc9d51dff47bd0a6e73497dc6e2b61c7dbdad721ed3b1e23ab4258"
+    },
+    {
+      "name": "release-headers-gcc20",
+      "command": [
+        "make",
+        "include-test",
+        "COMPILE_JOBS=8",
+        "CXXFLAGS=-DNDEBUG",
+        "CPPFLAGS=-isystem .deps/ac-library"
+      ],
+      "exit_code": 0,
+      "wall_seconds": 68.06867046700017,
+      "log": "release-headers-gcc20.log",
+      "log_sha256": "f4d752e1245c98af3967725a8a4a4ab58361d962c45d098de0d9ccb969cccda7"
+    }
+  ],
+  "final_source_sha256": {
+    "blueberry/extra-fast/bitset.hpp": "38b0ff5ec99ac097bf1a94692b762320033a7970f3002742b15b4925d92883a0",
+    "blueberry/extra-fast/segment-tree.hpp": "9ae4c462bbbdd25b559516c5361834a37b1186bfbc819a8e50a391c7fbf75a5b",
+    "blueberry/extra-fast/static-rmq.hpp": "3ad59b892e8d13a7cc4c722d5dfe709b8979ea5af6f2dd26d93ced563b22a144",
+    "tests/random/extra-fast-bitset.cpp": "2f30ba589836d1b1c2367efaeb9b68141194d1839b5c0db3c0113532f90b0518",
+    "tests/random/extra-fast-rmq.cpp": "1f660afc1f8b10cc25037654bc8eff471d9753b2c74ec596f47d74e1b0f915f7",
+    "tests/random/extra-fast.cpp": "2303afa3c48e7d404a2f8186fa37afaf32d73a9245f4b7de387953f283321e46",
+    "verify/extra-fast/bit-matrix-product.test.cpp": "4a38bf47ea57a47f40dd5b23cdf617fcef0209af86a8c0f69f790f1927950619",
+    "verify/extra-fast/point-add-range-sum.test.cpp": "077e34162cee264efde591ab948acd3c1e1cbec99bffd14b182aef8f2930b336",
+    "verify/extra-fast/static-rmq.test.cpp": "4ad606502e24947fcf3d5d1f3e35e06c7106c28444ad8de745913b5dedb5d664"
+  },
+  "source_unchanged": true,
+  "successful": true
+}

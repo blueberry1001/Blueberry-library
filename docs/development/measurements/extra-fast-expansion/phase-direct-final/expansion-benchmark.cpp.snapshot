@@ -1,0 +1,70 @@
+// New optional APIs: common serialized fixtures, independent small oracles.
+#include "blueberry/data-structure/sparse-table.hpp"
+#include "blueberry/data-structure/disjoint-sparse-table.hpp"
+#include "blueberry/data-structure/sqrt-tree.hpp"
+#include "blueberry/data-structure/linear-rmq.hpp"
+#ifndef BLUEBERRY_RMQ_HEADER
+#define BLUEBERRY_RMQ_HEADER "blueberry/extra-fast/static-rmq.hpp"
+#endif
+#include BLUEBERRY_RMQ_HEADER
+#ifndef BLUEBERRY_BITSET_HEADER
+#define BLUEBERRY_BITSET_HEADER "blueberry/extra-fast/bitset.hpp"
+#endif
+#include BLUEBERRY_BITSET_HEADER
+#include <algorithm>
+#include <bitset>
+#include <charconv>
+#include <chrono>
+#include <cstdint>
+#include <fstream>
+#include <iostream>
+#include <limits>
+#include <random>
+#include <stdexcept>
+#include <string>
+#include <string_view>
+#include <utility>
+#include <vector>
+using T=std::uint32_t;
+using Clock=std::chrono::steady_clock;
+T minimum(T a,T b){return std::min(a,b);} T identity(){return std::numeric_limits<T>::max();}
+struct Minimum{T operator()(T a,T b)const{return minimum(a,b);}};
+using Fast=blueberry::extra_fast::StaticRangeMin<T>;
+using Sparse=blueberry::SparseTable<T,Minimum>;
+using Disjoint=blueberry::DisjointSparseTable<T,Minimum>;
+using Sqrt=blueberry::SqrtTree<T,minimum,identity>;
+using Linear=blueberry::LinearRMQ<T>;
+using Bits=blueberry::extra_fast::Bitset;
+struct FastRMQ{Fast tree;explicit FastRMQ(const std::vector<T>& a):tree(a){}T prod(int l,int r)const{return tree.prod(l,r);}};
+struct SparseRMQ{Sparse tree;explicit SparseRMQ(const std::vector<T>& a):tree(a,Minimum{}){}T prod(int l,int r)const{return tree.prod(l,r);}};
+struct DisjointRMQ{Disjoint tree;explicit DisjointRMQ(const std::vector<T>& a):tree(a,Minimum{}){}T prod(int l,int r)const{return tree.prod(l,r);}};
+struct SqrtRMQ{Sqrt tree;explicit SqrtRMQ(const std::vector<T>& a):tree(a){}T prod(int l,int r)const{return tree.prod(l,r);}};
+struct LinearRMQ{Linear tree;explicit LinearRMQ(const std::vector<T>& a):tree(a){}T prod(int l,int r)const{return tree.prod(l,r);}};
+double ms(auto a,auto b){return std::chrono::duration<double,std::milli>(b-a).count();}
+long rss(){std::ifstream in("/proc/self/status");std::string line;while(std::getline(in,line))if(line.starts_with("VmHWM:"))return std::stol(line.substr(6));throw std::runtime_error("no VmHWM");}
+std::uint64_t hash(const std::string& s){std::uint64_t h=1469598103934665603ULL;for(unsigned char c:s){h^=c;h*=1099511628211ULL;}return h;}
+void append(std::string& s,std::uint64_t x){char b[32];auto r=std::to_chars(b,b+sizeof(b),x);s.append(b,r.ptr);s+=' ';}
+struct Parser{const char* p;const char* end;explicit Parser(const std::string& s):p(s.data()),end(p+s.size()){}std::uint64_t next(){std::uint64_t x;auto r=std::from_chars(p,end,x);if(r.ec!=std::errc())throw std::runtime_error("parse");p=r.ptr+1;return x;}};
+void report(auto t0,auto t1,auto t2,auto t3,auto t4,const std::string& input,const std::string& output){std::cout<<"{\"parse_ms\":"<<ms(t0,t1)<<",\"build_ms\":"<<ms(t1,t2)<<",\"operations_ms\":"<<ms(t2,t3)<<",\"format_ms\":"<<ms(t3,t4)<<",\"end_to_end_ms\":"<<ms(t0,t4)<<",\"peak_rss_kib\":"<<rss()<<",\"input_hash\":\""<<hash(input)<<"\",\"checksum\":\""<<hash(output)<<"\",\"input_bytes\":"<<input.size()<<",\"output_bytes\":"<<output.size()<<"}\n";}
+template<class RMQ>void oracle_rmq(){std::mt19937 rng(41019);for(int n:{1,2,3,7,8,15,16,17,31,32,33,63,64,65}){std::vector<T>a(n);for(auto&x:a)x=rng()%17;RMQ tree(a);for(int l=0;l<n;++l){T expected=identity();for(int r=l+1;r<=n;++r){expected=minimum(expected,a[r-1]);if(tree.prod(l,r)!=expected)throw std::runtime_error("independent RMQ oracle mismatch");}}}}
+template<class RMQ>void rmq(int n,int q,std::string_view distribution,bool memory){
+ if(!memory)oracle_rmq<RMQ>();std::mt19937_64 rng(20261020);
+ std::vector<T> values(n);for(int i=0;i<n;++i)values[i]=rng()%1000000001;
+ if(memory){RMQ tree(values);std::cout<<"{\"peak_rss_kib\":"<<rss()<<",\"checksum\":\""<<tree.prod(0,n)<<"\"}\n";return;}
+ std::string text;append(text,n);append(text,q);for(auto x:values)append(text,x);values.clear();values.shrink_to_fit();
+ for(int i=0;i<q;++i){int l=rng()%n,r=rng()%n;if(l>r)std::swap(l,r);++r;if(distribution=="short")r=std::min(n,l+1+int(rng()%15));if(distribution=="boundary"){l=std::min(n-1,int(rng()%((n+15)/16))*16+15);r=std::min(n,l+1+int(rng()%32));}append(text,l);append(text,r);}
+ auto t0=Clock::now();Parser p(text);int pn=p.next(),pq=p.next();std::vector<T>a(pn);for(auto&x:a)x=p.next();std::vector<std::pair<int,int>>queries(pq);for(auto&[l,r]:queries){l=p.next();r=p.next();}auto t1=Clock::now();RMQ tree(a);auto t2=Clock::now();std::vector<T>answers;answers.reserve(pq);for(auto[l,r]:queries)answers.push_back(tree.tree.prod(l,r));auto t3=Clock::now();std::string output;output.reserve(answers.size()*11);for(auto x:answers)append(output,x);auto t4=Clock::now();report(t0,t1,t2,t3,t4,text,output);
+}
+
+struct DynamicBits{Bits bits;explicit DynamicBits(int n):bits(n){}__attribute__((always_inline)) void set(int p,bool v=true){bits.set(p,v);}__attribute__((always_inline)) bool test(int p)const{return bits.test(p);}__attribute__((always_inline)) void shift_or(int k){bits.shift_or(k);}__attribute__((always_inline)) void logic(int op,const DynamicBits&b){if(op==1)bits.or_with(b.bits);if(op==2)bits.xor_with(b.bits);if(op==3)bits.and_with(b.bits);}};
+template<int N>struct StandardBits{std::bitset<N>bits;explicit StandardBits(int n){if(n!=N)throw std::runtime_error("size");}__attribute__((always_inline)) void set(int p,bool v=true){bits.set(p,v);}__attribute__((always_inline)) bool test(int p)const{return bits.test(p);}__attribute__((always_inline)) void shift_or(int k){bits|=bits<<k;}__attribute__((always_inline)) void logic(int op,const StandardBits&b){if(op==1)bits|=b.bits;if(op==2)bits^=b.bits;if(op==3)bits&=b.bits;}};
+template<class B>void oracle_bits(int n){std::mt19937 rng(20261020);B bits(n),other(n);std::vector<bool>a(n),b(n);for(int i=0;i<n;++i){a[i]=rng()%2;b[i]=rng()%2;bits.set(i,a[i]);other.set(i,b[i]);}for(int step=0;step<80;++step){int op=step%4;if(op==0){int k=step%5==0?n+1:step%5==1?0:step%5==2?63:step%5==3?64:65;bits.shift_or(k);for(int i=n-1;i>=k;--i)a[i]=a[i]||a[i-k];}else{bits.logic(op,other);for(int i=0;i<n;++i)a[i]=op==1?a[i]||b[i]:op==2?a[i]!=b[i]:a[i]&&b[i];}for(int i=0;i<n;++i)if(bits.test(i)!=a[i])throw std::runtime_error("independent bit oracle mismatch");}bits.logic(2,bits);for(int i=0;i<n;++i)if(bits.test(i))throw std::runtime_error("self alias xor");}
+template<class B>void bitset(int n,int q,std::string_view distribution,bool memory){
+ if(!memory)oracle_bits<B>(n);std::mt19937_64 rng(20261020);
+ if(memory){B a(n),b(n);a.set(0);b.set(n-1);std::cout<<"{\"peak_rss_kib\":"<<rss()<<",\"checksum\":\""<<a.test(0)<<b.test(n-1)<<"\"}\n";return;}
+ std::string text;append(text,n);append(text,q);for(int i=0;i<n;++i)append(text,distribution=="dp"?i==0:rng()%2);for(int i=0;i<n;++i)append(text,rng()%2);
+ for(int i=0;i<q;++i){int op=distribution=="logic"?1+i%3:0;int shift=distribution=="near"?int(63+i%3):int(rng()%127)+1;append(text,op);append(text,shift);}
+ auto t0=Clock::now();Parser p(text);int pn=p.next(),pq=p.next();std::vector<bool>av(pn),bv(pn);for(int i=0;i<pn;++i)av[i]=p.next();for(int i=0;i<pn;++i)bv[i]=p.next();std::vector<std::pair<int,int>>ops(pq);for(auto&[op,k]:ops){op=p.next();k=p.next();}auto t1=Clock::now();B bits(pn),other(pn);for(int i=0;i<pn;++i){bits.set(i,av[i]);other.set(i,bv[i]);}auto t2=Clock::now();for(auto[op,k]:ops){if(op==0)bits.shift_or(k);else bits.logic(op,other);}auto t3=Clock::now();std::string output;output.reserve(pn);for(int i=0;i<pn;++i)output+=bits.test(i)?'1':'0';auto t4=Clock::now();report(t0,t1,t2,t3,t4,text,output);
+}
+template<int N>void dispatch_bits(std::string_view variant,int q,std::string_view distribution,bool memory){if(variant=="std")bitset<StandardBits<N>>(N,q,distribution,memory);else bitset<DynamicBits>(N,q,distribution,memory);}
+int main(int argc,char**argv){if(argc!=7)return 2;std::string group=argv[1],variant=argv[2];int n=std::stoi(argv[3]),q=std::stoi(argv[4]);std::string distribution=argv[5];bool memory=std::string_view(argv[6])=="memory";if(group=="rmq"){if(variant=="fast")rmq<FastRMQ>(n,q,distribution,memory);else if(variant=="sparse")rmq<SparseRMQ>(n,q,distribution,memory);else if(variant=="disjoint")rmq<DisjointRMQ>(n,q,distribution,memory);else if(variant=="sqrt")rmq<SqrtRMQ>(n,q,distribution,memory);else if(variant=="linear")rmq<LinearRMQ>(n,q,distribution,memory);else return 2;}else if(group=="bitset"){switch(n){case 64:dispatch_bits<64>(variant,q,distribution,memory);break;case 65:dispatch_bits<65>(variant,q,distribution,memory);break;case 1024:dispatch_bits<1024>(variant,q,distribution,memory);break;case 262144:dispatch_bits<262144>(variant,q,distribution,memory);break;default:return 2;}}else return 2;}

@@ -1,0 +1,19 @@
+set -eu
+cd /mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast
+mkdir -p .build/extra-fast-expansion-check
+for compiler in g++ clang++; do
+ for mode in default asm intel scalar; do
+  flags=''
+  case "$mode" in
+   asm) flags='-DBLUEBERRY_EXTRA_FAST_USE_ASM';;
+   intel) flags='-DBLUEBERRY_EXTRA_FAST_USE_ASM -masm=intel';;
+   scalar) flags='-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR';;
+  esac
+  "$compiler" -std=gnu++23 -O2 -Wall -Wextra -Werror $flags -I. tests/random/extra-fast.cpp -o .build/extra-fast-expansion-check/sum
+  .build/extra-fast-expansion-check/sum 20261019
+  echo "$compiler gnu++23 $mode PASS"
+ done
+done
+g++ -std=gnu++20 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -I. tests/random/extra-fast.cpp -o .build/extra-fast-expansion-check/sum-sanitize
+.build/extra-fast-expansion-check/sum-sanitize 20261019
+echo 'GCC ASan UBSan PASS'

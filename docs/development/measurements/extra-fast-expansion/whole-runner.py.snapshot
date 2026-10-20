@@ -1,0 +1,96 @@
+#!/usr/bin/env python3
+"""Original-source whole-program comparisons, separate from phase measurements."""
+import argparse,hashlib,json,os,platform,random,re,resource,runpy,statistics,subprocess,tempfile,time
+from datetime import datetime,timezone
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[4];HERE=Path(__file__).resolve().parent
+FLAGS=['-std=gnu++23','-O2','-DNDEBUG','-march=native']
+OLD_RUNNER=ROOT/'docs/development/measurements/extra-fast/fastest-program/runner.py.snapshot'
+helpers=runpy.run_path(str(OLD_RUNNER),run_name='measurement_helpers')
+def sha(p):return helpers['digest'](p)
+def save(p,v):p.write_text(json.dumps(v,indent=2)+'\n')
+def rmq_fixture(d,name,n,q,short,seed):
+ rng=random.Random(seed);values=[rng.randrange(1000000001)for _ in range(n)];size=1<<(n-1).bit_length();tree=[1000000001]*(2*size);tree[size:size+n]=values
+ for i in range(size-1,0,-1):tree[i]=min(tree[2*i],tree[2*i+1])
+ inp=d/(name+'.in');gold=d/(name+'.expected')
+ with inp.open('w')as f,gold.open('w')as out:
+  f.write(f'{n} {q}\n'+' '.join(map(str,values))+'\n')
+  for _ in range(q):
+   l=rng.randrange(n);r=min(n,l+rng.randrange(1,33))if short else rng.randrange(l+1,n+1);f.write(f'{l} {r}\n');a=l+size;b=r+size;answer=1000000001
+   while a<b:
+    if a&1:answer=min(answer,tree[a]);a+=1
+    if b&1:b-=1;answer=min(answer,tree[b])
+    a>>=1;b>>=1
+   out.write(str(answer)+'\n')
+ return {'name':name,'n':n,'q':q,'short':short,'seed':seed,'input_bytes':inp.stat().st_size,'input_sha256':sha(inp),'expected_bytes':gold.stat().st_size,'expected_sha256':sha(gold)},inp
+def matrix_fixture(d,name,n,m,k,sparse,seed):
+ rng=random.Random(seed);B=[rng.getrandbits(k)for _ in range(m)];inp=d/(name+'.in');gold=d/(name+'.expected')
+ # A and B are serialized MSB first; Python integers give independent GF(2) XOR.
+ A=[rng.getrandbits(m)if not sparse else sum((1<<j)for j in range(m)if rng.randrange(25)==0)for _ in range(n)]
+ with inp.open('w')as f,gold.open('w')as out:
+  f.write(f'{n} {m} {k}\n')
+  for a in A:f.write(format(a,f'0{m}b')+'\n')
+  for b in B:f.write(format(b,f'0{k}b')+'\n')
+  for a in A:
+   answer=0
+   for j,bit in enumerate(format(a,f'0{m}b')):
+    if bit=='1':answer^=B[j]
+   out.write(format(answer,f'0{k}b')+'\n')
+ return {'name':name,'n':n,'m':m,'k':k,'sparse_A':sparse,'seed':seed,'input_bytes':inp.stat().st_size,'input_sha256':sha(inp),'expected_bytes':gold.stat().st_size,'expected_sha256':sha(gold)},inp
+def main():
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',required=True,type=Path);p.add_argument('--group',action='append',choices=['sum','rmq','bitset']);p.add_argument('--repeats',type=int,default=5);a=p.parse_args();groups=a.group or['sum','rmq','bitset'];out=a.output.resolve()
+ if out.exists()and any(out.iterdir()):p.error('nonempty output')
+ out.mkdir(parents=True,exist_ok=True)
+ refs=ROOT/'.benchmark/extra-fast';sumrefs=refs/'research50/point_add_range_sum';rmqrefs=refs/'research50/staticrmq';bitrefs=refs/'bitset-research'
+ sources={'sum':{'new':(HERE/'sum-program.cpp.snapshot',[]),'old':(HERE/'sum-program.cpp.snapshot',[f'-DBLUEBERRY_SUM_HEADER="{HERE/"sum-before.hpp.snapshot"}"']),'lc258491':(sumrefs/'submission-258491.cpp',[]),'lc403014-original':(sumrefs/'submission-403014.cpp',[]),'lc403014-shim':(sumrefs/'submission-403014.cpp',['-include',str(HERE/'compat-from-range.hpp.snapshot')])},'rmq':{'new':(ROOT/'verify/extra-fast/static-rmq.test.cpp',[]),'lc402567':(rmqrefs/'submission-402567.cpp',[]),'lc362370':(rmqrefs/'submission-362370.cpp',[])},'bitset':{'new':(ROOT/'verify/extra-fast/bit-matrix-product.test.cpp',[]),'lc246187':(bitrefs/'submission-246187.cpp',[]),'lc406212':(bitrefs/'submission-406212.cpp',[])}}
+ files={Path(__file__).resolve(),OLD_RUNNER,HERE/'sum-before.hpp.snapshot',HERE/'compat-from-range.hpp.snapshot',ROOT/'blueberry/utility/fast-io.hpp',*[ROOT/f'blueberry/extra-fast/{s}.hpp'for s in ['segment-tree','static-rmq','bitset']]}
+ for group in groups:
+  for source,_ in sources[group].values():files.add(source)
+ hashes={str(f):sha(f)for f in files}
+ env={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'platform':platform.platform(),'python':platform.python_version(),'cpu_affinity':sorted(os.sched_getaffinity(0)),'cpuinfo':Path('/proc/cpuinfo').read_text().split('\n\n')[0],'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'flags':FLAGS,'source_sha256':hashes,'compilers':{},'runs':a.repeats,'groups':groups,'cases':{},'contracts':'valid LC inputs, uint sums without overflow; value-only RMQ; GF2 matrix product dimensions<=4096','timing':'whole program wall includes launch/open/close/file stdin/stdout parse/format/construction/operations/destruction; process user+system from RUSAGE_CHILDREN; fixture generation/validation/compile/digest excluded','filesystem':'Linux /tmp regular files, cached pages, no fsync/drop_caches; no pipes for stdin/stdout','oracle':'sum Python Fenwick, RMQ Python binary segment tree, matrix Python arbitrary precision row XOR','order':'rotate successful candidates by run+case; fresh process, no warmup','external_sources':'original files unchanged and not redistributed; hashes/pragmas recorded. Own verification drivers retain their FastIO. External original I/O and batching/JIT/fixed-size algorithms remain, so this does not isolate the data structure','shim':'403014 original failure is retained; shim variant nonstandard diagnostic-only std::from_range tag for libstdc++13, original source bytes unchanged, no runtime code introduced','embedded_pragmas':{group:{name:[{'line':i,'directive':line.strip()}for i,line in enumerate(source.read_text().splitlines(),1)if re.match(r'\s*#\s*pragma\b',line)]for name,(source,_)in sources[group].items()}for group in groups}}
+ env['source_urls']={group:{name:'https://judge.yosupo.jp/submission/'+re.search(r'\d+',name).group() for name in sources[group]if name.startswith('lc')}for group in groups}
+ save(out/'environment.json',env);rows=[];failures=[];compiles=[]
+ with tempfile.TemporaryDirectory(prefix='expansion-whole-')as tmp,(out/'samples.jsonl').open('w')as stream:
+  d=Path(tmp);fixtures={}
+  for group in groups:
+   fixtures[group]=[]
+   cases=[('wide-65536',65536,200000,False),('wide-500000',500000,500000,False),('short-65536',65536,200000,True)]if group!='bitset'else[('dense-256',256,256,256,False),('dense-4096',4096,4096,4096,False),('sparse-rectangular',127,513,193,True)]
+   for i,case in enumerate(cases):
+    unique_case=(group+'-'+case[0],*case[1:])
+    metadata,path=(helpers['generate'](d,*unique_case,20261020+i)if group=='sum'else rmq_fixture(d,*unique_case,20261020+i)if group=='rmq'else matrix_fixture(d,*unique_case,20261020+i));metadata['group']=group;fixtures[group].append((metadata,path))
+   env['cases'][group]=[x[0]for x in fixtures[group]]
+  save(out/'environment.json',env)
+  binaries={}
+  for compiler in['g++','clang++']:
+   env['compilers'][compiler]=subprocess.check_output([compiler,'--version'],text=True);binaries[compiler]={}
+   for group in groups:
+    binaries[compiler][group]={}
+    for name,(source,extra)in sources[group].items():
+     binary=d/(compiler+'-'+group+'-'+name);diag='-fno-diagnostics-show-caret'if compiler=='g++'else'-fno-caret-diagnostics';cmd=[compiler,'-x','c++',*FLAGS,diag,*extra,'-I',str(ROOT),str(source),'-o',str(binary)];r=subprocess.run(cmd,capture_output=True,text=True,timeout=180);(out/f'compile-{compiler}-{group}-{name}.log').write_text((json.dumps(cmd)+'\n'+r.stdout+r.stderr).rstrip('\n')+'\n');entry={'compiler':compiler,'group':group,'variant':name,'command':cmd,'returncode':r.returncode};compiles.append(entry)
+     if r.returncode:failures.append({'stage':'compile',**entry})
+     else:binaries[compiler][group][name]=binary
+     save(out/'compile.json',compiles);print(compiler,group,name,'compile',r.returncode,flush=True)
+  save(out/'environment.json',env)
+  for compiler,gbins in binaries.items():
+   for group,bins in gbins.items():
+    names=list(bins)
+    if not names:continue
+    for caseid,(case,fixture)in enumerate(fixtures[group]):
+     for run in range(a.repeats):
+      shift=(run+caseid)%len(names)
+      for name in names[shift:]+names[:shift]:
+       dest=d/'actual.out';before=resource.getrusage(resource.RUSAGE_CHILDREN);start=time.perf_counter_ns()
+       with fixture.open('rb')as f,dest.open('wb')as g:r=subprocess.run([str(bins[name])],stdin=f,stdout=g,stderr=subprocess.PIPE,timeout=60)
+       end=time.perf_counter_ns();after=resource.getrusage(resource.RUSAGE_CHILDREN);row={'compiler':compiler,'group':group,'variant':name,'case':case['name'],'run':run,'returncode':r.returncode,'wall_ms':(end-start)/1e6,'process_cpu_ms':((after.ru_utime+after.ru_stime)-(before.ru_utime+before.ru_stime))*1000,'user_cpu_ms':(after.ru_utime-before.ru_utime)*1000,'system_cpu_ms':(after.ru_stime-before.ru_stime)*1000,'input_sha256':case['input_sha256'],'output_sha256':sha(dest),'output_bytes':dest.stat().st_size};row['correct']=r.returncode==0 and row['output_sha256']==case['expected_sha256'];rows.append(row);stream.write(json.dumps(row)+'\n');stream.flush()
+       if not row['correct']:failures.append({'stage':'execution',**row,'stderr':r.stderr.decode(errors='replace')})
+       dest.unlink()
+     print(compiler,group,case['name'],'complete',flush=True)
+ if hashes!={str(f):sha(f)for f in files}:failures.append({'stage':'integrity','error':'source changed'})
+ fields=['compiler','group','variant','case'];summary=[]
+ for key in sorted({tuple(r[f]for f in fields)for r in rows}):
+  selected=[r for r in rows if tuple(r[f]for f in fields)==key and r['correct']];entry=dict(zip(fields,key));entry['successful_samples']=len(selected)
+  if selected:
+   for metric in['wall_ms','process_cpu_ms','user_cpu_ms','system_cpu_ms']:entry['median_'+metric]=statistics.median(r[metric]for r in selected);entry['min_'+metric]=min(r[metric]for r in selected)
+  summary.append(entry)
+ save(out/'summary.json',summary);save(out/'failures.json',failures);print(len(rows),'samples',len(failures),'failures',flush=True);return int(any(f['stage']!='compile'for f in failures))
+if __name__=='__main__':raise SystemExit(main())
