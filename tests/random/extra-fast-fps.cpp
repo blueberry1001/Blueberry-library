@@ -1,7 +1,8 @@
-#ifndef BLUEBERRY_FPS_HEADER
-#define BLUEBERRY_FPS_HEADER "blueberry/extra-fast/formal-power-series.hpp"
-#endif
+#ifdef BLUEBERRY_FPS_HEADER
 #include BLUEBERRY_FPS_HEADER
+#else
+#include "blueberry/extra-fast/formal-power-series.hpp"
+#endif
 #include "blueberry/math/formal-power-series.hpp"
 #include <atcoder/modint>
 #include <cstdint>

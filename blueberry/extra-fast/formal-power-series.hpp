@@ -63,7 +63,7 @@ class FPS998244353 {
   struct Transform {
     V roots, inverse_roots;
     bool simd;
-    Transform(int n, bool simd) : roots(n), inverse_roots(n), simd(simd) {
+    Transform(int n, bool use_simd) : roots(n), inverse_roots(n), simd(use_simd) {
       assert(n <= (1 << 23));
       for (int h = 1; h < n; h <<= 1) {
         U w = power(mul(3, r2), (p - 1) / (h * 2));
