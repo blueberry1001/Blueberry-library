@@ -1,3 +1,7 @@
+---
+title: "遅延更新・BITの調査"
+---
+
 # 遅延更新・BITの調査
 
 2026-10-20にLibrary Checker REST APIからrange_affine_range_sumとpoint_add_range_sumのFastest各5件を取得しました。提出時の表示時間は実行環境が異なるため、ローカル測定との倍率には使いません。

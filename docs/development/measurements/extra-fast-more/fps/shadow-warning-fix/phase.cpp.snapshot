@@ -1,0 +1,32 @@
+#include <chrono>
+#include <cstdint>
+#include <cstdio>
+#include <cstdlib>
+#include <string>
+#include <sys/resource.h>
+#include <vector>
+#include "blueberry/utility/fast-io.hpp"
+#if BACKEND == 0
+#include "blueberry/math/formal-power-series.hpp"
+#else
+#ifndef BLUEBERRY_FPS_HEADER
+#define BLUEBERRY_FPS_HEADER "blueberry/extra-fast/formal-power-series.hpp"
+#endif
+#include BLUEBERRY_FPS_HEADER
+#endif
+using U=std::uint32_t;
+using V=std::vector<U>;
+using Clock=std::chrono::steady_clock;
+double ms(Clock::time_point a,Clock::time_point b){return 1e3*std::chrono::duration<double>(b-a).count();}
+V calculate(const V&a,const V&b,const std::string&op){
+#if BACKEND == 0
+ using Mint=atcoder::modint998244353;using F=blueberry::FPS<Mint>;
+ F f(a.size()),g(b.size());for(std::size_t i=0;i<a.size();++i)f[i]=a[i];for(std::size_t i=0;i<b.size();++i)g[i]=b[i];
+ F h=op=="convolution"?f*g:op=="inv"?f.inv():op=="log"?f.log():f.exp();
+ V c(h.size());for(std::size_t i=0;i<h.size();++i)c[i]=h[i].val();return c;
+#else
+ blueberry::extra_fast::FPS998244353 fps(BACKEND != 3);
+ return op=="convolution"?fps.convolution(a,b):op=="inv"?fps.inv(a):op=="log"?fps.log(a):fps.exp(a);
+#endif
+}
+int main(int argc,char**argv){if(argc!=2)return 2;std::string op=argv[1];auto begin=Clock::now();blueberry::FastInput in;blueberry::FastOutput out;int n,m=0;if(!in.read(n))return 2;if(op=="convolution")in.read(m);V a(n),b(m);for(U&x:a)in.read(x);for(U&x:b)in.read(x);auto parsed=Clock::now();auto c=calculate(a,b,op);auto operated=Clock::now();for(std::size_t i=0;i<c.size();++i){out.write(c[i]);out.write(i+1==c.size()?'\n':' ');}out.flush();auto end=Clock::now();rusage usage{};getrusage(RUSAGE_SELF,&usage);std::fprintf(stderr,"{\"parse_ms\":%.8f,\"operation_ms\":%.8f,\"format_ms\":%.8f,\"total_ms\":%.8f,\"max_rss_kib\":%ld}\n",ms(begin,parsed),ms(parsed,operated),ms(operated,end),ms(begin,end),usage.ru_maxrss);}

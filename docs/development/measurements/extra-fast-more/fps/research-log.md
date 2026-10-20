@@ -1,3 +1,7 @@
+---
+title: "Library Checker fastest: `log_of_formal_power_series`"
+---
+
 # Library Checker fastest: `log_of_formal_power_series`
 
 REST endpoint: `https://v3.api.judge.yosupo.jp/submissions`

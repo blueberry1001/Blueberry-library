@@ -1,3 +1,7 @@
+---
+title: "NTT kernel方向性の初期pilot"
+---
+
 # NTT kernel方向性の初期pilot
 
 2026-10-20、CPU0。GCC/Clang、gnu++20 -O2、各3回。check.cpp.snapshotのuint32_t Montgomery入力を用いたkernelはNTT表構築を分離し、ACLのmodint入力の積と全係数を照合した。canonical uint32_tを受ける公開API全体の比較ではない。GCC/Clangのbaselineはいずれも後に実行しているため、実行順を回転するfinalを採用判断とする。

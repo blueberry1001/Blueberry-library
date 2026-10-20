@@ -1,0 +1,100 @@
+#!/usr/bin/env python3
+"""FPS alpha-rename proof; never edits the public include tree."""
+import datetime,difflib,hashlib,json,platform,random,shutil,subprocess,tempfile
+from pathlib import Path
+ROOT=Path.cwd();OUT=ROOT/'docs/development/measurements/extra-fast-more/fps/shadow-warning-fix'
+HEADER=ROOT/'blueberry/extra-fast/formal-power-series.hpp'
+BEFORE=OUT/'before.hpp.snapshot';DRIVER=ROOT/'docs/development/measurements/extra-fast-more/fps/final/phase.cpp.snapshot'
+OLD_IO=ROOT/'docs/development/measurements/extra-fast-more/fps/fast-io-before-pr54.hpp.snapshot'
+CURRENT_IO=ROOT/'blueberry/utility/fast-io.hpp';P=998244353
+PROFILES=[('release',['-O2','-DNDEBUG']),('assert',['-O2']),('native',['-O3','-march=native','-DNDEBUG'])]
+def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
+def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()
+def convolution(a,b):
+ c=[0]*(len(a)+len(b)-1)
+ for i,x in enumerate(a):
+  for j,y in enumerate(b):c[i+j]=(c[i+j]+x*y)%P
+ return c
+def inverse(a):
+ inv=pow(a[0],P-2,P);g=[inv]
+ for i in range(1,len(a)):g.append(-sum(a[j]*g[i-j] for j in range(1,i+1))*inv%P)
+ return g
+def oracle(a,b,op):
+ if op=='convolution':return convolution(a,b)
+ if op=='inv':return inverse(a)
+ if op=='log':
+  d=[(i*a[i])%P for i in range(1,len(a))];v=convolution(d,inverse(a));return [0]+[v[i-1]*pow(i,P-2,P)%P for i in range(1,len(a))]
+ g=[1]
+ for i in range(1,len(a)):g.append(sum(j*a[j]*g[i-j] for j in range(1,i+1))*pow(i,P-2,P)%P)
+ return g
+
+def main():
+ OUT.mkdir(parents=True,exist_ok=True)
+ if (OUT/'results.json').exists():raise RuntimeError('Preserve the completed result before a rerun')
+ before=BEFORE.read_bytes();after=HEADER.read_bytes();old_io=OLD_IO.read_bytes();current_io=CURRENT_IO.read_bytes()
+ assert sha(BEFORE)=='ecf2644b7b34a2463ffd006e8867f1e107df0e6dd2098543747f57f86cbf825a'
+ assert sha(HEADER)=='917225b88fe2336549d4a936ec69749a7b6daed73edafb1a18ff2d228a9bf821'
+ assert before.replace(b'Transform(int n, bool simd) : roots(n), inverse_roots(n), simd(simd)',b'Transform(int n, bool use_simd) : roots(n), inverse_roots(n), simd(use_simd)')==after
+ frozen={str(HEADER.relative_to(ROOT)):sha(HEADER),str(CURRENT_IO.relative_to(ROOT)):sha(CURRENT_IO),str(DRIVER.relative_to(ROOT)):sha(DRIVER)}
+ def check_frozen():
+  for source,digest in frozen.items():assert sha(ROOT/source)==digest,source
+ temp=Path(tempfile.mkdtemp(prefix='blueberry-fps-shadow-'));include=temp/'blueberry/extra-fast/formal-power-series.hpp';include.parent.mkdir(parents=True);io=temp/'blueberry/utility/fast-io.hpp';io.parent.mkdir(parents=True);io.write_bytes(old_io)
+ driver=temp/'phase.cpp';driver.write_bytes(DRIVER.read_bytes());binary=temp/'phase';records=[];runtime=[];expected_failures=[];failures=[]
+ env={'started':now(),'platform':platform.platform(),'python_oracle':'Independent quadratic convolution, inverse recurrence, derivative/inverse log, derivative recurrence exp; seed 20261020, N=33 and 1025. All returned coefficients checked.','temporary_tree':str(temp),'same_path':'Before and after bytes overwrite the exact same temporary blueberry/extra-fast/formal-power-series.hpp; phase.cpp and -o path also identical. This includes identical assert __FILE__ paths. Public tree remains unchanged.','profiles':PROFILES,'old_header_sha256':sha(BEFORE),'new_header_sha256':sha(HEADER),'phase_fast_io_sha256':sha(OLD_IO),'current_fast_io_sha256':sha(CURRENT_IO),'driver_sha256':sha(DRIVER),'public_sources':frozen,'compiler_versions':{c:subprocess.run([c,'--version'],capture_output=True,text=True).stdout for c in ['g++','clang++']}}
+ (OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+ for name,source in [('after.hpp.snapshot',HEADER),('phase.cpp.snapshot',DRIVER),('phase-fast-io.hpp.snapshot',OLD_IO),('current-fast-io.hpp.snapshot',CURRENT_IO)]:shutil.copyfile(source,OUT/name)
+ (OUT/'rename.diff').write_text(''.join(difflib.unified_diff(before.decode().splitlines(True),after.decode().splitlines(True),fromfile='before',tofile='after')))
+ shutil.copyfile(Path(__file__),OUT/'runner.py.snapshot')
+ rng=random.Random(20261020);fixtures=[]
+ for n in [33,1025]:
+  for op in ['convolution','inv','log','exp']:
+   a=[rng.randrange(P) for _ in range(n)];b=[rng.randrange(P) for _ in range(n-1)] if op=='convolution' else []
+   if op=='inv':a[0]=rng.randrange(1,P)
+   if op=='log':a[0]=1
+   if op=='exp':a[0]=0
+   answer=oracle(a,b,op);payload=(f'{n} {len(b)}' if b else str(n))+'\n'+' '.join(map(str,a))+'\n'+(' '.join(map(str,b))+'\n' if b else '')
+   path=temp/f'{n}-{op}.in';path.write_text(payload);fixtures.append((n,op,path,answer))
+ env['fixtures']=[{'n':n,'op':op,'input_sha256':sha(path),'expected_sha256':hashlib.sha256(' '.join(map(str,answer)).encode()).hexdigest(),'expected_count':len(answer)} for n,op,path,answer in fixtures]
+ def build(compiler,profile,flags,backend,version,strict=False,io_name='phase'):
+  check_frozen();include.write_bytes(before if version=='before' else after)
+  command=[compiler,'-std=gnu++20',*flags,'-Wall','-Wextra','-Werror']
+  if strict:command+=['-Wshadow']
+  command+=['-I',str(temp),'-I',str(ROOT),'-isystem',str(ROOT/'.deps/ac-library'),f'-DBACKEND={backend}']
+  if backend==2:command+=['-DBLUEBERRY_EXTRA_FAST_USE_ASM']
+  command+=[str(driver),'-o',str(binary)]
+  name=f'{compiler}-{profile}-{backend}-{version}'+('-strict' if strict else '')+'-'+io_name
+  result=subprocess.run(command,capture_output=True,text=True);(OUT/f'{name}.compile.log').write_text(json.dumps(command)+'\n'+result.stdout+result.stderr)
+  row={'label':name,'compiler':compiler,'profile':profile,'backend':'intrinsics' if backend==1 else 'common-asm','header':version,'strict_wshadow_werror':strict,'io':io_name,'command':command,'returncode':result.returncode,'binary_sha256':sha(binary) if result.returncode==0 else None};records.append(row)
+  check_frozen();return row
+ def run_all(build_record):
+  if build_record['returncode']:failures.append(build_record);return
+  for n,op,path,answer in fixtures:
+   result=subprocess.run([str(binary),op],input=path.read_bytes(),capture_output=True,timeout=60)
+   name=build_record['label']+f'-{n}-{op}';(OUT/f'{name}.run.log').write_text(json.dumps({'command':[str(binary),op],'returncode':result.returncode})+'\n'+result.stderr.decode(errors='replace'))
+   try:actual=[int(x) for x in result.stdout.split()]
+   except ValueError:actual=[]
+   correct=result.returncode==0 and actual==answer
+   row={'label':name,'returncode':result.returncode,'correct':correct,'input_sha256':sha(path),'output_sha256':hashlib.sha256(' '.join(map(str,actual)).encode()).hexdigest(),'outputs':len(actual),'expected_outputs':len(answer)};runtime.append(row)
+   if not correct:(OUT/f'{name}.stdout').write_bytes(result.stdout);failures.append(row)
+  check_frozen()
+ proofs=[]
+ for compiler in ['g++','clang++']:
+  # Reproduce the superseded header warning without suppressing it.
+  repro=build(compiler,'release',['-O2','-DNDEBUG'],1,'before',True)
+  expected_failures.append({'label':repro['label'],'returncode':repro['returncode'],'shadow_diagnostic':'[-Werror=shadow]' in (OUT/f"{repro['label']}.compile.log").read_text(),'expected_failure':compiler=='g++'})
+  for profile,flags in PROFILES:
+   for backend in [1,2]:
+    a=build(compiler,profile,flags,backend,'before');b=build(compiler,profile,flags,backend,'after')
+    equal=a['returncode']==b['returncode']==0 and a['binary_sha256']==b['binary_sha256'];proofs.append({'compiler':compiler,'profile':profile,'backend':a['backend'],'before':a['label'],'after':b['label'],'before_sha256':a['binary_sha256'],'after_sha256':b['binary_sha256'],'identical':equal})
+    if not equal:failures.append({'kind':'binary-equivalence','proof':proofs[-1]})
+    strict=build(compiler,profile,flags,backend,'after',True);strict['matches_nonstrict_binary']=strict['binary_sha256']==b['binary_sha256'];run_all(strict)
+ # Current FastIO is checked separately and is never mixed into phase binary comparisons.
+ io.write_bytes(current_io)
+ for compiler in ['g++','clang++']:
+  for backend in [1,2]:run_all(build(compiler,'release',['-O2','-DNDEBUG'],backend,'after',True,'current'))
+ check_frozen();env['finished']=now();(OUT/'environment.json').write_text(json.dumps(env,indent=2)+'\n')
+ result={'finished':env['finished'],'old_header_sha256':env['old_header_sha256'],'new_header_sha256':env['new_header_sha256'],'proofs':proofs,'all_binary_identical':len(proofs)==12 and all(x['identical'] for x in proofs),'builds':records,'expected_old_shadow_failures':expected_failures,'runtime':runtime,'runtime_checks':len(runtime),'all_runtime_correct':len(runtime)==128 and all(x['correct'] for x in runtime),'failures':failures}
+ (OUT/'results.json').write_text(json.dumps(result,indent=2)+'\n');(OUT/'failures.json').write_text(json.dumps(failures,indent=2)+'\n')
+ print(json.dumps({'binary_pairs':len(proofs),'all_binary_identical':result['all_binary_identical'],'runtime_checks':len(runtime),'all_runtime_correct':result['all_runtime_correct'],'unexpected_failures':len(failures)}))
+ assert result['all_binary_identical'] and result['all_runtime_correct'] and not failures
+if __name__=='__main__':main()

@@ -68,4 +68,10 @@ FPSは全係数照合3840標本、Waveletは最終phase1200標本、区間加算
 
 ## 検証
 
-固定seedの標準コンテナ・通常版・愚直解との照合、GCC/Clangとgnu++20/23、対応するスカラー・intrinsics・GNU asmの両dialect、sanitizer、公式verifyを区別して記録します。公式ドライバのcompileだけをACとは扱いません。統合検証の結果は完了後に追記します。
+固定seedの標準コンテナ・通常版・愚直解との照合、GCC/Clangとgnu++20/23、スカラー・intrinsics・GNU asmの両dialect、sanitizerによる個別検証が成功しました。Ordered/Hashの最終88コマンド、反復子42コマンド、lazy/BITの最終129コマンドもすべて成功しています。
+
+最新FastIOを使い、新規13本と依存更新の影響を受けた既存分、計38本で公式全ケースを実行し、すべてACとなりました。FPSの警告修正後には影響する4本を新sourceから再実行してACを確認しました。無変更の過去記録を含め、167本すべてに現在の依存ソースと一致するAC記録があります。公式の時間は各1反復で、5反復の専用ベンチマークや旧I/Oの時間とは混ぜません。
+
+初回のoj起動パス不足、生成一覧の隔離確認、GCCのshadow警告と修正履歴も統合検証ログに残します。公式ドライバのcompile成功と、公式checkerによる全ケースACは区別しています。
+
+`make check`は149単体テスト、124文書例、123ヘッダ、167 verify compile、132 random programsの各20 seedで成功しました。GCC/ClangとGNU++20/23のrelease include検査、make docs、Jekyll、サイト検査、Edgeでの専用セクション・モバイル・キーボード・JavaScript無効時の確認も成功しています。[統合検証の原ログと再実行記録](measurements/extra-fast-more/integration-validation/README.md)を保存しました。

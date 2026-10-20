@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eu
+cd /home/blueberry/.cache/blueberry-extra-fast-more-d8ee799
+mkdir -p .build/integration-validation/missing-oj
+cp .build/integration-validation/make-verify.log .build/integration-validation/official-*.txt .build/integration-validation/official-plan.log .build/integration-validation/missing-oj/
+cp .verification/current.json .verification/state.json .verification/ci-plan.json .build/integration-validation/missing-oj/
+if test -d .verification/runs; then cp -a .verification/runs .build/integration-validation/missing-oj/; fi

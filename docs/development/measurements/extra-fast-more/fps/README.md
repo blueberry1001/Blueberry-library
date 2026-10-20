@@ -1,3 +1,7 @@
+---
+title: "998244353専用FPSの測定"
+---
+
 # 998244353専用FPSの測定
 
 ## 調査
@@ -98,7 +102,16 @@ phase後の最初のwhole実行中に、mainのPR54（Contest FastIO）が統合
 
 [validation](validation/results.json)の26確認（GCC/Clang、gnu++20/23、intrinsics/旧asm/Intel、実行時scalarとSIMD、両compilerのASan/UBSan、単独・重複include、4公式verifyコードのcompile）は成功。seed20261020で、直接計算との境界比較と通常FPSとの大きい入力の全係数照合を行った。公式judgeの実行は統合側で別途記録する。
 
-公開直前に共通`BLUEBERRY_EXTRA_FAST_USE_ASM`と`BLUEBERRY_EXTRA_FAST_FORCE_SCALAR`へ合わせた。旧測定用INLINE_ASMは同じasmの別名として維持し、アルゴリズム・命令列を変更していない。[common-macros](common-macros/results.json)には差分・旧新snapshotと、GCC/ClangのNDEBUGでdefault/旧asm/共通asmのプリプロセス出力がbyte一致する証拠を残す。最終測定source SHA17e342...に対する変更はこの2つの条件式だけ。新sourceで共通asm/Intel/force-scalar/force-scalar+asmをC++20/23で確認し、追加ASan/UBSanを含む17確認が成功した。
+公開直前に共通`BLUEBERRY_EXTRA_FAST_USE_ASM`と`BLUEBERRY_EXTRA_FAST_FORCE_SCALAR`へ合わせた。旧測定用INLINE_ASMは同じasmの別名として維持し、アルゴリズム・命令列を変更していない。[common-macros](common-macros/results.json)には差分・旧新snapshotと、GCC/ClangのNDEBUGでdefault/旧asm/共通asmのプリプロセス出力がbyte一致する証拠を残す。共通マクロ反映時のsource SHA ecf264...は、最終測定source SHA17e342...からこの2つの条件式だけを変更した。新sourceで共通asm/Intel/force-scalar/force-scalar+asmをC++20/23で確認し、追加ASan/UBSanを含む17確認が成功した。
+
+
+### strict buildのshadow警告修正
+
+統合時のGCC `-Wshadow -Werror`で、privateなTransformの仮引数simdがfieldと同名になっていることを検出した。仮引数だけをuse_simdへ変更した。演算・分岐・API・保存fieldは変えていない。[差分](shadow-warning-fix/rename.diff)と[旧header](shadow-warning-fix/before.hpp.snapshot)・[新header](shadow-warning-fix/after.hpp.snapshot)を保持する。旧SHAはecf264...、新SHAは917225...である。
+
+[同一性検証](shadow-warning-fix/results.json)では、GCC/Clang、GNU++20、O2 NDEBUG / O2 assert / O3 native NDEBUG、intrinsics / 共通asmの12条件を比較した。旧新headerを同じ一時includeパスに順に置き、同じphase.cpp・flags・出力パスでcompileした。assertが持つ__FILE__文字列も同じ条件となり、12組すべてのbinaryがbyte一致した。phase時のFastIO SHA60366b...を復元して固定し、現在のFastIOとの差をこの比較に混ぜていない。既存の共通マクロ検証と合わせ、今回の仮引数名変更のために性能値を測り直していない。
+
+新headerは上記12条件に`-Wall -Wextra -Wshadow -Werror`を加えて全てcompile・実行した。別に現在のFastIO SHA8f0895...でも両compiler×intrinsics/共通asmの4 strict buildを確認した。独立したPythonの直接積・逆元漸化式・微分と逆元によるlog・微分漸化式によるexpと、N=33/1025の全係数を照合し、16 strict build・128実行が全て成功した。旧headerではGCCのshadow警告を再現し、期待したcompile失敗としてログに残した。Clangは同じ旧source・flagsでもこの警告を出さずcompileに成功した。予期しない失敗は0。ここに含むrun logの時間・RSSは正しさ確認用で、既存の性能測定へ加算しない。[環境とSHA](shadow-warning-fix/environment.json)・[runner](shadow-warning-fix/runner.py.snapshot)も保存した。
 
 
 ## 再実行

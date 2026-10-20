@@ -1,3 +1,7 @@
+---
+title: "OrderedMap / OrderedSet の反復子検証"
+---
+
 # OrderedMap / OrderedSet の反復子検証
 
 これは正しさの確認ログです。`results.json` の経過時間はコンパイル・テストの実行時間であり、性能比較には使いません。最終検証は root の全性能測定が終了してから開始し、他の正しさ検証と並行して実行しました。

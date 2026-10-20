@@ -1,3 +1,7 @@
+---
+title: "Wavelet Matrix の高速化測定"
+---
+
 # Wavelet Matrix の高速化測定
 
 2026-10-20。通常版を置き換えず、`extra_fast::WaveletMatrix<T>` を個別に使う比較です。

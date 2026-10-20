@@ -65,15 +65,15 @@ OrderedMapと、同じ構造を使うOrderedSetを提供します。標準コン
 
 ## 概要・前提 {#概要前提}
 
-Keyは32/64bit整数型。自然順序のみで、予約キーはありません。N<=INT_MAXが必要です。Nは現在の要素数、Mは過去に確保したノード量（現在のNより大きい場合があります）。メモリはO(M+1)。B=16を定数とし探索・削除は最悪O(log(N+1))、挿入は同じ償却計算量でvector再確保時にO(M)が加わります。
+- Keyは32/64bit整数型。自然順序のみで、予約キーはありません。N<=INT_MAXが必要です。Nは現在の要素数、Mは過去に確保したノード量（現在のNより大きい場合があります）。メモリはO(M+1)。B=16を定数とし探索・削除は最悪O(log(N+1))、挿入は同じ償却計算量でvector再確保時にO(M)が加わります。
 
-Valueはtrivialかつtrivialなコピー構築・コピー代入が可能な型です。文字列などリソースを所有する非trivial型は対象外。Value{}を初期値に使います。キー・値は所有コピーで、返却optionalもコピーです。公開フィールドはありません。双方向反復子からMapの実pairとSetのconstキーを参照できます。MapはSIMD用キー列に加えてpair内にもキーを保持するため、反復子追加前の候補より保持量が増えます。Setではキーを重複保存しません。
+- Valueはtrivialかつtrivialなコピー構築・コピー代入が可能な型です。文字列などリソースを所有する非trivial型は対象外。Value{}を初期値に使います。キー・値は所有コピーで、返却optionalもコピーです。公開フィールドはありません。双方向反復子からMapの実pairとSetのconstキーを参照できます。MapはSIMD用キー列に加えてpair内にもキーを保持するため、反復子追加前の候補より保持量が増えます。Setではキーを重複保存しません。
 
-挿入・削除・clear・代入・swapで既存の全反復子・参照が失効します。erase(pos)が返した反復子は有効です。ノード内の要素も移動するためstd::mapの参照安定性は提供しません。既存値だけをoperator[]の参照やiterator->second経由で変更する場合は、要素配置を変更しません。lower_bound/upper_bound/floor/kthはoptionalの所有コピーを返し、stdの反復子返却APIとは異なります。
+- 挿入・削除・clear・代入・swapで既存の全反復子・参照が失効します。erase(pos)が返した反復子は有効です。ノード内の要素も移動するためstd::mapの参照安定性は提供しません。既存値だけをoperator[]の参照やiterator->second経由で変更する場合は、要素配置を変更しません。lower_bound/upper_bound/floor/kthはoptionalの所有コピーを返し、stdの反復子返却APIとは異なります。
 
-キーの最小値・最大値を含む全範囲を扱い、キー加算は行いません。整数型の変換や利用側の値更新で起きるoverflowは呼出側の責任です。
+- キーの最小値・最大値を含む全範囲を扱い、キー加算は行いません。整数型の変換や利用側の値更新で起きるoverflowは呼出側の責任です。
 
-x86のGCC/Clangでは対応命令を利用し、それ以外はスカラーにフォールバックします。`BLUEBERRY_EXTRA_FAST_FORCE_SCALAR`で強制スカラー、`BLUEBERRY_EXTRA_FAST_USE_ASM`で比較命令をGNUインラインasmに切り替えます。既定はintrinsicsで、asmを指定しても速度向上は保証しません。マクロ設定は全翻訳単位で一致させてください。
+- x86のGCC/Clangでは対応命令を利用し、それ以外はスカラーにフォールバックします。`BLUEBERRY_EXTRA_FAST_FORCE_SCALAR`で強制スカラー、`BLUEBERRY_EXTRA_FAST_USE_ASM`で比較命令をGNUインラインasmに切り替えます。既定はintrinsicsで、asmを指定しても速度向上は保証しません。マクロ設定は全翻訳単位で一致させてください。
 
 </details>
 

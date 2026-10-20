@@ -1,3 +1,7 @@
+---
+title: "Library Checker fastest: `convolution_mod`"
+---
+
 # Library Checker fastest: `convolution_mod`
 
 REST endpoint: `https://v3.api.judge.yosupo.jp/submissions`

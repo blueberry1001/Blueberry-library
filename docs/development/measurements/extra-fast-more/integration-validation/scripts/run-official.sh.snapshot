@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -eu
+export PATH=/home/blueberry/.local/bin:$PATH
+cd /home/blueberry/.cache/blueberry-extra-fast-more-d8ee799
+mkdir -p .build/integration-validation
+python3 scripts/plan_verification.py --base a54fa8c --head HEAD --state .verification/previous-state.json > .build/integration-validation/official-plan.log
+python3 - <<'PY'
+import json
+p=json.load(open('.verification/ci-plan.json'))
+print('Selected',len(p['selected_verify']),'of',len(p['all_verify']),flush=True)
+print('\n'.join(p['selected_verify']),flush=True)
+PY
+date -u +%FT%TZ > .build/integration-validation/official-start.txt
+set +e
+make verify VERIFY_REPEATS=1 VERIFY_TIMEOUT=1800 VERIFY_PATHS="--plan .verification/ci-plan.json --state .verification/previous-state.json" > .build/integration-validation/make-verify.log 2>&1
+result=$?
+set -e
+date -u +%FT%TZ > .build/integration-validation/official-end.txt
+printf '%s\n' "$result" > .build/integration-validation/official-exit.txt
+echo "make verify exit $result"
+exit "$result"
