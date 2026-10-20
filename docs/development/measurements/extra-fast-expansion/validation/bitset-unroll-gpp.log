@@ -1,0 +1,15 @@
+$ g++ -std=gnu++23 -O2 -Wall -Wextra -Wshadow -Werror -I. -x c++ docs/development/measurements/extra-fast-expansion/validation/bitset-unroll-random.cpp.snapshot -o .build/bitset-unroll-gpp
+In file included from docs/development/measurements/extra-fast-expansion/validation/bitset-unroll-random.cpp.snapshot:1:
+./docs/development/measurements/extra-fast-expansion/validation/bitset-unroll.hpp.snapshot: In member function ‘std::size_t blueberry::extra_fast::Bitset::combine_simd(const blueberry::extra_fast::Bitset&) [with int Operation = 0]’:
+./docs/development/measurements/extra-fast-expansion/validation/bitset-unroll.hpp.snapshot:154:10: error: ignoring loop annotation [-Werror]
+  154 |     for (; i + 4 <= words_.size(); i += 4) {
+      |          ^
+./docs/development/measurements/extra-fast-expansion/validation/bitset-unroll.hpp.snapshot: In member function ‘std::size_t blueberry::extra_fast::Bitset::combine_simd(const blueberry::extra_fast::Bitset&) [with int Operation = 2]’:
+./docs/development/measurements/extra-fast-expansion/validation/bitset-unroll.hpp.snapshot:154:10: error: ignoring loop annotation [-Werror]
+  154 |     for (; i + 4 <= words_.size(); i += 4) {
+      |          ^
+./docs/development/measurements/extra-fast-expansion/validation/bitset-unroll.hpp.snapshot: In member function ‘std::size_t blueberry::extra_fast::Bitset::combine_simd(const blueberry::extra_fast::Bitset&) [with int Operation = 1]’:
+./docs/development/measurements/extra-fast-expansion/validation/bitset-unroll.hpp.snapshot:154:10: error: ignoring loop annotation [-Werror]
+  154 |     for (; i + 4 <= words_.size(); i += 4) {
+      |          ^
+cc1plus: all warnings being treated as errors

@@ -1,0 +1,104 @@
+{
+  "timestamp_utc": "2026-10-19T09:59:48.686950+00:00",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "cpu_affinity": [
+    0
+  ],
+  "cpuinfo": "processor\t: 0\nvendor_id\t: GenuineIntel\ncpu family\t: 6\nmodel\t\t: 183\nmodel name\t: Intel(R) Core(TM) i7-14650HX\nstepping\t: 1\nmicrocode\t: 0xffffffff\ncpu MHz\t\t: 2419.198\ncache size\t: 30720 KB\nphysical id\t: 0\nsiblings\t: 24\ncore id\t\t: 0\ncpu cores\t: 12\napicid\t\t: 0\ninitial apicid\t: 0\nfpu\t\t: yes\nfpu_exception\t: yes\ncpuid level\t: 28\nwp\t\t: yes\nflags\t\t: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq vmx ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves avx_vnni umip waitpkg gfni vaes vpclmulqdq rdpid movdiri movdir64b fsrm md_clear serialize flush_l1d arch_capabilities\nvmx flags\t: vnmi invvpid ept_x_only ept_ad ept_1gb tsc_offset vtpr ept vpid unrestricted_guest ept_mode_based_exec tsc_scaling usr_wait_pause\nbugs\t\t: spectre_v1 spectre_v2 spec_store_bypass swapgs retbleed eibrs_pbrsb rfds bhi\nbogomips\t: 4838.39\nclflush size\t: 64\ncache_alignment\t: 64\naddress sizes\t: 39 bits physical, 48 bits virtual\npower management:",
+  "revision": "eaff59910886d5b378ab0dd85037ce6b6bc7953d",
+  "source_sha256": {
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/phase-runner.py.snapshot": "a5f485b3e58b3a5d62b13edcf3e0a0e57b9c56cddb4ddc3d128698b26dc6d6ff",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/docs/development/measurements/extra-fast-expansion/expansion-benchmark.cpp.snapshot": "966f456200132a9ae2cedf83b0474bb750585e005d6d6aa867e4a1ad48891998",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/blueberry/extra-fast/static-rmq.hpp": "bbc324bbcf006ea37c344c99b6666c3dbe3c123284048225681931ce63d96c0b",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/blueberry/extra-fast/bitset.hpp": "38b0ff5ec99ac097bf1a94692b762320033a7970f3002742b15b4925d92883a0",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/blueberry/data-structure/sparse-table.hpp": "92dde23f0b59ed3577d147d6b052c5f303afff43f05553380c5e2ab3359de703",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/blueberry/data-structure/disjoint-sparse-table.hpp": "d326ce5e799fd9b21a0c0d477746c985a7fdacca7224e07b33ee6d0466ef5656",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/blueberry/data-structure/sqrt-tree.hpp": "38086a344daec5d2f50848c5d8bbbcbfa3190e5d7957695a9cb31f9848027edc",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/blueberry/data-structure/linear-rmq.hpp": "a25089dca431050ec4d3e01a0c0020082aa3b9d1b6a67918b968a00cb51cbf39",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.benchmark/extra-fast-expansion/bitset-small.hpp": "cccab7ae4531ebd860ef3f47c8181f57c8a92cb0df230488dc35896a40100972"
+  },
+  "profiles": {
+    "portable-o2-release": [
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "portable-o2-debug": [
+      "-O2"
+    ],
+    "native-o3-release": [
+      "-O3",
+      "-DNDEBUG",
+      "-march=native"
+    ]
+  },
+  "cases": {
+    "rmq": [
+      [
+        1024,
+        200000,
+        "short"
+      ],
+      [
+        65536,
+        200000,
+        "wide"
+      ],
+      [
+        500000,
+        200000,
+        "wide"
+      ],
+      [
+        65536,
+        200000,
+        "boundary"
+      ]
+    ],
+    "bitset": [
+      [
+        64,
+        200000,
+        "dp"
+      ],
+      [
+        65,
+        200000,
+        "near"
+      ],
+      [
+        1024,
+        20000,
+        "logic"
+      ],
+      [
+        262144,
+        4000,
+        "dp"
+      ],
+      [
+        262144,
+        4000,
+        "near"
+      ],
+      [
+        262144,
+        4000,
+        "logic"
+      ]
+    ]
+  },
+  "runs": 5,
+  "seed": 20261020,
+  "compilers": {
+    "g++": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n"
+  },
+  "timing": "same serialized input/from_chars parse; tree construction includes input copying; bitset construction initializes both operands via public set; operation results stored for RMQ, Bitset output read in format; format/to_chars or binary output; generation/oracle/hash/destruction excluded",
+  "memory": "separate process Linux VmHWM; no oracle/text/operations/output buffers; RMQ input vector plus live tree, Bitset two live operands",
+  "oracle": "every timed process first checks all small nonempty RMQ intervals against scalar scan; bitsets checked at every bit after 80 operations against vector<bool> and self XOR; not merely shared checksum",
+  "contracts": "RMQ uint32 value-only nonempty intervals, no argmin guarantee; Bitset exactly same N and truncation for std::bitset<N>, dynamic Bitset has runtime N; shifts B|=B<<k and separate OR/XOR/AND",
+  "order": "rotate candidate order by run/case, fresh process each; inherit recorded taskset affinity",
+  "selected_groups": [
+    "bitset"
+  ]
+}

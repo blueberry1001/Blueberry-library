@@ -1,0 +1,87 @@
+{
+  "purpose": "Functional-only diagnosis while unrelated validation may run; no timing claims. Original benchmark results/failures are immutable.",
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+  "input": "1 1 1\n1\n1\n",
+  "expected": "1\n",
+  "source_sha256": {
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.benchmark/extra-fast/bitset-research/submission-246187.cpp": "868bd798dd0ac75cba7dcee1e46e0221f14292eb1cea742f6ac40dddfabf6b5d",
+    "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/worktrees/extra-fast/.benchmark/extra-fast/bitset-research/submission-406212.cpp": "e57bdca8869ad3211852959e88cf43b28b8d1d38d7ccc8ed1ed2aae1d3176678"
+  },
+  "profiles": {
+    "original-cli": [
+      "-std=gnu++23",
+      "-O2",
+      "-DNDEBUG",
+      "-march=native",
+      "-fno-diagnostics-show-caret"
+    ],
+    "cet-disabled": [
+      "-std=gnu++23",
+      "-O2",
+      "-DNDEBUG",
+      "-march=native",
+      "-fno-diagnostics-show-caret",
+      "-fcf-protection=none",
+      "-fno-stack-protector"
+    ]
+  },
+  "results": [
+    {
+      "submission": "submission-246187",
+      "profile": "original-cli",
+      "compile_returncode": 0,
+      "kernel_first_instruction": {
+        "kernel_1": "1350:\tf3 0f 1e fa          \tendbr64",
+        "kernel_2": "13e0:\tf3 0f 1e fa          \tendbr64",
+        "kernel_3": "1430:\tf3 0f 1e fa          \tendbr64"
+      },
+      "returncode": -11,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "correct": false,
+      "stderr": ""
+    },
+    {
+      "submission": "submission-246187",
+      "profile": "cet-disabled",
+      "compile_returncode": 0,
+      "kernel_first_instruction": {
+        "kernel_1": "12a0:\tc5 fd 6f 27          \tvmovdqa (%rdi),%ymm4",
+        "kernel_2": "1330:\tc5 fd 6f 0e          \tvmovdqa (%rsi),%ymm1",
+        "kernel_3": "1380:\tc5 fd 7f 27          \tvmovdqa %ymm4,(%rdi)"
+      },
+      "returncode": 0,
+      "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "correct": true,
+      "stderr": ""
+    },
+    {
+      "submission": "submission-406212",
+      "profile": "original-cli",
+      "compile_returncode": 0,
+      "kernel_first_instruction": {
+        "kernel_1": "1350:\tf3 0f 1e fa          \tendbr64",
+        "kernel_2": "13e0:\tf3 0f 1e fa          \tendbr64",
+        "kernel_3": "1430:\tf3 0f 1e fa          \tendbr64"
+      },
+      "returncode": -11,
+      "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "correct": false,
+      "stderr": ""
+    },
+    {
+      "submission": "submission-406212",
+      "profile": "cet-disabled",
+      "compile_returncode": 0,
+      "kernel_first_instruction": {
+        "kernel_1": "12a0:\tc5 fd 6f 27          \tvmovdqa (%rdi),%ymm4",
+        "kernel_2": "1330:\tc5 fd 6f 0e          \tvmovdqa (%rsi),%ymm1",
+        "kernel_3": "1380:\tc5 fd 7f 27          \tvmovdqa %ymm4,(%rdi)"
+      },
+      "returncode": 0,
+      "output_sha256": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+      "correct": true,
+      "stderr": ""
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+#!/usr/bin/env python3
+"""Paired sum-header comparisons, separate from previous immutable measurements."""
+import argparse, hashlib, json, os, platform, statistics, subprocess, tempfile
+from datetime import datetime, timezone
+from pathlib import Path
+ROOT = Path(__file__).resolve().parents[4]
+HERE = Path(__file__).resolve().parent
+PROFILES = {"portable-o2-release": ["-O2", "-DNDEBUG"], "portable-o2-debug": ["-O2"], "native-o3-release": ["-O3", "-DNDEBUG", "-march=native"]}
+CASES = [(4096,200000,"random"),(65536,200000,"random"),(500000,200000,"random"),(65536,200000,"short"),(65536,200000,"updates"),(65536,200000,"point-add")]
+def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+def save(p,obj): p.write_text(json.dumps(obj,indent=2)+"\n")
+def main():
+ p=argparse.ArgumentParser(description=__doc__)
+ p.add_argument('--output',required=True,type=Path); p.add_argument('--header',action='append',required=True,help='name=path'); p.add_argument('--matrix',action='store_true'); p.add_argument('--intrinsics-only',action='store_true'); p.add_argument('--configuration',action='append',help='compiler:profile');p.add_argument('--focus',action='store_true');p.add_argument('--repeats',type=int,default=5)
+ a=p.parse_args(); out=a.output.resolve()
+ if out.exists() and any(out.iterdir()): p.error('nonempty output')
+ out.mkdir(parents=True,exist_ok=True)
+ headers={name:Path(path).resolve() for name,path in (item.split('=',1) for item in a.header)}
+ cases=[x for x in CASES if x[0]==65536 and x[2]in['short','random','point-add']]if a.focus else CASES
+ files=[Path(__file__).resolve(),HERE/'sum-benchmark.cpp.snapshot',ROOT/'blueberry/data-structure/segment-tree.hpp',*headers.values(),*sorted(p for p in (ROOT.parents[2]/'.deps/ac-library/atcoder').glob('*') if p.is_file())]
+ hashes={str(f):sha(f) for f in files}
+ env={'timestamp_utc':datetime.now(timezone.utc).isoformat(),'platform':platform.platform(),'affinity':sorted(os.sched_getaffinity(0)),'cpuinfo':Path('/proc/cpuinfo').read_text().split('\n\n')[0],'revision':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'source_sha256':hashes,'cases':CASES,'runs':a.repeats,'seed':20261019,'contract':'uint64 modulo 2^64 online add/set/prod; point-add excludes set; shared serialization/input hashes','timing':'generation excluded; from_chars parse, allocation/build, operations+result buffer, to_chars format, sum/end_to_end separately; destruction excluded','memory':'separate process /proc/self/status VmHWM, only input values and live tree; timing samples include all buffers','oracle':'parent fixed-seed boundary/random brute comparisons for candidates; ACL Fenwick/segtree independently validate benchmark output hashes','compilers':{}}
+ env['cases']=cases
+ save(out/'environment.json',env)
+ for f in [Path(__file__).resolve(),HERE/'sum-benchmark.cpp.snapshot']:(out/f.name).write_bytes(f.read_bytes())
+ for name,h in headers.items(): (out/(name+'.hpp.snapshot')).write_bytes(h.read_bytes())
+ rows=[]; failures=[]
+ with tempfile.TemporaryDirectory(prefix='sum-compare-') as tmp, (out/'compile.log').open('w') as log, (out/'samples.jsonl').open('w') as stream:
+  for compiler in (['g++','clang++'] if a.matrix else ['g++']):
+   env['compilers'][compiler]=subprocess.check_output([compiler,'--version'],text=True)
+   for profile in (list(PROFILES) if a.matrix else ['portable-o2-release']):
+    if a.configuration and compiler+':'+profile not in a.configuration:continue
+    bins={}
+    for name,header in headers.items():
+     for backend,extra in ([('intrinsics',[]),('asm',['-DBLUEBERRY_EXTRA_FAST_USE_ASM']),('scalar',['-DBLUEBERRY_EXTRA_FAST_FORCE_SCALAR'])] if a.matrix and not a.intrinsics_only else [('intrinsics',[])]):
+      variant=name+'-'+backend; binary=Path(tmp)/(compiler+'-'+variant)
+      cmd=[compiler,'-x','c++','-std=gnu++20',*PROFILES[profile],*extra,f'-DBLUEBERRY_EXTRA_FAST_HEADER="{header}"','-I',str(ROOT),'-isystem',str(ROOT.parents[2]/'.deps/ac-library'),str(HERE/'sum-benchmark.cpp.snapshot'),'-o',str(binary)]
+      r=subprocess.run(cmd,capture_output=True,text=True); log.write(json.dumps(cmd)+'\n'+r.stdout+r.stderr);log.flush()
+      if r.returncode: failures.append({'stage':'compile','command':cmd,'returncode':r.returncode,'stderr':r.stderr})
+      else: bins[variant]=(binary,'fast')
+    if bins:
+     baseline=next(iter(bins.values()))[0]
+     for name in ['acl-fenwick','acl-segtree','blueberry']: bins[name]=(baseline,name)
+    if not bins: continue
+    for caseid,(n,q,distribution) in enumerate(cases):
+     names=list(bins)
+     for run in range(a.repeats):
+      shift=(run+caseid)%len(names)
+      for name in names[shift:]+names[:shift]:
+       binary,variant=bins[name]
+       for phase in (['timing','memory'] if n not in [x[0] for x in cases[:caseid]] else ['timing']):
+        cmd=[str(binary),variant,str(n),str(q),distribution,phase]
+        r=subprocess.run(cmd,capture_output=True,text=True,timeout=60)
+        if r.returncode: failures.append({'stage':'run','command':cmd,'returncode':r.returncode,'stderr':r.stderr});continue
+        row=json.loads(r.stdout);row.update(compiler=compiler,profile=profile,variant=name,n=n,q=q,distribution=distribution,phase=phase,run=run);rows.append(row);stream.write(json.dumps(row)+'\n');stream.flush()
+     selected=[r for r in rows if (r['compiler'],r['profile'],r['n'],r['distribution'],r['phase'])==(compiler,profile,n,distribution,'timing')]
+     for key in ['input_hash','checksum']:
+      if len({r[key] for r in selected})!=1: failures.append({'stage':'validation','error':key,'compiler':compiler,'profile':profile,'n':n,'distribution':distribution})
+    print(compiler,profile,'complete',flush=True)
+ save(out/'environment.json',env)
+ if hashes!={str(f):sha(f) for f in files}:failures.append({'stage':'integrity','error':'source changed'})
+ fields=['compiler','profile','variant','n','q','distribution','phase'];summary=[]
+ for group in sorted({tuple(r[k] for k in fields) for r in rows}):
+  selected=[r for r in rows if tuple(r[k] for k in fields)==group];entry=dict(zip(fields,group));entry['samples']=len(selected)
+  for metric in (['peak_rss_kib'] if group[-1]=='memory' else ['parse_ms','build_ms','operations_ms','format_ms','end_to_end_ms','peak_rss_kib']):
+   entry['median_'+metric]=statistics.median(r[metric] for r in selected);entry['min_'+metric]=min(r[metric] for r in selected)
+  summary.append(entry)
+ save(out/'summary.json',summary);save(out/'failures.json',failures);print(len(rows),'rows',len(failures),'failures',flush=True)
+ return int(bool(failures))
+if __name__=='__main__':raise SystemExit(main())

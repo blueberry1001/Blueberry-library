@@ -1,0 +1,199 @@
+#pragma once
+
+#include <algorithm>
+#include <bit>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <vector>
+
+#if (defined(__x86_64__) || defined(__i386__)) && \
+    (defined(__GNUC__) || defined(__clang__))
+#include <immintrin.h>
+#define BLUEBERRY_EXTRA_FAST_BITSET_AVX2 1
+#else
+#define BLUEBERRY_EXTRA_FAST_BITSET_AVX2 0
+#endif
+
+namespace blueberry::extra_fast {
+
+// Dynamic, opt-in bitset. shift_or fuses B |= B << k without a temporary;
+// high-to-low traversal preserves the old source even for overlapping loads.
+class Bitset {
+ public:
+  explicit Bitset(int n = 0, bool use_simd = true)
+      : words_(word_count(n), 0), n_(n),
+        simd_(use_simd && simd_available()) {}
+
+  int size() const { return n_; }
+
+  bool test(int p) const {
+    assert(0 <= p && p < n_);
+    return (words_[p >> 6] >> (p & 63)) & 1;
+  }
+
+  void set(int p, bool value = true) {
+    assert(0 <= p && p < n_);
+    const auto mask = std::uint64_t(1) << (p & 63);
+    if (value) words_[p >> 6] |= mask;
+    else words_[p >> 6] &= ~mask;
+  }
+
+  void reset(int p) { set(p, false); }
+  void clear() { std::fill(words_.begin(), words_.end(), 0); }
+
+  int count() const {
+    int result = 0;
+    for (auto word : words_) result += std::popcount(word);
+    return result;
+  }
+
+  void shift_or(int k) {
+    assert(k >= 0);
+    if (k == 0 || k >= n_) return;
+    if (n_ <= 64) {
+      words_[0] |= words_[0] << k;
+      trim();
+      return;
+    }
+    const std::size_t whole = static_cast<unsigned>(k) >> 6;
+    const unsigned bits = k & 63;
+#if BLUEBERRY_EXTRA_FAST_BITSET_AVX2
+    if (simd_) {
+      shift_or_simd(whole, bits);
+      trim();
+      return;
+    }
+#endif
+    shift_or_scalar(words_.size(), whole, bits);
+    trim();
+  }
+
+  void or_with(const Bitset& other) { combine<0>(other); }
+  void xor_with(const Bitset& other) { combine<1>(other); }
+  void and_with(const Bitset& other) { combine<2>(other); }
+  bool uses_simd() const { return simd_; }
+
+  static bool simd_available() {
+#if BLUEBERRY_EXTRA_FAST_BITSET_AVX2 && !defined(BLUEBERRY_EXTRA_FAST_FORCE_SCALAR)
+    return __builtin_cpu_supports("avx2");
+#else
+    return false;
+#endif
+  }
+
+ private:
+  static std::size_t word_count(int n) {
+    assert(n >= 0);
+    return (static_cast<std::size_t>(n) + 63) / 64;
+  }
+
+  void trim() {
+    if (n_ & 63) words_.back() &= (std::uint64_t(1) << (n_ & 63)) - 1;
+  }
+
+  // Only [whole, end) remains; higher destination words are already updated.
+  void shift_or_scalar(std::size_t end, std::size_t whole, unsigned bits) {
+    if (bits == 0) {
+      while (end > whole) {
+        --end;
+        words_[end] |= words_[end - whole];
+      }
+    } else {
+      while (end > whole + 1) {
+        --end;
+        words_[end] |= (words_[end - whole] << bits) |
+                       (words_[end - whole - 1] >> (64 - bits));
+      }
+      words_[whole] |= words_[0] << bits;
+    }
+  }
+
+  template <int Operation>
+  void combine(const Bitset& other) {
+    assert(n_ == other.n_);
+    if (this == &other) {
+      if constexpr (Operation == 1) clear();
+      return;
+    }
+    std::size_t first = 0;
+#if BLUEBERRY_EXTRA_FAST_BITSET_AVX2
+    if (simd_ && words_.size() >= 4) first = combine_simd<Operation>(other);
+#endif
+    for (; first < words_.size(); ++first) {
+      if constexpr (Operation == 0) words_[first] |= other.words_[first];
+      else if constexpr (Operation == 1) words_[first] ^= other.words_[first];
+      else words_[first] &= other.words_[first];
+    }
+    // Equal sizes and zero tail bits in both operands preserve the invariant.
+  }
+
+#if BLUEBERRY_EXTRA_FAST_BITSET_AVX2
+  template <int Operation>
+  __attribute__((target("avx2"), always_inline))
+  static inline __m256i bit_operation(__m256i a, __m256i b) {
+#if defined(BLUEBERRY_EXTRA_FAST_USE_ASM)
+    if constexpr (Operation == 0)
+      asm("vpor {%2, %1, %0|%0, %1, %2}" : "=x"(a) : "x"(a), "x"(b));
+    else if constexpr (Operation == 1)
+      asm("vpxor {%2, %1, %0|%0, %1, %2}" : "=x"(a) : "x"(a), "x"(b));
+    else
+      asm("vpand {%2, %1, %0|%0, %1, %2}" : "=x"(a) : "x"(a), "x"(b));
+    return a;
+#else
+    if constexpr (Operation == 0) return _mm256_or_si256(a, b);
+    else if constexpr (Operation == 1) return _mm256_xor_si256(a, b);
+    else return _mm256_and_si256(a, b);
+#endif
+  }
+
+  template <int Operation>
+  __attribute__((target("avx2"))) std::size_t combine_simd(const Bitset& other) {
+    std::size_t i = 0;
+#pragma GCC unroll 4
+    for (; i + 4 <= words_.size(); i += 4) {
+      const auto a = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(words_.data() + i));
+      const auto b = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(other.words_.data() + i));
+      _mm256_storeu_si256(reinterpret_cast<__m256i*>(words_.data() + i), bit_operation<Operation>(a, b));
+    }
+    return i;
+  }
+
+  __attribute__((target("avx2"))) void shift_or_simd(std::size_t whole, unsigned bits) {
+    std::size_t end = words_.size();
+    if (bits == 0) {
+#pragma GCC unroll 4
+      while (end >= whole + 4) {
+        end -= 4;
+        const auto src = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(words_.data() + end - whole));
+        const auto dst = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(words_.data() + end));
+        _mm256_storeu_si256(reinterpret_cast<__m256i*>(words_.data() + end), bit_operation<0>(dst, src));
+      }
+    } else {
+      const auto left = _mm_cvtsi64_si128(bits);
+      const auto right = _mm_cvtsi64_si128(64 - bits);
+      // Both overlapping source vectors must be loaded before this block's
+      // store. Keep the lowest source word for the scalar boundary below.
+#pragma GCC unroll 4
+      while (end >= whole + 5) {
+        end -= 4;
+        const auto low = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(words_.data() + end - whole));
+        const auto high = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(words_.data() + end - whole - 1));
+        const auto src = bit_operation<0>(_mm256_sll_epi64(low, left), _mm256_srl_epi64(high, right));
+        const auto dst = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(words_.data() + end));
+        _mm256_storeu_si256(reinterpret_cast<__m256i*>(words_.data() + end), bit_operation<0>(dst, src));
+      }
+    }
+    shift_or_scalar(end, whole, bits);
+  }
+#endif
+
+  // Allocation is copied before metadata, preserving the object on bad_alloc.
+  std::vector<std::uint64_t> words_;
+  int n_;
+  bool simd_;
+};
+
+}  // namespace blueberry::extra_fast
+
+#undef BLUEBERRY_EXTRA_FAST_BITSET_AVX2

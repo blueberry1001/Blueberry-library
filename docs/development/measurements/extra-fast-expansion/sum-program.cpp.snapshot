@@ -1,0 +1,8 @@
+#ifndef BLUEBERRY_SUM_HEADER
+#define BLUEBERRY_SUM_HEADER "blueberry/extra-fast/segment-tree.hpp"
+#endif
+#include BLUEBERRY_SUM_HEADER
+#include "blueberry/utility/fast-io.hpp"
+#include <cstdint>
+#include <vector>
+int main(){blueberry::FastInput input;blueberry::FastOutput output;int n,q;input.read(n,q);std::vector<std::uint64_t>a(n);for(auto&x:a)input.read(x);blueberry::extra_fast::SumSegmentTree tree(a);while(q--){int type,p;std::uint64_t x;input.read(type,p,x);if(type==0)tree.add(p,x);else output.writeln(tree.prod(p,static_cast<int>(x)));}}

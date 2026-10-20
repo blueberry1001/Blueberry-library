@@ -1,0 +1,9 @@
+// Diagnostic-only C++23 tag shim for libstdc++ 13, not a supported library fix.
+// The original external submission is unchanged. No runtime operations added.
+#include <version>
+#if !defined(__cpp_lib_containers_ranges)
+namespace std {
+struct from_range_t { explicit from_range_t() = default; };
+inline constexpr from_range_t from_range{};
+}
+#endif
