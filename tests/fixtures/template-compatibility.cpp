@@ -8,6 +8,9 @@
 template<class T> struct Alloc:allocator<T>{using value_type=T;template<class U>struct rebind{using other=Alloc<U>;};Alloc()=default;template<class U>Alloc(const Alloc<U>&){}};
 struct Score{int value;bool operator<(const Score& x)const{return value<x.value;}};
 struct Callable{operator int()const{return 0;}bool operator()(int a,int b)const{return a>b;}};
+struct LvalueCallable{operator int()const{return 0;}bool operator()(int a,int b)&{return a>b;}};
+struct ExplicitBool{bool value;explicit operator bool()const{return value;}};
+struct ExplicitCallable{operator int()const{return 0;}ExplicitBool operator()(int a,int b)&{return {a>b};}};
 template<class T>void compare_case(const T& actual,const T& expected,int round,const char* operation){if(actual!=expected){cerr<<"seed=71549 round="<<round<<" operation="<<operation<<" expected="<<expected<<" actual="<<actual<<'\n';abort();}}
 void randomized(){
 mt19937_64 rng(71549);
@@ -41,6 +44,8 @@ assert(max(Score{1},Score{9},Score{3}).value==9&&min(Score{1},Score{9},Score{3})
 int a=1,b=2;static_assert(is_same_v<decltype(max(a,b)),const int&>);
 assert(&max(a,b)==&b&&max(1,2,greater<int>{})==1&&min(1,2,greater<int>{})==2);
 assert(max(1,2,Callable{})==1&&min(1,2,Callable{})==2);
+assert(max(1,2,LvalueCallable{})==1&&min(1,2,LvalueCallable{})==2);
+assert(max(1,2,ExplicitCallable{})==1&&min(1,2,ExplicitCallable{})==2);
 assert(max({1,2,3})==3&&min({1,2,3},greater<int>{})==3);
 vector<ll> values{3,1,3};assert(min(values)==1&&max(values)==3&&sum(values)==7&&len(values)==3);
 const vector<int,Alloc<int>> custom_extrema{3,1,2};const vector<bool> bool_extrema{true,false};assert(max(custom_extrema)==3&&min(custom_extrema)==1&&max(bool_extrema)&&!min(bool_extrema));

@@ -21,7 +21,7 @@ title: Contest Templateの呼び出し互換性と依存整理
 `parsetoint128`は原本どおり数字以外を無視する別関数である。
 高速版の`scan/print`と標準streamは同じstdin/stdout上で混在させない。
 
-## コード量と生成コード
+## コード量と生成コード（初回実装caa2911）
 
 自作ヘッダのincludeを再帰的に辿り、重複を除いたファイル全文をLFに正規化して集計した。
 標準ライブラリ・ACLの本文と、`oj-bundle`の生成テキスト全体のサイズは含まない。
@@ -58,3 +58,13 @@ GCC 13.3 / Clang 18.1、`gnu++20 -O2 -DNDEBUG -S`、同一のMany A+B用プロ�
 生のverifyレポートのrevisionはcloneのHEADを示し、未変更の基準ソースを検証したという意味ではない。
 実装commit `caa2911364baddf684b33076f85d6b486068b718`と検証コピーの変更C++/テスト12ファイルの一致は、`validation-sources.json`へhashで記録した。
 公式verifyのログ・反復ごとのJSONをそのまま残し、別revisionの比較測定や全167ドライバの実行結果としては扱わない。
+
+## 比較関数の追補
+
+追加確認で、数値へ変換でき、`operator() &`だけを持つ比較関数を3つ目の値として扱う不具合を検出した。
+標準版は値渡しされた比較関数を関数内の左辺値から呼ぶため、判定を`is_invocable_v<U&,...>`に修正した。
+返り値を明示的にboolへ変換する比較関数も標準版へ渡す。
+通常の3値やFast I/O本体の処理は変えず、修正前の`max(1,2,cmp)==2`を標準版と同じ1に直した。
+両ケースを固定の回帰テストへ加え、16構成・include順8構成・依存閉包3入口を再確認した。
+別の独立確認でもGCC/Clang・GNU20/23で、move-only・関数ポインタ・参照ラッパー・参照返り値を確認した。
+初回のコード量・生成コードの記録は差し替えず、追補のhashとログは`measurements/template-compatibility/comparator-followup/`へ保存する。

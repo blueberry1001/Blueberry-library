@@ -76,9 +76,9 @@ template<class... T> requires(sizeof...(T)>0&&requires{typename common_type_t<T.
 constexpr auto min(T... a){using C=common_type_t<T...>;return std::min(initializer_list<C>{static_cast<C>(a)...});}
 template<class... T> requires(sizeof...(T)>0&&requires{typename common_type_t<T...>;})
 constexpr auto max(T... a){using C=common_type_t<T...>;return std::max(initializer_list<C>{static_cast<C>(a)...});}
-template<class T,class U> requires(!is_invocable_r_v<bool,U,const T&,const T&>&&requires{typename common_type_t<T,U>;})
+template<class T,class U> requires(!is_invocable_v<U&,const T&,const T&>&&requires{typename common_type_t<T,U>;})
 constexpr auto min(const T& a,const T& b,U c){return ::min<T,T,U>(a,b,c);}
-template<class T,class U> requires(!is_invocable_r_v<bool,U,const T&,const T&>&&requires{typename common_type_t<T,U>;})
+template<class T,class U> requires(!is_invocable_v<U&,const T&,const T&>&&requires{typename common_type_t<T,U>;})
 constexpr auto max(const T& a,const T& b,U c){return ::max<T,T,U>(a,b,c);}
 template<class T,class A> T min(const vector<T,A>& a){return *min_element(ALL(a));}
 template<class T,class A> T max(const vector<T,A>& a){return *max_element(ALL(a));}
