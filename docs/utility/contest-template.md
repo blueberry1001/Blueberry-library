@@ -37,6 +37,7 @@ Nは要素数、S/Lは入出力のbyte数、V/Eはグラフの頂点/辺数で�
 
 | 操作 | 計算量 |
 | --- | --- |
+| [`print(T&& first, Args&&... values)`](#print-forward) | O(S) |
 | [`operator>>（input128）`](#input128) | O(L) |
 | [`operator<<（output128）`](#output128) | O(L) |
 | [`operator>>（vector）`](#input-vector) | O(S+N) |
@@ -197,6 +198,24 @@ print(1, "hello"); // 1 hello\n
 {% endraw %}
 
 注意点: S は通常の出力 byte 数です。各型の operator<< が必要です。改行では flush しません。失敗は cout.fail() で確認します。
+
+</details>
+
+<details class="api-operation" id="print-forward" markdown="1">
+<summary><code>void print(T&amp;&amp; first, Args&amp;&amp;... values)</code> — O(S)</summary>
+
+標準ライブラリが`__cpp_lib_print`を定義している場合に追加するoverloadです。
+先頭引数が`std::string_view`へ暗黙変換でき、後続引数が1個以上ある場合に使えます。
+同じ名前の`std::print`との衝突を避け、既存の空白区切り出力へ転送します。
+
+{% raw %}
+```cpp
+std::string label="value"; int n=2;
+print(label,n);
+```
+{% endraw %}
+
+注意点: 返り値はvoidで、型・出力・失敗・計算量はconst参照版と同じです。コンテナ等の引数をコピーしません。C++20では追加せず、先頭が文字列系でない呼び出しや明示的なテンプレート引数付き呼び出しも従来どおり使えます。文字列系の先頭引数とbit-fieldを渡す場合は`print(label,+obj.field)`か、const参照版を明示する`::print<std::string,unsigned>(label,obj.field)`を使います。
 
 </details>
 
@@ -608,7 +627,7 @@ std::ostringstream out; out << 1 << spa << 2; assert(out.str() == "1 2");
 <details class="api-operation" id="o" markdown="1">
 <summary><code>O(args...)</code> — O(S)</summary>
 
-print の短縮 macro です。
+グローバルな`::print`を呼ぶ短縮macroです。
 
 {% raw %}
 ```cpp
@@ -616,7 +635,7 @@ O(1, "hello");
 ```
 {% endraw %}
 
-注意点: print と同じ空白・改行・型・失敗規則です。S は出力 byte 数です。
+注意点: printと同じ空白・改行・型・失敗規則です。Sは出力byte数です。`std::print`等は呼びません。
 
 </details>
 

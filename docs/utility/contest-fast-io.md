@@ -46,6 +46,7 @@ V/Eはグラフの頂点/辺数、Lは各stream操作のbyte数です。
 
 | 操作 | 計算量 |
 | --- | --- |
+| [`print(T&& first, Args&&... values)`](#print-forward) | 償却O(S+N)+各変換の費用 |
 | [`fin`](#fin) | O(1)参照 |
 | [`fin >> value`](#fin-read) | 償却O(S+N)+各変換の費用 |
 | [`static_cast<bool>(fin)`](#fin-bool) | O(1) |
@@ -364,6 +365,24 @@ init_io(2); print(1.25); // "1.25\n"
 {% endraw %}
 
 注意点: trueはバッファが出力を受け付けたことを表します。変換または出力に失敗するとfalseで後続を停止し、既に出した部分は取り消しません。空コンテナ自体は何も出力せず、その引数・要素の前後の区切りは残るため、空の入れ子で連続空白になる場合があります。`cout`の書式flagには従わず、`cout.fail()`も更新しません。flushしません。
+
+</details>
+
+<details class="api-operation" id="print-forward" markdown="1">
+<summary><code>bool print(T&amp;&amp; first, Args&amp;&amp;... values)</code> — 償却O(S+N)+各変換の費用</summary>
+
+標準ライブラリが`__cpp_lib_print`を定義している場合に追加するoverloadです。
+先頭引数が`std::string_view`へ暗黙変換でき、後続引数が1個以上ある場合に使えます。
+同じ名前の`std::print`との衝突を避け、既存の空白区切り出力へ転送します。
+
+{% raw %}
+```cpp
+std::string label="value"; int n=2;
+print(label,n);
+```
+{% endraw %}
+
+注意点: 返り値はboolで、型・出力・失敗・計算量はconst参照版と同じです。コンテナ等の引数をコピーしません。C++20では追加せず、先頭が文字列系でない呼び出しや明示的なテンプレート引数付き呼び出しも従来どおり使えます。文字列系の先頭引数とbit-fieldを渡す場合は`print(label,+obj.field)`か、const参照版を明示する`::print<std::string,unsigned>(label,obj.field)`を使います。
 
 </details>
 
@@ -792,7 +811,7 @@ std::ostringstream out; out << 1 << spa << 2; assert(out.str() == "1 2");
 <details class="api-operation" id="o" markdown="1">
 <summary><code>O(args...)</code> — 償却O(S+N)+各変換の費用</summary>
 
-printの短縮macroです。成功・失敗をboolで返します。
+グローバルな`::print`を呼ぶ短縮macroです。成功・失敗をboolで返します。
 
 {% raw %}
 ```cpp
@@ -800,7 +819,7 @@ const bool ok = O(1, "hello");
 ```
 {% endraw %}
 
-注意点: printと同じ空白・改行・型・失敗規則です。
+注意点: printと同じ空白・改行・型・失敗規則です。`std::print`等は呼びません。
 
 </details>
 

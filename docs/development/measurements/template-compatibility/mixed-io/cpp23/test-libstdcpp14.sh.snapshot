@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -eu
+mixed_source="$PWD"
+mixed_stage=$(cat .build/validation/mixed-stage.txt)
+mixed_headers="$mixed_stage/.build/libstdcpp14"
+mkdir -p "$mixed_headers"
+cd "$mixed_headers"
+apt-get download libstdc++-14-dev
+for mixed_package in ./*.deb; do dpkg-deb -x "$mixed_package" extracted; done
+cd "$mixed_stage"
+export CPPFLAGS="-I.deps/ac-library -nostdinc++ -isystem $mixed_headers/extracted/usr/include/c++/14 -isystem $mixed_headers/extracted/usr/include/x86_64-linux-gnu/c++/14 -isystem $mixed_headers/extracted/usr/include/c++/14/backward"
+python3 -m unittest discover -s tests -p test_contest_mixed_io.py -v
+printf 'LIBSTDCPP14_PASS\n'

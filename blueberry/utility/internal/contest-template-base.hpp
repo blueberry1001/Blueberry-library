@@ -48,7 +48,7 @@ inline constexpr ld CPS=CLOCKS_PER_SEC;
 #define spa " "
 #define popc(x) std::popcount(static_cast<ull>(x))
 #define crmp(x,l,r) ((l)<=(x)&&(x)<=(r))
-#define O print
+#define O ::print
 #define LL(...) ll __VA_ARGS__;scan(__VA_ARGS__)
 #define STR(...) str __VA_ARGS__;scan(__VA_ARGS__)
 #ifdef BLUEBERRY

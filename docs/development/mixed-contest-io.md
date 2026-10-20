@@ -36,6 +36,7 @@ FastInputの整数パーサのループは変更していない。
 同じWSL2・Core i7-14650HX、同じ37,777,421byteの入力、同じ出力ファイル条件で比較した。
 GNU++20、`-O2 -DNDEBUG`、100万組、固定seed `467203`、warmup 1回、測定7回。
 前後を交互に実行し、出力hashの一致を毎回確認した。表は中央値、括弧内は最小値、単位はms。
+表の修正後はcommit `ff7d44aab3e4777dcd94d6ad7cb0b23bc12a7fcc`のソースで測定した。
 
 | compiler | 処理 | 修正前 | 修正後 |
 | --- | --- | ---: | ---: |
@@ -81,3 +82,24 @@ verifyの変数を0初期化して修正し、`fin`追加後の最終ソース�
 初回の測定・ソースhash・失敗ログは`mixed-io/bridge-only/`へ分けて保存し、最終ソースの結果と混同しない。
 対象文書例の個別確認ではACLのinclude指定を付け忘れて失敗したため、そのログも保持し、
 `CPPFLAGS=-I.deps/ac-library`を指定した[再実行](measurements/template-compatibility/mixed-io/docs-rerun.log)で通過を確認した。
+
+## C++23のprint名衝突
+
+初回CIのClang・GNU++23・libstdc++ 14で、文字列を先頭に取る`O/print`と`std::print`の曖昧さを検出した。
+`O`を`::print`へ修飾し、`__cpp_lib_print`がある場合だけ文字列先頭の転送overloadを追加した。
+元のconst参照版へ明示的に委譲し、不要コピーと再帰を避ける。
+明示template引数での呼び出し・関数アドレス取得は元のoverloadを選べる。
+文字列先頭とbit-fieldの組み合わせは、値に変換するかconst参照版を明示する契約をAPI文書へ記載した。
+
+追加の出力lookupケースを含む136ケースと8回のflush検証が、GCC/Clang・GNU20/23・両facadeで成功した。
+WSLの標準ライブラリ13に加え、libstdc++ 14.2.0のヘッダをローカルへ展開し、同じ8構成で成功を確認した。
+実物の`std::format_string`と同signatureの候補を用いた独立した16構成の検査も成功した。
+2ページの最小C++例と文書構造も再確認した。
+
+この追補を前の測定結果へ混ぜず、[CI失敗ログ](measurements/template-compatibility/mixed-io/cpp23/initial-ci.log)、
+[回帰テスト](measurements/template-compatibility/mixed-io/cpp23/focused-tests.log)、
+[libstdc++ 14の検査](measurements/template-compatibility/mixed-io/cpp23/libstdcpp14.log)、
+[独立検査](measurements/template-compatibility/mixed-io/cpp23/print-audit.log)、
+[ソースhash](measurements/template-compatibility/mixed-io/cpp23/sources.json)を分けて保存した。
+GNU20・`-O2 -DNDEBUG`のベンチマークdriver 2個をGCC/Clangで生成した4個のassemblyは、
+`ff7d44a`と追補後でbyte単位に一致した。[hash](measurements/template-compatibility/mixed-io/cpp23/assembly.json)を保存した。

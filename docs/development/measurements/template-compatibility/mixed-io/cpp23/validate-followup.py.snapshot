@@ -1,0 +1,40 @@
+import hashlib,json,pathlib,shutil,subprocess
+root=pathlib.Path.cwd()
+stage=pathlib.Path((root/'.build/validation/mixed-stage.txt').read_text().strip())
+record=root/'docs/development/measurements/template-compatibility/mixed-io/cpp23'
+build=stage/'.build/cpp23-followup'
+build.mkdir(exist_ok=True)
+prior='ff7d44aab3e4777dcd94d6ad7cb0b23bc12a7fcc'
+headers=['blueberry/utility/contest-fast-io.hpp','blueberry/utility/contest-template.hpp','blueberry/utility/internal/contest-template-base.hpp']
+digest=lambda value:hashlib.sha256(value).hexdigest()
+for name in headers:
+    old=subprocess.check_output(['git','show',f'{prior}:{name}'],cwd=root)
+    assert old.replace(b'\r\n',b'\n')==(stage/name).read_bytes().replace(b'\r\n',b'\n'),name
+def assembly(phase):
+    results={}
+    for compiler in ('g++','clang++'):
+        for driver in ('driver.cpp','driver-fin.cpp'):
+            output=build/f'{compiler}-{driver}-{phase}.s'
+            subprocess.run([compiler,'-std=gnu++20','-O2','-DNDEBUG','-I.','-isystem','.deps/ac-library','-S',f'.build/mixed-benchmark/{driver}','-o',str(output)],cwd=stage,check=True)
+            results[f'{compiler}/{driver}']=digest(output.read_bytes())
+    return results
+before=assembly('before')
+paths=headers+['docs/utility/contest-fast-io.md','docs/utility/contest-template.md','tests/test_contest_mixed_io.py','tests/fixtures/contest-mixed-io.cpp']
+for name in paths:shutil.copyfile(root/name,stage/name)
+after=assembly('after')
+assert before==after,(before,after)
+(record/'assembly.json').write_text(json.dumps({'prior_commit':prior,'standard':'gnu++20','flags':'-O2 -DNDEBUG','before':before,'after':after,'all_identical':True},indent=2)+'\n')
+print('PASS four GCC/Clang GNU20 benchmark assembly outputs unchanged',flush=True)
+with (record/'focused-tests.log').open('w') as log:
+    subprocess.run(['python3','-m','unittest','discover','-s','tests','-p','test_contest_mixed_io.py','-v'],cwd=stage,stdout=log,stderr=subprocess.STDOUT,check=True)
+print('PASS 136 cases plus eight flush handshakes on eight builds',flush=True)
+(build/'doc-paths.json').write_text(json.dumps(['docs/utility/contest-fast-io.md','docs/utility/contest-template.md']))
+with (record/'docs-tests.log').open('w') as log:
+    subprocess.run(['env','CPPFLAGS=-I.deps/ac-library','python3','scripts/check_docs.py','--paths-file',str(build/'doc-paths.json')],cwd=stage,stdout=log,stderr=subprocess.STDOUT,check=True)
+manifest={}
+for name in paths+['blueberry/utility/fast-io.hpp','verify/utility/contest-fast-io.test.cpp','verify/utility/contest-fast-io-128bit.test.cpp']:
+    source=(root/name).read_bytes();tested=(stage/name).read_bytes()
+    assert source.replace(b'\r\n',b'\n')==tested.replace(b'\r\n',b'\n'),name
+    manifest[name]={'working_tree_sha256':digest(source),'test_copy_sha256':digest(tested),'lf_sha256':digest(source.replace(b'\r\n',b'\n'))}
+(record/'sources.json').write_text(json.dumps({'prior_commit':prior,'candidate':'working-tree follow-up','sources':manifest},indent=2)+'\n')
+print('PASS documentation examples and ten matching source copies',flush=True)

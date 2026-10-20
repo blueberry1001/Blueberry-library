@@ -1,0 +1,17 @@
+#if MOCK_STD_PRINT
+#include <string>
+#include <string_view>
+#include <type_traits>
+#include <utility>
+#include <format>
+#define __cpp_lib_print 202207L
+namespace std{
+template<class...Args>void print(format_string<Args...>,Args&&...){static_assert(sizeof...(Args)==9999,"std::print incorrectly selected");}
+}
+#endif
+#include TEMPLATE_HEADER
+struct AuditBits{unsigned field:5;};
+int main(){
+ init_io();std::string token="x";std::string_view view=token;const std::string fixed="y";int value=7;const int constant=8;volatile int changing=9;std::vector<int> items{1,2};AuditBits bits{3};
+ print(token,value);print("literal",value);print(token,items,value);print(fixed,constant);print(fixed,value);print(token,constant);print(view,value);print(token,changing);print<std::string,int>(token,value);auto function_pointer=&::print<std::string,int>;function_pointer(token,value);print<>();print();::print(token,value);O(bits.field);O(bits.field,token);print(bits.field);print(bits.field,token);
+}

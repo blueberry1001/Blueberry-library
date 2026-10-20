@@ -104,6 +104,12 @@ int main(int argc,char**argv){
  if(mode=="order"){
   cout<<"a";O("b");cout<<"c"<<endl;O("d");return finish();
  }
+ if(mode=="print-lookup"){
+  string label="word";int value=7;vector<ll>values{2,3};const string fixed="fixed";const int frozen=9;
+  struct Bits{unsigned value:4;};Bits bits{5};
+  print(label,value);print("literal",value);print(label,values);print(fixed,frozen);
+  ::print<string,int>(label,value);print();O(bits.value);O(label,+bits.value);return finish();
+ }
  if(mode=="output-large"){
   LL(n);for(ll i=0;i<n;++i){cout<<i<<' ';O(-i);}return finish();
  }

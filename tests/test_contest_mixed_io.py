@@ -60,6 +60,7 @@ class ContestMixedIoTest(unittest.TestCase):
             ('state', '1 broken 9', '1 1 broken 9\n1 1\n1 1\n1\n'),
             ('bool', 'true false 29', '1 0 29\n'),
             ('order', '', 'ab\nc\nd\n'),
+            ('print-lookup', '', 'word 7\nliteral 7\nword 2 3\nfixed 9\nword 7\n\n5\nword 5\n'),
             ('output-large', '24000', ''.join(f'{i} {-i}\n' for i in range(24000))),
             ('precision', '2 7 23 9', '7 23 1.250\n2.500\n9 3.8\n4.3\n'),
         ]

@@ -87,6 +87,10 @@ template<class...Args>bool print(const Args&...values){
  }
  return out.write('\n');
 }
+#ifdef __cpp_lib_print
+template<int=0,class T,class...Args>requires(sizeof...(Args)>0&&std::is_convertible_v<T,std::string_view>)
+bool print(T&&first,Args&&...values){return ::print<std::remove_reference_t<T>,std::remove_reference_t<Args>...>(first,values...);}
+#endif
 inline bool flush(){return blueberry::internal::contest_io::output().flush();}
 #define YesNo(x) print((x) ? "Yes" : "No")
 #define YESNO(x) print((x) ? "YES" : "NO")
