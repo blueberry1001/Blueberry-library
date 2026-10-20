@@ -1,0 +1,6 @@
+g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+g++ -std=gnu++20 -O1 -g -fsanitize=address,undefined -fno-omit-frame-pointer -I. -isystem .deps/ac-library .build/mixed-audit.cpp -o .build/mixed-audit
+input_bytes 131233 returncode 0
+stdout b'ff 17\n23\ndone\nrestored\n'
+stderr b''
+PASS: binary read across two 64KiB refills; peek/get/unget/putback to scan; input and output manipulators; EOF exceptions and clear; destructor buffer restoration
