@@ -9,7 +9,7 @@ documentation_of: //blueberry/extra-fast/implicit-treap.hpp
 
 `blueberry::extra_fast::ImplicitTreap<Mod>`は、挿入・削除で長さが変わる整数列の区間和・反転・アフィン変換を扱います。既定の法は998244353で、`Mod=0`ではuint64_tのmod 2^64演算を使います。
 
-整数indexの小さなノード、削除領域の再利用、O(N+1)の一括構築を使います。区間和とアフィン更新は境界の経路だけをたどり、全区間の`prod/apply/reverse`はO(1)です。通常操作は期待O(log(N+1))、保持メモリはO(C+1)です。汎用の演算・値型には[通常版Implicit Treap]({{ '/docs/data-structure/implicit-treap.html' | relative_url }})を使ってください。
+整数indexの小さなノード、削除領域の再利用、O(N+1)の一括構築を使います。区間和とアフィン更新は境界の経路だけをたどり、全区間の`prod/apply/reverse`はO(1)です。通常操作は期待O(log(N+1))、保持メモリはO(C+1)です。汎用の演算・値型には[通常版Implicit Treap]({{ '/blueberry/data-structure/implicit-treap.hpp.html' | relative_url }})を使ってください。
 
 ## 操作一覧
 
