@@ -1,9 +1,8 @@
 #pragma once
 
 #include <algorithm>
-#include <cassert>
+#include <cstddef>
 #include <cstdint>
-#include <limits>
 #include <utility>
 #include <vector>
 
@@ -13,10 +12,7 @@ struct NoAction {};
 template <class S> S no_mapping(NoAction, S value) { return value; }
 inline NoAction no_composition(NoAction, NoAction) { return {}; }
 inline NoAction no_id() { return {}; }
-}  // namespace implicit_treap_detail
-
-// Position-based sequence. composition(f,g) means f after g, as in ACL.
-// Mapping must be a pointwise monoid action; reversals preserve each leaf value.
+}
 template <class S, auto op, auto e,
           class F = implicit_treap_detail::NoAction,
           auto mapping = implicit_treap_detail::no_mapping<S>,
@@ -26,7 +22,6 @@ class ImplicitTreap {
  public:
   explicit ImplicitTreap(const std::vector<S>& values = {},
                          std::uint64_t seed = 0x243f6a8885a308d3ULL) : state_(seed) {
-    assert(values.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
     nodes_.reserve(values.size());
     std::vector<int> stack;
     stack.reserve(values.size());
@@ -34,7 +29,7 @@ class ImplicitTreap {
       const int v = allocate(value);
       int left = -1;
       while (!stack.empty() && nodes_[stack.back()].priority > nodes_[v].priority) {
-        left = stack.back(); stack.pop_back();
+        left = stack.back(); pull(left); stack.pop_back();
       }
       nodes_[v].left = left;
       if (!stack.empty()) nodes_[stack.back()].right = v;
@@ -42,14 +37,7 @@ class ImplicitTreap {
     }
     if (stack.empty()) return;
     root_ = stack.front();
-    // Children can precede or follow a parent in the pool: pull in postorder.
-    stack.assign(1, root_);
-    for (std::size_t i = 0; i < stack.size(); ++i) {
-      const int v = stack[i];
-      if (nodes_[v].left != -1) stack.push_back(nodes_[v].left);
-      if (nodes_[v].right != -1) stack.push_back(nodes_[v].right);
-    }
-    for (auto it = stack.rbegin(); it != stack.rend(); ++it) pull(*it);
+    while (!stack.empty()) { pull(stack.back()); stack.pop_back(); }
   }
   ImplicitTreap(const ImplicitTreap&) = default;
   ImplicitTreap& operator=(const ImplicitTreap&) = default;
@@ -76,13 +64,11 @@ class ImplicitTreap {
     std::vector<std::pair<int, bool>>().swap(work_);
   }
   void insert(int position, const S& value) {
-    assert(0 <= position && position <= size() && size() < std::numeric_limits<int>::max());
     const int added = allocate(value);
     auto [left, right] = split(root_, position);
     root_ = merge(merge(left, added), right);
   }
   void erase(int position) {
-    assert(0 <= position && position < size());
     auto [left, rest] = split(root_, position);
     auto [removed, right] = split(rest, 1);
     root_ = merge(left, right);
@@ -90,7 +76,6 @@ class ImplicitTreap {
     free_.push_back(removed);
   }
   S get(int position) {
-    assert(0 <= position && position < size());
     int v = root_;
     for (;;) {
       push(v);
@@ -101,7 +86,6 @@ class ImplicitTreap {
     }
   }
   void set(int position, const S& value) {
-    assert(0 <= position && position < size());
     work_.clear();
     int v = root_;
     for (;;) {
@@ -114,29 +98,49 @@ class ImplicitTreap {
     while (!work_.empty()) { pull(work_.back().first); work_.pop_back(); }
   }
   S prod(int l, int r) {
-    check_range(l, r);
     if (l == r) return e();
-    auto [left, rest] = split(root_, l);
-    auto [middle, right] = split(rest, r - l);
-    S result = forward(middle);
-    root_ = merge(left, merge(middle, right));
-    return result;
+    int v = root_;
+    for (;;) {
+      if (l == 0 && r == count(v)) return forward(v);
+      push(v);
+      const int left = count(nodes_[v].left);
+      if (r <= left) v = nodes_[v].left;
+      else if (l > left) { l -= left + 1; r -= left + 1; v = nodes_[v].right; }
+      else {
+        S result = nodes_[v].value;
+        if (l < left) result = op(prod_suffix(nodes_[v].left, l), result);
+        if (r > left + 1) result = op(result, prod_prefix(nodes_[v].right, r - left - 1));
+        return result;
+      }
+    }
   }
   void reverse(int l, int r) {
-    check_range(l, r);
-    if (l == r) return;
+    if (r - l <= 1) return;
+    if (l == 0 && r == size()) { toggle(root_); return; }
     auto [left, rest] = split(root_, l);
     auto [middle, right] = split(rest, r - l);
     toggle(middle);
     root_ = merge(left, merge(middle, right));
   }
   void apply(int l, int r, const F& action) {
-    check_range(l, r);
     if (l == r) return;
-    auto [left, rest] = split(root_, l);
-    auto [middle, right] = split(rest, r - l);
-    apply_node(middle, action);
-    root_ = merge(left, merge(middle, right));
+    if (l == 0 && r == size()) { apply_node(root_, action); return; }
+    work_.clear();
+    int v = root_;
+    for (;;) {
+      if (l == 0 && r == count(v)) { apply_node(v, action); break; }
+      push(v); work_.emplace_back(v, false);
+      const int left = count(nodes_[v].left);
+      if (r <= left) v = nodes_[v].left;
+      else if (l > left) { l -= left + 1; r -= left + 1; v = nodes_[v].right; }
+      else {
+        if (l < left) apply_suffix(nodes_[v].left, l, action);
+        nodes_[v].value = mapping(action, nodes_[v].value);
+        if (r > left + 1) apply_prefix(nodes_[v].right, r - left - 1, action);
+        break;
+      }
+    }
+    while (!work_.empty()) { pull(work_.back().first); work_.pop_back(); }
   }
   std::vector<S> to_vector() {
     std::vector<S> result;
@@ -162,9 +166,6 @@ class ImplicitTreap {
     Node(const S& value_, std::uint64_t priority_)
         : value(value_), forward(value_), backward(value_), lazy(id()), priority(priority_) {}
   };
-  void check_range([[maybe_unused]] int l, [[maybe_unused]] int r) const {
-    assert(0 <= l && l <= r && r <= size());
-  }
   int count(int v) const { return v == -1 ? 0 : nodes_[v].size; }
   S forward(int v) const { return v == -1 ? e() : nodes_[v].forward; }
   S backward(int v) const { return v == -1 ? e() : nodes_[v].backward; }
@@ -175,7 +176,7 @@ class ImplicitTreap {
     node.backward = op(op(backward(node.right), node.value), backward(node.left));
   }
   void toggle(int v) {
-    if (v == -1) return;
+    if (count(v) <= 1) return;
     std::swap(nodes_[v].left, nodes_[v].right);
     using std::swap;
     swap(nodes_[v].forward, nodes_[v].backward);
@@ -185,6 +186,7 @@ class ImplicitTreap {
     if (v == -1) return;
     Node& node = nodes_[v];
     node.value = mapping(action, node.value);
+    if (node.size == 1) { node.forward = node.value; node.backward = node.value; return; }
     node.forward = mapping(action, node.forward);
     node.backward = mapping(action, node.backward);
     node.lazy = node.pending ? composition(action, node.lazy) : action;
@@ -209,7 +211,6 @@ class ImplicitTreap {
     if (!free_.empty()) {
       const int v = free_.back(); free_.pop_back(); nodes_[v] = std::move(node); return v;
     }
-    assert(nodes_.size() < static_cast<std::size_t>(std::numeric_limits<int>::max()));
     nodes_.push_back(std::move(node));
     return static_cast<int>(nodes_.size()) - 1;
   }
@@ -248,6 +249,62 @@ class ImplicitTreap {
     }
     return result;
   }
+  S prod_prefix(int v, int length) {
+    S result = e();
+    while (v != -1 && length) {
+      if (length == count(v)) return op(result, forward(v));
+      push(v);
+      const int left = count(nodes_[v].left);
+      if (length <= left) v = nodes_[v].left;
+      else {
+        result = op(result, op(forward(nodes_[v].left), nodes_[v].value));
+        length -= left + 1; v = nodes_[v].right;
+      }
+    }
+    return result;
+  }
+  S prod_suffix(int v, int skip) {
+    S result = e();
+    while (v != -1) {
+      if (!skip) return op(forward(v), result);
+      push(v);
+      const int left = count(nodes_[v].left);
+      if (skip <= left) {
+        result = op(op(nodes_[v].value, forward(nodes_[v].right)), result);
+        v = nodes_[v].left;
+      } else { skip -= left + 1; v = nodes_[v].right; }
+    }
+    return result;
+  }
+  void apply_prefix(int v, int length, const F& action) {
+    const auto mark = work_.size();
+    while (v != -1 && length) {
+      if (length == count(v)) { apply_node(v, action); break; }
+      push(v); work_.emplace_back(v, false);
+      const int left = count(nodes_[v].left);
+      if (length <= left) v = nodes_[v].left;
+      else {
+        apply_node(nodes_[v].left, action);
+        nodes_[v].value = mapping(action, nodes_[v].value);
+        length -= left + 1; v = nodes_[v].right;
+      }
+    }
+    while (work_.size() > mark) { pull(work_.back().first); work_.pop_back(); }
+  }
+  void apply_suffix(int v, int skip, const F& action) {
+    const auto mark = work_.size();
+    while (v != -1) {
+      if (!skip) { apply_node(v, action); break; }
+      push(v); work_.emplace_back(v, false);
+      const int left = count(nodes_[v].left);
+      if (skip <= left) {
+        nodes_[v].value = mapping(action, nodes_[v].value);
+        apply_node(nodes_[v].right, action);
+        v = nodes_[v].left;
+      } else { skip -= left + 1; v = nodes_[v].right; }
+    }
+    while (work_.size() > mark) { pull(work_.back().first); work_.pop_back(); }
+  }
   std::vector<Node> nodes_;
   std::vector<int> free_;
   std::vector<std::pair<int, bool>> work_;
@@ -255,4 +312,4 @@ class ImplicitTreap {
   std::uint64_t state_;
 };
 
-}  // namespace blueberry
+}
