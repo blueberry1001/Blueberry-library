@@ -4,8 +4,10 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include <utility>
 #include <vector>
 std::string concat(std::string a, std::string b) { return a + b; }
+std::string concat_move(std::string&& a, const std::string& b) { a += b; return std::move(a); }
 std::string empty_string() { return {}; }
 struct Action {
   int a, b;
@@ -65,5 +67,15 @@ int main(int argc, char** argv) {
       if (got.size() != a.size()) fail("to_vector size", std::to_string(a.size()), std::to_string(got.size()));
       for (l = 0; l < n; ++l) if (got[l] != a[l]) fail("to_vector", a[l], got[l]);
     }
+  }
+  using MoveTree = blueberry::ImplicitTreap<std::string, concat_move, empty_string, Action, mapping, composition, id>;
+  MoveTree moved(a, seed);
+  const int n = int(a.size());
+  moved.reverse(0, n); std::reverse(a.begin(), a.end());
+  moved.apply(1, n - 1, {5, 7});
+  for (int i = 1; i < n - 1; ++i) a[i] = mapping({5, 7}, a[i]);
+  for (l = 0; l <= n; ++l) for (r = l; r <= n; ++r) {
+    auto want = expected(l, r), got = moved.prod(l, r);
+    if (want != got) fail("rvalue op", want, got);
   }
 }

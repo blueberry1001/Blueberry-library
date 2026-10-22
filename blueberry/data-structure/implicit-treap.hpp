@@ -108,8 +108,8 @@ class ImplicitTreap {
       else if (l > left) { l -= left + 1; r -= left + 1; v = nodes_[v].right; }
       else {
         S result = nodes_[v].value;
-        if (l < left) result = op(prod_suffix(nodes_[v].left, l), result);
-        if (r > left + 1) result = op(result, prod_prefix(nodes_[v].right, r - left - 1));
+        if (l < left) result = op(prod_suffix(nodes_[v].left, l), S(std::move(result)));
+        if (r > left + 1) result = op(S(std::move(result)), prod_prefix(nodes_[v].right, r - left - 1));
         return result;
       }
     }
@@ -252,12 +252,12 @@ class ImplicitTreap {
   S prod_prefix(int v, int length) {
     S result = e();
     while (v != -1 && length) {
-      if (length == count(v)) return op(result, forward(v));
+      if (length == count(v)) return op(S(std::move(result)), forward(v));
       push(v);
       const int left = count(nodes_[v].left);
       if (length <= left) v = nodes_[v].left;
       else {
-        result = op(result, op(forward(nodes_[v].left), nodes_[v].value));
+        result = op(S(std::move(result)), op(forward(nodes_[v].left), nodes_[v].value));
         length -= left + 1; v = nodes_[v].right;
       }
     }
@@ -266,11 +266,11 @@ class ImplicitTreap {
   S prod_suffix(int v, int skip) {
     S result = e();
     while (v != -1) {
-      if (!skip) return op(forward(v), result);
+      if (!skip) return op(forward(v), S(std::move(result)));
       push(v);
       const int left = count(nodes_[v].left);
       if (skip <= left) {
-        result = op(op(nodes_[v].value, forward(nodes_[v].right)), result);
+        result = op(op(S(nodes_[v].value), forward(nodes_[v].right)), S(std::move(result)));
         v = nodes_[v].left;
       } else { skip -= left + 1; v = nodes_[v].right; }
     }
