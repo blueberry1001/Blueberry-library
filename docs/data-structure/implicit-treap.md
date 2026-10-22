@@ -11,7 +11,9 @@ documentation_of: //blueberry/data-structure/implicit-treap.hpp
 
 作用付きでは合成が結合的で、mappingが単位元を保ちopに分配する必要があります。composition(newer,older)はnewer(older(x))の順で、位置依存の等差数列加算等は対象外です。
 
-Nは要素数、Hはclear以降の最大同時要素数に対応するpool slot数。木の操作は期待O(log(N+1))で、更新・区間操作には償却評価を含みます。構築・全列取得はO(N)、all_prod/size/emptyはO(1)、メモリはO(H)です。
+区間集約・作用は分割・再結合せず境界を直接たどります。非可換演算と明示スタックを維持し、値型やCPU命令への追加制約はありません。
+
+Nは要素数、Hはclear以降の最大同時要素数に対応するpool slot数。木の操作は期待O(log(N+1))で、更新・反転・作用には償却評価を含みます。構築・全列取得はO(N)、all_prod/size/emptyと全区間のprod/reverse/applyはO(1)、メモリはO(H)です。
 
 ## 操作一覧
 
@@ -25,10 +27,10 @@ Nは要素数、Hはclear以降の最大同時要素数に対応するpool slot�
 | [`tree.erase`](#erase) | 期待・償却 O(log(N+1)) |
 | [`tree.get`](#get) | 期待 O(log(N+1)) |
 | [`tree.set`](#set) | 期待・償却 O(log(N+1)) |
-| [`tree.prod`](#prod) | 期待・償却 O(log(N+1)) |
+| [`tree.prod`](#prod) | 期待 O(log(N+1))、全区間O(1) |
 | [`tree.all_prod`](#all-prod) | O(1) |
-| [`tree.reverse`](#reverse) | 期待・償却 O(log(N+1)) |
-| [`tree.apply`](#apply) | 期待・償却 O(log(N+1)) |
+| [`tree.reverse`](#reverse) | 期待・償却 O(log(N+1))、全区間O(1) |
+| [`tree.apply`](#apply) | 期待・償却 O(log(N+1))、全区間O(1) |
 
 <details class="extra-operations" markdown="1">
 <summary>その他の操作・型</summary>
@@ -55,10 +57,11 @@ Nは要素数、Hはclear以降の最大同時要素数に対応するpool slot�
 - 遅延作用付きの型は `ImplicitTreap<S, op, e, F, mapping, composition, id>` です。各ノードに正順・逆順の集約を保持し、reverseで入れ替えます。葉のS内部は書き換えません。
 - 作用はACLと同じ `S mapping(F,S)`、`F composition(F newer,F older)`、`F id()` です。全要素に同じように作用する必要があります。区間和へのaffine作用ではSに{sum,length}を含め、葉のlengthを1、eのlengthを0にします。
 - Fの等値比較、S/Fの既定構築は不要です。コピー・ムーブ・代入可能な値型を使ってください。
-- 木の通常操作の最悪はO(N)です。insert/eraseはpool・free-listのvector増設を含め期待・償却O(log(N+1))、単発最悪O(H+N)。set/prod/reverse/applyは作業スタックの増設を含め期待・償却O(log(N+1))、単発最悪O(N)です。
+- 木の通常操作の最悪はO(N)です。insert/eraseはpool・free-listのvector増設を含め期待・償却O(log(N+1))、単発最悪O(H+N)。set/reverse/applyは作業スタックの増設を含め期待・償却O(log(N+1))、単発最悪O(N)です。prodは作業領域を確保せず、期待O(log(N+1))です。全区間のprod/reverse/applyはO(1)です。
+- prodは境界のprefix・suffixを順序どおりに集約します。applyは同じ作業スタックの開始位置を保存し、境界への作用後に集約を修復します。いずれも区間のためのsplit/mergeを行いません。単一要素の部分木へのmappingは1回で、子へ送るlazyを保持しません。
 - op/mapping/copy等をO(1)とみなす計算量です。string等では実際の操作コストが掛かります。中間値を含むop/mapping/compositionのoverflowは呼出側で防いでください。
 - 添字はint、`0 <= N <= INT_MAX`、区間は `[l,r)`。満杯時の追加は禁止です。削除slotとvector容量を再利用し、clearでは容量も解放します。
-- priorityは局所の固定seed擬似乱数で生成し、入力・操作列を再現できますが、敵対的なpriority依存入力に最悪時間保証はありません。split/merge/set/traversalは明示スタックを使い、木の高さに比例するC++再帰を行いません。
+- priorityは局所の固定seed擬似乱数で生成し、入力・操作列を再現できますが、敵対的なpriority依存入力に最悪時間保証はありません。split/merge/set/apply/traversalは明示スタック、prodは反復走査を使い、木の高さに比例するC++再帰を行いません。
 - ノードをvectorと整数indexで所有します。get/prod/to_vectorはlazy伝搬のため非constですが論理値を変えません。返り値は所有値で内部参照・ノードhandleを公開せず、入力vectorの寿命に依存しません。
 - 演算に副作用を持たせないでください。利用者の代数演算やallocationが例外を投げた後の強い例外保証は提供しません。
 
@@ -254,7 +257,7 @@ tree.erase(0);
 ```
 {% endraw %}
 
-注意点: 0<=p<N。空列へのeraseや範囲外はassert対象です。slotは次のinsertで再利用します。
+注意点: 0<=p<N。空列には使えません。slotは次のinsertで再利用します。
 
 </details>
 
@@ -289,9 +292,9 @@ tree.set(0, 20);
 </details>
 
 <details class="api-operation" id="prod" markdown="1">
-<summary><code>S tree.prod(int l, int r)</code> — 期待・償却 O(log(N+1))</summary>
+<summary><code>S tree.prod(int l, int r)</code> — 期待 O(log(N+1))、全区間O(1)</summary>
 
-現在の列の順にopを畳み込んだ区間集約を返します。空区間はe()です。
+現在の列の順にopを畳み込んだ区間集約を返します。境界のprefix・suffixを直接走査し、非可換なopの順序も保ちます。空区間はe()です。
 
 {% raw %}
 ```cpp
@@ -299,7 +302,7 @@ auto value = tree.prod(0, tree.size());
 ```
 {% endraw %}
 
-注意点: 0<=l<=r<=N。内部split/mergeを行うためnonconstです。
+注意点: 0<=l<=r<=N。内部split/mergeや作業領域の確保は行いません。lazy伝搬のためnonconstですが、論理的な列は変えません。
 
 </details>
 
@@ -319,7 +322,7 @@ auto total = tree.all_prod();
 </details>
 
 <details class="api-operation" id="reverse" markdown="1">
-<summary><code>void tree.reverse(int l, int r)</code> — 期待・償却 O(log(N+1))</summary>
+<summary><code>void tree.reverse(int l, int r)</code> — 期待・償却 O(log(N+1))、全区間O(1)</summary>
 
 [l,r)の葉の並びを逆順にします。
 
@@ -334,9 +337,9 @@ tree.reverse(0, tree.size());
 </details>
 
 <details class="api-operation" id="apply" markdown="1">
-<summary><code>void tree.apply(int l, int r, const F&amp; action)</code> — 期待・償却 O(log(N+1))</summary>
+<summary><code>void tree.apply(int l, int r, const F&amp; action)</code> — 期待・償却 O(log(N+1))、全区間O(1)</summary>
 
-[l,r)へpointwiseな作用を適用します。
+[l,r)へpointwiseな作用を適用します。境界を直接たどり、全体が範囲に入る部分木へまとめて作用させます。
 
 {% raw %}
 ```cpp

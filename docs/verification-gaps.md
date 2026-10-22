@@ -189,6 +189,7 @@
 
 - 専用ドライバ: [verify/data-structure/implicit-treap-affine.test.cpp](../verify/data-structure/implicit-treap-affine.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_sequence_range_affine_range_sum)
 - 専用ドライバ: [verify/data-structure/implicit-treap-reverse-sum.test.cpp](../verify/data-structure/implicit-treap-reverse-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/range_reverse_range_sum)
+- 関連ローカルテスト: [tests/random/implicit-treap-direct.cpp](../tests/random/implicit-treap-direct.cpp)
 - 関連ローカルテスト: [tests/random/legacy-treap.cpp](../tests/random/legacy-treap.cpp)
 
 ## KD Tree
