@@ -151,9 +151,9 @@ def write_report(report, baseline, destination):
                      f"{seconds(row.get('worst_case_seconds'))} | {row['comparison']} |")
     lines += ["", "## Environment", "", "~~~json", json.dumps(report["environment"], ensure_ascii=False, indent=2), "~~~", ""]
     destination.mkdir(parents=True, exist_ok=True)
-    (destination / "current.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+    (destination / "current.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     markdown = "\n".join(lines)
-    (destination / "report.md").write_text(markdown)
+    (destination / "report.md").write_text(markdown, encoding="utf-8")
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with Path(os.environ["GITHUB_STEP_SUMMARY"]).open("a") as stream:
             stream.write(markdown)
@@ -385,7 +385,8 @@ def main():
     parser.add_argument("--plan", type=Path, help="validated CI selection plan; an empty selection runs nothing")
     parser.add_argument("--state", type=Path, help="immutable previous receipts; updated receipts go to output/state.json")
     parser.add_argument("--repeats", type=int, default=3)
-    parser.add_argument("--tle", type=float, default=60)
+    parser.add_argument("--tle", type=float, default=60,
+                        help="per-case correctness timeout in seconds, not the judge time limit (default: 60)")
     parser.add_argument("--timeout", type=float, default=1500)
     parser.add_argument("--output", type=Path, default=Path(".verification"))
     parser.add_argument("--baseline", type=Path, default=Path(".verification/baseline.json"))

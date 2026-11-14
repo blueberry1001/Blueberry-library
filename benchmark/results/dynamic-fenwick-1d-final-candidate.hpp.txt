@@ -1,0 +1,339 @@
+#pragma once
+
+#include <algorithm>
+#include <bit>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <limits>
+#include <optional>
+#include <stdexcept>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+namespace blueberry {
+
+// Sparse, online Fenwick tree. Ordinary dense arrays should use ACL instead.
+template <class T, class Coord = long long>
+class DynamicFenwickTree {
+  static_assert(std::is_integral_v<Coord> && std::is_signed_v<Coord>);
+#if defined(__SIZEOF_INT128__)
+  static constexpr bool use_tree = std::is_integral_v<T> && std::is_signed_v<T> &&
+      sizeof(T) <= 8 && sizeof(Coord) <= 8;
+#else
+  static constexpr bool use_tree = false;
+#endif
+
+ public:
+  DynamicFenwickTree() = default;
+  explicit DynamicFenwickTree(Coord n) : n_(n) { assert(n >= 0); }
+  DynamicFenwickTree(const DynamicFenwickTree&) = default;
+  DynamicFenwickTree& operator=(const DynamicFenwickTree&) = default;
+  DynamicFenwickTree(DynamicFenwickTree&& other)
+      : n_(std::exchange(other.n_, 0)), data_(std::move(other.data_)) {
+    other.data_.clear();
+  }
+  DynamicFenwickTree& operator=(DynamicFenwickTree&& other) {
+    if (this == &other) return *this;
+    data_ = std::move(other.data_);
+    n_ = std::exchange(other.n_, 0);
+    other.data_.clear();
+    return *this;
+  }
+
+  Coord size() const { return n_; }
+  void add(Coord p, const T& value) {
+    assert(0 <= p && p < n_);
+    if constexpr (use_tree) {
+      data_.add(p, value);
+    } else {
+      for (Coord i = p + 1;;) {
+        data_[i] += value;
+        const Coord step = i & -i;
+        if (step > n_ - i) break;
+        i += step;
+      }
+    }
+  }
+  T pref(Coord r) const {
+    assert(0 <= r && r <= n_);
+    if constexpr (use_tree) return data_.pref(r);
+    else {
+      T answer{};
+      for (; r > 0; r -= r & -r) answer += value_at(r);
+      return answer;
+    }
+  }
+  T sum(Coord l, Coord r) const {
+    assert(0 <= l && l <= r && r <= n_);
+    if constexpr (use_tree) return data_.sum(l, r);
+    else {
+      T right{}, left{};
+      // The remaining Fenwick cells cancel once the two paths meet.
+      while (l != r) {
+        if (l < r) { right += value_at(r); r -= r & -r; }
+        else { left += value_at(l); l -= l & -l; }
+      }
+      return right - left;
+    }
+  }
+  T get(Coord p) const {
+    assert(0 <= p && p < n_);
+    if constexpr (use_tree) return data_.get(p);
+    else return sum(p, p + 1);
+  }
+  // First p with pref(p+1) >= weight, or size(). Requires nonnegative values.
+  Coord lower_bound(T weight) const {
+    if constexpr (use_tree) return data_.lower_bound(weight, n_);
+    else {
+      if (!(T{} < weight)) return 0;
+      Coord p = 0;
+      using U = std::make_unsigned_t<Coord>;
+      for (Coord step = static_cast<Coord>(std::bit_floor(static_cast<U>(n_)));
+           step > 0; step >>= 1) {
+        if (step <= n_ - p) {
+          T value = value_at(p + step);
+          if (value < weight) { weight = weight - value; p += step; }
+        }
+      }
+      return p;
+    }
+  }
+
+ private:
+  // Fenwick indices are positive, so zero marks an empty hash slot. Keeping
+  // keys contiguous avoids a separate allocation and pointer chase per cell.
+  class SparseCells {
+    // Only trivial, assignable values use the compact array. Keep the optional
+    // path for nontrivial and copy-constructible but nonassignable types.
+    static constexpr bool compact = std::is_trivially_copyable_v<T> &&
+        std::is_trivially_default_constructible_v<T> &&
+        std::is_trivially_copy_constructible_v<T> &&
+        std::is_trivially_copy_assignable_v<T> && !std::is_same_v<T, bool>;
+    using Slot = std::conditional_t<compact, T, std::optional<T>>;
+
+   public:
+    SparseCells() = default;
+    SparseCells(const SparseCells&) = default;
+    SparseCells(SparseCells&&) = default;
+    SparseCells& operator=(const SparseCells& other) {
+      if (this == &other) return *this;
+      SparseCells copy(other);
+      keys_.swap(copy.keys_); values_.swap(copy.values_);
+      std::swap(size_, copy.size_);
+      return *this;
+    }
+    SparseCells& operator=(SparseCells&&) = default;
+    T& operator[](Coord key) {
+      if (keys_.empty()) grow();
+      std::size_t i = slot(key, keys_);
+      if (keys_[i] != 0) return value_at(i);
+      if (size_ >= keys_.size() - keys_.size() / 4) {
+        grow();
+        i = slot(key, keys_);
+      }
+      if constexpr (!compact) values_[i].emplace();
+      keys_[i] = key;
+      ++size_;
+      return value_at(i);
+    }
+    const T* find(Coord key) const {
+      if (keys_.empty()) return nullptr;
+      const std::size_t i = slot(key, keys_);
+      return keys_[i] == 0 ? nullptr : &value_at(i);
+    }
+    void clear() {
+      keys_.clear(); values_.clear(); size_ = 0;
+    }
+
+   private:
+    T& value_at(std::size_t i) {
+      if constexpr (compact) return values_[i];
+      else return *values_[i];
+    }
+    const T& value_at(std::size_t i) const {
+      if constexpr (compact) return values_[i];
+      else return *values_[i];
+    }
+    static std::size_t hash(Coord key) {
+      std::uint64_t x = static_cast<std::uint64_t>(key) + 0x9e3779b97f4a7c15ULL;
+      x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
+      x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
+      return static_cast<std::size_t>(x ^ (x >> 31));
+    }
+    static std::size_t slot(Coord key, const std::vector<Coord>& keys) {
+      const std::size_t mask = keys.size() - 1;
+      std::size_t i = hash(key) & mask;
+      while (keys[i] != 0 && keys[i] != key) i = (i + 1) & mask;
+      return i;
+    }
+    void grow() {
+      if (keys_.size() > keys_.max_size() / 2)
+        throw std::length_error("DynamicFenwickTree hash table too large");
+      const std::size_t capacity = keys_.empty() ? 8 : keys_.size() * 2;
+      std::vector<Coord> keys(capacity);
+      std::vector<Slot> values(capacity);
+      for (std::size_t i = 0; i < keys_.size(); ++i) {
+        if (keys_[i] == 0) continue;
+        const std::size_t j = slot(keys_[i], keys);
+        if constexpr (compact) values[j] = values_[i];
+        else values[j].emplace(*values_[i]);
+        keys[j] = keys_[i];
+      }
+      keys_.swap(keys); values_.swap(values);
+    }
+    std::vector<Coord> keys_;
+    std::vector<Slot> values_;
+    std::size_t size_ = 0;
+  };
+#if defined(__SIZEOF_INT128__)
+  // Exact wider sums prevent signed overflow in intermediate subtree ranges.
+  // For <=64-bit coordinates a prefix contains at most 63 Fenwick cells,
+  // hence a subtree sum is the difference of at most two such prefixes.
+  class IntegerTree {
+    using Wide = __int128_t;
+    static constexpr std::size_t nil = std::numeric_limits<std::size_t>::max();
+    struct Node {
+      Wide value, sum;
+      Coord key;
+      std::size_t left = nil, right = nil;
+      int height = 1;
+    };
+   public:
+    IntegerTree() = default;
+    IntegerTree(const IntegerTree&) = default;
+    IntegerTree(IntegerTree&&) = default;
+    IntegerTree& operator=(const IntegerTree& other) {
+      if (this == &other) return *this;
+      IntegerTree copy(other);
+      std::swap(root_, copy.root_);
+      nodes_.swap(copy.nodes_);
+      return *this;
+    }
+    IntegerTree& operator=(IntegerTree&&) = default;
+    void add(Coord p, T value) { root_ = add_node(root_, p, static_cast<Wide>(value)); }
+    T pref(Coord r) const {
+      Wide answer = 0;
+      std::size_t v = root_;
+      while (v != nil) {
+        const Node& node = nodes_[v];
+        if (node.key < r) {
+          answer += sum_of(node.left) + node.value;
+          v = node.right;
+        } else v = node.left;
+      }
+      return static_cast<T>(answer);
+    }
+    T sum(Coord l, Coord r) const {
+      if (l == r) return T{};
+      std::size_t v = root_;
+      while (v != nil && (nodes_[v].key < l || nodes_[v].key >= r))
+        v = nodes_[v].key < l ? nodes_[v].right : nodes_[v].left;
+      if (v == nil) return T{};
+      Wide answer = nodes_[v].value;
+      std::size_t left = nodes_[v].left, right = nodes_[v].right;
+      while (left != nil) {
+        const Node& node = nodes_[left];
+        if (node.key >= l) {
+          answer += node.value + sum_of(node.right);
+          left = node.left;
+        } else left = node.right;
+      }
+      while (right != nil) {
+        const Node& node = nodes_[right];
+        if (node.key < r) {
+          answer += node.value + sum_of(node.left);
+          right = node.right;
+        } else right = node.left;
+      }
+      return static_cast<T>(answer);
+    }
+    T get(Coord p) const {
+      std::size_t v = root_;
+      while (v != nil) {
+        const Node& node = nodes_[v];
+        if (p < node.key) v = node.left;
+        else if (node.key < p) v = node.right;
+        else return static_cast<T>(node.value);
+      }
+      return T{};
+    }
+    Coord lower_bound(T weight, Coord n) const {
+      if (weight <= 0) return 0;
+      Wide remaining = weight;
+      std::size_t v = root_;
+      while (v != nil) {
+        const Node& node = nodes_[v];
+        const Wide left = sum_of(node.left);
+        if (left >= remaining) { v = node.left; continue; }
+        remaining -= left;
+        if (node.value >= remaining) return node.key;
+        remaining -= node.value;
+        v = node.right;
+      }
+      return n;
+    }
+    void clear() { nodes_.clear(); root_ = nil; }
+
+   private:
+    int height_of(std::size_t v) const { return v == nil ? 0 : nodes_[v].height; }
+    Wide sum_of(std::size_t v) const { return v == nil ? 0 : nodes_[v].sum; }
+    void pull(std::size_t v) {
+      Node& node = nodes_[v];
+      node.height = 1 + std::max(height_of(node.left), height_of(node.right));
+      node.sum = sum_of(node.left) + node.value + sum_of(node.right);
+    }
+    std::size_t rotate(std::size_t v, bool right) {
+      std::size_t u = right ? nodes_[v].left : nodes_[v].right;
+      if (right) { nodes_[v].left = nodes_[u].right; nodes_[u].right = v; }
+      else { nodes_[v].right = nodes_[u].left; nodes_[u].left = v; }
+      pull(v); pull(u);
+      return u;
+    }
+    std::size_t add_node(std::size_t v, Coord key, Wide value) {
+      if (v == nil) {
+        nodes_.push_back({value, value, key});
+        return nodes_.size() - 1;
+      }
+      // Recursive insertion may reallocate nodes_, so retain indices only.
+      if (key < nodes_[v].key) {
+        const std::size_t child = add_node(nodes_[v].left, key, value);
+        nodes_[v].left = child;
+      } else if (nodes_[v].key < key) {
+        const std::size_t child = add_node(nodes_[v].right, key, value);
+        nodes_[v].right = child;
+      } else nodes_[v].value += value;
+      pull(v);
+      const int balance = height_of(nodes_[v].left) - height_of(nodes_[v].right);
+      if (balance > 1) {
+        const std::size_t child = nodes_[v].left;
+        if (height_of(nodes_[child].left) < height_of(nodes_[child].right))
+          nodes_[v].left = rotate(child, false);
+        return rotate(v, true);
+      }
+      if (balance < -1) {
+        const std::size_t child = nodes_[v].right;
+        if (height_of(nodes_[child].right) < height_of(nodes_[child].left))
+          nodes_[v].right = rotate(child, true);
+        return rotate(v, false);
+      }
+      return v;
+    }
+    std::size_t root_ = nil;
+    std::vector<Node> nodes_;
+  };
+#endif
+  T value_at(Coord p) const {
+    const T* value = data_.find(p);
+    return value ? *value : T{};
+  }
+  Coord n_ = 0;
+#if defined(__SIZEOF_INT128__)
+  std::conditional_t<use_tree, IntegerTree, SparseCells> data_;
+#else
+  SparseCells data_;
+#endif
+};
+
+}  // namespace blueberry

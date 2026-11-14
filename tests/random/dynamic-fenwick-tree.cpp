@@ -12,6 +12,23 @@
 #include <vector>
 #include <atcoder/modint>
 
+// Insertion and rehash must not require assigning a stored value.
+struct CopyConstructibleValue {
+  long long value = 0;
+  CopyConstructibleValue() = default;
+  explicit CopyConstructibleValue(long long x) : value(x) {}
+  CopyConstructibleValue(const CopyConstructibleValue&) = default;
+  CopyConstructibleValue& operator=(const CopyConstructibleValue&) = delete;
+  CopyConstructibleValue& operator+=(const CopyConstructibleValue& other) {
+    value += other.value;
+    return *this;
+  }
+  friend CopyConstructibleValue operator-(const CopyConstructibleValue& a,
+                                          const CopyConstructibleValue& b) {
+    return CopyConstructibleValue(a.value - b.value);
+  }
+};
+
 // Independent enumeration checks online updates, sparse domains and value ownership.
 int main(int argc, char** argv) {
   const auto seed = argc > 1 ? std::strtoull(argv[1], nullptr, 10) : 1;
@@ -39,6 +56,57 @@ int main(int argc, char** argv) {
   assert(huge.pref(high) == 7 && huge.get(high - 1) == 5);
   assert(huge.lower_bound(3) == high - 1 && huge.lower_bound(8) == high);
   assert(huge2.pref(high, high) == 3 && huge2.get(high - 1, high - 1) == 5);
+  // Fenwick cells can remain representable even when a point value or an
+  // AVL subtree sum is outside T's range. Wider internal aggregates are needed.
+  One extremes(3);
+  extremes.add(0, std::numeric_limits<long long>::min());
+  extremes.add(1, high);
+  extremes.add(1, 1);
+  assert(extremes.get(0) == std::numeric_limits<long long>::min());
+  assert(extremes.pref(2) == 0 && extremes.sum(0, 2) == 0);
+  extremes.add(1, -1);
+  assert(extremes.get(1) == high && extremes.pref(2) == -1);
+  One large_weights(7);
+  large_weights.add(1, high);
+  large_weights.add(4, high);
+  large_weights.add(6, high);
+  assert(large_weights.lower_bound(1) == 1 && large_weights.lower_bound(high) == 1);
+  assert(large_weights.get(4) == high && large_weights.sum(4, 5) == high);
+  blueberry::DynamicFenwickTree<unsigned, int> unsigned_values(9);
+  unsigned_values.add(2, 7); unsigned_values.add(8, 4);
+  assert(unsigned_values.sum(2, 9) == 11 && unsigned_values.lower_bound(8) == 8);
+  blueberry::DynamicFenwickTree<CopyConstructibleValue, int> copy_only(1024);
+  for (int i = 0; i < 1024; ++i) copy_only.add(i, CopyConstructibleValue(i));
+  assert(copy_only.sum(123, 456).value == (123 + 455) * 333 / 2);
+  auto copy_only_copy = copy_only;
+  blueberry::DynamicFenwickTree<CopyConstructibleValue, int> copy_only_assigned;
+  copy_only_assigned = copy_only_copy;
+  auto copy_only_moved = std::move(copy_only_assigned);
+  assert(copy_only_moved.get(345).value == 345 && copy_only_assigned.size() == 0);
+  // Concentrated prefix-sum coordinates in a huge domain exercise rehash and
+  // short ranges with long common Fenwick paths.
+  constexpr long long offset = 1500000000000000000LL;
+  One concentrated(offset * 2);
+  std::map<long long, long long> concentrated_values;
+  long long position = offset;
+  for (int i = 0; i < 2000; ++i) {
+    position += static_cast<int>(rng() % 2001) - 1000;
+    const long long delta = static_cast<int>(rng() % 11) - 5;
+    concentrated.add(position, delta);
+    concentrated_values[position] += delta;
+    long long left = position - static_cast<long long>(rng() % 5000);
+    long long right = position + static_cast<long long>(rng() % 5000);
+    long long expected = 0;
+    for (auto it = concentrated_values.lower_bound(left);
+         it != concentrated_values.end() && it->first < right; ++it)
+      expected += it->second;
+    if (concentrated.sum(left, right) != expected) {
+      std::cerr << "seed=" << seed << " step=" << i << " range=" << left << ','
+                << right << " expected=" << expected
+                << " actual=" << concentrated.sum(left, right) << '\n';
+      return 1;
+    }
+  }
   for (int trial = 0; trial < 35; ++trial) {
     long long n = trial % 2 ? 37 : high, m = trial % 2 ? 43 : high;
     One one(n);

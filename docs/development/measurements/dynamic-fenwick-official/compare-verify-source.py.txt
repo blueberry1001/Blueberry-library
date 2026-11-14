@@ -1,0 +1,17 @@
+import hashlib
+from pathlib import Path
+
+original = Path('/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library')
+clone = Path('/tmp/blueberry-resume-verify-20261115')
+paths = sorted([*original.glob('blueberry/**/*.hpp'), *original.glob('verify/**/*.test.cpp')])
+paths += [original / 'scripts/verify_with_metrics.py', original / '.verify-helper/config.toml']
+bad = []
+for source in paths:
+    relative = source.relative_to(original)
+    other = clone / relative
+    if not other.is_file() or source.read_bytes().replace(b'\r\n', b'\n') != other.read_bytes().replace(b'\r\n', b'\n'):
+        bad.append(str(relative))
+print(f'Checked {len(paths)} source files, {len(bad)} mismatches')
+for path in bad:
+    print(path)
+raise SystemExit(bool(bad))
