@@ -20,13 +20,22 @@ release include確認では最初、`-DNDEBUG -Werror` によりACLの未使用�
 再実行では全ヘッダが成功した。対象ヘッダのコピーと作業ツリーのSHA-256はどちらも
 `fe2003e589185db92216e44e4452b78080fa49744dfcb8b9ca4a42103c15501b`。
 
-全verifyを1回ずつ実行した別の[初回記録](full-first/report.md)は、時間予算900秒の終了時点で
-26件が成功し、143件が未実行だった。未実行分を成功と数えず、再開結果は別に残す。
-別テストと並行していたため、この記録の時間は性能比較に使わない。
+全verifyを1回ずつ実行した[初回記録](full-first/report.md)は、時間予算900秒の終了時点で
+26件が成功し、143件が未実行だった。Linux側の独立コピーで未実行分を再開した
+[2回目](resume-1/report.md)は、3600秒の時間予算で125件成功・18件未実行だった。
+残りの[3回目](resume-2/report.md)では18件すべて成功した。3記録の成功対象は重複なく
+全169件を覆う。それぞれの `current.json` とケース別ログ、再開分の圧縮コンソールログを残す。
+初回は別テストと並行し、再開分は別ディレクトリで実行したため、時間は性能比較に使わない。
+再開に使ったコピーと作業ツリーは、全ヘッダ・verifyコード・検証スクリプト・設定の
+計298ファイルについてWindowsとLinuxの改行差を除いて一致した（[照合スクリプト](compare-verify-source.py.txt)）。
 
 実際のCI性能ゲートと同じコマンドは、同じマシンの静穏時に成功した。
 [各試行](ci-gate/measurements.json)、[判定](ci-gate/assessment.json)、
 [実行ログ](ci-gate/benchmark.log)を保存している。
+
+作業ツリー上の `make docs` は古い `.verification/current.json` の公開検査で失敗した。
+そのデータを変更せずに[独立コピーで行ったサイト事前確認](docs-site-preflight/README.md)では
+生成・Jekyll・構造検査が成功し、検証証跡を必要とする完全な公開チェックは未実施である。
 
 PRの初回CIではGCC 15の20/23両構成で、別ライブラリの `extra-fast-wavelet-copy.cpp` の
 割り当て失敗を固定回数期待するassertが失敗した（[実行記録](https://github.com/blueberry1001/Blueberry-library/actions/runs/43608500133)）。
