@@ -27,3 +27,8 @@ release include確認では最初、`-DNDEBUG -Werror` によりACLの未使用�
 実際のCI性能ゲートと同じコマンドは、同じマシンの静穏時に成功した。
 [各試行](ci-gate/measurements.json)、[判定](ci-gate/assessment.json)、
 [実行ログ](ci-gate/benchmark.log)を保存している。
+
+PRの初回CIではGCC 15の20/23両構成で、別ライブラリの `extra-fast-wavelet-copy.cpp` の
+割り当て失敗を固定回数期待するassertが失敗した（[実行記録](https://github.com/blueberry1001/Blueberry-library/actions/runs/43608500133)）。
+例外注入を実際に観測した割り当てに対して順に行うテストへ修正し、GCC 13・Clang 18の
+gnu++20/23・O0/O2/O3で成功した。GCC 15での最終結果はPRの再実行で確認する。
