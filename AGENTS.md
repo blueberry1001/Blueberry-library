@@ -1,7 +1,7 @@
 # Contributor instructions
 
-Read IMPLEMENTATION_POLICY.md before changing a library. Standard ACL features
-are ACL-first; prioritize non-ACL functionality. Preserve supported API compatibility.
+Read IMPLEMENTATION_POLICY.md before changing a library. Compare standard features
+with ACL; provide faster alternatives where measurements justify them. Preserve supported API compatibility.
 The user authorized removal of obsolete root headers during the 2026-09-17 migration;
 do not restore them. Keep maintainer migration records out of the public usage guide.
 
@@ -635,6 +635,10 @@ PR
   全体の時間予算は `VERIFY_TIMEOUT` で指定します。既定値はMakefileを参照してください。
   timeoutで未実行になったtargetを成功扱いにせず、再開結果と元の失敗ログを両方残してください。
   異なるrevision・compiler・入力の結果を同一測定としてまとめないでください。
+- `make verify` の既定のケース別60秒は正答性確認のtimeoutであり、提出先の制限時間内のACを意味しません。
+  性能調査・公開前には `scripts/audit_verify_limits.py` で手元の結果と公式問題の制限時間を照合し、
+  時間に余裕の小さい対象と未測定を調べます。環境差があるため比率は合否ではなく調査の優先順位に使います。
+  手順と必要な問題リポジトリは `docs/development/verification-time-limits.md` を参照してください。
 - 公開前には `make docs`、Jekyll build、`python3 scripts/check_site.py` を実行します。
   公開完了はmainのGitHub Actionsと実際のGitHub Pagesの両方で確認してください。
 - catalogの登録元は `.verify-helper/docs/static/_data/libraries.yml` です。
