@@ -1,0 +1,176 @@
+#pragma once
+
+#include <bit>
+#include <cassert>
+#include <cstddef>
+#include <cstdint>
+#include <optional>
+#include <stdexcept>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+namespace blueberry {
+
+// Sparse, online Fenwick tree. Ordinary dense arrays should use ACL instead.
+template <class T, class Coord = long long>
+class DynamicFenwickTree {
+  static_assert(std::is_integral_v<Coord> && std::is_signed_v<Coord>);
+
+ public:
+  DynamicFenwickTree() = default;
+  explicit DynamicFenwickTree(Coord n) : n_(n) { assert(n >= 0); }
+  DynamicFenwickTree(const DynamicFenwickTree&) = default;
+  DynamicFenwickTree& operator=(const DynamicFenwickTree&) = default;
+  DynamicFenwickTree(DynamicFenwickTree&& other)
+      : n_(std::exchange(other.n_, 0)), data_(std::move(other.data_)) {
+    other.data_.clear();
+  }
+  DynamicFenwickTree& operator=(DynamicFenwickTree&& other) {
+    if (this == &other) return *this;
+    data_ = std::move(other.data_);
+    n_ = std::exchange(other.n_, 0);
+    other.data_.clear();
+    return *this;
+  }
+
+  Coord size() const { return n_; }
+  void add(Coord p, const T& value) {
+    assert(0 <= p && p < n_);
+    using U = std::make_unsigned_t<Coord>;
+    const U limit = static_cast<U>(n_);
+    // The next Fenwick index is at most one past the maximum signed value,
+    // so it fits in U even when n_ is numeric_limits<Coord>::max().
+    for (U i = static_cast<U>(p) + 1; i <= limit; i += i & -i)
+      data_[static_cast<Coord>(i)] += value;
+  }
+  T pref(Coord r) const {
+    assert(0 <= r && r <= n_);
+    T answer{};
+    for (; r > 0; r -= r & -r) answer += value_at(r);
+    return answer;
+  }
+  T sum(Coord l, Coord r) const {
+    assert(0 <= l && l <= r && r <= n_);
+    T right{}, left{};
+    // The remaining Fenwick cells cancel once the two paths meet.
+    while (l != r) {
+      if (l < r) { right += value_at(r); r -= r & -r; }
+      else { left += value_at(l); l -= l & -l; }
+    }
+    return right - left;
+  }
+  T get(Coord p) const {
+    assert(0 <= p && p < n_);
+    return sum(p, p + 1);
+  }
+  // First p with pref(p+1) >= weight, or size(). Requires nonnegative values.
+  Coord lower_bound(T weight) const {
+    if (!(T{} < weight)) return 0;
+    Coord p = 0;
+    using U = std::make_unsigned_t<Coord>;
+    for (Coord step = static_cast<Coord>(std::bit_floor(static_cast<U>(n_)));
+         step > 0; step >>= 1) {
+      if (step <= n_ - p) {
+        T value = value_at(p + step);
+        if (value < weight) { weight = weight - value; p += step; }
+      }
+    }
+    return p;
+  }
+
+ private:
+  // Fenwick indices are positive, so zero marks an empty hash slot. Keeping
+  // keys contiguous avoids a separate allocation and pointer chase per cell.
+  class SparseCells {
+    // Only trivial, assignable values use the compact array. Keep the optional
+    // path for nontrivial and copy-constructible but nonassignable types.
+    static constexpr bool compact = std::is_trivially_copyable_v<T> &&
+        std::is_trivially_default_constructible_v<T> &&
+        std::is_trivially_copy_constructible_v<T> &&
+        std::is_trivially_copy_assignable_v<T> && !std::is_same_v<T, bool>;
+    using Slot = std::conditional_t<compact, T, std::optional<T>>;
+
+   public:
+    SparseCells() = default;
+    SparseCells(const SparseCells&) = default;
+    SparseCells(SparseCells&&) = default;
+    SparseCells& operator=(const SparseCells& other) {
+      if (this == &other) return *this;
+      SparseCells copy(other);
+      keys_.swap(copy.keys_); values_.swap(copy.values_);
+      std::swap(size_, copy.size_);
+      return *this;
+    }
+    SparseCells& operator=(SparseCells&&) = default;
+    T& operator[](Coord key) {
+      if (keys_.empty()) grow();
+      std::size_t i = slot(key, keys_);
+      if (keys_[i] != 0) return value_at(i);
+      if (size_ >= keys_.size() - keys_.size() / 4) {
+        grow();
+        i = slot(key, keys_);
+      }
+      if constexpr (!compact) values_[i].emplace();
+      keys_[i] = key;
+      ++size_;
+      return value_at(i);
+    }
+    const T* find(Coord key) const {
+      if (keys_.empty()) return nullptr;
+      const std::size_t i = slot(key, keys_);
+      return keys_[i] == 0 ? nullptr : &value_at(i);
+    }
+    void clear() {
+      keys_.clear(); values_.clear(); size_ = 0;
+    }
+
+   private:
+    T& value_at(std::size_t i) {
+      if constexpr (compact) return values_[i];
+      else return *values_[i];
+    }
+    const T& value_at(std::size_t i) const {
+      if constexpr (compact) return values_[i];
+      else return *values_[i];
+    }
+    static std::size_t hash(Coord key) {
+      std::uint64_t x = static_cast<std::uint64_t>(key) + 0x9e3779b97f4a7c15ULL;
+      x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
+      x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
+      return static_cast<std::size_t>(x ^ (x >> 31));
+    }
+    static std::size_t slot(Coord key, const std::vector<Coord>& keys) {
+      const std::size_t mask = keys.size() - 1;
+      std::size_t i = hash(key) & mask;
+      while (keys[i] != 0 && keys[i] != key) i = (i + 1) & mask;
+      return i;
+    }
+    void grow() {
+      if (keys_.size() > keys_.max_size() / 2)
+        throw std::length_error("DynamicFenwickTree hash table too large");
+      const std::size_t capacity = keys_.empty() ? 8 : keys_.size() * 2;
+      std::vector<Coord> keys(capacity);
+      std::vector<Slot> values(capacity);
+      for (std::size_t i = 0; i < keys_.size(); ++i) {
+        if (keys_[i] == 0) continue;
+        const std::size_t j = slot(keys_[i], keys);
+        if constexpr (compact) values[j] = values_[i];
+        else values[j].emplace(*values_[i]);
+        keys[j] = keys_[i];
+      }
+      keys_.swap(keys); values_.swap(values);
+    }
+    std::vector<Coord> keys_;
+    std::vector<Slot> values_;
+    std::size_t size_ = 0;
+  };
+  T value_at(Coord p) const {
+    const T* value = data_.find(p);
+    return value ? *value : T{};
+  }
+  Coord n_ = 0;
+  SparseCells data_;
+};
+
+}  // namespace blueberry
