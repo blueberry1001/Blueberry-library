@@ -81,6 +81,8 @@ def main():
             data["affinity"]["error"] = f"{type(exc).__name__}: {exc}"
         save()
         data["compiler"] = subprocess.check_output([args.compiler, "--version"], text=True).splitlines()[0]
+        if "clang" in data["compiler"].lower():
+            flags.append("-fconstexpr-steps=100000000")
         cpu = Path("/proc/cpuinfo")
         if cpu.exists():
             lines = cpu.read_text().splitlines()

@@ -1,4 +1,4 @@
-name: FastSet official-input performance
+name: FastSet Clang retry
 
 on:
   pull_request:
@@ -7,29 +7,27 @@ permissions:
   contents: read
 
 jobs:
-  fastset-performance:
+  fastset-clang:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Compare FastSet and pinned fastest submission
+      - name: Compare with raised constexpr step limit
         shell: bash
         run: |
           set +e
           mkdir -p .verification/fast-set-lc
-          python3 docs/development/measurements/fast-set-lc-20261116/run.py --submission 403023 --compiler g++ --runs 3 --output .verification/fast-set-lc/gcc.json
-          gcc_result=$?
-          python3 docs/development/measurements/fast-set-lc-20261116/run.py --submission 403023 --compiler clang++ --runs 3 --output .verification/fast-set-lc/clang.json
-          clang_result=$?
-          python3 -c 'import base64,gzip,pathlib; [(print("FASTSET_RESULT_"+n+"="+base64.b64encode(gzip.compress(p.read_bytes())).decode()) if p.exists() else print("FASTSET_RESULT_"+n+"=MISSING")) for n,p in [("GCC",pathlib.Path(".verification/fast-set-lc/gcc.json")),("CLANG",pathlib.Path(".verification/fast-set-lc/clang.json"))]]'
-          if [ "$gcc_result" -ne 0 ] || [ "$clang_result" -ne 0 ]; then exit 1; fi
+          python3 docs/development/measurements/fast-set-lc-20261116/run.py --submission 403023 --compiler clang++ --runs 3 --output .verification/fast-set-lc/clang-retry.json
+          result=$?
+          python3 -c 'import base64,gzip,pathlib; p=pathlib.Path(".verification/fast-set-lc/clang-retry.json"); print("FASTSET_RETRY="+base64.b64encode(gzip.compress(p.read_bytes())).decode() if p.exists() else "FASTSET_RETRY=MISSING")'
+          exit "$result"
       - name: Preserve results including failures
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: fastset-linux-performance
+          name: fastset-clang-retry
           path: .verification/fast-set-lc
           include-hidden-files: true
           if-no-files-found: warn
