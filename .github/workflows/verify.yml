@@ -1,4 +1,4 @@
-name: Trusted input prototype comparison
+name: FastSet trusted input comparison
 
 on:
   pull_request:
@@ -7,30 +7,30 @@ permissions:
   contents: read
 
 jobs:
-  trusted-input-performance:
+  trusted-fastset:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Compare valid-input parsing
+      - name: Compare actual FastSet with safe and trusted inputs
         shell: bash
         run: |
           set +e
-          mkdir -p .verification/trusted-input
-          python3 docs/development/measurements/trusted-input-20261116/run_linux.py --compiler g++ --output .verification/trusted-input/gcc.json
+          mkdir -p .verification/trusted-fastset
+          python3 docs/development/measurements/trusted-input-20261116/run_fastset_linux.py --compiler g++ --output .verification/trusted-fastset/gcc.json
           gcc_result=$?
-          python3 docs/development/measurements/trusted-input-20261116/run_linux.py --compiler clang++ --output .verification/trusted-input/clang.json
+          python3 docs/development/measurements/trusted-input-20261116/run_fastset_linux.py --compiler clang++ --output .verification/trusted-fastset/clang.json
           clang_result=$?
-          python3 -c 'import base64,gzip,pathlib; [(print("TRUSTED_RESULT_"+n+"="+base64.b64encode(gzip.compress(p.read_bytes())).decode()) if p.exists() else print("TRUSTED_RESULT_"+n+"=MISSING")) for n,p in [("GCC",pathlib.Path(".verification/trusted-input/gcc.json")),("CLANG",pathlib.Path(".verification/trusted-input/clang.json"))]]'
+          python3 -c 'import base64,gzip,pathlib; [(print("TRUSTED_FASTSET_"+n+"="+base64.b64encode(gzip.compress(p.read_bytes())).decode()) if p.exists() else print("TRUSTED_FASTSET_"+n+"=MISSING")) for n,p in [("GCC",pathlib.Path(".verification/trusted-fastset/gcc.json")),("CLANG",pathlib.Path(".verification/trusted-fastset/clang.json"))]]'
           if [ "$gcc_result" -ne 0 ] || [ "$clang_result" -ne 0 ]; then exit 1; fi
       - name: Preserve results including failures
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: trusted-input-linux-performance
-          path: .verification/trusted-input
+          name: trusted-fastset-linux
+          path: .verification/trusted-fastset
           include-hidden-files: true
           if-no-files-found: warn
           retention-days: 90
