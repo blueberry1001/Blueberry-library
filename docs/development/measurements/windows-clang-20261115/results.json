@@ -1,0 +1,410 @@
+{
+  "target": "x86_64-pc-windows-msvc",
+  "rows": [
+    {
+      "standard": "gnu++20",
+      "mode": "fast-sse2",
+      "source": "tests/random/fast-set-initialization.cpp",
+      "source_sha256": "aaa28f6aa222e464c7168020357835017884f325a0c443ec3610f36489f7a572",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "-D__builtin_cpu_supports(x)=0",
+        "tests/random/fast-set-initialization.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++20-fast-sse2.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "standard": "gnu++20",
+      "mode": "fast-scalar",
+      "source": "tests/random/fast-set-initialization.cpp",
+      "source_sha256": "aaa28f6aa222e464c7168020357835017884f325a0c443ec3610f36489f7a572",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "-D__builtin_cpu_supports(x)=0",
+        "-U__SSE2__",
+        "tests/random/fast-set-initialization.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++20-fast-scalar.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "standard": "gnu++20",
+      "mode": "fast-avx2",
+      "source": "tests/random/fast-set-initialization.cpp",
+      "source_sha256": "aaa28f6aa222e464c7168020357835017884f325a0c443ec3610f36489f7a572",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "-D__builtin_cpu_supports(x)=1",
+        "tests/random/fast-set-initialization.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++20-fast-avx2.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "standard": "gnu++20",
+      "mode": "weighted",
+      "source": "tests/random/weighted-wavelet-matrix.cpp",
+      "source_sha256": "6d1a37f5e42c3abb2915aab2c322e825c75b87b4c69b40d3295a2be123a8df91",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "tests/random/weighted-wavelet-matrix.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++20-weighted.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "standard": "gnu++20",
+      "mode": "dijkstra",
+      "source": "tests/random/dijkstra.cpp",
+      "source_sha256": "78f7f724c3729a47c02d8e161ca136dc2db6cb630d0b4e5e213356152c36af01",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "tests/random/dijkstra.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++20-dijkstra.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "standard": "gnu++23",
+      "mode": "fast-sse2",
+      "source": "tests/random/fast-set-initialization.cpp",
+      "source_sha256": "aaa28f6aa222e464c7168020357835017884f325a0c443ec3610f36489f7a572",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "-D__builtin_cpu_supports(x)=0",
+        "tests/random/fast-set-initialization.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++23-fast-sse2.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "standard": "gnu++23",
+      "mode": "fast-scalar",
+      "source": "tests/random/fast-set-initialization.cpp",
+      "source_sha256": "aaa28f6aa222e464c7168020357835017884f325a0c443ec3610f36489f7a572",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "-D__builtin_cpu_supports(x)=0",
+        "-U__SSE2__",
+        "tests/random/fast-set-initialization.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++23-fast-scalar.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "standard": "gnu++23",
+      "mode": "fast-avx2",
+      "source": "tests/random/fast-set-initialization.cpp",
+      "source_sha256": "aaa28f6aa222e464c7168020357835017884f325a0c443ec3610f36489f7a572",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "-D__builtin_cpu_supports(x)=1",
+        "tests/random/fast-set-initialization.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++23-fast-avx2.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "standard": "gnu++23",
+      "mode": "weighted",
+      "source": "tests/random/weighted-wavelet-matrix.cpp",
+      "source_sha256": "6d1a37f5e42c3abb2915aab2c322e825c75b87b4c69b40d3295a2be123a8df91",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "tests/random/weighted-wavelet-matrix.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++23-weighted.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    },
+    {
+      "standard": "gnu++23",
+      "mode": "dijkstra",
+      "source": "tests/random/dijkstra.cpp",
+      "source_sha256": "78f7f724c3729a47c02d8e161ca136dc2db6cb630d0b4e5e213356152c36af01",
+      "compiler_args": [
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++23",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-I.",
+        "tests/random/dijkstra.cpp",
+        "-o",
+        ".build/handoff-clang/gnu++23-dijkstra.exe"
+      ],
+      "compile_exit": 0,
+      "compile_output": "",
+      "runs": [
+        {
+          "seed": 1,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 2,
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "seed": 17,
+          "exit": 0,
+          "output": ""
+        }
+      ]
+    }
+  ],
+  "compiler": "Android NDK Clang 18.0.3",
+  "header_sha256": {
+    "blueberry/data-structure/fast-set.hpp": "c691a5bc2362dc05b9374ccee5e513e9081d9e623a48b0de3567e211deb70717",
+    "blueberry/graph/dijkstra.hpp": "e94c187c3408f20826655f83c29e573fcc708836e4efda00a73d749b28ef3320",
+    "blueberry/data-structure/weighted-wavelet-matrix.hpp": "285628f787b84a65d4de8092c63e982b56ead6943f8e9534e2aec2be5328fc26"
+  },
+  "cpu_selection_note": "FastSet runtime CPU detection was overridden at compile time for each selected path; the default dispatcher was not executed."
+}

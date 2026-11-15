@@ -1,0 +1,2860 @@
+{
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpu_affinity": [
+    0
+  ],
+  "revision": "efa8b4e97ce68395657c643fd6c04f2fba56b826",
+  "rounds": 5,
+  "inputs": {
+    "sparse": {
+      "n": 200000,
+      "m": 500000,
+      "sha256": "2e6c18fb8fcad5fd82b74bfbcb8666c33a65cc905a9f46aad03502dd0685f5d5",
+      "answer": "49829"
+    },
+    "zero": {
+      "n": 200000,
+      "m": 500000,
+      "sha256": "0187beec53b857196ee7892b0bd7aa4ecaef545cf550ea285d01bbbc1bf2cbc6",
+      "answer": "0"
+    },
+    "line": {
+      "n": 500000,
+      "m": 499999,
+      "sha256": "45a6633cc1dd24990d4785ced468606b204a3e59e66b23dac5713c07739d5bb3",
+      "answer": "499999"
+    },
+    "disconnected": {
+      "n": 200000,
+      "m": 500000,
+      "sha256": "cae770638b2bbd1cad4a21bad3fe5fe143195930956b0aa919baadce86e4268a",
+      "answer": "None"
+    }
+  },
+  "builds": [
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/base",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-gpp-base-stream"
+      ],
+      "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "d73136471331c2d2004a54697fac6fb9d58d85f46775f1ab0dce9fa000163da5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/base",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-DFAST_IO",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-gpp-base-fast"
+      ],
+      "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "777c5b88ddde6d5fd39bc0f6749b6e0417ed5ee40bce5058c6677a5512e485b3"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/radix-hybrid",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-gpp-radix-stream"
+      ],
+      "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "a6c15813bab33c07c6cde9dad336f85f39d492a049bc56263c334e1950fa5f5b"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/radix-hybrid",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-DFAST_IO",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-gpp-radix-fast"
+      ],
+      "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "20a6b844cd03aa52a7f488845fe0c1045f02b322be67b27eef50dc5591a171ce"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/target",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-DTARGET_ONLY",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-gpp-target-stream"
+      ],
+      "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "4d7e9fb3722e456e8aef2531fe824ccb1cdb06f07f1c01994ae8475401fdeb03"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/target",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-DFAST_IO",
+        "-DTARGET_ONLY",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-gpp-target-fast"
+      ],
+      "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "77bd4c76b383d633a8ac0961d6b78aa3b44c1a3907b8aa94e4f34a2e29eac06c"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-fastest/submission-415573.cpp",
+        "-o",
+        "/tmp/blueberry-cross-gpp-fastest"
+      ],
+      "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "source_sha256": "a24fe57a3cc1159d923b1d6fe3317efe1367bcb140537993438d4d955834a2f4",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "dd1673c17e6cafbf66998cbfd4654b1bf7bfa77bcad039b982e616c288c235a0"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/base",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-clangpp-base-stream"
+      ],
+      "compiler_version": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "70f6768580a4df0e5f06df79edc2ff20e67519d977cfeb351ab308463fecfb7e"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/base",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-DFAST_IO",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-clangpp-base-fast"
+      ],
+      "compiler_version": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "c9812210b3d07163a0602f1ee2399d19fc2b85e823425cfd62b726218a056056"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/radix-hybrid",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-clangpp-radix-stream"
+      ],
+      "compiler_version": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "7f05322bda8d97d98f0e7e29eba1e8e0a1a7d2d29d8d410377adbb26f7fdb885"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/radix-hybrid",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-DFAST_IO",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-clangpp-radix-fast"
+      ],
+      "compiler_version": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "47b9dd90551383685d6eb8b1ec2aea9e3955cba032b510635ad6ee96cbd89258"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/target",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-DTARGET_ONLY",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-clangpp-target-stream"
+      ],
+      "compiler_version": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "30d9332d5cae9f4d9bc7ecff9e7c7d36ec8623ecca3bec2e7dc2a569d92006f6"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/target",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-DFAST_IO",
+        "-DTARGET_ONLY",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-clangpp-target-fast"
+      ],
+      "compiler_version": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "source_sha256": "f09c88b19565791fde18e6cc3ae1e320d08e0433988b60956cefe95ac334cdaf",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "83e022dbd48ec1f8749e5376a7a4e34c486c13da1f3fdd99d1a9190f01d0fd28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-fastest/submission-415573.cpp",
+        "-o",
+        "/tmp/blueberry-cross-clangpp-fastest"
+      ],
+      "compiler_version": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "source_sha256": "a24fe57a3cc1159d923b1d6fe3317efe1367bcb140537993438d4d955834a2f4",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "745aef2404c040b1994ffb44bb038d30db3f835a8e64260385bb4aa4ee81e038"
+    }
+  ],
+  "samples": [
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 136.47313100000247,
+      "max_rss_kib": 26488,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 96.04796000000704,
+      "max_rss_kib": 26616,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 110.8826180000051,
+      "max_rss_kib": 27260,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 89.47311000000013,
+      "max_rss_kib": 27364,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 107.53229099999828,
+      "max_rss_kib": 25764,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 65.43727000000388,
+      "max_rss_kib": 25876,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 15.360020000002805,
+      "max_rss_kib": 24836,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 89.18735999999683,
+      "max_rss_kib": 26536,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 106.6061619999914,
+      "max_rss_kib": 27292,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 69.98602999999548,
+      "max_rss_kib": 27404,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 91.82260100000406,
+      "max_rss_kib": 25828,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 57.483082000004515,
+      "max_rss_kib": 25876,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 12.468530000006695,
+      "max_rss_kib": 24756,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 121.85564900001111,
+      "max_rss_kib": 26576,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 114.98934399999428,
+      "max_rss_kib": 27280,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 88.62914000000899,
+      "max_rss_kib": 27372,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 93.99366600000292,
+      "max_rss_kib": 25732,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 58.9645470000022,
+      "max_rss_kib": 25816,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 17.85476899999594,
+      "max_rss_kib": 24772,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 128.68457100000796,
+      "max_rss_kib": 26432,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 89.58842300000924,
+      "max_rss_kib": 26536,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 68.0973630000068,
+      "max_rss_kib": 27260,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 98.01092399999334,
+      "max_rss_kib": 25752,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 56.094055999992065,
+      "max_rss_kib": 25864,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 12.567881999999031,
+      "max_rss_kib": 24764,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 127.78306699999575,
+      "max_rss_kib": 26620,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 86.74476299999867,
+      "max_rss_kib": 26600,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 103.66628899998886,
+      "max_rss_kib": 27376,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 87.83281400000931,
+      "max_rss_kib": 25832,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 54.64687299999582,
+      "max_rss_kib": 26048,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 13.192117999992092,
+      "max_rss_kib": 24748,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 121.2167900000054,
+      "max_rss_kib": 26452,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 90.89321999999811,
+      "max_rss_kib": 26512,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 105.79594000000725,
+      "max_rss_kib": 27276,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 67.76658599999053,
+      "max_rss_kib": 27384,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 108.78559100000018,
+      "max_rss_kib": 25428,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 77.00819100000444,
+      "max_rss_kib": 25572,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 113.0462570000077,
+      "max_rss_kib": 24932,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 70.69968300000085,
+      "max_rss_kib": 24860,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 115.05535500000974,
+      "max_rss_kib": 24932,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 92.44720600000278,
+      "max_rss_kib": 24852,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 25.21196799999359,
+      "max_rss_kib": 26840,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 92.68935000000056,
+      "max_rss_kib": 25360,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 113.07918100000336,
+      "max_rss_kib": 24812,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 82.1707019999991,
+      "max_rss_kib": 24852,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 109.91591600000561,
+      "max_rss_kib": 24748,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 71.9812370000028,
+      "max_rss_kib": 24940,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 16.998899000000733,
+      "max_rss_kib": 26800,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 134.99124000000506,
+      "max_rss_kib": 25532,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 118.4615269999938,
+      "max_rss_kib": 25048,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 94.1375550000032,
+      "max_rss_kib": 24880,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 114.55064899999456,
+      "max_rss_kib": 24876,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 100.29116500000157,
+      "max_rss_kib": 25012,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 18.72235799999089,
+      "max_rss_kib": 26764,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 129.20850799999073,
+      "max_rss_kib": 25372,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 91.05900899999142,
+      "max_rss_kib": 25464,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 92.3976370000048,
+      "max_rss_kib": 24908,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 123.04201199999909,
+      "max_rss_kib": 24796,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 82.25052499999208,
+      "max_rss_kib": 24884,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 21.54072999999812,
+      "max_rss_kib": 26844,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 123.44243999999094,
+      "max_rss_kib": 25372,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 85.90945499999236,
+      "max_rss_kib": 25676,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 110.43038199998989,
+      "max_rss_kib": 24932,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 114.74329900001123,
+      "max_rss_kib": 24768,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 81.70051100000819,
+      "max_rss_kib": 24856,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 15.914290999987202,
+      "max_rss_kib": 26700,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 111.54513500000007,
+      "max_rss_kib": 25356,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 73.41485599999942,
+      "max_rss_kib": 25472,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 100.15076100000897,
+      "max_rss_kib": 24736,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 75.56887699999493,
+      "max_rss_kib": 24956,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 83.82346099999438,
+      "max_rss_kib": 38408,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 42.09462300001121,
+      "max_rss_kib": 38468,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 84.16392499999859,
+      "max_rss_kib": 38384,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 40.24028199999918,
+      "max_rss_kib": 38700,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 88.03608800000973,
+      "max_rss_kib": 38444,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 40.112269000005085,
+      "max_rss_kib": 38500,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 25.762892000003035,
+      "max_rss_kib": 44548,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 39.969906999999694,
+      "max_rss_kib": 38480,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 80.91309600000329,
+      "max_rss_kib": 38540,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 36.870453999995334,
+      "max_rss_kib": 38496,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 79.63948000001153,
+      "max_rss_kib": 38392,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 38.15257600000166,
+      "max_rss_kib": 38496,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 17.974414999997634,
+      "max_rss_kib": 44500,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 82.42568499998981,
+      "max_rss_kib": 38576,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 79.22954400000037,
+      "max_rss_kib": 38528,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 37.17748300000778,
+      "max_rss_kib": 38488,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 86.11103500000183,
+      "max_rss_kib": 38472,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 38.031694000011385,
+      "max_rss_kib": 38496,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 18.19200200000637,
+      "max_rss_kib": 44744,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 84.69999199999734,
+      "max_rss_kib": 38528,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 40.9861640000031,
+      "max_rss_kib": 38504,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 45.463710999996465,
+      "max_rss_kib": 38492,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 86.63285100000451,
+      "max_rss_kib": 38396,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 40.60069400000543,
+      "max_rss_kib": 38648,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 17.795116000002054,
+      "max_rss_kib": 44744,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 84.1929580000027,
+      "max_rss_kib": 38576,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 40.1834200000053,
+      "max_rss_kib": 38480,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 86.30848800000024,
+      "max_rss_kib": 38464,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 97.64272400001062,
+      "max_rss_kib": 38484,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 40.7587729999932,
+      "max_rss_kib": 38388,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 18.582758999997395,
+      "max_rss_kib": 44776,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 93.089391999996,
+      "max_rss_kib": 38404,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 40.44505900000672,
+      "max_rss_kib": 39472,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 84.6582490000003,
+      "max_rss_kib": 38400,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 36.90727599999377,
+      "max_rss_kib": 38488,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 68.64238300001091,
+      "max_rss_kib": 22348,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 37.60635899999443,
+      "max_rss_kib": 22532,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 68.63200800000868,
+      "max_rss_kib": 22392,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 38.25643099999354,
+      "max_rss_kib": 22452,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 74.92693399998984,
+      "max_rss_kib": 22324,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 35.51072700000191,
+      "max_rss_kib": 22440,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 12.15094100000158,
+      "max_rss_kib": 22088,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 44.873217000002796,
+      "max_rss_kib": 22532,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 70.36633500000278,
+      "max_rss_kib": 22240,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 36.27872900000284,
+      "max_rss_kib": 22352,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 66.56787900000438,
+      "max_rss_kib": 22396,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 36.58945600000152,
+      "max_rss_kib": 22388,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 10.339920999996366,
+      "max_rss_kib": 22076,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 69.11209199999746,
+      "max_rss_kib": 22372,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 69.76183499999422,
+      "max_rss_kib": 22384,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 39.51364799999624,
+      "max_rss_kib": 22356,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 68.1358030000041,
+      "max_rss_kib": 22260,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 38.9878729999964,
+      "max_rss_kib": 22376,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 11.97096600000691,
+      "max_rss_kib": 22148,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 71.427412999995,
+      "max_rss_kib": 22324,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 38.42598899998961,
+      "max_rss_kib": 22320,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 37.812625999990246,
+      "max_rss_kib": 22336,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 64.54554999999118,
+      "max_rss_kib": 22240,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 37.86477200000604,
+      "max_rss_kib": 22352,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 15.043995999988624,
+      "max_rss_kib": 22088,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 63.80285099999128,
+      "max_rss_kib": 22276,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 33.97425899999007,
+      "max_rss_kib": 22324,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 63.680572999999185,
+      "max_rss_kib": 22272,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 67.20927899999651,
+      "max_rss_kib": 22260,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 35.03364800000952,
+      "max_rss_kib": 22348,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 19.472085999993283,
+      "max_rss_kib": 22340,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 65.2637430000027,
+      "max_rss_kib": 22296,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 34.87484000000052,
+      "max_rss_kib": 22328,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 67.0892069999951,
+      "max_rss_kib": 22236,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "g++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 41.88696699999639,
+      "max_rss_kib": 22372,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 160.0555980000138,
+      "max_rss_kib": 26484,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 93.07060000000433,
+      "max_rss_kib": 26552,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 107.51568599999928,
+      "max_rss_kib": 27300,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 84.15337100001352,
+      "max_rss_kib": 27316,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 104.99049699998864,
+      "max_rss_kib": 25812,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 55.72735100000159,
+      "max_rss_kib": 25784,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 0,
+      "wall_ms": 15.20430999997302,
+      "max_rss_kib": 24904,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 111.08732700000701,
+      "max_rss_kib": 26464,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 126.83527400000116,
+      "max_rss_kib": 27248,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 78.17968200001246,
+      "max_rss_kib": 27368,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 110.88949999998476,
+      "max_rss_kib": 25772,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 70.05504299999643,
+      "max_rss_kib": 25836,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 20.699763000010307,
+      "max_rss_kib": 24608,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 1,
+      "wall_ms": 128.63472000000797,
+      "max_rss_kib": 26444,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 104.80114199998525,
+      "max_rss_kib": 27396,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 73.02454399999192,
+      "max_rss_kib": 27160,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 89.40019499999607,
+      "max_rss_kib": 25828,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 53.59341999999856,
+      "max_rss_kib": 25796,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 13.796224999993001,
+      "max_rss_kib": 24784,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 124.75114199997961,
+      "max_rss_kib": 26544,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 2,
+      "wall_ms": 92.12629300000685,
+      "max_rss_kib": 26468,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 83.4631270000159,
+      "max_rss_kib": 27324,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 91.4323510000088,
+      "max_rss_kib": 25680,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 55.82044800001995,
+      "max_rss_kib": 25628,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 16.460883999997122,
+      "max_rss_kib": 24748,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 122.82269600001428,
+      "max_rss_kib": 26448,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 92.65295500000548,
+      "max_rss_kib": 26468,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 3,
+      "wall_ms": 112.34181300000046,
+      "max_rss_kib": 27232,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 96.80272899998954,
+      "max_rss_kib": 25696,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 63.92939599999181,
+      "max_rss_kib": 25816,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 14.295755000006238,
+      "max_rss_kib": 24748,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 134.99552100000756,
+      "max_rss_kib": 26448,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 110.04728000000341,
+      "max_rss_kib": 26456,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 119.4611850000058,
+      "max_rss_kib": 27248,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "sparse",
+      "run": 4,
+      "wall_ms": 89.6143299999892,
+      "max_rss_kib": 27304,
+      "output_sha256": "982564d4c147c8d901e112bed1a4ad57b5ea8b99ddc317bc794f8ec4e6605ff5"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 108.70727299999317,
+      "max_rss_kib": 25452,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 77.57543899998609,
+      "max_rss_kib": 25420,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 107.84682000002022,
+      "max_rss_kib": 24688,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 80.52285200000142,
+      "max_rss_kib": 24860,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 110.06086400001891,
+      "max_rss_kib": 24844,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 86.63906799998244,
+      "max_rss_kib": 24772,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 0,
+      "wall_ms": 20.74553100001708,
+      "max_rss_kib": 26820,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 93.7844640000094,
+      "max_rss_kib": 25424,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 132.7504969999893,
+      "max_rss_kib": 24788,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 90.30061299998238,
+      "max_rss_kib": 24824,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 101.25928900001213,
+      "max_rss_kib": 24892,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 78.84184300002062,
+      "max_rss_kib": 24768,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 15.673993999996583,
+      "max_rss_kib": 26800,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 1,
+      "wall_ms": 106.77269199999273,
+      "max_rss_kib": 25364,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 102.32040199997527,
+      "max_rss_kib": 24752,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 80.8274980000192,
+      "max_rss_kib": 24684,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 107.72488399999247,
+      "max_rss_kib": 24796,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 79.22687399999973,
+      "max_rss_kib": 24760,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 21.21382600000743,
+      "max_rss_kib": 26820,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 114.17076300000417,
+      "max_rss_kib": 25496,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 2,
+      "wall_ms": 90.86771799999838,
+      "max_rss_kib": 25468,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 87.9118909999761,
+      "max_rss_kib": 24948,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 116.85324399999786,
+      "max_rss_kib": 24756,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 81.5317240000013,
+      "max_rss_kib": 24780,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 16.20010299998853,
+      "max_rss_kib": 26828,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 113.7175730000024,
+      "max_rss_kib": 25436,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 79.34383300002423,
+      "max_rss_kib": 25424,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 3,
+      "wall_ms": 109.42370299997606,
+      "max_rss_kib": 24852,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 130.12775799998622,
+      "max_rss_kib": 24872,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 92.7785849999907,
+      "max_rss_kib": 24784,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 16.437550999995665,
+      "max_rss_kib": 26812,
+      "output_sha256": "c9d01dcf4313f5fc3e9ff9ddd57a3ac4c50de47fac603493aa1534660e47998d"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 130.25837000000706,
+      "max_rss_kib": 25436,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 91.43824599999562,
+      "max_rss_kib": 25408,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 118.20159999999191,
+      "max_rss_kib": 24764,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "zero",
+      "run": 4,
+      "wall_ms": 83.08799799999633,
+      "max_rss_kib": 24860,
+      "output_sha256": "a47e237d76d51f68c70b0543db734b0eaf55e48f4cc0613ab3a9c89e9e43377f"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 87.97204500001499,
+      "max_rss_kib": 38356,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 46.36727199999768,
+      "max_rss_kib": 38424,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 87.31632499998909,
+      "max_rss_kib": 38436,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 46.842817999987574,
+      "max_rss_kib": 38528,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 87.84568900000522,
+      "max_rss_kib": 38476,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 43.36651799999913,
+      "max_rss_kib": 38452,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 0,
+      "wall_ms": 27.92592200000854,
+      "max_rss_kib": 44548,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 45.43866299999877,
+      "max_rss_kib": 38524,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 84.41421300000229,
+      "max_rss_kib": 38340,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 44.17221799999993,
+      "max_rss_kib": 38440,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 83.75337000001082,
+      "max_rss_kib": 38480,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 43.335015999986126,
+      "max_rss_kib": 38584,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 19.854038999994827,
+      "max_rss_kib": 44592,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 1,
+      "wall_ms": 84.11650900001177,
+      "max_rss_kib": 38412,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 82.00992499999415,
+      "max_rss_kib": 38336,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 45.28871699997694,
+      "max_rss_kib": 38488,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 83.83269800000903,
+      "max_rss_kib": 38500,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 47.867314000001215,
+      "max_rss_kib": 38528,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 17.475827999987814,
+      "max_rss_kib": 44496,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 81.27928299998644,
+      "max_rss_kib": 38496,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 2,
+      "wall_ms": 44.12307900000201,
+      "max_rss_kib": 38276,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 44.79244699999185,
+      "max_rss_kib": 38436,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 83.47544299999754,
+      "max_rss_kib": 38448,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 44.11282499998492,
+      "max_rss_kib": 38352,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 17.3429489999819,
+      "max_rss_kib": 44504,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 90.6612040000141,
+      "max_rss_kib": 38360,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 45.04478499998754,
+      "max_rss_kib": 38484,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 3,
+      "wall_ms": 85.7818409999993,
+      "max_rss_kib": 38504,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 87.60094199999457,
+      "max_rss_kib": 38496,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 43.49076200000468,
+      "max_rss_kib": 38424,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 23.133303999998134,
+      "max_rss_kib": 44720,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 80.12653599999453,
+      "max_rss_kib": 38404,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 43.83601200001408,
+      "max_rss_kib": 38420,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 85.66791399999829,
+      "max_rss_kib": 38456,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "line",
+      "run": 4,
+      "wall_ms": 44.611309000003985,
+      "max_rss_kib": 38436,
+      "output_sha256": "07cac6e7f597175b02b95c3cb050c9631d7116dd9fd5f26cef9af78de77e906a"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 68.23243399998091,
+      "max_rss_kib": 22272,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 36.81323500001099,
+      "max_rss_kib": 22304,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 63.860102999996116,
+      "max_rss_kib": 22340,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 38.99230899997974,
+      "max_rss_kib": 22448,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 65.50924000001146,
+      "max_rss_kib": 22188,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 37.73497800000314,
+      "max_rss_kib": 22304,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 0,
+      "wall_ms": 11.381525000018655,
+      "max_rss_kib": 22280,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 39.86735800000929,
+      "max_rss_kib": 22332,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 67.65812100002222,
+      "max_rss_kib": 22360,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 40.62016099999255,
+      "max_rss_kib": 22384,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 68.38489500000833,
+      "max_rss_kib": 22304,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 36.718116000002965,
+      "max_rss_kib": 22148,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 10.674793000021054,
+      "max_rss_kib": 22136,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 1,
+      "wall_ms": 67.03828599998474,
+      "max_rss_kib": 22416,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 64.62773800001287,
+      "max_rss_kib": 22264,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 36.32774499999414,
+      "max_rss_kib": 22316,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 64.09423700000616,
+      "max_rss_kib": 22328,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 37.479582999992545,
+      "max_rss_kib": 22292,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 11.092324000003373,
+      "max_rss_kib": 22088,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 75.73243799998863,
+      "max_rss_kib": 22332,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 2,
+      "wall_ms": 47.80118699997615,
+      "max_rss_kib": 22124,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 41.74721399999726,
+      "max_rss_kib": 22216,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 71.38882899999999,
+      "max_rss_kib": 22260,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 58.45535700001392,
+      "max_rss_kib": 22352,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 15.11124900000027,
+      "max_rss_kib": 22128,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 71.07760999997481,
+      "max_rss_kib": 22384,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 45.1131460000056,
+      "max_rss_kib": 22288,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 3,
+      "wall_ms": 76.15420499999459,
+      "max_rss_kib": 22312,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-stream",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 71.95527900000798,
+      "max_rss_kib": 22252,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "target-fast",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 40.43924899997364,
+      "max_rss_kib": 22288,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "fastest",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 11.91123399999583,
+      "max_rss_kib": 22316,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-stream",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 66.01783700000396,
+      "max_rss_kib": 22396,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "base-fast",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 43.38271299999974,
+      "max_rss_kib": 22268,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-stream",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 65.50939599998173,
+      "max_rss_kib": 22268,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    },
+    {
+      "compiler": "clang++",
+      "variant": "radix-fast",
+      "shape": "disconnected",
+      "run": 4,
+      "wall_ms": 36.53449500001216,
+      "max_rss_kib": 22292,
+      "output_sha256": "ee3aa64bb94a50845d5024cd4bd20202a4567aed5cd5328c0d97e9920775fc28"
+    }
+  ],
+  "failures": [],
+  "verified": true
+}

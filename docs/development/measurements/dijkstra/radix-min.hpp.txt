@@ -1,0 +1,140 @@
+#pragma once
+
+#include <algorithm>
+#include <array>
+#include <bit>
+#include <cassert>
+#include <cstdint>
+#include <functional>
+#include <limits>
+#include <queue>
+#include <type_traits>
+#include <utility>
+#include <vector>
+
+namespace blueberry {
+
+namespace detail {
+template <class Cost, bool = std::is_integral_v<Cost> && !std::is_same_v<Cost, bool> && (sizeof(Cost) <= 8)>
+class DijkstraQueue {
+  using Item = std::pair<Cost, int>;
+  std::priority_queue<Item, std::vector<Item>, std::greater<Item>> queue_;
+ public:
+  void emplace(const Cost& d, int v) { queue_.emplace(d, v); }
+  bool empty() const { return queue_.empty(); }
+  Item pop() { Item x = queue_.top(); queue_.pop(); return x; }
+};
+template <class Cost>
+class DijkstraQueue<Cost, true> {
+  using U = std::make_unsigned_t<Cost>;
+  using Item = std::pair<U, int>;
+  std::array<std::vector<Item>, std::numeric_limits<U>::digits + 1> bins_;
+  std::array<U, std::numeric_limits<U>::digits + 1> minimum_;
+  std::vector<int> same_;
+  U last_ = 0;
+  std::uint64_t occupied_ = 0;
+  std::size_t size_ = 0;
+  void add_bucket(U d, int v) {
+    const unsigned i = std::bit_width(U(d ^ last_));
+    bins_[i].emplace_back(d, v);
+    minimum_[i] = std::min(minimum_[i], d);
+    occupied_ |= std::uint64_t{1} << (i - 1);
+  }
+ public:
+  DijkstraQueue() { minimum_.fill(std::numeric_limits<U>::max()); }
+  void emplace(Cost d, int v) {
+    U key = static_cast<U>(d);
+    if (key == last_) { same_.push_back(v); std::push_heap(same_.begin(), same_.end(), std::greater<int>()); }
+    else add_bucket(key, v);
+    ++size_;
+  }
+  bool empty() const { return size_ == 0; }
+  std::pair<Cost, int> pop() {
+    if (same_.empty()) {
+      const unsigned i = std::countr_zero(occupied_) + 1;
+      last_ = minimum_[i];
+      minimum_[i] = std::numeric_limits<U>::max();
+      occupied_ &= occupied_ - 1;
+      for (auto [d, v] : bins_[i]) {
+        if (d == last_) same_.push_back(v);
+        else add_bucket(d, v);
+      }
+      bins_[i].clear();
+      std::make_heap(same_.begin(), same_.end(), std::greater<int>());
+    }
+    std::pop_heap(same_.begin(), same_.end(), std::greater<int>());
+    int v = same_.back(); same_.pop_back(); --size_;
+    return {static_cast<Cost>(last_), v};
+  }
+};
+}
+
+template <class Cost>
+struct WeightedEdge {
+  int to;
+  Cost cost;
+};
+
+template <class Cost>
+using WeightedGraph = std::vector<std::vector<WeightedEdge<Cost>>>;
+
+template <class Cost>
+struct ShortestPathResult {
+  std::vector<Cost> distance;
+  std::vector<int> parent;
+  Cost infinity;
+
+  std::vector<int> path_to(int target) const {
+    assert(0 <= target && target < static_cast<int>(distance.size()));
+    if (distance[target] == infinity) return {};
+    std::vector<int> path;
+    for (int v = target; v != -1; v = parent[v]) path.push_back(v);
+    std::reverse(path.begin(), path.end());
+    return path;
+  }
+};
+
+/**
+ * @brief Dijkstra法
+ */
+template <class Cost>
+ShortestPathResult<Cost> dijkstra(
+    const WeightedGraph<Cost>& graph, int source,
+    Cost infinity = std::numeric_limits<Cost>::max()) {
+  const int n = static_cast<int>(graph.size());
+  assert(0 <= source && source < n);
+  assert(Cost{} < infinity);
+  std::vector<Cost> distance(n, infinity);
+  std::vector<int> parent(n, -1);
+  detail::DijkstraQueue<Cost> queue;
+  distance[source] = Cost{};
+  queue.emplace(distance[source], source);
+
+  while (!queue.empty()) {
+    const auto [current_distance, v] = queue.pop();
+    if (distance[v] != current_distance) continue;
+    for (const auto& edge : graph[v]) {
+      assert(0 <= edge.to && edge.to < n);
+      assert(!(edge.cost < Cost{}));
+      // Integral distances are clipped at infinity before adding, including
+      // unsigned types. Keep the original addition-only contract for custom Cost.
+      Cost candidate{};
+      if constexpr (std::is_integral_v<Cost>) {
+        // Only a strict improvement can enter the queue. Using the destination's
+        // current bound also rejects already-shorter paths without adding.
+        if (distance[edge.to] <= current_distance ||
+            edge.cost >= distance[edge.to] - current_distance) continue;
+        candidate = current_distance + edge.cost;
+      } else {
+        candidate = current_distance + edge.cost;
+        if (!(distance[edge.to] > candidate)) continue;
+      }
+      distance[edge.to] = candidate;
+      parent[edge.to] = v;
+      queue.emplace(candidate, edge.to);
+    }
+  }
+  return {std::move(distance), std::move(parent), infinity};
+}
+
+}  // namespace blueberry

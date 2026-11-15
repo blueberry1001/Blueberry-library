@@ -1,0 +1,81 @@
+{
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "cpu_affinity": [
+    0
+  ],
+  "revision": "efa8b4e97ce68395657c643fd6c04f2fba56b826",
+  "rounds": 5,
+  "inputs": {
+    "sparse": {
+      "n": 200000,
+      "m": 500000,
+      "sha256": "2e6c18fb8fcad5fd82b74bfbcb8666c33a65cc905a9f46aad03502dd0685f5d5",
+      "answer": "49829"
+    },
+    "zero": {
+      "n": 200000,
+      "m": 500000,
+      "sha256": "0187beec53b857196ee7892b0bd7aa4ecaef545cf550ea285d01bbbc1bf2cbc6",
+      "answer": "0"
+    },
+    "line": {
+      "n": 500000,
+      "m": 499999,
+      "sha256": "45a6633cc1dd24990d4785ced468606b204a3e59e66b23dac5713c07739d5bb3",
+      "answer": "499999"
+    },
+    "disconnected": {
+      "n": 200000,
+      "m": 500000,
+      "sha256": "cae770638b2bbd1cad4a21bad3fe5fe143195930956b0aa919baadce86e4268a",
+      "answer": "None"
+    }
+  },
+  "builds": [
+    {
+      "compiler": "g++",
+      "variant": "base-stream",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/base",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-gpp-base-stream"
+      ],
+      "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "source_sha256": "f164438f6ba4c7c0ed197e502c53c5722454cb21a125a8eceb08bbcb5c0796af",
+      "returncode": 0,
+      "stderr": "",
+      "binary_sha256": "d73136471331c2d2004a54697fac6fb9d58d85f46775f1ab0dce9fa000163da5"
+    },
+    {
+      "compiler": "g++",
+      "variant": "base-fast",
+      "command": [
+        "g++",
+        "-std=gnu++23",
+        "-O3",
+        "-march=native",
+        "-DNDEBUG",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/base",
+        "-I/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-DFAST_IO",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp",
+        "-o",
+        "/tmp/blueberry-cross-gpp-base-fast"
+      ],
+      "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "source_sha256": "f164438f6ba4c7c0ed197e502c53c5722454cb21a125a8eceb08bbcb5c0796af",
+      "returncode": 1,
+      "stderr": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp: In function \u2018int main()\u2019:\n/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dijkstra-candidates/io-driver.cpp:10:3: error: \u2018blueberry::FastOutput\u2019 is not a template\n   10 |   blueberry::FastOutput<> out;\n      |   ^~~~~~~~~\n",
+      "binary_sha256": null
+    }
+  ],
+  "samples": [],
+  "failures": []
+}

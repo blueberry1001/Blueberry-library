@@ -8,6 +8,8 @@
 #include <functional>
 #include <limits>
 #include <queue>
+#include <span>
+#include <tuple>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -82,6 +84,43 @@ template <class Cost>
 using WeightedGraph = std::vector<std::vector<WeightedEdge<Cost>>>;
 
 template <class Cost>
+class WeightedCsrGraph {
+  std::vector<std::size_t> offsets_;
+  std::vector<WeightedEdge<Cost>> edges_;
+ public:
+  WeightedCsrGraph() = default;
+  WeightedCsrGraph(int n, const std::vector<std::tuple<int, int, Cost>>& edges)
+      : offsets_(static_cast<std::size_t>(n) + 1), edges_(edges.size()) {
+    for (const auto& edge : edges) ++offsets_[static_cast<std::size_t>(std::get<0>(edge)) + 1];
+    for (int i = 0; i < n; ++i) offsets_[i + 1] += offsets_[i];
+    auto position = offsets_;
+    for (const auto& [from, to, cost] : edges) edges_[position[from]++] = {to, cost};
+  }
+  WeightedCsrGraph(const WeightedCsrGraph&) = default;
+  WeightedCsrGraph(WeightedCsrGraph&&) noexcept = default;
+  WeightedCsrGraph& operator=(const WeightedCsrGraph& other) {
+    if (this != &other) {
+      WeightedCsrGraph copy(other);
+      offsets_.swap(copy.offsets_); edges_.swap(copy.edges_);
+    }
+    return *this;
+  }
+  WeightedCsrGraph& operator=(WeightedCsrGraph&& other) noexcept {
+    if (this != &other) { offsets_ = std::move(other.offsets_); edges_ = std::move(other.edges_); }
+    return *this;
+  }
+  int size() const { return offsets_.empty() ? 0 : static_cast<int>(offsets_.size() - 1); }
+  std::span<const WeightedEdge<Cost>> operator[](int v) const {
+    return std::span<const WeightedEdge<Cost>>(edges_).subspan(offsets_[v], offsets_[v + 1] - offsets_[v]);
+  }
+};
+
+namespace detail {
+template <class> struct CsrCost {};
+template <class Cost> struct CsrCost<WeightedCsrGraph<Cost>> { using type = Cost; };
+}
+
+template <class Cost>
 struct ShortestPathResult {
   std::vector<Cost> distance;
   std::vector<int> parent;
@@ -97,9 +136,9 @@ struct ShortestPathResult {
 };
 
 namespace detail {
-template <bool Single, class Cost>
+template <bool Single, class Cost, class Graph>
 ShortestPathResult<Cost> dijkstra_impl(
-    const WeightedGraph<Cost>& graph, int source, Cost infinity, int target) {
+    const Graph& graph, int source, Cost infinity, int target) {
   const int n = static_cast<int>(graph.size());
   std::vector<Cost> distance(n, infinity);
   std::vector<int> parent(n, -1);
@@ -141,11 +180,31 @@ ShortestPathResult<Cost> dijkstra(
   return detail::dijkstra_impl<false>(graph, source, infinity, -1);
 }
 
+template <class Graph>
+requires requires { typename detail::CsrCost<Graph>::type; }
+auto dijkstra(
+    const Graph& graph, int source,
+    typename detail::CsrCost<Graph>::type infinity = std::numeric_limits<typename detail::CsrCost<Graph>::type>::max())
+    -> ShortestPathResult<typename detail::CsrCost<Graph>::type> {
+  return detail::dijkstra_impl<false>(graph, source, infinity, -1);
+}
+
 template <class Cost>
 std::pair<Cost, std::vector<int>> dijkstra_path(
     const WeightedGraph<Cost>& graph, int source, int target,
     Cost infinity = std::numeric_limits<Cost>::max()) {
   if (source == target) return {Cost{}, {source}};
+  auto result = detail::dijkstra_impl<true>(graph, source, infinity, target);
+  return {result.distance[target], result.path_to(target)};
+}
+
+template <class Graph>
+requires requires { typename detail::CsrCost<Graph>::type; }
+auto dijkstra_path(
+    const Graph& graph, int source, int target,
+    typename detail::CsrCost<Graph>::type infinity = std::numeric_limits<typename detail::CsrCost<Graph>::type>::max())
+    -> std::pair<typename detail::CsrCost<Graph>::type, std::vector<int>> {
+  if (source == target) return {typename detail::CsrCost<Graph>::type{}, {source}};
   auto result = detail::dijkstra_impl<true>(graph, source, infinity, target);
   return {result.distance[target], result.path_to(target)};
 }

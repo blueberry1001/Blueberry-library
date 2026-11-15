@@ -1,0 +1,82 @@
+{
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "header_sha256": "e6653a5ef190c893db5f432ae2d392cb65a4c43d414141aac6465c43dbed4b0b",
+  "fenwick_sha256": "239c16cfc9550ce3c4bad5a3ca987a44b5d01b2a699e5e02ab55922300a3fda3",
+  "driver_sha256": "b7e5f1062932111926d19a25a0c8fbeb7c745adf00baf9815532775e9f13cc7f",
+  "builds": [
+    {
+      "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "assembly": "gpp-portable.s",
+      "sha256": "31d963b6d4746e62b866ac93abb850632c118b7476c01100558cf09dd8aea5f4",
+      "mnemonic_counts_whole_translation_unit": {
+        "popcnt": 0,
+        "popcount_libcall": 9,
+        "integer_division": 0,
+        "conditional_branches": 45
+      }
+    },
+    {
+      "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "assembly": "gpp-native.s",
+      "sha256": "27930f83df9f88a2f044d9a09f79b6b4fca3470f776d0bb9f8ab220c594ded76",
+      "mnemonic_counts_whole_translation_unit": {
+        "popcnt": 9,
+        "popcount_libcall": 0,
+        "integer_division": 0,
+        "conditional_branches": 45
+      }
+    },
+    {
+      "compiler": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "assembly": "clangpp-portable.s",
+      "sha256": "890d2b9e883ff6ae1a4b58b00759afe64cbb66abd7edef5eff2e0383d94f34de",
+      "mnemonic_counts_whole_translation_unit": {
+        "popcnt": 0,
+        "popcount_libcall": 0,
+        "integer_division": 0,
+        "conditional_branches": 48
+      }
+    },
+    {
+      "compiler": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+      "flags": [
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-march=native"
+      ],
+      "exit_code": 0,
+      "stderr": "",
+      "assembly": "clangpp-native.s",
+      "sha256": "0e62af73812708f02917d38354d6b268df93a5f209c574541833f6c86afb214a",
+      "mnemonic_counts_whole_translation_unit": {
+        "popcnt": 1,
+        "popcount_libcall": 0,
+        "integer_division": 0,
+        "conditional_branches": 46
+      }
+    }
+  ]
+}

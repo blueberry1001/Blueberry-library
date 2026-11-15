@@ -11,6 +11,7 @@ documentation_of: //blueberry/graph/dijkstra.hpp
 
 Vを頂点数、Eを辺数とすると、計算時間はO(V+E log(E+1))、メモリはO(V+E)です。
 `dijkstra`は全頂点、`dijkstra_path`は指定した1頂点までの最短路を返します。
+辺を構築後に変更しない場合は、連続配置する`WeightedCsrGraph`も使えます。
 
 ## 操作一覧
 
@@ -25,7 +26,25 @@ Vを頂点数、Eを辺数とすると、計算時間はO(V+E log(E+1))、メモ
 | [`ShortestPathResult<Cost>::infinity`](#infinity) | O(1) access |
 | [`result.path_to(target)`](#path-to) | O(V) |
 | [`dijkstra(graph, source, infinity)`](#dijkstra) | O(V + E log(E+1)) |
+| [`dijkstra(csr, source, infinity)`](#dijkstra-csr) | O(V + E log(E+1)) |
 | [`dijkstra_path(graph, source, target, infinity)`](#dijkstra-path) | O(V + E log(E+1)) |
+| [`dijkstra_path(csr, source, target, infinity)`](#dijkstra-path-csr) | O(V + E log(E+1)) |
+
+<details class="extra-operations" markdown="1">
+<summary>CSRの構築と参照</summary>
+
+| 操作 | 計算量 |
+| --- | --- |
+| [`WeightedCsrGraph<Cost>()`](#csr-default) | O(1) |
+| [`WeightedCsrGraph<Cost>(n, edges)`](#csr-build) | O(V+E) |
+| [`WeightedCsrGraph<Cost>(other)`](#csr-copy) | O(V+E) |
+| [`WeightedCsrGraph<Cost>(std::move(other))`](#csr-move) | O(1) |
+| [`graph = other`](#csr-copy-assign) | O(V+E+V_old+E_old) |
+| [`graph = std::move(other)`](#csr-move-assign) | O(V_old+E_old) |
+| [`graph.size()`](#csr-size) | O(1) |
+| [`graph[v]`](#csr-adjacency) | O(1) |
+
+</details>
 
 <!-- library-implementation -->
 
@@ -39,6 +58,8 @@ Vを頂点数、Eを辺数とすると、計算時間はO(V+E log(E+1))、メモ
 - 辺コストは`Cost{}`以上とします。標準整数型の距離は加算前に`infinity`で打ち切り、符号付き・符号なし双方のオーバーフローを防ぎます。
 - 浮動小数点・独自型では、加算結果が型に収まり、全順序比較ができることが必要です（NaN不可）。
 - `WeightedGraph<Cost>`は`vector<vector<WeightedEdge<Cost>>>`の別名です。通常のvectorと同じ構築・更新・参照無効化規則を持ち、辺の`to`は0-indexedの頂点番号です。
+- `WeightedCsrGraph<Cost>`は辺を連続配列に保存する静的グラフです。構築後に辺を追加できません。同じ始点の辺を入力順に格納するため、同じ順で挿入した`WeightedGraph`と距離・親の選択が一致します。CSR構築は入力辺列を別途保持したままO(V+E)メモリを使い、一時的にO(V)の作業領域も必要です。
+- 代入の計算量ではV・Eを代入元、V_old・E_oldを代入前の代入先の頂点数・辺数とします。
 
 </details>
 
@@ -55,9 +76,139 @@ int main() {
   auto result = blueberry::dijkstra(graph, 0);
   assert(result.distance[2] == 5);
   assert(result.path_to(2) == std::vector<int>({0, 1, 2}));
+  std::vector<std::tuple<int, int, int>> edges{{0, 1, 2}, {1, 2, 3}};
+  blueberry::WeightedCsrGraph<int> csr(3, edges);
+  assert(blueberry::dijkstra_path(csr, 0, 2).first == 5);
 }
 ```
 {% endraw %}
+
+<details class="api-operation" id="csr-default" markdown="1">
+<summary><code>WeightedCsrGraph&lt;Cost&gt;()</code> — O(1)</summary>
+
+頂点も辺もないグラフを作ります。
+
+{% raw %}
+```cpp
+blueberry::WeightedCsrGraph<int> graph;
+assert(graph.size() == 0);
+```
+{% endraw %}
+
+注意点: 空グラフには有効な始点がないため、`dijkstra`には渡せません。
+
+</details>
+
+<details class="api-operation" id="csr-build" markdown="1">
+<summary><code>WeightedCsrGraph&lt;Cost&gt;(int n, const vector&lt;tuple&lt;int,int,Cost&gt;&gt;&amp; edges)</code> — O(V+E)</summary>
+
+頂点数`n`と、`(from, to, cost)`の辺列からグラフを構築します。同じ始点の辺は入力順です。
+
+{% raw %}
+```cpp
+std::vector<std::tuple<int, int, int>> edges{{0, 1, 2}, {1, 2, 3}};
+blueberry::WeightedCsrGraph<int> graph(3, edges);
+assert(blueberry::dijkstra(graph, 0).distance[2] == 5);
+```
+{% endraw %}
+
+注意点: `n >= 0`、両端点は`[0,n)`です。辺列は空でもよく、自己ループ・平行辺を保持します。
+`Cost`は値初期化、コピー構築、コピー代入が必要で、最短路で使う場合は重み・演算について`dijkstra`と同じ前提を守ってください。
+グラフは入力から独立して所有し、入力辺列の変更や破棄の影響を受けません。領域はO(V+E)、構築中の一時領域はO(V)で、呼び出し元の入力辺列のO(E)は別に必要です。
+
+</details>
+
+<details class="api-operation" id="csr-copy" markdown="1">
+<summary><code>WeightedCsrGraph&lt;Cost&gt;(const WeightedCsrGraph&amp; other)</code> — O(V+E)</summary>
+
+頂点と辺を独立にコピーします。
+
+{% raw %}
+```cpp
+auto copy = graph;
+```
+{% endraw %}
+
+注意点: `Cost`のコピーが必要です。要素の参照はコピー元と共有しません。
+
+</details>
+
+<details class="api-operation" id="csr-move" markdown="1">
+<summary><code>WeightedCsrGraph&lt;Cost&gt;(WeightedCsrGraph&amp;&amp; other)</code> — O(1)</summary>
+
+所有する配列を移動します。
+
+{% raw %}
+```cpp
+auto moved = std::move(copy);
+```
+{% endraw %}
+
+注意点: 移動元は破棄または代入して再利用できます。移動前に得たspanは使用しないでください。
+
+</details>
+
+<details class="api-operation" id="csr-copy-assign" markdown="1">
+<summary><code>graph = other</code> — O(V+E+V_old+E_old)</summary>
+
+辺と頂点をコピーで置き換え、代入先への参照を返します。
+
+{% raw %}
+```cpp
+blueberry::WeightedCsrGraph<int> copy;
+copy = graph;
+```
+{% endraw %}
+
+注意点: コピーの構築に失敗した場合、代入先は変更されません。コピー中は代入元と同じ大きさのO(V+E)の追加メモリを使います。成功後は代入先から以前に得たspanは無効になります。自己代入では変更しません。
+
+</details>
+
+<details class="api-operation" id="csr-move-assign" markdown="1">
+<summary><code>graph = std::move(other)</code> — O(V_old+E_old)</summary>
+
+所有する配列を移動して置き換え、代入先への参照を返します。
+
+{% raw %}
+```cpp
+blueberry::WeightedCsrGraph<int> moved;
+moved = std::move(copy);
+```
+{% endraw %}
+
+注意点: 代入先の旧要素の破棄に比例する場合があります。移動元・代入先から以前に得たspanは使用しないでください。自己移動代入では変更しません。
+
+</details>
+
+<details class="api-operation" id="csr-size" markdown="1">
+<summary><code>int graph.size() const</code> — O(1)</summary>
+
+頂点数を返します。空グラフでは0です。
+
+{% raw %}
+```cpp
+assert(graph.size() == 3);
+```
+{% endraw %}
+
+注意点: 辺の数ではありません。
+
+</details>
+
+<details class="api-operation" id="csr-adjacency" markdown="1">
+<summary><code>span&lt;const WeightedEdge&lt;Cost&gt;&gt; graph[int v] const</code> — O(1)</summary>
+
+頂点`v`から出る辺を入力順の読み取り専用spanとして返します。
+
+{% raw %}
+```cpp
+for (const auto& edge : graph[0]) { (void)edge; }
+```
+{% endraw %}
+
+注意点: `v`は`[0,graph.size())`です。出辺がなければ空spanです。spanはグラフを所有せず、破棄・代入・移動の後は使用できません。
+
+</details>
 
 <details class="api-operation" id="edge" markdown="1">
 <summary><code>WeightedEdge&lt;Cost&gt;{to, cost}</code> — O(1)</summary>
@@ -223,8 +374,40 @@ auto [distance, path] = blueberry::dijkstra_path(graph, 0, 2, 1'000'000'000);
 
 </details>
 
+<details class="api-operation" id="dijkstra-csr" markdown="1">
+<summary><code>dijkstra(csr, source, infinity = numeric_limits&lt;Cost&gt;::max())</code> — O(V + E log(E+1))</summary>
+
+`WeightedCsrGraph`から全頂点の最短距離と親を返します。
+
+{% raw %}
+```cpp
+auto result = blueberry::dijkstra(graph, 0);
+```
+{% endraw %}
+
+注意点: `dijkstra(WeightedGraph, ...)`と同じ辺重み、型、頂点範囲、打ち切りの前提です。結果はグラフとは独立し、同じ辺順の`WeightedGraph`と親の選択も一致します。
+CSR版はグラフ型を推論して呼び出します。`dijkstra<int>(csr, ...)`のように`Cost`を明示しません。
+
+</details>
+
+<details class="api-operation" id="dijkstra-path-csr" markdown="1">
+<summary><code>dijkstra_path(csr, source, target, infinity = numeric_limits&lt;Cost&gt;::max())</code> — O(V + E log(E+1))</summary>
+
+`WeightedCsrGraph`で単一終点の距離と経路を返します。
+
+{% raw %}
+```cpp
+auto [distance, path] = blueberry::dijkstra_path(graph, 0, 2);
+```
+{% endraw %}
+
+注意点: `dijkstra_path(WeightedGraph, ...)`と同じ前提・返り値・同距離の親選択を持ちます。始点と終点が等しい場合はO(1)です。
+CSR版はグラフ型を推論して呼び出し、`Cost`を明示しません。
+
+</details>
+
 ## 検証
 
 `shortest_path` の公式ケースに加え、`tests/random/dijkstra.cpp` でFloyd–Warshallとの比較、
-経路復元、単一終点版と全頂点版の一致、符号付き・符号なし整数の上限、独自の打ち切り値を検証します。
+経路復元、単一終点版と全頂点版の一致、CSRと従来の隣接リストの辺順・距離・親の一致、符号付き・符号なし整数の上限、独自の打ち切り値を検証します。
 整数キューの設計は[Nyaanのradix heapによるDijkstra](https://nyaannyaan.github.io/library/shortest-path/dijkstra-radix-heap.hpp.html)を参考に、同距離の頂点順序を維持する形で独立に実装しました。

@@ -1,0 +1,65 @@
+{
+  "status": "failed",
+  "compiler": "msvc",
+  "builds": [],
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "affinity_mask": "0x1",
+  "rounds": 5,
+  "warmups": 1,
+  "seed": 20261115,
+  "source_sha256": "adb2524f0b249a8a408cc5b976105fc76fd33aec25475c9b36f25df6ff92397a",
+  "header_sha256": "f37bb3a78bff973dda77e912e4e6755dfc02a141fef245162a44aa9a18478936",
+  "io_sha256": "0a73209974def4a36a5f5c2986f774e679dd3fb98ce1442f0c138249a87443d2",
+  "executables": {},
+  "inputs": {
+    "random": {
+      "vertices": 100000,
+      "edges": 499999,
+      "source": 0,
+      "target": 99999,
+      "path": "random.in",
+      "sha256": "0f8762d86c2ba56ebfa400fdff1b932effec0f9ed1fbb4c1a109f1bcf72fd527"
+    },
+    "zero": {
+      "vertices": 100000,
+      "edges": 499999,
+      "source": 0,
+      "target": 99999,
+      "path": "zero.in",
+      "sha256": "3905ed5e552e25d168be7a58a3882652eac11281c3414a90616e6f387fe39ea2"
+    },
+    "line": {
+      "vertices": 100000,
+      "edges": 99999,
+      "source": 0,
+      "target": 99999,
+      "path": "line.in",
+      "sha256": "e728a0a6209ddfc6544cebd7631b98cc028409d16168f8744e400344e59e8500"
+    },
+    "dag": {
+      "vertices": 100000,
+      "edges": 499999,
+      "source": 0,
+      "target": 99999,
+      "path": "dag.in",
+      "sha256": "595f9950a44e788bdd1557b192fa56937432f69609f7060ea4f59f5df52575a9"
+    },
+    "disconnected": {
+      "vertices": 100000,
+      "edges": 400999,
+      "source": 0,
+      "target": 99999,
+      "path": "disconnected.in",
+      "sha256": "4ca2752c4f2449587608ee169566f11ce490a07347b3da7267c17aa5c500be09"
+    }
+  },
+  "samples": [],
+  "verification": {},
+  "failures": [
+    {
+      "type": "UnicodeDecodeError",
+      "message": "'cp932' codec can't decode byte 0x89 in position 1325: illegal multibyte sequence"
+    }
+  ]
+}

@@ -9,6 +9,8 @@
 #include <limits>
 #include <queue>
 #include <random>
+#include <stdexcept>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -19,6 +21,25 @@ struct CustomCost {
   friend bool operator==(CustomCost a, CustomCost b) { return a.value == b.value; }
   friend CustomCost operator+(CustomCost a, CustomCost b) { return {a.value + b.value}; }
 };
+
+struct ThrowingCost {
+  int value = 0;
+  static inline int remaining = -1;
+  ThrowingCost(int x = 0) : value(x) {}
+  ThrowingCost(const ThrowingCost& other) : value(other.value) {
+    if (remaining == 0) throw std::runtime_error("copy");
+    if (remaining > 0) --remaining;
+  }
+  ThrowingCost& operator=(const ThrowingCost&) = default;
+};
+
+template<class Cost>
+static blueberry::WeightedCsrGraph<Cost> make_csr(const blueberry::WeightedGraph<Cost>& graph) {
+  std::vector<std::tuple<int, int, Cost>> edges;
+  for (std::size_t u = 0; u < graph.size(); ++u)
+    for (auto e : graph[u]) edges.emplace_back(static_cast<int>(u), e.to, e.cost);
+  return blueberry::WeightedCsrGraph<Cost>(static_cast<int>(graph.size()), edges);
+}
 
 static auto reference_dijkstra(const blueberry::WeightedGraph<long long>& g, int source, long long inf) {
   std::vector<long long> dist(g.size(), inf);
@@ -46,6 +67,8 @@ static void test_radix_boundaries() {
   g[1] = {{2, Cost(3)}, {3, Cost(3)}, {4, Cost(4)}};
   g[5] = {{6, Cost(0)}, {7, Cost(1)}};
   auto result = blueberry::dijkstra(g, 0);
+  auto csr_result = blueberry::dijkstra(make_csr(g), 0);
+  assert(csr_result.distance == result.distance && csr_result.parent == result.parent);
   assert(result.distance[1] == Cost(inf - 4));
   assert(result.distance[2] == Cost(inf - 1) && result.parent[2] == 0);
   assert(result.distance[3] == Cost(inf - 1) && result.parent[3] == 1);
@@ -60,6 +83,45 @@ static void test_radix_boundaries() {
 int main(int argc, char** argv) {
   const auto seed = argc > 1 ? std::strtoull(argv[1], nullptr, 10) : 1;
   std::mt19937_64 rng(seed);
+  blueberry::WeightedCsrGraph<int> empty;
+  blueberry::WeightedCsrGraph<int> also_empty(0, {});
+  assert(empty.size() == 0 && also_empty.size() == 0);
+  blueberry::WeightedCsrGraph<int> vertices(3, {});
+  assert(vertices.size() == 3 && vertices[0].empty() && vertices[2].empty());
+  assert(blueberry::dijkstra(vertices, 0).distance[1] == std::numeric_limits<int>::max());
+  auto old_braces = blueberry::dijkstra<int>({{}, {}}, 0);
+  assert(old_braces.distance.size() == 2);
+  auto old_path_braces = blueberry::dijkstra_path<int>({{}, {}}, 0, 1);
+  assert(old_path_braces.second.empty());
+  auto old_function = &blueberry::dijkstra<int>;
+  auto old_path_function = &blueberry::dijkstra_path<int>;
+  assert(old_function({{}}, 0, 9).distance[0] == 0);
+  assert(old_path_function({{}}, 0, 0, 9).second == std::vector<int>{0});
+  std::vector<std::tuple<int, int, int>> input{{2, 1, 4}, {0, 1, 5}, {2, 0, 6}, {0, 1, 7}};
+  blueberry::WeightedCsrGraph<int> stable(4, input);
+  assert(stable.size() == 4 && stable[1].empty() && stable[3].empty());
+  assert(stable[0].size() == 2 && stable[0][0].cost == 5 && stable[0][1].cost == 7);
+  assert(stable[2].size() == 2 && stable[2][0].to == 1 && stable[2][1].to == 0);
+  input[1] = {0, 1, 99};
+  assert(stable[0][0].cost == 5);
+  auto copied = stable;
+  auto moved = std::move(copied);
+  assert(moved.size() == 4 && moved[0][0].cost == 5);
+  copied = stable;
+  assert(copied.size() == 4 && copied[2][1].cost == 6);
+  moved = std::move(copied);
+  assert(moved.size() == 4 && moved[2][1].cost == 6);
+  auto* self = &stable;
+  stable = *self;
+  stable = std::move(*self);
+  assert(stable.size() == 4 && stable[0][0].cost == 5 && stable[2][1].cost == 6);
+  blueberry::WeightedCsrGraph<ThrowingCost> before(2, {{0, 1, 5}});
+  blueberry::WeightedCsrGraph<ThrowingCost> replacement(3, {{0, 1, 3}, {1, 2, 4}});
+  ThrowingCost::remaining = 1;
+  bool threw = false;
+  try { before = replacement; } catch (const std::runtime_error&) { threw = true; }
+  ThrowingCost::remaining = -1;
+  assert(threw && before.size() == 2 && before[0].size() == 1 && before[0][0].cost.value == 5);
   test_radix_boundaries<std::uint8_t>();
   test_radix_boundaries<std::uint64_t>();
   test_radix_boundaries<std::int64_t>();
@@ -90,6 +152,7 @@ int main(int argc, char** argv) {
   custom[1] = {{2, {3}}};
   assert(blueberry::dijkstra(custom, 0, CustomCost{100}).distance[2].value == 10);
   assert(blueberry::dijkstra_path(custom, 0, 2, CustomCost{100}).first.value == 10);
+  assert(blueberry::dijkstra_path(make_csr(custom), 0, 2, CustomCost{100}).first.value == 10);
   blueberry::WeightedGraph<long long> tied(8);
   tied[0] = {{6, 0}, {2, 0}, {1, 0}};
   tied[1] = {{4, 0}, {3, 0}};
@@ -103,6 +166,7 @@ int main(int argc, char** argv) {
   bit_graph[0].push_back({2, true});
   assert(blueberry::dijkstra_path(bit_graph, 0, 1, true).first == false);
   assert(blueberry::dijkstra_path(bit_graph, 0, 2, true).second.empty());
+  assert(blueberry::dijkstra_path(make_csr(bit_graph), 0, 1, true).first == false);
 #if defined(__SIZEOF_INT128__)
   using Wide = __int128_t;
   const Wide magnitude = Wide{1} << 80;
@@ -124,26 +188,37 @@ int main(int argc, char** argv) {
   for (int trial = 0; trial < 150; ++trial) {
     const int n = 1 + static_cast<int>(rng() % 18);
     blueberry::WeightedGraph<long long> g(n);
+    std::vector<std::tuple<int, int, long long>> edges;
     std::vector<std::vector<long long>> dist(n, std::vector<long long>(n, 1000000));
     for (int i = 0; i < n; ++i) dist[i][i] = 0;
     for (int e = 0; e < 4 * n; ++e) {
       int u = rng() % n, v = rng() % n;
       long long w = rng() % 25;
       g[u].push_back({v, w});
+      edges.emplace_back(u, v, w);
       dist[u][v] = std::min(dist[u][v], w);
     }
     for (int k = 0; k < n; ++k)
       for (int i = 0; i < n; ++i)
         for (int j = 0; j < n; ++j)
           dist[i][j] = std::min(dist[i][j], dist[i][k] + dist[k][j]);
+    blueberry::WeightedCsrGraph<long long> csr(n, edges);
+    for (int u = 0; u < n; ++u) {
+      assert(csr[u].size() == g[u].size());
+      for (std::size_t i = 0; i < g[u].size(); ++i)
+        assert(csr[u][i].to == g[u][i].to && csr[u][i].cost == g[u][i].cost);
+    }
     for (int source = 0; source < n; ++source) {
       const long long inf = trial % 2 ? 30 : 1000000;
       auto result = blueberry::dijkstra(g, source, inf);
+      auto csr_result = blueberry::dijkstra(csr, source, inf);
+      assert(csr_result.distance == result.distance && csr_result.parent == result.parent);
       auto reference = reference_dijkstra(g, source, inf);
       assert(result.distance == reference.first && result.parent == reference.second);
       for (int target : {source, static_cast<int>(rng() % n), static_cast<int>(rng() % n)}) {
         auto single = blueberry::dijkstra_path(g, source, target, inf);
         assert(single.first == result.distance[target] && single.second == result.path_to(target));
+        assert(blueberry::dijkstra_path(csr, source, target, inf) == single);
       }
       for (int v = 0; v < n; ++v) {
         const auto expected = std::min(dist[source][v], inf);
@@ -175,11 +250,15 @@ int main(int argc, char** argv) {
       graph[rng() % n].push_back({static_cast<int>(rng() % n), static_cast<long long>(rng() % 32)});
     auto expected = reference_dijkstra(graph, 0, 1000000);
     auto actual = blueberry::dijkstra(graph, 0, 1000000LL);
+    auto csr = make_csr(graph);
+    auto csr_result = blueberry::dijkstra(csr, 0, 1000000LL);
+    assert(csr_result.distance == actual.distance && csr_result.parent == actual.parent);
     assert(actual.distance == expected.first && actual.parent == expected.second);
     for (int i = 0; i < 4; ++i) {
       int target = rng() % n;
       auto single = blueberry::dijkstra_path(graph, 0, target, 1000000LL);
       assert(single.first == actual.distance[target] && single.second == actual.path_to(target));
+      assert(blueberry::dijkstra_path(csr, 0, target, 1000000LL) == single);
     }
   }
 }
