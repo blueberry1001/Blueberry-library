@@ -1,0 +1,97 @@
+{
+  "status": "failed",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "affinity_mask": "0x1",
+  "rounds": 5,
+  "warmups": 1,
+  "seeds": [
+    1,
+    2,
+    17
+  ],
+  "candidate_sha256": "b91ad49739267c92e11ee7e304166c5d3c745bdcdfce9147a8277bb0749b9f21",
+  "baseline_sha256": "0a73209974def4a36a5f5c2986f774e679dd3fb98ce1442f0c138249a87443d2",
+  "graph_sha256": "86564806927eb7f8f42b1ab2a53d099a64f935f7d699b472a3cdf5f8e6f7120f",
+  "test_sha256": "352c6f17c722e7a75d83a5d56fa1c7a2a29c37d23174eb768fe44da70c23498c",
+  "driver_sha256": "adb2524f0b249a8a408cc5b976105fc76fd33aec25475c9b36f25df6ff92397a",
+  "runner_sha256": "0844aaecf83aac067e17c292a71e02b87493c04c57dbef351aa1d1a3e502c53d",
+  "input_manifest": {
+    "seed": 20261115,
+    "shapes": {
+      "random": {
+        "vertices": 100000,
+        "edges": 499999,
+        "source": 0,
+        "target": 99999,
+        "path": "random.in",
+        "sha256": "0f8762d86c2ba56ebfa400fdff1b932effec0f9ed1fbb4c1a109f1bcf72fd527"
+      },
+      "zero": {
+        "vertices": 100000,
+        "edges": 499999,
+        "source": 0,
+        "target": 99999,
+        "path": "zero.in",
+        "sha256": "3905ed5e552e25d168be7a58a3882652eac11281c3414a90616e6f387fe39ea2"
+      },
+      "line": {
+        "vertices": 100000,
+        "edges": 99999,
+        "source": 0,
+        "target": 99999,
+        "path": "line.in",
+        "sha256": "e728a0a6209ddfc6544cebd7631b98cc028409d16168f8744e400344e59e8500"
+      },
+      "dag": {
+        "vertices": 100000,
+        "edges": 499999,
+        "source": 0,
+        "target": 99999,
+        "path": "dag.in",
+        "sha256": "595f9950a44e788bdd1557b192fa56937432f69609f7060ea4f59f5df52575a9"
+      },
+      "disconnected": {
+        "vertices": 100000,
+        "edges": 400999,
+        "source": 0,
+        "target": 99999,
+        "path": "disconnected.in",
+        "sha256": "4ca2752c4f2449587608ee169566f11ce490a07347b3da7267c17aa5c500be09"
+      }
+    }
+  },
+  "builds": [
+    {
+      "compiler": "msvc",
+      "variant": "baseline",
+      "purpose": "correctness",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W4",
+        "/WX",
+        "/D_CRT_SECURE_NO_WARNINGS",
+        "/IC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\dijkstra-short-parse\\baseline",
+        "/IC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library",
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\tests\\random\\fast-io.cpp",
+        "/FoC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\dijkstra-short-parse\\msvc-baseline-correctness.obj",
+        "/FeC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\dijkstra-short-parse\\msvc-baseline-correctness.exe"
+      ],
+      "exit": 2,
+      "output": "fast-io.cpp\nC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\dijkstra-short-parse\\baseline\\blueberry/utility/fast-io.hpp(73): error C2220: \u6b21\u306e\u8b66\u544a\u306f\u30a8\u30e9\u30fc\u3068\u3057\u3066\u51e6\u7406\u3055\u308c\u307e\u3059\nC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\dijkstra-short-parse\\baseline\\blueberry/utility/fast-io.hpp(73): warning C4146: \u7b26\u53f7\u4ed8\u304d\u306e\u5024\u3092\u4ee3\u5165\u3059\u308b\u5909\u6570\u306f\u3001\u7b26\u53f7\u4ed8\u304d\u578b\u306b\u30ad\u30e3\u30b9\u30c8\u3057\u306a\u3051\u308c\u3070\u306a\u308a\u307e\u305b\u3093\u3002\nC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\dijkstra-short-parse\\baseline\\blueberry/utility/fast-io.hpp(73): note: \u30c6\u30f3\u30d7\u30ec\u30fc\u30c8\u30a4\u30f3\u30b9\u30bf\u30f3\u30b9\u5316\u30b3\u30f3\u30c6\u30ad\u30b9\u30c8 (\u6700\u521d\u306b\u6700\u3082\u53e4\u3044\u3082\u306e) \u306f\nC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\tests\\random\\fast-io.cpp(300): note: \u30b3\u30f3\u30d1\u30a4\u30eb\u5bfe\u8c61\u306e\u95a2\u6570 \u30c6\u30f3\u30d7\u30ec\u30fc\u30c8 \u30a4\u30f3\u30b9\u30bf\u30f3\u30b9\u5316 'bool blueberry::FastInput<false>::read<unsigned int>(T &)' \u306e\u30ea\u30d5\u30a1\u30ec\u30f3\u30b9\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\n        with\n        [\n            T=unsigned int\n        ]\nC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\tests\\random\\fast-io.cpp(300): note: 'main' \u306e 'blueberry::FastInput<false>::read' \u3078\u306e\u6700\u521d\u306e\u53c2\u7167\u3092\u53c2\u7167\u3057\u3066\u304f\u3060\u3055\u3044\n",
+      "exe_sha256": null
+    }
+  ],
+  "validation": [],
+  "samples": [],
+  "failures": [
+    {
+      "type": "RuntimeError",
+      "message": "msvc baseline correctness compilation failed"
+    }
+  ]
+}

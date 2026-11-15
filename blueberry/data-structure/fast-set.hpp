@@ -1,23 +1,25 @@
 #pragma once
 #include <algorithm>
 #include <bit>
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
-#include <limits>
 #include <string>
 #include <utility>
 #include <vector>
+#if defined(__SSE2__) && (defined(__x86_64__) || defined(__i386__))
+#include <emmintrin.h>
+#endif
+#if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
+#include <immintrin.h>
+#endif
 
 namespace blueberry {
-// Dense integer universe, with a 64-ary hierarchy of nonempty words.
 class FastSet {
   int universe_ = 0, count_ = 0;
   std::vector<std::vector<std::uint64_t>> levels_;
  public:
   FastSet() = default;
   explicit FastSet(int universe) : universe_(universe) {
-    assert(universe >= 0);
     std::size_t words = static_cast<std::size_t>(universe);
     while (words > 0) {
       words = (words + 63) / 64;
@@ -25,14 +27,35 @@ class FastSet {
       if (words == 1) break;
     }
   }
-  explicit FastSet(const std::string& bits) : FastSet(checked_size(bits.size())) {
-    for (int i = 0; i < universe_; ++i) {
-      assert(bits[i] == '0' || bits[i] == '1');
+  explicit FastSet(const std::string& bits) : FastSet(static_cast<int>(bits.size())) {
+    int i = 0;
+#if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
+    if (universe_ >= 64 && __builtin_cpu_supports("avx2") && __builtin_cpu_supports("popcnt")) {
+      const int words = universe_ / 64;
+      count_ = load_avx2(bits.data(), levels_[0].data(), words);
+      i = words * 64;
+    }
+#endif
+    for (; i <= universe_ - 64; i += 64) {
+      std::uint64_t word = 0;
+#if defined(__SSE2__) && (defined(__x86_64__) || defined(__i386__))
+      const auto one = _mm_set1_epi8('1');
+      for (int j = 0; j < 4; ++j) {
+        const auto v = _mm_loadu_si128(reinterpret_cast<const __m128i*>(bits.data() + i + 16 * j));
+        word |= std::uint64_t(static_cast<unsigned>(_mm_movemask_epi8(_mm_cmpeq_epi8(v, one)))) << (16 * j);
+      }
+#else
+      for (int j = 0; j < 64; ++j) word |= std::uint64_t(bits[i + j] == '1') << j;
+#endif
+      levels_[0][i / 64] = word;
+      count_ += std::popcount(word);
+    }
+    for (; i < universe_; ++i) {
       if (bits[i] == '1') { levels_[0][i / 64] |= std::uint64_t{1} << (i % 64); ++count_; }
     }
     for (std::size_t h = 1; h < levels_.size(); ++h)
-      for (std::size_t i = 0; i < levels_[h - 1].size(); ++i)
-        if (levels_[h - 1][i]) levels_[h][i / 64] |= std::uint64_t{1} << (i % 64);
+      for (std::size_t j = 0; j < levels_[h - 1].size(); ++j)
+        if (levels_[h - 1][j]) levels_[h][j / 64] |= std::uint64_t{1} << (j % 64);
   }
   FastSet(const FastSet&) = default;
   FastSet& operator=(const FastSet&) = default;
@@ -50,11 +73,9 @@ class FastSet {
   int universe_size() const { return universe_; }
   bool empty() const { return count_ == 0; }
   bool contains(int x) const {
-    assert(0 <= x && x < universe_);
     return (levels_[0][x / 64] >> (x % 64)) & 1;
   }
   bool insert(int x) {
-    assert(0 <= x && x < universe_);
     auto& leaf = levels_[0][x / 64];
     const auto bit = std::uint64_t{1} << (x % 64);
     if (leaf & bit) return false;
@@ -111,9 +132,21 @@ class FastSet {
     count_ = 0;
   }
  private:
-  static int checked_size(std::size_t n) {
-    assert(n <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
-    return static_cast<int>(n);
+#if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
+  __attribute__((target("avx2"))) static int load_avx2(const char* bits, std::uint64_t* words, int n) {
+    const auto one = _mm256_set1_epi8('1');
+    int count = 0;
+    for (int i = 0; i < n; ++i) {
+      const auto lo = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(bits + static_cast<std::size_t>(i) * 64));
+      const auto hi = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(bits + static_cast<std::size_t>(i) * 64 + 32));
+      const auto a = static_cast<std::uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(lo, one)));
+      const auto b = static_cast<std::uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(hi, one)));
+      const auto word = std::uint64_t(a) | (std::uint64_t(b) << 32);
+      words[i] = word;
+      count += std::popcount(word);
+    }
+    return count;
   }
+#endif
 };
-}  // namespace blueberry
+}

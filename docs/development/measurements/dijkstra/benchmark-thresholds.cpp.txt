@@ -1,0 +1,48 @@
+#include "blueberry/graph/dijkstra.hpp"
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <random>
+#include <string>
+#include <vector>
+
+struct Edge { int from, to; long long cost; };
+int main(int argc, char** argv) {
+  std::string shape = argc > 1 ? argv[1] : "sparse";
+  int n = shape == "dense" ? 5000 : shape == "tiny" ? 16 : shape == "tiny64" ? 64 :
+          shape == "tiny65" ? 65 : shape == "small128" ? 128 : shape == "small129" ? 129 :
+          shape == "small256" ? 256 : shape == "small257" ? 257 : shape == "small512" ? 512 :
+          shape == "small1024" ? 1024 : 200000;
+  if (shape.size() > 1 && (shape[0] == 'r' || shape[0] == 'z' || shape[0] == 't') &&
+      shape[1] >= '0' && shape[1] <= '9') n = std::stoi(shape.substr(1));
+  int m = shape == "dense" ? 1000000 : n <= 1024 ? 5 * n : shape == "line" ? 0 : 800000;
+  std::mt19937_64 rng(20261115);
+  std::vector<Edge> edges;
+  edges.reserve(m + n);
+  if (shape != "disconnected")
+    for (int i = 1; i < n; ++i) edges.push_back({i - 1, i, shape == "zero" || shape[0] == 'z' ? 0 : 1});
+  for (int i = 0; i < m; ++i) {
+    int active = shape == "disconnected" && i < m / 2 ? 1000 : n;
+    int from = rng() % active, to = rng() % active;
+    if (shape == "disconnected" && i >= m / 2) from = 1000 + rng() % (n - 1000);
+    long long cost = shape == "zero" || shape[0] == 'z' ? 0 : shape == "ties" || (shape[0] == 't' && shape[1] >= '0' && shape[1] <= '9') ? rng() % 4 : rng() % 1000000000;
+    edges.push_back({from, to, cost});
+  }
+  auto begin = std::chrono::steady_clock::now();
+  blueberry::WeightedGraph<long long> graph(n);
+  for (auto e : edges) graph[e.from].push_back({e.to, e.cost});
+  auto built = std::chrono::steady_clock::now();
+  auto result = blueberry::dijkstra(graph, 0);
+  for (int i = 1; i < (n <= 1024 ? 160000 / n : 1); ++i)
+    result = blueberry::dijkstra(graph, 0);
+  auto done = std::chrono::steady_clock::now();
+  std::uint64_t hash = 14695981039346656037ULL;
+  for (int i = 0; i < n; ++i) {
+    hash = (hash ^ static_cast<std::uint64_t>(result.distance[i])) * 1099511628211ULL;
+    hash = (hash ^ static_cast<std::uint64_t>(result.parent[i] + 1)) * 1099511628211ULL;
+  }
+  std::cout << shape << ' ' << n << ' ' << edges.size() << ' ' << hash << ' '
+            << std::chrono::duration<double, std::milli>(built - begin).count() << ' '
+            << std::chrono::duration<double, std::milli>(done - built).count() << '\n';
+}

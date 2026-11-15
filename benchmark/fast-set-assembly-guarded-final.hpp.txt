@@ -1,0 +1,152 @@
+#pragma once
+#include <algorithm>
+#include <bit>
+#include <cstddef>
+#include <cstdint>
+#include <string>
+#include <utility>
+#include <vector>
+#if defined(__SSE2__) && (defined(__x86_64__) || defined(__i386__))
+#include <emmintrin.h>
+#endif
+#if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
+#include <immintrin.h>
+#endif
+
+namespace blueberry {
+class FastSet {
+  int universe_ = 0, count_ = 0;
+  std::vector<std::vector<std::uint64_t>> levels_;
+ public:
+  FastSet() = default;
+  explicit FastSet(int universe) : universe_(universe) {
+    std::size_t words = static_cast<std::size_t>(universe);
+    while (words > 0) {
+      words = (words + 63) / 64;
+      levels_.emplace_back(words, 0);
+      if (words == 1) break;
+    }
+  }
+  explicit FastSet(const std::string& bits) : FastSet(static_cast<int>(bits.size())) {
+    int i = 0;
+#if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
+    if (universe_ >= 64 && __builtin_cpu_supports("avx2") && __builtin_cpu_supports("popcnt")) {
+      const int words = universe_ / 64;
+      count_ = load_avx2(bits.data(), levels_[0].data(), words);
+      i = words * 64;
+    }
+#endif
+    for (; i <= universe_ - 64; i += 64) {
+      std::uint64_t word = 0;
+#if defined(__SSE2__) && (defined(__x86_64__) || defined(__i386__))
+      const auto one = _mm_set1_epi8('1');
+      for (int j = 0; j < 4; ++j) {
+        const auto v = _mm_loadu_si128(reinterpret_cast<const __m128i*>(bits.data() + i + 16 * j));
+        word |= std::uint64_t(static_cast<unsigned>(_mm_movemask_epi8(_mm_cmpeq_epi8(v, one)))) << (16 * j);
+      }
+#else
+      for (int j = 0; j < 64; ++j) word |= std::uint64_t(bits[i + j] == '1') << j;
+#endif
+      levels_[0][i / 64] = word;
+      count_ += std::popcount(word);
+    }
+    for (; i < universe_; ++i) {
+      if (bits[i] == '1') { levels_[0][i / 64] |= std::uint64_t{1} << (i % 64); ++count_; }
+    }
+    for (std::size_t h = 1; h < levels_.size(); ++h)
+      for (std::size_t i = 0; i < levels_[h - 1].size(); ++i)
+        if (levels_[h - 1][i]) levels_[h][i / 64] |= std::uint64_t{1} << (i % 64);
+  }
+  FastSet(const FastSet&) = default;
+  FastSet& operator=(const FastSet&) = default;
+  FastSet(FastSet&& other) noexcept
+      : universe_(std::exchange(other.universe_, 0)), count_(std::exchange(other.count_, 0)),
+        levels_(std::move(other.levels_)) { other.levels_.clear(); }
+  FastSet& operator=(FastSet&& other) noexcept {
+    if (this != &other) {
+      universe_ = std::exchange(other.universe_, 0); count_ = std::exchange(other.count_, 0);
+      levels_ = std::move(other.levels_); other.levels_.clear();
+    }
+    return *this;
+  }
+  int size() const { return count_; }
+  int universe_size() const { return universe_; }
+  bool empty() const { return count_ == 0; }
+  bool contains(int x) const {
+    return (levels_[0][x / 64] >> (x % 64)) & 1;
+  }
+  bool insert(int x) {
+    auto& leaf = levels_[0][x / 64];
+    const auto bit = std::uint64_t{1} << (x % 64);
+    if (leaf & bit) return false;
+    const bool was_empty = leaf == 0;
+    leaf |= bit;
+    ++count_;
+    if (!was_empty) return true;
+    for (std::size_t h = 1; h < levels_.size(); ++h) {
+      x /= 64;
+      auto& word = levels_[h][x / 64];
+      const bool word_was_empty = word == 0;
+      word |= std::uint64_t{1} << (x % 64);
+      if (!word_was_empty) break;
+    }
+    return true;
+  }
+  bool erase(int x) {
+    if (!contains(x)) return false;
+    --count_;
+    for (auto& row : levels_) {
+      row[x / 64] &= ~(std::uint64_t{1} << (x % 64));
+      if (row[x / 64]) break;
+      x /= 64;
+    }
+    return true;
+  }
+  int next(int x) const {
+    if (x >= universe_ || empty()) return universe_;
+    std::size_t i = static_cast<std::size_t>(std::max(x, 0));
+    for (std::size_t h = 0; h < levels_.size(); ++h) {
+      if (i / 64 >= levels_[h].size()) break;
+      auto word = levels_[h][i / 64] & (~std::uint64_t{0} << (i % 64));
+      if (!word) { i = i / 64 + 1; continue; }
+      i = (i / 64) * 64 + std::countr_zero(word);
+      for (std::size_t g = h; g > 0; --g) i = i * 64 + std::countr_zero(levels_[g - 1][i]);
+      return static_cast<int>(i);
+    }
+    return universe_;
+  }
+  int prev(int x) const {
+    if (x < 0 || empty()) return -1;
+    std::size_t i = static_cast<std::size_t>(std::min(x, universe_ - 1));
+    for (std::size_t h = 0; h < levels_.size(); ++h) {
+      auto word = levels_[h][i / 64] & (~std::uint64_t{0} >> (63 - i % 64));
+      if (!word) { if (i / 64 == 0) break; i = i / 64 - 1; continue; }
+      i = (i / 64) * 64 + 63 - std::countl_zero(word);
+      for (std::size_t g = h; g > 0; --g) i = i * 64 + 63 - std::countl_zero(levels_[g - 1][i]);
+      return static_cast<int>(i);
+    }
+    return -1;
+  }
+  void clear() {
+    for (auto& row : levels_) std::fill(row.begin(), row.end(), 0);
+    count_ = 0;
+  }
+ private:
+#if (defined(__x86_64__) || defined(__i386__)) && (defined(__GNUC__) || defined(__clang__))
+  __attribute__((target("avx2"))) static int load_avx2(const char* bits, std::uint64_t* words, int n) {
+    const auto one = _mm256_set1_epi8('1');
+    int count = 0;
+    for (int i = 0; i < n; ++i) {
+      const auto lo = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(bits + static_cast<std::size_t>(i) * 64));
+      const auto hi = _mm256_loadu_si256(reinterpret_cast<const __m256i*>(bits + static_cast<std::size_t>(i) * 64 + 32));
+      const auto a = static_cast<std::uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(lo, one)));
+      const auto b = static_cast<std::uint32_t>(_mm256_movemask_epi8(_mm256_cmpeq_epi8(hi, one)));
+      const auto word = std::uint64_t(a) | (std::uint64_t(b) << 32);
+      words[i] = word;
+      count += std::popcount(word);
+    }
+    return count;
+  }
+#endif
+};
+}

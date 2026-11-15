@@ -1,0 +1,246 @@
+[
+  {
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "variant": "baseline",
+    "header_sha256": "9912736c0478f8e63d0df4b02b27f37fec37ee5458f159f99785dfb56af7e30f",
+    "driver_sha256": "691b6810797202b0e6ef89d426987fff3f35da7b298248d37d86ccd031d15a32",
+    "assembly_sha256": "9aa07fb1697de3ec5a21f0042a6a777089bb9c80eb0bc416b7d71ba3b4a4dd7a",
+    "assembly": "gcc-baseline.s.gz",
+    "matches": [
+      {
+        "line": 53,
+        "text": "rep bsfq\t%rax, %rax"
+      },
+      {
+        "line": 73,
+        "text": "rep bsfq\t%rcx, %rax"
+      }
+    ],
+    "command": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG",
+      "-I",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fast-set-codegen/baseline",
+      "-S",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/benchmark/fast-set-assembly-codegen.cpp",
+      "-o",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fast-set-codegen/gcc-baseline.s"
+    ]
+  },
+  {
+    "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "variant": "candidate",
+    "header_sha256": "c407942e92f7622c2a73c139f64d2a55709f0ea5c0acec1b216866ad6a4e6413",
+    "driver_sha256": "691b6810797202b0e6ef89d426987fff3f35da7b298248d37d86ccd031d15a32",
+    "assembly_sha256": "e2fdf1caffb020dbd6c25aa6c36c4a94f8a163f54b3622ef16e8a30f84d500cd",
+    "assembly": "gcc-candidate.s.gz",
+    "matches": [
+      {
+        "line": 23,
+        "text": "vpcmpeqb\t32(%rdi), %ymm0, %ymm2"
+      },
+      {
+        "line": 24,
+        "text": "vpcmpeqb\t(%rdi), %ymm0, %ymm1"
+      },
+      {
+        "line": 27,
+        "text": "vpmovmskb\t%ymm2, %eax"
+      },
+      {
+        "line": 28,
+        "text": "vpmovmskb\t%ymm1, %r8d"
+      },
+      {
+        "line": 32,
+        "text": "popcntq\t%rax, %rax"
+      },
+      {
+        "line": 99,
+        "text": "rep bsfq\t%rax, %rax"
+      },
+      {
+        "line": 119,
+        "text": "rep bsfq\t%rcx, %rax"
+      },
+      {
+        "line": 651,
+        "text": ".globl\t__popcountdi2"
+      },
+      {
+        "line": 882,
+        "text": "pcmpeqb\t%xmm1, %xmm0"
+      },
+      {
+        "line": 883,
+        "text": "pmovmskb\t%xmm0, %eax"
+      },
+      {
+        "line": 898,
+        "text": "call\t__popcountdi2@PLT"
+      }
+    ],
+    "command": [
+      "g++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG",
+      "-I",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fast-set-codegen/candidate",
+      "-S",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/benchmark/fast-set-assembly-codegen.cpp",
+      "-o",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fast-set-codegen/gcc-candidate.s"
+    ]
+  },
+  {
+    "compiler": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "variant": "baseline",
+    "header_sha256": "9912736c0478f8e63d0df4b02b27f37fec37ee5458f159f99785dfb56af7e30f",
+    "driver_sha256": "691b6810797202b0e6ef89d426987fff3f35da7b298248d37d86ccd031d15a32",
+    "assembly_sha256": "87ae0687414e3b201c2a40e5134c3fbf0ea444d59e323ce33e2ee6f8d4cddab3",
+    "assembly": "clang-baseline.s.gz",
+    "matches": [
+      {
+        "line": 272,
+        "text": "rep\t\tbsfq\t%r10, %r8"
+      },
+      {
+        "line": 294,
+        "text": "rep\t\tbsfq\t%rax, %rax"
+      },
+      {
+        "line": 330,
+        "text": "rep\t\tbsfq\t%r8, %rdi"
+      },
+      {
+        "line": 339,
+        "text": "rep\t\tbsfq\t%rdi, %rsi"
+      }
+    ],
+    "command": [
+      "clang++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG",
+      "-I",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fast-set-codegen/baseline",
+      "-S",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/benchmark/fast-set-assembly-codegen.cpp",
+      "-o",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fast-set-codegen/clang-baseline.s"
+    ]
+  },
+  {
+    "compiler": "Ubuntu clang version 18.1.3 (1ubuntu1)",
+    "flags": [
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG"
+    ],
+    "variant": "candidate",
+    "header_sha256": "c407942e92f7622c2a73c139f64d2a55709f0ea5c0acec1b216866ad6a4e6413",
+    "driver_sha256": "691b6810797202b0e6ef89d426987fff3f35da7b298248d37d86ccd031d15a32",
+    "assembly_sha256": "280b9e778b0045bb6d5ac3a24512e7d70b107175e256443d64218128f790de43",
+    "assembly": "clang-candidate.s.gz",
+    "matches": [
+      {
+        "line": 156,
+        "text": "pcmpeqb\t%xmm0, %xmm1"
+      },
+      {
+        "line": 157,
+        "text": "pmovmskb\t%xmm1, %ebp"
+      },
+      {
+        "line": 158,
+        "text": "pcmpeqb\t%xmm0, %xmm2"
+      },
+      {
+        "line": 159,
+        "text": "pmovmskb\t%xmm2, %r12d"
+      },
+      {
+        "line": 162,
+        "text": "pcmpeqb\t%xmm0, %xmm3"
+      },
+      {
+        "line": 163,
+        "text": "pmovmskb\t%xmm3, %r13d"
+      },
+      {
+        "line": 166,
+        "text": "pcmpeqb\t%xmm0, %xmm4"
+      },
+      {
+        "line": 167,
+        "text": "pmovmskb\t%xmm4, %r12d"
+      },
+      {
+        "line": 412,
+        "text": "rep\t\tbsfq\t%r10, %r8"
+      },
+      {
+        "line": 434,
+        "text": "rep\t\tbsfq\t%rax, %rax"
+      },
+      {
+        "line": 470,
+        "text": "rep\t\tbsfq\t%r8, %rdi"
+      },
+      {
+        "line": 479,
+        "text": "rep\t\tbsfq\t%rdi, %rsi"
+      },
+      {
+        "line": 788,
+        "text": "vpcmpeqb\t(%rdi,%rdx,8), %ymm0, %ymm1"
+      },
+      {
+        "line": 789,
+        "text": "vpmovmskb\t%ymm1, %r8d"
+      },
+      {
+        "line": 790,
+        "text": "vpcmpeqb\t32(%rdi,%rdx,8), %ymm0, %ymm1"
+      },
+      {
+        "line": 791,
+        "text": "vpmovmskb\t%ymm1, %r9d"
+      },
+      {
+        "line": 795,
+        "text": "popcntq\t%r9, %r8"
+      }
+    ],
+    "command": [
+      "clang++",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG",
+      "-I",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fast-set-codegen/candidate",
+      "-S",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/benchmark/fast-set-assembly-codegen.cpp",
+      "-o",
+      "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/fast-set-codegen/clang-candidate.s"
+    ]
+  }
+]

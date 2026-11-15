@@ -1,0 +1,89 @@
+{
+  "status": "failed",
+  "submission": "403023",
+  "submission_url": "https://judge.yosupo.jp/submission/403023",
+  "timestamp_utc": "2026-11-15T15:09:24Z",
+  "platform": "Linux-7.0.0-1016-aws-x86_64-with-glibc2.43",
+  "cpu": "Intel(R) Xeon(R) 6975P-C",
+  "flags": [
+    "-std=gnu++23",
+    "-O2",
+    "-DNDEBUG",
+    "-mavx2",
+    "-mpopcnt"
+  ],
+  "n": 1000000,
+  "q": 500000,
+  "seed": 1729,
+  "runs": 3,
+  "hashes": {
+    "docs/development/measurements/fast-set-lc-20261116/run.py": "b96cbd302c316017f58babd598c984c365e573a1b266ea2e7c990e1c6a320cd5",
+    "docs/development/measurements/fast-set-lc-20261116/generate.cpp": "2fd3d021e97b71515509b34721d7ee624e56bcbdd7b3110e8f64d463150ca7cb",
+    "docs/development/measurements/fast-set-lc-20261116/phases.cpp": "8577e5e8cb4c4c08503ebedc16b3e4425cef556630fd2aa5a971a46355e68968",
+    "verify/data-structure/fast-set.test.cpp": "58e3c09bfd1bb4fc96c1acaae3ed23515d8ef9c465da469ca53b7d37b78f08d2",
+    "blueberry/data-structure/fast-set.hpp": "e632e9c537a5406cd99a8716348a7e265d9f60c778fb7f30e028bd7c95154b1a",
+    "blueberry/utility/fast-io.hpp": "7cbad0126b72751b56e746c34c14a019248b747320894b1b59b8038eb4aafaa1",
+    "external": "59fd15abf763b5a59bb2069e1916e21ccfebbe291d116fb5240690cbce6357d7"
+  },
+  "compile": [
+    {
+      "name": "candidate",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-mavx2",
+        "-mpopcnt",
+        "-I",
+        "/home/runner/work/Blueberry-library/Blueberry-library",
+        "/home/runner/work/Blueberry-library/Blueberry-library/verify/data-structure/fast-set.test.cpp",
+        "-o",
+        "/tmp/blueberry-fast-set-mwowk04i/candidate"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "external",
+      "command": [
+        "clang++",
+        "-std=gnu++23",
+        "-O2",
+        "-DNDEBUG",
+        "-mavx2",
+        "-mpopcnt",
+        "-I",
+        "/home/runner/work/Blueberry-library/Blueberry-library",
+        "/tmp/blueberry-fast-set-mwowk04i/external.cpp",
+        "-o",
+        "/tmp/blueberry-fast-set-mwowk04i/external"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "/tmp/blueberry-fast-set-mwowk04i/external.cpp:910:27: error: constexpr variable 'leading' must be initialized by a constant expression\n  910 |     static constexpr auto leading = [] consteval {\n      |                           ^         ~~~~~~~~~~~~~~\n  911 |         std::array<std::uint64_t, 10000> table{};\n      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  912 |         for (unsigned x = 0; x < 10000; ++x) {\n      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  913 |             const unsigned skip = 3 - (x >= 10) - (x >= 100) - (x >= 1000);\n      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  914 |             std::uint64_t word = 0;\n      |             ~~~~~~~~~~~~~~~~~~~~~~~\n  915 |             for (unsigned i = skip; i < 4; ++i)\n      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  916 |                 word |= std::uint64_t(static_cast<unsigned char>(four_digits[x][i])) << (8 * (i - skip));\n      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  917 |             table[x] = word | (std::uint64_t(4 - skip) << 32);\n      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  918 |         }\n      |         ~\n  919 |         return table;\n      |         ~~~~~~~~~~~~~\n  920 |     }();\n      |     ~~~\n/usr/lib/gcc/x86_64-linux-gnu/15/../../../../include/c++/15/array:221:2: note: constexpr evaluation hit maximum step limit; possible infinite loop?\n  221 |         return _M_elems[__n];\n      |         ^\n/tmp/blueberry-fast-set-mwowk04i/external.cpp:916:66: note: in call to 'four_digits.operator[](9854)'\n  916 |                 word |= std::uint64_t(static_cast<unsigned char>(four_digits[x][i])) << (8 * (i - skip));\n      |                                                                  ^~~~~~~~~~~~~~\n/tmp/blueberry-fast-set-mwowk04i/external.cpp:910:37: note: in call to '[]() {\n    std::array<std::uint64_t, 10000> table{};\n    for (unsigned int x = 0; x < 10000; ++x) {\n        const unsigned int skip = 3 - (x >= 10) - (x >= 100) - (x >= 1000);\n        std::uint64_t word = 0;\n        for (unsigned int i = skip; i < 4; ++i)\n            word |= std::uint64_t(static_cast<unsigned char>(four_digits[x][i])) << (8 * (i - skip));\n        table[x] = word | (std::uint64_t(4 - skip) << 32);\n    }\n    return table;\n}.operator()()'\n  910 |     static constexpr auto leading = [] consteval {\n      |                                     ^~~~~~~~~~~~~~\n  911 |         std::array<std::uint64_t, 10000> table{};\n      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  912 |         for (unsigned x = 0; x < 10000; ++x) {\n      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  913 |             const unsigned skip = 3 - (x >= 10) - (x >= 100) - (x >= 1000);\n      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  914 |             std::uint64_t word = 0;\n      |             ~~~~~~~~~~~~~~~~~~~~~~~\n  915 |             for (unsigned i = skip; i < 4; ++i)\n      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  916 |                 word |= std::uint64_t(static_cast<unsigned char>(four_digits[x][i])) << (8 * (i - skip));\n      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  917 |             table[x] = word | (std::uint64_t(4 - skip) << 32);\n      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  918 |         }\n      |         ~\n  919 |         return table;\n      |         ~~~~~~~~~~~~~\n  920 |     }();\n      |     ~~~\n/tmp/blueberry-fast-set-mwowk04i/external.cpp:910:37: error: call to consteval function 'canard::io::decimal::format_u32_compact(char *, std::uint32_t)::(anonymous class)::operator()' is not a constant expression\n  910 |     static constexpr auto leading = [] consteval {\n      |                                     ^\n/usr/lib/gcc/x86_64-linux-gnu/15/../../../../include/c++/15/array:221:2: note: constexpr evaluation hit maximum step limit; possible infinite loop?\n  221 |         return _M_elems[__n];\n      |         ^\n/tmp/blueberry-fast-set-mwowk04i/external.cpp:916:66: note: in call to 'four_digits.operator[](9854)'\n  916 |                 word |= std::uint64_t(static_cast<unsigned char>(four_digits[x][i])) << (8 * (i - skip));\n      |                                                                  ^~~~~~~~~~~~~~\n/tmp/blueberry-fast-set-mwowk04i/external.cpp:910:37: note: in call to '[]() {\n    std::array<std::uint64_t, 10000> table{};\n    for (unsigned int x = 0; x < 10000; ++x) {\n        const unsigned int skip = 3 - (x >= 10) - (x >= 100) - (x >= 1000);\n        std::uint64_t word = 0;\n        for (unsigned int i = skip; i < 4; ++i)\n            word |= std::uint64_t(static_cast<unsigned char>(four_digits[x][i])) << (8 * (i - skip));\n        table[x] = word | (std::uint64_t(4 - skip) << 32);\n    }\n    return table;\n}.operator()()'\n  910 |     static constexpr auto leading = [] consteval {\n      |                                     ^~~~~~~~~~~~~~\n  911 |         std::array<std::uint64_t, 10000> table{};\n      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  912 |         for (unsigned x = 0; x < 10000; ++x) {\n      |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  913 |             const unsigned skip = 3 - (x >= 10) - (x >= 100) - (x >= 1000);\n      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  914 |             std::uint64_t word = 0;\n      |             ~~~~~~~~~~~~~~~~~~~~~~~\n  915 |             for (unsigned i = skip; i < 4; ++i)\n      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  916 |                 word |= std::uint64_t(static_cast<unsigned char>(four_digits[x][i])) << (8 * (i - skip));\n      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  917 |             table[x] = word | (std::uint64_t(4 - skip) << 32);\n      |             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n  918 |         }\n      |         ~\n  919 |         return table;\n      |         ~~~~~~~~~~~~~\n  920 |     }();\n      |     ~~~\n2 errors generated.\n"
+    }
+  ],
+  "cases": [],
+  "samples": [],
+  "affinity": {
+    "status": "set",
+    "eligible_before": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "selected_cpu": 0,
+    "actual": [
+      0
+    ]
+  },
+  "compiler": "Ubuntu clang version 21.1.8 (6ubuntu1)",
+  "cpu_features": {
+    "avx2": true,
+    "popcnt": true
+  },
+  "error": "RuntimeError: external failed to compile"
+}

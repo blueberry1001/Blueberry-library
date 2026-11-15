@@ -1,0 +1,194 @@
+import ctypes
+import hashlib
+import json
+import os
+import platform
+import random
+import statistics
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[4]
+HERE = Path(__file__).resolve().parent
+BUILD = ROOT / '.build/trusted-input-20261116'
+SOURCE = HERE / 'driver.cpp'
+TRUSTED = HERE / 'trusted-input.hpp.txt'
+SAFE = ROOT / 'blueberry/utility/fast-io.hpp'
+OUT = HERE / (sys.argv[1] if len(sys.argv) > 1 else 'windows.json')
+if OUT.exists():
+    raise SystemExit('output already exists')
+BUILD.mkdir(parents=True, exist_ok=True)
+MASK, PRIME = (1 << 64) - 1, 1099511628211
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def pin():
+    kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+    kernel.GetCurrentProcess.restype = ctypes.c_void_p
+    kernel.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+    kernel.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+    process, system = ctypes.c_size_t(), ctypes.c_size_t()
+    handle = kernel.GetCurrentProcess()
+    if kernel.GetProcessAffinityMask(handle, ctypes.byref(process), ctypes.byref(system)) and process.value:
+        selected = process.value & -process.value
+        return hex(selected) if kernel.SetProcessAffinityMask(handle, selected) else None
+    return None
+
+
+def env_and_compilers():
+    vc = Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+    sdk = Path(r'C:\Program Files (x86)\Windows Kits\10')
+    clang = Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+    env = os.environ.copy()
+    env['INCLUDE'] = ';'.join(str(p) for p in (vc / 'include', sdk / 'Include/10.0.22621.0/ucrt', sdk / 'Include/10.0.22621.0/shared', sdk / 'Include/10.0.22621.0/um'))
+    env['LIB'] = ';'.join(str(p) for p in (vc / 'lib/x64', sdk / 'Lib/10.0.22621.0/ucrt/x64', sdk / 'Lib/10.0.22621.0/um/x64'))
+    env['PATH'] = str(vc / 'bin/Hostx64/x64') + ';' + env.get('PATH', '')
+    return env, {'msvc': vc / 'bin/Hostx64/x64/cl.exe', 'clang': clang}
+
+
+def fixture(mode):
+    limits = {'i32': (-(1 << 31), (1 << 31) - 1), 'u32': (0, (1 << 32) - 1),
+              'i64': (-(1 << 63), (1 << 63) - 1), 'u64': (0, (1 << 64) - 1)}
+    low, high = limits[mode]
+    values = [low, high, 0, 1, high, low, 0, 17, high, low, 10, 42, 100000, 0, 5]
+    rng = random.Random(20261116)
+    values += [rng.randint(low, high) for _ in range(20)]
+    data = bytearray(f'{len(values)}\n'.encode())
+    expected = bytearray()
+    boundary_positions = []
+    for i, value in enumerate(values):
+        offset = (-3, -2, -1, 0, 1, 2, 3)[i % 7]
+        target = ((len(data) + 65535) // 65536) * 65536 + offset
+        if target < len(data):
+            target += 65536
+        pad = target - len(data)
+        blanks = b' \t\n\r\v\f'
+        data.extend((blanks * ((pad + len(blanks) - 1) // len(blanks)))[:pad])
+        magnitude = str(abs(value))
+        zeros = ('0' * (70000 if i == 4 else i % 4))
+        sign = '-' if value < 0 or (low < 0 and value == 0 and i % 2 == 0) else ('+' if i % 3 == 0 else '')
+        token = (sign + zeros + magnitude).encode('ascii')
+        boundary_positions.append(len(data) % 65536)
+        data.extend(token)
+        data.extend(b'\n' if i + 1 < len(values) else b'')
+        expected.extend(f'{value}\n'.encode())
+    return bytes(data), bytes(expected), boundary_positions
+
+
+def case(shape):
+    n, q = 1000000, 500000
+    rng = random.Random(20261116)
+    bits = ('01' * (n // 2)) if shape == 'varied' else ('1' * n if shape == 'maximum' else '0' * n)
+    path = BUILD / (shape + '.in')
+    checksum = 14695981039346656037
+    with path.open('w', encoding='ascii', newline='\n') as out:
+        out.write(f'{n} {q}\n{bits}\n')
+        for i in range(q):
+            kind = rng.randrange(5)
+            x = rng.randrange(n) if shape == 'varied' else (n - 1 if shape == 'maximum' else i % 10)
+            checksum = ((checksum ^ kind) * PRIME) & MASK
+            checksum = ((checksum ^ x) * PRIME) & MASK
+            out.write(f'{kind} {x}' + ('\n' if i + 1 < q else ''))
+    expected = f'{n} {q} {n} {bits.count("1")} {checksum}\n'.encode('ascii')
+    return {'path': path.name, 'sha256': sha(path.read_bytes()), 'expected': expected.decode('ascii'),
+            'expected_sha256': sha(expected), 'n': n, 'q': q}
+
+
+env, compilers = env_and_compilers()
+data = {'status': 'running', 'platform': platform.platform(), 'processor': platform.processor(),
+        'cpu_affinity_mask': pin(), 'warmups': 1, 'rounds': 5, 'seed': 20261116,
+        'source_sha256': sha(SOURCE.read_bytes()), 'prototype_sha256': sha(TRUSTED.read_bytes()),
+        'fastio_sha256': sha(SAFE.read_bytes()), 'runner_sha256': sha(Path(__file__).read_bytes()),
+        'builds': [], 'fixtures': {}, 'validation': [], 'cases': {}, 'samples': [], 'failures': []}
+def save():
+    OUT.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+save()
+try:
+    versions = {}
+    for compiler, path in compilers.items():
+        p = subprocess.run([str(path), '/Bv' if compiler == 'msvc' else '--version'], env=env,
+                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', errors='replace')
+        versions[compiler] = p.stdout.splitlines()[0] if p.stdout else None
+    data['compiler_versions'] = versions
+    bins = {}
+    for compiler in ('msvc', 'clang'):
+        for variant in ('safe', 'trusted'):
+            exe = BUILD / f'{compiler}-{variant}.exe'
+            if compiler == 'msvc':
+                cmd = [str(compilers[compiler]), '/nologo', '/std:c++20', '/EHsc', '/O2', '/W4', '/WX', '/wd4146', '/DNDEBUG', '/I' + str(ROOT)]
+                if variant == 'trusted': cmd.append('/DTRUSTED')
+                cmd += [str(SOURCE), '/Fo' + str(exe.with_suffix('.obj')), '/Fe' + str(exe)]
+            else:
+                cmd = [str(compilers[compiler]), '--target=x86_64-pc-windows-msvc', '-fuse-ld=link', '-std=gnu++20', '-O2', '-Wall', '-Wextra', '-Wshadow', '-Werror', '-DNDEBUG', '-I' + str(ROOT)]
+                if variant == 'trusted': cmd.append('-DTRUSTED')
+                cmd += [str(SOURCE), '-o', str(exe)]
+            p = subprocess.run(cmd, cwd=ROOT, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding='utf-8', errors='replace')
+            data['builds'].append({'compiler': compiler, 'variant': variant, 'command': cmd,
+                                   'exit': p.returncode, 'output': p.stdout, 'binary_sha256': sha(exe.read_bytes()) if not p.returncode else None})
+            save()
+            if p.returncode: raise RuntimeError(f'{compiler} {variant} compilation failed')
+            bins[(compiler, variant)] = exe
+    for mode in ('i32', 'u32', 'i64', 'u64'):
+        input_data, expected, positions = fixture(mode)
+        path = BUILD / (mode + '.in')
+        path.write_bytes(input_data)
+        data['fixtures'][mode] = {'input_sha256': sha(input_data), 'expected_sha256': sha(expected),
+                                  'input_bytes': len(input_data), 'boundary_offsets': positions}
+        for compiler in ('msvc', 'clang'):
+            for variant in ('safe', 'trusted'):
+                for transport in ('file', 'pipe'):
+                    if transport == 'pipe':
+                        p = subprocess.run([str(bins[(compiler, variant)]), mode], input=input_data, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    else:
+                        with path.open('rb') as source:
+                            p = subprocess.run([str(bins[(compiler, variant)]), mode], stdin=source, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    row = {'mode': mode, 'compiler': compiler, 'variant': variant, 'transport': transport,
+                           'exit': p.returncode, 'output_sha256': sha(p.stdout), 'matches': p.stdout == expected,
+                           'stderr': p.stderr.decode('utf-8', errors='replace')}
+                    data['validation'].append(row)
+                    save()
+                    if p.returncode or not row['matches']: raise RuntimeError(f'valid input mismatch: {mode} {compiler} {variant} {transport}')
+        print('validated', mode, flush=True)
+    for shape in ('short', 'varied', 'maximum'):
+        data['cases'][shape] = case(shape)
+        save()
+    for compiler in ('msvc', 'clang'):
+        for shape in ('short', 'varied', 'maximum'):
+            case_data = data['cases'][shape]
+            path = BUILD / case_data['path']
+            if sha(path.read_bytes()) != case_data['sha256']: raise ValueError('input changed')
+            expected = case_data['expected'].encode('ascii')
+            for repeat in range(-1, 5):
+                order = ('safe', 'trusted') if repeat % 2 == 0 else ('trusted', 'safe')
+                for variant in order:
+                    with path.open('rb') as source:
+                        start = __import__('time').perf_counter()
+                        p = subprocess.run([str(bins[(compiler, variant)])], stdin=source, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                        wall = (__import__('time').perf_counter() - start) * 1000
+                    if p.returncode or p.stdout != expected:
+                        raise RuntimeError(f'{compiler} {variant} {shape} output mismatch {p.returncode} {p.stderr!r}')
+                    metrics = json.loads(p.stderr.decode('ascii'))
+                    if not metrics['peak_working_set_bytes']: raise RuntimeError('peak memory unavailable')
+                    if repeat >= 0:
+                        data['samples'].append({'compiler': compiler, 'variant': variant, 'shape': shape, 'round': repeat,
+                                                'wall_ms': wall, 'output_sha256': sha(p.stdout), **metrics})
+                    save()
+            print('measured', compiler, shape, flush=True)
+    data['summary'] = {}
+    for compiler in ('msvc', 'clang'):
+        for shape in ('short', 'varied', 'maximum'):
+            for variant in ('safe', 'trusted'):
+                rows = [r for r in data['samples'] if r['compiler'] == compiler and r['shape'] == shape and r['variant'] == variant]
+                data['summary'][f'{compiler}/{shape}/{variant}'] = {k: statistics.median(r[k] for r in rows) for k in ('wall_ms', 'prefix_ms', 'queries_ms', 'parse_ms', 'peak_working_set_bytes')}
+    data['status'] = 'passed'
+except Exception as e:
+    data['status'] = 'failed'
+    data['failures'].append({'type': type(e).__name__, 'message': str(e)})
+    save()
+    raise
+save()
+print(json.dumps(data['summary'], indent=2))
