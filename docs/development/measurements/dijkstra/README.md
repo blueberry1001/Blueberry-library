@@ -310,6 +310,26 @@ CRLFを含む実バイトhashとは異なる。
 [実行ログとartifact](https://github.com/blueberry1001/Blueberry-library/actions/runs/43722849211)は
 一時的な検証用PRのものであり、通常のrequired CIとは区別する。
 
+### 上位提出の段階別計測
+
+同じ4入力で提出415573の通常版と、原本の`PROF`指定を有効にした版を別に測った。
+この実行は別のGitHub Actions runner（AMD EPYC 7763）であり、上表のEPYC 9V45の
+各時間との差をそのままI/O等の寄与として扱えない。`PROF`版は時計の取得と標準エラー出力を
+含み、各区間値は0.01ms単位の累積時刻の差である。GCC 15.2、同じflagsで5回の中央値は次の通り。
+
+| 入力 | 通常版 process | PROF版 process | PROF版 入力 / 構築 / 探索 / 整形 / 出力 |
+| --- | ---: | ---: | ---: |
+| sparse | 17.11ms | 17.75ms | 7.85 / 2.91 / 3.84 / 0.24 / 0.09ms |
+| zero | 21.67ms | 21.99ms | 7.01 / 2.98 / 8.59 / 0.16 / 0.05ms |
+| line | 24.67ms | 23.11ms | 5.34 / 2.94 / 4.18 / 3.16 / 4.39ms |
+| disconnected | 13.87ms | 13.23ms | 6.83 / 2.78 / 0.70 / 未測定 / 未測定ms |
+
+入力区間には最初の領域確保なども含む。到達不能時は原本が整形・出力の計測前に戻るため、
+その2区間は未測定である。通常版とPROF版の中央値が逆転した入力もあり、計測負荷を固定の
+差分とはみなさない。[GCC](fastest-profile-linux-gcc.json)・[Clang](fastest-profile-linux-clang.json)の
+全標本、[runner](profile_fastest_linux.py)、[CIログとartifact](https://github.com/blueberry1001/Blueberry-library/actions/runs/43724414416)
+に入力・原本のhash、各標準エラー、経路の独立検証結果を保存した。
+
 ## 再現
 
 [run.py](run.py)、[whole.py](whole.py)、[cross.py](cross.py)はリポジトリルートで動かす。
