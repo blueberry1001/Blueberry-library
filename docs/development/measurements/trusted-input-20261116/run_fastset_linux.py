@@ -46,7 +46,7 @@ def main():
         p.error('choose a new output, valid n/q, positive rounds and timeout')
     args.output.parent.mkdir(parents=True, exist_ok=True)
     headers = (ROOT / 'blueberry/data-structure/fast-set.hpp', ROOT / 'blueberry/utility/fast-io.hpp')
-    paths = (Path(__file__), GENERATOR, OFFICIAL, DRIVER, PROTOTYPE, *headers)
+    paths = (Path(__file__).resolve(), GENERATOR, OFFICIAL, DRIVER, PROTOTYPE, *headers)
     flags = ['-std=gnu++23', '-O2', '-DNDEBUG', '-mavx2', '-mpopcnt']
     data = {'status': 'running', 'compiler': args.compiler, 'flags': flags,
             'timestamp_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
