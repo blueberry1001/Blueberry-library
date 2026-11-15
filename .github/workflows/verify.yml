@@ -47,7 +47,7 @@ jobs:
         id: plan
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: python3 scripts/plan_verification.py --state .verification/previous-state.json
+        run: python3 scripts/plan_verification.py --state .verification/previous-state.json --full
       - name: Upload auditable selection
         uses: actions/upload-artifact@v4
         with:
