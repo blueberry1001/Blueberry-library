@@ -9,7 +9,8 @@ documentation_of: //blueberry/graph/dijkstra.hpp
 
 非負辺重みのグラフに対する単一始点最短路です。`infinity`は正の値とし、最短距離が`infinity`以上の頂点は未到達として扱います。
 
-Vを頂点数、Eを辺数とすると、二分ヒープによる計算時間O(V+E log(E+1))、メモリO(V+E)です。
+Vを頂点数、Eを辺数とすると、計算時間はO(V+E log(E+1))、メモリはO(V+E)です。
+`dijkstra`は全頂点、`dijkstra_path`は指定した1頂点までの最短路を返します。
 
 ## 操作一覧
 
@@ -22,8 +23,9 @@ Vを頂点数、Eを辺数とすると、二分ヒープによる計算時間O(V
 | [`ShortestPathResult<Cost>::distance`](#distance) | O(1) access |
 | [`ShortestPathResult<Cost>::parent`](#parent) | O(1) access |
 | [`ShortestPathResult<Cost>::infinity`](#infinity) | O(1) access |
-| [`result.path_to`](#path-to) | O(V) |
-| [`dijkstra`](#dijkstra) | O(V + E log(E+1)) |
+| [`result.path_to(target)`](#path-to) | O(V) |
+| [`dijkstra(graph, source, infinity)`](#dijkstra) | O(V + E log(E+1)) |
+| [`dijkstra_path(graph, source, target, infinity)`](#dijkstra-path) | O(V + E log(E+1)) |
 
 <!-- library-implementation -->
 
@@ -32,7 +34,8 @@ Vを頂点数、Eを辺数とすると、二分ヒープによる計算時間O(V
 
 ## 概要・前提 {#概要前提}
 
-- 単純グラフでは通常のO((V+E)log V)と書けますが、平行辺を許すためヒープ長はO(E)です。
+- boolを除く64bit以下の標準整数型では、頂点数が256以下なら二分ヒープ、それ以外は距離をradix heapで管理し、同距離は頂点番号の小さい順に取り出します。それ以外の型は二分ヒープを使います。radixのbit幅は最大64で、表の計算量では定数として扱います。
+- 単純グラフでは通常のO((V+E)log V)と書けますが、平行辺を許すためキュー長はO(E)です。
 - 辺コストは`Cost{}`以上とします。標準整数型の距離は加算前に`infinity`で打ち切り、符号付き・符号なし双方のオーバーフローを防ぎます。
 - 浮動小数点・独自型では、加算結果が型に収まり、全順序比較ができることが必要です（NaN不可）。
 - `WeightedGraph<Cost>`は`vector<vector<WeightedEdge<Cost>>>`の別名です。通常のvectorと同じ構築・更新・参照無効化規則を持ち、辺の`to`は0-indexedの頂点番号です。
@@ -178,7 +181,7 @@ auto path = result.path_to(2);
 ```
 {% endraw %}
 
-注意点: 始点自身には始点1個のvector、未到達・打ち切り対象には空vectorです。
+注意点: `target`は`[0,V)`内です。始点自身には始点1個のvector、未到達・打ち切り対象には空vectorです。
 パス長が $V$ に比例するため、全頂点で呼ぶ場合は合計計算量に注意してください。
 公開の `parent` を変更して循環などを作らないでください。返したvectorは独立した値です。
 
@@ -201,7 +204,27 @@ auto result = blueberry::dijkstra(graph, 0, 1'000'000'000);
 
 </details>
 
+<details class="api-operation" id="dijkstra-path" markdown="1">
+<summary><code>dijkstra_path(graph, source, target, infinity = numeric_limits&lt;Cost&gt;::max())</code> — O(V + E log(E+1))</summary>
+
+`source`から`target`への距離と経路を`pair&lt;Cost, vector&lt;int&gt;&gt;`で返します。
+対象頂点の最短距離が確定した時点で探索を終えます。
+
+{% raw %}
+```cpp
+auto [distance, path] = blueberry::dijkstra_path(graph, 0, 2, 1'000'000'000);
+```
+{% endraw %}
+
+注意点: `source`と`target`は`[0,V)`内、`infinity`は正で、辺重み・型の前提は`dijkstra`と同じです。
+到達不能または最短距離が`infinity`以上なら`{infinity, {}}`、始点と終点が同じなら`{Cost{}, {source}}`を返します。
+経路は両端を含む独立したvectorで、同距離の経路は`dijkstra(...).path_to(target)`と同じです。
+始点と終点が同じ場合はO(1)、それ以外の計算量とメモリは最悪の場合の値です。
+
+</details>
+
 ## 検証
 
 `shortest_path` の公式ケースに加え、`tests/random/dijkstra.cpp` でFloyd–Warshallとの比較、
-経路復元、符号付き・符号なし整数の上限、独自の打ち切り値を検証します。
+経路復元、単一終点版と全頂点版の一致、符号付き・符号なし整数の上限、独自の打ち切り値を検証します。
+整数キューの設計は[Nyaanのradix heapによるDijkstra](https://nyaannyaan.github.io/library/shortest-path/dijkstra-radix-heap.hpp.html)を参考に、同距離の頂点順序を維持する形で独立に実装しました。

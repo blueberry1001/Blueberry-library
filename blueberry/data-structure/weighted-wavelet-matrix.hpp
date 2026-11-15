@@ -1,18 +1,18 @@
 #pragma once
 
 #include <algorithm>
+#include <array>
 #include <bit>
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
-#include <limits>
+#include <numeric>
+#include <type_traits>
 #include <vector>
 
 #include "blueberry/data-structure/fenwick-tree.hpp"
 
 namespace blueberry {
 
-// Fixed values, point-add weights, and index/value rectangle sums.
 template <class Value, class Weight = long long>
 class WeightedWaveletMatrix {
   struct Level {
@@ -32,9 +32,6 @@ class WeightedWaveletMatrix {
 
   int lower(const Value& value) const {
     return static_cast<int>(std::lower_bound(values_.begin(), values_.end(), value) - values_.begin());
-  }
-  void check([[maybe_unused]] int l, [[maybe_unused]] int r) const {
-    assert(0 <= l && l <= r && r <= n_);
   }
   Weight less(int l, int r, int code) const {
     if (code == static_cast<int>(values_.size())) return total_.sum(l, r);
@@ -60,17 +57,81 @@ class WeightedWaveletMatrix {
 
   WeightedWaveletMatrix(const std::vector<Value>& values, const std::vector<Weight>& weights)
       : values_(values) {
-    assert(values.size() == weights.size());
-    assert(values.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max() / 2));
     n_ = static_cast<int>(values.size());
     total_ = FenwickTree<Weight>(weights);
-    std::sort(values_.begin(), values_.end());
-    values_.erase(std::unique(values_.begin(), values_.end()), values_.end());
     if (n_ == 0) return;
-    const int height = std::bit_width(static_cast<unsigned>(values_.size() - 1));
     std::vector<int> codes(n_), next(n_);
+    if constexpr (!std::is_copy_assignable_v<Value>) {
+      std::sort(values_.begin(), values_.end());
+      values_.erase(std::unique(values_.begin(), values_.end()), values_.end());
+      for (int i = 0; i < n_; ++i) codes[i] = lower(values[i]);
+    } else {
+    bool encoded = false;
+    if (std::is_sorted(values.begin(), values.end())) {
+      int distinct = 0;
+      for (int i = 0; i < n_; ++i) {
+        if (distinct == 0 || !(values_[distinct - 1] == values[i])) values_[distinct++] = values[i];
+        codes[i] = distinct - 1;
+      }
+      values_.erase(values_.begin() + distinct, values_.end());
+      encoded = true;
+    }
+    if constexpr (std::is_integral_v<Value> && !std::is_same_v<Value, bool> && sizeof(Value) <= 8) {
+      using U = std::make_unsigned_t<Value>;
+      if (!encoded && n_ >= 64) {
+        auto [minimum, maximum] = std::minmax_element(values.begin(), values.end());
+        U base = static_cast<U>(*minimum);
+        U span = U(static_cast<U>(*maximum) - base);
+        if (static_cast<std::uint64_t>(span) <= std::min<std::uint64_t>(1u << 20, std::uint64_t(n_) * 2)) {
+          std::vector<int> mapping(static_cast<std::size_t>(span) + 1, -1);
+          for (const auto& v : values) mapping[U(static_cast<U>(v) - base)] = 0;
+          int distinct = 0;
+          for (int& item : mapping) if (item == 0) item = distinct++;
+          for (int i = 0; i < n_; ++i) {
+            codes[i] = mapping[U(static_cast<U>(values[i]) - base)];
+            values_[codes[i]] = values[i];
+          }
+          values_.erase(values_.begin() + distinct, values_.end());
+          encoded = true;
+        } else {
+          int passes = 0;
+          for (U width = span; width; width = U(static_cast<std::uint64_t>(width) >> 8)) ++passes;
+          int sampled = std::min(n_, 256), extreme = 0;
+          for (int i = 0; i < sampled; ++i) { const auto& v = values[std::size_t(i) * std::size_t(n_) / sampled]; extreme += v == *minimum || v == *maximum; }
+          if ((passes <= 6 || (passes <= 8 && extreme * 2 < sampled)) && n_ >= 128 * passes) {
+            std::iota(next.begin(), next.end(), 0);
+            for (int shift = 0; span; shift += 8, span = U(static_cast<std::uint64_t>(span) >> 8)) {
+              std::array<int, 256> offsets{};
+              for (int p : next) ++offsets[(U(static_cast<U>(values[p]) - base) >> shift) & 255];
+              int offset = 0;
+              for (int& count : offsets) { int size = count; count = offset; offset += size; }
+              for (int p : next) codes[offsets[(U(static_cast<U>(values[p]) - base) >> shift) & 255]++] = p;
+              codes.swap(next);
+            }
+            int distinct = 0;
+            for (int i : next) {
+              if (distinct == 0 || !(values_[distinct - 1] == values[i])) values_[distinct++] = values[i];
+              codes[i] = distinct - 1;
+            }
+            values_.erase(values_.begin() + distinct, values_.end());
+            encoded = true;
+          }
+        }
+      }
+    }
+    if (!encoded) {
+      std::iota(next.begin(), next.end(), 0);
+      std::sort(next.begin(), next.end(), [&](int a, int b) { return values[a] < values[b]; });
+      int distinct = 0;
+      for (int i : next) {
+        if (distinct == 0 || !(values_[distinct - 1] == values[i])) values_[distinct++] = values[i];
+        codes[i] = distinct - 1;
+      }
+      values_.erase(values_.begin() + distinct, values_.end());
+    }
+    }
+    const int height = std::bit_width(static_cast<unsigned>(values_.size() - 1));
     std::vector<Weight> current(weights), next_weights(n_);
-    for (int i = 0; i < n_; ++i) codes[i] = lower(values[i]);
     levels_.resize(height);
     for (int h = 0; h < height; ++h) {
       auto& level = levels_[h];
@@ -97,7 +158,6 @@ class WeightedWaveletMatrix {
   int size() const { return n_; }
 
   void add(int p, const Weight& delta) {
-    assert(0 <= p && p < n_);
     total_.add(p, delta);
     for (auto& level : levels_) {
       const bool one = (level.bits[p / 64] >> (p % 64)) & 1;
@@ -107,16 +167,42 @@ class WeightedWaveletMatrix {
     }
   }
 
-  Weight sum(int l, int r) const { check(l, r); return total_.sum(l, r); }
+  Weight sum(int l, int r) const { return total_.sum(l, r); }
   Weight sum(int l, int r, const Value& upper) const {
-    check(l, r);
     return less(l, r, lower(upper));
   }
   Weight sum(int l, int r, const Value& low, const Value& upper) const {
-    check(l, r);
-    assert(!(upper < low));
-    return less(l, r, lower(upper)) - less(l, r, lower(low));
+    if constexpr (std::is_integral_v<Weight> && std::is_signed_v<Weight> && sizeof(Weight) <= 8) {
+      using U = std::make_unsigned_t<Weight>;
+      const int lo = lower(low), hi = lower(upper);
+      if (lo == hi) return Weight{};
+      if (hi == static_cast<int>(values_.size())) return total_.sum(l, r) - less(l, r, lo);
+      const int height = static_cast<int>(levels_.size());
+      int first = 0;
+      while (first < height && ((lo ^ hi) >> (height - 1 - first)) == 0) {
+        const auto& level = levels_[first];
+        const int zl = l - level.rank(l), zr = r - level.rank(r);
+        if ((lo >> (height - 1 - first)) & 1) {
+          l += level.zeros - zl; r += level.zeros - zr;
+        } else { l = zl; r = zr; }
+        ++first;
+      }
+      auto suffix = [&](int code) {
+        int left = l, right = r;
+        U result{};
+        for (int h = first; h < height; ++h) {
+          const auto& level = levels_[h];
+          const int zl = left - level.rank(left), zr = right - level.rank(right);
+          if ((code >> (height - 1 - h)) & 1) {
+            result += static_cast<U>(level.weights.sum(zl, zr));
+            left += level.zeros - zl; right += level.zeros - zr;
+          } else { left = zl; right = zr; }
+        }
+        return result;
+      };
+      return static_cast<Weight>(static_cast<U>(suffix(hi) - suffix(lo)));
+    } else return less(l, r, lower(upper)) - less(l, r, lower(low));
   }
 };
 
-}  // namespace blueberry
+}

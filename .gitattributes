@@ -4,6 +4,19 @@
 # Keep benchmark diagnostics byte-for-byte, including original whitespace.
 /benchmark/results/dynamic-fenwick-1d-* -text -whitespace
 /benchmark/results/dynamic-fenwick-1d.json -text -whitespace
+# Preserve FastSet's measured drivers, snapshots, assembly and logs.
+/tests/random/fast-set-initialization.cpp -text
+/benchmark/fast-set-assembly* -text -whitespace
+/benchmark/run_fast_set_* -text -whitespace
+/benchmark/validate_fast_set_paths.py -text -whitespace
+/benchmark/results/fast-set-* -text -whitespace
+/benchmark/results/fast-set-codegen*/** -text -whitespace
+# Preserve weighted-wavelet benchmark sources and measurements byte-for-byte.
+/benchmark/weighted-wavelet-* -text -whitespace
+/benchmark/run_weighted_wavelet_* -text -whitespace
+/benchmark/inspect_weighted_wavelet_assembly.py -text -whitespace
+/benchmark/results/weighted-wavelet-* -text -whitespace
+/docs/development/measurements/weighted-wavelet-20261115/assembly/* -text -whitespace
 /docs/development/measurements/dynamic-fenwick-official/** -text -whitespace
 /docs/development/measurements/verify-limit-screening/** -text -whitespace
 /benchmark/lc-expansion-fps-sequences/**/*.log -text -whitespace

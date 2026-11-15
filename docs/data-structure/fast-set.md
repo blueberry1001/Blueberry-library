@@ -48,6 +48,7 @@ Uは宇宙の大きさ、H=1+log₆₄(U+1)、Wは保持する64-bit語数です
 ## 概要・前提 {#概要前提}
 
 - `blueberry::FastSet` は64-bit語の非空状態を階層化し、比較木や乱数を使いません。`0 <= U <= INT_MAX` が必要です。
+- 0/1文字列からの構築では、GCC/Clangのx86環境でAVX2とPOPCNTの両方を利用できれば64文字ずつまとめて処理します。どちらかを利用できない場合はSSE2、SSE2が使えない環境では標準C++の処理に切り替わります。AVX2やPOPCNTを対象として全体をコンパイルした場合は、その命令に対応するCPUが必要です。
 - insertは葉の語が空から非空へ変わるときだけ上位へ伝播します。既に非空の語を表す上位bitは変わらず、密な集合では上位への書き込みを省けます。最悪計算量はO(H)のままです。
 - 既定状態・ムーブ元はU=0。clearは宇宙を維持して全要素を消します。
 - 数値加算はしません。返り値は値で参照の無効化はなく、コピーは独立です。
@@ -329,5 +330,6 @@ tree.clear();
 - Library Checker [Predecessor Problem](https://judge.yosupo.jp/problem/predecessor_problem) と
   `tests/random/specialized-structures.cpp` の std::set 比較。
 - 0/1/63/64/65/4095/4096/4097 の境界を含む。
+- `tests/random/fast-set-initialization.cpp`: 初期文字列の長さ0〜260と4095〜4097、全0・全1・交互・ランダム・16文字単位のパターンを比較します。
 
 </details>

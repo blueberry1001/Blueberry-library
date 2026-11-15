@@ -96,7 +96,7 @@ ACL推奨は外部ライブラリです。Blueberryの実装数・チェック�
 - [ ] [Minimum Diameter Spanning Tree](https://judge.yosupo.jp/problem/minimum_diameter_spanning_tree) (`minimum_diameter_spanning_tree`): 未対応
 - [x] [Minimum Spanning Tree](https://judge.yosupo.jp/problem/minimum_spanning_tree) (`minimum_spanning_tree`): 実装＋verifyあり — [Minimum Spanning Forest](../blueberry/graph/minimum-spanning-forest.hpp), [verify](../verify/graph/minimum-spanning-forest.test.cpp)
 - [ ] [Strongly Connected Components](https://judge.yosupo.jp/problem/scc) (`scc`): ACL推奨 — [ACL](https://atcoder.github.io/ac-library/production/document_en/scc.html) — atcoder::scc_graphを利用する。
-- [x] [Shortest Path](https://judge.yosupo.jp/problem/shortest_path) (`shortest_path`): 実装＋verifyあり — [Skew Heap](../blueberry/data-structure/skew-heap.hpp), [Dijkstra](../blueberry/graph/dijkstra.hpp), [verify](../verify/data-structure/skew-heap.test.cpp), [verify](../verify/graph/shortest-path.test.cpp)
+- [x] [Shortest Path](https://judge.yosupo.jp/problem/shortest_path) (`shortest_path`): 実装＋verifyあり — [Skew Heap](../blueberry/data-structure/skew-heap.hpp), [Dijkstra](../blueberry/graph/dijkstra.hpp), [verify](../verify/data-structure/skew-heap.test.cpp), [verify](../verify/graph/shortest-path-single.test.cpp), [verify](../verify/graph/shortest-path.test.cpp)
 - [ ] [st-Numbering](https://judge.yosupo.jp/problem/st_numbering) (`st_numbering`): 未対応
 - [ ] [Three-Edge-Connected Components](https://judge.yosupo.jp/problem/three_edge_connected_components) (`three_edge_connected_components`): 未対応
 - [ ] [Tree Decomposition (Width 2)](https://judge.yosupo.jp/problem/tree_decomposition_width_2) (`tree_decomposition_width_2`): 未対応

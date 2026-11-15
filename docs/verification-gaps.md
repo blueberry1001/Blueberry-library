@@ -69,6 +69,7 @@
 - 専用ドライバ: [verify/data-structure/static-range-lis.test.cpp](../verify/data-structure/static-range-lis.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_lis_query)
 - 専用ドライバ: [verify/graph/link-cut-tree-composite.test.cpp](../verify/graph/link-cut-tree-composite.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_set_path_composite)
 - 専用ドライバ: [verify/graph/link-cut-tree.test.cpp](../verify/graph/link-cut-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_path_sum)
+- 専用ドライバ: [verify/graph/shortest-path-single.test.cpp](../verify/graph/shortest-path-single.test.cpp) / [問題](https://judge.yosupo.jp/problem/shortest_path)
 - 専用ドライバ: [verify/math/bell.test.cpp](../verify/math/bell.test.cpp) / [問題](https://judge.yosupo.jp/problem/bell_number)
 - 専用ドライバ: [verify/math/bernoulli.test.cpp](../verify/math/bernoulli.test.cpp) / [問題](https://judge.yosupo.jp/problem/bernoulli_number)
 - 専用ドライバ: [verify/math/binomial-coefficient-prime-mod.test.cpp](../verify/math/binomial-coefficient-prime-mod.test.cpp) / [問題](https://judge.yosupo.jp/problem/binomial_coefficient_prime_mod)
@@ -172,6 +173,7 @@
 [blueberry/data-structure/fast-set.hpp](../blueberry/data-structure/fast-set.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/data-structure/fast-set.test.cpp](../verify/data-structure/fast-set.test.cpp) / [問題](https://judge.yosupo.jp/problem/predecessor_problem)
+- 関連ローカルテスト: [tests/random/fast-set-initialization.cpp](../tests/random/fast-set-initialization.cpp)
 - 関連ローカルテスト: [tests/random/specialized-structures.cpp](../tests/random/specialized-structures.cpp)
 
 ## Fenwick Tree
@@ -484,6 +486,7 @@
 
 [blueberry/graph/dijkstra.hpp](../blueberry/graph/dijkstra.hpp) — **専用verifyドライバあり**
 
+- 専用ドライバ: [verify/graph/shortest-path-single.test.cpp](../verify/graph/shortest-path-single.test.cpp) / [問題](https://judge.yosupo.jp/problem/shortest_path)
 - 専用ドライバ: [verify/graph/shortest-path.test.cpp](../verify/graph/shortest-path.test.cpp) / [問題](https://judge.yosupo.jp/problem/shortest_path)
 - 関連ローカルテスト: [tests/random/dijkstra.cpp](../tests/random/dijkstra.cpp)
 
