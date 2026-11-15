@@ -274,6 +274,42 @@ MSVCの乱数入力ではbuffered vector / CSRそれぞれ、読取り23.98 / 24
 `--compiler msvc --output ...`または`--compiler clang --output ...`で各方式を再コンパイルして測る。
 生成入力とbinaryは`.build/dijkstra-csr-end-to-end/`に置き、Gitには含めない。
 
+## Linuxでの入出力を含む比較
+
+PR #64と同じライブラリ本体について、GitHub ActionsのUbuntu、AMD EPYC 9V45、
+GCC 15.2 / Clang 21.1、`gnu++23 -O3 -march=native -DNDEBUG`で比較した。
+入力の生成後、同じ入力ファイルを3方式と[提出415573](https://judge.yosupo.jp/submission/415573)に渡し、
+warmup後に順序を入れ替えて各5回実行した。提出ソースは既存記録のSHA-256と一致したものを
+一時取得し、リポジトリには含めない。全出力は独立した最短距離と経路検査を通過した。
+提出は専用I/O・グラフ配置・FIFOを使い、汎用APIと親選択の契約は異なる。
+
+下表はLibrary Checkerの制約内の単純グラフでのprocess時間中央値msとpeak RSS中央値KiB。
+時間は`/usr/bin/time`の起動も含み、CPUを1論理CPUに固定した。runnerは共有環境である。
+逐次は入力しながら`WeightedGraph`に追加し、CSRは辺配列を読み込んでから構築する。
+どちらも入力、構築、探索、出力を含み、CSRのRSSは入力辺配列の保持も含む。
+
+| 入力 | GCC 逐次 / CSR / 提出 | Clang 逐次 / CSR / 提出 | GCC RSS 逐次 / CSR / 提出 |
+| --- | ---: | ---: | ---: |
+| sparse | 81.56 / 25.27 / 12.48 | 78.00 / 26.49 / 13.79 | 26216 / 25016 / 25020 |
+| zero | 87.81 / 34.72 / 16.32 | 130.71 / 39.97 / 20.37 | 25060 / 23612 / 28976 |
+| line | 40.77 / 33.28 / 14.77 | 43.39 / 34.70 / 13.51 | 38904 / 32980 / 46056 |
+| disconnected | 57.82 / 25.83 / 10.86 | 62.16 / 25.12 / 11.39 | 22512 / 23208 / 22216 |
+
+例えばGCCのsparseにおけるCSRの段階別中央値は入力13.12ms、構築5.34ms、探索2.48ms、
+出力0.23msだった。段階別中央値の和とprocess中央値は別に集計している。提出側は段階別に
+測っていないため、残る差を入力だけの差とは断定できない。4分布とも提出との差が残る。
+入力・I/O・配置・キューの個別寄与をさらに調べる必要がある。
+短い整数の検査をまとめるFastInputの[試作と測定](parse-short-experiment.md)も行ったが、
+Windowsの比較では一貫した改善を確認できず、公開headerには採用していない。
+
+[GCCの全標本](csr-end-to-end-linux-gcc.json)、[Clangの全標本](csr-end-to-end-linux-clang.json)、
+[runner](run_csr_end_to_end_linux.py)にcompiler・flags・CPU・入力とソースのhash、各標本、
+出力の検証結果を保存した。Windows測定と同じ5入力も別のsuiteとして含む。
+Linux側のheader・I/OのhashはGitで改行を正規化した内容に対応し、Windows作業ツリーの
+CRLFを含む実バイトhashとは異なる。
+[実行ログとartifact](https://github.com/blueberry1001/Blueberry-library/actions/runs/43722849211)は
+一時的な検証用PRのものであり、通常のrequired CIとは区別する。
+
 ## 再現
 
 [run.py](run.py)、[whole.py](whole.py)、[cross.py](cross.py)はリポジトリルートで動かす。
