@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 jobs:
-  csr-performance:
+  fastest-profile:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     permissions:
@@ -16,23 +16,23 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Compare shortest-path implementations
+      - name: Profile fastest submission
         shell: bash
         run: |
           set +e
           mkdir -p .verification
-          python3 docs/development/measurements/dijkstra/run_csr_end_to_end_linux.py --compiler g++ --output .verification/csr-linux-gcc.json
+          python3 docs/development/measurements/dijkstra/profile_fastest_linux.py --compiler g++ --output .verification/fastest-profile-gcc.json
           gcc_result=$?
-          python3 docs/development/measurements/dijkstra/run_csr_end_to_end_linux.py --compiler clang++ --output .verification/csr-linux-clang.json
+          python3 docs/development/measurements/dijkstra/profile_fastest_linux.py --compiler clang++ --output .verification/fastest-profile-clang.json
           clang_result=$?
-          python3 -c 'import base64,gzip,pathlib; [(print("CSR_RESULT_"+n+"="+base64.b64encode(gzip.compress(p.read_bytes())).decode()) if p.exists() else print("CSR_RESULT_"+n+"=MISSING")) for n,p in [("GCC",pathlib.Path(".verification/csr-linux-gcc.json")),("CLANG",pathlib.Path(".verification/csr-linux-clang.json"))]]'
+          python3 -c 'import base64,gzip,pathlib; [(print("PROFILE_RESULT_"+n+"="+base64.b64encode(gzip.compress(p.read_bytes())).decode()) if p.exists() else print("PROFILE_RESULT_"+n+"=MISSING")) for n,p in [("GCC",pathlib.Path(".verification/fastest-profile-gcc.json")),("CLANG",pathlib.Path(".verification/fastest-profile-clang.json"))]]'
           if [ "$gcc_result" -ne 0 ] || [ "$clang_result" -ne 0 ]; then exit 1; fi
       - name: Preserve results including failures
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: csr-linux-performance
-          path: .verification/csr-linux-*.json
+          name: fastest-profile-performance
+          path: .verification/fastest-profile-*.json
           if-no-files-found: warn
           retention-days: 90
 
