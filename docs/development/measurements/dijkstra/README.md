@@ -330,6 +330,14 @@ CRLFを含む実バイトhashとは異なる。
 全標本、[runner](profile_fastest_linux.py)、[CIログとartifact](https://github.com/blueberry1001/Blueberry-library/actions/runs/43724414416)
 に入力・原本のhash、各標準エラー、経路の独立検証結果を保存した。
 
+同一runner（Intel Xeon Platinum 8573C、GCC 15.2、同一flagsと入力）で、CSR比較と提出の
+PROF計測も順に行った。sparseのCSRはprocess中央値37.75ms、入力区間23.68ms、構築7.35ms、
+探索3.42msだった。提出のPROF版はprocess中央値18.03ms、入力6.91ms、構築5.55ms、
+探索2.88msだった。ただし2つの測定は別々の時間帯に実行され、提出の通常版process中央値が
+前者の24.66msから後者の18.60msへ変動している。したがって各区間の差をそのまま要因別の
+短縮量とはみなさない。[CSR比較](joint-csr-linux-gcc.json)、[PROF計測](joint-profile-linux-gcc.json)、
+[CIログとartifact](https://github.com/blueberry1001/Blueberry-library/actions/runs/43725527732)に全標本を保存した。
+
 ## 再現
 
 [run.py](run.py)、[whole.py](whole.py)、[cross.py](cross.py)はリポジトリルートで動かす。
