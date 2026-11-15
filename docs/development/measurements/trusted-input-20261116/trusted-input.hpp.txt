@@ -1,0 +1,50 @@
+#pragma once
+#include <array>
+#include <cstdint>
+#include <cstdio>
+#include <limits>
+#include <string>
+#include <type_traits>
+
+class TrustedInput {
+  static constexpr std::size_t capacity = 1 << 16;
+  std::FILE* file_;
+  std::array<unsigned char, capacity> buffer_;
+  std::size_t pos_ = 0, end_ = 0;
+  int get() {
+    if (pos_ == end_) {
+      end_ = std::fread(buffer_.data(), 1, capacity, file_);
+      pos_ = 0;
+      if (!end_) return EOF;
+    }
+    return buffer_[pos_++];
+  }
+ public:
+  explicit TrustedInput(std::FILE* file = stdin) : file_(file) {}
+  template<class T> bool read_int(T& value) {
+    static_assert(std::is_integral_v<T> && !std::is_same_v<T, bool> && sizeof(T) <= 8);
+    using U = std::make_unsigned_t<T>;
+    int c;
+    do { c = get(); } while (c != EOF && c <= ' ');
+    if (c == EOF) return false;
+    bool negative = c == '-';
+    if (negative || c == '+') c = get();
+    U result = 0;
+    do { result = U(result * 10 + U(c - '0')); c = get(); } while (c >= '0' && c <= '9');
+    if constexpr (std::is_signed_v<T>) {
+      if (negative) {
+        constexpr U magnitude = U(std::numeric_limits<T>::max()) + U{1};
+        value = result == magnitude ? std::numeric_limits<T>::min() : T(-T(result));
+      } else value = T(result);
+    } else value = T(result);
+    return true;
+  }
+  bool read_word(std::string& value) {
+    int c;
+    do { c = get(); } while (c != EOF && c <= ' ');
+    if (c == EOF) return false;
+    value.clear();
+    do { value.push_back(static_cast<char>(c)); c = get(); } while (c != EOF && c > ' ');
+    return true;
+  }
+};
