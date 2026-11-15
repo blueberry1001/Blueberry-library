@@ -1,4 +1,4 @@
-name: CSR performance research
+name: Shortest-path stage comparison
 
 on:
   pull_request:
@@ -7,32 +7,29 @@ permissions:
   contents: read
 
 jobs:
-  fastest-profile:
+  stage-comparison:
     runs-on: ubuntu-latest
     timeout-minutes: 30
-    permissions:
-      contents: read
     steps:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      - name: Profile fastest submission
+      - name: Compare on the same runner
         shell: bash
         run: |
           set +e
           mkdir -p .verification
-          python3 docs/development/measurements/dijkstra/profile_fastest_linux.py --compiler g++ --output .verification/fastest-profile-gcc.json
-          gcc_result=$?
-          python3 docs/development/measurements/dijkstra/profile_fastest_linux.py --compiler clang++ --output .verification/fastest-profile-clang.json
-          clang_result=$?
-          python3 -c 'import base64,gzip,pathlib; [(print("PROFILE_RESULT_"+n+"="+base64.b64encode(gzip.compress(p.read_bytes())).decode()) if p.exists() else print("PROFILE_RESULT_"+n+"=MISSING")) for n,p in [("GCC",pathlib.Path(".verification/fastest-profile-gcc.json")),("CLANG",pathlib.Path(".verification/fastest-profile-clang.json"))]]'
-          if [ "$gcc_result" -ne 0 ] || [ "$clang_result" -ne 0 ]; then exit 1; fi
+          python3 docs/development/measurements/dijkstra/run_csr_end_to_end_linux.py --compiler g++ --output .verification/joint-csr.json
+          csr_result=$?
+          python3 docs/development/measurements/dijkstra/profile_fastest_linux.py --compiler g++ --output .verification/joint-profile.json
+          profile_result=$?
+          python3 -c 'import base64,gzip,pathlib; [(print("JOINT_RESULT_"+n+"="+base64.b64encode(gzip.compress(p.read_bytes())).decode()) if p.exists() else print("JOINT_RESULT_"+n+"=MISSING")) for n,p in [("CSR",pathlib.Path(".verification/joint-csr.json")),("PROFILE",pathlib.Path(".verification/joint-profile.json"))]]'
+          if [ "$csr_result" -ne 0 ] || [ "$profile_result" -ne 0 ]; then exit 1; fi
       - name: Preserve results including failures
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: fastest-profile-performance
-          path: .verification/fastest-profile-*.json
+          name: shortest-path-stage-comparison
+          path: .verification/joint-*.json
           if-no-files-found: warn
           retention-days: 90
-
