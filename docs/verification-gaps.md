@@ -144,6 +144,7 @@
 
 - 専用ドライバ: [verify/data-structure/dynamic-point-add-rectangle-sum.test.cpp](../verify/data-structure/dynamic-point-add-rectangle-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/point_add_rectangle_sum)
 - 専用ドライバ: [verify/data-structure/dynamic-rectangle-sum.test.cpp](../verify/data-structure/dynamic-rectangle-sum.test.cpp) / [問題](https://judge.yosupo.jp/problem/rectangle_sum)
+- 関連ローカルテスト: [tests/random/dynamic-fenwick-tree-2d-sum.cpp](../tests/random/dynamic-fenwick-tree-2d-sum.cpp)
 - 関連ローカルテスト: [tests/random/dynamic-fenwick-tree.cpp](../tests/random/dynamic-fenwick-tree.cpp)
 
 ## Dynamic Fenwick Tree

@@ -11,8 +11,6 @@
 
 namespace blueberry {
 
-// Online sparse outer Fenwick tree with pooled augmented AVL trees on y.
-// Each distinct point creates O(log n) nodes, independent of the y-domain size.
 template <class T, class Coord = long long>
 class DynamicFenwickTree2D {
   static_assert(std::is_integral_v<Coord> && std::is_signed_v<Coord>);
@@ -61,7 +59,22 @@ class DynamicFenwickTree2D {
     assert(0 <= left && left <= right && right <= n_);
     assert(0 <= down && down <= up && up <= m_);
     if (left == right || down == up) return T{};
-    return pref(right, up) - pref(left, up) - pref(right, down) + pref(left, down);
+    if constexpr (std::is_integral_v<T> && !std::is_same_v<T, bool>) {
+      using U = std::make_unsigned_t<T>;
+      U a = 0, b = 0;
+      while (left != right) {
+        if (left < right) {
+          auto it = roots_.find(right);
+          if (it != roots_.end()) a += range_node<U>(it->second, down, up);
+          right -= right & -right;
+        } else {
+          auto it = roots_.find(left);
+          if (it != roots_.end()) b += range_node<U>(it->second, down, up);
+          left -= left & -left;
+        }
+      }
+      return static_cast<T>(a - b);
+    } else return pref(right, up) - pref(left, up) - pref(right, down) + pref(left, down);
   }
   T get(Coord x, Coord y) const {
     assert(0 <= x && x < n_ && 0 <= y && y < m_);
@@ -94,7 +107,6 @@ class DynamicFenwickTree2D {
       nodes_.push_back({key, value, value});
       return static_cast<int>(nodes_.size()) - 1;
     }
-    // Recursive allocation may move nodes_: only retain integer indices.
     if (key < nodes_[v].key) {
       int child = add_node(nodes_[v].left, key, value);
       nodes_[v].left = child;
@@ -118,6 +130,32 @@ class DynamicFenwickTree2D {
     }
     return v;
   }
+  template <class U>
+  U range_node(int v, Coord low, Coord high) const {
+    if (v != -1 && low == 0 && high == m_) return static_cast<U>(nodes_[v].sum);
+    while (v != -1 && (nodes_[v].key < low || nodes_[v].key >= high))
+      v = nodes_[v].key < low ? nodes_[v].right : nodes_[v].left;
+    if (v == -1) return U{};
+    U answer = static_cast<U>(nodes_[v].value);
+    int left = nodes_[v].left, right = nodes_[v].right;
+    while (left != -1) {
+      const auto& node = nodes_[left];
+      if (node.key >= low) {
+        answer += static_cast<U>(node.value);
+        if (node.right != -1) answer += static_cast<U>(nodes_[node.right].sum);
+        left = node.left;
+      } else left = node.right;
+    }
+    while (right != -1) {
+      const auto& node = nodes_[right];
+      if (node.key < high) {
+        answer += static_cast<U>(node.value);
+        if (node.left != -1) answer += static_cast<U>(nodes_[node.left].sum);
+        right = node.right;
+      } else right = node.left;
+    }
+    return answer;
+  }
   T prefix_node(int v, Coord key) const {
     T answer{};
     while (v != -1) {
@@ -133,4 +171,4 @@ class DynamicFenwickTree2D {
   std::vector<Node> nodes_;
 };
 
-}  // namespace blueberry
+}
