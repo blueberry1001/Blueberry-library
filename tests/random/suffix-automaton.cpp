@@ -4,13 +4,39 @@
 #include <random>
 #include <set>
 #include <string>
+#include <type_traits>
 #include <vector>
 #include "blueberry/string/suffix-automaton.hpp"
 using namespace std;
+
+struct OrderedSymbol {
+  string value;
+  OrderedSymbol() = default;
+  OrderedSymbol(const OrderedSymbol&) = default;
+  OrderedSymbol(OrderedSymbol&&) = delete;
+  OrderedSymbol& operator=(const OrderedSymbol&) = default;
+  OrderedSymbol& operator=(OrderedSymbol&&) = delete;
+  bool operator<(const OrderedSymbol& other) const { return value < other.value; }
+};
+static_assert(!is_move_constructible_v<OrderedSymbol>);
+
 int main(int argc,char**argv){
   auto seed=argc>1?strtoull(argv[1],nullptr,10):1;mt19937_64 rng(seed);
   blueberry::SuffixAutomaton<> literal("ababa");assert(literal.size()==5&&literal.count("aba")==2&&literal.contains(""));
   blueberry::SuffixAutomaton<int> integers(vector<int>{-5,7,-5});assert(integers.count(vector<int>{-5})==2);
+  blueberry::SuffixAutomaton<OrderedSymbol> custom;
+  vector<OrderedSymbol> text_symbols, custom_pattern;
+  OrderedSymbol symbol;
+  for(const char* value:{"z","b","b","a","z","b","b","z"}){
+    symbol.value=value;text_symbols.push_back(symbol);custom.append(symbol);
+  }
+  assert(custom.states()>custom.size()+1);
+  symbol.value="z";custom_pattern.push_back(symbol);
+  assert(custom.contains<vector<OrderedSymbol>>(custom_pattern));
+  assert(custom.count<vector<OrderedSymbol>>(custom_pattern)==3);
+  auto [custom_start,other_start,common_length]=custom.longest_common_substring<vector<OrderedSymbol>>(text_symbols);
+  assert(custom_start==0&&other_start==0&&common_length==static_cast<int>(text_symbols.size()));
+  custom.append(symbol);assert(custom.count<vector<OrderedSymbol>>(custom_pattern)==4);
   for(int trial=0;trial<100;++trial){
     blueberry::SuffixAutomaton<> sam;string text;
     for(int step=0;step<50;++step){

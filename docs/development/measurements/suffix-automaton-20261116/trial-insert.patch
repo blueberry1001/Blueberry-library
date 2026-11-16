@@ -1,0 +1,14 @@
+--- baseline.hpp
++++ insert.hpp
+@@ -10,0 +11 @@
++#include <utility>
+@@ -67,3 +68,4 @@
+-    int p = last_;
+-    while (p != -1 && !states_[p].next.contains(symbol)) {
+-      states_[p].next.emplace(symbol, current);
++    int p = last_, q = -1;
++    while (p != -1) {
++      auto [it, inserted] = states_[p].next.try_emplace(symbol, current);
++      if (!inserted) { q = it->second; break; }
+@@ -73 +74,0 @@
+-      int q = states_[p].next.find(symbol)->second;

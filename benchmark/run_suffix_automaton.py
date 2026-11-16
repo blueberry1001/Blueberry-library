@@ -1,0 +1,162 @@
+#!/usr/bin/env python3
+"""Compare Suffix Automaton include roots using identical generated inputs."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import shlex
+import statistics
+import subprocess
+import sys
+import time
+from datetime import datetime, timezone
+
+HERE = Path(__file__).resolve().parent
+ROOT = HERE.parent
+HEADER = Path('blueberry/string/suffix-automaton.hpp')
+SCENARIOS = ('unary', 'periodic', 'small', 'large', 'wide_int')
+KINDS = ('short_match', 'short_miss', 'long_match', 'long_mismatch')
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+def stats(values):
+    return {'median': statistics.median(values), 'min': min(values), 'max': max(values), 'samples': values}
+
+def cpu_model():
+    try:
+        return next(line.split(':',1)[1].strip() for line in Path('/proc/cpuinfo').read_text().splitlines() if line.startswith('model name'))
+    except (OSError, StopIteration):
+        return 'unknown'
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--baseline', type=Path, required=True)
+    parser.add_argument('--candidate', type=Path, required=True)
+    parser.add_argument('--cxx', default='g++')
+    parser.add_argument('--flags', default='-std=gnu++20 -O2 -DNDEBUG')
+    parser.add_argument('--n', type=int, default=200000)
+    parser.add_argument('--queries', type=int, default=2000)
+    parser.add_argument('--short', type=int, default=16)
+    parser.add_argument('--long', type=int, default=256)
+    parser.add_argument('--seed', type=int, default=1729)
+    parser.add_argument('--warmups', type=int, default=1)
+    parser.add_argument('--repeats', type=int, default=5)
+    parser.add_argument('--scenarios', default=','.join(SCENARIOS))
+    parser.add_argument('--cpu', type=int)
+    parser.add_argument('--output', type=Path, default=ROOT / '.benchmark/suffix-automaton.json')
+    args = parser.parse_args()
+    names = args.scenarios.split(',')
+    if (args.n <= 0 or args.queries <= 0 or args.short <= 0 or args.long <= 0 or
+        args.short > args.n or args.long > args.n or args.warmups < 0 or args.repeats < 1 or
+        not 0 <= args.seed < (1 << 64) or not names or len(names) != len(set(names)) or
+        any(name not in SCENARIOS for name in names)):
+        parser.error('invalid input size, count, seed, or scenarios')
+    roots = {'baseline': args.baseline.resolve(), 'candidate': args.candidate.resolve()}
+    for root in roots.values():
+        if not (root / HEADER).is_file():
+            parser.error('missing header: ' + str(root / HEADER))
+    affinity = sorted(os.sched_getaffinity(0)) if hasattr(os, 'sched_getaffinity') else None
+    if args.cpu is not None and (affinity is None or args.cpu not in affinity):
+        parser.error(f'CPU {args.cpu} is unavailable: {affinity}')
+    flags = shlex.split(args.flags)
+    compiler = subprocess.run([args.cxx,'--version'], capture_output=True, text=True, check=True).stdout.splitlines()[0]
+    build = ROOT / '.build/suffix-automaton-benchmark'
+    build.mkdir(parents=True, exist_ok=True)
+    output = args.output.resolve()
+    output.parent.mkdir(parents=True, exist_ok=True)
+    report = {
+        'timestamp_utc': datetime.now(timezone.utc).isoformat(),
+        'environment': {'platform': platform.platform(), 'cpu': cpu_model(), 'available_affinity': affinity,
+                        'pinned_cpu': args.cpu, 'python': sys.version, 'compiler': compiler,
+                        'compiler_command': args.cxx, 'flags': flags},
+        'inputs': {'roots': {k:str(v) for k,v in roots.items()},
+                   'header_sha256': {k:sha(v / HEADER) for k,v in roots.items()},
+                   'driver_sha256': sha(HERE / 'suffix-automaton.cpp'), 'runner_sha256': sha(HERE / 'run_suffix_automaton.py'),
+                   'seed': args.seed, 'n': args.n, 'queries_per_kind': args.queries,
+                   'short_length': args.short, 'long_length': args.long,
+                   'warmups': args.warmups, 'repeats': args.repeats, 'scenarios': names},
+        'timing_scope': {
+            'construction': 'construct entire automaton from pregenerated input; includes allocations',
+            'first_count': 'count an existing nonempty pattern after construction, including lazy occurrence rebuild',
+            'lcs': 'longest_common_substring calls plus result checksum, grouped by query kind',
+            'count_reuse': 'count calls plus result checksum after first count has rebuilt occurrence counts',
+            'excluded': 'input and query generation, parsing, output, and automaton destruction',
+            'rss': 'Linux getrusage(RUSAGE_SELF) max RSS KiB, including input and query arrays; -1 means unavailable',
+            'scenarios': 'unary; period-5; random sigma=4; random sigma=96; int random sigma=65536',
+            'queries': 'short_match and long_match are source substrings; short_miss uses absent symbols; long_mismatch changes every seventh symbol to an absent symbol',
+            'query_order': 'phase order rotates per repetition, identically for both versions'},
+        'compile': {}, 'runs': [], 'summary': {}, 'status': 'running'}
+    def save():
+        tmp = output.with_name(output.name + '.tmp')
+        tmp.write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+        tmp.replace(output)
+    def pin():
+        if args.cpu is not None: os.sched_setaffinity(0, {args.cpu})
+    save()
+    try:
+        binaries = {}
+        for variant, root in roots.items():
+            binary = build / variant
+            command = [args.cxx, *flags, '-I', str(root), str(HERE / 'suffix-automaton.cpp'), '-o', str(binary)]
+            result = subprocess.run(command, capture_output=True, text=True)
+            report['compile'][variant] = {'command': command, 'returncode': result.returncode,
+                                          'stdout': result.stdout, 'stderr': result.stderr}
+            if result.returncode:
+                save()
+                raise RuntimeError('compile failed for ' + variant)
+            report['compile'][variant]['binary_sha256'] = sha(binary)
+            binaries[variant] = binary
+            save()
+        for scenario_index, scenario in enumerate(names):
+            expected = None
+            for run in range(args.warmups + args.repeats):
+                order = ('baseline','candidate') if (scenario_index + run) % 2 == 0 else ('candidate','baseline')
+                for variant in order:
+                    command = [str(binaries[variant]), scenario, str(args.n), str(args.queries), str(args.short),
+                               str(args.long), str(args.seed), str(run % 4)]
+                    begin = time.monotonic_ns()
+                    result = subprocess.run(command, capture_output=True, text=True,
+                                            preexec_fn=pin if args.cpu is not None else None)
+                    row = {'scenario': scenario, 'variant': variant, 'run': run, 'warmup': run < args.warmups,
+                           'command': command, 'process_wall_ns': time.monotonic_ns() - begin,
+                           'returncode': result.returncode, 'stderr': result.stderr}
+                    report['runs'].append(row)
+                    if result.returncode:
+                        row['stdout'] = result.stdout
+                        save()
+                        raise RuntimeError(f'run failed: {scenario} {variant} {run}')
+                    measurement = json.loads(result.stdout)
+                    row['measurement'] = measurement
+                    digest = (measurement['input_hash'], measurement['states'], measurement['distinct'],
+                              measurement['first_count'], tuple((measurement['queries'][k]['lcs_checksum'],
+                                                                 measurement['queries'][k]['count_checksum']) for k in KINDS))
+                    if expected is not None and digest != expected:
+                        save()
+                        raise RuntimeError(f'checksum mismatch: {scenario} {variant} {run}')
+                    expected = digest
+                    print(f"{scenario} {variant} run={run} warmup={row['warmup']} build={measurement['construct_ns']/1e6:.3f}ms", flush=True)
+                    save()
+        for scenario in names:
+            report['summary'][scenario] = {}
+            for variant in roots:
+                samples = [r['measurement'] for r in report['runs'] if r['scenario'] == scenario and
+                           r['variant'] == variant and not r['warmup']]
+                summary = {key: stats([r[key] for r in samples]) for key in
+                           ('construct_ns','first_count_ns','peak_rss_kib')}
+                summary['queries'] = {kind: {metric: stats([r['queries'][kind][metric] for r in samples])
+                                            for metric in ('lcs_ns','count_ns')} for kind in KINDS}
+                report['summary'][scenario][variant] = summary
+        report['status'] = 'complete'
+    except BaseException as exc:
+        report['status'] = 'failed'
+        report['failure'] = f'{type(exc).__name__}: {exc}'
+        raise
+    finally:
+        save()
+    print('results:', output)
+
+if __name__ == '__main__':
+    main()

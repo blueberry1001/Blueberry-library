@@ -1,0 +1,25 @@
+--- baseline.hpp
++++ combined.hpp
+@@ -10,0 +11 @@
++#include <utility>
+@@ -67,3 +68,4 @@
+-    int p = last_;
+-    while (p != -1 && !states_[p].next.contains(symbol)) {
+-      states_[p].next.emplace(symbol, current);
++    int p = last_, q = -1;
++    while (p != -1) {
++      auto [it, inserted] = states_[p].next.try_emplace(symbol, current);
++      if (!inserted) { q = it->second; break; }
+@@ -73 +74,0 @@
+-      int q = states_[p].next.find(symbol)->second;
+@@ -81 +82 @@
+-        states_.push_back(copied);
++        states_.push_back(std::move(copied));
+@@ -116 +117,2 @@
+-      while (state && !states_[state].next.contains(symbol)) {
++      auto found = states_[state].next.find(symbol);
++      while (state && found == states_[state].next.end()) {
+@@ -118,0 +121 @@
++        found = states_[state].next.find(symbol);
+@@ -120 +122,0 @@
+-      auto found = states_[state].next.find(symbol);
