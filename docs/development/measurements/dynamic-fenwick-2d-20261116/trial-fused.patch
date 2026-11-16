@@ -1,0 +1,26 @@
+--- baseline.hpp
++++ fused.hpp
+@@ -61,7 +61,22 @@
+     assert(0 <= left && left <= right && right <= n_);
+     assert(0 <= down && down <= up && up <= m_);
+     if (left == right || down == up) return T{};
+-    return pref(right, up) - pref(left, up) - pref(right, down) + pref(left, down);
++    if constexpr (std::is_integral_v<T> && !std::is_same_v<T, bool>) {
++      using U = std::make_unsigned_t<T>;
++      U a = 0, b = 0;
++      while (left != right) {
++        if (left < right) {
++          auto it = roots_.find(right);
++          if (it != roots_.end()) a += static_cast<U>(prefix_node(it->second, up)) - static_cast<U>(prefix_node(it->second, down));
++          right -= right & -right;
++        } else {
++          auto it = roots_.find(left);
++          if (it != roots_.end()) b += static_cast<U>(prefix_node(it->second, up)) - static_cast<U>(prefix_node(it->second, down));
++          left -= left & -left;
++        }
++      }
++      return static_cast<T>(a - b);
++    } else return pref(right, up) - pref(left, up) - pref(right, down) + pref(left, down);
+   }
+   T get(Coord x, Coord y) const {
+     assert(0 <= x && x < n_ && 0 <= y && y < m_);

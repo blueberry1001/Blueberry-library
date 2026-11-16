@@ -1,0 +1,188 @@
+#!/usr/bin/env python3
+"""Compare two include roots using the same prepared workloads, one process at a time."""
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import shlex
+import statistics
+import subprocess
+import sys
+import time
+
+HERE = Path(__file__).resolve().parent
+HEADER = Path("blueberry/data-structure/dynamic-fenwick-tree-2d.hpp")
+SCENARIOS = {"dense": 256, "sparse": 20_000, "huge": 1_000_000_000,
+             "huge64": 1 << 60}
+CASES = tuple(f"{x}_{y}" for x in ("short", "wide", "full") for y in ("short", "wide", "full"))
+
+
+def digest(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def cpu_model():
+    try:
+        return next(line.split(":", 1)[1].strip() for line in
+                    Path("/proc/cpuinfo").read_text().splitlines()
+                    if line.startswith("model name"))
+    except (OSError, StopIteration):
+        return "unknown"
+
+
+def stats(values):
+    return {"median": statistics.median(values), "min": min(values),
+            "max": max(values), "samples": values}
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--baseline", type=Path, required=True, help="include root containing " + str(HEADER))
+    parser.add_argument("--candidate", type=Path, action="append", required=True,
+                        help="include root containing " + str(HEADER) + "; repeat for multiple candidates")
+    parser.add_argument("--cxx", default="g++")
+    parser.add_argument("--flags", default="-std=gnu++20 -O2 -DNDEBUG")
+    parser.add_argument("--updates", type=int, default=40_000)
+    parser.add_argument("--queries", type=int, default=20_000, help="queries per x/y width pair")
+    parser.add_argument("--repeats", type=int, default=5)
+    parser.add_argument("--warmups", type=int, default=1)
+    parser.add_argument("--seed", type=int, default=1729)
+    parser.add_argument("--scenarios", default="dense,sparse,huge", help="comma-separated: " + ",".join(SCENARIOS))
+    parser.add_argument("--cases", "--case", default=",".join(CASES), help="comma-separated: " + ",".join(CASES))
+    parser.add_argument("--cpu", type=int, help="pin benchmark child processes to an allowed CPU")
+    parser.add_argument("--output", type=Path, default=HERE / "results.json")
+    args = parser.parse_args()
+    names = args.scenarios.split(",")
+    cases = args.cases.split(",")
+    if (args.updates < 1 or args.queries < 1 or args.repeats < 1 or args.warmups < 0
+            or not 0 <= args.seed < (1 << 64) or not names or len(names) != len(set(names))
+            or any(name not in SCENARIOS for name in names) or not cases
+            or len(cases) != len(set(cases)) or any(case not in CASES for case in cases)):
+        parser.error("counts, seed or scenarios are invalid")
+    roots = {"baseline": args.baseline.resolve()}
+    for i, path in enumerate(args.candidate):
+        roots["candidate" if i == 0 else f"candidate_{i + 1}"] = path.resolve()
+    mask = sum(1 << CASES.index(case) for case in cases)
+    for root in roots.values():
+        if not (root / HEADER).is_file():
+            parser.error(f"missing header: {root / HEADER}")
+    flags = shlex.split(args.flags)
+    build = HERE / "build"
+    build.mkdir(parents=True, exist_ok=True)
+    output = args.output.resolve()
+    output.parent.mkdir(parents=True, exist_ok=True)
+    allowed = sorted(os.sched_getaffinity(0)) if hasattr(os, "sched_getaffinity") else None
+    if args.cpu is not None and (allowed is None or args.cpu not in allowed):
+        parser.error(f"CPU {args.cpu} is not in the available affinity set: {allowed}")
+    version = subprocess.run([args.cxx, "--version"], text=True, capture_output=True, check=True).stdout.splitlines()[0]
+    time_binary = Path("/usr/bin/time")
+    report = {
+        "environment": {"platform": platform.platform(), "cpu": cpu_model(),
+                        "logical_cpus": os.cpu_count(), "available_affinity": allowed,
+                        "pinned_cpu": args.cpu, "python": sys.version, "compiler": version,
+                        "compiler_command": args.cxx, "flags": flags},
+        "inputs": {"roots": {k: str(v) for k, v in roots.items()},
+                   "header_sha256": {k: digest(v / HEADER) for k, v in roots.items()},
+                   "driver_sha256": digest(HERE / "benchmark.cpp"),
+                   "runner_sha256": digest(HERE / "run.py"), "seed": args.seed,
+                   "scenarios": {name: SCENARIOS[name] for name in names}, "cases": cases,
+                   "updates": args.updates, "queries_per_shape": args.queries,
+                   "warmups": args.warmups, "repeats": args.repeats},
+        "timing_scope": {"construct": "empty tree constructor only",
+                         "update": "all add operations, including allocations",
+                         "queries": "sum calls plus checksum mixing, separately by rectangle shape",
+                         "excluded": "input generation, output and tree destruction",
+                         "rss": ("peak process RSS in KiB including generated inputs and runtime"
+                                 if time_binary.is_file() else "not measured: /usr/bin/time unavailable")},
+        "compile": {}, "runs": [], "summary": {}, "status": "running"}
+
+    def save():
+        tmp = output.with_name(output.name + ".tmp")
+        tmp.write_text(json.dumps(report, indent=2) + "\n")
+        tmp.replace(output)
+
+    def pin():
+        if args.cpu is not None:
+            os.sched_setaffinity(0, {args.cpu})
+
+    save()
+    try:
+        binaries = {}
+        for variant, root in roots.items():
+            binary = build / variant
+            command = [args.cxx, *flags, "-I", str(root), str(HERE / "benchmark.cpp"), "-o", str(binary)]
+            completed = subprocess.run(command, text=True, capture_output=True)
+            report["compile"][variant] = {"command": command, "returncode": completed.returncode,
+                                           "stdout": completed.stdout, "stderr": completed.stderr}
+            save()
+            if completed.returncode:
+                raise RuntimeError(f"compilation failed for {variant}")
+            binaries[variant] = binary
+            report["compile"][variant]["binary_sha256"] = digest(binary)
+        reference = {}
+        for scenario_index, scenario in enumerate(names):
+            for run in range(args.warmups + args.repeats):
+                variants = list(roots)
+                offset = (run + scenario_index) % len(variants)
+                order = variants[offset:] + variants[:offset]
+                if len(variants) > 2 and ((run // len(variants)) + scenario_index) % 2:
+                    order.reverse()
+                rotation = run % len(cases)
+                for variant in order:
+                    command = [str(binaries[variant]), scenario, str(SCENARIOS[scenario]),
+                               str(args.updates), str(args.queries), str(args.seed), str(rotation), str(mask)]
+                    rss_file = build / "peak-rss.txt"
+                    actual_command = ([str(time_binary), "-f", "%M", "-o", str(rss_file), *command]
+                                      if time_binary.is_file() else command)
+                    started = time.monotonic_ns()
+                    completed = subprocess.run(actual_command, text=True, capture_output=True,
+                                               preexec_fn=pin if args.cpu is not None else None)
+                    row = {"scenario": scenario, "variant": variant, "run": run,
+                           "warmup": run < args.warmups, "command": actual_command,
+                           "process_wall_ns": time.monotonic_ns() - started,
+                           "returncode": completed.returncode, "stderr": completed.stderr}
+                    report["runs"].append(row)
+                    if completed.returncode:
+                        row["stdout"] = completed.stdout
+                        raise RuntimeError(f"benchmark failed for {scenario} {variant} run {run}")
+                    if time_binary.is_file():
+                        row["peak_rss_kib"] = int(rss_file.read_text().strip())
+                    row["measurement"] = json.loads(completed.stdout)
+                    measurement = row["measurement"]
+                    checks = (measurement["input_checksum"],
+                              {name: data["checksum"] for name, data in measurement["queries"].items()})
+                    if scenario in reference and checks != reference[scenario]:
+                        raise RuntimeError(f"input or output checksum mismatch for {scenario} {variant} run {run}")
+                    reference[scenario] = checks
+                    print(f"{scenario} {variant} run={run} warmup={row['warmup']} "
+                          f"update={measurement['update_ns'] / 1e6:.3f}ms", flush=True)
+                    save()
+        for scenario in names:
+            report["summary"][scenario] = {}
+            for variant in roots:
+                rows = [r["measurement"] for r in report["runs"]
+                        if r["scenario"] == scenario and r["variant"] == variant and not r["warmup"]]
+                summary = {"construct_ns": stats([r["construct_ns"] for r in rows]),
+                           "update_ns": stats([r["update_ns"] for r in rows]), "query_ns": {}}
+                for shape in rows[0]["queries"]:
+                    summary["query_ns"][shape] = stats([r["queries"][shape]["ns"] for r in rows])
+                rss = [r["peak_rss_kib"] for r in report["runs"]
+                       if r["scenario"] == scenario and r["variant"] == variant
+                       and not r["warmup"] and "peak_rss_kib" in r]
+                if rss:
+                    summary["peak_rss_kib"] = stats(rss)
+                report["summary"][scenario][variant] = summary
+        report["status"] = "complete"
+    except BaseException as exc:
+        report["status"] = "failed"
+        report["failure"] = f"{type(exc).__name__}: {exc}"
+        raise
+    finally:
+        save()
+    print(f"results: {output}")
+
+
+if __name__ == "__main__":
+    main()
