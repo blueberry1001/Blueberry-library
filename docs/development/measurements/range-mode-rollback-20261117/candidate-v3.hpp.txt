@@ -1,0 +1,74 @@
+#pragma once
+#include <algorithm>
+#include <cmath>
+#include <numeric>
+#include <utility>
+#include <vector>
+
+namespace mode_candidate {
+template<class T>
+std::vector<std::pair<int, int>> static_range_mode(const std::vector<T>& a, const std::vector<std::pair<int, int>>& queries) {
+  int n = static_cast<int>(a.size()), q = static_cast<int>(queries.size());
+  if (!q) return {};
+  std::vector<std::pair<int, int>> answer(q, {-1, 0});
+  if (!n) return answer;
+  bool identical = true;
+  for (int i = 1; i < q; ++i) if (queries[i] != queries[0]) { identical = false; break; }
+  if (identical) {
+    auto [l, r] = queries[0];
+    std::vector<int> order(r - l); std::iota(order.begin(), order.end(), l);
+    std::sort(order.begin(), order.end(), [&](int x, int y) { return a[x] < a[y]; });
+    int best = -1, frequency = 0;
+    for (int i = 0, j; i < r - l; i = j) {
+      j = i + 1; while (j < r - l && a[order[i]] == a[order[j]]) ++j;
+      if (j - i > frequency) { frequency = j - i; best = order[i]; }
+    }
+    std::fill(answer.begin(), answer.end(), std::pair{best, frequency});
+    return answer;
+  }
+  std::vector<T> values = a;
+  std::sort(values.begin(), values.end());
+  values.erase(std::unique(values.begin(), values.end()), values.end());
+  int m = static_cast<int>(values.size());
+  std::vector<int> rank(n), representative(m);
+  for (int i = 0; i < n; ++i) {
+    rank[i] = static_cast<int>(std::lower_bound(values.begin(), values.end(), a[i]) - values.begin());
+    representative[rank[i]] = i;
+  }
+  int width = std::max(1, static_cast<int>(n / std::sqrt(static_cast<double>(q))));
+  struct Query { int block, right, left, id; };
+  std::vector<Query> order; order.reserve(q);
+  for (int i = 0; i < q; ++i) order.push_back({queries[i].first / width, queries[i].second, queries[i].first, i});
+  std::sort(order.begin(), order.end(), [](const Query& x, const Query& y) {
+    if (x.block != y.block) return x.block < y.block;
+    return x.right != y.right ? x.right < y.right : x.left < y.left;
+  });
+  std::vector<int> count(m);
+  int group = -1, boundary = 0, right = 0, maximum = 0, best = -1;
+  int last_l = -1, last_r = -1, last_id = -1;
+  for (auto entry : order) {
+    int l = entry.left, r = entry.right;
+    if (l == last_l && r == last_r) { answer[entry.id] = answer[last_id]; continue; }
+    last_l = l; last_r = r; last_id = entry.id;
+    if (entry.block != group) {
+      for (int i = boundary; i < right; ++i) count[rank[i]] = 0;
+      group = entry.block;
+      boundary = static_cast<int>(std::min<long long>(n, (static_cast<long long>(group) + 1) * width));
+      right = boundary; maximum = 0; best = -1;
+    }
+    if (r <= boundary) {
+      int f = 0, id = -1;
+      for (int i = l; i < r; ++i) { int x = rank[i]; if (++count[x] > f) { f = count[x]; id = x; } }
+      for (int i = l; i < r; ++i) --count[rank[i]];
+      answer[entry.id] = {id < 0 ? -1 : representative[id], f};
+      continue;
+    }
+    while (right < r) { int x = rank[right++]; if (++count[x] > maximum) { maximum = count[x]; best = x; } }
+    int f = maximum, id = best;
+    for (int i = l; i < boundary; ++i) { int x = rank[i]; if (++count[x] > f) { f = count[x]; id = x; } }
+    for (int i = l; i < boundary; ++i) --count[rank[i]];
+    answer[entry.id] = {representative[id], f};
+  }
+  return answer;
+}
+}
