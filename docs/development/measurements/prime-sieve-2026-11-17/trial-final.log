@@ -1,0 +1,458 @@
+affinity: 0x1 set: 1
+platform: Windows-11-10.0.26200-SP0 processor: Intel64 Family 6 Model 183 Stepping 1, GenuineIntel
+variants: 0=baseline, 1=odd short circuit, 2=odd branchless, 3=full odd marking, 4=integrated
+check: bench0.exe correctness ok
+check: bench1.exe correctness ok
+check: bench2.exe correctness ok
+check: bench3.exe correctness ok
+check: bench4.exe correctness ok
+sample 0 case ('construct', 1000, 3, 0) variant 0 ms 0.0144 checksum 228885 peak_bytes 3735552
+sample 0 case ('construct', 1000, 3, 0) variant 1 ms 0.0133 checksum 228885 peak_bytes 3739648
+sample 0 case ('construct', 1000, 3, 0) variant 2 ms 0.0149 checksum 228885 peak_bytes 3735552
+sample 0 case ('construct', 1000, 3, 0) variant 3 ms 0.0135 checksum 228885 peak_bytes 3731456
+sample 0 case ('construct', 1000, 3, 0) variant 4 ms 0.0124 checksum 228885 peak_bytes 3731456
+sample 0 case ('construct', 100000, 3, 0) variant 4 ms 0.6308 checksum 1363218387 peak_bytes 3833856
+sample 0 case ('construct', 100000, 3, 0) variant 3 ms 0.6139 checksum 1363218387 peak_bytes 3833856
+sample 0 case ('construct', 100000, 3, 0) variant 2 ms 0.5795 checksum 1363218387 peak_bytes 3829760
+sample 0 case ('construct', 100000, 3, 0) variant 1 ms 0.5398 checksum 1363218387 peak_bytes 3825664
+sample 0 case ('construct', 100000, 3, 0) variant 0 ms 0.8983 checksum 1363218387 peak_bytes 3837952
+sample 0 case ('construct', 1000000, 3, 0) variant 0 ms 8.1768 checksum 112651441563 peak_bytes 4608000
+sample 0 case ('construct', 1000000, 3, 0) variant 1 ms 4.3818 checksum 112651441563 peak_bytes 4661248
+sample 0 case ('construct', 1000000, 3, 0) variant 2 ms 4.7161 checksum 112651441563 peak_bytes 4653056
+sample 0 case ('construct', 1000000, 3, 0) variant 3 ms 5.4865 checksum 112651441563 peak_bytes 4612096
+sample 0 case ('construct', 1000000, 3, 0) variant 4 ms 5.5246 checksum 112651441563 peak_bytes 4612096
+sample 0 case ('construct', 10000000, 1, 0) variant 4 ms 17.0511 checksum 3203325658935 peak_bytes 10108928
+sample 0 case ('construct', 10000000, 1, 0) variant 3 ms 17.0013 checksum 3203325658935 peak_bytes 10108928
+sample 0 case ('construct', 10000000, 1, 0) variant 2 ms 14.6028 checksum 3203325658935 peak_bytes 8101888
+sample 0 case ('construct', 10000000, 1, 0) variant 1 ms 13.8182 checksum 3203325658935 peak_bytes 8101888
+sample 0 case ('construct', 10000000, 1, 0) variant 0 ms 26.7951 checksum 3203325658935 peak_bytes 10108928
+sample 0 case ('query', 1000000, 2, 0) variant 0 ms 1.2968 checksum 313968 peak_bytes -
+sample 0 case ('query', 1000000, 2, 0) variant 1 ms 13.5408 checksum 313968 peak_bytes -
+sample 0 case ('query', 1000000, 2, 0) variant 2 ms 7.4666 checksum 313968 peak_bytes -
+sample 0 case ('query', 1000000, 2, 0) variant 3 ms 1.2446 checksum 313968 peak_bytes -
+sample 0 case ('query', 1000000, 2, 0) variant 4 ms 1.2105 checksum 313968 peak_bytes -
+sample 0 case ('query', 1000000, 2, 1) variant 4 ms 1.3208 checksum 16 peak_bytes -
+sample 0 case ('query', 1000000, 2, 1) variant 3 ms 1.2055 checksum 16 peak_bytes -
+sample 0 case ('query', 1000000, 2, 1) variant 2 ms 7.3395 checksum 16 peak_bytes -
+sample 0 case ('query', 1000000, 2, 1) variant 1 ms 1.3967 checksum 16 peak_bytes -
+sample 0 case ('query', 1000000, 2, 1) variant 0 ms 1.331 checksum 16 peak_bytes -
+sample 0 case ('query', 1000000, 2, 2) variant 0 ms 1.274 checksum 628288 peak_bytes -
+sample 0 case ('query', 1000000, 2, 2) variant 1 ms 2.6787 checksum 628288 peak_bytes -
+sample 0 case ('query', 1000000, 2, 2) variant 2 ms 7.4649 checksum 628288 peak_bytes -
+sample 0 case ('query', 1000000, 2, 2) variant 3 ms 1.2559 checksum 628288 peak_bytes -
+sample 0 case ('query', 1000000, 2, 2) variant 4 ms 1.242 checksum 628288 peak_bytes -
+sample 0 case ('query', 10000000, 2, 0) variant 4 ms 1.852 checksum 265890 peak_bytes -
+sample 0 case ('query', 10000000, 2, 0) variant 3 ms 2.1201 checksum 265890 peak_bytes -
+sample 0 case ('query', 10000000, 2, 0) variant 2 ms 7.7728 checksum 265890 peak_bytes -
+sample 0 case ('query', 10000000, 2, 0) variant 1 ms 13.1652 checksum 265890 peak_bytes -
+sample 0 case ('query', 10000000, 2, 0) variant 0 ms 1.9424 checksum 265890 peak_bytes -
+sample 0 case ('query', 10000000, 2, 1) variant 0 ms 1.6564 checksum 0 peak_bytes -
+sample 0 case ('query', 10000000, 2, 1) variant 1 ms 1.3288 checksum 0 peak_bytes -
+sample 0 case ('query', 10000000, 2, 1) variant 2 ms 7.4042 checksum 0 peak_bytes -
+sample 0 case ('query', 10000000, 2, 1) variant 3 ms 1.8147 checksum 0 peak_bytes -
+sample 0 case ('query', 10000000, 2, 1) variant 4 ms 2.0575 checksum 0 peak_bytes -
+sample 0 case ('query', 10000000, 2, 2) variant 4 ms 1.8007 checksum 530884 peak_bytes -
+sample 0 case ('query', 10000000, 2, 2) variant 3 ms 1.8911 checksum 530884 peak_bytes -
+sample 0 case ('query', 10000000, 2, 2) variant 2 ms 7.5707 checksum 530884 peak_bytes -
+sample 0 case ('query', 10000000, 2, 2) variant 1 ms 3.2188 checksum 530884 peak_bytes -
+sample 0 case ('query', 10000000, 2, 2) variant 0 ms 1.7031 checksum 530884 peak_bytes -
+sample 1 case ('construct', 1000, 3, 0) variant 4 ms 0.0137 checksum 228885 peak_bytes 3731456
+sample 1 case ('construct', 1000, 3, 0) variant 3 ms 0.0134 checksum 228885 peak_bytes 3735552
+sample 1 case ('construct', 1000, 3, 0) variant 2 ms 0.0126 checksum 228885 peak_bytes 3739648
+sample 1 case ('construct', 1000, 3, 0) variant 1 ms 0.0132 checksum 228885 peak_bytes 3735552
+sample 1 case ('construct', 1000, 3, 0) variant 0 ms 0.0152 checksum 228885 peak_bytes 3735552
+sample 1 case ('construct', 100000, 3, 0) variant 0 ms 0.8597 checksum 1363218387 peak_bytes 3833856
+sample 1 case ('construct', 100000, 3, 0) variant 1 ms 0.533 checksum 1363218387 peak_bytes 3829760
+sample 1 case ('construct', 100000, 3, 0) variant 2 ms 0.5673 checksum 1363218387 peak_bytes 3829760
+sample 1 case ('construct', 100000, 3, 0) variant 3 ms 0.642 checksum 1363218387 peak_bytes 3833856
+sample 1 case ('construct', 100000, 3, 0) variant 4 ms 0.6401 checksum 1363218387 peak_bytes 3833856
+sample 1 case ('construct', 1000000, 3, 0) variant 4 ms 5.5897 checksum 112651441563 peak_bytes 4612096
+sample 1 case ('construct', 1000000, 3, 0) variant 3 ms 5.3527 checksum 112651441563 peak_bytes 4608000
+sample 1 case ('construct', 1000000, 3, 0) variant 2 ms 4.5769 checksum 112651441563 peak_bytes 4661248
+sample 1 case ('construct', 1000000, 3, 0) variant 1 ms 4.3413 checksum 112651441563 peak_bytes 4661248
+sample 1 case ('construct', 1000000, 3, 0) variant 0 ms 8.029 checksum 112651441563 peak_bytes 4612096
+sample 1 case ('construct', 10000000, 1, 0) variant 0 ms 26.4372 checksum 3203325658935 peak_bytes 10108928
+sample 1 case ('construct', 10000000, 1, 0) variant 1 ms 13.6961 checksum 3203325658935 peak_bytes 8101888
+sample 1 case ('construct', 10000000, 1, 0) variant 2 ms 14.4568 checksum 3203325658935 peak_bytes 8105984
+sample 1 case ('construct', 10000000, 1, 0) variant 3 ms 16.4445 checksum 3203325658935 peak_bytes 10108928
+sample 1 case ('construct', 10000000, 1, 0) variant 4 ms 16.522 checksum 3203325658935 peak_bytes 10108928
+sample 1 case ('query', 1000000, 2, 0) variant 4 ms 1.2191 checksum 313968 peak_bytes -
+sample 1 case ('query', 1000000, 2, 0) variant 3 ms 1.2787 checksum 313968 peak_bytes -
+sample 1 case ('query', 1000000, 2, 0) variant 2 ms 8.1087 checksum 313968 peak_bytes -
+sample 1 case ('query', 1000000, 2, 0) variant 1 ms 13.209 checksum 313968 peak_bytes -
+sample 1 case ('query', 1000000, 2, 0) variant 0 ms 1.2181 checksum 313968 peak_bytes -
+sample 1 case ('query', 1000000, 2, 1) variant 0 ms 1.2174 checksum 16 peak_bytes -
+sample 1 case ('query', 1000000, 2, 1) variant 1 ms 1.3286 checksum 16 peak_bytes -
+sample 1 case ('query', 1000000, 2, 1) variant 2 ms 7.2619 checksum 16 peak_bytes -
+sample 1 case ('query', 1000000, 2, 1) variant 3 ms 1.2517 checksum 16 peak_bytes -
+sample 1 case ('query', 1000000, 2, 1) variant 4 ms 1.1716 checksum 16 peak_bytes -
+sample 1 case ('query', 1000000, 2, 2) variant 4 ms 1.204 checksum 628288 peak_bytes -
+sample 1 case ('query', 1000000, 2, 2) variant 3 ms 1.2804 checksum 628288 peak_bytes -
+sample 1 case ('query', 1000000, 2, 2) variant 2 ms 7.2991 checksum 628288 peak_bytes -
+sample 1 case ('query', 1000000, 2, 2) variant 1 ms 2.7049 checksum 628288 peak_bytes -
+sample 1 case ('query', 1000000, 2, 2) variant 0 ms 1.282 checksum 628288 peak_bytes -
+sample 1 case ('query', 10000000, 2, 0) variant 0 ms 2.328 checksum 265890 peak_bytes -
+sample 1 case ('query', 10000000, 2, 0) variant 1 ms 14.391 checksum 265890 peak_bytes -
+sample 1 case ('query', 10000000, 2, 0) variant 2 ms 8.061 checksum 265890 peak_bytes -
+sample 1 case ('query', 10000000, 2, 0) variant 3 ms 2.7996 checksum 265890 peak_bytes -
+sample 1 case ('query', 10000000, 2, 0) variant 4 ms 2.97 checksum 265890 peak_bytes -
+sample 1 case ('query', 10000000, 2, 1) variant 4 ms 2.6051 checksum 0 peak_bytes -
+sample 1 case ('query', 10000000, 2, 1) variant 3 ms 2.246 checksum 0 peak_bytes -
+sample 1 case ('query', 10000000, 2, 1) variant 2 ms 8.2316 checksum 0 peak_bytes -
+sample 1 case ('query', 10000000, 2, 1) variant 1 ms 1.4902 checksum 0 peak_bytes -
+sample 1 case ('query', 10000000, 2, 1) variant 0 ms 2.85 checksum 0 peak_bytes -
+sample 1 case ('query', 10000000, 2, 2) variant 0 ms 4.549 checksum 530884 peak_bytes -
+sample 1 case ('query', 10000000, 2, 2) variant 1 ms 3.5761 checksum 530884 peak_bytes -
+sample 1 case ('query', 10000000, 2, 2) variant 2 ms 7.7125 checksum 530884 peak_bytes -
+sample 1 case ('query', 10000000, 2, 2) variant 3 ms 2.0295 checksum 530884 peak_bytes -
+sample 1 case ('query', 10000000, 2, 2) variant 4 ms 2.0612 checksum 530884 peak_bytes -
+sample 2 case ('construct', 1000, 3, 0) variant 0 ms 0.0147 checksum 228885 peak_bytes 3731456
+sample 2 case ('construct', 1000, 3, 0) variant 1 ms 0.0119 checksum 228885 peak_bytes 3735552
+sample 2 case ('construct', 1000, 3, 0) variant 2 ms 0.0132 checksum 228885 peak_bytes 3739648
+sample 2 case ('construct', 1000, 3, 0) variant 3 ms 0.0136 checksum 228885 peak_bytes 3731456
+sample 2 case ('construct', 1000, 3, 0) variant 4 ms 0.012 checksum 228885 peak_bytes 3735552
+sample 2 case ('construct', 100000, 3, 0) variant 4 ms 0.6665 checksum 1363218387 peak_bytes 3837952
+sample 2 case ('construct', 100000, 3, 0) variant 3 ms 0.6469 checksum 1363218387 peak_bytes 3833856
+sample 2 case ('construct', 100000, 3, 0) variant 2 ms 0.5913 checksum 1363218387 peak_bytes 3829760
+sample 2 case ('construct', 100000, 3, 0) variant 1 ms 1.2572 checksum 1363218387 peak_bytes 3829760
+sample 2 case ('construct', 100000, 3, 0) variant 0 ms 0.9963 checksum 1363218387 peak_bytes 3833856
+sample 2 case ('construct', 1000000, 3, 0) variant 0 ms 8.4105 checksum 112651441563 peak_bytes 4608000
+sample 2 case ('construct', 1000000, 3, 0) variant 1 ms 4.4762 checksum 112651441563 peak_bytes 4657152
+sample 2 case ('construct', 1000000, 3, 0) variant 2 ms 4.6863 checksum 112651441563 peak_bytes 4661248
+sample 2 case ('construct', 1000000, 3, 0) variant 3 ms 5.6572 checksum 112651441563 peak_bytes 4608000
+sample 2 case ('construct', 1000000, 3, 0) variant 4 ms 5.4927 checksum 112651441563 peak_bytes 4608000
+sample 2 case ('construct', 10000000, 1, 0) variant 4 ms 17.0356 checksum 3203325658935 peak_bytes 10113024
+sample 2 case ('construct', 10000000, 1, 0) variant 3 ms 16.8549 checksum 3203325658935 peak_bytes 10113024
+sample 2 case ('construct', 10000000, 1, 0) variant 2 ms 14.4768 checksum 3203325658935 peak_bytes 8101888
+sample 2 case ('construct', 10000000, 1, 0) variant 1 ms 14.2638 checksum 3203325658935 peak_bytes 8105984
+sample 2 case ('construct', 10000000, 1, 0) variant 0 ms 26.81 checksum 3203325658935 peak_bytes 10113024
+sample 2 case ('query', 1000000, 2, 0) variant 0 ms 1.7294 checksum 313968 peak_bytes -
+sample 2 case ('query', 1000000, 2, 0) variant 1 ms 13.5991 checksum 313968 peak_bytes -
+sample 2 case ('query', 1000000, 2, 0) variant 2 ms 7.4142 checksum 313968 peak_bytes -
+sample 2 case ('query', 1000000, 2, 0) variant 3 ms 1.7022 checksum 313968 peak_bytes -
+sample 2 case ('query', 1000000, 2, 0) variant 4 ms 2.3628 checksum 313968 peak_bytes -
+sample 2 case ('query', 1000000, 2, 1) variant 4 ms 1.9348 checksum 16 peak_bytes -
+sample 2 case ('query', 1000000, 2, 1) variant 3 ms 2.3286 checksum 16 peak_bytes -
+sample 2 case ('query', 1000000, 2, 1) variant 2 ms 7.6253 checksum 16 peak_bytes -
+sample 2 case ('query', 1000000, 2, 1) variant 1 ms 1.4682 checksum 16 peak_bytes -
+sample 2 case ('query', 1000000, 2, 1) variant 0 ms 1.3414 checksum 16 peak_bytes -
+sample 2 case ('query', 1000000, 2, 2) variant 0 ms 1.3528 checksum 628288 peak_bytes -
+sample 2 case ('query', 1000000, 2, 2) variant 1 ms 2.7679 checksum 628288 peak_bytes -
+sample 2 case ('query', 1000000, 2, 2) variant 2 ms 7.4005 checksum 628288 peak_bytes -
+sample 2 case ('query', 1000000, 2, 2) variant 3 ms 1.187 checksum 628288 peak_bytes -
+sample 2 case ('query', 1000000, 2, 2) variant 4 ms 1.3076 checksum 628288 peak_bytes -
+sample 2 case ('query', 10000000, 2, 0) variant 4 ms 1.7202 checksum 265890 peak_bytes -
+sample 2 case ('query', 10000000, 2, 0) variant 3 ms 1.8263 checksum 265890 peak_bytes -
+sample 2 case ('query', 10000000, 2, 0) variant 2 ms 7.5408 checksum 265890 peak_bytes -
+sample 2 case ('query', 10000000, 2, 0) variant 1 ms 14.4632 checksum 265890 peak_bytes -
+sample 2 case ('query', 10000000, 2, 0) variant 0 ms 1.7376 checksum 265890 peak_bytes -
+sample 2 case ('query', 10000000, 2, 1) variant 0 ms 1.6754 checksum 0 peak_bytes -
+sample 2 case ('query', 10000000, 2, 1) variant 1 ms 1.5436 checksum 0 peak_bytes -
+sample 2 case ('query', 10000000, 2, 1) variant 2 ms 7.5679 checksum 0 peak_bytes -
+sample 2 case ('query', 10000000, 2, 1) variant 3 ms 1.7993 checksum 0 peak_bytes -
+sample 2 case ('query', 10000000, 2, 1) variant 4 ms 1.7067 checksum 0 peak_bytes -
+sample 2 case ('query', 10000000, 2, 2) variant 4 ms 1.7017 checksum 530884 peak_bytes -
+sample 2 case ('query', 10000000, 2, 2) variant 3 ms 1.6872 checksum 530884 peak_bytes -
+sample 2 case ('query', 10000000, 2, 2) variant 2 ms 8.6324 checksum 530884 peak_bytes -
+sample 2 case ('query', 10000000, 2, 2) variant 1 ms 3.1415 checksum 530884 peak_bytes -
+sample 2 case ('query', 10000000, 2, 2) variant 0 ms 1.7982 checksum 530884 peak_bytes -
+sample 3 case ('construct', 1000, 3, 0) variant 4 ms 0.0119 checksum 228885 peak_bytes 3735552
+sample 3 case ('construct', 1000, 3, 0) variant 3 ms 0.0131 checksum 228885 peak_bytes 3735552
+sample 3 case ('construct', 1000, 3, 0) variant 2 ms 0.0127 checksum 228885 peak_bytes 3735552
+sample 3 case ('construct', 1000, 3, 0) variant 1 ms 0.0126 checksum 228885 peak_bytes 3739648
+sample 3 case ('construct', 1000, 3, 0) variant 0 ms 0.0153 checksum 228885 peak_bytes 3735552
+sample 3 case ('construct', 100000, 3, 0) variant 0 ms 0.8999 checksum 1363218387 peak_bytes 3837952
+sample 3 case ('construct', 100000, 3, 0) variant 1 ms 0.5351 checksum 1363218387 peak_bytes 3821568
+sample 3 case ('construct', 100000, 3, 0) variant 2 ms 0.5635 checksum 1363218387 peak_bytes 3829760
+sample 3 case ('construct', 100000, 3, 0) variant 3 ms 0.63 checksum 1363218387 peak_bytes 3837952
+sample 3 case ('construct', 100000, 3, 0) variant 4 ms 0.589 checksum 1363218387 peak_bytes 3837952
+sample 3 case ('construct', 1000000, 3, 0) variant 4 ms 5.5447 checksum 112651441563 peak_bytes 4608000
+sample 3 case ('construct', 1000000, 3, 0) variant 3 ms 5.3239 checksum 112651441563 peak_bytes 4612096
+sample 3 case ('construct', 1000000, 3, 0) variant 2 ms 4.5487 checksum 112651441563 peak_bytes 4661248
+sample 3 case ('construct', 1000000, 3, 0) variant 1 ms 5.5018 checksum 112651441563 peak_bytes 4661248
+sample 3 case ('construct', 1000000, 3, 0) variant 0 ms 8.5693 checksum 112651441563 peak_bytes 4608000
+sample 3 case ('construct', 10000000, 1, 0) variant 0 ms 27.17 checksum 3203325658935 peak_bytes 10113024
+sample 3 case ('construct', 10000000, 1, 0) variant 1 ms 14.2082 checksum 3203325658935 peak_bytes 8101888
+sample 3 case ('construct', 10000000, 1, 0) variant 2 ms 14.4873 checksum 3203325658935 peak_bytes 8105984
+sample 3 case ('construct', 10000000, 1, 0) variant 3 ms 16.9613 checksum 3203325658935 peak_bytes 10113024
+sample 3 case ('construct', 10000000, 1, 0) variant 4 ms 16.994 checksum 3203325658935 peak_bytes 10108928
+sample 3 case ('query', 1000000, 2, 0) variant 4 ms 1.7659 checksum 313968 peak_bytes -
+sample 3 case ('query', 1000000, 2, 0) variant 3 ms 1.3843 checksum 313968 peak_bytes -
+sample 3 case ('query', 1000000, 2, 0) variant 2 ms 7.2273 checksum 313968 peak_bytes -
+sample 3 case ('query', 1000000, 2, 0) variant 1 ms 13.1684 checksum 313968 peak_bytes -
+sample 3 case ('query', 1000000, 2, 0) variant 0 ms 1.1668 checksum 313968 peak_bytes -
+sample 3 case ('query', 1000000, 2, 1) variant 0 ms 1.2076 checksum 16 peak_bytes -
+sample 3 case ('query', 1000000, 2, 1) variant 1 ms 1.479 checksum 16 peak_bytes -
+sample 3 case ('query', 1000000, 2, 1) variant 2 ms 7.1637 checksum 16 peak_bytes -
+sample 3 case ('query', 1000000, 2, 1) variant 3 ms 1.3619 checksum 16 peak_bytes -
+sample 3 case ('query', 1000000, 2, 1) variant 4 ms 1.2927 checksum 16 peak_bytes -
+sample 3 case ('query', 1000000, 2, 2) variant 4 ms 1.3278 checksum 628288 peak_bytes -
+sample 3 case ('query', 1000000, 2, 2) variant 3 ms 1.3677 checksum 628288 peak_bytes -
+sample 3 case ('query', 1000000, 2, 2) variant 2 ms 7.4876 checksum 628288 peak_bytes -
+sample 3 case ('query', 1000000, 2, 2) variant 1 ms 2.6771 checksum 628288 peak_bytes -
+sample 3 case ('query', 1000000, 2, 2) variant 0 ms 1.3803 checksum 628288 peak_bytes -
+sample 3 case ('query', 10000000, 2, 0) variant 0 ms 1.8342 checksum 265890 peak_bytes -
+sample 3 case ('query', 10000000, 2, 0) variant 1 ms 13.4907 checksum 265890 peak_bytes -
+sample 3 case ('query', 10000000, 2, 0) variant 2 ms 7.4469 checksum 265890 peak_bytes -
+sample 3 case ('query', 10000000, 2, 0) variant 3 ms 1.6409 checksum 265890 peak_bytes -
+sample 3 case ('query', 10000000, 2, 0) variant 4 ms 1.6806 checksum 265890 peak_bytes -
+sample 3 case ('query', 10000000, 2, 1) variant 4 ms 1.8034 checksum 0 peak_bytes -
+sample 3 case ('query', 10000000, 2, 1) variant 3 ms 1.6977 checksum 0 peak_bytes -
+sample 3 case ('query', 10000000, 2, 1) variant 2 ms 7.472 checksum 0 peak_bytes -
+sample 3 case ('query', 10000000, 2, 1) variant 1 ms 1.4752 checksum 0 peak_bytes -
+sample 3 case ('query', 10000000, 2, 1) variant 0 ms 1.8105 checksum 0 peak_bytes -
+sample 3 case ('query', 10000000, 2, 2) variant 0 ms 1.6663 checksum 530884 peak_bytes -
+sample 3 case ('query', 10000000, 2, 2) variant 1 ms 3.0665 checksum 530884 peak_bytes -
+sample 3 case ('query', 10000000, 2, 2) variant 2 ms 7.4206 checksum 530884 peak_bytes -
+sample 3 case ('query', 10000000, 2, 2) variant 3 ms 1.7014 checksum 530884 peak_bytes -
+sample 3 case ('query', 10000000, 2, 2) variant 4 ms 1.6665 checksum 530884 peak_bytes -
+sample 4 case ('construct', 1000, 3, 0) variant 0 ms 0.0147 checksum 228885 peak_bytes 3735552
+sample 4 case ('construct', 1000, 3, 0) variant 1 ms 0.012 checksum 228885 peak_bytes 3735552
+sample 4 case ('construct', 1000, 3, 0) variant 2 ms 0.0119 checksum 228885 peak_bytes 3735552
+sample 4 case ('construct', 1000, 3, 0) variant 3 ms 0.0123 checksum 228885 peak_bytes 3735552
+sample 4 case ('construct', 1000, 3, 0) variant 4 ms 0.0119 checksum 228885 peak_bytes 3735552
+sample 4 case ('construct', 100000, 3, 0) variant 4 ms 0.6263 checksum 1363218387 peak_bytes 3837952
+sample 4 case ('construct', 100000, 3, 0) variant 3 ms 0.588 checksum 1363218387 peak_bytes 3837952
+sample 4 case ('construct', 100000, 3, 0) variant 2 ms 0.574 checksum 1363218387 peak_bytes 3829760
+sample 4 case ('construct', 100000, 3, 0) variant 1 ms 0.5303 checksum 1363218387 peak_bytes 3829760
+sample 4 case ('construct', 100000, 3, 0) variant 0 ms 0.9088 checksum 1363218387 peak_bytes 3833856
+sample 4 case ('construct', 1000000, 3, 0) variant 0 ms 8.3596 checksum 112651441563 peak_bytes 4608000
+sample 4 case ('construct', 1000000, 3, 0) variant 1 ms 4.5758 checksum 112651441563 peak_bytes 4661248
+sample 4 case ('construct', 1000000, 3, 0) variant 2 ms 4.6215 checksum 112651441563 peak_bytes 4661248
+sample 4 case ('construct', 1000000, 3, 0) variant 3 ms 5.4863 checksum 112651441563 peak_bytes 4608000
+sample 4 case ('construct', 1000000, 3, 0) variant 4 ms 5.5866 checksum 112651441563 peak_bytes 4608000
+sample 4 case ('construct', 10000000, 1, 0) variant 4 ms 17.1439 checksum 3203325658935 peak_bytes 10113024
+sample 4 case ('construct', 10000000, 1, 0) variant 3 ms 16.8388 checksum 3203325658935 peak_bytes 10108928
+sample 4 case ('construct', 10000000, 1, 0) variant 2 ms 14.556 checksum 3203325658935 peak_bytes 8105984
+sample 4 case ('construct', 10000000, 1, 0) variant 1 ms 14.0521 checksum 3203325658935 peak_bytes 8105984
+sample 4 case ('construct', 10000000, 1, 0) variant 0 ms 28.4655 checksum 3203325658935 peak_bytes 10113024
+sample 4 case ('query', 1000000, 2, 0) variant 0 ms 1.2301 checksum 313968 peak_bytes -
+sample 4 case ('query', 1000000, 2, 0) variant 1 ms 12.8774 checksum 313968 peak_bytes -
+sample 4 case ('query', 1000000, 2, 0) variant 2 ms 7.2536 checksum 313968 peak_bytes -
+sample 4 case ('query', 1000000, 2, 0) variant 3 ms 1.2707 checksum 313968 peak_bytes -
+sample 4 case ('query', 1000000, 2, 0) variant 4 ms 1.2169 checksum 313968 peak_bytes -
+sample 4 case ('query', 1000000, 2, 1) variant 4 ms 1.2968 checksum 16 peak_bytes -
+sample 4 case ('query', 1000000, 2, 1) variant 3 ms 1.3733 checksum 16 peak_bytes -
+sample 4 case ('query', 1000000, 2, 1) variant 2 ms 7.4421 checksum 16 peak_bytes -
+sample 4 case ('query', 1000000, 2, 1) variant 1 ms 1.3969 checksum 16 peak_bytes -
+sample 4 case ('query', 1000000, 2, 1) variant 0 ms 1.1962 checksum 16 peak_bytes -
+sample 4 case ('query', 1000000, 2, 2) variant 0 ms 1.3879 checksum 628288 peak_bytes -
+sample 4 case ('query', 1000000, 2, 2) variant 1 ms 2.7285 checksum 628288 peak_bytes -
+sample 4 case ('query', 1000000, 2, 2) variant 2 ms 7.3506 checksum 628288 peak_bytes -
+sample 4 case ('query', 1000000, 2, 2) variant 3 ms 1.2864 checksum 628288 peak_bytes -
+sample 4 case ('query', 1000000, 2, 2) variant 4 ms 1.2349 checksum 628288 peak_bytes -
+sample 4 case ('query', 10000000, 2, 0) variant 4 ms 1.6533 checksum 265890 peak_bytes -
+sample 4 case ('query', 10000000, 2, 0) variant 3 ms 1.7212 checksum 265890 peak_bytes -
+sample 4 case ('query', 10000000, 2, 0) variant 2 ms 8.0691 checksum 265890 peak_bytes -
+sample 4 case ('query', 10000000, 2, 0) variant 1 ms 13.21 checksum 265890 peak_bytes -
+sample 4 case ('query', 10000000, 2, 0) variant 0 ms 1.8278 checksum 265890 peak_bytes -
+sample 4 case ('query', 10000000, 2, 1) variant 0 ms 2.1458 checksum 0 peak_bytes -
+sample 4 case ('query', 10000000, 2, 1) variant 1 ms 1.3834 checksum 0 peak_bytes -
+sample 4 case ('query', 10000000, 2, 1) variant 2 ms 7.4793 checksum 0 peak_bytes -
+sample 4 case ('query', 10000000, 2, 1) variant 3 ms 2.2093 checksum 0 peak_bytes -
+sample 4 case ('query', 10000000, 2, 1) variant 4 ms 1.7522 checksum 0 peak_bytes -
+sample 4 case ('query', 10000000, 2, 2) variant 4 ms 1.6822 checksum 530884 peak_bytes -
+sample 4 case ('query', 10000000, 2, 2) variant 3 ms 1.7705 checksum 530884 peak_bytes -
+sample 4 case ('query', 10000000, 2, 2) variant 2 ms 7.275 checksum 530884 peak_bytes -
+sample 4 case ('query', 10000000, 2, 2) variant 1 ms 3.1592 checksum 530884 peak_bytes -
+sample 4 case ('query', 10000000, 2, 2) variant 0 ms 1.8838 checksum 530884 peak_bytes -
+sample 5 case ('construct', 1000, 3, 0) variant 4 ms 0.012 checksum 228885 peak_bytes 3731456
+sample 5 case ('construct', 1000, 3, 0) variant 3 ms 0.0118 checksum 228885 peak_bytes 3731456
+sample 5 case ('construct', 1000, 3, 0) variant 2 ms 0.0123 checksum 228885 peak_bytes 3731456
+sample 5 case ('construct', 1000, 3, 0) variant 1 ms 0.0129 checksum 228885 peak_bytes 3735552
+sample 5 case ('construct', 1000, 3, 0) variant 0 ms 0.0146 checksum 228885 peak_bytes 3735552
+sample 5 case ('construct', 100000, 3, 0) variant 0 ms 0.8887 checksum 1363218387 peak_bytes 3837952
+sample 5 case ('construct', 100000, 3, 0) variant 1 ms 0.5379 checksum 1363218387 peak_bytes 3829760
+sample 5 case ('construct', 100000, 3, 0) variant 2 ms 0.5835 checksum 1363218387 peak_bytes 3825664
+sample 5 case ('construct', 100000, 3, 0) variant 3 ms 0.6351 checksum 1363218387 peak_bytes 3833856
+sample 5 case ('construct', 100000, 3, 0) variant 4 ms 0.619 checksum 1363218387 peak_bytes 3837952
+sample 5 case ('construct', 1000000, 3, 0) variant 4 ms 5.3963 checksum 112651441563 peak_bytes 4612096
+sample 5 case ('construct', 1000000, 3, 0) variant 3 ms 5.4484 checksum 112651441563 peak_bytes 4608000
+sample 5 case ('construct', 1000000, 3, 0) variant 2 ms 4.6513 checksum 112651441563 peak_bytes 4661248
+sample 5 case ('construct', 1000000, 3, 0) variant 1 ms 4.4973 checksum 112651441563 peak_bytes 4657152
+sample 5 case ('construct', 1000000, 3, 0) variant 0 ms 8.499 checksum 112651441563 peak_bytes 4612096
+sample 5 case ('construct', 10000000, 1, 0) variant 0 ms 28.5496 checksum 3203325658935 peak_bytes 10113024
+sample 5 case ('construct', 10000000, 1, 0) variant 1 ms 13.9359 checksum 3203325658935 peak_bytes 8105984
+sample 5 case ('construct', 10000000, 1, 0) variant 2 ms 14.5906 checksum 3203325658935 peak_bytes 8101888
+sample 5 case ('construct', 10000000, 1, 0) variant 3 ms 16.9493 checksum 3203325658935 peak_bytes 10113024
+sample 5 case ('construct', 10000000, 1, 0) variant 4 ms 16.955 checksum 3203325658935 peak_bytes 10108928
+sample 5 case ('query', 1000000, 2, 0) variant 4 ms 1.281 checksum 313968 peak_bytes -
+sample 5 case ('query', 1000000, 2, 0) variant 3 ms 1.2954 checksum 313968 peak_bytes -
+sample 5 case ('query', 1000000, 2, 0) variant 2 ms 7.4497 checksum 313968 peak_bytes -
+sample 5 case ('query', 1000000, 2, 0) variant 1 ms 13.3606 checksum 313968 peak_bytes -
+sample 5 case ('query', 1000000, 2, 0) variant 0 ms 1.203 checksum 313968 peak_bytes -
+sample 5 case ('query', 1000000, 2, 1) variant 0 ms 1.3283 checksum 16 peak_bytes -
+sample 5 case ('query', 1000000, 2, 1) variant 1 ms 1.3744 checksum 16 peak_bytes -
+sample 5 case ('query', 1000000, 2, 1) variant 2 ms 7.3669 checksum 16 peak_bytes -
+sample 5 case ('query', 1000000, 2, 1) variant 3 ms 1.3155 checksum 16 peak_bytes -
+sample 5 case ('query', 1000000, 2, 1) variant 4 ms 1.3093 checksum 16 peak_bytes -
+sample 5 case ('query', 1000000, 2, 2) variant 4 ms 1.2871 checksum 628288 peak_bytes -
+sample 5 case ('query', 1000000, 2, 2) variant 3 ms 1.3517 checksum 628288 peak_bytes -
+sample 5 case ('query', 1000000, 2, 2) variant 2 ms 7.1615 checksum 628288 peak_bytes -
+sample 5 case ('query', 1000000, 2, 2) variant 1 ms 2.6588 checksum 628288 peak_bytes -
+sample 5 case ('query', 1000000, 2, 2) variant 0 ms 1.3818 checksum 628288 peak_bytes -
+sample 5 case ('query', 10000000, 2, 0) variant 0 ms 1.8354 checksum 265890 peak_bytes -
+sample 5 case ('query', 10000000, 2, 0) variant 1 ms 13.3125 checksum 265890 peak_bytes -
+sample 5 case ('query', 10000000, 2, 0) variant 2 ms 7.829 checksum 265890 peak_bytes -
+sample 5 case ('query', 10000000, 2, 0) variant 3 ms 1.7652 checksum 265890 peak_bytes -
+sample 5 case ('query', 10000000, 2, 0) variant 4 ms 1.7349 checksum 265890 peak_bytes -
+sample 5 case ('query', 10000000, 2, 1) variant 4 ms 1.7314 checksum 0 peak_bytes -
+sample 5 case ('query', 10000000, 2, 1) variant 3 ms 1.7362 checksum 0 peak_bytes -
+sample 5 case ('query', 10000000, 2, 1) variant 2 ms 7.2804 checksum 0 peak_bytes -
+sample 5 case ('query', 10000000, 2, 1) variant 1 ms 1.3871 checksum 0 peak_bytes -
+sample 5 case ('query', 10000000, 2, 1) variant 0 ms 1.6558 checksum 0 peak_bytes -
+sample 5 case ('query', 10000000, 2, 2) variant 0 ms 1.9389 checksum 530884 peak_bytes -
+sample 5 case ('query', 10000000, 2, 2) variant 1 ms 3.188 checksum 530884 peak_bytes -
+sample 5 case ('query', 10000000, 2, 2) variant 2 ms 7.4077 checksum 530884 peak_bytes -
+sample 5 case ('query', 10000000, 2, 2) variant 3 ms 1.7972 checksum 530884 peak_bytes -
+sample 5 case ('query', 10000000, 2, 2) variant 4 ms 1.8231 checksum 530884 peak_bytes -
+sample 6 case ('construct', 1000, 3, 0) variant 0 ms 0.0142 checksum 228885 peak_bytes 3731456
+sample 6 case ('construct', 1000, 3, 0) variant 1 ms 0.0126 checksum 228885 peak_bytes 3735552
+sample 6 case ('construct', 1000, 3, 0) variant 2 ms 0.0142 checksum 228885 peak_bytes 3735552
+sample 6 case ('construct', 1000, 3, 0) variant 3 ms 0.0134 checksum 228885 peak_bytes 3735552
+sample 6 case ('construct', 1000, 3, 0) variant 4 ms 0.0126 checksum 228885 peak_bytes 3735552
+sample 6 case ('construct', 100000, 3, 0) variant 4 ms 0.6157 checksum 1363218387 peak_bytes 3833856
+sample 6 case ('construct', 100000, 3, 0) variant 3 ms 0.6354 checksum 1363218387 peak_bytes 3833856
+sample 6 case ('construct', 100000, 3, 0) variant 2 ms 0.566 checksum 1363218387 peak_bytes 3825664
+sample 6 case ('construct', 100000, 3, 0) variant 1 ms 0.5123 checksum 1363218387 peak_bytes 3825664
+sample 6 case ('construct', 100000, 3, 0) variant 0 ms 0.9023 checksum 1363218387 peak_bytes 3833856
+sample 6 case ('construct', 1000000, 3, 0) variant 0 ms 8.257 checksum 112651441563 peak_bytes 4612096
+sample 6 case ('construct', 1000000, 3, 0) variant 1 ms 4.4598 checksum 112651441563 peak_bytes 4657152
+sample 6 case ('construct', 1000000, 3, 0) variant 2 ms 4.524 checksum 112651441563 peak_bytes 4661248
+sample 6 case ('construct', 1000000, 3, 0) variant 3 ms 5.2989 checksum 112651441563 peak_bytes 4612096
+sample 6 case ('construct', 1000000, 3, 0) variant 4 ms 5.3746 checksum 112651441563 peak_bytes 4608000
+sample 6 case ('construct', 10000000, 1, 0) variant 4 ms 16.613 checksum 3203325658935 peak_bytes 10113024
+sample 6 case ('construct', 10000000, 1, 0) variant 3 ms 16.8825 checksum 3203325658935 peak_bytes 10113024
+sample 6 case ('construct', 10000000, 1, 0) variant 2 ms 14.3323 checksum 3203325658935 peak_bytes 8105984
+sample 6 case ('construct', 10000000, 1, 0) variant 1 ms 13.9856 checksum 3203325658935 peak_bytes 8101888
+sample 6 case ('construct', 10000000, 1, 0) variant 0 ms 26.9266 checksum 3203325658935 peak_bytes 10113024
+sample 6 case ('query', 1000000, 2, 0) variant 0 ms 1.5048 checksum 313968 peak_bytes -
+sample 6 case ('query', 1000000, 2, 0) variant 1 ms 13.5421 checksum 313968 peak_bytes -
+sample 6 case ('query', 1000000, 2, 0) variant 2 ms 7.4107 checksum 313968 peak_bytes -
+sample 6 case ('query', 1000000, 2, 0) variant 3 ms 1.3328 checksum 313968 peak_bytes -
+sample 6 case ('query', 1000000, 2, 0) variant 4 ms 1.3711 checksum 313968 peak_bytes -
+sample 6 case ('query', 1000000, 2, 1) variant 4 ms 1.4082 checksum 16 peak_bytes -
+sample 6 case ('query', 1000000, 2, 1) variant 3 ms 1.35 checksum 16 peak_bytes -
+sample 6 case ('query', 1000000, 2, 1) variant 2 ms 7.4438 checksum 16 peak_bytes -
+sample 6 case ('query', 1000000, 2, 1) variant 1 ms 1.4966 checksum 16 peak_bytes -
+sample 6 case ('query', 1000000, 2, 1) variant 0 ms 1.3397 checksum 16 peak_bytes -
+sample 6 case ('query', 1000000, 2, 2) variant 0 ms 1.5275 checksum 628288 peak_bytes -
+sample 6 case ('query', 1000000, 2, 2) variant 1 ms 2.8174 checksum 628288 peak_bytes -
+sample 6 case ('query', 1000000, 2, 2) variant 2 ms 7.3623 checksum 628288 peak_bytes -
+sample 6 case ('query', 1000000, 2, 2) variant 3 ms 1.2545 checksum 628288 peak_bytes -
+sample 6 case ('query', 1000000, 2, 2) variant 4 ms 1.3416 checksum 628288 peak_bytes -
+sample 6 case ('query', 10000000, 2, 0) variant 4 ms 2.0164 checksum 265890 peak_bytes -
+sample 6 case ('query', 10000000, 2, 0) variant 3 ms 1.8771 checksum 265890 peak_bytes -
+sample 6 case ('query', 10000000, 2, 0) variant 2 ms 7.4416 checksum 265890 peak_bytes -
+sample 6 case ('query', 10000000, 2, 0) variant 1 ms 13.4896 checksum 265890 peak_bytes -
+sample 6 case ('query', 10000000, 2, 0) variant 0 ms 1.7788 checksum 265890 peak_bytes -
+sample 6 case ('query', 10000000, 2, 1) variant 0 ms 2.0241 checksum 0 peak_bytes -
+sample 6 case ('query', 10000000, 2, 1) variant 1 ms 1.5278 checksum 0 peak_bytes -
+sample 6 case ('query', 10000000, 2, 1) variant 2 ms 7.4259 checksum 0 peak_bytes -
+sample 6 case ('query', 10000000, 2, 1) variant 3 ms 2.2224 checksum 0 peak_bytes -
+sample 6 case ('query', 10000000, 2, 1) variant 4 ms 2.0064 checksum 0 peak_bytes -
+sample 6 case ('query', 10000000, 2, 2) variant 4 ms 1.9582 checksum 530884 peak_bytes -
+sample 6 case ('query', 10000000, 2, 2) variant 3 ms 2.0859 checksum 530884 peak_bytes -
+sample 6 case ('query', 10000000, 2, 2) variant 2 ms 7.6936 checksum 530884 peak_bytes -
+sample 6 case ('query', 10000000, 2, 2) variant 1 ms 3.1816 checksum 530884 peak_bytes -
+sample 6 case ('query', 10000000, 2, 2) variant 0 ms 1.8485 checksum 530884 peak_bytes -
+sample 7 case ('construct', 1000, 3, 0) variant 4 ms 0.0124 checksum 228885 peak_bytes 3731456
+sample 7 case ('construct', 1000, 3, 0) variant 3 ms 0.0125 checksum 228885 peak_bytes 3731456
+sample 7 case ('construct', 1000, 3, 0) variant 2 ms 0.013 checksum 228885 peak_bytes 3735552
+sample 7 case ('construct', 1000, 3, 0) variant 1 ms 0.0128 checksum 228885 peak_bytes 3739648
+sample 7 case ('construct', 1000, 3, 0) variant 0 ms 0.0139 checksum 228885 peak_bytes 3727360
+sample 7 case ('construct', 100000, 3, 0) variant 0 ms 0.8903 checksum 1363218387 peak_bytes 3837952
+sample 7 case ('construct', 100000, 3, 0) variant 1 ms 0.5589 checksum 1363218387 peak_bytes 3825664
+sample 7 case ('construct', 100000, 3, 0) variant 2 ms 0.5859 checksum 1363218387 peak_bytes 3825664
+sample 7 case ('construct', 100000, 3, 0) variant 3 ms 0.6429 checksum 1363218387 peak_bytes 3833856
+sample 7 case ('construct', 100000, 3, 0) variant 4 ms 0.6262 checksum 1363218387 peak_bytes 3837952
+sample 7 case ('construct', 1000000, 3, 0) variant 4 ms 5.4255 checksum 112651441563 peak_bytes 4612096
+sample 7 case ('construct', 1000000, 3, 0) variant 3 ms 5.5861 checksum 112651441563 peak_bytes 4599808
+sample 7 case ('construct', 1000000, 3, 0) variant 2 ms 4.6579 checksum 112651441563 peak_bytes 4657152
+sample 7 case ('construct', 1000000, 3, 0) variant 1 ms 4.4103 checksum 112651441563 peak_bytes 4661248
+sample 7 case ('construct', 1000000, 3, 0) variant 0 ms 8.0925 checksum 112651441563 peak_bytes 4608000
+sample 7 case ('construct', 10000000, 1, 0) variant 0 ms 26.5404 checksum 3203325658935 peak_bytes 10113024
+sample 7 case ('construct', 10000000, 1, 0) variant 1 ms 14.1252 checksum 3203325658935 peak_bytes 8101888
+sample 7 case ('construct', 10000000, 1, 0) variant 2 ms 14.5108 checksum 3203325658935 peak_bytes 8105984
+sample 7 case ('construct', 10000000, 1, 0) variant 3 ms 16.5522 checksum 3203325658935 peak_bytes 10113024
+sample 7 case ('construct', 10000000, 1, 0) variant 4 ms 17.9247 checksum 3203325658935 peak_bytes 10108928
+sample 7 case ('query', 1000000, 2, 0) variant 4 ms 1.455 checksum 313968 peak_bytes -
+sample 7 case ('query', 1000000, 2, 0) variant 3 ms 1.3638 checksum 313968 peak_bytes -
+sample 7 case ('query', 1000000, 2, 0) variant 2 ms 7.4027 checksum 313968 peak_bytes -
+sample 7 case ('query', 1000000, 2, 0) variant 1 ms 13.4472 checksum 313968 peak_bytes -
+sample 7 case ('query', 1000000, 2, 0) variant 0 ms 1.3104 checksum 313968 peak_bytes -
+sample 7 case ('query', 1000000, 2, 1) variant 0 ms 1.2877 checksum 16 peak_bytes -
+sample 7 case ('query', 1000000, 2, 1) variant 1 ms 1.4739 checksum 16 peak_bytes -
+sample 7 case ('query', 1000000, 2, 1) variant 2 ms 7.2226 checksum 16 peak_bytes -
+sample 7 case ('query', 1000000, 2, 1) variant 3 ms 1.3445 checksum 16 peak_bytes -
+sample 7 case ('query', 1000000, 2, 1) variant 4 ms 1.3572 checksum 16 peak_bytes -
+sample 7 case ('query', 1000000, 2, 2) variant 4 ms 1.3008 checksum 628288 peak_bytes -
+sample 7 case ('query', 1000000, 2, 2) variant 3 ms 1.3775 checksum 628288 peak_bytes -
+sample 7 case ('query', 1000000, 2, 2) variant 2 ms 7.3764 checksum 628288 peak_bytes -
+sample 7 case ('query', 1000000, 2, 2) variant 1 ms 2.7126 checksum 628288 peak_bytes -
+sample 7 case ('query', 1000000, 2, 2) variant 0 ms 1.389 checksum 628288 peak_bytes -
+sample 7 case ('query', 10000000, 2, 0) variant 0 ms 1.6398 checksum 265890 peak_bytes -
+sample 7 case ('query', 10000000, 2, 0) variant 1 ms 13.287 checksum 265890 peak_bytes -
+sample 7 case ('query', 10000000, 2, 0) variant 2 ms 7.4917 checksum 265890 peak_bytes -
+sample 7 case ('query', 10000000, 2, 0) variant 3 ms 1.674 checksum 265890 peak_bytes -
+sample 7 case ('query', 10000000, 2, 0) variant 4 ms 1.7813 checksum 265890 peak_bytes -
+sample 7 case ('query', 10000000, 2, 1) variant 4 ms 1.7347 checksum 0 peak_bytes -
+sample 7 case ('query', 10000000, 2, 1) variant 3 ms 1.8532 checksum 0 peak_bytes -
+sample 7 case ('query', 10000000, 2, 1) variant 2 ms 7.422 checksum 0 peak_bytes -
+sample 7 case ('query', 10000000, 2, 1) variant 1 ms 1.4886 checksum 0 peak_bytes -
+sample 7 case ('query', 10000000, 2, 1) variant 0 ms 1.8729 checksum 0 peak_bytes -
+sample 7 case ('query', 10000000, 2, 2) variant 0 ms 1.9651 checksum 530884 peak_bytes -
+sample 7 case ('query', 10000000, 2, 2) variant 1 ms 3.1431 checksum 530884 peak_bytes -
+sample 7 case ('query', 10000000, 2, 2) variant 2 ms 7.4701 checksum 530884 peak_bytes -
+sample 7 case ('query', 10000000, 2, 2) variant 3 ms 1.9652 checksum 530884 peak_bytes -
+sample 7 case ('query', 10000000, 2, 2) variant 4 ms 1.7852 checksum 530884 peak_bytes -
+summary ('construct', 1000, 3, 0) 0 median 0.0147 min 0.0139 ratio 1.0
+summary ('construct', 1000, 3, 0) 1 median 0.0126 min 0.0119 ratio 0.8571428571428572
+summary ('construct', 1000, 3, 0) 2 median 0.0127 min 0.0119 ratio 0.8639455782312925
+summary ('construct', 1000, 3, 0) 3 median 0.0131 min 0.0118 ratio 0.8911564625850341
+summary ('construct', 1000, 3, 0) 4 median 0.012 min 0.0119 ratio 0.8163265306122449
+summary ('construct', 100000, 3, 0) 0 median 0.8999 min 0.8597 ratio 1.0
+summary ('construct', 100000, 3, 0) 1 median 0.5351 min 0.5123 ratio 0.5946216246249584
+summary ('construct', 100000, 3, 0) 2 median 0.574 min 0.5635 ratio 0.6378486498499832
+summary ('construct', 100000, 3, 0) 3 median 0.6354 min 0.588 ratio 0.7060784531614623
+summary ('construct', 100000, 3, 0) 4 median 0.6262 min 0.589 ratio 0.6958550950105566
+summary ('construct', 1000000, 3, 0) 0 median 8.3596 min 8.029 ratio 1.0
+summary ('construct', 1000000, 3, 0) 1 median 4.4762 min 4.3413 ratio 0.535456241925451
+summary ('construct', 1000000, 3, 0) 2 median 4.6215 min 4.524 ratio 0.5528374563376238
+summary ('construct', 1000000, 3, 0) 3 median 5.4484 min 5.2989 ratio 0.651753672424518
+summary ('construct', 1000000, 3, 0) 4 median 5.4927 min 5.3746 ratio 0.657052969041581
+summary ('construct', 10000000, 1, 0) 0 median 26.9266 min 26.4372 ratio 1.0
+summary ('construct', 10000000, 1, 0) 1 median 14.0521 min 13.6961 ratio 0.5218668528518268
+summary ('construct', 10000000, 1, 0) 2 median 14.4873 min 14.3323 ratio 0.5380293093075249
+summary ('construct', 10000000, 1, 0) 3 median 16.8549 min 16.4445 ratio 0.625957231882228
+summary ('construct', 10000000, 1, 0) 4 median 16.994 min 16.522 ratio 0.6311231273164826
+summary ('query', 1000000, 2, 0) 0 median 1.2301 min 1.1668 ratio 1.0
+summary ('query', 1000000, 2, 0) 1 median 13.3606 min 12.8774 ratio 10.861393382651817
+summary ('query', 1000000, 2, 0) 2 median 7.4107 min 7.2273 ratio 6.024469555320706
+summary ('query', 1000000, 2, 0) 3 median 1.3328 min 1.2707 ratio 1.0834891472238029
+summary ('query', 1000000, 2, 0) 4 median 1.3711 min 1.2169 ratio 1.1146248272498172
+summary ('query', 1000000, 2, 1) 0 median 1.2877 min 1.1962 ratio 1.0
+summary ('query', 1000000, 2, 1) 1 median 1.4682 min 1.3286 ratio 1.1401724004038207
+summary ('query', 1000000, 2, 1) 2 median 7.3669 min 7.1637 ratio 5.72097538246486
+summary ('query', 1000000, 2, 1) 3 median 1.35 min 1.2517 ratio 1.0483808340451968
+summary ('query', 1000000, 2, 1) 4 median 1.3093 min 1.1716 ratio 1.0167740933447231
+summary ('query', 1000000, 2, 2) 0 median 1.3818 min 1.282 ratio 1.0
+summary ('query', 1000000, 2, 2) 1 median 2.7126 min 2.6588 ratio 1.9630916196265742
+summary ('query', 1000000, 2, 2) 2 median 7.3623 min 7.1615 ratio 5.328050369083805
+summary ('query', 1000000, 2, 2) 3 median 1.2864 min 1.187 ratio 0.9309596178897092
+summary ('query', 1000000, 2, 2) 4 median 1.3008 min 1.204 ratio 0.9413808076422059
+summary ('query', 10000000, 2, 0) 0 median 1.8278 min 1.6398 ratio 1.0
+summary ('query', 10000000, 2, 0) 1 median 13.4896 min 13.21 ratio 7.380238538133274
+summary ('query', 10000000, 2, 0) 2 median 7.5408 min 7.4416 ratio 4.125615494036547
+summary ('query', 10000000, 2, 0) 3 median 1.7652 min 1.6409 ratio 0.9657511762774921
+summary ('query', 10000000, 2, 0) 4 median 1.7349 min 1.6533 ratio 0.9491738702265018
+summary ('query', 10000000, 2, 1) 0 median 1.8729 min 1.6558 ratio 1.0
+summary ('query', 10000000, 2, 1) 1 median 1.4886 min 1.3834 ratio 0.7948101874098991
+summary ('query', 10000000, 2, 1) 2 median 7.472 min 7.2804 ratio 3.9895349458059695
+summary ('query', 10000000, 2, 1) 3 median 1.8532 min 1.6977 ratio 0.9894815526723263
+summary ('query', 10000000, 2, 1) 4 median 1.7522 min 1.7067 ratio 0.9355544876928826
+summary ('query', 10000000, 2, 2) 0 median 1.8838 min 1.6663 ratio 1.0
+summary ('query', 10000000, 2, 2) 1 median 3.1592 min 3.0665 ratio 1.6770357787450896
+summary ('query', 10000000, 2, 2) 2 median 7.4701 min 7.275 ratio 3.9654421913154265
+summary ('query', 10000000, 2, 2) 3 median 1.7972 min 1.6872 ratio 0.9540290901369572
+summary ('query', 10000000, 2, 2) 4 median 1.7852 min 1.6665 ratio 0.9476589871536256

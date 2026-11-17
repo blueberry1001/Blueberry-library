@@ -1,0 +1,63 @@
+import ctypes
+import os
+from pathlib import Path
+import platform
+import statistics
+import subprocess
+import sys
+
+root = Path(__file__).resolve().parents[2]
+work = Path(__file__).resolve().parent
+vc = Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = Path(r'C:\Program Files (x86)\Windows Kits\10')
+version = '10.0.22621.0'
+compiler = Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str, [vc / 'include', *(sdk / 'Include' / version / p for p in ('ucrt', 'shared', 'um'))]))
+env['LIB'] = os.pathsep.join(map(str, [vc / 'lib/x64', *(sdk / 'Lib' / version / p / 'x64' for p in ('ucrt', 'um'))]))
+debug = '--debug' in sys.argv
+executables = [work / ('bench' + str(v) + ('-assert' if debug else '') + '.exe') for v in range(5)]
+if '--build' in sys.argv:
+    print('compiler:', subprocess.check_output([str(compiler), '--version'], text=True).splitlines()[0])
+    for v in range(5):
+        includes = (['-I' + str(work / 'baseline')] if v == 0 else []) + ['-I' + str(root)]
+        cmd = [str(compiler), '--target=x86_64-pc-windows-msvc', '-fuse-ld=link', '-std=gnu++20', '-O2'] + ([] if debug else ['-DNDEBUG']) + ['-DSIEVE_VARIANT=' + str(v)] + includes + [str(work / 'bench.cpp'), '-lpsapi', '-o', str(executables[v])]
+        print('command:', subprocess.list2cmdline(cmd), flush=True)
+        subprocess.run(cmd, env=env, check=True)
+    sys.exit()
+
+ctypes.windll.kernel32.GetCurrentProcess.restype = ctypes.c_void_p
+ctypes.windll.kernel32.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+ctypes.windll.kernel32.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+process = ctypes.windll.kernel32.GetCurrentProcess()
+mask, system = ctypes.c_size_t(), ctypes.c_size_t()
+if ctypes.windll.kernel32.GetProcessAffinityMask(process, ctypes.byref(mask), ctypes.byref(system)):
+    one = mask.value & -mask.value
+    print('affinity:', hex(one), 'set:', ctypes.windll.kernel32.SetProcessAffinityMask(process, ctypes.c_size_t(one)))
+else:
+    print('affinity unavailable')
+print('platform:', platform.platform(), 'processor:', platform.processor())
+print('variants: 0=baseline, 1=odd short circuit, 2=odd branchless, 3=full odd marking, 4=integrated')
+for exe in executables:
+    print('check:', exe.name, subprocess.check_output([str(exe), 'check'], text=True).strip(), flush=True)
+cases = [('construct', n, 3 if n < 10000000 else 1, 0) for n in (1000, 100000, 1000000, 10000000)]
+cases += [('query', n, 2, d) for n in (1000000, 10000000) for d in (0,1,2)]
+data = {(case,v): [] for case in cases for v in range(5)}
+checks = {}
+for sample in range(8):
+    for case in cases:
+        order = list(range(5))
+        if (sample + cases.index(case)) % 2: order.reverse()
+        for variant in order:
+            out = subprocess.check_output([str(executables[variant]), *map(str,case)], text=True).split()
+            value, checksum = float(out[0]), out[1]
+            old = checks.setdefault(case, checksum)
+            if old != checksum: raise RuntimeError('checksum mismatch ' + str(case))
+            if sample: data[case,variant].append(value)
+            print('sample',sample,'case',case,'variant',variant,'ms',value,'checksum',checksum,'peak_bytes',out[2] if len(out)>2 else '-', flush=True)
+for case in cases:
+    base = statistics.median(data[case,0])
+    for variant in range(5):
+        values = data[case,variant]
+        print('summary',case,variant,'median',statistics.median(values),'min',min(values),'ratio',statistics.median(values)/base)

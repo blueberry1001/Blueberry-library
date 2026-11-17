@@ -787,6 +787,7 @@
 [blueberry/math/prime-sieve.hpp](../blueberry/math/prime-sieve.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/math/enumerate-primes.test.cpp](../verify/math/enumerate-primes.test.cpp) / [問題](https://judge.yosupo.jp/problem/enumerate_primes)
+- 関連ローカルテスト: [tests/random/prime-sieve.cpp](../tests/random/prime-sieve.cpp)
 
 ## Primitive Root
 

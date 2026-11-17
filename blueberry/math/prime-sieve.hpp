@@ -1,39 +1,34 @@
 #pragma once
 
 #include <cassert>
+#include <cstddef>
 #include <vector>
 
 namespace blueberry {
 
-/**
- * @brief Eratosthenesの篩
- */
 class PrimeSieve {
  public:
   explicit PrimeSieve(int limit) {
     assert(limit >= 0);
-    is_prime_.assign(limit + 1, true);
+    is_prime_.assign(static_cast<std::size_t>(limit) + 1, true);
     is_prime_[0] = false;
     if (limit >= 1) is_prime_[1] = false;
-    for (long long p = 2; p * p <= limit; ++p) {
-      if (!is_prime_[static_cast<int>(p)]) continue;
-      for (long long multiple = p * p; multiple <= limit; multiple += p) {
-        is_prime_[static_cast<int>(multiple)] = false;
-      }
-    }
-    for (int value = 2; value <= limit; ++value) {
-      if (is_prime_[value]) primes_.push_back(value);
-    }
+    if (limit >= 2) primes_.push_back(2);
+    for (long long q = 4; q <= limit; q += 2) is_prime_[q] = false;
+    for (long long p = 3; p * p <= limit; p += 2)
+      if (is_prime_[p]) for (long long q = p * p; q <= limit; q += p * 2) is_prime_[q] = false;
+    for (std::size_t p = 3; p < is_prime_.size(); p += 2)
+      if (is_prime_[p]) primes_.push_back(static_cast<int>(p));
   }
 
   bool is_prime(int value) const {
-    assert(0 <= value && value < static_cast<int>(is_prime_.size()));
+    assert(0 <= value && static_cast<std::size_t>(value) < is_prime_.size());
     return is_prime_[value];
   }
 
   const std::vector<int>& primes() const { return primes_; }
 
-  int limit() const { return static_cast<int>(is_prime_.size()) - 1; }
+  int limit() const { return static_cast<int>(is_prime_.size() - 1); }
 
  private:
   std::vector<bool> is_prime_;
