@@ -16,3 +16,5 @@
 既存の[公開高速提出の調査](../extra-fast-more/sets/README.md)では ordered_set の上位提出が固定値域に合わせた複数段の表現やクエリ先読みを利用している。今回の `erase(iterator)` は後続反復子を返す別の契約で、当該提出には同等操作がないため、ランキングの時間を同等APIの比較に使っていない。既存のmap/set比較は[以前の測定](../extra-fast-more/sets/iteration/summary.json)を参照。
 
 正しさは既存の `extra-fast-ordered-iterator.cpp` と `extra-fast-associative.cpp` をMSVCのC++20 / C++latestでそれぞれコンパイルし、seed 1・17・20261020で計12実行した。順逆走査、削除後の後続、異なる葉への移動、借用・結合、root collapse、空化などを照合している。GCC/Clang・公式ケースの再実行は統合検証で行う。
+
+候補ヘッダの測定時のバイト列は `candidate.hpp.snapshot` に保持している。公開ヘッダとの差は改行コードのみで、Git格納時はLFに統一する。
