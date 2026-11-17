@@ -711,6 +711,7 @@
 [blueberry/math/kth-root-integer.hpp](../blueberry/math/kth-root-integer.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/math/kth-root-integer.test.cpp](../verify/math/kth-root-integer.test.cpp) / [問題](https://judge.yosupo.jp/problem/kth_root_integer)
+- 関連ローカルテスト: [tests/random/kth-root-integer-boundaries.cpp](../tests/random/kth-root-integer-boundaries.cpp)
 - 関連ローカルテスト: [tests/random/math-batch-two.cpp](../tests/random/math-batch-two.cpp)
 
 ## Linear Recurrence
