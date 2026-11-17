@@ -571,6 +571,7 @@
 
 - 専用ドライバ: [verify/graph/maximum-independent-set.test.cpp](../verify/graph/maximum-independent-set.test.cpp) / [問題](https://judge.yosupo.jp/problem/maximum_independent_set)
 - 関連ローカルテスト: [tests/random/graph-batch-four.cpp](../tests/random/graph-batch-four.cpp)
+- 関連ローカルテスト: [tests/random/maximum-independent-set-branch.cpp](../tests/random/maximum-independent-set-branch.cpp)
 
 ## Minimum Spanning Forest
 
