@@ -1,0 +1,62 @@
+{
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+  "sha256": {
+    "baseline.hpp": "135723d7a0a577600f24eef50bb4ca3e841dd6b86488ddeadd75194b7672da86",
+    "exact.hpp": "cee6308e7db03b0cd9701db5466f1d20704913698ca1e92d4b60d9b201a94793",
+    "fused.hpp": "fb19c709dee53e84df7eb0f955c64a8d6a385048fda9e602cb7f2cff8c60f901",
+    "paired.hpp": "73f5563cdb4e9e048704c36c63aeaef4503201b44f15841f23055da0744f29a9",
+    "shared.hpp": "ec431a493b52089e6c27e84b24c5971772d08debedfe3271800f90e052d807a4",
+    "study.cpp": "6811f3d2fec3ba7aeb412007c02aeede93a40aa10174ffc0989dfdfdb2a46015"
+  },
+  "commands": [
+    {
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O1",
+        "-fsanitize=undefined",
+        "-fno-sanitize-recover=undefined",
+        "-I",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library",
+        "-isystem",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.deps/ac-library",
+        "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/dynamic-rectangle-sum-study/study.cpp",
+        "-o",
+        "/tmp/rectangle-ubsan-s7dns9ka/study"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/rectangle-ubsan-s7dns9ka/study",
+        "check",
+        "1"
+      ],
+      "exit_code": 0,
+      "stdout": "passed seed=1\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/rectangle-ubsan-s7dns9ka/study",
+        "check",
+        "17"
+      ],
+      "exit_code": 0,
+      "stdout": "passed seed=17\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/tmp/rectangle-ubsan-s7dns9ka/study",
+        "check",
+        "731"
+      ],
+      "exit_code": 0,
+      "stdout": "passed seed=731\n",
+      "stderr": ""
+    }
+  ]
+}

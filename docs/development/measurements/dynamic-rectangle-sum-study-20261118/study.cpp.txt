@@ -1,0 +1,180 @@
+#include <algorithm>
+#include <bit>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <limits>
+#include <random>
+#include <string>
+#include <tuple>
+#include <type_traits>
+#include <vector>
+#include <atcoder/modint>
+#include "baseline.hpp"
+#include "paired.hpp"
+#include "shared.hpp"
+#include "fused.hpp"
+#include "exact.hpp"
+#ifdef _WIN32
+#define NOMINMAX
+#include <windows.h>
+#include <psapi.h>
+#else
+#include <sys/resource.h>
+#endif
+
+struct Group {
+  long long a = 0, b = 0;
+  Group() = default;
+  Group(long long x) : a(x), b(x * 3) {}
+  Group(long long x, long long y) : a(x), b(y) {}
+  Group& operator+=(const Group& x) { a += x.a; b += x.b; return *this; }
+  friend Group operator+(Group x, const Group& y) { return x += y; }
+  friend Group operator-(const Group& x, const Group& y) { return Group(x.a-y.a, x.b-y.b); }
+  friend bool operator==(const Group& x, const Group& y) { return x.a == y.a && x.b == y.b; }
+};
+
+template<class T>
+T value_of(int a, int b) {
+  if constexpr (std::is_same_v<T, Group>) return Group(a, b);
+  else return T(a);
+}
+
+template<class T>
+bool random_test(std::uint64_t seed) {
+  std::mt19937_64 rng(seed);
+  for (int trial = 0; trial < 60; ++trial) {
+    constexpr int n = 33;
+    study_baseline::DynamicFenwickTree2D<T, int> a(n, n);
+    study_paired::DynamicFenwickTree2D<T, int> b(n, n);
+    study_shared::DynamicFenwickTree2D<T, int> c(n, n);
+    study_fused::DynamicFenwickTree2D<T, int> d(n, n);
+    study_exact::DynamicFenwickTree2D<T, int> e(n, n);
+    std::vector<std::vector<T>> grid(n, std::vector<T>(n));
+    for (int step = 0; step < 500; ++step) {
+      if (rng() % 3 == 0) {
+        int x = rng() % n, y = rng() % n;
+        T value = value_of<T>(static_cast<int>(rng() % 21) - 10, static_cast<int>(rng() % 21) - 10);
+        a.add(x, y, value); b.add(x, y, value); c.add(x, y, value); d.add(x, y, value); e.add(x, y, value);
+        grid[x][y] += value;
+      } else {
+        int l = rng() % (n + 1), r = rng() % (n + 1), lo = rng() % (n + 1), hi = rng() % (n + 1);
+        if (l > r) std::swap(l, r); if (lo > hi) std::swap(lo, hi);
+        T expected{};
+        for (int x = l; x < r; ++x) for (int y = lo; y < hi; ++y) expected += grid[x][y];
+        if (!(a.sum(l, lo, r, hi) == expected && b.sum(l, lo, r, hi) == expected &&
+              c.sum(l, lo, r, hi) == expected && d.sum(l, lo, r, hi) == expected && e.sum(l, lo, r, hi) == expected)) {
+          std::cerr << "seed=" << seed << " trial=" << trial << " step=" << step
+                    << " rectangle=" << l << ',' << lo << ',' << r << ',' << hi << '\n'; return false;
+        }
+      }
+    }
+  }
+  constexpr long long high = std::numeric_limits<long long>::max();
+  study_baseline::DynamicFenwickTree2D<T> a(high, high);
+  study_paired::DynamicFenwickTree2D<T> b(high, high);
+  study_shared::DynamicFenwickTree2D<T> c(high, high);
+  study_fused::DynamicFenwickTree2D<T> d(high, high);
+  study_exact::DynamicFenwickTree2D<T> e(high, high);
+  for (auto [x, y, value] : {std::tuple{0LL, 0LL, -3}, std::tuple{high-1, high-1, 5}, std::tuple{high-2, high-3, 7}}) {
+    a.add(x, y, T(value)); b.add(x, y, T(value)); c.add(x, y, T(value)); d.add(x, y, T(value)); e.add(x, y, T(value));
+  }
+  for (auto [l, lo, r, hi, value] : {std::tuple{0LL, 0LL, high, high, 9},
+       std::tuple{high-2, high-3, high, high, 12}, std::tuple{high-1, high-1, high, high, 5},
+       std::tuple{0LL, 0LL, 0LL, high, 0}, std::tuple{0LL, high, high, high, 0}}) {
+    T expected(value);
+    if (!(a.sum(l,lo,r,hi) == expected && b.sum(l,lo,r,hi) == expected &&
+          c.sum(l,lo,r,hi) == expected && d.sum(l,lo,r,hi) == expected && e.sum(l,lo,r,hi) == expected)) return false;
+  }
+  return true;
+}
+
+int check(std::uint64_t seed) {
+  if (!random_test<long long>(seed) || !random_test<atcoder::modint998244353>(seed) || !random_test<Group>(seed)) return 1;
+  std::mt19937_64 rng(seed);
+  study_baseline::DynamicFenwickTree2D<double, int> a(33, 33);
+  study_exact::DynamicFenwickTree2D<double, int> b(33, 33);
+  const double vals[] = {1.0e16, -1.0e16, 1.0, -1.0, 1.0e-10, -1.0e-10};
+  for (int i = 0; i < 2000; ++i) {
+    if (i < 500) {
+      int x = rng()%33, y = rng()%33; double value = vals[rng()%6];
+      a.add(x,y,value); b.add(x,y,value);
+    } else {
+      int l = rng()%34, r = rng()%34, d = rng()%34, u = rng()%34;
+      if (l > r) std::swap(l,r); if (d > u) std::swap(d,u);
+      if (std::bit_cast<std::uint64_t>(a.sum(l,d,r,u)) != std::bit_cast<std::uint64_t>(b.sum(l,d,r,u))) {
+        std::cerr << "floating mismatch seed=" << seed << " step=" << i << '\n'; return 1;
+      }
+    }
+  }
+  constexpr long long high = std::numeric_limits<long long>::max();
+  study_baseline::DynamicFenwickTree2D<long long, int> x(3,3);
+  study_exact::DynamicFenwickTree2D<long long, int> y(3,3);
+  for (auto [px, py, value] : {std::tuple{2,1,high}, std::tuple{2,0,-1LL}, std::tuple{2,2,1LL}, std::tuple{0,1,-1LL}}) {
+    x.add(px,py,value); y.add(px,py,value);
+  }
+  if (x.sum(0,1,3,3) != high || y.sum(0,1,3,3) != high) return 1;
+  std::cout << "passed seed=" << seed << '\n'; return 0;
+}
+
+using Point = std::tuple<int, int, long long>;
+using Query = std::tuple<int, int, int, int>;
+constexpr int bound = 1000000001;
+std::pair<std::vector<Point>, std::vector<Query>> input(int shape, int n, int q) {
+  std::mt19937_64 rng(20261118);
+  std::vector<Point> points; points.reserve(n);
+  std::vector<Query> queries; queries.reserve(q);
+  for (int i = 0; i < n; ++i) {
+    int x = rng() % bound, y = rng() % bound;
+    if (shape == 1) x = 500000000 + rng() % 4096;
+    if (shape == 3) { x %= 16; y %= 16; }
+    points.emplace_back(x, y, static_cast<long long>(rng() % 1001) - 500);
+  }
+  for (int i = 0; i < q; ++i) {
+    int l = rng() % bound, r = rng() % bound, d = rng() % bound, u = rng() % bound;
+    if (l > r) std::swap(l, r); if (d > u) std::swap(d, u);
+    if (shape == 1) { l = 500000000 + rng() % 4096; r = std::min(bound, l + 64); }
+    if (shape == 2) { l = 0; d = 0; r = bound; u = bound; }
+    if (shape == 3) { l %= 17; r %= 17; d %= 17; u %= 17; if (l > r) std::swap(l,r); if (d > u) std::swap(d,u); }
+    if (shape == 4) r = l;
+    if (shape == 5) { r = std::min(bound, l + 8); u = std::min(bound, d + 8); }
+    queries.emplace_back(l, d, r, u);
+  }
+  return {std::move(points), std::move(queries)};
+}
+
+template<class Tree>
+void bench(const std::vector<Point>& points, const std::vector<Query>& queries) {
+  using clock = std::chrono::steady_clock;
+  auto start = clock::now();
+  Tree tree(bound, bound);
+  for (auto [x, y, value] : points) tree.add(x, y, value);
+  auto built = clock::now();
+  std::uint64_t hash = 0;
+  for (auto [l, d, r, u] : queries) hash = hash * 37 + static_cast<std::uint64_t>(tree.sum(l,d,r,u));
+  auto done = clock::now();
+  std::cout << std::chrono::duration<double, std::milli>(built-start).count() << ' '
+            << std::chrono::duration<double, std::milli>(done-built).count() << ' ' << hash << ' ';
+#ifdef _WIN32
+  PROCESS_MEMORY_COUNTERS info{};
+  if (GetProcessMemoryInfo(GetCurrentProcess(), &info, sizeof(info))) std::cout << info.PeakWorkingSetSize;
+  else std::cout << "missing";
+#else
+  rusage info{};
+  if (getrusage(RUSAGE_SELF, &info) == 0) std::cout << static_cast<unsigned long long>(info.ru_maxrss) * 1024;
+  else std::cout << "missing";
+#endif
+  std::cout << '\n';
+}
+int main(int argc, char** argv) {
+  if (argc >= 2 && std::string(argv[1]) == "check") return check(argc > 2 ? std::strtoull(argv[2], nullptr, 10) : 1);
+  if (argc != 5) return 2;
+  int mode = std::atoi(argv[1]), shape = std::atoi(argv[2]), n = std::atoi(argv[3]), q = std::atoi(argv[4]);
+  auto [points, queries] = input(shape, n, q);
+  if (mode == 0) bench<study_baseline::DynamicFenwickTree2D<long long, int>>(points, queries);
+  else if (mode == 1) bench<study_paired::DynamicFenwickTree2D<long long, int>>(points, queries);
+  else if (mode == 2) bench<study_shared::DynamicFenwickTree2D<long long, int>>(points, queries);
+  else if (mode == 3) bench<study_fused::DynamicFenwickTree2D<long long, int>>(points, queries);
+  else bench<study_exact::DynamicFenwickTree2D<long long, int>>(points, queries);
+}
