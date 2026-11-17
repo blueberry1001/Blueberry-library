@@ -3,10 +3,8 @@
 #include <algorithm>
 #include <array>
 #include <bit>
-#include <cassert>
 #include <cstddef>
 #include <cstdint>
-#include <limits>
 #include <numeric>
 #include <optional>
 #include <type_traits>
@@ -14,9 +12,6 @@
 
 namespace blueberry {
 
-/**
- * @brief Wavelet Matrix
- */
 template <class T>
 class WaveletMatrix {
   static_assert(std::is_integral_v<T> && !std::is_same_v<T, bool>);
@@ -34,21 +29,26 @@ class WaveletMatrix {
 
   int n_ = 0;
   int height_ = 0;
+  bool direct_ = false;
+  std::vector<int> dense_;
   std::vector<T> values_;
   std::vector<Level> levels_;
 
   int lower(const T& x) const {
+    if (direct_ || !dense_.empty()) {
+      if (x < values_.front()) return 0;
+      using U = std::make_unsigned_t<T>;
+      U d = U(U(x) - U(values_.front()));
+      if (direct_) return d >= values_.size() ? static_cast<int>(values_.size()) : static_cast<int>(d);
+      return d >= dense_.size() ? static_cast<int>(values_.size()) : dense_[static_cast<std::size_t>(d)];
+    }
     return static_cast<int>(std::lower_bound(values_.begin(), values_.end(), x) - values_.begin());
   }
 
-  void check_range([[maybe_unused]] int l, [[maybe_unused]] int r) const {
-    assert(0 <= l && l <= r && r <= n_);
-  }
-
-  int count_less(int l, int r, int code) const {
+  int count_less(int l, int r, int code, int first = 0) const {
     if (code == static_cast<int>(values_.size())) return r - l;
     int answer = 0;
-    for (int h = 0; h < height_; ++h) {
+    for (int h = first; h < height_; ++h) {
       const auto& level = levels_[h];
       const int ones_l = level.rank(l), ones_r = level.rank(r);
       if ((code >> (height_ - 1 - h)) & 1) {
@@ -67,42 +67,70 @@ class WaveletMatrix {
   WaveletMatrix() = default;
 
   explicit WaveletMatrix(const std::vector<T>& a) : values_(a) {
-    assert(a.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
     n_ = static_cast<int>(a.size());
     if (n_ == 0) return;
     std::vector<int> current(n_), next(n_);
-    // Reuse the partition buffer for sorted positions: no per-value binary search.
-    std::iota(next.begin(), next.end(), 0);
-    using U = std::make_unsigned_t<T>;
-    U base = 0, remaining = 0;
-    int passes = 0;
-    if (n_ >= 64) {
-      const auto [minimum, maximum] = std::minmax_element(a.begin(), a.end());
-      base = static_cast<U>(*minimum);
-      // Unsigned subtraction preserves the order relative to the minimum,
-      // including signed extrema, without signed overflow or fixed value bounds.
-      remaining = U(static_cast<U>(*maximum) - base);
-      for (U width = remaining; width; width = U(width >> 8)) ++passes;
+    bool encoded = false;
+    if (std::is_sorted(a.begin(), a.end())) {
+      int distinct = 0;
+      for (int i = 0; i < n_; ++i) {
+        if (distinct == 0 || values_[distinct - 1] != a[i]) values_[distinct++] = a[i];
+        current[i] = distinct - 1;
+      }
+      values_.resize(distinct);
+      encoded = true;
     }
-    // Histogram setup dominates small, wide-valued inputs; choose by actual width.
-    if (n_ < 64 || n_ < 128 * passes) {
-      std::sort(next.begin(), next.end(), [&](int i, int j) { return a[i] < a[j]; });
-    } else {
-      for (int shift = 0; remaining; shift += 8, remaining = U(remaining >> 8)) {
-        std::array<int, 256> offsets{};
-        for (int p : next) ++offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255];
-        int offset = 0;
-        for (int& count : offsets) { const int size = count; count = offset; offset += size; }
-        for (int p : next) current[offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255]++] = p;
-        current.swap(next);
+    if (!encoded) {
+      std::iota(next.begin(), next.end(), 0);
+      using U = std::make_unsigned_t<T>;
+      U base = 0, remaining = 0;
+      int passes = 0;
+      if (n_ >= 64) {
+        const auto [minimum, maximum] = std::minmax_element(a.begin(), a.end());
+        base = static_cast<U>(*minimum);
+        remaining = U(static_cast<U>(*maximum) - base);
+        if constexpr (sizeof(T) <= 8) {
+          if (static_cast<std::uint64_t>(remaining) <= std::min<std::uint64_t>(1u << 20, std::uint64_t(n_) * 8)) {
+            std::vector<int> mapping(static_cast<std::size_t>(remaining) + 1, -1);
+            for (const auto& value : a) mapping[U(static_cast<U>(value) - base)] = 0;
+            int distinct = 0;
+            for (int& value : mapping) { bool present = value == 0; value = distinct; distinct += present; }
+            for (int i = 0; i < n_; ++i) { current[i] = mapping[U(static_cast<U>(a[i]) - base)]; values_[current[i]] = a[i]; }
+            values_.resize(distinct);
+            if (static_cast<std::size_t>(distinct) != mapping.size()) dense_.swap(mapping);
+            encoded = true;
+          }
+        }
+        for (U width = remaining; width; width = U(width / 256)) ++passes;
+        if constexpr (sizeof(T) <= 8) if (!encoded && passes > 6) {
+          int sampled = std::min(n_, 256), extreme = 0;
+          for (int i = 0; i < sampled; ++i) { const T& value = a[std::size_t(i) * std::size_t(n_) / sampled]; extreme += value == *minimum || value == *maximum; }
+          if (extreme * 2 >= sampled) passes = n_;
+        }
+      }
+      if (!encoded) {
+        if (n_ < 64 || n_ < 128LL * passes) {
+          std::sort(next.begin(), next.end(), [&](int i, int j) { return a[i] < a[j]; });
+        } else {
+          for (int shift = 0; remaining; shift += 8, remaining = U(remaining / 256)) {
+            std::array<int, 256> offsets{};
+            for (int p : next) ++offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255];
+            int offset = 0;
+            for (int& count : offsets) { const int size = count; count = offset; offset += size; }
+            for (int p : next) current[offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255]++] = p;
+            current.swap(next);
+          }
+        }
+        int distinct = 0;
+        for (int p : next) {
+          if (distinct == 0 || values_[distinct - 1] != a[p]) values_[distinct++] = a[p];
+          current[p] = distinct - 1;
+        }
+        values_.resize(distinct);
       }
     }
-    int distinct = 0;
-    for (int p : next) {
-      if (distinct == 0 || values_[distinct - 1] != a[p]) values_[distinct++] = a[p];
-      current[p] = distinct - 1;
-    }
-    values_.resize(distinct);
+    using DirectU = std::make_unsigned_t<T>;
+    direct_ = DirectU(DirectU(values_.back()) - DirectU(values_.front())) == DirectU(values_.size() - 1);
     height_ = std::bit_width(static_cast<unsigned>(values_.size() - 1));
     levels_.resize(height_);
     for (int h = 0; h < height_; ++h) {
@@ -129,7 +157,6 @@ class WaveletMatrix {
   int size() const { return n_; }
 
   T get(int p) const {
-    assert(0 <= p && p < n_);
     int code = 0;
     for (const auto& level : levels_) {
       const int bit = static_cast<int>((level.bits[p / 64] >> (p % 64)) & 1);
@@ -141,8 +168,6 @@ class WaveletMatrix {
   }
 
   T kth_smallest(int l, int r, int k) const {
-    check_range(l, r);
-    assert(0 <= k && k < r - l);
     int code = 0;
     for (const auto& level : levels_) {
       const int ones_l = level.rank(l), ones_r = level.rank(r);
@@ -162,13 +187,10 @@ class WaveletMatrix {
   }
 
   T kth_largest(int l, int r, int k) const {
-    check_range(l, r);
-    assert(0 <= k && k < r - l);
     return kth_smallest(l, r, r - l - 1 - k);
   }
 
   int count(int l, int r, const T& x) const {
-    check_range(l, r);
     const int code = lower(x);
     if (code == static_cast<int>(values_.size()) || values_[code] != x) return 0;
     for (int h = 0; h < height_; ++h) {
@@ -186,14 +208,22 @@ class WaveletMatrix {
   }
 
   int range_freq(int l, int r, const T& upper) const {
-    check_range(l, r);
     return count_less(l, r, lower(upper));
   }
 
   int range_freq(int l, int r, const T& lower_value, const T& upper) const {
-    check_range(l, r);
-    assert(lower_value <= upper);
-    return count_less(l, r, lower(upper)) - count_less(l, r, lower(lower_value));
+    const int lo = lower(lower_value), hi = lower(upper);
+    if (lo == hi) return 0;
+    if (hi == static_cast<int>(values_.size())) return r - l - count_less(l, r, lo);
+    int first = 0;
+    while (first < height_ && ((lo ^ hi) >> (height_ - 1 - first)) == 0) {
+      const auto& level = levels_[first];
+      const int ones_l = level.rank(l), ones_r = level.rank(r);
+      if ((lo >> (height_ - 1 - first)) & 1) { l = level.zeros + ones_l; r = level.zeros + ones_r; }
+      else { l -= ones_l; r -= ones_r; }
+      ++first;
+    }
+    return count_less(l, r, hi, first) - count_less(l, r, lo, first);
   }
 
   std::optional<T> prev_value(int l, int r, const T& upper) const {
@@ -209,4 +239,4 @@ class WaveletMatrix {
   }
 };
 
-}  // namespace blueberry
+}

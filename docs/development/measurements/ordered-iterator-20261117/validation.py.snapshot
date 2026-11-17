@@ -1,0 +1,32 @@
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+root = Path.cwd()
+base = root / '.build/ordered-erase'
+output = root / 'docs/development/measurements/ordered-iterator-20261117'
+vc = Path(os.environ['ProgramFiles(x86)']) / 'Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.43.34808'
+sdk = Path(os.environ['ProgramFiles(x86)']) / 'Windows Kits/10'
+version = '10.0.22621.0'
+env = dict(os.environ)
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str, [vc / 'include', *(sdk / 'Include' / version / p for p in ('ucrt', 'shared', 'um'))]))
+env['LIB'] = os.pathsep.join(map(str, [vc / 'lib/x64', *(sdk / 'Lib' / version / p / 'x64' for p in ('ucrt', 'um'))]))
+compiler = str(vc / 'bin/Hostx64/x64/cl.exe')
+for name in ('extra-fast-ordered-iterator', 'extra-fast-associative'):
+    for standard in ('c++20', 'c++latest'):
+        exe = base / (name + '-' + standard + '.exe')
+        command = [compiler, '/nologo', '/std:' + standard, '/O2', '/EHsc', '/I' + str(root),
+                   str(root / 'tests/random' / (name + '.cpp')), '/Fe:' + str(exe),
+                   '/Fo:' + str(base / (name + '-' + standard + '.obj'))]
+        proc = subprocess.run(command, cwd=base, env=env, capture_output=True)
+        (output / (name + '-' + standard + '-compile.log')).write_bytes(proc.stdout + proc.stderr)
+        if proc.returncode:
+            sys.exit(proc.returncode)
+        for seed in ('1', '17', '20261020'):
+            proc = subprocess.run([str(exe), seed], cwd=base, env=env, capture_output=True)
+            (output / (name + '-' + standard + '-' + seed + '.log')).write_bytes(proc.stdout + proc.stderr)
+            if proc.returncode:
+                sys.exit(proc.returncode)
+print('passed: 4 builds, 12 runs')
