@@ -1,0 +1,69 @@
+import ctypes
+import hashlib
+import json
+import os
+import pathlib
+import platform
+import statistics
+import subprocess
+
+root = pathlib.Path.cwd()
+here = root / 'docs/development/measurements/range-mode-rollback-20261117'
+build = root / '.build/range-mode-rollback-20261117'
+build.mkdir(parents=True, exist_ok=True)
+vc = pathlib.Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = pathlib.Path(r'C:\Program Files (x86)\Windows Kits\10')
+ver = '10.0.22621.0'
+clang = pathlib.Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc/'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str,[vc/'include', *(sdk/'Include'/ver/p for p in ('ucrt','shared','um'))]))
+env['LIB'] = os.pathsep.join(map(str,[vc/'lib/x64', *(sdk/'Lib'/ver/p/'x64' for p in ('ucrt','um'))]))
+kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+kernel.GetCurrentProcess.restype = ctypes.c_void_p
+kernel.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+kernel.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+proc = kernel.GetCurrentProcess(); old = ctypes.c_size_t(); sysmask = ctypes.c_size_t()
+assert kernel.GetProcessAffinityMask(proc, ctypes.byref(old), ctypes.byref(sysmask))
+mask = old.value & -old.value
+assert kernel.SetProcessAffinityMask(proc, mask)
+inputs = [(100000,0,0),(100000,1,0),(100000,500,0),(100000,100000,0),(100000,100000,1),(100000,100000,2),(100000,100000,3),(100000,100000,4),(100000,100000,5),(100000,100000,6),(1000,1000,0)]
+data = {'platform':platform.platform(),'processor':platform.processor(),'compiler':str(clang),'affinity':hex(mask),'warmups':1,'runs':5,'cases':inputs,'builds':[],'samples':[],'status':'running','hashes':{}}
+for f in ('baseline.hpp.txt','candidate.hpp.txt','adaptive-mo.hpp.txt','driver.cpp','run.py'):
+  data['hashes'][f] = hashlib.sha256((here/f).read_bytes()).hexdigest()
+def save(): (here/'results.json').write_text(json.dumps(data,indent=2)+'\n',encoding='utf-8')
+save()
+try:
+  versions = subprocess.run([str(clang),'--version'],capture_output=True,text=True,check=True)
+  data['compiler_version'] = versions.stdout
+  exe = build/'bench.exe'
+  for mode in ('test','release'):
+    command = [str(clang),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2','-Wall','-Wextra','-Wshadow','-Werror',*(['-DNDEBUG'] if mode=='release' else []),str(here/'driver.cpp'),'-o',str(exe),'-lpsapi']
+    p = subprocess.run(command,env=env,capture_output=True,text=True,errors='replace')
+    data['builds'].append({'mode':mode,'command':command,'exit':p.returncode,'stdout':p.stdout,'stderr':p.stderr}); save()
+    if p.returncode: raise RuntimeError('build failed')
+    if mode == 'test':
+      p = subprocess.run([str(exe)],env=env,capture_output=True,text=True,errors='replace',timeout=180)
+      data['builds'].append({'mode':'test-run','exit':p.returncode,'stdout':p.stdout,'stderr':p.stderr}); save()
+      if p.returncode: raise RuntimeError('correctness failed')
+  data['hashes']['bench.exe'] = hashlib.sha256(exe.read_bytes()).hexdigest()
+  for n,q,mode in inputs:
+    expected = None
+    for run in range(-1,5):
+      for which in ([0,1,2] if run % 2 == 0 else [2,1,0]):
+        command = [str(exe),str(which),str(n),str(q),str(mode)]
+        p = subprocess.run(command,env=env,capture_output=True,text=True,errors='replace',timeout=180)
+        sample = {'n':n,'q':q,'mode':mode,'run':run,'variant':which,'command':command,'exit':p.returncode,'stdout':p.stdout,'stderr':p.stderr}
+        data['samples'].append(sample); save()
+        if p.returncode: raise RuntimeError('benchmark run failed')
+        vals = p.stdout.split()
+        if len(vals) != 3: raise RuntimeError('malformed output')
+        sample['elapsed_ms'] = float(vals[0]); sample['checksum'] = vals[1]; sample['peak_bytes'] = None if vals[2]=='NA' else int(vals[2])
+        if expected is None: expected = vals[1]
+        if vals[1] != expected: raise RuntimeError('frequency checksum mismatch')
+        save()
+    medians = [statistics.median(x['elapsed_ms'] for x in data['samples'] if x['n']==n and x['q']==q and x['mode']==mode and x['variant']==v and x['run']>=0) for v in (0,1,2)]
+    print(n,q,mode,medians,flush=True)
+  data['status']='complete'; save()
+except BaseException as exc:
+  data['status']='failed'; data['error']=repr(exc); save(); raise

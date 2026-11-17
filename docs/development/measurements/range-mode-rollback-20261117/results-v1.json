@@ -1,0 +1,2277 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "compiler": "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+  "affinity": "0x1",
+  "warmups": 1,
+  "runs": 5,
+  "cases": [
+    [
+      100000,
+      0,
+      0
+    ],
+    [
+      100000,
+      1,
+      0
+    ],
+    [
+      100000,
+      500,
+      0
+    ],
+    [
+      100000,
+      100000,
+      0
+    ],
+    [
+      100000,
+      100000,
+      1
+    ],
+    [
+      100000,
+      100000,
+      2
+    ],
+    [
+      100000,
+      100000,
+      3
+    ],
+    [
+      100000,
+      100000,
+      4
+    ],
+    [
+      1000,
+      1000,
+      0
+    ]
+  ],
+  "builds": [
+    {
+      "mode": "test",
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\docs\\development\\measurements\\range-mode-rollback-20261117\\driver.cpp",
+        "-o",
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "mode": "test-run",
+      "exit": 0,
+      "stdout": "random and boundary pass\n",
+      "stderr": ""
+    },
+    {
+      "mode": "release",
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-Werror",
+        "-DNDEBUG",
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\docs\\development\\measurements\\range-mode-rollback-20261117\\driver.cpp",
+        "-o",
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "samples": [
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": -1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.0031 1469598103934665603 4182016\n",
+      "stderr": "",
+      "elapsed_ms": 0.0031,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 4182016
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": -1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "7.0685 1469598103934665603 5509120\n",
+      "stderr": "",
+      "elapsed_ms": 7.0685,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 5509120
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 0,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "7.3983 1469598103934665603 5513216\n",
+      "stderr": "",
+      "elapsed_ms": 7.3983,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 5513216
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 0,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.0016 1469598103934665603 4177920\n",
+      "stderr": "",
+      "elapsed_ms": 0.0016,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 4177920
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.0025 1469598103934665603 4177920\n",
+      "stderr": "",
+      "elapsed_ms": 0.0025,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 4177920
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "9.0283 1469598103934665603 5513216\n",
+      "stderr": "",
+      "elapsed_ms": 9.0283,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 5513216
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 2,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "8.3243 1469598103934665603 5509120\n",
+      "stderr": "",
+      "elapsed_ms": 8.3243,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 5509120
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 2,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.0016 1469598103934665603 4177920\n",
+      "stderr": "",
+      "elapsed_ms": 0.0016,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 4177920
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 3,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.0012 1469598103934665603 4182016\n",
+      "stderr": "",
+      "elapsed_ms": 0.0012,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 4182016
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 3,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "6.6022 1469598103934665603 5513216\n",
+      "stderr": "",
+      "elapsed_ms": 6.6022,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 5513216
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 4,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "11.2095 1469598103934665603 5513216\n",
+      "stderr": "",
+      "elapsed_ms": 11.2095,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 5513216
+    },
+    {
+      "n": 100000,
+      "q": 0,
+      "mode": 0,
+      "run": 4,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "0",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.0015 1469598103934665603 4177920\n",
+      "stderr": "",
+      "elapsed_ms": 0.0015,
+      "checksum": "1469598103934665603",
+      "peak_bytes": 4177920
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": -1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "8.8698 4953166655188171954 5029888\n",
+      "stderr": "",
+      "elapsed_ms": 8.8698,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5029888
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": -1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "11.1686 4953166655188171954 5509120\n",
+      "stderr": "",
+      "elapsed_ms": 11.1686,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5509120
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 0,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "7.5508 4953166655188171954 5509120\n",
+      "stderr": "",
+      "elapsed_ms": 7.5508,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5509120
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 0,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "9.5551 4953166655188171954 5029888\n",
+      "stderr": "",
+      "elapsed_ms": 9.5551,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5029888
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "10.3651 4953166655188171954 5029888\n",
+      "stderr": "",
+      "elapsed_ms": 10.3651,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5029888
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "9.1603 4953166655188171954 5513216\n",
+      "stderr": "",
+      "elapsed_ms": 9.1603,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5513216
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 2,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "9.2133 4953166655188171954 5509120\n",
+      "stderr": "",
+      "elapsed_ms": 9.2133,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5509120
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 2,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "7.7735 4953166655188171954 5029888\n",
+      "stderr": "",
+      "elapsed_ms": 7.7735,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5029888
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 3,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "9.2032 4953166655188171954 5029888\n",
+      "stderr": "",
+      "elapsed_ms": 9.2032,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5029888
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 3,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "8.7571 4953166655188171954 5513216\n",
+      "stderr": "",
+      "elapsed_ms": 8.7571,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5513216
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 4,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "8.2505 4953166655188171954 5513216\n",
+      "stderr": "",
+      "elapsed_ms": 8.2505,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5513216
+    },
+    {
+      "n": 100000,
+      "q": 1,
+      "mode": 0,
+      "run": 4,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "1",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "12.1552 4953166655188171954 5029888\n",
+      "stderr": "",
+      "elapsed_ms": 12.1552,
+      "checksum": "4953166655188171954",
+      "peak_bytes": 5029888
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": -1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "14.3541 17085647956309431831 5042176\n",
+      "stderr": "",
+      "elapsed_ms": 14.3541,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5042176
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": -1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "55.6224 17085647956309431831 5517312\n",
+      "stderr": "",
+      "elapsed_ms": 55.6224,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5517312
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 0,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "47.4057 17085647956309431831 5513216\n",
+      "stderr": "",
+      "elapsed_ms": 47.4057,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5513216
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 0,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "9.7416 17085647956309431831 5042176\n",
+      "stderr": "",
+      "elapsed_ms": 9.7416,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5042176
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "9.5426 17085647956309431831 5042176\n",
+      "stderr": "",
+      "elapsed_ms": 9.5426,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5042176
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "46.4699 17085647956309431831 5509120\n",
+      "stderr": "",
+      "elapsed_ms": 46.4699,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5509120
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 2,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "44.5926 17085647956309431831 5517312\n",
+      "stderr": "",
+      "elapsed_ms": 44.5926,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5517312
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 2,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "9.0364 17085647956309431831 5042176\n",
+      "stderr": "",
+      "elapsed_ms": 9.0364,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5042176
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 3,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "9.1141 17085647956309431831 5042176\n",
+      "stderr": "",
+      "elapsed_ms": 9.1141,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5042176
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 3,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "43.0387 17085647956309431831 5517312\n",
+      "stderr": "",
+      "elapsed_ms": 43.0387,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5517312
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 4,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "44.9189 17085647956309431831 5517312\n",
+      "stderr": "",
+      "elapsed_ms": 44.9189,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5517312
+    },
+    {
+      "n": 100000,
+      "q": 500,
+      "mode": 0,
+      "run": 4,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "500",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "14.4193 17085647956309431831 5042176\n",
+      "stderr": "",
+      "elapsed_ms": 14.4193,
+      "checksum": "17085647956309431831",
+      "peak_bytes": 5042176
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": -1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "53.3871 6031967628381674745 7835648\n",
+      "stderr": "",
+      "elapsed_ms": 53.3871,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7835648
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": -1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "138.896 6031967628381674745 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 138.896,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 0,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "171.56 6031967628381674745 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 171.56,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 0,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "50.2658 6031967628381674745 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 50.2658,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "54.9006 6031967628381674745 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 54.9006,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "134.344 6031967628381674745 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 134.344,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 2,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "134.05 6031967628381674745 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 134.05,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 2,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "44.9831 6031967628381674745 7835648\n",
+      "stderr": "",
+      "elapsed_ms": 44.9831,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7835648
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 3,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "46.2097 6031967628381674745 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 46.2097,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 3,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "135.792 6031967628381674745 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 135.792,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 4,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "136.756 6031967628381674745 7520256\n",
+      "stderr": "",
+      "elapsed_ms": 136.756,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7520256
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 0,
+      "run": 4,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "45.2633 6031967628381674745 7835648\n",
+      "stderr": "",
+      "elapsed_ms": 45.2633,
+      "checksum": "6031967628381674745",
+      "peak_bytes": 7835648
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": -1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "15.4577 13264521642296012298 7835648\n",
+      "stderr": "",
+      "elapsed_ms": 15.4577,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7835648
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": -1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "22.6188 13264521642296012298 7520256\n",
+      "stderr": "",
+      "elapsed_ms": 22.6188,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7520256
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 0,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "22.5888 13264521642296012298 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 22.5888,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 0,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "16.759 13264521642296012298 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 16.759,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "16.7561 13264521642296012298 7835648\n",
+      "stderr": "",
+      "elapsed_ms": 16.7561,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7835648
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "23.0022 13264521642296012298 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 23.0022,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 2,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "24.8745 13264521642296012298 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 24.8745,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 2,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "17.3127 13264521642296012298 7835648\n",
+      "stderr": "",
+      "elapsed_ms": 17.3127,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7835648
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 3,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "16.8247 13264521642296012298 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 16.8247,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 3,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "23.6661 13264521642296012298 7520256\n",
+      "stderr": "",
+      "elapsed_ms": 23.6661,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7520256
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 4,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "23.4004 13264521642296012298 7520256\n",
+      "stderr": "",
+      "elapsed_ms": 23.4004,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7520256
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 1,
+      "run": 4,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "1"
+      ],
+      "exit": 0,
+      "stdout": "16.6726 13264521642296012298 7835648\n",
+      "stderr": "",
+      "elapsed_ms": 16.6726,
+      "checksum": "13264521642296012298",
+      "peak_bytes": 7835648
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": -1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "95.7661 6116351438774257221 7753728\n",
+      "stderr": "",
+      "elapsed_ms": 95.7661,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7753728
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": -1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "116.277 6116351438774257221 7356416\n",
+      "stderr": "",
+      "elapsed_ms": 116.277,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7356416
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 0,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "107.798 6116351438774257221 7360512\n",
+      "stderr": "",
+      "elapsed_ms": 107.798,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7360512
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 0,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "100.454 6116351438774257221 7749632\n",
+      "stderr": "",
+      "elapsed_ms": 100.454,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7749632
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "98.7275 6116351438774257221 7757824\n",
+      "stderr": "",
+      "elapsed_ms": 98.7275,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7757824
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "113.99 6116351438774257221 7356416\n",
+      "stderr": "",
+      "elapsed_ms": 113.99,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7356416
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 2,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "119.439 6116351438774257221 7356416\n",
+      "stderr": "",
+      "elapsed_ms": 119.439,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7356416
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 2,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "98.7519 6116351438774257221 7753728\n",
+      "stderr": "",
+      "elapsed_ms": 98.7519,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7753728
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 3,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "90.8959 6116351438774257221 7757824\n",
+      "stderr": "",
+      "elapsed_ms": 90.8959,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7757824
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 3,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "105.107 6116351438774257221 7356416\n",
+      "stderr": "",
+      "elapsed_ms": 105.107,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7356416
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 4,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "107.014 6116351438774257221 7356416\n",
+      "stderr": "",
+      "elapsed_ms": 107.014,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7356416
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 2,
+      "run": 4,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "2"
+      ],
+      "exit": 0,
+      "stdout": "90.8631 6116351438774257221 7757824\n",
+      "stderr": "",
+      "elapsed_ms": 90.8631,
+      "checksum": "6116351438774257221",
+      "peak_bytes": 7757824
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": -1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "33.7408 15923289165468842901 7757824\n",
+      "stderr": "",
+      "elapsed_ms": 33.7408,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7757824
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": -1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "91.1367 15923289165468842901 7356416\n",
+      "stderr": "",
+      "elapsed_ms": 91.1367,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7356416
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 0,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "91.6306 15923289165468842901 7360512\n",
+      "stderr": "",
+      "elapsed_ms": 91.6306,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7360512
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 0,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "34.7843 15923289165468842901 7753728\n",
+      "stderr": "",
+      "elapsed_ms": 34.7843,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7753728
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "35.5855 15923289165468842901 7757824\n",
+      "stderr": "",
+      "elapsed_ms": 35.5855,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7757824
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "91.1543 15923289165468842901 7356416\n",
+      "stderr": "",
+      "elapsed_ms": 91.1543,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7356416
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 2,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "97.681 15923289165468842901 7360512\n",
+      "stderr": "",
+      "elapsed_ms": 97.681,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7360512
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 2,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "36.733 15923289165468842901 7757824\n",
+      "stderr": "",
+      "elapsed_ms": 36.733,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7757824
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 3,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "37.3439 15923289165468842901 7753728\n",
+      "stderr": "",
+      "elapsed_ms": 37.3439,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7753728
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 3,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "105.251 15923289165468842901 7360512\n",
+      "stderr": "",
+      "elapsed_ms": 105.251,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7360512
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 4,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "99.7418 15923289165468842901 7356416\n",
+      "stderr": "",
+      "elapsed_ms": 99.7418,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7356416
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 3,
+      "run": 4,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "3"
+      ],
+      "exit": 0,
+      "stdout": "37.921 15923289165468842901 7757824\n",
+      "stderr": "",
+      "elapsed_ms": 37.921,
+      "checksum": "15923289165468842901",
+      "peak_bytes": 7757824
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": -1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "33.5146 18051174648498078339 7835648\n",
+      "stderr": "",
+      "elapsed_ms": 33.5146,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7835648
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": -1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "11.82 18051174648498078339 7520256\n",
+      "stderr": "",
+      "elapsed_ms": 11.82,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7520256
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 0,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "12.359 18051174648498078339 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 12.359,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 0,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "38.7318 18051174648498078339 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 38.7318,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "32.7267 18051174648498078339 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 32.7267,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "8.1848 18051174648498078339 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 8.1848,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 2,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "7.8992 18051174648498078339 7520256\n",
+      "stderr": "",
+      "elapsed_ms": 7.8992,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7520256
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 2,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "32.0717 18051174648498078339 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 32.0717,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 3,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "34.0438 18051174648498078339 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 34.0438,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 3,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "9.6501 18051174648498078339 7520256\n",
+      "stderr": "",
+      "elapsed_ms": 9.6501,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7520256
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 4,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "9.2601 18051174648498078339 7524352\n",
+      "stderr": "",
+      "elapsed_ms": 9.2601,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7524352
+    },
+    {
+      "n": 100000,
+      "q": 100000,
+      "mode": 4,
+      "run": 4,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "100000",
+        "100000",
+        "4"
+      ],
+      "exit": 0,
+      "stdout": "42.0576 18051174648498078339 7839744\n",
+      "stderr": "",
+      "elapsed_ms": 42.0576,
+      "checksum": "18051174648498078339",
+      "peak_bytes": 7839744
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": -1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.1807 8607143277323426279 3850240\n",
+      "stderr": "",
+      "elapsed_ms": 0.1807,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3850240
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": -1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.2436 8607143277323426279 3862528\n",
+      "stderr": "",
+      "elapsed_ms": 0.2436,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3862528
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 0,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.2362 8607143277323426279 3862528\n",
+      "stderr": "",
+      "elapsed_ms": 0.2362,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3862528
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 0,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.1465 8607143277323426279 3854336\n",
+      "stderr": "",
+      "elapsed_ms": 0.1465,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3854336
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 1,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.1423 8607143277323426279 3854336\n",
+      "stderr": "",
+      "elapsed_ms": 0.1423,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3854336
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 1,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.2502 8607143277323426279 3862528\n",
+      "stderr": "",
+      "elapsed_ms": 0.2502,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3862528
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 2,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.2547 8607143277323426279 3866624\n",
+      "stderr": "",
+      "elapsed_ms": 0.2547,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3866624
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 2,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.1668 8607143277323426279 3850240\n",
+      "stderr": "",
+      "elapsed_ms": 0.1668,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3850240
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 3,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.3414 8607143277323426279 3854336\n",
+      "stderr": "",
+      "elapsed_ms": 0.3414,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3854336
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 3,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.2591 8607143277323426279 3862528\n",
+      "stderr": "",
+      "elapsed_ms": 0.2591,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3862528
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 4,
+      "variant": 0,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "0",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.2537 8607143277323426279 3866624\n",
+      "stderr": "",
+      "elapsed_ms": 0.2537,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3866624
+    },
+    {
+      "n": 1000,
+      "q": 1000,
+      "mode": 0,
+      "run": 4,
+      "variant": 1,
+      "command": [
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\range-mode-rollback-20261117\\bench.exe",
+        "1",
+        "1000",
+        "1000",
+        "0"
+      ],
+      "exit": 0,
+      "stdout": "0.159 8607143277323426279 3854336\n",
+      "stderr": "",
+      "elapsed_ms": 0.159,
+      "checksum": "8607143277323426279",
+      "peak_bytes": 3854336
+    }
+  ],
+  "status": "complete",
+  "hashes": {
+    "baseline.hpp.txt": "50c7c16af1fa0fd960f7ec90baa5f465450386065db6991b0efe1bf042da0ba4",
+    "candidate.hpp.txt": "eb89f38cfda1dcb7a523536220cb3b9d67b103619035173857dce5ec98abc09c",
+    "driver.cpp": "046ebd01ade0b8f68c7e5ea104b8b8fe5a4123412fe98a01e49bbd5e66efc61a",
+    "run.py": "1ddb6c3b355d13f411557c5d458333362974a9f47e9a2401addfe5d075e0f5cc",
+    "bench.exe": "409b8604a4ebaae9a25a9e0f5c8304fa9989b10129b35380980fde6d30f18a52"
+  },
+  "compiler_version": "Android (12470979, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)\nTarget: x86_64-w64-windows-gnu\nThread model: posix\nInstalledDir: C:/Program Files/Unity/Hub/Editor/6000.5.2f1/Editor/Data/PlaybackEngines/AndroidPlayer/NDK/toolchains/llvm/prebuilt/windows-x86_64/bin\n"
+}
