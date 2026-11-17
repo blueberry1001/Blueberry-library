@@ -1,0 +1,122 @@
+{
+  "status": "complete",
+  "system": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "note": "Unpinned; other sessions may run concurrently. Timing includes construction of solver adjacency and result, excludes input generation and result validation. Nyaan includes conversion to adjacency lists; all variants must have the same answer size. Peak working set is process-wide.",
+  "runs": 5,
+  "warmups": 1,
+  "sources": {
+    "components-popcnt": "d559b15a798f41010787b6f47e29eee0070a659631a38ef6f5624f71fd17c378"
+  },
+  "driver_sha256": "08852538ce863930e5801aa8374d43363a328efa81e2b8b9d5790a9804d5175c",
+  "test_sha256": "082c840eea1e641c142cef073b3aea6729ae0fbc670e2925613b7c409679685a",
+  "tests": [
+    {
+      "compiler": "msvc",
+      "variant": "components-popcnt",
+      "seed": 17,
+      "exit": 0,
+      "output": "passed seed=17\nseed=17\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "components-popcnt",
+      "seed": 17,
+      "exit": 0,
+      "output": "passed seed=17\nseed=17\n"
+    }
+  ],
+  "builds": [
+    {
+      "compiler": "msvc",
+      "variant": "components-popcnt",
+      "release": false,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-components-popcnt-test",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-components-popcnt-test\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-components-popcnt-test\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "test.cpp\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "components-popcnt",
+      "release": true,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-components-popcnt-bench",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "/DNDEBUG",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\bench.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-components-popcnt-bench\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-components-popcnt-bench\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "bench.cpp\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "components-popcnt",
+      "release": false,
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-components-popcnt-test",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-components-popcnt-test\\run.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "output": ""
+    },
+    {
+      "compiler": "clang",
+      "variant": "components-popcnt",
+      "release": true,
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-components-popcnt-bench",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "-DNDEBUG",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\bench.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-components-popcnt-bench\\run.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "samples": []
+}

@@ -1,0 +1,188 @@
+{
+  "status": "complete",
+  "driver_sha256": "45a0c51f25215622973923a417d2e4f3b794f532400df9f6e84718f761ccc123",
+  "sources": {
+    "baseline": "4fc7145c447731400a0bfeff6fd295c7e27e2a60db75777637119d195f65b95d",
+    "final": "6337c73e3098b248529c127d6f7c5f2c85c1befa4e0a13b2dbd7953494fd7240"
+  },
+  "rows": [
+    {
+      "variant": "baseline",
+      "mode": "msvc-portable",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/DNDEBUG",
+        "/c",
+        "/FAs",
+        "/FaC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\baseline\\msvc-portable.s",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\baseline\\msvc-portable.obj",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\baseline",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\assembly.cpp"
+      ],
+      "exit": 0,
+      "output": "assembly.cpp\n",
+      "raw_sha256": "233e4e43ac132dd6ba30348d98aff13181b8ce14c319404d09d2fe9e7ab4ba47",
+      "instruction_matches": {
+        "popcnt": 12,
+        "bsf": 6,
+        "tzcnt": 6,
+        "bsr": 0,
+        "lzcnt": 0
+      },
+      "packed_file": "baseline-msvc-portable.s.gz",
+      "gzip_sha256": "95f7a342f4954c45c98d454fc23478a85b668cfccb1d4938f445162fea6b9599"
+    },
+    {
+      "variant": "baseline",
+      "mode": "clang-portable",
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-S",
+        "-masm=intel",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\baseline",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\assembly.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\baseline\\clang-portable.s"
+      ],
+      "exit": 0,
+      "output": "",
+      "raw_sha256": "ffa338c026b18da05c1b284e7daf71d6d7edb17466a179873161a14a6d4d463e",
+      "instruction_matches": {
+        "popcnt": 0,
+        "bsf": 2,
+        "tzcnt": 0,
+        "bsr": 0,
+        "lzcnt": 0
+      },
+      "packed_file": "baseline-clang-portable.s.gz",
+      "gzip_sha256": "67daceef17751c0ce84ecdc0c68d0467200bb0c070d7b5caf489d12ac240975a"
+    },
+    {
+      "variant": "baseline",
+      "mode": "clang-popcnt",
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-S",
+        "-masm=intel",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\baseline",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\assembly.cpp",
+        "-mpopcnt",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\baseline\\clang-popcnt.s"
+      ],
+      "exit": 0,
+      "output": "",
+      "raw_sha256": "1baa2b5e225e013ede67e5cbfec3e22d1cb6e9b20f31b76fdb428eb6f8382f37",
+      "instruction_matches": {
+        "popcnt": 4,
+        "bsf": 2,
+        "tzcnt": 0,
+        "bsr": 0,
+        "lzcnt": 0
+      },
+      "packed_file": "baseline-clang-popcnt.s.gz",
+      "gzip_sha256": "ce7178725f35168b47586f74bc1f105711e74b961d77bb49c06fadee9d0b5183"
+    },
+    {
+      "variant": "final",
+      "mode": "msvc-portable",
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/DNDEBUG",
+        "/c",
+        "/FAs",
+        "/FaC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\final\\msvc-portable.s",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\final\\msvc-portable.obj",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\final",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\assembly.cpp"
+      ],
+      "exit": 0,
+      "output": "assembly.cpp\n",
+      "raw_sha256": "2a39f62812f87c6ee3c36b5519500a539ab42fbcf6688d2ece12ccaeb5aedb15",
+      "instruction_matches": {
+        "popcnt": 5,
+        "bsf": 13,
+        "tzcnt": 13,
+        "bsr": 0,
+        "lzcnt": 0
+      },
+      "packed_file": "final-msvc-portable.s.gz",
+      "gzip_sha256": "cf3d9e0f12a23cbdb09ba7046ef566795041894d71fc3b3d60597aa574225bf6"
+    },
+    {
+      "variant": "final",
+      "mode": "clang-portable",
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-S",
+        "-masm=intel",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\final",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\assembly.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\final\\clang-portable.s"
+      ],
+      "exit": 0,
+      "output": "",
+      "raw_sha256": "306c99085888496e1426c145e78253c8961943c08f1612b0a5faf80be4c9f01d",
+      "instruction_matches": {
+        "popcnt": 0,
+        "bsf": 5,
+        "tzcnt": 0,
+        "bsr": 0,
+        "lzcnt": 0
+      },
+      "packed_file": "final-clang-portable.s.gz",
+      "gzip_sha256": "95c34bc07543e2c6d4cc302212ec06ab42bc7799dee33504742aecd4734c15cd"
+    },
+    {
+      "variant": "final",
+      "mode": "clang-popcnt",
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-S",
+        "-masm=intel",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\final",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\assembly.cpp",
+        "-mpopcnt",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\assembly\\final\\clang-popcnt.s"
+      ],
+      "exit": 0,
+      "output": "",
+      "raw_sha256": "808de4322d34d851a48c44b30ddcf9a81dd564b9d06d0ab79269f4b13e115f9d",
+      "instruction_matches": {
+        "popcnt": 2,
+        "bsf": 5,
+        "tzcnt": 0,
+        "bsr": 0,
+        "lzcnt": 0
+      },
+      "packed_file": "final-clang-popcnt.s.gz",
+      "gzip_sha256": "62364464e2bf5aceb9070ff508ed4a430769c14813b1014d7ea1df212f863c85"
+    }
+  ]
+}
