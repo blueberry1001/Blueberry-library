@@ -331,6 +331,9 @@ tree.clear(); assert(tree.empty());
 - [公式合成問題](https://judge.yosupo.jp/problem/deque_operate_all_composite)、固定seedのstd::deque愚直合成、コピー・移動・再配置境界で検証します。
 - [公開上位提出403007](https://judge.yosupo.jp/submission/403007)は事前容量指定と連続配置を用います。
 - こちらは動的vectorと汎用monoidを用い、必要な2方向の集約を独立実装しています。
+- 自明コピー可能かつ代入可能なSでは、再配置時に一時配列を作らず片側の値と集約を再利用します。その他のSには従来の再配置を用います。
+- 片側だけが空でない場合、prodはその側の集約を返します。
+- [比較測定と実行ログ]({{ '/docs/development/measurements/aggregate-deque-20261117/' | relative_url }})。
 - 公開ソースは転記していません。
 
 </details>

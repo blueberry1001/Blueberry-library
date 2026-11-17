@@ -1,17 +1,36 @@
 #pragma once
 #include <cassert>
+#include <cstddef>
 #include <limits>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
 namespace blueberry {
-// Each half has a fold directed toward the logical sequence order.
 template <class S, auto op, auto e>
 class AggregateDeque {
   struct Entry { S value, aggregate; };
   std::vector<Entry> left_, right_;
   void rebalance(bool need_left) {
     if (need_left ? !left_.empty() : !right_.empty()) return;
+    if constexpr (std::is_trivially_copyable_v<S> && std::is_copy_assignable_v<S> && std::is_move_assignable_v<S>) {
+      if (static_cast<std::size_t>(size()) + (static_cast<std::size_t>(size()) + 1) / 2 <= static_cast<std::size_t>(std::numeric_limits<int>::max())) {
+      auto& src = need_left ? right_ : left_;
+      const auto count = (src.size() + 1) / 2;
+      if (need_left) {
+        for (auto i = count; i > 0; --i) push_front(src[i - 1].value);
+        src.erase(src.begin(), src.begin() + count);
+        if (!src.empty()) src[0].aggregate = src[0].value;
+        for (std::size_t i = 1; i < src.size(); ++i) src[i].aggregate = op(src[i - 1].aggregate, src[i].value);
+      } else {
+        for (auto i = count; i > 0; --i) push_back(src[i - 1].value);
+        src.erase(src.begin(), src.begin() + count);
+        if (!src.empty()) src[0].aggregate = src[0].value;
+        for (std::size_t i = 1; i < src.size(); ++i) src[i].aggregate = op(src[i].value, src[i - 1].aggregate);
+      }
+      return;
+      }
+    }
     std::vector<S> values;
     values.reserve(size());
     for (auto it = left_.rbegin(); it != left_.rend(); ++it) values.push_back(it->value);
@@ -51,9 +70,10 @@ class AggregateDeque {
   S front() const { assert(!empty()); return left_.empty() ? right_.front().value : left_.back().value; }
   S back() const { assert(!empty()); return right_.empty() ? left_.front().value : right_.back().value; }
   S prod() const {
-    return op(left_.empty() ? e() : left_.back().aggregate,
-              right_.empty() ? e() : right_.back().aggregate);
+    if (left_.empty()) return right_.empty() ? e() : right_.back().aggregate;
+    if (right_.empty()) return left_.back().aggregate;
+    return op(left_.back().aggregate, right_.back().aggregate);
   }
   void clear() { std::vector<Entry>().swap(left_); std::vector<Entry>().swap(right_); }
 };
-}  // namespace blueberry
+}

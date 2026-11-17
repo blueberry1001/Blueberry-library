@@ -25,7 +25,7 @@ a^x = b (mod m)を満たす最小の非負整数xを返します。合成数法�
 ## 概要・前提 {#概要前提}
 
 - `1 <= m <= INT32_MAX`。a,bは任意のint64_tで、正規化して扱います。0^0=1とします。
-- ACLの `inv_mod` を再利用し、ACLにないgcd除去とbaby-step giant-stepを追加しています。
+- ACLの `inv_mod` と内部のBarrett剰余演算を利用します。gcd除去後に位数を求め、Pohlig–Hellmanとbaby-step giant-stepを使います。素数法に限らず、最後に元の合同式を検算します。
 
 </details>
 
@@ -63,7 +63,9 @@ assert(!blueberry::discrete_log(2, 3, 8));
 
 ## 出典・検証 {#出典検証}
 
-- [Library Checker](https://judge.yosupo.jp/problem/discrete_logarithm_mod)。固定seed・境界・愚直比較は `tests/random/math-batch-two.cpp`。
+- [Library Checker](https://judge.yosupo.jp/problem/discrete_logarithm_mod)。固定seed・境界・愚直比較は `tests/random/math-batch-two.cpp` と `tests/random/discrete-log-fast.cpp`。
+- [最速提出例 #412908](https://judge.yosupo.jp/submission/412908) の群位数分解と連続ハッシュを調査し、APIに合わせて実装しました。
+- 条件別の比較は[性能測定]({{ '/docs/development/measurements/discrete-log-20261117/' | relative_url }})に記録しています。
   複数実装の調査、独立実装した候補と同一環境測定は [math batch two]({{ '/docs/development/math-batch-two.html' | relative_url }}) を参照。
 
 </details>

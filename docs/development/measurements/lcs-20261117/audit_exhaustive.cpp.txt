@@ -1,0 +1,11 @@
+#include <algorithm>
+#include <cstdio>
+#include <string>
+#include "blueberry/string/longest-common-substring.hpp"
+int main(){
+  for(int n=0;n<=7;++n)for(int m=0;m<=7;++m)for(int p=0;p<(1<<n);++p)for(int q=0;q<(1<<m);++q){
+    std::string s(n,'\0'),t(m,'\0');for(int i=0;i<n;++i)s[i]=char((p>>i&1)?255:0);for(int i=0;i<m;++i)t[i]=char((q>>i&1)?255:0);
+    int best=0;for(int i=0;i<n;++i)for(int j=0;j<m;++j){int k=0;while(i+k<n&&j+k<m&&s[i+k]==t[j+k])++k;best=std::max(best,k);}
+    auto a=blueberry::longest_common_substring(s,t);if(a[0]<0||a[1]>n||a[2]<0||a[3]>m||a[1]-a[0]!=best||a[3]-a[2]!=best||s.compare(a[0],best,t,a[2],best)){std::printf("bad n=%d m=%d p=%d q=%d\n",n,m,p,q);return 1;}
+  } std::puts("OK exhaustive lengths 0..7 bytes {0,255}");
+}

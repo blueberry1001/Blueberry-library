@@ -1,0 +1,19 @@
+import hashlib,json,os,pathlib,subprocess
+here=pathlib.Path(__file__).resolve().parent
+vc=pathlib.Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808');sdk=pathlib.Path(r'C:\Program Files (x86)\Windows Kits\10');version='10.0.22621.0'
+cl=vc/'bin/Hostx64/x64/cl.exe';clang=pathlib.Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env=os.environ.copy();env['PATH']=str(cl.parent)+os.pathsep+env.get('PATH','');env['INCLUDE']=os.pathsep.join(map(str,[vc/'include',*(sdk/'Include'/version/p for p in ('ucrt','shared','um'))]));env['LIB']=os.pathsep.join(map(str,[vc/'lib/x64',*(sdk/'Lib'/version/p/'x64' for p in ('ucrt','um'))]))
+expected=json.loads((here/'hash.json').read_text());results=[]
+for src in ['verify','small','random','max_random','large_max','large_min','large_triangle']:
+ cmd=[str(clang),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2','-I'+str(here),str(here/(src+'.cpp')),'-o',str(here/(src+'.exe'))]
+ p=subprocess.run(cmd,env=env,capture_output=True,text=True,errors='replace');results.append({'compile':src,'exit':p.returncode,'cmd':cmd,'output':p.stdout+p.stderr});(here/'result.json').write_text(json.dumps(results,indent=2));assert p.returncode==0
+tests=[('example',2),('small',2),('random',3),('max_random',3),('large_max',2),('large_min',2),('large_triangle',2)]
+for test,n in tests:
+ for i in range(n):
+  name=f'{test}_{i:02}'
+  if test=='example':data=(here/(name+'.in')).read_bytes()
+  else:
+   p=subprocess.run([str(here/(test+'.exe')),str(i)],env=env,capture_output=True,timeout=60);assert p.returncode==0;data=p.stdout.replace(b'\r\n',b'\n')
+  in_sha=hashlib.sha256(data).hexdigest();p=subprocess.run([str(here/'verify.exe')],env=env,input=data,capture_output=True,timeout=120);out_sha=hashlib.sha256(p.stdout.replace(b'\r\n',b'\n')).hexdigest()
+  results.append({'case':name,'input_sha256':in_sha,'input_matches_official':in_sha==expected[name+'.in'],'exit':p.returncode,'output_sha256':out_sha,'output_matches_official':out_sha==expected[name+'.out'],'stderr':p.stderr.decode(errors='replace')});(here/'result.json').write_text(json.dumps(results,indent=2));print(results[-1],flush=True)
+  assert p.returncode==0 and in_sha==expected[name+'.in'] and out_sha==expected[name+'.out']

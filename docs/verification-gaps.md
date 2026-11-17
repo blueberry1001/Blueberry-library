@@ -92,6 +92,7 @@
 [blueberry/data-structure/aggregate-deque.hpp](../blueberry/data-structure/aggregate-deque.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/data-structure/aggregate-deque.test.cpp](../verify/data-structure/aggregate-deque.test.cpp) / [問題](https://judge.yosupo.jp/problem/deque_operate_all_composite)
+- 関連ローカルテスト: [tests/random/aggregate-deque-rebalance.cpp](../tests/random/aggregate-deque-rebalance.cpp)
 - 関連ローカルテスト: [tests/random/operation-structures.cpp](../tests/random/operation-structures.cpp)
 
 ## Aggregate Queue
@@ -586,6 +587,7 @@
 
 - 専用ドライバ: [verify/graph/minimum-spanning-forest.test.cpp](../verify/graph/minimum-spanning-forest.test.cpp) / [問題](https://judge.yosupo.jp/problem/minimum_spanning_tree)
 - 関連ローカルテスト: [tests/random/graph_batch_three.cpp](../tests/random/graph_batch_three.cpp)
+- 関連ローカルテスト: [tests/random/minimum-spanning-forest-fast.cpp](../tests/random/minimum-spanning-forest-fast.cpp)
 
 ## Rerooting DP
 
@@ -657,6 +659,7 @@
 [blueberry/math/discrete-log.hpp](../blueberry/math/discrete-log.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/math/discrete-log.test.cpp](../verify/math/discrete-log.test.cpp) / [問題](https://judge.yosupo.jp/problem/discrete_logarithm_mod)
+- 関連ローカルテスト: [tests/random/discrete-log-fast.cpp](../tests/random/discrete-log-fast.cpp)
 - 関連ローカルテスト: [tests/random/math-batch-two.cpp](../tests/random/math-batch-two.cpp)
 
 ## Divisor Convolution
@@ -877,6 +880,7 @@
 [blueberry/string/longest-common-substring.hpp](../blueberry/string/longest-common-substring.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/string/longest-common-substring.test.cpp](../verify/string/longest-common-substring.test.cpp) / [問題](https://judge.yosupo.jp/problem/longest_common_substring)
+- 関連ローカルテスト: [tests/random/longest-common-substring-fast.cpp](../tests/random/longest-common-substring-fast.cpp)
 - 関連ローカルテスト: [tests/random/sequence-batch-four.cpp](../tests/random/sequence-batch-four.cpp)
 
 ## Lyndon Factorization
