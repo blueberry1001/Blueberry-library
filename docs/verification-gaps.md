@@ -308,6 +308,7 @@
 
 - 専用ドライバ: [verify/data-structure/rectangle-union.test.cpp](../verify/data-structure/rectangle-union.test.cpp) / [問題](https://judge.yosupo.jp/problem/area_of_union_of_rectangles)
 - 関連ローカルテスト: [tests/random/ds_batch_three.cpp](../tests/random/ds_batch_three.cpp)
+- 関連ローカルテスト: [tests/random/rectangle-union-fast.cpp](../tests/random/rectangle-union-fast.cpp)
 
 ## Rollback Union Find
 

@@ -1,0 +1,22 @@
+from pathlib import Path
+root=Path.cwd()
+w=root/'.build/rectangle-next'
+src=(root/'blueberry/data-structure/rectangle-union.hpp').read_text(encoding='utf-8')
+reserve='  std::vector<Coord> ys;\n'
+reserved=reserve+'  events.reserve(rectangles.size() * 2); ys.reserve(rectangles.size() * 2);\n'
+old='''    if (qr <= l || r <= ql) return;
+    if (ql <= l && r <= qr) cover[p] += delta;
+    else {
+      int m = l + (r - l) / 2;
+      self(self, 2 * p, l, m, ql, qr, delta);
+      self(self, 2 * p + 1, m, r, ql, qr, delta);
+    }'''
+new='''    if (ql <= l && r <= qr) cover[p] += delta;
+    else {
+      int m = l + (r - l) / 2;
+      if (ql < m) self(self, 2 * p, l, m, ql, qr, delta);
+      if (m < qr) self(self, 2 * p + 1, m, r, ql, qr, delta);
+    }'''
+assert src.count(reserve)==1 and src.count(old)==1
+for name,body in [('baseline',src),('reserved',src.replace(reserve,reserved)),('branch',src.replace(old,new)),('both',src.replace(reserve,reserved).replace(old,new))]:
+    (w/(name+'.hpp')).write_text(body.replace('namespace blueberry {','namespace '+name+' {'),encoding='utf-8')
