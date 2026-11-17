@@ -1,0 +1,30 @@
+from pathlib import Path
+root=Path.cwd();out=root/'.build/subseq-byte';base=(out/'byte/blueberry/string/count-subsequences.hpp').read_text(encoding='utf-8');base=base.replace('#include <cstddef>','#include <cstddef>\n#include <cstdint>')
+needle='  std::vector<std::size_t> order(n), rank(n);\n'
+candidate='''  if constexpr (std::is_integral_v<Symbol> && !std::is_same_v<Symbol, bool> && sizeof(Symbol) > 1 && sizeof(Symbol) <= sizeof(std::uintmax_t)) {
+    if (n >= 64) {
+      using U = std::make_unsigned_t<Symbol>;
+      Symbol low = sequence[0], high = low;
+      const std::uintmax_t limit = std::min({std::size_t(65535), n / 2, std::size_t(262144) / sizeof(Count)});
+      std::size_t i = 1;
+      for (; i < n; ++i) {
+        Symbol x = sequence[i];
+        if (x < low) low = x;
+        if (x > high) high = x;
+        if (static_cast<std::uintmax_t>(static_cast<U>(U(high) - U(low))) > limit) break;
+      }
+      if (i == n) {
+        const auto width = static_cast<std::size_t>(static_cast<U>(U(high) - U(low))) + 1;
+        std::vector<Count> previous(width, Count(0));
+        Count total(1);
+        for (std::size_t j = 0; j < n; ++j) {
+          const auto rank = static_cast<std::size_t>(static_cast<U>(U(sequence[j]) - U(low)));
+          const Count next = total + total - previous[rank];
+          previous[rank] = total; total = next;
+        }
+        return total - Count(1);
+      }
+    }
+  }
+'''
+path=out/'range/blueberry/string/count-subsequences.hpp';path.parent.mkdir(parents=True,exist_ok=True);path.write_text(base.replace(needle,candidate+needle),encoding='utf-8',newline='\n')

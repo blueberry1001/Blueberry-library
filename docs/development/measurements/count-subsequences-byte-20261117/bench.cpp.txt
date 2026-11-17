@@ -1,0 +1,17 @@
+#include <atcoder/modint>
+#include <chrono>
+#include <cstdint>
+#include <iostream>
+#include <random>
+#include <string>
+#include <vector>
+#include "blueberry/string/count-subsequences.hpp"
+using Mint=atcoder::modint998244353;
+int main(int argc,char**argv){
+  int n=std::stoi(argv[1]);std::string shape=argv[2];int rounds=std::stoi(argv[3]);std::mt19937 rng(20261117);std::vector<signed char>a(n);
+  for(int i=0;i<n;++i)a[i]=shape=="equal"?-128:shape=="wide"?static_cast<signed char>(static_cast<int>(rng()%256)-128):static_cast<signed char>(static_cast<int>(rng()%4)-2);
+  auto start=std::chrono::steady_clock::now();std::uint64_t hash=0;
+  for(int i=0;i<rounds;++i){if(n)a[i%n]=static_cast<signed char>(static_cast<int>(rng()%256)-128);hash=hash*1000003+blueberry::count_subsequences<Mint>(a).val();}
+  auto ns=std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-start).count();
+  std::cout<<"{\"n\":"<<n<<",\"shape\":\""<<shape<<"\",\"ns\":"<<ns<<",\"hash\":"<<hash<<"}\n";
+}

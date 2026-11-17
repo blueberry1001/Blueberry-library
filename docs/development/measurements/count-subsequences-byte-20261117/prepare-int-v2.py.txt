@@ -1,0 +1,36 @@
+from pathlib import Path
+root=Path.cwd();out=root/'.build/subseq-byte';base=(out/'range/blueberry/string/count-subsequences.hpp').read_text(encoding='utf-8')
+old='''    if (n >= 64) {
+      using U = std::make_unsigned_t<Symbol>;
+      Symbol low = sequence[0], high = low;
+      const std::uintmax_t limit = std::min({std::size_t(65535), n / 2, std::size_t(262144) / sizeof(Count)});
+      std::size_t i = 1;
+      for (; i < n; ++i) {
+        Symbol x = sequence[i];
+        if (x < low) low = x;
+        if (x > high) high = x;
+        if (static_cast<std::uintmax_t>(static_cast<U>(U(high) - U(low))) > limit) break;
+      }
+      if (i == n) {
+'''
+new='''    if (n >= 256) {
+      using U = std::make_unsigned_t<Symbol>;
+      Symbol low = sequence[0], high = low;
+      const std::uintmax_t limit = std::min({std::size_t(65535), n / 2, std::size_t(262144) / sizeof(Count)});
+      bool narrow = true;
+      for (std::size_t k = 1; k <= 8; ++k) {
+        Symbol x = sequence[k == 8 ? n - 1 : n / 8 * k];
+        if (x < low) low = x;
+        if (x > high) high = x;
+        if (static_cast<std::uintmax_t>(static_cast<U>(U(high) - U(low))) > limit) { narrow = false; break; }
+      }
+      for (std::size_t i = 1; narrow && i < n; ++i) {
+        Symbol x = sequence[i];
+        if (x < low) low = x;
+        if (x > high) high = x;
+        if (static_cast<std::uintmax_t>(static_cast<U>(U(high) - U(low))) > limit) narrow = false;
+      }
+      if (narrow) {
+'''
+assert old in base
+path=out/'range2/blueberry/string/count-subsequences.hpp';path.parent.mkdir(parents=True,exist_ok=True);path.write_text(base.replace(old,new),encoding='utf-8',newline='\n')

@@ -1,0 +1,17 @@
+import ctypes,hashlib,json,platform,statistics,subprocess
+from pathlib import Path
+root=Path.cwd();out=root/'.build/subseq-byte';kernel=ctypes.WinDLL('kernel32',use_last_error=True);kernel.GetCurrentProcess.restype=ctypes.c_void_p;proc=kernel.GetCurrentProcess();a=ctypes.c_size_t();s=ctypes.c_size_t();kernel.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)];kernel.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+if not kernel.GetProcessAffinityMask(proc,ctypes.byref(a),ctypes.byref(s)):raise ctypes.WinError(ctypes.get_last_error())
+mask=a.value&-a.value
+if not kernel.SetProcessAffinityMask(proc,mask):raise ctypes.WinError(ctypes.get_last_error())
+cases=[(64,'small',1000,'int'),(255,'small',1000,'int'),(256,'small',1000,'int'),(512,'small',1000,'int'),(4096,'small',80,'int'),(500000,'equal',3,'int'),(500000,'small',3,'int'),(500000,'ascending',3,'int'),(500000,'gap',3,'int'),(500000,'wide',3,'int'),(500000,'late',3,'int'),(500000,'middle',3,'int'),(500000,'unsampled',3,'int'),(500000,'extreme',3,'int'),(500000,'negative',3,'long'),(500000,'negative',3,'unsigned'),(500000,'wide',3,'long')]
+rows=[]
+for n,shape,rounds,kind in cases:
+ samples={'byte':[],'range2':[]};hashes=set()
+ for i in range(7):
+  for name in (['byte','range2'] if i%2==0 else ['range2','byte']):
+   p=subprocess.run([str(out/name/'int-bench.exe'),str(n),shape,str(rounds),kind],capture_output=True,text=True,check=True,timeout=180);v=json.loads(p.stdout);hashes.add(v['hash']);samples[name].append(v['ns']/1e6)
+ if len(hashes)!=1:raise RuntimeError((n,shape,hashes))
+ row={'n':n,'shape':shape,'rounds':rounds,'type':kind,'hash':hashes.pop(),'samples':samples,'median_ms':{k:statistics.median(v[1:]) for k,v in samples.items()}};rows.append(row);print(json.dumps(row),flush=True)
+record={'platform':platform.platform(),'processor':platform.processor(),'parent_affinity_before':a.value,'selected_mask':mask,'flags':['--target=x86_64-pc-windows-msvc','-std=gnu++20','-O2','-DNDEBUG'],'compiler':'Unity Android NDK clang 18.0.3','runs':6,'warmups':1,'seed':20261117,'hashes':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in [out/'byte/blueberry/string/count-subsequences.hpp',out/'range2/blueberry/string/count-subsequences.hpp',out/'int-bench.cpp',out/'byte/int-bench.exe',out/'range2/int-bench.exe']},'rows':rows}
+(out/'int-results-v2.json').write_text(json.dumps(record,indent=2)+'\n',encoding='utf-8')
