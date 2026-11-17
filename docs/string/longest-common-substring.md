@@ -24,7 +24,7 @@ N=s.size()+t.size()として、時間O(N)、追加メモリO(N)です。
 
 ## 概要・前提 {#概要前提}
 
-- ACLのsuffix arrayとLCPを利用する薄いラッパーです。`N < INT_MAX` が必要です。
+- ACLのsuffix arrayを利用します。短い文字列が長い文字列の接頭辞または接尾辞ならすぐに返します。`N < INT_MAX` が必要です。
 - 入力を変更せず、返り値は整数のコピーです。入力への参照を保持しません。
 
 </details>
@@ -73,5 +73,6 @@ assert(result[0] == 0 && result[1] == 0);
 - [suisen suffix automaton検証](https://github.com/suisen-cp/cp-library-cpp/blob/main/test/src/string/suffix_automaton/longest_common_substring.test.cpp): 別候補のautomaton方式。
 - [Library Checker](https://judge.yosupo.jp/problem/longest_common_substring)、NUL・高位バイト・空文字列を含むランダム愚直比較。
 - [比較・測定](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/sequence-batch-four.md)。参照実装のコードは転載していない。
+- [追加の比較・測定]({{ '/docs/development/measurements/lcs-20261117/' | relative_url }}): 最速提出と早期判定・LCP走査の比較。
 
 </details>

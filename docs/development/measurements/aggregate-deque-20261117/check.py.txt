@@ -1,0 +1,15 @@
+import json, os, pathlib, subprocess
+here=pathlib.Path(__file__).resolve().parent
+vc=pathlib.Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk=pathlib.Path(r'C:\Program Files (x86)\Windows Kits\10');version='10.0.22621.0'
+cl=vc/'bin/Hostx64/x64/cl.exe';clang=pathlib.Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env=os.environ.copy();env['PATH']=str(cl.parent)+os.pathsep+env.get('PATH','');env['INCLUDE']=os.pathsep.join(map(str,[vc/'include',*(sdk/'Include'/version/p for p in ('ucrt','shared','um'))]));env['LIB']=os.pathsep.join(map(str,[vc/'lib/x64',*(sdk/'Lib'/version/p/'x64' for p in ('ucrt','um'))]))
+res=[]
+for cc,std in [('clang','gnu++20'),('clang','gnu++23'),('msvc','c++20'),('msvc','c++latest')]:
+ exe=here/f'check-{cc}-{std.replace("+","p")}.exe'
+ if cc=='clang':cmd=[str(clang),'--target=x86_64-pc-windows-msvc','-fuse-ld=link',f'-std={std}','-O2',str(here/'check.cpp'),'-o',str(exe)]
+ else:cmd=[str(cl),'/nologo',f'/std:{std}','/EHsc','/O2',str(here/'check.cpp'),'/Fo'+str(exe)+'.obj','/Fe'+str(exe)]
+ p=subprocess.run(cmd,env=env,capture_output=True,text=True,errors='replace');row={'command':cmd,'compile_exit':p.returncode,'compile_output':p.stdout+p.stderr};res.append(row)
+ if not p.returncode:
+  p=subprocess.run([str(exe)],env=env,capture_output=True,text=True,errors='replace',timeout=120);row.update({'run_exit':p.returncode,'run_output':p.stdout+p.stderr})
+ print(cc,std,row['compile_exit'],row.get('run_exit'),flush=True);(here/'checks.json').write_text(json.dumps(res,indent=2))
