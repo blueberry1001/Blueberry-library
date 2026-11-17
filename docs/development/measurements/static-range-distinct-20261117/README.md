@@ -1,6 +1,6 @@
 # StaticRangeDistinct 構築の候補調査
 
-2026-11-17 に、順序同値を `operator<` だけで判定するオンライン問い合わせ API を維持した候補を比較した。ACL に相当する標準実装はない。[Library Checker の実行時間順一覧](https://judge.yosupo.jp/submissions/?order=%2Btime&problem=static_range_count_distinct&status=AC) では、取得時点で [363615](https://judge.yosupo.jp/submission/363615) が 49 ms で最上位だったが、提出ソースの取得は失敗したためアルゴリズムを確認できていない。提出時間を本測定と直接比較しない。既存調査の offline Fenwick は問い合わせを先読みするため同じ API ではない（[関連記録](../../batch-three-ds.md)）。
+2026-11-17 に、順序同値を `operator<` だけで判定するオンライン問い合わせ API を維持した候補を比較した。ACL に相当する標準実装はない。[Library Checker の実行時間順一覧](https://judge.yosupo.jp/submissions/?order=%2Btime&problem=static_range_count_distinct&status=AC) の検索インデックスでは [363615](https://judge.yosupo.jp/submission/363615) が 49 ms で先頭表示されたが、現在の順位を確定できず、提出ソースも取得できなかったためアルゴリズムは不明である。提出時間を本測定と直接比較しない。[ei1333 の実装](https://ei1333.github.io/library/other/static-range-count-distinct.hpp) は値を圧縮し、問い合わせを蓄積して Fenwick tree でまとめて処理する。問い合わせを受け取って即座に返す本 API とは契約が異なり、同条件の性能比較は未実施である（[関連記録](../../batch-three-ds.md)）。
 
 変更前の map を用いる直前位置計算と、同じ WaveletMatrix を使う候補を比較した。`sort` は要素値順、同値の場合は元添字順に添字を並べる。`hybrid512` / `hybrid2048` は異なる値がそれぞれ 513 個 / 2049 個に到達した時点で添字ソートへ切り替える。`radix` は bool 以外の整数型について、符号付きの最上位ビットを反転した符号なしキーで安定 LSD radix sort を行い、それ以外は map を用いる。
 
