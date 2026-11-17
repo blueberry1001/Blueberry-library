@@ -1,0 +1,32 @@
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <random>
+#include <string>
+#include <utility>
+#include <vector>
+#include "blueberry/graph/heavy-light-decomposition.hpp"
+using namespace std;
+int main(int argc, char** argv) {
+  if (argc != 5) return 2;
+  const int n=atoi(argv[1]), q=atoi(argv[2]), edge=atoi(argv[4]);
+  const string shape=argv[3];
+  mt19937 gen(1729);
+  vector<vector<int>> g(n);
+  for (int v=1;v<n;v++) {
+    int p=shape=="path"?v-1:shape=="star"?0:shape=="balanced"?(v-1)/2:gen()%v;
+    g[v].push_back(p); g[p].push_back(v);
+  }
+  blueberry::HLD h(g);
+  vector<pair<int,int>> qs(q);
+  for (auto& [u,v]:qs) { u=gen()%n; v=gen()%n; }
+  uint64_t hash=1234, count=0;
+  auto start=chrono::steady_clock::now();
+  for (auto [u,v]:qs) {
+    h.path_query(u,v,[&](int l,int r,bool rev) { hash=hash*1000003+uint64_t(l)*31+uint64_t(r)*7+rev; ++count; },edge);
+    hash=hash*1000003+1;
+  }
+  auto stop=chrono::steady_clock::now();
+  cout<<hash<<' '<<count<<' '<<chrono::duration<double,milli>(stop-start).count()<<'\n';
+}

@@ -1,0 +1,22 @@
+#define NOMINMAX
+#include <windows.h>
+#include <psapi.h>
+#include <algorithm>
+#include <iostream>
+#include <numeric>
+#include <random>
+#include <string>
+#include <vector>
+#include "blueberry/data-structure/static-range-lis.hpp"
+int main(int argc, char** argv) {
+  int n=std::stoi(argv[1]); std::string shape=argv[2];
+  std::mt19937 rng(20261117);
+  std::vector<int> a(n); std::iota(a.begin(),a.end(),0);
+  if (shape=="random") std::shuffle(a.begin(),a.end(),rng);
+  if (shape=="reverse") std::reverse(a.begin(),a.end());
+  if (shape=="duplicate") for (int& x : a) x=static_cast<int>(rng()%8);
+  blueberry::StaticRangeLIS<int> ds(a);
+  PROCESS_MEMORY_COUNTERS m{}; m.cb=sizeof(m);
+  if (!GetProcessMemoryInfo(GetCurrentProcess(),&m,sizeof(m))) return 1;
+  std::cout << ds.lis(0,n) << ' ' << m.PeakWorkingSetSize << '\n';
+}

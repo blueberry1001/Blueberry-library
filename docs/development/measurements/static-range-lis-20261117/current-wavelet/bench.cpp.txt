@@ -1,0 +1,30 @@
+#define NOMINMAX
+#include <windows.h>
+#include <psapi.h>
+#include <algorithm>
+#include <chrono>
+#include <iostream>
+#include <numeric>
+#include <random>
+#include <string>
+#include <vector>
+#include "blueberry/data-structure/static-range-lis.hpp"
+int main(int argc, char** argv) {
+  int n=std::stoi(argv[1]),q=std::stoi(argv[2]); std::string kind=argv[3];
+  std::mt19937 rng(20261117);
+  std::vector<int> a(n); std::iota(a.begin(),a.end(),0);
+  if (kind=="random") std::shuffle(a.begin(),a.end(),rng);
+  if (kind=="reverse") std::reverse(a.begin(),a.end());
+  if (kind=="duplicate") for (int& x:a) x=static_cast<int>(rng()%8);
+  std::vector<std::pair<int,int>> queries(q);
+  for (auto& [l,r]:queries) { l=rng()%(n+1); r=rng()%(n+1); if(l>r) std::swap(l,r); }
+  auto t0=std::chrono::steady_clock::now();
+  blueberry::StaticRangeLIS<int> ds(a);
+  auto t1=std::chrono::steady_clock::now();
+  unsigned long long hash=1469598103934665603ULL;
+  for (auto [l,r]:queries) hash=(hash^static_cast<unsigned>(ds.lis(l,r)))*1099511628211ULL;
+  auto t2=std::chrono::steady_clock::now();
+  PROCESS_MEMORY_COUNTERS m{};m.cb=sizeof(m);DWORD_PTR pm=0,sm=0;
+  if (!GetProcessMemoryInfo(GetCurrentProcess(),&m,sizeof(m)) || !GetProcessAffinityMask(GetCurrentProcess(),&pm,&sm)) return 1;
+  std::cout<<hash<<' '<<std::chrono::duration<double,std::milli>(t1-t0).count()<<' '<<std::chrono::duration<double,std::milli>(t2-t1).count()<<' '<<m.PeakWorkingSetSize<<' '<<pm<<'\n';
+}

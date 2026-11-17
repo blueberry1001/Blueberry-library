@@ -1,0 +1,41 @@
+from pathlib import Path
+
+root = Path.cwd()
+out = root / '.build/matrix-tune'
+header = (root / 'blueberry/math/matrix.hpp').read_text(encoding='utf-8')
+start = header.index('  Elimination eliminate(int columns, bool reduced) {')
+end = header.index('\n  int rows_ = 0, cols_ = 0;', start)
+replacement = '''  Elimination eliminate(int columns, bool reduced) {
+    Elimination result;
+    int row = 0;
+    for (int col = 0; col < columns && row < rows_; ++col) {
+      int pivot = row;
+      while (pivot < rows_ && data_[static_cast<std::size_t>(pivot) * cols_ + col] == T{}) ++pivot;
+      if (pivot == rows_) continue;
+      T* target = data_.data() + static_cast<std::size_t>(row) * cols_;
+      if (pivot != row) {
+        T* from = data_.data() + static_cast<std::size_t>(pivot) * cols_;
+        for (int j = col; j < cols_; ++j) { using std::swap; swap(from[j], target[j]); }
+        result.determinant = -result.determinant;
+      }
+      const T diagonal = target[col], inverse = T(1) / diagonal;
+      result.determinant *= diagonal;
+      target[col] = T(1);
+      for (int j = col + 1; j < cols_; ++j) target[j] *= inverse;
+      for (int i = reduced ? 0 : row + 1; i < rows_; ++i) {
+        if (i == row) continue;
+        T* current = data_.data() + static_cast<std::size_t>(i) * cols_;
+        if (current[col] == T{}) continue;
+        const T factor = current[col];
+        current[col] = T{};
+        for (int j = col + 1; j < cols_; ++j) current[j] -= factor * target[j];
+      }
+      result.pivots.push_back(col); ++row;
+    }
+    return result;
+  }
+'''
+for name, text in [('base', header), ('pointer', header[:start] + replacement + header[end:])]:
+    dest = out / name / 'blueberry/math/matrix.hpp'
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(text, encoding='utf-8', newline='\n')

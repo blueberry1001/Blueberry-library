@@ -1,0 +1,29 @@
+import ctypes,hashlib,json,platform,statistics,subprocess,time
+from pathlib import Path
+out=Path.cwd()/'.build/lis-current-wavelet-study';k=ctypes.windll.kernel32;k.GetCurrentProcess.restype=ctypes.c_void_p;k.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)];k.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+h=k.GetCurrentProcess();pm=ctypes.c_size_t();sm=ctypes.c_size_t()
+if not k.GetProcessAffinityMask(h,ctypes.byref(pm),ctypes.byref(sm)):raise OSError('GetProcessAffinityMask')
+selected=pm.value&-pm.value
+if not k.SetProcessAffinityMask(h,selected):raise OSError('SetProcessAffinityMask')
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+rows={'status':'running','platform':platform.platform(),'processor':platform.processor(),'affinity_mask':hex(selected),'n':65536,'q':1000000,'seed':20261117,'warmups':1,'runs':9,'driver_sha256':sha(out/'bench.cpp'),'runner_sha256':sha(Path(__file__)),'headers':{v:sha(out/v/'blueberry/data-structure/static-range-lis.hpp') for v in ('baseline','final')},'wavelet_sha256':sha(out/'baseline/blueberry/data-structure/wavelet-matrix.hpp'),'samples':[]}
+dest=out/'query-results.json'
+def save():dest.write_text(json.dumps(rows,indent=2)+'\n',encoding='utf8')
+try:
+ for shape in ('random','ascending','reverse','duplicate'):
+  checksum=None
+  for run in range(-1,9):
+   for variant in (('baseline','final') if run%2 else ('final','baseline')):
+    cmd=[str(out/variant/'bench.exe'),'65536','1000000',shape];start=time.perf_counter();p=subprocess.run(cmd,capture_output=True,text=True,timeout=120);wall=1000*(time.perf_counter()-start)
+    if p.returncode:raise RuntimeError(repr((cmd,p.returncode,p.stderr)))
+    hsh,build,query,peak,mask=p.stdout.split()
+    if int(mask)!=selected:raise RuntimeError('child affinity mismatch')
+    if checksum is not None and hsh!=checksum:raise RuntimeError('checksum mismatch')
+    checksum=hsh;rows['samples'].append({'shape':shape,'run':run,'variant':variant,'hash':hsh,'build_ms':float(build),'query_ms':float(query),'peak_bytes':int(peak),'wall_ms':wall,'mask':mask});save()
+  for variant in ('baseline','final'):
+   s=[x for x in rows['samples'] if x['shape']==shape and x['run']>=0 and x['variant']==variant]
+   print(shape,variant,*(round(statistics.median(x[key] for x in s),3) for key in ('build_ms','query_ms','peak_bytes','wall_ms')),flush=True)
+ rows['status']='complete';save()
+except BaseException as e:
+ rows['status']='failed';rows['error']=repr(e);save();raise
+finally:k.SetProcessAffinityMask(h,pm.value)

@@ -1,0 +1,41 @@
+import ctypes, hashlib, json, os, platform, statistics, subprocess, sys, time
+from pathlib import Path
+root=Path.cwd(); out=root/'.build/lis-reserve-study'
+kernel=ctypes.windll.kernel32
+kernel.GetCurrentProcess.restype=ctypes.c_void_p
+kernel.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)]
+kernel.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+handle=kernel.GetCurrentProcess(); process_mask=ctypes.c_size_t(); system_mask=ctypes.c_size_t()
+if not kernel.GetProcessAffinityMask(handle,ctypes.byref(process_mask),ctypes.byref(system_mask)): raise OSError('GetProcessAffinityMask')
+chosen=process_mask.value & -process_mask.value
+if not kernel.SetProcessAffinityMask(handle,chosen): raise OSError('SetProcessAffinityMask')
+sha=lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
+variants=['baseline','child','product','both']
+rows={'status':'running','platform':platform.platform(),'processor':platform.processor(),'affinity_mask':hex(chosen),'original_mask':hex(process_mask.value),'compiler':'Android NDK Clang 18.0.3 / MSVC ABI','flags':['--target=x86_64-pc-windows-msvc','-std=gnu++20','-O2','-DNDEBUG'],'seed':20261117,'warmups':1,'runs':5,'rss':'unmeasured','bench_sha256':sha(out/'bench.cpp'),'runner_sha256':sha(Path(__file__)),'headers':{v:sha(out/v/'blueberry/data-structure/static-range-lis.hpp') for v in variants},'wavelet_sha256':sha(out/'baseline/blueberry/data-structure/wavelet-matrix.hpp'),'samples':[]}
+dest=out/'results.json'
+def save(): dest.write_text(json.dumps(rows,indent=2)+'\n',encoding='utf8')
+try:
+ for n in (16384,65536):
+  for shape in ('random','ascending','reverse','duplicate'):
+   checksum=None
+   for run in range(-1,5):
+    seq=variants[run%4:]+variants[:run%4]
+    if run%2: seq.reverse()
+    for name in seq:
+     cmd=[str(out/name/'bench.exe'),str(n),'20000',shape]
+     start=time.perf_counter(); p=subprocess.run(cmd,capture_output=True,text=True,timeout=120); wall=(time.perf_counter()-start)*1000
+     if p.returncode: raise RuntimeError(repr((cmd,p.returncode,p.stderr)))
+     fields=p.stdout.split()
+     if len(fields)!=3: raise RuntimeError(repr((cmd,p.stdout)))
+     if checksum is not None and checksum!=fields[0]: raise RuntimeError('checksum mismatch')
+     checksum=fields[0]
+     rows['samples'].append({'n':n,'shape':shape,'run':run,'variant':name,'hash':checksum,'build_ms':float(fields[1]),'query_ms':float(fields[2]),'wall_ms':wall})
+     save()
+   for name in variants:
+    v=[s for s in rows['samples'] if s['run']>=0 and s['n']==n and s['shape']==shape and s['variant']==name]
+    print(n,shape,name,round(statistics.median(x['build_ms'] for x in v),3),round(statistics.median(x['query_ms'] for x in v),3),flush=True)
+ rows['status']='complete'; save()
+except BaseException as e:
+ rows['status']='failed'; rows['error']=repr(e); save(); raise
+finally:
+ kernel.SetProcessAffinityMask(handle,process_mask.value)

@@ -1,0 +1,23 @@
+#include <atcoder/modint>
+#include <chrono>
+#include <cstdint>
+#include <iostream>
+#include <random>
+#include <string>
+#include <vector>
+#include "blueberry/math/matrix.hpp"
+using M=atcoder::modint998244353;
+int main(int argc,char**argv){
+  int n=std::stoi(argv[1]);std::string op=argv[2],shape=argv[3];std::mt19937 rng(1729);
+  blueberry::Matrix<M> a(n,n);std::vector<M>b(n);
+  for(int i=0;i<n;++i)for(int j=0;j<n;++j)a(i,j)=shape=="triangular"&&i>j?0:rng();
+  if(shape=="singular") for(int j=0;j<n;++j) a(n-1,j)=a(0,j);
+  for(auto&x:b)x=rng();
+  auto start=std::chrono::steady_clock::now();std::uint64_t hash=0;
+  if(op=="det")hash=a.det().val();
+  if(op=="rank")hash=a.rank();
+  if(op=="inv"){auto x=a.inv();hash=x.has_value();if(x)for(int i=0;i<n;++i)for(int j=0;j<n;++j)hash=hash*1000003+(*x)(i,j).val();}
+  if(op=="solve"){auto x=a.solve(b);hash=x.has_value();if(x){for(auto v:x->particular)hash=hash*1000003+v.val();for(auto&d:x->basis)for(auto v:d)hash=hash*1000003+v.val();}}
+  auto ns=std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-start).count();
+  std::cout<<"{\"n\":"<<n<<",\"op\":\""<<op<<"\",\"shape\":\""<<shape<<"\",\"ns\":"<<ns<<",\"hash\":"<<hash<<"}\n";
+}

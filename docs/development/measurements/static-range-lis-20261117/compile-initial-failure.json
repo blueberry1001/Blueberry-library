@@ -1,0 +1,38 @@
+[
+  {
+    "variant": "baseline",
+    "target": "bench",
+    "command": [
+      "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+      "--target=x86_64-pc-windows-msvc",
+      "-fuse-ld=link",
+      "-std=gnu++20",
+      "-O2",
+      "-DNDEBUG",
+      "-IC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\lis-reserve-study\\baseline",
+      "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\lis-reserve-study\\bench.cpp",
+      "-o",
+      "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\lis-reserve-study\\baseline\\bench.exe"
+    ],
+    "returncode": 0,
+    "stderr": ""
+  },
+  {
+    "variant": "baseline",
+    "target": "test",
+    "command": [
+      "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+      "--target=x86_64-pc-windows-msvc",
+      "-fuse-ld=link",
+      "-std=gnu++20",
+      "-O2",
+      "-UNDEBUG",
+      "-IC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\lis-reserve-study\\baseline",
+      "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\tests\\random\\static-range-lis.cpp",
+      "-o",
+      "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\lis-reserve-study\\baseline\\test.exe"
+    ],
+    "returncode": 1,
+    "stderr": "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\tests\\random\\static-range-lis.cpp:17:41: error: no member named 'stoul' in namespace 'std'\n   17 |   const unsigned seed = argc > 1 ? std::stoul(argv[1]) : 1;\n      |                                    ~~~~~^\n1 error generated.\n"
+  }
+]

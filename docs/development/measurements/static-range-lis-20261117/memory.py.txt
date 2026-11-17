@@ -1,0 +1,41 @@
+import ctypes, hashlib, json, os, platform, statistics, subprocess, time
+from pathlib import Path
+root=Path.cwd(); out=root/'.build/lis-reserve-study'
+vc=Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk=Path(r'C:\Program Files (x86)\Windows Kits\10'); ver='10.0.22621.0'
+compiler=Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env=os.environ.copy(); env['PATH']=str(vc/'bin/Hostx64/x64')+os.pathsep+env['PATH']
+env['INCLUDE']=os.pathsep.join(map(str,[vc/'include',*(sdk/'Include'/ver/p for p in ('ucrt','shared','um'))]))
+env['LIB']=os.pathsep.join(map(str,[vc/'lib/x64',*(sdk/'Lib'/ver/p/'x64' for p in ('ucrt','um'))]))
+rows={'status':'running','platform':platform.platform(),'compiler':str(compiler),'flags':['--target=x86_64-pc-windows-msvc','-std=gnu++20','-O2','-DNDEBUG','-lpsapi'],'n':65536,'seed':20261117,'runs':3,'compilation':[],'samples':[]}
+dest=out/'memory.json'
+def save(): dest.write_text(json.dumps(rows,indent=2)+'\n',encoding='utf8')
+try:
+ for name in ('baseline','both'):
+  cmd=[str(compiler),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2','-DNDEBUG','-I'+str(out/name),str(out/'memory.cpp'),'-lpsapi','-o',str(out/name/'memory.exe')]
+  p=subprocess.run(cmd,env=env,capture_output=True,text=True,errors='replace')
+  rows['compilation'].append({'name':name,'command':cmd,'returncode':p.returncode,'stderr':p.stderr});save()
+  if p.returncode: raise RuntimeError('compile failed')
+ kernel=ctypes.windll.kernel32; kernel.GetCurrentProcess.restype=ctypes.c_void_p
+ kernel.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)]
+ kernel.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+ handle=kernel.GetCurrentProcess(); pm=ctypes.c_size_t();sm=ctypes.c_size_t()
+ if not kernel.GetProcessAffinityMask(handle,ctypes.byref(pm),ctypes.byref(sm)): raise OSError('GetProcessAffinityMask')
+ chosen=pm.value & -pm.value
+ if not kernel.SetProcessAffinityMask(handle,chosen): raise OSError('SetProcessAffinityMask')
+ rows['affinity_mask']=hex(chosen); rows['source_sha256']=hashlib.sha256((out/'memory.cpp').read_bytes()).hexdigest()
+ for shape in ('random','ascending','reverse','duplicate'):
+  answer=None
+  for run in range(3):
+   for name in (('baseline','both') if run%2 else ('both','baseline')):
+    p=subprocess.run([str(out/name/'memory.exe'),'65536',shape],capture_output=True,text=True,timeout=120)
+    if p.returncode: raise RuntimeError(repr((shape,name,p.returncode,p.stderr)))
+    a,peak=map(int,p.stdout.split())
+    if answer is not None and a!=answer: raise RuntimeError('answer mismatch')
+    answer=a; rows['samples'].append({'name':name,'shape':shape,'run':run,'answer':a,'peak_working_set_bytes':peak});save()
+  for name in ('baseline','both'):
+   print(shape,name,statistics.median(s['peak_working_set_bytes'] for s in rows['samples'] if s['name']==name and s['shape']==shape),flush=True)
+ kernel.SetProcessAffinityMask(handle,pm.value)
+ rows['status']='complete';save()
+except BaseException as e:
+ rows['status']='failed';rows['error']=repr(e);save();raise
