@@ -1,0 +1,52 @@
+{
+  "status": "failed",
+  "system": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "note": "Unpinned; other sessions may run concurrently. Timing includes construction of solver adjacency and result, excludes input generation and result validation. Nyaan includes conversion to adjacency lists; all variants must have the same answer size. Peak working set is process-wide.",
+  "runs": 5,
+  "warmups": 1,
+  "sources": {
+    "baseline": "4fc7145c447731400a0bfeff6fd295c7e27e2a60db75777637119d195f65b95d",
+    "components": "0a47e0a0f49e9ca5075efee4e988abca1b0a2312df273fa4d4a335dadc31204e",
+    "components-budget17": "aa2fe3fe616de47ce9b3c8a7143b90c036be1fa339def5069ec2181781234dae",
+    "components-budget18": "98fdfa4876856824f90f7315883884642354ef13b658751f7e1dac4c4977d502",
+    "components-budget20": "f3e927b95efe62ae8b5f23ca4609bb32b2cc0107b0897af20976263570adcab0",
+    "components-popcnt-cached": "324c3d15caee5348d9f0cab96facc17991094f3806b438346fd878cbca8b89c8",
+    "nyaan": "7615435ba7d8c09dcc503bf9cae47eb3656e667f567504d0a1b60784e70c4cf1"
+  },
+  "driver_sha256": "08852538ce863930e5801aa8374d43363a328efa81e2b8b9d5790a9804d5175c",
+  "test_sha256": "082c840eea1e641c142cef073b3aea6729ae0fbc670e2925613b7c409679685a",
+  "tests": [
+    {
+      "compiler": "clang",
+      "exit": 1,
+      "output": ""
+    }
+  ],
+  "builds": [
+    {
+      "compiler": "clang",
+      "variant": "components-budget18",
+      "release": false,
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-components-budget18-test",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\find-fallback.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-components-budget18-test\\run.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "output": ""
+    }
+  ],
+  "samples": [],
+  "error": "RuntimeError('no fallback candidate or failed test')"
+}

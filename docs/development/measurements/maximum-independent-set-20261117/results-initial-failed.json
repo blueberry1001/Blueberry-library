@@ -1,0 +1,442 @@
+{
+  "status": "failed",
+  "system": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "note": "Unpinned; other sessions may run concurrently. Timing includes construction of solver adjacency and result, excludes input generation and result validation. Nyaan includes conversion to adjacency lists; all variants must have the same answer size. Peak working set is process-wide.",
+  "runs": 3,
+  "warmups": 1,
+  "sources": {
+    "baseline": "4fc7145c447731400a0bfeff6fd295c7e27e2a60db75777637119d195f65b95d",
+    "packed": "8476ded55d1ab9343a8f5796a64b6af0124410e365f4e9ae77e8150edd4faec4",
+    "branch10": "5f3a01ea6d96b2933450bb41c82e657b4c301db864fc121833bee056b1f203dc",
+    "branch12": "be67b00c5b51b2814c9e465936d694bf47676b9e49feb5c95596c1541fd260b3",
+    "branch14": "7e5c04e10baf14b8d2bf0342caa8773bec33ea2d6a3e0ebf54a971abc9d1b7f7",
+    "branch16": "397318be5b21042c12e10e70fa97250b31ae09a4f8394c773f61be407fc74c65",
+    "nyaan": "7615435ba7d8c09dcc503bf9cae47eb3656e667f567504d0a1b60784e70c4cf1"
+  },
+  "driver_sha256": "d8467e4bbce9fec40e82e7616e3c3779c1cb325ee09859039c8de10c506aa28c",
+  "test_sha256": "7bdf77276ac0d415858ce04df9534e3ab97082070c30eac890108627c11e1334",
+  "tests": [
+    {
+      "compiler": "msvc",
+      "variant": "baseline",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "packed",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "branch10",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "branch12",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "branch14",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "branch16",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "baseline",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "packed",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "branch10",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "branch12",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "branch14",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "branch16",
+      "seed": 1,
+      "exit": 0,
+      "output": "passed seed=1\n"
+    }
+  ],
+  "builds": [
+    {
+      "compiler": "msvc",
+      "variant": "baseline",
+      "release": false,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-baseline-test",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-baseline-test\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-baseline-test\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "test.cpp\nC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp(29): warning C4334: '<<': 32 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6e\u90a8\u5148\u68e1\u7e3a\u68a7\u56d3\u9b9f\u548f\u566a\u7e3a\uff6b 64 \u7e5d\u8599\u30e3\u7e5d\u533b\u2193\u879f\u753b\u92e4\u7e3a\u8f14\uff4c\u7e3a\uff7e\u7e3a\u52b1\u25c6 (64 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6b\u8ae2\u4e1e\u5cd9\u9027\ufffd\u7e3a\uff6b\u879f\u753b\u92e4\u7e3a\u52b1\uff48\u7e3a\ufffd\u7e3a\uff68\u7e3a\u52b1\u222a\u7e3a\u52b1\u25c6\u7e3a\ufffd?)\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "packed",
+      "release": false,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-packed-test",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-packed-test\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-packed-test\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "test.cpp\nC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp(29): warning C4334: '<<': 32 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6e\u90a8\u5148\u68e1\u7e3a\u68a7\u56d3\u9b9f\u548f\u566a\u7e3a\uff6b 64 \u7e5d\u8599\u30e3\u7e5d\u533b\u2193\u879f\u753b\u92e4\u7e3a\u8f14\uff4c\u7e3a\uff7e\u7e3a\u52b1\u25c6 (64 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6b\u8ae2\u4e1e\u5cd9\u9027\ufffd\u7e3a\uff6b\u879f\u753b\u92e4\u7e3a\u52b1\uff48\u7e3a\ufffd\u7e3a\uff68\u7e3a\u52b1\u222a\u7e3a\u52b1\u25c6\u7e3a\ufffd?)\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "branch10",
+      "release": false,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch10-test",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch10-test\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch10-test\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "test.cpp\nC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp(29): warning C4334: '<<': 32 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6e\u90a8\u5148\u68e1\u7e3a\u68a7\u56d3\u9b9f\u548f\u566a\u7e3a\uff6b 64 \u7e5d\u8599\u30e3\u7e5d\u533b\u2193\u879f\u753b\u92e4\u7e3a\u8f14\uff4c\u7e3a\uff7e\u7e3a\u52b1\u25c6 (64 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6b\u8ae2\u4e1e\u5cd9\u9027\ufffd\u7e3a\uff6b\u879f\u753b\u92e4\u7e3a\u52b1\uff48\u7e3a\ufffd\u7e3a\uff68\u7e3a\u52b1\u222a\u7e3a\u52b1\u25c6\u7e3a\ufffd?)\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "branch12",
+      "release": false,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch12-test",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch12-test\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch12-test\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "test.cpp\nC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp(29): warning C4334: '<<': 32 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6e\u90a8\u5148\u68e1\u7e3a\u68a7\u56d3\u9b9f\u548f\u566a\u7e3a\uff6b 64 \u7e5d\u8599\u30e3\u7e5d\u533b\u2193\u879f\u753b\u92e4\u7e3a\u8f14\uff4c\u7e3a\uff7e\u7e3a\u52b1\u25c6 (64 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6b\u8ae2\u4e1e\u5cd9\u9027\ufffd\u7e3a\uff6b\u879f\u753b\u92e4\u7e3a\u52b1\uff48\u7e3a\ufffd\u7e3a\uff68\u7e3a\u52b1\u222a\u7e3a\u52b1\u25c6\u7e3a\ufffd?)\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "branch14",
+      "release": false,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch14-test",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch14-test\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch14-test\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "test.cpp\nC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp(29): warning C4334: '<<': 32 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6e\u90a8\u5148\u68e1\u7e3a\u68a7\u56d3\u9b9f\u548f\u566a\u7e3a\uff6b 64 \u7e5d\u8599\u30e3\u7e5d\u533b\u2193\u879f\u753b\u92e4\u7e3a\u8f14\uff4c\u7e3a\uff7e\u7e3a\u52b1\u25c6 (64 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6b\u8ae2\u4e1e\u5cd9\u9027\ufffd\u7e3a\uff6b\u879f\u753b\u92e4\u7e3a\u52b1\uff48\u7e3a\ufffd\u7e3a\uff68\u7e3a\u52b1\u222a\u7e3a\u52b1\u25c6\u7e3a\ufffd?)\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "branch16",
+      "release": false,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch16-test",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch16-test\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch16-test\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "test.cpp\nC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp(29): warning C4334: '<<': 32 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6e\u90a8\u5148\u68e1\u7e3a\u68a7\u56d3\u9b9f\u548f\u566a\u7e3a\uff6b 64 \u7e5d\u8599\u30e3\u7e5d\u533b\u2193\u879f\u753b\u92e4\u7e3a\u8f14\uff4c\u7e3a\uff7e\u7e3a\u52b1\u25c6 (64 \u7e5d\u8599\u30e3\u7e5d\ufffd \u7e67\uff77\u7e5d\u8f14\u30e8\u7e3a\uff6b\u8ae2\u4e1e\u5cd9\u9027\ufffd\u7e3a\uff6b\u879f\u753b\u92e4\u7e3a\u52b1\uff48\u7e3a\ufffd\u7e3a\uff68\u7e3a\u52b1\u222a\u7e3a\u52b1\u25c6\u7e3a\ufffd?)\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "baseline",
+      "release": false,
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-baseline-test",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-baseline-test\\run.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "output": "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp:26:81: warning: comparison of integers of different signs: 'result_type' (aka 'unsigned long long') and 'int' [-Wsign-compare]\n   26 |     for (int u = 0; u < n; ++u) for (int v = u + 1; v < n; ++v) if (rng() % 100 < density) {\n      |                                                                     ~~~~~~~~~~~ ^ ~~~~~~~\n1 warning generated.\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "packed",
+      "release": false,
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-packed-test",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-packed-test\\run.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "output": "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp:26:81: warning: comparison of integers of different signs: 'result_type' (aka 'unsigned long long') and 'int' [-Wsign-compare]\n   26 |     for (int u = 0; u < n; ++u) for (int v = u + 1; v < n; ++v) if (rng() % 100 < density) {\n      |                                                                     ~~~~~~~~~~~ ^ ~~~~~~~\n1 warning generated.\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "branch10",
+      "release": false,
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-branch10-test",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-branch10-test\\run.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "output": "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp:26:81: warning: comparison of integers of different signs: 'result_type' (aka 'unsigned long long') and 'int' [-Wsign-compare]\n   26 |     for (int u = 0; u < n; ++u) for (int v = u + 1; v < n; ++v) if (rng() % 100 < density) {\n      |                                                                     ~~~~~~~~~~~ ^ ~~~~~~~\n1 warning generated.\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "branch12",
+      "release": false,
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-branch12-test",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-branch12-test\\run.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "output": "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp:26:81: warning: comparison of integers of different signs: 'result_type' (aka 'unsigned long long') and 'int' [-Wsign-compare]\n   26 |     for (int u = 0; u < n; ++u) for (int v = u + 1; v < n; ++v) if (rng() % 100 < density) {\n      |                                                                     ~~~~~~~~~~~ ^ ~~~~~~~\n1 warning generated.\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "branch14",
+      "release": false,
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-branch14-test",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-branch14-test\\run.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "output": "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp:26:81: warning: comparison of integers of different signs: 'result_type' (aka 'unsigned long long') and 'int' [-Wsign-compare]\n   26 |     for (int u = 0; u < n; ++u) for (int v = u + 1; v < n; ++v) if (rng() % 100 < density) {\n      |                                                                     ~~~~~~~~~~~ ^ ~~~~~~~\n1 warning generated.\n"
+    },
+    {
+      "compiler": "clang",
+      "variant": "branch16",
+      "release": false,
+      "command": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wall",
+        "-Wextra",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-branch16-test",
+        "-IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp",
+        "-o",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\clang-branch16-test\\run.exe",
+        "-lpsapi"
+      ],
+      "exit": 0,
+      "output": "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\test.cpp:26:81: warning: comparison of integers of different signs: 'result_type' (aka 'unsigned long long') and 'int' [-Wsign-compare]\n   26 |     for (int u = 0; u < n; ++u) for (int v = u + 1; v < n; ++v) if (rng() % 100 < density) {\n      |                                                                     ~~~~~~~~~~~ ^ ~~~~~~~\n1 warning generated.\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "baseline",
+      "release": true,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-baseline-bench",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "/DNDEBUG",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\bench.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-baseline-bench\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-baseline-bench\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "bench.cpp\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "packed",
+      "release": true,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-packed-bench",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "/DNDEBUG",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\bench.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-packed-bench\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-packed-bench\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 0,
+      "output": "bench.cpp\n"
+    },
+    {
+      "compiler": "msvc",
+      "variant": "branch10",
+      "release": true,
+      "command": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\2022\\BuildTools\\VC\\Tools\\MSVC\\14.43.34808\\bin\\Hostx64\\x64\\cl.exe",
+        "/nologo",
+        "/std:c++20",
+        "/EHsc",
+        "/O2",
+        "/W3",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch10-bench",
+        "/IC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117",
+        "/DNDEBUG",
+        "C:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\bench.cpp",
+        "/FoC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch10-bench\\run.obj",
+        "/FeC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch10-bench\\run.exe",
+        "/link",
+        "Psapi.lib"
+      ],
+      "exit": 2,
+      "output": "bench.cpp\nC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch10-bench\\candidate.hpp(13): error C2589: '(': \u7e67\uff79\u7e67\uff73\u7e5d\uff7c\u7e5d\u82d3\uff67\uff63\u8c4e\uff7a\u8c8d\u76ae\uff6e\u601c\uff6d\ufffd (::) \u7e3a\uff6e\u873f\uff73\u86db\uff74\u7e3a\uff6b\u7e3a\u3085\uff4b\u7e5d\u533b\ufffd\uff7c\u7e67\uff6f\u7e5d\uff73\u7e3a\uff6f\u83f4\uff7f\u7e3a\u533b\u222a\u7e3a\u5e19\uff53\u7e32\ufffd\nC:\\Users\\kubar\\.codex\\visualizations\\2026\\11\\14\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\mis-research-20261117\\build\\msvc-branch10-bench\\candidate.hpp(13): error C2059: \u8b92\u533a\u679a\u7e67\uff68\u7e5d\uff69\u7e5d\uff7c: ')'\n"
+    }
+  ],
+  "samples": [],
+  "error": "RuntimeError('compile failed: msvc branch10 C:\\\\Users\\\\kubar\\\\.codex\\\\visualizations\\\\2026\\\\11\\\\14\\\\01a1da4f-6f9a-79b0-a15e-de0c33838c09\\\\mis-research-20261117\\\\bench.cpp')"
+}
