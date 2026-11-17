@@ -1,0 +1,55 @@
+import ctypes
+import hashlib
+import json
+import os
+import platform
+from pathlib import Path
+import statistics
+import subprocess
+import sys
+
+root = Path(__file__).resolve().parents[4]
+work = Path(__file__).resolve().parent
+vc = Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = Path(r'C:\Program Files (x86)\Windows Kits\10')
+version = '10.0.22621.0'
+compiler = Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str, [vc / 'include', *(sdk / 'Include' / version / p for p in ('ucrt', 'shared', 'um'))]))
+env['LIB'] = os.pathsep.join(map(str, [vc / 'lib/x64', *(sdk / 'Lib' / version / p / 'x64' for p in ('ucrt', 'um'))]))
+exe = work / 'bench.exe'
+if '--build' in sys.argv:
+    subprocess.run([sys.executable, str(work / 'prepare.py.txt')], check=True)
+    cmd = [str(compiler), '--target=x86_64-pc-windows-msvc', '-fuse-ld=link', '-std=gnu++20', '-O2', '-DNDEBUG', '-I'+str(root), '-isystem', str(root / '.deps/ac-library'), '-x', 'c++', str(work / 'final-bench.cpp.txt'), '-lpsapi', '-o', str(exe)]
+    compiled = subprocess.run(cmd, env=env, capture_output=True, text=True)
+    (work / 'build-final.json').write_text(json.dumps({'command':cmd,'returncode':compiled.returncode,'stdout':compiled.stdout,'stderr':compiled.stderr}, indent=2)+'\n', encoding='utf-8')
+    compiled.check_returncode()
+    print(' '.join(cmd))
+    sys.exit()
+kernel = ctypes.windll.kernel32
+kernel.GetCurrentProcess.restype = ctypes.c_void_p
+kernel.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+kernel.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+p = kernel.GetCurrentProcess(); mask = ctypes.c_size_t(); system = ctypes.c_size_t()
+if not kernel.GetProcessAffinityMask(p, ctypes.byref(mask), ctypes.byref(system)): raise OSError('GetProcessAffinityMask failed')
+one = mask.value & -mask.value
+if not kernel.SetProcessAffinityMask(p, one): raise OSError('SetProcessAffinityMask failed')
+cases = [(bits, 5 if bits <= 14 else 2 if bits == 16 else 1, typ) for typ in (0,1) for bits in (8,12,14,16,18)]
+results = []
+for case in cases:
+    bits, reps, typ = case
+    variants = range(2)
+    data = {v: [] for v in variants}; checksum = None
+    for sample in range(22):
+        for v in (list(variants) if sample % 2 == 0 else list(variants)[::-1]):
+            out = subprocess.check_output([str(exe), str(v), str(bits), str(reps), str(typ)], text=True).split()
+            elapsed, check, peak = float(out[0]), int(out[1]), int(out[2])
+            if checksum is None: checksum = check
+            if checksum != check: raise RuntimeError(f'checksum mismatch {case} {v}')
+            if sample: data[v].append({'ms': elapsed, 'peak_bytes': peak})
+    for v, values in data.items():
+        results.append({'bits':bits, 'reps':reps, 'type':typ, 'variant':v, 'checksum':checksum, 'samples':values, 'median_ms':statistics.median(x['ms'] for x in values), 'min_ms':min(x['ms'] for x in values)})
+        print(case, v, results[-1]['median_ms'], results[-1]['min_ms'], flush=True)
+record = {'platform':platform.platform(), 'processor':platform.processor(), 'compiler':subprocess.check_output([str(compiler), '--version'],text=True).splitlines()[0], 'flags':['--target=x86_64-pc-windows-msvc','-std=gnu++20','-O2','-DNDEBUG'], 'affinity':hex(one), 'warmups':1, 'samples':21, 'scope':'Input generation excluded; vector allocation, convolution, indexed output use and destruction included.', 'hashes':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in (work/'final-bench.cpp.txt',work/'baseline.hpp.txt',root/'blueberry/math/subset-convolution.hpp',exe)}, 'results':results}
+(work / 'focus-results.json').write_text(json.dumps(record, indent=2)+'\n', encoding='utf-8')

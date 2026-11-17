@@ -1,0 +1,54 @@
+#define NOMINMAX
+#include <windows.h>
+#include <psapi.h>
+#include <atcoder/modint>
+#include <algorithm>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <vector>
+#include "baseline.hpp"
+#include "blueberry/math/subset-convolution.hpp"
+
+template<class T>
+std::vector<T> direct(const std::vector<T>& a, const std::vector<T>& b) {
+  std::vector<T> c(a.size());
+  for (std::size_t mask = 0; mask < a.size(); ++mask) {
+    T x{};
+    for (std::size_t part = mask;; part = (part - 1) & mask) {
+      x += a[part] * b[mask ^ part];
+      if (!part) break;
+    }
+    c[mask] = x;
+  }
+  return c;
+}
+std::uint64_t val(std::uint32_t x) { return x; }
+std::uint64_t val(atcoder::modint998244353 x) { return x.val(); }
+template<class T>
+int run(int variant, int bits, int reps) {
+  std::size_t n = std::size_t(1) << bits;
+  std::uint64_t state = 71236721;
+  std::vector<T> a(n), b(n);
+  for (std::size_t i = 0; i < n; ++i) {
+    state ^= state << 7; state ^= state >> 9; a[i] = T(state % 10000);
+    state ^= state << 7; state ^= state >> 9; b[i] = T(state % 10000);
+  }
+  std::uint64_t sum = 0;
+  auto start = std::chrono::steady_clock::now();
+  for (int k = 0; k < reps; ++k) {
+    auto c = variant == 0 ? baseline::subset_convolution(a, b) : variant == 1 ? blueberry::subset_convolution(a, b) : direct(a,b);
+    sum += val(c[(k * 137ull) % n]);
+  }
+  auto stop = std::chrono::steady_clock::now();
+  PROCESS_MEMORY_COUNTERS info{};
+  if (!GetProcessMemoryInfo(GetCurrentProcess(), &info, sizeof(info))) return 2;
+  std::cout << std::chrono::duration<double, std::milli>(stop - start).count() << ' ' << sum << ' ' << info.PeakWorkingSetSize << '\n';
+  return 0;
+}
+int main(int argc, char** argv) {
+  if (argc != 5) return 2;
+  int variant = std::atoi(argv[1]), bits = std::atoi(argv[2]), reps = std::atoi(argv[3]), type = std::atoi(argv[4]);
+  return type ? run<atcoder::modint998244353>(variant, bits, reps) : run<std::uint32_t>(variant, bits, reps);
+}

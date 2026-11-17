@@ -13,6 +13,22 @@
 
 using Mint = atcoder::modint998244353;
 using Small = atcoder::static_modint<3>;
+struct Ring {
+  int value = 0;
+  Ring() = default;
+  explicit Ring(int v): value(v) {}
+  Ring& operator+=(const Ring& x) { value += x.value; return *this; }
+  Ring& operator-=(const Ring& x) { value -= x.value; return *this; }
+  friend Ring operator*(const Ring& a, const Ring& b) { return Ring(a.value * b.value); }
+};
+struct MutableRing {
+  int value = 0;
+  MutableRing() = default;
+  explicit MutableRing(int v): value(v) {}
+  MutableRing& operator+=(const MutableRing& x) { value += x.value; return *this; }
+  MutableRing& operator-=(const MutableRing& x) { value -= x.value; return *this; }
+  friend MutableRing operator*(MutableRing& a, MutableRing& b) { return MutableRing(a.value * b.value); }
+};
 unsigned long long seed;
 int trial;
 void check(bool ok, const char* what) {
@@ -39,8 +55,46 @@ int main(int argc,char** argv) {
   check(blueberry::bitwise_convolution_and(signed_a,signed_b)==signed_and,"signed ring and");
   check(blueberry::bitwise_convolution_or(signed_a,signed_b)==signed_or,"signed ring or");
   check(blueberry::subset_convolution(signed_a,signed_b)==signed_subset,"signed ring subset");
+  for (int bits : {0, 1, 6, 7, 8}) {
+    int n=1<<bits; std::vector<Ring> a(n),b(n);
+    for (int i=0;i<n;++i) { a[i]=Ring(int(rng()%5)-2); b[i]=Ring(int(rng()%5)-2); }
+    for (int same=0;same<2;++same) {
+      const auto& other = same ? a : b;
+      auto got=blueberry::subset_convolution(a,other);
+      for (int mask=0;mask<n;++mask) {
+        int expected=0;
+        for (int part=mask;;part=(part-1)&mask) {
+          expected+=a[part].value*other[mask^part].value;
+          if (!part) break;
+        }
+        check(got[mask].value==expected,"subset custom ring and cutoff");
+      }
+    }
+  }
+  for (int bits : {0, 1, 6, 7, 8}) {
+    int n=1<<bits; std::vector<MutableRing> a(n),b(n);
+    for (int i=0;i<n;++i) { a[i]=MutableRing(int(rng()%5)-2); b[i]=MutableRing(int(rng()%5)-2); }
+    for (int same=0;same<2;++same) {
+      const auto& other = same ? a : b;
+      auto got=blueberry::subset_convolution(a,other);
+      for (int mask=0;mask<n;++mask) {
+        int expected=0;
+        for (int part=mask;;part=(part-1)&mask) {
+          expected+=a[part].value*other[mask^part].value;
+          if (!part) break;
+        }
+        check(got[mask].value==expected,"subset mutable multiplication fallback");
+      }
+    }
+  }
   check(blueberry::bitwise_convolution_xor(std::vector<Small>{1,2},std::vector<Small>{2,1})==std::vector<Small>({1,2}),"xor characteristic three");
   using Binary=atcoder::static_modint<2>;
+  for (int bits : {7, 8}) {
+    int n=1<<bits; std::vector<Binary> a(n),b(n),expected(n);
+    for (int i=0;i<n;++i) { a[i]=rng()%2; b[i]=rng()%2; }
+    for (int x=0;x<n;++x) for (int y=0;y<n;++y) if (!(x&y)) expected[x|y]+=a[x]*b[y];
+    check(blueberry::subset_convolution(a,b)==expected,"subset characteristic two cutoff");
+  }
   blueberry::Matrix<Binary> binary(2,2);
   binary(0,1)=1;binary(1,0)=1;binary(1,1)=1;
   check(binary.det()==Binary(1)&&binary.rank()==2&&binary.inv().has_value(),"characteristic two field");
