@@ -1,0 +1,43 @@
+import ctypes
+import os
+from pathlib import Path
+import statistics
+import subprocess
+import sys
+
+root = Path.cwd()
+work = root / '.build/bm-pilot'
+vc = Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = Path(r'C:\Program Files (x86)\Windows Kits\10')
+version = '10.0.22621.0'
+compiler = Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str, [vc / 'include', *(sdk / 'Include' / version / p for p in ('ucrt', 'shared', 'um'))]))
+env['LIB'] = os.pathsep.join(map(str, [vc / 'lib/x64', *(sdk / 'Lib' / version / p / 'x64' for p in ('ucrt', 'um'))]))
+exe = work / 'bench.exe'
+if '--build' in sys.argv:
+    subprocess.run([sys.executable,str(work/'prepare.py')],check=True)
+    print(subprocess.check_output([str(compiler), '--version'], text=True).splitlines()[0])
+    cmd=[str(compiler),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2','-DNDEBUG','-iquote',str(root),'-isystem',str(root/'.deps/ac-library'),str(work/'bench.cpp'),'-o',str(exe)]
+    print(subprocess.list2cmdline(cmd),flush=True)
+    subprocess.run(cmd,env=env,check=True)
+    for kind in range(5): subprocess.run([str(exe),'2','200',str(kind)],check=True)
+    sys.exit()
+ctypes.windll.kernel32.GetCurrentProcess.restype=ctypes.c_void_p
+ctypes.windll.kernel32.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)]
+ctypes.windll.kernel32.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+proc=ctypes.windll.kernel32.GetCurrentProcess(); mask=ctypes.c_size_t(); system=ctypes.c_size_t()
+if ctypes.windll.kernel32.GetProcessAffinityMask(proc,ctypes.byref(mask),ctypes.byref(system)):
+    print('affinity',hex(mask.value & -mask.value),'set',ctypes.windll.kernel32.SetProcessAffinityMask(proc,mask.value & -mask.value),flush=True)
+else: print('affinity unavailable',flush=True)
+for n,repeat in [(16,2000),(128,100),(1024,5),(4096,1),(10000,1)]:
+    for kind in range(5):
+        values={0:[],1:[],3:[]}; checks=set()
+        for sample in range(6):
+            for variant in ((0,1,3) if sample%2==0 else (3,1,0)):
+                out=subprocess.check_output([str(exe),str(variant),str(n),str(kind),str(repeat)],text=True).split()
+                val=float(out[0]);checks.add(out[1]);print('sample',n,repeat,kind,variant,sample,val,out[1],flush=True)
+                if sample: values[variant].append(val)
+        if len(checks)!=1: raise RuntimeError('checksum mismatch')
+        print('summary',n,repeat,kind,'median',*[statistics.median(values[v]) for v in (0,1,3)],'range',*[str((min(values[v]),max(values[v]))) for v in (0,1,3)],flush=True)
