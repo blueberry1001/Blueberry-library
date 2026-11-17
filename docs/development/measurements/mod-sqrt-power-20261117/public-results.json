@@ -1,0 +1,2383 @@
+{
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "compiler": "Clang 18 MSVC ABI",
+    "flags": "-std=gnu++20 -O2 -DNDEBUG",
+    "affinity": "0x1",
+    "original_affinity": "0xffffff",
+    "count": 4096,
+    "repeat": 20,
+    "warmups": 1,
+    "runs": 7,
+    "seed": 20261117
+  },
+  "source_sha256": {
+    "baseline-original.hpp.txt": "101141bf29b7a4b6f1cae9fafd6f5cda3181053c4517f2c78caf67031184f6ca",
+    "baseline.hpp.txt": "4e63d7b7f1bb822df23b8aec36c259bf7a11f4994f7449b94d91b48f41277cd6",
+    "candidate.hpp.txt": "9eaab59cc8ebb1370f80f794e9d799c65639e45b4de3656a0d7269912c31cbea",
+    "public-bench.cpp.txt": "eceb263ac14d88c97b93d31160d65a639bd4e273ed8aab23d3e1ac3e9d913a7e",
+    "public-run.py.txt": "6f63a39e491a48b47c4105c98d90ab459ea5526f8fd27151db2fbdfd96dd8454",
+    "public-header": "f6310a75dc1bc498ff9426c370baf59fdb0135181e421101e911865eac0eb73b"
+  },
+  "cases": [
+    {
+      "category": 0,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "27.6533 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 27.6533,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.6246 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 14.6246,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "63.8739 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 63.8739,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "64.8179 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 64.8179,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "16.0128 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 16.0128,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "27.0392 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 27.0392,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "29.856 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 29.856,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.2337 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 14.2337,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "63.5504 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 63.5504,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "64.2513 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 64.2513,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "13.9974 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 13.9974,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "29.7834 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 29.7834,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "32.5382 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 32.5382,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.4607 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 14.4607,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "65.0011 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 65.0011,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "64.2786 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 64.2786,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 5,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.3795 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 14.3795,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "26.5521 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 26.5521,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "35.0619 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 35.0619,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 6,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "15.1566 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 15.1566,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "66.0974 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 66.0974,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "65.9505 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 65.9505,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "15.7689 3334245729259504956 3846144\n",
+          "stderr": "",
+          "ms": 15.7689,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 7,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "28.8355 3334245729259504956 3850240\n",
+          "stderr": "",
+          "ms": 28.8355,
+          "checksum": "3334245729259504956",
+          "peak_working_set": 3850240
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 29.7834,
+          "min_ms": 26.5521,
+          "max_ms": 35.0619
+        },
+        "1": {
+          "median_ms": 14.4607,
+          "min_ms": 13.9974,
+          "max_ms": 16.0128
+        },
+        "2": {
+          "median_ms": 64.8179,
+          "min_ms": 63.5504,
+          "max_ms": 66.0974
+        }
+      }
+    },
+    {
+      "category": 1,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "14.5452 0 3850240\n",
+          "stderr": "",
+          "ms": 14.5452,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.6897 0 3846144\n",
+          "stderr": "",
+          "ms": 14.6897,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 0,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "15.9671 0 3850240\n",
+          "stderr": "",
+          "ms": 15.9671,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "15.1723 0 3846144\n",
+          "stderr": "",
+          "ms": 15.1723,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "13.0868 0 3846144\n",
+          "stderr": "",
+          "ms": 13.0868,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "14.4514 0 3846144\n",
+          "stderr": "",
+          "ms": 14.4514,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "13.6493 0 3850240\n",
+          "stderr": "",
+          "ms": 13.6493,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "16.6703 0 3850240\n",
+          "stderr": "",
+          "ms": 16.6703,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "15.033 0 3850240\n",
+          "stderr": "",
+          "ms": 15.033,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "14.3841 0 3850240\n",
+          "stderr": "",
+          "ms": 14.3841,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.0672 0 3850240\n",
+          "stderr": "",
+          "ms": 14.0672,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "15.2254 0 3846144\n",
+          "stderr": "",
+          "ms": 15.2254,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "14.2813 0 3846144\n",
+          "stderr": "",
+          "ms": 14.2813,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.576 0 3850240\n",
+          "stderr": "",
+          "ms": 14.576,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "14.6176 0 3850240\n",
+          "stderr": "",
+          "ms": 14.6176,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "15.5444 0 3850240\n",
+          "stderr": "",
+          "ms": 15.5444,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.0572 0 3850240\n",
+          "stderr": "",
+          "ms": 14.0572,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "15.3872 0 3846144\n",
+          "stderr": "",
+          "ms": 15.3872,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 6,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "14.3319 0 3846144\n",
+          "stderr": "",
+          "ms": 14.3319,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 6,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.8171 0 3850240\n",
+          "stderr": "",
+          "ms": 14.8171,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "17.7321 0 3846144\n",
+          "stderr": "",
+          "ms": 17.7321,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 7,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "14.5579 0 3850240\n",
+          "stderr": "",
+          "ms": 14.5579,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "13.5946 0 3850240\n",
+          "stderr": "",
+          "ms": 13.5946,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "17.9094 0 3850240\n",
+          "stderr": "",
+          "ms": 17.9094,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 14.4514,
+          "min_ms": 13.6493,
+          "max_ms": 17.9094
+        },
+        "1": {
+          "median_ms": 14.0672,
+          "min_ms": 13.0868,
+          "max_ms": 16.6703
+        },
+        "2": {
+          "median_ms": 15.033,
+          "min_ms": 14.3841,
+          "max_ms": 17.7321
+        }
+      }
+    },
+    {
+      "category": 2,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "24.518 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 24.518,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "18.0142 14284772546571268524 3846144\n",
+          "stderr": "",
+          "ms": 18.0142,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 0,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "47.1634 14284772546571268524 3846144\n",
+          "stderr": "",
+          "ms": 47.1634,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "43.4772 14284772546571268524 3846144\n",
+          "stderr": "",
+          "ms": 43.4772,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "16.8108 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 16.8108,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "28.3898 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 28.3898,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "23.4247 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 23.4247,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "16.7583 14284772546571268524 3846144\n",
+          "stderr": "",
+          "ms": 16.7583,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "42.6282 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 42.6282,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "44.1834 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 44.1834,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "20.1054 14284772546571268524 3846144\n",
+          "stderr": "",
+          "ms": 20.1054,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "23.1696 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 23.1696,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "23.0091 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 23.0091,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "19.8689 14284772546571268524 3846144\n",
+          "stderr": "",
+          "ms": 19.8689,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "44.3547 14284772546571268524 3846144\n",
+          "stderr": "",
+          "ms": 44.3547,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 5,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "41.5825 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 41.5825,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "17.73 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 17.73,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "22.9161 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 22.9161,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "24.6271 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 24.6271,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "19.967 14284772546571268524 3846144\n",
+          "stderr": "",
+          "ms": 19.967,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 6,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "40.1438 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 40.1438,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "47.9688 14284772546571268524 3846144\n",
+          "stderr": "",
+          "ms": 47.9688,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 7,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "16.897 14284772546571268524 3850240\n",
+          "stderr": "",
+          "ms": 16.897,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "25.0678 14284772546571268524 3842048\n",
+          "stderr": "",
+          "ms": 25.0678,
+          "checksum": "14284772546571268524",
+          "peak_working_set": 3842048
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 23.4247,
+          "min_ms": 22.9161,
+          "max_ms": 28.3898
+        },
+        "1": {
+          "median_ms": 17.73,
+          "min_ms": 16.7583,
+          "max_ms": 20.1054
+        },
+        "2": {
+          "median_ms": 43.4772,
+          "min_ms": 40.1438,
+          "max_ms": 47.9688
+        }
+      }
+    },
+    {
+      "category": 3,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "118.597 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 118.597,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 0,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "113.036 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 113.036,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 0,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "96.9286 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 96.9286,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "99.3596 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 99.3596,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "121.181 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 121.181,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "120.129 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 120.129,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "127.064 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 127.064,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "106.961 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 106.961,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "91.6706 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 91.6706,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "86.8565 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 86.8565,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "106.468 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 106.468,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "118.254 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 118.254,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "119.434 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 119.434,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "119.031 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 119.031,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "100.613 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 100.613,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 5,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "99.6562 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 99.6562,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "126.642 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 126.642,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "138.743 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 138.743,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "133.561 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 133.561,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "115.727 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 115.727,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "104.297 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 104.297,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "105.122 8221003125985417956 3846144\n",
+          "stderr": "",
+          "ms": 105.122,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 7,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "128.536 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 128.536,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "122.628 8221003125985417956 3850240\n",
+          "stderr": "",
+          "ms": 122.628,
+          "checksum": "8221003125985417956",
+          "peak_working_set": 3850240
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 122.628,
+          "min_ms": 118.254,
+          "max_ms": 138.743
+        },
+        "1": {
+          "median_ms": 119.031,
+          "min_ms": 106.468,
+          "max_ms": 128.536
+        },
+        "2": {
+          "median_ms": 99.6562,
+          "min_ms": 86.8565,
+          "max_ms": 105.122
+        }
+      }
+    },
+    {
+      "category": 4,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "14.6996 0 3850240\n",
+          "stderr": "",
+          "ms": 14.6996,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "11.7916 0 3846144\n",
+          "stderr": "",
+          "ms": 11.7916,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 0,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "11.9875 0 3850240\n",
+          "stderr": "",
+          "ms": 11.9875,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "12.6101 0 3846144\n",
+          "stderr": "",
+          "ms": 12.6101,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "11.4896 0 3842048\n",
+          "stderr": "",
+          "ms": 11.4896,
+          "checksum": "0",
+          "peak_working_set": 3842048
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "13.0584 0 3850240\n",
+          "stderr": "",
+          "ms": 13.0584,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "12.6289 0 3850240\n",
+          "stderr": "",
+          "ms": 12.6289,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "13.2358 0 3850240\n",
+          "stderr": "",
+          "ms": 13.2358,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "13.5847 0 3842048\n",
+          "stderr": "",
+          "ms": 13.5847,
+          "checksum": "0",
+          "peak_working_set": 3842048
+        },
+        {
+          "sample": 3,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "12.1494 0 3846144\n",
+          "stderr": "",
+          "ms": 12.1494,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "14.1855 0 3850240\n",
+          "stderr": "",
+          "ms": 14.1855,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "12.2413 0 3850240\n",
+          "stderr": "",
+          "ms": 12.2413,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "13.1361 0 3850240\n",
+          "stderr": "",
+          "ms": 13.1361,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "11.4255 0 3850240\n",
+          "stderr": "",
+          "ms": 11.4255,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "13.5122 0 3850240\n",
+          "stderr": "",
+          "ms": 13.5122,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "12.1246 0 3850240\n",
+          "stderr": "",
+          "ms": 12.1246,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "13.3839 0 3850240\n",
+          "stderr": "",
+          "ms": 13.3839,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "13.5556 0 3850240\n",
+          "stderr": "",
+          "ms": 13.5556,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "14.9792 0 3850240\n",
+          "stderr": "",
+          "ms": 14.9792,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "12.2822 0 3850240\n",
+          "stderr": "",
+          "ms": 12.2822,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "13.3288 0 3850240\n",
+          "stderr": "",
+          "ms": 13.3288,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "14.5382 0 3850240\n",
+          "stderr": "",
+          "ms": 14.5382,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "12.4756 0 3850240\n",
+          "stderr": "",
+          "ms": 12.4756,
+          "checksum": "0",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "12.6953 0 3846144\n",
+          "stderr": "",
+          "ms": 12.6953,
+          "checksum": "0",
+          "peak_working_set": 3846144
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 13.0584,
+          "min_ms": 12.2413,
+          "max_ms": 14.9792
+        },
+        "1": {
+          "median_ms": 12.4756,
+          "min_ms": 11.4255,
+          "max_ms": 14.1855
+        },
+        "2": {
+          "median_ms": 13.3288,
+          "min_ms": 12.1246,
+          "max_ms": 14.5382
+        }
+      }
+    },
+    {
+      "category": 5,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "70.4398 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 70.4398,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "69.914 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 69.914,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 0,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "56.2255 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 56.2255,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "54.2577 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 54.2577,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "63.37 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 63.37,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "70.974 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 70.974,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "64.9919 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 64.9919,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "62.3819 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 62.3819,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "51.1805 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 51.1805,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "55.3738 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 55.3738,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "62.6001 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 62.6001,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "67.5764 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 67.5764,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "67.2312 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 67.2312,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "66.7136 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 66.7136,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "55.4732 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 55.4732,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 5,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "52.2273 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 52.2273,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 5,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "58.705 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 58.705,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "63.4216 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 63.4216,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "86.5682 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 86.5682,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "69.7064 6346381187779136492 3846144\n",
+          "stderr": "",
+          "ms": 69.7064,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 6,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "62.3206 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 62.3206,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "55.3312 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 55.3312,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "60.9488 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 60.9488,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "61.7874 6346381187779136492 3850240\n",
+          "stderr": "",
+          "ms": 61.7874,
+          "checksum": "6346381187779136492",
+          "peak_working_set": 3850240
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 67.2312,
+          "min_ms": 61.7874,
+          "max_ms": 86.5682
+        },
+        "1": {
+          "median_ms": 62.6001,
+          "min_ms": 58.705,
+          "max_ms": 69.7064
+        },
+        "2": {
+          "median_ms": 55.3312,
+          "min_ms": 51.1805,
+          "max_ms": 62.3206
+        }
+      }
+    },
+    {
+      "category": 6,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "20.5327 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 20.5327,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "12.7764 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 12.7764,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "44.0943 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 44.0943,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "41.4492 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 41.4492,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "12.0232 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 12.0232,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "20.0933 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 20.0933,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "20.735 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 20.735,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "17.1096 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 17.1096,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "41.2713 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 41.2713,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "42.6356 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 42.6356,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "17.1194 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 17.1194,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "22.2402 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 22.2402,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "22.3454 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 22.3454,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "17.7931 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 17.7931,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "46.4871 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 46.4871,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "39.8499 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 39.8499,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "13.9041 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 13.9041,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "21.8056 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 21.8056,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 6,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "22.0522 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 22.0522,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "13.6295 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 13.6295,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "39.1225 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 39.1225,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "44.2865 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 44.2865,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 7,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "12.0296 6611194929569836204 3850240\n",
+          "stderr": "",
+          "ms": 12.0296,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "22.4818 6611194929569836204 3846144\n",
+          "stderr": "",
+          "ms": 22.4818,
+          "checksum": "6611194929569836204",
+          "peak_working_set": 3846144
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 22.0522,
+          "min_ms": 20.0933,
+          "max_ms": 22.4818
+        },
+        "1": {
+          "median_ms": 13.9041,
+          "min_ms": 12.0232,
+          "max_ms": 17.7931
+        },
+        "2": {
+          "median_ms": 41.4492,
+          "min_ms": 39.1225,
+          "max_ms": 46.4871
+        }
+      }
+    },
+    {
+      "category": 7,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "118.809 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 118.809,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "137.586 13319788508178641932 3846144\n",
+          "stderr": "",
+          "ms": 137.586,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 0,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "49.3634 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 49.3634,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "50.1095 13319788508178641932 3846144\n",
+          "stderr": "",
+          "ms": 50.1095,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "110.82 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 110.82,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "115.313 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 115.313,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "119.985 13319788508178641932 3846144\n",
+          "stderr": "",
+          "ms": 119.985,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "123.867 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 123.867,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "48.7585 13319788508178641932 3846144\n",
+          "stderr": "",
+          "ms": 48.7585,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "48.2808 13319788508178641932 3846144\n",
+          "stderr": "",
+          "ms": 48.2808,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 3,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "121.757 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 121.757,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "116.362 13319788508178641932 3846144\n",
+          "stderr": "",
+          "ms": 116.362,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "117.939 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 117.939,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "114.573 13319788508178641932 3846144\n",
+          "stderr": "",
+          "ms": 114.573,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "47.1276 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 47.1276,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "49.5468 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 49.5468,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "114.146 13319788508178641932 3842048\n",
+          "stderr": "",
+          "ms": 114.146,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3842048
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "112.255 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 112.255,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "113.627 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 113.627,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "121.785 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 121.785,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "56.5022 13319788508178641932 3846144\n",
+          "stderr": "",
+          "ms": 56.5022,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 7,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "51.1693 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 51.1693,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "113.882 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 113.882,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "130.404 13319788508178641932 3850240\n",
+          "stderr": "",
+          "ms": 130.404,
+          "checksum": "13319788508178641932",
+          "peak_working_set": 3850240
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 116.362,
+          "min_ms": 112.255,
+          "max_ms": 130.404
+        },
+        "1": {
+          "median_ms": 114.573,
+          "min_ms": 110.82,
+          "max_ms": 123.867
+        },
+        "2": {
+          "median_ms": 49.5468,
+          "min_ms": 47.1276,
+          "max_ms": 56.5022
+        }
+      }
+    },
+    {
+      "category": 8,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "31.9782 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 31.9782,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "29.7247 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 29.7247,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 0,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "25.0293 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 25.0293,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "22.7466 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 22.7466,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 1,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "32.4864 4947415460181733624 3846144\n",
+          "stderr": "",
+          "ms": 32.4864,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "37.9221 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 37.9221,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "36.3507 4947415460181733624 3846144\n",
+          "stderr": "",
+          "ms": 36.3507,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 2,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "35.3552 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 35.3552,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 2,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "32.4258 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 32.4258,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "26.9734 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 26.9734,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "30.048 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 30.048,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "38.0868 4947415460181733624 3846144\n",
+          "stderr": "",
+          "ms": 38.0868,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "36.9575 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 36.9575,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 4,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "30.7641 4947415460181733624 3846144\n",
+          "stderr": "",
+          "ms": 30.7641,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 4,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "23.1877 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 23.1877,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "27.176 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 27.176,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 5,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "31.2342 4947415460181733624 3846144\n",
+          "stderr": "",
+          "ms": 31.2342,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "36.1924 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 36.1924,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "34.1256 4947415460181733624 3846144\n",
+          "stderr": "",
+          "ms": 34.1256,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 6,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "30.8285 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 30.8285,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 6,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "23.8261 4947415460181733624 3846144\n",
+          "stderr": "",
+          "ms": 23.8261,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 7,
+          "mode": 2,
+          "exit_code": 0,
+          "stdout": "22.9621 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 22.9621,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        },
+        {
+          "sample": 7,
+          "mode": 1,
+          "exit_code": 0,
+          "stdout": "28.8705 4947415460181733624 3846144\n",
+          "stderr": "",
+          "ms": 28.8705,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3846144
+        },
+        {
+          "sample": 7,
+          "mode": 0,
+          "exit_code": 0,
+          "stdout": "30.4648 4947415460181733624 3850240\n",
+          "stderr": "",
+          "ms": 30.4648,
+          "checksum": "4947415460181733624",
+          "peak_working_set": 3850240
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 36.3507,
+          "min_ms": 30.4648,
+          "max_ms": 38.0868
+        },
+        "1": {
+          "median_ms": 30.8285,
+          "min_ms": 28.8705,
+          "max_ms": 35.3552
+        },
+        "2": {
+          "median_ms": 23.8261,
+          "min_ms": 22.7466,
+          "max_ms": 32.4258
+        }
+      }
+    }
+  ]
+}

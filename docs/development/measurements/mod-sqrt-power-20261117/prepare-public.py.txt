@@ -1,0 +1,14 @@
+from pathlib import Path
+
+p = Path('docs/development/measurements/mod-sqrt-power-20261117')
+s = (p / 'bench.cpp.txt').read_text()
+s = s.replace('#include "candidate.hpp.txt"', '#include "../../../../blueberry/math/mod-sqrt.hpp"')
+s = s.replace('sqrt_candidate::', 'blueberry::')
+(p / 'public-bench.cpp.txt').write_text(s)
+s = (p / 'run.py.txt').read_text()
+for old, new in [('bench.cpp.txt', 'public-bench.cpp.txt'), ('run.py.txt', 'public-run.py.txt'),
+                 ('build.json', 'public-build.json'), ('results.json', 'public-results.json'),
+                 ("'repeat':2", "'repeat':20"), ("'4096','2'", "'4096','20'")]:
+    s = s.replace(old, new)
+s = s.replace("if '--build' in sys.argv:", "hashes['public-header'] = hashlib.sha256((root/'blueberry/math/mod-sqrt.hpp').read_bytes()).hexdigest()\nif '--build' in sys.argv:")
+(p / 'public-run.py.txt').write_text(s)

@@ -1,16 +1,12 @@
 #pragma once
 
 #include <algorithm>
-#include <cassert>
 #include <cstdint>
-#include <limits>
 #include <optional>
 
 namespace blueberry {
 
-// Tonelli--Shanks. prime_mod must be prime, 2 <= prime_mod <= INT32_MAX.
 inline std::optional<std::int64_t> mod_sqrt(std::int64_t a, std::int64_t prime_mod) {
-  assert(2 <= prime_mod && prime_mod <= std::numeric_limits<std::int32_t>::max());
   const std::int64_t p = prime_mod;
   a %= p;
   if (a < 0) a += p;
@@ -21,19 +17,21 @@ inline std::optional<std::int64_t> mod_sqrt(std::int64_t a, std::int64_t prime_m
       if (exponent & 1) result = result * x % p;
     return result;
   };
-  if (power(a, (p - 1) / 2) != 1) return std::nullopt;
   if (p % 4 == 3) {
     const auto root = power(a, (p + 1) / 4);
+    if (root * root % p != a) return std::nullopt;
     return std::min(root, p - root);
   }
   std::int64_t odd = p - 1;
   int twos = 0;
   while (!(odd & 1)) odd >>= 1, ++twos;
+  const auto t = power(a, odd / 2);
+  std::int64_t root = t * a % p, residue = root * t % p, legendre = residue;
+  for (int i = 1; i < twos; ++i) legendre = legendre * legendre % p;
+  if (legendre != 1) return std::nullopt;
   std::int64_t nonresidue = 2;
   while (power(nonresidue, (p - 1) / 2) == 1) ++nonresidue;
   std::int64_t c = power(nonresidue, odd);
-  std::int64_t root = power(a, (odd + 1) / 2);
-  std::int64_t residue = power(a, odd);
   while (residue != 1) {
     int exponent = 0;
     for (std::int64_t x = residue; x != 1; x = x * x % p) ++exponent;
@@ -47,4 +45,4 @@ inline std::optional<std::int64_t> mod_sqrt(std::int64_t a, std::int64_t prime_m
   return std::min(root, p - root);
 }
 
-}  // namespace blueberry
+}
