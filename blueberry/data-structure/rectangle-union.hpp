@@ -1,56 +1,54 @@
 #pragma once
-
 #include <algorithm>
 #include <array>
-#include <cassert>
-#include <limits>
 #include <vector>
-
 namespace blueberry {
-
-// Rectangle coordinates are {left, bottom, right, top}.
-template <class Area = long long, class Coord>
-Area rectangle_union_area(const std::vector<std::array<Coord, 4>>& rectangles) {
-  assert(rectangles.size() <= static_cast<unsigned>(std::numeric_limits<int>::max() / 8));
-  struct Event { Coord x, bottom, top; int delta; };
-  std::vector<Event> events;
-  std::vector<Coord> ys;
-  for (const auto& a : rectangles) {
-    assert(a[0] <= a[2] && a[1] <= a[3]);
-    if (a[0] == a[2] || a[1] == a[3]) continue;
-    events.push_back({a[0], a[1], a[3], 1});
-    events.push_back({a[2], a[1], a[3], -1});
-    ys.push_back(a[1]);
-    ys.push_back(a[3]);
+template<class Area=long long,class Coord>
+Area rectangle_union_area(const std::vector<std::array<Coord,4>>& rectangles) {
+  if(rectangles.size()<=2) {
+    if(rectangles.empty()) return Area{};
+    auto area=[](const auto& a)->Area{return a[0]==a[2] || a[1]==a[3]? Area{}:(Area(a[2])-Area(a[0]))*(Area(a[3])-Area(a[1]));};
+    const auto& a=rectangles[0];
+    if(rectangles.size()==1) return area(a);
+    const auto& b=rectangles[1];
+    Coord l=std::max(a[0],b[0]), r=std::min(a[2],b[2]), d=std::max(a[1],b[1]), u=std::min(a[3],b[3]);
+    Area overlap{};
+    if(l<r && d<u) overlap=(Area(r)-Area(l))*(Area(u)-Area(d));
+    return area(a)+(area(b)-overlap);
   }
-  if (events.empty()) return Area{};
-  std::sort(ys.begin(), ys.end());
-  ys.erase(std::unique(ys.begin(), ys.end()), ys.end());
-  std::sort(events.begin(), events.end(), [](const auto& a, const auto& b) { return a.x < b.x; });
-  const int n = static_cast<int>(ys.size()) - 1;
-  std::vector<int> cover(4 * n);
-  std::vector<Area> length(4 * n);
-  auto update = [&](auto&& self, int p, int l, int r, int ql, int qr, int delta) -> void {
-    if (qr <= l || r <= ql) return;
-    if (ql <= l && r <= qr) cover[p] += delta;
-    else {
-      int m = l + (r - l) / 2;
-      self(self, 2 * p, l, m, ql, qr, delta);
-      self(self, 2 * p + 1, m, r, ql, qr, delta);
+  struct Event { Coord x; int low,high,delta; };
+  struct Endpoint { Coord y; int index; };
+  std::size_t count=0;
+  for(const auto& a:rectangles) if(!(a[0]==a[2] || a[1]==a[3])) ++count;
+  if(!count) return Area{};
+  std::vector<Event> events; events.reserve(2*count);
+  std::vector<Coord> ys; ys.reserve(2*count);
+  {
+    std::vector<Endpoint> endpoints; endpoints.reserve(2*count);
+    for(const auto& a:rectangles) {
+      if(a[0]==a[2]||a[1]==a[3]) continue;
+      int low=static_cast<int>(endpoints.size()), high=low+1;
+      endpoints.push_back({a[1],low}); endpoints.push_back({a[3],high});
+      events.push_back({a[0],low,high,1}); events.push_back({a[2],low,high,-1});
     }
-    length[p] = cover[p] ? Area(ys[r]) - Area(ys[l])
-                         : r - l == 1 ? Area{} : length[2 * p] + length[2 * p + 1];
-  };
-  Area answer{};
-  Coord last = events.front().x;
-  for (const auto& e : events) {
-    answer += (Area(e.x) - Area(last)) * length[1];
-    int l = static_cast<int>(std::lower_bound(ys.begin(), ys.end(), e.bottom) - ys.begin());
-    int r = static_cast<int>(std::lower_bound(ys.begin(), ys.end(), e.top) - ys.begin());
-    update(update, 1, 0, n, l, r, e.delta);
-    last = e.x;
+    std::sort(endpoints.begin(),endpoints.end(),[](const auto& a,const auto& b){return a.y<b.y;});
+    for(const auto& e:endpoints) {
+      if(ys.empty() || !(ys.back()==e.y)) ys.push_back(e.y);
+      int p=e.index&~1, rank=static_cast<int>(ys.size())-1;
+      if(e.index&1) events[p].high=events[p+1].high=rank;
+      else events[p].low=events[p+1].low=rank;
+    }
   }
+  std::sort(events.begin(),events.end(),[](const auto& a,const auto& b){return a.x<b.x;});
+  int n=static_cast<int>(ys.size())-1;
+  std::vector<int> cover(4*n); std::vector<Area> length(4*n);
+  auto update=[&](auto&& self,int p,int l,int r,int ql,int qr,int delta)->void {
+    if(ql<=l && r<=qr) cover[p]+=delta;
+    else {int m=l+(r-l)/2;if(ql<m)self(self,2*p,l,m,ql,qr,delta);if(m<qr)self(self,2*p+1,m,r,ql,qr,delta);}
+    length[p]=cover[p]? Area(ys[r])-Area(ys[l]): r-l==1? Area{}:length[2*p]+length[2*p+1];
+  };
+  Area answer{}; Coord last=events.front().x;
+  for(const auto& e:events) {answer+=(Area(e.x)-Area(last))*length[1];update(update,1,0,n,e.low,e.high,e.delta);last=e.x;}
   return answer;
 }
-
-}  // namespace blueberry
+}

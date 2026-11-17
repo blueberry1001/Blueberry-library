@@ -24,7 +24,7 @@ Nは矩形数。時間はO(N log(N+1))、追加メモリはO(N)です。
 
 ## 概要・前提 {#概要前提}
 
-- x方向の走査と被覆長segment treeを使います。ACLの汎用木と異なり、矩形集合を直接受け取る専用処理です。
+- x方向の走査と被覆長segment treeを使い、y端点をまとめてソートして座標圧縮します。矩形が2個以下のときは面積と共通部分を直接計算します。ACLの汎用木と異なり、矩形集合を直接受け取る専用処理です。
 - `N <= INT_MAX/8`。Coordは比較可能な整数型、Areaは座標・差・積・面積の全中間値が収まる整数型を指定してください。Areaの既定値はlong longです。
 - 座標の差を取る前にAreaへ変換します。浮動小数の誤差モデルは保証しません。
 
@@ -68,8 +68,8 @@ auto area=blueberry::rectangle_union_area<__int128_t>(r);
 ## 出典・検証 {#出典検証}
 
 - [Library Checker](https://judge.yosupo.jp/problem/area_of_union_of_rectangles) と整数格子の全セル比較で検証。
-- [sotanishyの最小被覆数方式](https://sotanishy.github.io/cp-library-cpp/misc/rectangle_union.hpp.html)、[spaghetti-sourceのBentley走査](https://github.com/spaghetti-source/algorithm/blob/master/geometry/rectangle_union.cc) を調査。
+- [maspypyの端点をまとめた座標圧縮](https://maspypy.github.io/library/ds/rectangle_union.hpp.html)、[sotanishyの最小被覆数方式](https://sotanishy.github.io/cp-library-cpp/misc/rectangle_union.hpp.html)、[spaghetti-sourceのBentley走査](https://github.com/spaghetti-source/algorithm/blob/master/geometry/rectangle_union.cc) を調査。
 - コードは独立実装。
-- 測定: [DS report](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-ds.md)。
+- 測定: [Rectangle Union report](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/rectangle-union-performance.md)。
 
 </details>
