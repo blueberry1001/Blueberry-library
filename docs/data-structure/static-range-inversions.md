@@ -24,7 +24,7 @@ N=a.size()、Q=queries.size()。時間はO(N log(N+1)+Q log(Q+1)+(N+Q)sqrt(N+1)l
 
 ## 概要・前提 {#概要前提}
 
-- ACL Fenwick treeとMo順序を組み合わせます。`N < INT_MAX, Q <= INT_MAX` が必要です。
+- ACL Fenwick treeとMo順序を組み合わせます。通常のブロック幅は `max(1, floor(sqrt(max(1,N))))` です。`Q < N` かつこの幅より長い区間がある場合は、幅を少なくとも `floor(N / sqrt(max(1,Q)))` にします。`N < INT_MAX, Q <= INT_MAX` が必要です。
 - Tはコピー可能で、比較・コピーをO(1)として評価します。入力は変更せず、参照も保持しません。
 
 </details>
