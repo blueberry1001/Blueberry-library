@@ -229,10 +229,11 @@ class UnitSelectionTests(unittest.TestCase):
                 return self.identifier
 
         identifiers = ["test_tree_random.T.test_run", "test_data_structures.T.test_run",
+                       "test_dynamic_rectangle_verify.T.test_run",
                        "test_benchmark_runner.BenchmarkRunnerTests.test_static_rmq_implementations_agree",
                        "test_benchmark_runner.BenchmarkRunnerTests.test_manifest_is_valid", "new_test.T.test_run"]
         selected = without_cpp(unittest.TestSuite(FakeCase(i) for i in identifiers))
-        self.assertEqual([case.id() for case in selected], identifiers[3:])
+        self.assertEqual([case.id() for case in selected], identifiers[4:])
 
 
 class WorkflowGateTests(unittest.TestCase):

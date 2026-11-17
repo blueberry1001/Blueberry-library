@@ -5,7 +5,7 @@ from pathlib import Path
 import sys
 import unittest
 
-CPP_MODULES = {"test_tree_random", "test_data_structures"}
+CPP_MODULES = {"test_tree_random", "test_data_structures", "test_dynamic_rectangle_verify"}
 CPP_TESTS = {"test_benchmark_runner.BenchmarkRunnerTests.test_static_rmq_implementations_agree"}
 
 

@@ -9,7 +9,7 @@ int main() {
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
   int n, q; cin >> n >> q;
-  blueberry::DynamicFenwickTree2D<long long, int> tree(1000000000, 1000000000);
+  blueberry::DynamicFenwickTree2D<long long, int> tree(1000000001, 1000000001);
   for (int i = 0; i < n; ++i) {
     int x, y; long long w; cin >> x >> y >> w; tree.add(x, y, w);
   }
