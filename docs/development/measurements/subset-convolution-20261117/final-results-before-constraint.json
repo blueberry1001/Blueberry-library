@@ -1,0 +1,1883 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "compiler": "Android (12470979, based on r522817c) clang version 18.0.3 (https://android.googlesource.com/toolchain/llvm-project d8003a456d14a3deb8054cdaa529ffbf02d9b262)",
+  "flags": [
+    "--target=x86_64-pc-windows-msvc",
+    "-std=gnu++20",
+    "-O2",
+    "-DNDEBUG"
+  ],
+  "affinity": "0x1",
+  "warmups": 1,
+  "samples": 5,
+  "scope": "Input generation excluded; vector allocation, convolution, indexed output use and destruction included.",
+  "hashes": {
+    "final-bench.cpp.txt": "f86cc3f312f90a8d325bbf73a832abae428301b5aed012eea732d4d16a0f2ef6",
+    "baseline.hpp.txt": "0a23cd7ec7665b1e1fcb39bdc63595f7bf5916f07e752717f54c100a491b4d9d",
+    "subset-convolution.hpp": "2c312c668c7dcb2fbcdcf86923f622b1653fcbb3e95e002ab346ba1e90a1aa97",
+    "bench.exe": "6019074a8471d2f720e186d00d8166308460e6305d3105fa65d4f27e10c6281f"
+  },
+  "results": [
+    {
+      "bits": 0,
+      "reps": 500000,
+      "type": 0,
+      "variant": 0,
+      "checksum": 9986287500000,
+      "samples": [
+        {
+          "ms": 45.5019,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 45.3905,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 45.9158,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 45.2579,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 55.0209,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 45.5019,
+      "min_ms": 45.2579
+    },
+    {
+      "bits": 0,
+      "reps": 500000,
+      "type": 0,
+      "variant": 1,
+      "checksum": 9986287500000,
+      "samples": [
+        {
+          "ms": 15.7982,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 14.8969,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 14.8571,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 15.5456,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 18.1342,
+          "peak_bytes": 3735552
+        }
+      ],
+      "median_ms": 15.5456,
+      "min_ms": 14.8571
+    },
+    {
+      "bits": 1,
+      "reps": 166666,
+      "type": 0,
+      "variant": 0,
+      "checksum": 4046560813692,
+      "samples": [
+        {
+          "ms": 25.347,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 23.7201,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 20.0758,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 19.6082,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 20.5333,
+          "peak_bytes": 3743744
+        }
+      ],
+      "median_ms": 20.5333,
+      "min_ms": 19.6082
+    },
+    {
+      "bits": 1,
+      "reps": 166666,
+      "type": 0,
+      "variant": 1,
+      "checksum": 4046560813692,
+      "samples": [
+        {
+          "ms": 5.2593,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 6.1389,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 4.5617,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 4.5731,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 5.3143,
+          "peak_bytes": 3735552
+        }
+      ],
+      "median_ms": 5.2593,
+      "min_ms": 4.5617
+    },
+    {
+      "bits": 2,
+      "reps": 55555,
+      "type": 0,
+      "variant": 0,
+      "checksum": 1431563449686,
+      "samples": [
+        {
+          "ms": 8.9652,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 9.2918,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 9.1973,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 9.3959,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 9.3377,
+          "peak_bytes": 3743744
+        }
+      ],
+      "median_ms": 9.2918,
+      "min_ms": 8.9652
+    },
+    {
+      "bits": 2,
+      "reps": 55555,
+      "type": 0,
+      "variant": 1,
+      "checksum": 1431563449686,
+      "samples": [
+        {
+          "ms": 1.9921,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 1.9439,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 2.1196,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 1.9003,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 1.8798,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 1.9439,
+      "min_ms": 1.8798
+    },
+    {
+      "bits": 3,
+      "reps": 18518,
+      "type": 0,
+      "variant": 0,
+      "checksum": 980770424190,
+      "samples": [
+        {
+          "ms": 5.0884,
+          "peak_bytes": 3751936
+        },
+        {
+          "ms": 5.4577,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 5.4289,
+          "peak_bytes": 3751936
+        },
+        {
+          "ms": 5.2466,
+          "peak_bytes": 3751936
+        },
+        {
+          "ms": 5.672,
+          "peak_bytes": 3751936
+        }
+      ],
+      "median_ms": 5.4289,
+      "min_ms": 5.0884
+    },
+    {
+      "bits": 3,
+      "reps": 18518,
+      "type": 0,
+      "variant": 1,
+      "checksum": 980770424190,
+      "samples": [
+        {
+          "ms": 0.6606,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 1.0027,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 0.7049,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.637,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.662,
+          "peak_bytes": 3735552
+        }
+      ],
+      "median_ms": 0.662,
+      "min_ms": 0.637
+    },
+    {
+      "bits": 4,
+      "reps": 6172,
+      "type": 0,
+      "variant": 0,
+      "checksum": 654511575847,
+      "samples": [
+        {
+          "ms": 3.4055,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 3.4254,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 3.392,
+          "peak_bytes": 3751936
+        },
+        {
+          "ms": 3.7409,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 3.4445,
+          "peak_bytes": 3751936
+        }
+      ],
+      "median_ms": 3.4254,
+      "min_ms": 3.392
+    },
+    {
+      "bits": 4,
+      "reps": 6172,
+      "type": 0,
+      "variant": 1,
+      "checksum": 654511575847,
+      "samples": [
+        {
+          "ms": 0.3797,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 0.3715,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.3581,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.3829,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.3749,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 0.3749,
+      "min_ms": 0.3581
+    },
+    {
+      "bits": 5,
+      "reps": 2057,
+      "type": 0,
+      "variant": 0,
+      "checksum": 322476309924,
+      "samples": [
+        {
+          "ms": 2.7152,
+          "peak_bytes": 3760128
+        },
+        {
+          "ms": 4.6478,
+          "peak_bytes": 3760128
+        },
+        {
+          "ms": 2.5944,
+          "peak_bytes": 3760128
+        },
+        {
+          "ms": 2.5926,
+          "peak_bytes": 3756032
+        },
+        {
+          "ms": 2.5894,
+          "peak_bytes": 3760128
+        }
+      ],
+      "median_ms": 2.5944,
+      "min_ms": 2.5894
+    },
+    {
+      "bits": 5,
+      "reps": 2057,
+      "type": 0,
+      "variant": 1,
+      "checksum": 322476309924,
+      "samples": [
+        {
+          "ms": 0.366,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.3765,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.377,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 0.4333,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 0.3613,
+          "peak_bytes": 3747840
+        }
+      ],
+      "median_ms": 0.3765,
+      "min_ms": 0.3613
+    },
+    {
+      "bits": 6,
+      "reps": 685,
+      "type": 0,
+      "variant": 0,
+      "checksum": 161586202975,
+      "samples": [
+        {
+          "ms": 2.3608,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 8.8052,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 2.0858,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 2.4282,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 3.1738,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 2.4282,
+      "min_ms": 2.0858
+    },
+    {
+      "bits": 6,
+      "reps": 685,
+      "type": 0,
+      "variant": 1,
+      "checksum": 161586202975,
+      "samples": [
+        {
+          "ms": 0.2533,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.4013,
+          "peak_bytes": 3731456
+        },
+        {
+          "ms": 0.3021,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 0.2612,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 1.7921,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 0.3021,
+      "min_ms": 0.2533
+    },
+    {
+      "bits": 7,
+      "reps": 228,
+      "type": 0,
+      "variant": 0,
+      "checksum": 93435905605,
+      "samples": [
+        {
+          "ms": 2.2974,
+          "peak_bytes": 3756032
+        },
+        {
+          "ms": 1.3397,
+          "peak_bytes": 3760128
+        },
+        {
+          "ms": 1.8049,
+          "peak_bytes": 3760128
+        },
+        {
+          "ms": 1.3892,
+          "peak_bytes": 3760128
+        },
+        {
+          "ms": 4.0692,
+          "peak_bytes": 3756032
+        }
+      ],
+      "median_ms": 1.8049,
+      "min_ms": 1.3397
+    },
+    {
+      "bits": 7,
+      "reps": 228,
+      "type": 0,
+      "variant": 1,
+      "checksum": 93435905605,
+      "samples": [
+        {
+          "ms": 0.2368,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.2293,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.2371,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.2387,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.2483,
+          "peak_bytes": 3735552
+        }
+      ],
+      "median_ms": 0.2371,
+      "min_ms": 0.2293
+    },
+    {
+      "bits": 8,
+      "reps": 76,
+      "type": 0,
+      "variant": 0,
+      "checksum": 43633749977,
+      "samples": [
+        {
+          "ms": 1.8944,
+          "peak_bytes": 3768320
+        },
+        {
+          "ms": 1.0341,
+          "peak_bytes": 3768320
+        },
+        {
+          "ms": 1.1673,
+          "peak_bytes": 3768320
+        },
+        {
+          "ms": 1.0386,
+          "peak_bytes": 3768320
+        },
+        {
+          "ms": 1.0502,
+          "peak_bytes": 3768320
+        }
+      ],
+      "median_ms": 1.0502,
+      "min_ms": 1.0341
+    },
+    {
+      "bits": 8,
+      "reps": 76,
+      "type": 0,
+      "variant": 1,
+      "checksum": 43633749977,
+      "samples": [
+        {
+          "ms": 2.4204,
+          "peak_bytes": 3764224
+        },
+        {
+          "ms": 1.0602,
+          "peak_bytes": 3764224
+        },
+        {
+          "ms": 1.045,
+          "peak_bytes": 3764224
+        },
+        {
+          "ms": 1.4962,
+          "peak_bytes": 3764224
+        },
+        {
+          "ms": 1.0962,
+          "peak_bytes": 3764224
+        }
+      ],
+      "median_ms": 1.0962,
+      "min_ms": 1.045
+    },
+    {
+      "bits": 9,
+      "reps": 25,
+      "type": 0,
+      "variant": 0,
+      "checksum": 20317177540,
+      "samples": [
+        {
+          "ms": 0.8054,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 0.787,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 0.9291,
+          "peak_bytes": 3796992
+        },
+        {
+          "ms": 0.7954,
+          "peak_bytes": 3796992
+        },
+        {
+          "ms": 0.8168,
+          "peak_bytes": 3792896
+        }
+      ],
+      "median_ms": 0.8054,
+      "min_ms": 0.787
+    },
+    {
+      "bits": 9,
+      "reps": 25,
+      "type": 0,
+      "variant": 1,
+      "checksum": 20317177540,
+      "samples": [
+        {
+          "ms": 0.8661,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 1.4377,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 0.8701,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 0.9057,
+          "peak_bytes": 3788800
+        },
+        {
+          "ms": 0.8056,
+          "peak_bytes": 3788800
+        }
+      ],
+      "median_ms": 0.8701,
+      "min_ms": 0.8056
+    },
+    {
+      "bits": 10,
+      "reps": 8,
+      "type": 0,
+      "variant": 0,
+      "checksum": 5839645956,
+      "samples": [
+        {
+          "ms": 0.8555,
+          "peak_bytes": 3842048
+        },
+        {
+          "ms": 0.7897,
+          "peak_bytes": 3846144
+        },
+        {
+          "ms": 0.8367,
+          "peak_bytes": 3846144
+        },
+        {
+          "ms": 0.8905,
+          "peak_bytes": 3846144
+        },
+        {
+          "ms": 0.9478,
+          "peak_bytes": 3846144
+        }
+      ],
+      "median_ms": 0.8555,
+      "min_ms": 0.7897
+    },
+    {
+      "bits": 10,
+      "reps": 8,
+      "type": 0,
+      "variant": 1,
+      "checksum": 5839645956,
+      "samples": [
+        {
+          "ms": 0.8299,
+          "peak_bytes": 3842048
+        },
+        {
+          "ms": 1.0362,
+          "peak_bytes": 3837952
+        },
+        {
+          "ms": 0.902,
+          "peak_bytes": 3837952
+        },
+        {
+          "ms": 0.8496,
+          "peak_bytes": 3842048
+        },
+        {
+          "ms": 0.8785,
+          "peak_bytes": 3842048
+        }
+      ],
+      "median_ms": 0.8785,
+      "min_ms": 0.8299
+    },
+    {
+      "bits": 0,
+      "reps": 500000,
+      "type": 1,
+      "variant": 0,
+      "checksum": 9986287500000,
+      "samples": [
+        {
+          "ms": 45.6482,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 45.0643,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 44.8412,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 44.8853,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 44.7317,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 44.8853,
+      "min_ms": 44.7317
+    },
+    {
+      "bits": 0,
+      "reps": 500000,
+      "type": 1,
+      "variant": 1,
+      "checksum": 9986287500000,
+      "samples": [
+        {
+          "ms": 14.7287,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 14.6213,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 15.5257,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 14.7036,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 14.7576,
+          "peak_bytes": 3743744
+        }
+      ],
+      "median_ms": 14.7287,
+      "min_ms": 14.6213
+    },
+    {
+      "bits": 1,
+      "reps": 166666,
+      "type": 1,
+      "variant": 0,
+      "checksum": 4046560813692,
+      "samples": [
+        {
+          "ms": 19.232,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 20.1276,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 19.6455,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 19.1307,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 18.6354,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 19.232,
+      "min_ms": 18.6354
+    },
+    {
+      "bits": 1,
+      "reps": 166666,
+      "type": 1,
+      "variant": 1,
+      "checksum": 4046560813692,
+      "samples": [
+        {
+          "ms": 4.9304,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 4.9474,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 4.7047,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 4.8021,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 4.7568,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 4.8021,
+      "min_ms": 4.7047
+    },
+    {
+      "bits": 2,
+      "reps": 55555,
+      "type": 1,
+      "variant": 0,
+      "checksum": 1431563449686,
+      "samples": [
+        {
+          "ms": 8.9133,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 9.4416,
+          "peak_bytes": 3735552
+        },
+        {
+          "ms": 8.7084,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 8.5232,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 8.5384,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 8.7084,
+      "min_ms": 8.5232
+    },
+    {
+      "bits": 2,
+      "reps": 55555,
+      "type": 1,
+      "variant": 1,
+      "checksum": 1431563449686,
+      "samples": [
+        {
+          "ms": 1.8878,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 2.2217,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 2.2406,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 2.0601,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 2.1261,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 2.1261,
+      "min_ms": 1.8878
+    },
+    {
+      "bits": 3,
+      "reps": 18518,
+      "type": 1,
+      "variant": 0,
+      "checksum": 980770424190,
+      "samples": [
+        {
+          "ms": 4.9473,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 5.3435,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 5.6766,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 5.8681,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 5.6608,
+          "peak_bytes": 3747840
+        }
+      ],
+      "median_ms": 5.6608,
+      "min_ms": 4.9473
+    },
+    {
+      "bits": 3,
+      "reps": 18518,
+      "type": 1,
+      "variant": 1,
+      "checksum": 980770424190,
+      "samples": [
+        {
+          "ms": 0.8976,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 1.0131,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.8765,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.898,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.9799,
+          "peak_bytes": 3743744
+        }
+      ],
+      "median_ms": 0.898,
+      "min_ms": 0.8765
+    },
+    {
+      "bits": 4,
+      "reps": 6172,
+      "type": 1,
+      "variant": 0,
+      "checksum": 654511575847,
+      "samples": [
+        {
+          "ms": 3.4269,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 3.5823,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 3.5922,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 3.6817,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 3.5244,
+          "peak_bytes": 3743744
+        }
+      ],
+      "median_ms": 3.5823,
+      "min_ms": 3.4269
+    },
+    {
+      "bits": 4,
+      "reps": 6172,
+      "type": 1,
+      "variant": 1,
+      "checksum": 654511575847,
+      "samples": [
+        {
+          "ms": 0.5478,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.577,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.5402,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.5334,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.5878,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 0.5478,
+      "min_ms": 0.5334
+    },
+    {
+      "bits": 5,
+      "reps": 2057,
+      "type": 1,
+      "variant": 0,
+      "checksum": 322476309924,
+      "samples": [
+        {
+          "ms": 2.684,
+          "peak_bytes": 3751936
+        },
+        {
+          "ms": 2.8411,
+          "peak_bytes": 3756032
+        },
+        {
+          "ms": 3.0145,
+          "peak_bytes": 3756032
+        },
+        {
+          "ms": 2.8484,
+          "peak_bytes": 3756032
+        },
+        {
+          "ms": 2.9362,
+          "peak_bytes": 3756032
+        }
+      ],
+      "median_ms": 2.8484,
+      "min_ms": 2.684
+    },
+    {
+      "bits": 5,
+      "reps": 2057,
+      "type": 1,
+      "variant": 1,
+      "checksum": 322476309924,
+      "samples": [
+        {
+          "ms": 0.597,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 0.6086,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 0.5718,
+          "peak_bytes": 3751936
+        },
+        {
+          "ms": 0.5665,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 0.5756,
+          "peak_bytes": 3751936
+        }
+      ],
+      "median_ms": 0.5756,
+      "min_ms": 0.5665
+    },
+    {
+      "bits": 6,
+      "reps": 685,
+      "type": 1,
+      "variant": 0,
+      "checksum": 150605515092,
+      "samples": [
+        {
+          "ms": 2.3074,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 2.3025,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 2.0497,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 2.2385,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 2.1341,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 2.2385,
+      "min_ms": 2.0497
+    },
+    {
+      "bits": 6,
+      "reps": 685,
+      "type": 1,
+      "variant": 1,
+      "checksum": 150605515092,
+      "samples": [
+        {
+          "ms": 0.439,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.4644,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.4641,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.4144,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.4318,
+          "peak_bytes": 3743744
+        }
+      ],
+      "median_ms": 0.439,
+      "min_ms": 0.4144
+    },
+    {
+      "bits": 7,
+      "reps": 228,
+      "type": 1,
+      "variant": 0,
+      "checksum": 74469262898,
+      "samples": [
+        {
+          "ms": 1.6357,
+          "peak_bytes": 3756032
+        },
+        {
+          "ms": 1.5956,
+          "peak_bytes": 3756032
+        },
+        {
+          "ms": 1.5112,
+          "peak_bytes": 3747840
+        },
+        {
+          "ms": 1.6584,
+          "peak_bytes": 3751936
+        },
+        {
+          "ms": 1.9778,
+          "peak_bytes": 3756032
+        }
+      ],
+      "median_ms": 1.6357,
+      "min_ms": 1.5112
+    },
+    {
+      "bits": 7,
+      "reps": 228,
+      "type": 1,
+      "variant": 1,
+      "checksum": 74469262898,
+      "samples": [
+        {
+          "ms": 0.4171,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.3973,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.4133,
+          "peak_bytes": 3739648
+        },
+        {
+          "ms": 0.4085,
+          "peak_bytes": 3743744
+        },
+        {
+          "ms": 0.4101,
+          "peak_bytes": 3739648
+        }
+      ],
+      "median_ms": 0.4101,
+      "min_ms": 0.3973
+    },
+    {
+      "bits": 8,
+      "reps": 76,
+      "type": 1,
+      "variant": 0,
+      "checksum": 27963830213,
+      "samples": [
+        {
+          "ms": 1.2909,
+          "peak_bytes": 3760128
+        },
+        {
+          "ms": 1.1671,
+          "peak_bytes": 3760128
+        },
+        {
+          "ms": 1.243,
+          "peak_bytes": 3760128
+        },
+        {
+          "ms": 1.2301,
+          "peak_bytes": 3764224
+        },
+        {
+          "ms": 2.2356,
+          "peak_bytes": 3764224
+        }
+      ],
+      "median_ms": 1.243,
+      "min_ms": 1.1671
+    },
+    {
+      "bits": 8,
+      "reps": 76,
+      "type": 1,
+      "variant": 1,
+      "checksum": 27963830213,
+      "samples": [
+        {
+          "ms": 1.3719,
+          "peak_bytes": 3768320
+        },
+        {
+          "ms": 1.1626,
+          "peak_bytes": 3772416
+        },
+        {
+          "ms": 1.2471,
+          "peak_bytes": 3764224
+        },
+        {
+          "ms": 1.3377,
+          "peak_bytes": 3764224
+        },
+        {
+          "ms": 1.2316,
+          "peak_bytes": 3764224
+        }
+      ],
+      "median_ms": 1.2471,
+      "min_ms": 1.1626
+    },
+    {
+      "bits": 9,
+      "reps": 25,
+      "type": 1,
+      "variant": 0,
+      "checksum": 11634968247,
+      "samples": [
+        {
+          "ms": 1.0714,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 1.0366,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 1.1391,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 0.926,
+          "peak_bytes": 3788800
+        },
+        {
+          "ms": 0.9664,
+          "peak_bytes": 3788800
+        }
+      ],
+      "median_ms": 1.0366,
+      "min_ms": 0.926
+    },
+    {
+      "bits": 9,
+      "reps": 25,
+      "type": 1,
+      "variant": 1,
+      "checksum": 11634968247,
+      "samples": [
+        {
+          "ms": 0.9571,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 1.0376,
+          "peak_bytes": 3796992
+        },
+        {
+          "ms": 0.9432,
+          "peak_bytes": 3796992
+        },
+        {
+          "ms": 0.9431,
+          "peak_bytes": 3792896
+        },
+        {
+          "ms": 0.9063,
+          "peak_bytes": 3796992
+        }
+      ],
+      "median_ms": 0.9432,
+      "min_ms": 0.9063
+    },
+    {
+      "bits": 10,
+      "reps": 8,
+      "type": 1,
+      "variant": 0,
+      "checksum": 2752638196,
+      "samples": [
+        {
+          "ms": 0.9897,
+          "peak_bytes": 3842048
+        },
+        {
+          "ms": 0.9031,
+          "peak_bytes": 3837952
+        },
+        {
+          "ms": 1.1029,
+          "peak_bytes": 3842048
+        },
+        {
+          "ms": 1.2592,
+          "peak_bytes": 3842048
+        },
+        {
+          "ms": 1.0551,
+          "peak_bytes": 3837952
+        }
+      ],
+      "median_ms": 1.0551,
+      "min_ms": 0.9031
+    },
+    {
+      "bits": 10,
+      "reps": 8,
+      "type": 1,
+      "variant": 1,
+      "checksum": 2752638196,
+      "samples": [
+        {
+          "ms": 0.9777,
+          "peak_bytes": 3846144
+        },
+        {
+          "ms": 0.9578,
+          "peak_bytes": 3842048
+        },
+        {
+          "ms": 0.9573,
+          "peak_bytes": 3846144
+        },
+        {
+          "ms": 1.1289,
+          "peak_bytes": 3842048
+        },
+        {
+          "ms": 1.0013,
+          "peak_bytes": 3842048
+        }
+      ],
+      "median_ms": 0.9777,
+      "min_ms": 0.9573
+    },
+    {
+      "bits": 12,
+      "reps": 3,
+      "type": 0,
+      "variant": 0,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 2.8069,
+          "peak_bytes": 4214784
+        },
+        {
+          "ms": 1.5661,
+          "peak_bytes": 4214784
+        },
+        {
+          "ms": 1.8869,
+          "peak_bytes": 4218880
+        },
+        {
+          "ms": 1.6221,
+          "peak_bytes": 4218880
+        },
+        {
+          "ms": 1.5178,
+          "peak_bytes": 4218880
+        }
+      ],
+      "median_ms": 1.6221,
+      "min_ms": 1.5178
+    },
+    {
+      "bits": 12,
+      "reps": 3,
+      "type": 0,
+      "variant": 1,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 2.2516,
+          "peak_bytes": 4210688
+        },
+        {
+          "ms": 1.4409,
+          "peak_bytes": 4214784
+        },
+        {
+          "ms": 1.3852,
+          "peak_bytes": 4214784
+        },
+        {
+          "ms": 2.0366,
+          "peak_bytes": 4214784
+        },
+        {
+          "ms": 2.6928,
+          "peak_bytes": 4214784
+        }
+      ],
+      "median_ms": 2.0366,
+      "min_ms": 1.3852
+    },
+    {
+      "bits": 14,
+      "reps": 3,
+      "type": 0,
+      "variant": 0,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 10.7029,
+          "peak_bytes": 5918720
+        },
+        {
+          "ms": 13.1847,
+          "peak_bytes": 5918720
+        },
+        {
+          "ms": 18.9151,
+          "peak_bytes": 5918720
+        },
+        {
+          "ms": 12.3553,
+          "peak_bytes": 5922816
+        },
+        {
+          "ms": 17.1398,
+          "peak_bytes": 5922816
+        }
+      ],
+      "median_ms": 13.1847,
+      "min_ms": 10.7029
+    },
+    {
+      "bits": 14,
+      "reps": 3,
+      "type": 0,
+      "variant": 1,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 22.2171,
+          "peak_bytes": 5918720
+        },
+        {
+          "ms": 17.7704,
+          "peak_bytes": 5918720
+        },
+        {
+          "ms": 18.6861,
+          "peak_bytes": 5918720
+        },
+        {
+          "ms": 21.8484,
+          "peak_bytes": 5914624
+        },
+        {
+          "ms": 17.1337,
+          "peak_bytes": 5914624
+        }
+      ],
+      "median_ms": 18.6861,
+      "min_ms": 17.1337
+    },
+    {
+      "bits": 16,
+      "reps": 3,
+      "type": 0,
+      "variant": 0,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 37.3845,
+          "peak_bytes": 13451264
+        },
+        {
+          "ms": 36.6088,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 36.9606,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 37.5416,
+          "peak_bytes": 13451264
+        },
+        {
+          "ms": 37.2495,
+          "peak_bytes": 13447168
+        }
+      ],
+      "median_ms": 37.2495,
+      "min_ms": 36.6088
+    },
+    {
+      "bits": 16,
+      "reps": 3,
+      "type": 0,
+      "variant": 1,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 40.3513,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 35.8253,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 36.1734,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 37.755,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 39.2096,
+          "peak_bytes": 13447168
+        }
+      ],
+      "median_ms": 37.755,
+      "min_ms": 35.8253
+    },
+    {
+      "bits": 18,
+      "reps": 1,
+      "type": 0,
+      "variant": 0,
+      "checksum": 19972575,
+      "samples": [
+        {
+          "ms": 86.0542,
+          "peak_bytes": 46739456
+        },
+        {
+          "ms": 88.8938,
+          "peak_bytes": 46743552
+        },
+        {
+          "ms": 83.3807,
+          "peak_bytes": 46747648
+        },
+        {
+          "ms": 87.2809,
+          "peak_bytes": 46747648
+        },
+        {
+          "ms": 95.89,
+          "peak_bytes": 46747648
+        }
+      ],
+      "median_ms": 87.2809,
+      "min_ms": 83.3807
+    },
+    {
+      "bits": 18,
+      "reps": 1,
+      "type": 0,
+      "variant": 1,
+      "checksum": 19972575,
+      "samples": [
+        {
+          "ms": 79.5961,
+          "peak_bytes": 46743552
+        },
+        {
+          "ms": 85.2376,
+          "peak_bytes": 46743552
+        },
+        {
+          "ms": 83.4224,
+          "peak_bytes": 46743552
+        },
+        {
+          "ms": 95.5975,
+          "peak_bytes": 46739456
+        },
+        {
+          "ms": 88.3572,
+          "peak_bytes": 46743552
+        }
+      ],
+      "median_ms": 85.2376,
+      "min_ms": 79.5961
+    },
+    {
+      "bits": 12,
+      "reps": 3,
+      "type": 1,
+      "variant": 0,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 1.7411,
+          "peak_bytes": 4214784
+        },
+        {
+          "ms": 1.7045,
+          "peak_bytes": 4210688
+        },
+        {
+          "ms": 1.8627,
+          "peak_bytes": 4214784
+        },
+        {
+          "ms": 1.8195,
+          "peak_bytes": 4214784
+        },
+        {
+          "ms": 1.7044,
+          "peak_bytes": 4214784
+        }
+      ],
+      "median_ms": 1.7411,
+      "min_ms": 1.7044
+    },
+    {
+      "bits": 12,
+      "reps": 3,
+      "type": 1,
+      "variant": 1,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 2.0632,
+          "peak_bytes": 4214784
+        },
+        {
+          "ms": 2.0133,
+          "peak_bytes": 4210688
+        },
+        {
+          "ms": 1.6874,
+          "peak_bytes": 4210688
+        },
+        {
+          "ms": 1.7295,
+          "peak_bytes": 4218880
+        },
+        {
+          "ms": 1.9277,
+          "peak_bytes": 4214784
+        }
+      ],
+      "median_ms": 1.9277,
+      "min_ms": 1.6874
+    },
+    {
+      "bits": 14,
+      "reps": 3,
+      "type": 1,
+      "variant": 0,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 15.3783,
+          "peak_bytes": 5914624
+        },
+        {
+          "ms": 21.4527,
+          "peak_bytes": 5918720
+        },
+        {
+          "ms": 20.6081,
+          "peak_bytes": 5918720
+        },
+        {
+          "ms": 19.9344,
+          "peak_bytes": 5914624
+        },
+        {
+          "ms": 17.6278,
+          "peak_bytes": 5918720
+        }
+      ],
+      "median_ms": 19.9344,
+      "min_ms": 15.3783
+    },
+    {
+      "bits": 14,
+      "reps": 3,
+      "type": 1,
+      "variant": 1,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 19.0354,
+          "peak_bytes": 5918720
+        },
+        {
+          "ms": 14.1606,
+          "peak_bytes": 5922816
+        },
+        {
+          "ms": 19.8887,
+          "peak_bytes": 5922816
+        },
+        {
+          "ms": 19.1237,
+          "peak_bytes": 5922816
+        },
+        {
+          "ms": 19.0042,
+          "peak_bytes": 5918720
+        }
+      ],
+      "median_ms": 19.0354,
+      "min_ms": 14.1606
+    },
+    {
+      "bits": 16,
+      "reps": 3,
+      "type": 1,
+      "variant": 0,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 53.5157,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 51.7912,
+          "peak_bytes": 13443072
+        },
+        {
+          "ms": 56.6918,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 52.8734,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 54.459,
+          "peak_bytes": 13443072
+        }
+      ],
+      "median_ms": 53.5157,
+      "min_ms": 51.7912
+    },
+    {
+      "bits": 16,
+      "reps": 3,
+      "type": 1,
+      "variant": 1,
+      "checksum": 427949866,
+      "samples": [
+        {
+          "ms": 52.0281,
+          "peak_bytes": 13451264
+        },
+        {
+          "ms": 50.0347,
+          "peak_bytes": 13447168
+        },
+        {
+          "ms": 53.7714,
+          "peak_bytes": 13451264
+        },
+        {
+          "ms": 75.4891,
+          "peak_bytes": 13451264
+        },
+        {
+          "ms": 50.7863,
+          "peak_bytes": 13447168
+        }
+      ],
+      "median_ms": 52.0281,
+      "min_ms": 50.0347
+    },
+    {
+      "bits": 18,
+      "reps": 1,
+      "type": 1,
+      "variant": 0,
+      "checksum": 19972575,
+      "samples": [
+        {
+          "ms": 96.6506,
+          "peak_bytes": 46743552
+        },
+        {
+          "ms": 96.7913,
+          "peak_bytes": 46743552
+        },
+        {
+          "ms": 98.0482,
+          "peak_bytes": 46743552
+        },
+        {
+          "ms": 98.2161,
+          "peak_bytes": 46739456
+        },
+        {
+          "ms": 94.1394,
+          "peak_bytes": 46743552
+        }
+      ],
+      "median_ms": 96.7913,
+      "min_ms": 94.1394
+    },
+    {
+      "bits": 18,
+      "reps": 1,
+      "type": 1,
+      "variant": 1,
+      "checksum": 19972575,
+      "samples": [
+        {
+          "ms": 92.8726,
+          "peak_bytes": 46747648
+        },
+        {
+          "ms": 98.9281,
+          "peak_bytes": 46743552
+        },
+        {
+          "ms": 94.1467,
+          "peak_bytes": 46747648
+        },
+        {
+          "ms": 92.98,
+          "peak_bytes": 46747648
+        },
+        {
+          "ms": 94.1027,
+          "peak_bytes": 46747648
+        }
+      ],
+      "median_ms": 94.1027,
+      "min_ms": 92.8726
+    }
+  ]
+}

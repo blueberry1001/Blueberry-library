@@ -1,0 +1,8 @@
+from pathlib import Path
+work = Path(__file__).resolve().parent
+runner = (work / 'run-final.py.txt').read_text(encoding='utf-8')
+runner = runner.replace('one = mask.value & -mask.value', 'one = (mask.value & 0x40) or (mask.value & -mask.value)')
+runner = runner.replace('range(6)', 'range(12)')
+runner = runner.replace("'samples':5", "'samples':11")
+runner = runner.replace("work / 'final-results.json'", "work / 'quiet-results.json'")
+(work / 'run-quiet.py.txt').write_text(runner, encoding='utf-8', newline='\n')

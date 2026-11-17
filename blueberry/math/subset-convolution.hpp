@@ -9,12 +9,24 @@
 
 namespace blueberry {
 
-// c[S] = sum_{A subset S} a[A] b[S\A], by ranked zeta/Mobius transforms.
 template <class T>
 std::vector<T> subset_convolution(const std::vector<T>& a, const std::vector<T>& b) {
   const std::size_t n = a.size();
-  assert(n == b.size() && (n == 0 || std::has_single_bit(n)));
   if (n == 0) return {};
+  if constexpr (requires(T& sum, const T& x, const T& y) { sum += x * y; }) {
+    if (n <= 128) {
+      std::vector<T> result(n);
+      for (std::size_t mask = 0; mask < n; ++mask) {
+        T value{};
+        for (std::size_t part = mask;; part = (part - 1) & mask) {
+          value += a[part] * b[mask ^ part];
+          if (part == 0) break;
+        }
+        result[mask] = value;
+      }
+      return result;
+    }
+  }
   const int bits = std::countr_zero(n), ranks = bits + 1;
   assert(n <= std::numeric_limits<std::size_t>::max() / static_cast<std::size_t>(ranks));
   std::vector<T> f(n * ranks), g(n * ranks);
@@ -34,7 +46,6 @@ std::vector<T> subset_convolution(const std::vector<T>& a, const std::vector<T>&
   for (std::size_t mask = 0; mask < n; ++mask) {
     const int rank = std::popcount(mask);
     const std::size_t base = mask * ranks;
-    // Descending degree preserves the original lower-degree coefficients of f.
     for (int k = std::min(bits, 2 * rank); k >= 0; --k) {
       T value{};
       for (int j = std::max(0, k - rank); j <= std::min(k, rank); ++j)
@@ -47,7 +58,6 @@ std::vector<T> subset_convolution(const std::vector<T>& a, const std::vector<T>&
       for (std::size_t mask = start; mask < start + half; ++mask) {
         const int rank = std::popcount(mask);
         const std::size_t from = mask * ranks, to = (mask + half) * ranks;
-        // Only ranks >= |target| can contribute to a final diagonal entry.
         for (int k = rank + 1; k <= std::min(bits, 2 * rank); ++k)
           f[to + k] -= f[from + k];
       }
@@ -55,4 +65,4 @@ std::vector<T> subset_convolution(const std::vector<T>& a, const std::vector<T>&
   for (std::size_t mask = 0; mask < n; ++mask) result[mask] = f[mask * ranks + std::popcount(mask)];
   return result;
 }
-}  // namespace blueberry
+}

@@ -1,0 +1,13 @@
+from pathlib import Path
+
+root = Path(__file__).resolve().parents[4]
+work = Path(__file__).resolve().parent
+source = (work / 'baseline.hpp.txt').read_text(encoding='utf-8')
+old = source.replace('namespace blueberry {', 'namespace baseline {')
+(work / 'baseline.hpp').write_text(old, encoding='utf-8', newline='\n')
+candidate = source.replace('namespace blueberry {', 'namespace ranked {')
+candidate = candidate.replace('#include <cstddef>', '#include <cstddef>\n#include <cstdint>')
+candidate = candidate.replace('  std::vector<T> f(n * ranks), g(n * ranks);', '  std::vector<unsigned char> pop(n);\n  for (std::size_t i = 1; i < n; ++i) pop[i] = static_cast<unsigned char>(pop[i >> 1] + (i & 1));\n  std::vector<T> f(n * ranks), g(n * ranks);')
+candidate = candidate.replace('std::popcount(mask)', 'pop[mask]')
+(work / 'ranked.hpp.txt').write_text(candidate, encoding='utf-8', newline='\n')
+(work / 'ranked.hpp').write_text(candidate, encoding='utf-8', newline='\n')

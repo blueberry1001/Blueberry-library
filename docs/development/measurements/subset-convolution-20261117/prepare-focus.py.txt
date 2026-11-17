@@ -1,0 +1,8 @@
+from pathlib import Path
+work = Path(__file__).resolve().parent
+runner = (work / 'run-final.py.txt').read_text(encoding='utf-8')
+runner = runner.replace("cases = [(bits, max(4, 500000 // (3**bits)), typ) for typ in (0,1) for bits in range(0, 11)]\ncases += [(bits, 3 if bits <= 16 else 1, typ) for typ in (0,1) for bits in (12,14,16,18)]", "cases = [(bits, 5 if bits <= 14 else 2 if bits == 16 else 1, typ) for typ in (0,1) for bits in (8,12,14,16,18)]")
+runner = runner.replace('range(6)', 'range(22)')
+runner = runner.replace("'samples':5", "'samples':21")
+runner = runner.replace("work / 'final-results.json'", "work / 'focus-results.json'")
+(work / 'run-focus.py.txt').write_text(runner, encoding='utf-8', newline='\n')

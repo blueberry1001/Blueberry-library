@@ -1,0 +1,17 @@
+from pathlib import Path
+
+work = Path(__file__).resolve().parent
+driver = (work / 'bench.cpp.txt').read_text(encoding='utf-8')
+driver = driver.replace('#include "ranked.hpp"', '#include "blueberry/math/subset-convolution.hpp"')
+driver = driver.replace('ranked::subset_convolution(a, b)', 'blueberry::subset_convolution(a, b)')
+(work / 'final-bench.cpp.txt').write_text(driver, encoding='utf-8', newline='\n')
+runner = (work / 'run.py.txt').read_text(encoding='utf-8')
+runner = runner.replace("str(work / 'bench.cpp.txt')", "str(work / 'final-bench.cpp.txt')")
+runner = runner.replace("'-I'+str(root / '.deps/ac-library')", "'-I'+str(root), '-isystem', str(root / '.deps/ac-library')")
+runner = runner.replace("work/'bench.cpp.txt',work/'baseline.hpp.txt',work/'ranked.hpp.txt',exe", "work/'final-bench.cpp.txt',work/'baseline.hpp.txt',root/'blueberry/math/subset-convolution.hpp',exe")
+runner = runner.replace("work / 'results.json'", "work / 'final-results.json'")
+runner = runner.replace("range(0, 13)", "range(0, 11)")
+runner = runner.replace("(13,14,15,16,18)", "(12,14,16,18)")
+runner = runner.replace("range(3) if bits <= 15 else range(2)", "range(2)")
+runner = runner.replace('    subprocess.run(cmd, env=env, check=True)', "    compiled = subprocess.run(cmd, env=env, capture_output=True, text=True)\n    (work / 'build-final.json').write_text(json.dumps({'command':cmd,'returncode':compiled.returncode,'stdout':compiled.stdout,'stderr':compiled.stderr}, indent=2)+'\\n', encoding='utf-8')\n    compiled.check_returncode()")
+(work / 'run-final.py.txt').write_text(runner, encoding='utf-8', newline='\n')

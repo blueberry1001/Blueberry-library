@@ -1,0 +1,37 @@
+from pathlib import Path
+
+work = Path(__file__).resolve().parent
+source = (work / 'baseline.hpp.txt').read_text(encoding='utf-8')
+small = '''template<class T>
+ATTRIBUTE std::vector<T> direct_subset(const std::vector<T>& a, const std::vector<T>& b) {
+  const std::size_t n = a.size();
+  std::vector<T> result(n);
+  for (std::size_t mask = 0; mask < n; ++mask) {
+    T value{};
+    for (std::size_t part = mask;; part = (part - 1) & mask) {
+      value += a[part] * b[mask ^ part];
+      if (part == 0) break;
+    }
+    result[mask] = value;
+  }
+  return result;
+}
+'''
+for name, attribute in [('outlined',''),('noinline','__attribute__((noinline))')]:
+    out = source.replace('namespace blueberry {', 'namespace '+name+' {\nnamespace detail {\n'+small.replace('ATTRIBUTE ', attribute+' ' if attribute else '')+'}\n')
+    out = out.replace('  if (n == 0) return {};', '  if (n == 0) return {};\n  if (n <= 128) return detail::direct_subset(a, b);')
+    (work / (name+'.hpp.txt')).write_text(out, encoding='utf-8', newline='\n')
+    (work / (name+'.hpp')).write_text(out, encoding='utf-8', newline='\n')
+driver = (work / 'final-bench.cpp.txt').read_text(encoding='utf-8')
+driver = driver.replace('#include "baseline.hpp"', '#include "baseline.hpp"\n#include "outlined.hpp"\n#include "noinline.hpp"')
+driver = driver.replace('variant == 1 ? blueberry::subset_convolution(a, b) : direct(a,b)', 'variant == 1 ? blueberry::subset_convolution(a, b) : variant == 2 ? outlined::subset_convolution(a, b) : noinline::subset_convolution(a,b)')
+(work / 'outlined-bench.cpp.txt').write_text(driver, encoding='utf-8', newline='\n')
+runner = (work / 'run-focus.py.txt').read_text(encoding='utf-8')
+runner = runner.replace("str(work / 'final-bench.cpp.txt')", "str(work / 'outlined-bench.cpp.txt')")
+runner = runner.replace("work/'final-bench.cpp.txt',work/'baseline.hpp.txt',root/'blueberry/math/subset-convolution.hpp',exe", "work/'outlined-bench.cpp.txt',work/'baseline.hpp.txt',work/'outlined.hpp.txt',work/'noinline.hpp.txt',root/'blueberry/math/subset-convolution.hpp',exe")
+runner = runner.replace("work / 'focus-results.json'", "work / 'outlined-results.json'")
+runner = runner.replace("work / 'build-final.json'", "work / 'build-outlined.json'")
+runner = runner.replace("'-I'+str(root)", "'-iquote', str(root)")
+runner = runner.replace('variants = range(2)', 'variants = range(4)')
+runner = runner.replace("cases = [(bits, 5 if bits <= 14 else 2 if bits == 16 else 1, typ) for typ in (0,1) for bits in (8,12,14,16,18)]", "cases = [(bits, 228 if bits == 7 else 76 if bits == 8 else 5 if bits <= 14 else 2 if bits == 16 else 1, typ) for typ in (0,1) for bits in (7,8,12,14,16,18)]")
+(work / 'run-outlined.py.txt').write_text(runner, encoding='utf-8', newline='\n')
