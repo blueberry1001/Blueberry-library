@@ -1,0 +1,5 @@
+import pathlib
+root = pathlib.Path.cwd()
+out = root / '.build/clique-reuse-study'
+(out / 'baseline.hpp').write_text((out / 'baseline-original.hpp.txt').read_text(encoding='utf-8'), encoding='utf-8', newline='\n')
+(out / 'candidate.hpp').write_text((root / 'blueberry/graph/clique-enumeration.hpp').read_text(encoding='utf-8'), encoding='utf-8', newline='\n')

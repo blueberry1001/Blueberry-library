@@ -1,0 +1,15 @@
+import os, pathlib, subprocess, json
+root=pathlib.Path.cwd(); out=root/'.build/clique-reuse-study'
+vc=pathlib.Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk=pathlib.Path(r'C:\Program Files (x86)\Windows Kits\10'); ver='10.0.22621.0'
+clang=pathlib.Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env=os.environ.copy(); env['PATH']=str(vc/'bin/Hostx64/x64')+os.pathsep+env['PATH']; env['INCLUDE']=os.pathsep.join(map(str,[vc/'include',*(sdk/'Include'/ver/p for p in ('ucrt','shared','um'))])); env['LIB']=os.pathsep.join(map(str,[vc/'lib/x64',*(sdk/'Lib'/ver/p/'x64' for p in ('ucrt','um'))]))
+subprocess.run(['python',str(out/'prepare.py')],check=True)
+results=[]
+for mode in ('assert','release'):
+ cmd=[str(clang),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2',*(['-DNDEBUG'] if mode=='release' else []),str(out/'driver.cpp'),'-o',str(out/(mode+'.exe'))]
+ p=subprocess.run(cmd,env=env,cwd=out,capture_output=True,text=True,errors='replace'); results.append({'cmd':cmd,'exit':p.returncode,'stdout':p.stdout,'stderr':p.stderr}); (out/'build.json').write_text(json.dumps(results,indent=2)+'\n',encoding='utf-8')
+ if p.returncode: raise RuntimeError('compile failed')
+ if mode=='assert':
+  p=subprocess.run([str(out/(mode+'.exe'))],env=env,cwd=out,capture_output=True,text=True,errors='replace',timeout=240); results.append({'run':mode,'exit':p.returncode,'stdout':p.stdout,'stderr':p.stderr}); (out/'build.json').write_text(json.dumps(results,indent=2)+'\n',encoding='utf-8')
+  if p.returncode: raise RuntimeError('validation failed')
