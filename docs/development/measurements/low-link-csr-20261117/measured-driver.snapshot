@@ -1,0 +1,72 @@
+#include <algorithm>
+#include <cassert>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <random>
+#include <utility>
+#include <vector>
+#define NOMINMAX
+#include <windows.h>
+#include <psapi.h>
+#include "baseline.hpp.txt"
+#include "candidate-csr.hpp.txt"
+#define blueberry candidate_empty
+#include "../../../../blueberry/graph/low-link.hpp"
+#undef blueberry
+using namespace std;
+using Edge = pair<int, int>;
+template<class A, class B> bool equal_all(const A& a, const B& b, int n, int m) {
+  if (a.size() != b.size() || a.bridges() != b.bridges() || a.articulation_points() != b.articulation_points() || a.groups() != b.groups()) return false;
+  for (int v = 0; v < n; ++v) if (a.is_articulation(v) != b.is_articulation(v) || a.component(v) != b.component(v)) return false;
+  for (int i = 0; i < m; ++i) if (a.is_bridge(i) != b.is_bridge(i)) return false;
+  return true;
+}
+void check(int n, const vector<Edge>& edges) {
+  baseline::LowLink a(n, edges); candidate::LowLink b(n, edges); candidate_empty::LowLink c(n, edges);
+  if (!equal_all(a, b, n, int(edges.size())) || !equal_all(a, c, n, int(edges.size()))) abort();
+}
+template<class Graph> uint64_t run(int n, const vector<Edge>& edges, int reps) {
+  uint64_t hash = 0;
+  for (int i = 0; i < reps; ++i) {
+    Graph g(n, edges);
+    for (int v = 0; v < n; ++v) hash = hash * 37 + unsigned(g.component(v) + 1) + unsigned(g.is_articulation(v));
+    for (int e : g.bridges()) hash = hash * 37 + unsigned(e + 1);
+    for (int v : g.articulation_points()) hash = hash * 37 + unsigned(v + 1);
+  }
+  return hash;
+}
+int main(int argc, char** argv) {
+  if (argc == 1) {
+    mt19937 rng(5719);
+    for (int n = 0; n <= 9; ++n) check(n, {});
+    vector<Edge> special{{0,0}, {0,1}, {0,1}, {1,2}, {2,2}, {3,4}, {3,4}, {4,4}};
+    for (int i = 0; i < 1000; ++i) { shuffle(special.begin(), special.end(), rng); check(6, special); }
+    for (int n = 1; n <= 9; ++n) for (int t = 0; t < 1000; ++t) {
+      vector<Edge> edges;
+      for (unsigned i = 0, m = rng() % 23; i < m; ++i) edges.emplace_back(rng() % n, rng() % n);
+      shuffle(edges.begin(), edges.end(), rng); check(n, edges);
+    }
+    cout << "differential ok\n"; return 0;
+  }
+  int which = atoi(argv[1]), shape = atoi(argv[2]), reps = atoi(argv[3]), n = 0;
+  mt19937 rng(1949); vector<Edge> edges;
+  if (shape == 0) n = 0;
+  if (shape == 1) n = 1;
+  if (shape == 2) { n = 2; edges.emplace_back(0, 1); }
+  if (shape == 3) { n = 8; for (int v = 1; v < n; ++v) edges.emplace_back(v-1, v); }
+  if (shape == 4) n = 100000;
+  if (shape == 5) { n = 100000; for (int v = 1; v < n; ++v) edges.emplace_back(v-1, v); }
+  if (shape == 6) { n = 100000; for (int v = 1; v < n; ++v) edges.emplace_back(0, v); }
+  if (shape == 7) { n = 100000; for (int i = 0; i < n * 3; ++i) edges.emplace_back(rng()%n, rng()%n); }
+  if (shape == 8) { n = 100000; for (int v = 1; v < n; ++v) { edges.emplace_back(v-1,v); edges.emplace_back(v-1,v); if (v%4 == 0) edges.emplace_back(v,v); } }
+  if (shape == 9) { n = 1000; for (int u = 0; u < n; ++u) for (int v = u+1; v < n; ++v) edges.emplace_back(u,v); }
+  if (shape >= 5) shuffle(edges.begin(), edges.end(), rng);
+  auto begin = chrono::steady_clock::now();
+  uint64_t hash = which == 0 ? run<baseline::LowLink>(n,edges,reps) : which == 1 ? run<candidate::LowLink>(n,edges,reps) : run<candidate_empty::LowLink>(n,edges,reps);
+  double ms = chrono::duration<double, milli>(chrono::steady_clock::now() - begin).count();
+  PROCESS_MEMORY_COUNTERS counters{};
+  if (!GetProcessMemoryInfo(GetCurrentProcess(), &counters, sizeof(counters))) return 1;
+  cout << ms << ' ' << hash << ' ' << n << ' ' << edges.size() << ' ' << counters.PeakWorkingSetSize << '\n';
+}
