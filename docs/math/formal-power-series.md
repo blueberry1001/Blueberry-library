@@ -297,7 +297,7 @@ fps coefficientwise = f.dot(g);
 <details class="api-operation" id="eval" markdown="1">
 <summary><code>f.eval(x) / f(x)</code> — O(N)</summary>
 
-Horner法相当の逐次計算で $f(x)$ を評価します。
+$f(x)$ を評価します。
 
 {% raw %}
 ```cpp

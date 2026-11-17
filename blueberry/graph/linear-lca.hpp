@@ -5,7 +5,6 @@
 #include "blueberry/data-structure/linear-rmq.hpp"
 
 namespace blueberry {
-// Euler tour + linear-space RMQ. Input must be a connected undirected tree.
 class LinearLCA {
   std::vector<int> depth_, first_, tour_;
   LinearRMQ<int> rmq_;
@@ -15,6 +14,7 @@ class LinearLCA {
     assert(!tree.empty() && tree.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max() / 2));
     assert(0 <= root && root < size());
     std::vector<int> stack{root}, parent(size(), -1), next(size(), 0), depths;
+    tour_.reserve(2 * tree.size() - 1); depths.reserve(2 * tree.size() - 1);
     depth_[root] = 0;
     auto visit = [&](int v) {
       if (first_[v] == -1) first_[v] = static_cast<int>(tour_.size());
@@ -48,4 +48,4 @@ class LinearLCA {
   }
   int distance(int u, int v) const { return depth(u) + depth(v) - 2 * depth(lca(u, v)); }
 };
-}  // namespace blueberry
+}

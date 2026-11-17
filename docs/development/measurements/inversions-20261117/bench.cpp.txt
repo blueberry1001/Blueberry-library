@@ -1,0 +1,31 @@
+#include <chrono>
+#include <cstdint>
+#include <iostream>
+#include <random>
+#include <string>
+#include ".build/inversions-experiment/baseline.hpp"
+#include ".build/inversions-experiment/width.hpp"
+#include ".build/inversions-experiment/blocks.hpp"
+#include ".build/inversions-experiment/both.hpp"
+#include ".build/inversions-experiment/guarded.hpp"
+#include ".build/inversions-experiment/shortguard.hpp"
+int main(int argc,char** argv){
+  if(argc!=5)return 2;
+  std::string mode=argv[1], shape=argv[4]; int n=std::stoi(argv[2]),q=std::stoi(argv[3]);
+  std::mt19937 rng(20261117);std::vector<int> a(n);
+  for(auto& x:a)x=shape=="duplicate"?int(rng()%8):int(rng()%1000000);
+  std::vector<std::pair<int,int>> qs(q);
+  for(auto& [l,r]:qs){l=rng()%(n+1);r=rng()%(n+1);if(l>r)std::swap(l,r);if(shape=="short" || shape=="mixed")r=std::min(n,l+int(rng()%64));}
+  if(shape=="mixed" && q)qs[q-1]={0,n};
+  auto start=std::chrono::steady_clock::now();std::vector<long long> out;
+  if(mode=="baseline")out=baseline::static_range_inversions(a,qs);
+  else if(mode=="width")out=width::static_range_inversions(a,qs);
+  else if(mode=="blocks")out=blocks::static_range_inversions(a,qs);
+  else if(mode=="both")out=both::static_range_inversions(a,qs);
+  else if(mode=="guarded")out=guarded::static_range_inversions(a,qs);
+  else if(mode=="shortguard")out=shortguard::static_range_inversions(a,qs);
+  else return 3;
+  auto end=std::chrono::steady_clock::now();std::uint64_t sum=0;
+  for(auto v:out)sum=sum*1000003+static_cast<std::uint64_t>(v);
+  std::cout << "{\"ms\":" << std::chrono::duration<double,std::milli>(end-start).count() << ",\"checksum\":" << sum << "}\n";
+}

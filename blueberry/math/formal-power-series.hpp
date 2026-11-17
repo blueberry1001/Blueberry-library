@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cstddef>
 #include <cstdint>
 #include <optional>
 #include <utility>
@@ -263,13 +264,25 @@ struct FormalPowerSeries : std::vector<Mint> {
   }
 
   Mint eval(Mint x) const {
-    Mint result = 0;
-    Mint power = 1;
-    for (const Mint& coefficient : *this) {
-      result += coefficient * power;
-      power *= x;
+    if (this->empty()) return Mint(0);
+    if (this->size() == 1) return (*this)[0];
+    if (this->size() < 8) {
+      Mint result = 0;
+      for (auto it = this->rbegin(); it != this->rend(); ++it) result = result * x + *it;
+      return result;
     }
-    return result;
+    Mint x2 = x * x, x4 = x2 * x2, a = 0, b = 0, c = 0, d = 0;
+    std::size_t k = this->size(), r = k % 4;
+    k -= r;
+    if (r > 0) a = (*this)[k];
+    if (r > 1) b = (*this)[k + 1];
+    if (r > 2) c = (*this)[k + 2];
+    while (k) {
+      k -= 4;
+      a = a * x4 + (*this)[k]; b = b * x4 + (*this)[k + 1];
+      c = c * x4 + (*this)[k + 2]; d = d * x4 + (*this)[k + 3];
+    }
+    return ((d * x + c) * x + b) * x + a;
   }
 
   Mint operator()(Mint x) const { return eval(x); }

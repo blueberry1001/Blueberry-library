@@ -381,6 +381,7 @@
 
 - 専用ドライバ: [verify/data-structure/static-range-inversions.test.cpp](../verify/data-structure/static-range-inversions.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_inversions_query)
 - 関連ローカルテスト: [tests/random/sequence-batch-four.cpp](../tests/random/sequence-batch-four.cpp)
+- 関連ローカルテスト: [tests/random/static-range-inversions-sparse.cpp](../tests/random/static-range-inversions-sparse.cpp)
 
 ## Static Range LIS
 

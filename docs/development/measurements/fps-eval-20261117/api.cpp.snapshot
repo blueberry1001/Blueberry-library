@@ -1,0 +1,17 @@
+#include <atcoder/modint>
+#include "blueberry/math/formal-power-series.hpp"
+#include <chrono>
+#include <cstdlib>
+#include <iostream>
+#include <random>
+#include <vector>
+using mint=atcoder::modint998244353;
+using fps=blueberry::FPS<mint>;
+int main(int argc,char**argv){
+ if(argc!=4)return 1;
+ int n=std::atoi(argv[1]),q=std::atoi(argv[2]);std::mt19937_64 rng(std::strtoull(argv[3],nullptr,10));
+ fps f(n);for(auto &a:f)a=rng();std::vector<mint> xs(q),results(q);for(auto &x:xs)x=rng();
+ for(int j=0;j<std::min(q,20);++j){mint sum=0,p=1;for(auto a:f){sum+=a*p;p*=xs[j];}if(f.eval(xs[j])!=sum||f(xs[j])!=sum)return 2;}
+ auto t=std::chrono::steady_clock::now();for(int i=0;i<q;++i)results[i]=f.eval(xs[i]);auto e=std::chrono::steady_clock::now();
+ std::uint64_t hash=0;for(auto v:results)hash=hash*0x9e3779b185ebca87ULL+v.val();std::cout<<hash<<" "<<std::chrono::duration<double,std::milli>(e-t).count()<<'\n';
+}

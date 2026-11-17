@@ -23,7 +23,8 @@ std::vector<long long> static_range_inversions(
   for (int i = 0; i < n; ++i)
     rank[i] = static_cast<int>(std::lower_bound(values.begin(), values.end(), a[i]) - values.begin());
   std::iota(order.begin(), order.end(), 0);
-  const int block = std::max(1, static_cast<int>(std::sqrt(std::max(1, n))));
+  int block = std::max(1, static_cast<int>(std::sqrt(std::max(1, n))));
+  if (q < n) for (auto [l, r] : queries) if (r - l > block) { block = std::max(block, static_cast<int>(n / std::sqrt(std::max(1, q)))); break; }
   std::sort(order.begin(), order.end(), [&](int x, int y) {
     int bx = queries[x].first / block, by = queries[y].first / block;
     if (bx != by) return bx < by;

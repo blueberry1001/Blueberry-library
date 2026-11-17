@@ -1,0 +1,26 @@
+#include <algorithm>
+#include <cassert>
+#include <random>
+#include ".build/inversions-experiment/baseline.hpp"
+#include ".build/inversions-experiment/width.hpp"
+#include ".build/inversions-experiment/blocks.hpp"
+#include ".build/inversions-experiment/both.hpp"
+#include ".build/inversions-experiment/guarded.hpp"
+#include ".build/inversions-experiment/shortguard.hpp"
+int main(){
+  std::mt19937 rng(20261117);
+  for(int n=0;n<45;++n) for(int rep=0;rep<30;++rep){
+    std::vector<int> a(n); for(auto& x:a)x=int(rng()%9)-4;
+    int q=rep%3==0?0:rep%3==1?1:150;
+    std::vector<std::pair<int,int>> qs(q);
+    for(auto& [l,r]:qs){l=rng()%(n+1);r=rng()%(n+1);if(l>r)std::swap(l,r);}
+    std::vector<long long> expected(q);
+    for(int k=0;k<q;++k)for(int i=qs[k].first;i<qs[k].second;++i)for(int j=i+1;j<qs[k].second;++j)expected[k]+=a[j]<a[i];
+    assert(baseline::static_range_inversions(a,qs)==expected);
+    assert(width::static_range_inversions(a,qs)==expected);
+    assert(blocks::static_range_inversions(a,qs)==expected);
+    assert(both::static_range_inversions(a,qs)==expected);
+    assert(guarded::static_range_inversions(a,qs)==expected);
+    assert(shortguard::static_range_inversions(a,qs)==expected);
+  }
+}
