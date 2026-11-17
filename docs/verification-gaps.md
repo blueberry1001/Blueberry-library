@@ -137,6 +137,7 @@
 [blueberry/data-structure/dual-segment-tree.hpp](../blueberry/data-structure/dual-segment-tree.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/data-structure/dual-segment-tree.test.cpp](../verify/data-structure/dual-segment-tree.test.cpp) / [問題](https://judge.yosupo.jp/problem/range_affine_point_get)
+- 関連ローカルテスト: [tests/random/dual-segment-tree-byte.cpp](../tests/random/dual-segment-tree-byte.cpp)
 - 関連ローカルテスト: [tests/random/specialized-structures.cpp](../tests/random/specialized-structures.cpp)
 
 ## Dynamic Fenwick Tree 2D
@@ -541,6 +542,7 @@
 
 - 専用ドライバ: [verify/graph/bipartite-matching.test.cpp](../verify/graph/bipartite-matching.test.cpp) / [問題](https://judge.yosupo.jp/problem/bipartitematching)
 - 関連ローカルテスト: [tests/random/graph-expansion.cpp](../tests/random/graph-expansion.cpp)
+- 関連ローカルテスト: [tests/random/hopcroft-karp-greedy.cpp](../tests/random/hopcroft-karp-greedy.cpp)
 
 ## Linear LCA
 
@@ -646,6 +648,7 @@
 - 専用ドライバ: [verify/math/bitwise-or-via-and.test.cpp](../verify/math/bitwise-or-via-and.test.cpp) / [問題](https://judge.yosupo.jp/problem/bitwise_and_convolution)
 - 専用ドライバ: [verify/math/bitwise-xor-convolution.test.cpp](../verify/math/bitwise-xor-convolution.test.cpp) / [問題](https://judge.yosupo.jp/problem/bitwise_xor_convolution)
 - 関連ローカルテスト: [tests/random/algebra-expansion.cpp](../tests/random/algebra-expansion.cpp)
+- 関連ローカルテスト: [tests/random/bitwise-radix4.cpp](../tests/random/bitwise-radix4.cpp)
 
 ## Combinations
 
@@ -739,6 +742,7 @@
 [blueberry/math/longest-increasing-subsequence.hpp](../blueberry/math/longest-increasing-subsequence.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/math/longest-increasing-subsequence.test.cpp](../verify/math/longest-increasing-subsequence.test.cpp) / [問題](https://judge.yosupo.jp/problem/longest_increasing_subsequence)
+- 関連ローカルテスト: [tests/random/longest-increasing-subsequence-fast.cpp](../tests/random/longest-increasing-subsequence-fast.cpp)
 - 関連ローカルテスト: [tests/random/sequence-batch-two.cpp](../tests/random/sequence-batch-two.cpp)
 
 ## Matrix

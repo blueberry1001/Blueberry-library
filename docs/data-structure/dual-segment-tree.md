@@ -44,7 +44,7 @@ Nは要素数。構築・メモリはO(N)、範囲作用・一点操作は最悪
 
 ## 概要・前提 {#概要前提}
 
-- ACL lazy_segtreeと異なり、葉の値と作用だけを保持します。Fの等値比較は不要です。
+- ACL lazy_segtreeと異なり、葉の値と作用だけを保持します。Fの等値比較は不要です。遅延の有無を表す配列は要素ごとに1バイト使います。
 - S/Fはコピー可能、既定構築は不要です。`N <= INT_MAX`。数値演算のオーバーフローは利用側で防いでください。
 - getは遅延作用を伝播するため非constです。get_allも内部状態を更新しますが、返す値・配列は独立したコピーです。
 - コピーした木は独立し、ムーブ元は長さ0で再利用できます。
@@ -281,6 +281,7 @@ auto values = tree.get_all();
 
 - [maspypy Dual SegTree](https://maspypy.github.io/library/ds/segtree/dual_segtree.hpp) を設計比較資料とし独立実装。
 - Library Checker [Range Affine Point Get](https://judge.yosupo.jp/problem/range_affine_point_get)。
-- `tests/random/specialized-structures.cpp` で非可換 affine 作用・一点代入・空区間を愚直配列と比較。
+- `tests/random/specialized-structures.cpp` と `tests/random/dual-segment-tree-byte.cpp` で非可換 affine 作用・一点代入・空区間を愚直配列と比較。
+- [最速提出との比較と測定記録]({{ '/docs/development/measurements/dual-segment-tree-byte-20261118/' | relative_url }})。
 
 </details>

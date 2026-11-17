@@ -32,6 +32,7 @@ documentation_of: //blueberry/math/bitwise-convolution.hpp
 - 係数演算・コピーをO(1)とします。全中間和・差・積が型の範囲に収まることは呼出側の責任です。浮動小数点は丸め誤差を含みます。
 - 入力は値渡しで、通常呼出しではコピー、`std::move` を渡せば格納領域を利用できます。返り値は独立したvectorで、内部参照を公開しません。移動した入力の内容は未規定です。
 - 公開変換APIはなく、用途ごとの3関数を提供します。
+- XOR は変換の2段をまとめます。AND/OR は単段の走査を使い、MSVC では小さい非整数型に限り2段をまとめます。
 
 </details>
 
@@ -105,7 +106,8 @@ auto c = blueberry::bitwise_convolution_xor(a, b);
 
 - [Library Checker AND](https://judge.yosupo.jp/problem/bitwise_and_convolution)、[XOR](https://judge.yosupo.jp/problem/bitwise_xor_convolution): 対応する verify/math/bitwise-*-convolution.test.cpp。
 - OR の公式単独問題はありません。`verify/math/bitwise-or-via-and.test.cpp` は bit 補集合による De Morgan 則で公式 AND 入力を OR に還元します。OR の直接定義は O(N²) oracle でも検証します。
-- [Fastest AND 400554](https://judge.yosupo.jp/submission/400554)、[XOR 400553](https://judge.yosupo.jp/submission/400553): 同系統の変換に SIMD・Montgomery 演算・専用 I/O を組合せています。公開コードを転記せず、標準的な変換を独立実装しています。
+- [Fastest AND 409492](https://judge.yosupo.jp/submission/409492)、[XOR 409698](https://judge.yosupo.jp/submission/409698): 同系統の変換に SIMD・遅延剰余・専用 I/O を組合せています。公開コードを転記せず、2段の変換をまとめる方法を独立実装しています。
+- [同条件の測定と不採用案]({{ '/docs/development/measurements/bitwise-radix4-20261118/' | relative_url }})には、入力サイズ・係数型ごとの結果を記録しています。
 - `tests/random/algebra-expansion.cpp`: 固定 seed の全 i,j 列挙、空・長さ1・符号付き係数・異なる法を検証。
 
 </details>

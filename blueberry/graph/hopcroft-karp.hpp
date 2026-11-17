@@ -1,31 +1,34 @@
 #pragma once
 
 #include <algorithm>
-#include <cassert>
 #include <cstddef>
-#include <limits>
 #include <utility>
 #include <vector>
 
 namespace blueberry {
 
-/** @brief Stack-safe maximum bipartite matching and minimum vertex cover. */
 class HopcroftKarp {
  public:
   HopcroftKarp(int left_n, int right_n, const std::vector<std::pair<int, int>>& edges) {
-    assert(left_n >= 0 && right_n >= 0);
-    assert(static_cast<long long>(left_n) + right_n < std::numeric_limits<int>::max());
     left_.assign(left_n, -1);
     right_.assign(right_n, -1);
     offset_.assign(static_cast<std::size_t>(left_n) + 1, 0);
     for (const auto& [u, v] : edges) {
-      assert(0 <= u && u < left_n && 0 <= v && v < right_n);
       ++offset_[u + 1];
     }
     for (int u = 0; u < left_n; ++u) offset_[u + 1] += offset_[u];
+    if (edges.empty()) return;
     adjacency_.resize(edges.size());
     auto next = offset_;
     for (const auto& [u, v] : edges) adjacency_[next[u]++] = v;
+
+    for (int u = 0; u < left_n; ++u) {
+      for (std::size_t i = offset_[u]; i < offset_[u + 1]; ++i) {
+        const int v = adjacency_[i];
+        if (right_[v] == -1) { left_[u] = v; right_[v] = u; ++size_; break; }
+      }
+    }
+    if (size_ == std::min(left_n, right_n)) return;
 
     std::vector<int> distance(left_n), queue, path, path_right;
     queue.reserve(left_n);
@@ -44,12 +47,13 @@ class HopcroftKarp {
         if (distance[u] >= shortest) continue;
         for (std::size_t i = offset_[u]; i < offset_[u + 1]; ++i) {
           const int v = adjacency_[i], mate = right_[v];
-          if (mate == -1) shortest = distance[u] + 1;
+          if (mate == -1) { shortest = distance[u] + 1; break; }
           else if (distance[mate] == -1) {
             distance[mate] = distance[u] + 1;
             queue.push_back(mate);
           }
         }
+        if (shortest != left_n + 1) break;
       }
       if (shortest == left_n + 1) break;
       next = offset_;
@@ -96,11 +100,9 @@ class HopcroftKarp {
 
   int size() const { return size_; }
   int left_match(int u) const {
-    assert(0 <= u && u < static_cast<int>(left_.size()));
     return left_[u];
   }
   int right_match(int v) const {
-    assert(0 <= v && v < static_cast<int>(right_.size()));
     return right_[v];
   }
   std::vector<std::pair<int, int>> pairs() const {
@@ -143,4 +145,4 @@ class HopcroftKarp {
   std::vector<std::size_t> offset_;
 };
 
-}  // namespace blueberry
+}

@@ -27,6 +27,7 @@ Nを要素数として時間O(N log(N+1))、メモリO(N)です。
 - ACLにはない列アルゴリズムです。`N <= INT_MAX`、比較はO(1)とします。
 - 値の番兵・算術演算を使わず、整数の最小・最大値も扱えます。
 - 入力を変更・保持せず、返り値は独立した所有配列です。
+- `bool` を除く64bit以下の整数型では末尾候補の値と各位置の長さを保持し、逆走査で復元します。補助配列は最大で値N個とint N個です。その他の型は値をコピーせず、添字と直前位置を保持します。
 
 </details>
 
@@ -70,5 +71,6 @@ assert(ids.size() == 1);
   [sotanishy](https://sotanishy.github.io/cp-library-cpp/dp/lis.hpp) の二分探索・復元方式を調査し独立実装。
   公式 Library Checker `longest_increasing_subsequence`、固定 seed の O(N²) DP・復元チェック。
   候補比較は `docs/development/sequence-batch-two.md`。
+- [最速提出との比較と測定]({{ '/docs/development/measurements/lis-20261118/' | relative_url }})。
 
 </details>
