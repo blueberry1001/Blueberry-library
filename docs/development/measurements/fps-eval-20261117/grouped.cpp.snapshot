@@ -1,0 +1,14 @@
+#include <atcoder/modint>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <random>
+#include <vector>
+using mint=atcoder::modint998244353;
+using namespace std;
+__declspec(noinline) mint baseline(const vector<mint>& a,mint x){ mint s=0,p=1; for(auto v:a){s+=v*p;p*=x;} return s; }
+__declspec(noinline) mint horner(const vector<mint>& a,mint x){ mint s=0; for(auto i=a.rbegin();i!=a.rend();++i)s=s*x+*i; return s; }
+__declspec(noinline) mint group2(const vector<mint>& a,mint x){ mint x2=x*x,s0=0,s1=0; size_t k=a.size(); if(k&1) s0=a[--k]; while(k){k-=2;s0=s0*x2+a[k];s1=s1*x2+a[k+1];} return s1*x+s0; }
+__declspec(noinline) mint group4(const vector<mint>& a,mint x){ mint x2=x*x,x4=x2*x2,s0=0,s1=0,s2=0,s3=0;size_t k=a.size(),r=k%4;k-=r;if(r>0)s0=a[k];if(r>1)s1=a[k+1];if(r>2)s2=a[k+2];while(k){k-=4;s0=s0*x4+a[k];s1=s1*x4+a[k+1];s2=s2*x4+a[k+2];s3=s3*x4+a[k+3];}return ((s3*x+s2)*x+s1)*x+s0; }
+int main(int argc,char**argv){ mt19937 rng(871); for(int n=0;n<500;++n){vector<mint>a(n); for(auto &v:a)v=rng();for(int j=0;j<30;++j){mint x=rng(),v=baseline(a,x);if(v!=horner(a,x)||v!=group2(a,x)||v!=group4(a,x))return 1;}} if(argc<4) return 0; int n=atoi(argv[1]), q=atoi(argv[2]), mode=atoi(argv[3]);vector<mint>a(n); for(auto &v:a)v=rng();mint sum=0; auto t=chrono::steady_clock::now(); for(int i=0;i<q;++i){mint x=i+2; switch(mode){case 0:sum+=baseline(a,x);break;case 1:sum+=horner(a,x);break;case 2:sum+=group2(a,x);break;case 3:sum+=group4(a,x);break;}} auto e=chrono::steady_clock::now();cout<<sum.val()<<" "<<chrono::duration<double,milli>(e-t).count()<<'\n'; }

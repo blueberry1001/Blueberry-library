@@ -1,0 +1,14 @@
+import os, subprocess
+from pathlib import Path
+root=Path.cwd();out=root/'.build/fps-eval-study';vc=Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808');sdk=Path(r'C:\Program Files (x86)\Windows Kits\10');v='10.0.22621.0';compiler=Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+e=os.environ.copy();e['PATH']=str(vc/'bin/Hostx64/x64')+os.pathsep+e['PATH'];e['INCLUDE']=os.pathsep.join(map(str,[vc/'include',*(sdk/'Include'/v/p for p in ('ucrt','shared','um'))]));e['LIB']=os.pathsep.join(map(str,[vc/'lib/x64',*(sdk/'Lib'/v/p/'x64' for p in ('ucrt','um'))]))
+header=Path('blueberry/math/formal-power-series.hpp');orig=subprocess.run(['git','show','HEAD:'+header.as_posix()],capture_output=True,check=True).stdout
+for name,data in [('baseline',orig),('candidate',header.read_bytes())]:
+ directory=out/name;h=directory/header;h.parent.mkdir(parents=True,exist_ok=True);h.write_bytes(data)
+ for src in ['api.cpp','test']:
+  source=out/src if src!='test' else root/'tests/random/formal-power-series.cpp'
+  cmd=[str(compiler),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2','-DNDEBUG' if src=='api.cpp' else '-UNDEBUG','-I'+str(directory),'-I'+str(root),'-isystem',str(root/'.deps/ac-library'),str(source),'-o',str(directory/(src+'.exe'))]
+  p=subprocess.run(cmd,env=e,capture_output=True,text=True);print(name,src,'compile',p.returncode,p.stderr);p.check_returncode()
+  if src=='test':
+   for seed in ['1','17','731']:
+    p=subprocess.run([str(directory/'test.exe'),seed],capture_output=True,text=True);print(name,'seed',seed,p.returncode,p.stderr);p.check_returncode()
