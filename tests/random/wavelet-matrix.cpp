@@ -152,6 +152,12 @@ int main(int argc, char** argv) {
       assert(wm.range_freq(0, int(a.size()), base + 270) == int(a.size()));
     }
   }
+  for (int distinct : {255, 256, 257, 4095, 4096, 4097}) {
+    vector<long long> a(8192);
+    for (int i = 0; i < int(a.size()); ++i) a[i] = -5000 + 2LL * (i % distinct);
+    shuffle(a.begin(), a.end(), rng);
+    check(a, rng, seed, 12, false);
+  }
   blueberry::WaveletMatrix<int> original(vector<int>{4, 2});
   auto copied = original;
   original = blueberry::WaveletMatrix<int>();

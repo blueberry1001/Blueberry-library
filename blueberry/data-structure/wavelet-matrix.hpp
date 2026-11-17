@@ -29,18 +29,24 @@ class WaveletMatrix {
 
   int n_ = 0;
   int height_ = 0;
+  struct RankBlock { std::uint64_t bits = 0; int prefix = 0; };
   bool direct_ = false;
-  std::vector<int> dense_;
+  std::size_t dense_span_ = 0;
+  std::vector<RankBlock> dense_;
+  std::vector<int> small_;
   std::vector<T> values_;
   std::vector<Level> levels_;
 
   int lower(const T& x) const {
-    if (direct_ || !dense_.empty()) {
+    if (direct_ || !dense_.empty() || !small_.empty()) {
       if (x < values_.front()) return 0;
       using U = std::make_unsigned_t<T>;
       U d = U(U(x) - U(values_.front()));
       if (direct_) return d >= values_.size() ? static_cast<int>(values_.size()) : static_cast<int>(d);
-      return d >= dense_.size() ? static_cast<int>(values_.size()) : dense_[static_cast<std::size_t>(d)];
+      if (d > dense_span_) return static_cast<int>(values_.size());
+      if (!small_.empty()) return small_[static_cast<std::size_t>(d)];
+      const auto& block = dense_[static_cast<std::size_t>(d) / 64];
+      return block.prefix + std::popcount(block.bits & ((std::uint64_t{1} << (static_cast<std::size_t>(d) % 64)) - 1));
     }
     return static_cast<int>(std::lower_bound(values_.begin(), values_.end(), x) - values_.begin());
   }
@@ -91,13 +97,35 @@ class WaveletMatrix {
         remaining = U(static_cast<U>(*maximum) - base);
         if constexpr (sizeof(T) <= 8) {
           if (static_cast<std::uint64_t>(remaining) <= std::min<std::uint64_t>(1u << 20, std::uint64_t(n_) * 8)) {
-            std::vector<int> mapping(static_cast<std::size_t>(remaining) + 1, -1);
-            for (const auto& value : a) mapping[U(static_cast<U>(value) - base)] = 0;
+            const std::size_t span = static_cast<std::size_t>(remaining);
+            std::vector<RankBlock> mapping(span / 64 + 1);
+            for (const auto& value : a) {
+              const std::size_t d = U(static_cast<U>(value) - base);
+              mapping[d / 64].bits |= std::uint64_t{1} << (d % 64);
+            }
             int distinct = 0;
-            for (int& value : mapping) { bool present = value == 0; value = distinct; distinct += present; }
-            for (int i = 0; i < n_; ++i) { current[i] = mapping[U(static_cast<U>(a[i]) - base)]; values_[current[i]] = a[i]; }
+            for (auto& block : mapping) { block.prefix = distinct; distinct += std::popcount(block.bits); }
+            for (int i = 0; i < n_; ++i) {
+              const std::size_t d = U(static_cast<U>(a[i]) - base);
+              const auto& block = mapping[d / 64];
+              current[i] = block.prefix + std::popcount(block.bits & ((std::uint64_t{1} << (d % 64)) - 1));
+              values_[current[i]] = a[i];
+            }
             values_.resize(distinct);
-            if (static_cast<std::size_t>(distinct) != mapping.size()) dense_.swap(mapping);
+            if (static_cast<std::size_t>(distinct) != span + 1) {
+              dense_span_ = span;
+              if (distinct <= 4096) {
+                std::vector<int> table(span + 1);
+                std::size_t start = 0;
+                int rank = 0;
+                for (T value : values_) {
+                  const std::size_t end = U(static_cast<U>(value) - base);
+                  std::fill(table.begin() + start, table.begin() + end + 1, rank++);
+                  start = end + 1;
+                }
+                small_.swap(table);
+              } else dense_.swap(mapping);
+            }
             encoded = true;
           }
         }
@@ -212,6 +240,7 @@ class WaveletMatrix {
   }
 
   int range_freq(int l, int r, const T& lower_value, const T& upper) const {
+    if (lower_value == upper) return 0;
     const int lo = lower(lower_value), hi = lower(upper);
     if (lo == hi) return 0;
     if (hi == static_cast<int>(values_.size())) return r - l - count_less(l, r, lo);
@@ -223,7 +252,11 @@ class WaveletMatrix {
       else { l -= ones_l; r -= ones_r; }
       ++first;
     }
-    return count_less(l, r, hi, first) - count_less(l, r, lo, first);
+    const auto& level = levels_[first];
+    const int ones_l = level.rank(l), ones_r = level.rank(r);
+    const int zl = l - ones_l, zr = r - ones_r;
+    return zr - zl - count_less(zl, zr, lo, first + 1)
+      + count_less(level.zeros + ones_l, level.zeros + ones_r, hi, first + 1);
   }
 
   std::optional<T> prev_value(int l, int r, const T& upper) const {
