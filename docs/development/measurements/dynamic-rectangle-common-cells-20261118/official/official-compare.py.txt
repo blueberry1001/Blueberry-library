@@ -1,0 +1,152 @@
+import argparse
+import hashlib
+import importlib.metadata
+import json
+import math
+import os
+from pathlib import Path
+import platform
+import re
+import shlex
+import statistics
+import subprocess
+import sys
+import time
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--cases', type=Path, required=True)
+parser.add_argument('--checker', type=Path, required=True)
+parser.add_argument('--reference-log', type=Path, required=True)
+parser.add_argument('--output', type=Path, required=True)
+parser.add_argument('--compiler', default='g++')
+parser.add_argument('--oj', default='oj')
+args = parser.parse_args()
+root = Path.cwd().resolve()
+here = root / '.build/dynamic-rectangle-sum-study'
+out = args.output.resolve()
+out.mkdir(parents=True, exist_ok=False)
+metadata = {'source_revision':'179d99a', 'expected_dataset_sha256':'fc30ff14ff46358b69d772613533ce5933753b0a38fda80d0ab2823948127eb4',
+            'environment':{'platform':platform.platform(), 'python':platform.python_version()}, 'steps':[], 'runs':[], 'succeeded':False}
+def save(): (out/'report.json').write_text(json.dumps(metadata, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+def sha(data): return hashlib.sha256(data).hexdigest()
+def blob(data): return hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+def process(name, command):
+    start = time.time()
+    item = {'name':name, 'command':list(map(str, command)), 'start_unix':start,
+            'exit_code':None, 'timed_out':False, 'stdout':name+'.stdout.log', 'stderr':name+'.stderr.log'}
+    metadata['steps'].append(item); save()
+    try:
+        p = subprocess.run(list(map(str, command)), cwd=root, capture_output=True, timeout=1800)
+        stdout, stderr, code, timeout = p.stdout, p.stderr, p.returncode, False
+    except subprocess.TimeoutExpired as error:
+        stdout, stderr, code, timeout = error.stdout or b'', error.stderr or b'', None, True
+    except OSError as error:
+        stdout, stderr, code, timeout = b'', str(error).encode(), None, False
+    (out/(name+'.stdout.log')).write_bytes(stdout)
+    (out/(name+'.stderr.log')).write_bytes(stderr)
+    item.update(end_unix=time.time(), exit_code=code, timed_out=timeout); save()
+    if timeout or code != 0: raise RuntimeError(name+' failed or timed out')
+    return stdout
+def dataset_hash(paths, directory):
+    h = hashlib.sha256()
+    for path in sorted(paths):
+        h.update(str(path.relative_to(directory)).encode()); h.update(b'\0')
+        with path.open('rb') as stream:
+            for chunk in iter(lambda:stream.read(1024*1024), b''): h.update(chunk)
+        h.update(b'\0')
+    return h.hexdigest()
+try:
+    save()
+    if os.name != 'posix': raise RuntimeError('run in the WSL Linux environment')
+    cases = args.cases.resolve(); checker = args.checker.resolve(); reference = args.reference_log.resolve()
+    inputs = sorted(cases.glob('*.in')); outputs = sorted(cases.glob('*.out'))
+    if len(inputs) != 14 or [p.stem for p in inputs] != [p.stem for p in outputs]:
+        raise RuntimeError('expected exactly 14 matching input/output cases')
+    digest = dataset_hash(inputs+outputs, cases)
+    metadata.update(cases=str(cases), checker=str(checker), reference_log=str(reference),
+                    dataset_sha256=digest, reference_log_sha256=sha(reference.read_bytes()),
+                    checker_sha256=sha(checker.read_bytes()),
+                    testcase_sha256={p.name:sha(p.read_bytes()) for p in inputs+outputs})
+    save()
+    if digest != metadata['expected_dataset_sha256']: raise RuntimeError('official dataset hash differs from reference')
+    if not os.access(checker, os.X_OK): raise RuntimeError('checker is not executable')
+    seen = set()
+    for line in reference.read_text(encoding='utf-8', errors='replace').splitlines():
+        if ' $ ' not in line: continue
+        try: cmd = shlex.split(line.split(' $ ',1)[1])
+        except ValueError: continue
+        if len(cmd) < 4: continue
+        try:
+            input_path = Path(cmd[1]).resolve(); output_path = Path(cmd[-1]).resolve()
+            if input_path.parent != cases or input_path.suffix != '.in': continue
+            if Path(cmd[0]).resolve() != checker or output_path != cases/(input_path.stem+'.out'):
+                raise RuntimeError('reference checker or output path differs')
+            seen.add(input_path.stem)
+        except OSError: continue
+    if seen != {p.stem for p in inputs}: raise RuntimeError('reference log does not confirm the same checker for all 14 cases')
+    original = (here/'baseline.hpp').read_text(encoding='utf-8').replace('namespace study_baseline {','namespace blueberry {').encode()
+    merged = (here/'merged.hpp').read_text(encoding='utf-8').replace('namespace study_merged {','namespace blueberry {').encode()
+    driver = (here/'driver-179d.cpp.txt').read_text(encoding='utf-8').encode()
+    if blob(original) != 'a854af1c6a4d6fb77098b122bbbfc67873e04596': raise RuntimeError('baseline header does not match 179d99a')
+    if blob(driver) != 'adbafd25c1d68c87ef5c02503c125186ee8ac90a': raise RuntimeError('driver does not match 179d99a')
+    build = json.loads((here/'build-mergedwin.json').read_text(encoding='utf-8'))
+    if sha((here/'merged.hpp').read_bytes()) != build['source_sha256']['merged.hpp']: raise RuntimeError('candidate differs from tested mode 5')
+    metadata['sources'] = {'baseline_git_blob':blob(original), 'driver_git_blob':blob(driver),
+                           'baseline_sha256':sha(original), 'candidate_sha256':sha(merged), 'driver_sha256':sha(driver),
+                           'tested_candidate_sha256':build['source_sha256']['merged.hpp'],
+                           'runner_sha256':sha(Path(__file__).read_bytes())}
+    save()
+    compiler_version = process('compiler-version', [args.compiler,'--version']).decode(errors='replace')
+    if not re.search(r'\b13\.3\.0\b', compiler_version): raise RuntimeError('compiler is not GCC 13.3.0')
+    metadata['environment']['compiler_version'] = compiler_version
+    try: metadata['environment']['oj_version'] = importlib.metadata.version('online-judge-tools')
+    except importlib.metadata.PackageNotFoundError: metadata['environment']['oj_version'] = 'unavailable'
+    cpu = Path('/proc/cpuinfo')
+    if cpu.is_file():
+        for line in cpu.read_text().splitlines():
+            if line.startswith('model name'): metadata['environment']['cpu'] = line.split(':',1)[1].strip(); break
+    metadata['environment']['original_affinity'] = sorted(os.sched_getaffinity(0))
+    cpu_id = min(os.sched_getaffinity(0)); os.sched_setaffinity(0,{cpu_id})
+    metadata['environment']['selected_affinity'] = cpu_id
+    source = out/'driver.cpp'; source.write_bytes(driver)
+    flags = ['-std=gnu++20','-O2','-pipe','-Wall','-Wextra','-Wshadow','-D_GLIBCXX_ASSERTIONS']
+    executables = {}
+    for mode, data in [('old',original),('merged',merged)]:
+        overlay = out/mode/'include'; header = overlay/'blueberry/data-structure/dynamic-fenwick-tree-2d.hpp'
+        header.parent.mkdir(parents=True); header.write_bytes(data)
+        exe = out/mode/'solution'; executables[mode] = exe
+        process('compile-'+mode, [args.compiler,*flags,'-I',overlay,'-I',root,'-o',exe,source])
+        metadata['sources'][mode+'_executable_sha256'] = sha(exe.read_bytes()); save()
+    for repeat in range(1,4):
+        for mode in (['old','merged'] if repeat%2 else ['merged','old']):
+            name = mode+'-'+str(repeat); log = out/(name+'.oj.json')
+            cmd = [args.oj,'test','-c',shlex.quote(str(executables[mode])),'-d',str(cases),'-t','60',
+                   '--judge-command',shlex.quote(str(checker)),'--log-file',str(log)]
+            process(name,cmd)
+            if not log.is_file(): raise RuntimeError(name+' did not produce an oj case log')
+            payload = json.loads(log.read_text(encoding='utf-8'))
+            names = [entry['testcase']['name'] for entry in payload]
+            if sorted(names) != [p.stem for p in inputs]: raise RuntimeError(name+' case inventory differs')
+            results = []
+            for item in payload:
+                elapsed = item.get('elapsed')
+                if item.get('status') != 'AC' or item.get('exitcode') != 0 or isinstance(elapsed,bool) or not isinstance(elapsed,(int,float)) or not math.isfinite(elapsed) or elapsed < 0:
+                    raise RuntimeError(name+' has a non-AC or missing case result')
+                results.append({'case':item['testcase']['name'], 'status':item['status'], 'exit_code':item['exitcode'],
+                                'elapsed':elapsed, 'memory':item.get('memory')})
+            metadata['runs'].append({'mode':mode, 'repeat':repeat, 'oj_log':str(log), 'cases':results}); save()
+    if dataset_hash(inputs+outputs,cases) != digest or sha(checker.read_bytes()) != metadata['checker_sha256']:
+        raise RuntimeError('dataset or checker changed during measurement')
+    metadata['summary'] = {}
+    for mode in ('old','merged'):
+        runs = [run for run in metadata['runs'] if run['mode'] == mode]
+        metadata['summary'][mode] = {
+            'case_median_seconds': {case.stem:statistics.median(next(row['elapsed'] for row in run['cases'] if row['case']==case.stem) for run in runs) for case in inputs},
+            'median_worst_case_seconds':statistics.median(max(row['elapsed'] for row in run['cases']) for run in runs),
+            'median_total_seconds':statistics.median(sum(row['elapsed'] for row in run['cases']) for run in runs)}
+    metadata['succeeded'] = True
+except BaseException as error:
+    metadata['error'] = str(error)
+    raise
+finally:
+    metadata['completed_at_unix'] = time.time(); save()

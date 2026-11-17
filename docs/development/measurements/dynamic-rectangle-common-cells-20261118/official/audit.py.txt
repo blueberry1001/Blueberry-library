@@ -1,0 +1,40 @@
+import hashlib
+import json
+from pathlib import Path
+import statistics
+
+root = Path('/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118')
+out = Path('/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/docs/development/measurements/dynamic-rectangle-common-cells-20261118/official')
+report = json.loads((root / 'report.json').read_text())
+manifest = json.loads((out / 'raw-oj-manifest.json').read_text())
+if not report['succeeded'] or len(report['runs']) != 6 or len(manifest) != 6:
+    raise RuntimeError('incomplete official comparison')
+for run in report['runs']:
+    path = root / f"{run['mode']}-{run['repeat']}.oj.json"
+    with path.open('rb') as stream:
+        digest = hashlib.file_digest(stream, 'sha256').hexdigest()
+    if manifest[str(path)] != {'bytes': path.stat().st_size, 'sha256': digest}:
+        raise RuntimeError(f'raw log hash mismatch: {path}')
+    raw = json.loads(path.read_text())
+    cases = [{'case': x['testcase']['name'], 'status': x['status'], 'exit_code': x['exitcode'],
+              'elapsed': x['elapsed'], 'memory': x.get('memory')} for x in raw]
+    if cases != run['cases'] or len(cases) != 14 or any(x['status'] != 'AC' or x['exit_code'] != 0 for x in cases):
+        raise RuntimeError(f'case results differ: {path}')
+for mode in ('old', 'merged'):
+    runs = [r for r in report['runs'] if r['mode'] == mode]
+    worst = statistics.median(max(c['elapsed'] for c in r['cases']) for r in runs)
+    total = statistics.median(sum(c['elapsed'] for c in r['cases']) for r in runs)
+    if worst != report['summary'][mode]['median_worst_case_seconds'] or total != report['summary'][mode]['median_total_seconds']:
+        raise RuntimeError(f'summary mismatch: {mode}')
+checker = Path(report['checker'])
+if hashlib.sha256(checker.read_bytes()).hexdigest() != report['checker_sha256']:
+    raise RuntimeError('checker hash mismatch')
+cases = Path(report['cases'])
+for name, digest in report['testcase_sha256'].items():
+    with (cases / name).open('rb') as stream:
+        if hashlib.file_digest(stream, 'sha256').hexdigest() != digest:
+            raise RuntimeError(f'testcase hash mismatch: {name}')
+result = {'raw_logs': len(manifest), 'runs': len(report['runs']), 'case_runs': sum(len(r['cases']) for r in report['runs']),
+          'testcase_files': len(report['testcase_sha256']), 'checker_sha256': report['checker_sha256'], 'succeeded': True}
+(out / 'independent-audit.json').write_text(json.dumps(result, indent=2) + '\n')
+print(json.dumps(result))

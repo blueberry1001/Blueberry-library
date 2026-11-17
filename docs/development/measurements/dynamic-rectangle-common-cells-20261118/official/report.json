@@ -1,0 +1,966 @@
+{
+  "source_revision": "179d99a",
+  "expected_dataset_sha256": "fc30ff14ff46358b69d772613533ce5933753b0a38fda80d0ab2823948127eb4",
+  "environment": {
+    "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "compiler_version": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "oj_version": "11.5.1",
+    "cpu": "Intel(R) Core(TM) i7-14650HX",
+    "original_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23
+    ],
+    "selected_affinity": 0
+  },
+  "steps": [
+    {
+      "name": "compiler-version",
+      "command": [
+        "g++",
+        "--version"
+      ],
+      "start_unix": 1794931295.843615,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "compiler-version.stdout.log",
+      "stderr": "compiler-version.stderr.log",
+      "end_unix": 1794931295.8495047
+    },
+    {
+      "name": "compile-old",
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-pipe",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-D_GLIBCXX_ASSERTIONS",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old/include",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old/solution",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/driver.cpp"
+      ],
+      "start_unix": 1794931295.8531303,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "compile-old.stdout.log",
+      "stderr": "compile-old.stderr.log",
+      "end_unix": 1794931307.4600825
+    },
+    {
+      "name": "compile-merged",
+      "command": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-pipe",
+        "-Wall",
+        "-Wextra",
+        "-Wshadow",
+        "-D_GLIBCXX_ASSERTIONS",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged/include",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged/solution",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/driver.cpp"
+      ],
+      "start_unix": 1794931307.4612134,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "compile-merged.stdout.log",
+      "stderr": "compile-merged.stderr.log",
+      "end_unix": 1794931318.7674167
+    },
+    {
+      "name": "old-1",
+      "command": [
+        "/home/blueberry/.local/bin/oj",
+        "test",
+        "-c",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old/solution",
+        "-d",
+        "/home/blueberry/lib/Blueberry-library/.verify-helper/cache/62a4d894e992d5db469de427f50c7589/test",
+        "-t",
+        "60",
+        "--judge-command",
+        "/home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/rectangle_sum/checker",
+        "--log-file",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old-1.oj.json"
+      ],
+      "start_unix": 1794931318.7681072,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "old-1.stdout.log",
+      "stderr": "old-1.stderr.log",
+      "end_unix": 1794931370.6886423
+    },
+    {
+      "name": "merged-1",
+      "command": [
+        "/home/blueberry/.local/bin/oj",
+        "test",
+        "-c",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged/solution",
+        "-d",
+        "/home/blueberry/lib/Blueberry-library/.verify-helper/cache/62a4d894e992d5db469de427f50c7589/test",
+        "-t",
+        "60",
+        "--judge-command",
+        "/home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/rectangle_sum/checker",
+        "--log-file",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged-1.oj.json"
+      ],
+      "start_unix": 1794931370.7455232,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "merged-1.stdout.log",
+      "stderr": "merged-1.stderr.log",
+      "end_unix": 1794931426.1328115
+    },
+    {
+      "name": "merged-2",
+      "command": [
+        "/home/blueberry/.local/bin/oj",
+        "test",
+        "-c",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged/solution",
+        "-d",
+        "/home/blueberry/lib/Blueberry-library/.verify-helper/cache/62a4d894e992d5db469de427f50c7589/test",
+        "-t",
+        "60",
+        "--judge-command",
+        "/home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/rectangle_sum/checker",
+        "--log-file",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged-2.oj.json"
+      ],
+      "start_unix": 1794931426.1850426,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "merged-2.stdout.log",
+      "stderr": "merged-2.stderr.log",
+      "end_unix": 1794931479.5314019
+    },
+    {
+      "name": "old-2",
+      "command": [
+        "/home/blueberry/.local/bin/oj",
+        "test",
+        "-c",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old/solution",
+        "-d",
+        "/home/blueberry/lib/Blueberry-library/.verify-helper/cache/62a4d894e992d5db469de427f50c7589/test",
+        "-t",
+        "60",
+        "--judge-command",
+        "/home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/rectangle_sum/checker",
+        "--log-file",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old-2.oj.json"
+      ],
+      "start_unix": 1794931479.5820682,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "old-2.stdout.log",
+      "stderr": "old-2.stderr.log",
+      "end_unix": 1794931532.2835186
+    },
+    {
+      "name": "old-3",
+      "command": [
+        "/home/blueberry/.local/bin/oj",
+        "test",
+        "-c",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old/solution",
+        "-d",
+        "/home/blueberry/lib/Blueberry-library/.verify-helper/cache/62a4d894e992d5db469de427f50c7589/test",
+        "-t",
+        "60",
+        "--judge-command",
+        "/home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/rectangle_sum/checker",
+        "--log-file",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old-3.oj.json"
+      ],
+      "start_unix": 1794931532.3454835,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "old-3.stdout.log",
+      "stderr": "old-3.stderr.log",
+      "end_unix": 1794931585.806369
+    },
+    {
+      "name": "merged-3",
+      "command": [
+        "/home/blueberry/.local/bin/oj",
+        "test",
+        "-c",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged/solution",
+        "-d",
+        "/home/blueberry/lib/Blueberry-library/.verify-helper/cache/62a4d894e992d5db469de427f50c7589/test",
+        "-t",
+        "60",
+        "--judge-command",
+        "/home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/rectangle_sum/checker",
+        "--log-file",
+        "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged-3.oj.json"
+      ],
+      "start_unix": 1794931585.8758152,
+      "exit_code": 0,
+      "timed_out": false,
+      "stdout": "merged-3.stdout.log",
+      "stderr": "merged-3.stderr.log",
+      "end_unix": 1794931645.7950106
+    }
+  ],
+  "runs": [
+    {
+      "mode": "old",
+      "repeat": 1,
+      "oj_log": "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old-1.oj.json",
+      "cases": [
+        {
+          "case": "example_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.004155733999994027,
+          "memory": 3.736
+        },
+        {
+          "case": "max_random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.978106773999997,
+          "memory": 208.98
+        },
+        {
+          "case": "max_random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.941387030000001,
+          "memory": 208.788
+        },
+        {
+          "case": "max_random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.915432980000006,
+          "memory": 210.192
+        },
+        {
+          "case": "n_131072_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 1.395050511000008,
+          "memory": 177.656
+        },
+        {
+          "case": "random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 4.282123400000003,
+          "memory": 117.728
+        },
+        {
+          "case": "random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 4.716580403000009,
+          "memory": 209.432
+        },
+        {
+          "case": "random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 2.1279131130000053,
+          "memory": 55.668
+        },
+        {
+          "case": "small_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.005310352999998713,
+          "memory": 3.924
+        },
+        {
+          "case": "small_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.0033749259999922288,
+          "memory": 3.724
+        },
+        {
+          "case": "small_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.00354748800000948,
+          "memory": 3.824
+        },
+        {
+          "case": "xy_concentrate_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 5.973351735999998,
+          "memory": 192.588
+        },
+        {
+          "case": "xy_concentrate_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 5.866593542999993,
+          "memory": 191.14
+        },
+        {
+          "case": "xy_concentrate_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 5.892162187999986,
+          "memory": 192.504
+        }
+      ]
+    },
+    {
+      "mode": "merged",
+      "repeat": 1,
+      "oj_log": "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged-1.oj.json",
+      "cases": [
+        {
+          "case": "example_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.002886194000012665,
+          "memory": 3.696
+        },
+        {
+          "case": "max_random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.330453655000014,
+          "memory": 210.312
+        },
+        {
+          "case": "max_random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.443839130000015,
+          "memory": 209.668
+        },
+        {
+          "case": "max_random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.240853278000003,
+          "memory": 209.68
+        },
+        {
+          "case": "n_131072_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 1.5439374769999858,
+          "memory": 176.716
+        },
+        {
+          "case": "random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 4.499800276999991,
+          "memory": 118.048
+        },
+        {
+          "case": "random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 5.003286191000001,
+          "memory": 210.528
+        },
+        {
+          "case": "random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 2.352342558999993,
+          "memory": 56.812
+        },
+        {
+          "case": "small_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.005220984999994016,
+          "memory": 3.824
+        },
+        {
+          "case": "small_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.0043560579999848414,
+          "memory": 3.936
+        },
+        {
+          "case": "small_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.003149601000018265,
+          "memory": 3.788
+        },
+        {
+          "case": "xy_concentrate_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.534595432000003,
+          "memory": 191.612
+        },
+        {
+          "case": "xy_concentrate_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.272834775999996,
+          "memory": 191.52
+        },
+        {
+          "case": "xy_concentrate_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.411510453000005,
+          "memory": 191.28
+        }
+      ]
+    },
+    {
+      "mode": "merged",
+      "repeat": 2,
+      "oj_log": "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged-2.oj.json",
+      "cases": [
+        {
+          "case": "example_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.0025287429999991673,
+          "memory": 3.828
+        },
+        {
+          "case": "max_random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.066356995999996,
+          "memory": 210.1
+        },
+        {
+          "case": "max_random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.233389870000025,
+          "memory": 210.6
+        },
+        {
+          "case": "max_random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.410106916999979,
+          "memory": 208.948
+        },
+        {
+          "case": "n_131072_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 1.5749293249999994,
+          "memory": 176.652
+        },
+        {
+          "case": "random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 4.37028011999999,
+          "memory": 118.816
+        },
+        {
+          "case": "random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 4.718290559999986,
+          "memory": 208.66
+        },
+        {
+          "case": "random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 2.075572870000002,
+          "memory": 56.84
+        },
+        {
+          "case": "small_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.0049301649999904384,
+          "memory": 3.78
+        },
+        {
+          "case": "small_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.0034869680000042536,
+          "memory": 3.708
+        },
+        {
+          "case": "small_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.0031416740000054233,
+          "memory": 3.712
+        },
+        {
+          "case": "xy_concentrate_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 5.98046281500001,
+          "memory": 190.796
+        },
+        {
+          "case": "xy_concentrate_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.0785212729999785,
+          "memory": 191.34
+        },
+        {
+          "case": "xy_concentrate_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.119722996000007,
+          "memory": 191.872
+        }
+      ]
+    },
+    {
+      "mode": "old",
+      "repeat": 2,
+      "oj_log": "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old-2.oj.json",
+      "cases": [
+        {
+          "case": "example_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.002719216000002689,
+          "memory": 3.652
+        },
+        {
+          "case": "max_random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.774802023999996,
+          "memory": 208.98
+        },
+        {
+          "case": "max_random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.538292459000019,
+          "memory": 209.804
+        },
+        {
+          "case": "max_random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.567242240999974,
+          "memory": 210.3
+        },
+        {
+          "case": "n_131072_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 1.4691807460000064,
+          "memory": 178.636
+        },
+        {
+          "case": "random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 4.747633620000045,
+          "memory": 117.936
+        },
+        {
+          "case": "random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 4.858361292999973,
+          "memory": 208.892
+        },
+        {
+          "case": "random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 2.2485604980000176,
+          "memory": 55.932
+        },
+        {
+          "case": "small_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.005760877999989589,
+          "memory": 3.772
+        },
+        {
+          "case": "small_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.004817844000001514,
+          "memory": 3.912
+        },
+        {
+          "case": "small_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.003553362999980436,
+          "memory": 3.992
+        },
+        {
+          "case": "xy_concentrate_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.282237485000053,
+          "memory": 191.888
+        },
+        {
+          "case": "xy_concentrate_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.072180758000002,
+          "memory": 192.428
+        },
+        {
+          "case": "xy_concentrate_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.346265183999947,
+          "memory": 190.748
+        }
+      ]
+    },
+    {
+      "mode": "old",
+      "repeat": 3,
+      "oj_log": "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/old-3.oj.json",
+      "cases": [
+        {
+          "case": "example_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.0035848130000317724,
+          "memory": 3.588
+        },
+        {
+          "case": "max_random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.332172108999998,
+          "memory": 210.048
+        },
+        {
+          "case": "max_random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.060074067000016,
+          "memory": 208.596
+        },
+        {
+          "case": "max_random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.942808846999981,
+          "memory": 209.148
+        },
+        {
+          "case": "n_131072_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 1.3549686939999788,
+          "memory": 178.568
+        },
+        {
+          "case": "random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 4.072104070000023,
+          "memory": 118.724
+        },
+        {
+          "case": "random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 4.672683857000038,
+          "memory": 208.932
+        },
+        {
+          "case": "random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 2.293545743999971,
+          "memory": 57.548
+        },
+        {
+          "case": "small_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.005792987000006633,
+          "memory": 3.776
+        },
+        {
+          "case": "small_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.0042792769999664415,
+          "memory": 3.916
+        },
+        {
+          "case": "small_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.003967768999984855,
+          "memory": 3.852
+        },
+        {
+          "case": "xy_concentrate_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.619394435000004,
+          "memory": 192.14
+        },
+        {
+          "case": "xy_concentrate_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.41553985500002,
+          "memory": 190.892
+        },
+        {
+          "case": "xy_concentrate_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 5.849497324000026,
+          "memory": 192.472
+        }
+      ]
+    },
+    {
+      "mode": "merged",
+      "repeat": 3,
+      "oj_log": "/home/blueberry/lib/Blueberry-library/.verification/official-mode5-20261118/merged-3.oj.json",
+      "cases": [
+        {
+          "case": "example_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.0036049299999945106,
+          "memory": 3.58
+        },
+        {
+          "case": "max_random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 8.965006727000002,
+          "memory": 209.948
+        },
+        {
+          "case": "max_random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.797627473000034,
+          "memory": 209.44
+        },
+        {
+          "case": "max_random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 7.553490151999995,
+          "memory": 209.28
+        },
+        {
+          "case": "n_131072_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 1.6508742640000378,
+          "memory": 176.948
+        },
+        {
+          "case": "random_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 5.344481764000022,
+          "memory": 118.836
+        },
+        {
+          "case": "random_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 5.30355106799999,
+          "memory": 209.752
+        },
+        {
+          "case": "random_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 2.888961829999971,
+          "memory": 57.476
+        },
+        {
+          "case": "small_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.005747482000003856,
+          "memory": 3.96
+        },
+        {
+          "case": "small_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.004730204999987109,
+          "memory": 3.728
+        },
+        {
+          "case": "small_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 0.003969667000035315,
+          "memory": 3.824
+        },
+        {
+          "case": "xy_concentrate_00",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.639309805000039,
+          "memory": 191.94
+        },
+        {
+          "case": "xy_concentrate_01",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.396054001000039,
+          "memory": 192.24
+        },
+        {
+          "case": "xy_concentrate_02",
+          "status": "AC",
+          "exit_code": 0,
+          "elapsed": 6.563010539000004,
+          "memory": 191.532
+        }
+      ]
+    }
+  ],
+  "succeeded": true,
+  "cases": "/home/blueberry/lib/Blueberry-library/.verify-helper/cache/62a4d894e992d5db469de427f50c7589/test",
+  "checker": "/home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/rectangle_sum/checker",
+  "reference_log": "/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/wsl-rectangle-direct-20261118.log",
+  "dataset_sha256": "fc30ff14ff46358b69d772613533ce5933753b0a38fda80d0ab2823948127eb4",
+  "reference_log_sha256": "308de3ced45cc4eb75881b8fd1a73cc263e347a0a3303bda135142218cb1d4d4",
+  "checker_sha256": "9141417f9200aa8cd1ddcb4cf20607f975d65fc9001a99099af0ac03f969f70b",
+  "testcase_sha256": {
+    "example_00.in": "5a5c21b49b5022eaf93c9235b89585d68abe1760316e33052d677d9287b8930e",
+    "max_random_00.in": "2655451cd052332d17c718857837666033afc52aade29f6f5eb777aed98a3c39",
+    "max_random_01.in": "f7cc5c848e5b3f261390d91f2da5ffcb2585749d6ccbba0ca76d65babdc1ca24",
+    "max_random_02.in": "49b1600f47583a794b0d780d69cb172ef885dbfe7a6d8b07a015258a811047a7",
+    "n_131072_00.in": "94d04e7149454fc5199d3c29b455cdfcab5c5b205b531c1cad431d10a133f189",
+    "random_00.in": "287858c735e67088eb4a190a116506b9e0bb8b1bec70235ea76b38a2c7a32d3a",
+    "random_01.in": "6bd427ff7e31b36076603c6f4f64c2919fb0fa0f1fac6b9412d35250158fd84e",
+    "random_02.in": "400377867bdd2f00896444575dcad07bef7deb8a4df7e3762b5aff18193c8f37",
+    "small_00.in": "b7fe6f29c16a3e20f29ae9b27219a9ab9ff454828fdcf59d3a1a154015b0fb66",
+    "small_01.in": "8bd19a3f2c77b21a6f513256e57d5836a7d1c7e44a7a38c45dd2c6d79d11e67f",
+    "small_02.in": "ab9bc5e90a4c1f8ee4da8e906036dc22cf5d469f46f9c5e91f32c00df90d22ee",
+    "xy_concentrate_00.in": "b639ec6c6c46e2681a9835980e4447c1464973c102af295e41c4d5c51def4104",
+    "xy_concentrate_01.in": "e246582fffab35d6e9e2bd29b93b15f7600fb7913b2b79cc0cf782ecb379f8f5",
+    "xy_concentrate_02.in": "3537157ec3391b5671a0d47b2ad031a5b62952cd0fd6adcdc774547a83aa4129",
+    "example_00.out": "f5acc61ff91ae22cd3efc1bdd9c0c7805dda0fe310659b16fbcd7b89586df64f",
+    "max_random_00.out": "a9bd1b7e4e1649431c6605b6a0e218a3c4a1354d5a7faeb90cecbfeadab54717",
+    "max_random_01.out": "d3780b8a43171d046f458da6cb57e2db511aca4ca441f4bc95e3e2ff8359818d",
+    "max_random_02.out": "827e7b79235aa5c43abfa3dac3ce8a47d091cbd097e547e336b3b45a50fdba8a",
+    "n_131072_00.out": "010fc867a9bafa44012a52f770ec17ca090b18f431f4f7b70162ccbd1f813e54",
+    "random_00.out": "dcfd547dc71a4182e1848876f8e3fbaaf7626331f59a758f45ddf9642bafeef1",
+    "random_01.out": "0da916a596ca8fb1f14cc1dea7c0b9cee64fdd1c66396be18b9ee9fd16b4fb07",
+    "random_02.out": "bdc0724407ca7246d9d23af0a3dbe2fbfeb4baae68507545de9405190989dafc",
+    "small_00.out": "caba5edce635be1c1995844211a431ee533372d9004ab21300e399e855edd835",
+    "small_01.out": "331cfa2d30ee9458674347c1745044d2721e159955042072c01b67dc1b53964b",
+    "small_02.out": "93ff1924c9f1cc54ad3dee897caba59d94b77b68e8bacd82ba318d8d847858c3",
+    "xy_concentrate_00.out": "5b7b704b518689203fd337f62c7db938ea6fa327b70c6005008b2bba43790a6a",
+    "xy_concentrate_01.out": "a8ced0d46253d683620ec5a5ba3f04876e18c9a33366b735643992cdea28699d",
+    "xy_concentrate_02.out": "1a8da6672f0de36a10e689f08845e264a197824b0775fd90c290bfafce02c52f"
+  },
+  "sources": {
+    "baseline_git_blob": "a854af1c6a4d6fb77098b122bbbfc67873e04596",
+    "driver_git_blob": "adbafd25c1d68c87ef5c02503c125186ee8ac90a",
+    "baseline_sha256": "402e676360cef0769e1ea935bdc43defcef4a16f056f302025d91ef884e6cf42",
+    "candidate_sha256": "c030d05aed6f8a908932c95b9993a63cde4badf1175c97d956899bfe005d91dc",
+    "driver_sha256": "828fffd511515b7a24ced77e6c2523c0a28ebd5f12e94609d0e0fcc6492886fa",
+    "tested_candidate_sha256": "4a5707e3eaabe8005ec2cb7d8aa492ecd6ef4318193dfb191296a1884eb548fe",
+    "runner_sha256": "7977311cab8390138f84a01489577ad51bf92104ce22c4bb17067aad823b20e4",
+    "old_executable_sha256": "61c9b6591aac83fc549c5947f841a61d6f6e4c5aa96e11427b5ba42361aaee45",
+    "merged_executable_sha256": "89a306b7e51ededf6dfe86cadc323c257c9bdb9991934cf764bd221a9e09b042"
+  },
+  "summary": {
+    "old": {
+      "case_median_seconds": {
+        "example_00": 0.0035848130000317724,
+        "max_random_00": 6.978106773999997,
+        "max_random_01": 6.941387030000001,
+        "max_random_02": 6.915432980000006,
+        "n_131072_00": 1.395050511000008,
+        "random_00": 4.282123400000003,
+        "random_01": 4.716580403000009,
+        "random_02": 2.2485604980000176,
+        "small_00": 0.005760877999989589,
+        "small_01": 0.0042792769999664415,
+        "small_02": 0.003553362999980436,
+        "xy_concentrate_00": 6.282237485000053,
+        "xy_concentrate_01": 6.072180758000002,
+        "xy_concentrate_02": 5.892162187999986
+      },
+      "median_worst_case_seconds": 6.978106773999997,
+      "median_total_seconds": 51.921607609000006
+    },
+    "merged": {
+      "case_median_seconds": {
+        "example_00": 0.002886194000012665,
+        "max_random_00": 7.330453655000014,
+        "max_random_01": 7.443839130000015,
+        "max_random_02": 7.410106916999979,
+        "n_131072_00": 1.5749293249999994,
+        "random_00": 4.499800276999991,
+        "random_01": 5.003286191000001,
+        "random_02": 2.352342558999993,
+        "small_00": 0.005220984999994016,
+        "small_01": 0.0043560579999848414,
+        "small_02": 0.003149601000018265,
+        "xy_concentrate_00": 6.534595432000003,
+        "xy_concentrate_01": 6.272834775999996,
+        "xy_concentrate_02": 6.411510453000005
+      },
+      "median_worst_case_seconds": 7.443839130000015,
+      "median_total_seconds": 54.64906606600002
+    }
+  },
+  "completed_at_unix": 1794931645.938322
+}
