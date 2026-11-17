@@ -1,0 +1,11 @@
+import subprocess,json,statistics,hashlib,platform
+from pathlib import Path
+p=Path('.build/fps-eval-study');r={'cases':[],'warmups':1,'runs':7,'compiler':'Unity Android NDK Clang 18.0.3 targeting x86_64-pc-windows-msvc','flags':'-std=gnu++20 -O2 -DNDEBUG','platform':platform.platform(),'processor':platform.processor(),'seed':20261117,'sha256':{x:hashlib.sha256((p/x).read_bytes()).hexdigest() for x in ['api.cpp','baseline/blueberry/math/formal-power-series.hpp','candidate/blueberry/math/formal-power-series.hpp']}}
+for n,q in [(0,1000000),(1,1000000),(4,300000),(7,300000),(8,300000),(9,300000),(16,200000),(31,100000),(32,100000),(33,100000),(256,20000),(4097,1250),(65536,100)]:
+ rows=[]
+ for i in range(8):
+  for v in (['baseline','candidate'] if i%2==0 else ['candidate','baseline']):
+   cmd=[str(p/v/'api.cpp.exe'),str(n),str(q),'20261117'];o=subprocess.run(cmd,capture_output=True,text=True,check=True).stdout.split();rows.append({'run':i,'mode':v,'hash':o[0],'ms':float(o[1])})
+ assert len({x['hash'] for x in rows})==1
+ c={'n':n,'q':q,'samples':rows,'median':{v:statistics.median(x['ms'] for x in rows if x['run'] and x['mode']==v) for v in ['baseline','candidate']}};r['cases'].append(c);print(n,c['median'],flush=True)
+(p/'api-results.json').write_text(json.dumps(r,indent=2)+'\n')

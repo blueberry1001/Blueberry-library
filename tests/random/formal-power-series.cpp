@@ -94,6 +94,25 @@ int main(int argc, char** argv) {
   check("zero integral", {0, 0, 0, 0}, {0, 0, 0, 0, 0}, fps{0, 0, 0, 0}.integral());
   using small_mint = atcoder::static_modint<17>;
   using small_fps = blueberry::FPS<small_mint>;
+  for (int n : {0, 1, 2, 3, 4, 7, 8, 9, 15, 16, 17, 31, 32, 33, 255, 256, 257}) {
+    for (int trial = 0; trial < 20; ++trial) {
+      fps f(n);
+      small_fps g(n);
+      for (int i = 0; i < n; ++i) { int v = rng() % 17; f[i] = v; g[i] = v; }
+      mint x = trial < 3 ? trial : rng();
+      small_mint y = trial < 3 ? trial : rng();
+      mint expected = 0, power = 1;
+      small_mint small_expected = 0, small_power = 1;
+      for (int i = 0; i < n; ++i) {
+        expected += f[i] * power; power *= x;
+        small_expected += g[i] * small_power; small_power *= y;
+      }
+      if (f.eval(x) != expected || f(x) != expected || g.eval(y) != small_expected || g(y) != small_expected) {
+        cerr << "seed=" << seed << " operation=eval n=" << n << " trial=" << trial << '\n';
+        return 1;
+      }
+    }
+  }
   for (int n = 0; n < 17; ++n) {
     small_fps source(n), expected(n + 1);
     for (int i = 0; i < n; ++i) {
