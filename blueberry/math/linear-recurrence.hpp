@@ -11,26 +11,24 @@
 
 namespace blueberry {
 
-// Shortest recurrence fitting the supplied prefix over a field.
-// a[i] = sum(coeff[j] * a[i-j-1]); an empty/all-zero prefix returns {}.
 template <class Mint>
 std::vector<Mint> berlekamp_massey(const std::vector<Mint>& sequence) {
-  assert(sequence.size() < static_cast<std::size_t>(std::numeric_limits<int>::max()));
   std::vector<Mint> current{Mint(1)}, previous{Mint(1)};
   int degree = 0, shift = 1;
-  Mint last_discrepancy = 1;
+  Mint last_inverse = 1;
   for (int i = 0; i < static_cast<int>(sequence.size()); ++i) {
     Mint discrepancy = sequence[i];
     for (int j = 1; j <= degree; ++j) discrepancy += current[j] * sequence[i - j];
     if (discrepancy == Mint(0)) { ++shift; continue; }
-    const Mint scale = discrepancy / last_discrepancy;
-    auto saved = current;
+    const Mint scale = discrepancy * last_inverse;
+    std::vector<Mint> saved;
+    if (degree <= i / 2) saved = current;
     if (current.size() < previous.size() + shift) current.resize(previous.size() + shift);
     for (std::size_t j = 0; j < previous.size(); ++j) current[j + shift] -= scale * previous[j];
     if (degree <= i / 2) {
       degree = i + 1 - degree;
       previous = std::move(saved);
-      last_discrepancy = discrepancy;
+      last_inverse = Mint(1) / discrepancy;
       shift = 1;
     } else {
       ++shift;

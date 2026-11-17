@@ -722,6 +722,7 @@
 
 - 専用ドライバ: [verify/math/find-linear-recurrence.test.cpp](../verify/math/find-linear-recurrence.test.cpp) / [問題](https://judge.yosupo.jp/problem/find_linear_recurrence)
 - 専用ドライバ: [verify/math/kth-term-of-linearly-recurrent-sequence.test.cpp](../verify/math/kth-term-of-linearly-recurrent-sequence.test.cpp) / [問題](https://judge.yosupo.jp/problem/kth_term_of_linearly_recurrent_sequence)
+- 関連ローカルテスト: [tests/random/berlekamp-massey.cpp](../tests/random/berlekamp-massey.cpp)
 - 関連ローカルテスト: [tests/random/math-expansion.cpp](../tests/random/math-expansion.cpp)
 
 ## Longest Increasing Subsequence

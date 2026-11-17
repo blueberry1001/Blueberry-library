@@ -1,0 +1,15 @@
+from pathlib import Path
+root = Path.cwd()
+work = root / '.build/bm-pilot'
+source = (root / 'blueberry/math/linear-recurrence.hpp').read_text(encoding='utf-8')
+base = source.replace('namespace blueberry {', 'namespace baseline {', 1)
+candidate = source.replace('namespace blueberry {', 'namespace candidate {', 1)
+assert candidate.count('    auto saved = current;') == 1
+candidate = candidate.replace('    auto saved = current;', '    std::vector<Mint> saved;\n    if (degree <= i / 2) saved = current;', 1)
+(work / 'baseline.hpp').write_text(base, encoding='utf-8')
+(work / 'candidate.hpp').write_text(candidate, encoding='utf-8')
+inv = candidate.replace('namespace candidate {', 'namespace candidate_inv {', 1)
+inv = inv.replace('  Mint last_discrepancy = 1;', '  Mint last_inverse = 1;', 1)
+inv = inv.replace('const Mint scale = discrepancy / last_discrepancy;', 'const Mint scale = discrepancy * last_inverse;', 1)
+inv = inv.replace('last_discrepancy = discrepancy;', 'last_inverse = Mint(1) / discrepancy;', 1)
+(work / 'candidate-inv.hpp').write_text(inv, encoding='utf-8')
