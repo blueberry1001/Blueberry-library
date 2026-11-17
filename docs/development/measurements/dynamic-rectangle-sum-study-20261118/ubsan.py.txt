@@ -1,0 +1,29 @@
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+
+root = Path('/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library')
+study = root / '.build/dynamic-rectangle-sum-study'
+output = root / 'docs/development/measurements/dynamic-rectangle-sum-study-20261118/ubsan-validation.json'
+if output.exists():
+    raise RuntimeError('refusing to overwrite validation')
+sources = sorted(study.glob('*.hpp')) + [study / 'study.cpp']
+records = []
+with tempfile.TemporaryDirectory(prefix='rectangle-ubsan-') as temp:
+    exe = str(Path(temp) / 'study')
+    cmd = ['g++', '-std=gnu++20', '-O1', '-fsanitize=undefined', '-fno-sanitize-recover=undefined', '-I', str(root), '-isystem', str(root / '.deps/ac-library'), str(study / 'study.cpp'), '-o', exe]
+    build = subprocess.run(cmd, capture_output=True, text=True)
+    records.append({'command': cmd, 'exit_code': build.returncode, 'stdout': build.stdout, 'stderr': build.stderr})
+    if build.returncode == 0:
+        for seed in ('1', '17', '731'):
+            cmd = [exe, 'check', seed]
+            run = subprocess.run(cmd, capture_output=True, text=True)
+            records.append({'command': cmd, 'exit_code': run.returncode, 'stdout': run.stdout, 'stderr': run.stderr})
+version = subprocess.check_output(['g++', '--version'], text=True).strip()
+output.write_text(json.dumps({'compiler': version, 'sha256': {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}, 'commands': records}, indent=2) + '\n', encoding='utf-8')
+print(json.dumps({'exit_codes': [r['exit_code'] for r in records], 'output': str(output)}))
+if len(records) != 4 or any(r['exit_code'] for r in records):
+    raise SystemExit(1)

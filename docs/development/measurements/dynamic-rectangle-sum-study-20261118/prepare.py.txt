@@ -1,0 +1,79 @@
+import hashlib
+from pathlib import Path
+
+here = Path(__file__).resolve().parent
+source = Path.cwd() / 'blueberry/data-structure/dynamic-fenwick-tree-2d.hpp'
+baseline = source.read_text(encoding='utf-8').replace('\r\n', '\n')
+payload = baseline.encode()
+blob = hashlib.sha1(b'blob ' + str(len(payload)).encode() + b'\0' + payload).hexdigest()
+if blob != 'a854af1c6a4d6fb77098b122bbbfc67873e04596':
+    raise SystemExit('baseline differs from 179d99a: ' + blob)
+old = '''    return pref(right, up) - pref(left, up) - pref(right, down) + pref(left, down);'''
+paired = '''    T positive{}, negative{};
+    for (Coord x = right; x > 0; x -= x & -x) {
+      auto it = roots_.find(x);
+      if (it != roots_.end()) positive += prefix_node(it->second, up) - prefix_node(it->second, down);
+    }
+    for (Coord x = left; x > 0; x -= x & -x) {
+      auto it = roots_.find(x);
+      if (it != roots_.end()) negative += prefix_node(it->second, up) - prefix_node(it->second, down);
+    }
+    return positive - negative;'''
+exact = '''    T ru{}, rd{}, lu{}, ld{};
+    for (Coord x = right; x > 0; x -= x & -x) {
+      auto it = roots_.find(x);
+      if (it != roots_.end()) {
+        ru += prefix_node(it->second, up);
+        rd += prefix_node(it->second, down);
+      }
+    }
+    for (Coord x = left; x > 0; x -= x & -x) {
+      auto it = roots_.find(x);
+      if (it != roots_.end()) {
+        lu += prefix_node(it->second, up);
+        ld += prefix_node(it->second, down);
+      }
+    }
+    return ru - lu - rd + ld;'''
+shared = '''    T positive{}, negative{};
+    while (left != right) {
+      if (right > left) {
+        auto it = roots_.find(right);
+        if (it != roots_.end()) positive += prefix_node(it->second, up) - prefix_node(it->second, down);
+        right -= right & -right;
+      } else {
+        auto it = roots_.find(left);
+        if (it != roots_.end()) negative += prefix_node(it->second, up) - prefix_node(it->second, down);
+        left -= left & -left;
+      }
+    }
+    return positive - negative;'''
+fused = shared.replace('prefix_node(it->second, up) - prefix_node(it->second, down)', 'range_node(it->second, down, up)')
+helper = '''  T range_node(int v, Coord lower, Coord upper) const {
+    while (v != -1 && (nodes_[v].key < lower || !(nodes_[v].key < upper)))
+      v = nodes_[v].key < lower ? nodes_[v].right : nodes_[v].left;
+    if (v == -1) return T{};
+    T answer = nodes_[v].value;
+    for (int p = nodes_[v].left; p != -1;) {
+      const auto& node = nodes_[p];
+      if (!(node.key < lower)) {
+        answer += node.value; answer += node_sum(node.right); p = node.left;
+      } else p = node.right;
+    }
+    for (int p = nodes_[v].right; p != -1;) {
+      const auto& node = nodes_[p];
+      if (node.key < upper) {
+        answer += node_sum(node.left); answer += node.value; p = node.right;
+      } else p = node.left;
+    }
+    return answer;
+  }
+'''
+assert baseline.count(old) == 1 and baseline.count('  Coord n_ = 0, m_ = 0;') == 1
+for name, replacement in [('baseline', old), ('paired', paired), ('shared', shared), ('fused', fused), ('exact', exact)]:
+    text = baseline.replace('namespace blueberry {', 'namespace study_' + name + ' {')
+    text = text.replace(old, replacement)
+    if name == 'fused': text = text.replace('  Coord n_ = 0, m_ = 0;', helper + '  Coord n_ = 0, m_ = 0;')
+    (here / (name + '.hpp')).write_text(text, encoding='utf-8', newline='\n')
+    print(name, hashlib.sha256(text.encode()).hexdigest())
+print('baseline git blob', blob)
