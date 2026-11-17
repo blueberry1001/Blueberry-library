@@ -35,6 +35,7 @@ documentation_of: //blueberry/math/divisor-convolution.hpp
 - 整数では中間和・差・積も型の範囲内とします。modintの使用を推奨します。
 - 変換は要素だけを書き換え、vectorの参照・iteratorを無効化しません。
 - 畳み込みの引数は値渡しで、通常の呼び出しでは元vectorを変更せず、独立したvectorを返します。
+- 畳み込みは2系列のゼータ変換をまとめます。入力長1024以上では走査した素数列を逆変換に再利用するため、篩に加え素数列を保持します。
 
 </details>
 
@@ -173,5 +174,8 @@ assert((c == std::vector<int>{0, 1, 8}));
   調査した素数順変換は [Nyaan](https://nyaannyaan.github.io/library/multiplicative-function/divisor-multiple-transform.hpp.html)、[suisen](https://suisen-cp.github.io/cp-library-cpp/library/convolution/gcd_convolution.hpp.html)。
   コードの転記はせず、篩と更新方向を共通化して独立実装した。
   [候補測定]({{ '/docs/development/math-batch-two.html' | relative_url }})。
+- [2026-11-17の追加測定]({{ '/docs/development/measurements/divisor-convolution-20261117/' | relative_url }})では、同一入力で旧版・候補・Nyaanを比較した。
+  [Library Checkerの高速提出 #409724](https://judge.yosupo.jp/submission/409724) は固定mod・固定入力上限・AVX2・専用I/Oであり、汎用APIと条件が異なる。
+- [別実装との追加比較]({{ '/docs/development/measurements/divisor-convolution-followup-20261117/' | relative_url }})では、入力長ごとの計算・入出力込み時間とメモリを測定した。
 
 </details>

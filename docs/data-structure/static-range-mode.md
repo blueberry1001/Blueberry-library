@@ -25,6 +25,7 @@ N=a.size()、Q=queries.size()。時間はO(N log(N+1)+Q log(Q+1)+N sqrt(Q)+Q)、
 ## 概要・前提 {#概要前提}
 
 - ACLにない操作を、左端のブロックと右端順に区間を処理し、追加した頻度を巻き戻す方式で実装します。端点が少数種類のときは端点ごとに単調走査します。`N < INT_MAX, Q <= INT_MAX` が必要です。
+- 組み込み整数は基数ソートで座標圧縮します。配列の異なる値が2種類以下、または値がすべて異なる場合は、圧縮後に走査と累積和だけで処理します。
 - Tはコピー可能で、比較・コピーをO(1)とします。入力は変更しません。
 
 </details>
@@ -76,6 +77,8 @@ assert(a[ans[0].first] == 4 && ans[0].second == 1);
 - [maspypy Rollback Moの利用例](https://maspypy.github.io/library/test/2_library_checker/data_structure/static_range_mode_query.test.cpp): 一時的な左端要素の追加を巻き戻す方式。
 - [suisen static range mode](https://github.com/suisen-cp/cp-library-cpp/blob/main/library/range_query/static_range_mode_query.hpp): ブロック間前計算によるオンライン方式と比較。
 - [Library Checker](https://judge.yosupo.jp/problem/static_range_mode_query)、空区間・同率を含む全区間のランダム愚直比較。
+- [最速提出 #403022](https://judge.yosupo.jp/submission/403022) は値域や頻度に応じて手法を切り替えるオンライン実装です。同条件での直接実行比較は未実施です。
+- [追加比較と検証](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/range-mode-cross-20261117/README.md)、[汎用型の検証](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/static-range-mode-generic-20261117/README.md)。
 - [比較・測定](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/sequence-batch-four.md)。参照コードは転載せず独自実装。
 
 </details>

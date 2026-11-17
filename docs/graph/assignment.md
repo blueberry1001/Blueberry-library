@@ -28,6 +28,9 @@ N行M列（N≤M）の費用行列で、各行へ異なる列を割り当て、�
 - 各行の長さは等しく、`N,M < INT_MAX`が必要です。N=0は費用0と空配列を返します。
 - 禁止辺・無限大・浮動小数点の誤差処理は提供しません。
 - 入力は変更しません。ACLにはない矩形割当です。
+- 符号付き組み込み整数の N=1,2 は O(M) で直接解きます。N≤4096 で幅広整数を使える場合、正方行列には LAPJV、矩形行列には最短増加路を使います。
+- それ以外の符号付き組み込み整数は、N≥64・M≤8N かつ入力値が `±(max(T)/(N+1)/16)` に収まる場合、元の型で最短増加路を使います。いずれの高速経路にも該当しない場合は従来の Hungarian 法を使います。
+- 高速経路の正方行列は Monge または逆 Monge と検出できた場合、O(N²) で解きます。判定の加算は幅広整数で行います。
 
 </details>
 
@@ -67,5 +70,7 @@ auto [cost, match] = blueberry::assignment(std::vector<std::vector<long long>>{{
 
 [Library Checker](https://judge.yosupo.jp/problem/assignment) の公式ケースと固定 seed を指定できる全列挙比較で検証します。
 候補比較・一次資料・測定条件は [調査記録](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-graph-research.md) を参照してください。
+
+正方行列用の LAPJV は [Library Checker 提出 #410724](https://judge.yosupo.jp/submission/410724) の [gatagat/lap](https://github.com/gatagat/lap/tree/e29341d9e0ec8c3a1f11f239eb65a31973f4a0ab) 派生実装を、行ベクトル・幅広整数・既存 API に合わせて変更したものです。BSD 2-Clause の著作権表示とライセンス全文はヘッダに記載しています。矩形用の最短増加路は [KACTL](https://github.com/kth-competitive-programming/kactl/blob/main/content/graph/WeightedMatching.h)（CC0）を参考にしています。候補比較・測定条件・不利なケースは [初回測定](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/assignment-20261117/README.md) と [PR #84 との比較](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/assignment-compare-84-20261117/README.md) を参照してください。
 
 </details>

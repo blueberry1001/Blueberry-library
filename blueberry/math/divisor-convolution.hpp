@@ -1,5 +1,4 @@
 #pragma once
-#include <cassert>
 #include <cstddef>
 #include <vector>
 
@@ -25,6 +24,32 @@ void divisor_transform(std::vector<T>& a, std::vector<T>* b = nullptr) {
     }
   }
 }
+template <bool Divisor, class T>
+void divisor_convolution(std::vector<T>& a, std::vector<T>& b) {
+  const auto n = a.size();
+  std::vector<bool> composite(n);
+  std::vector<std::size_t> primes;
+  for (std::size_t p = 2; p < n; ++p) {
+    if (composite[p]) continue;
+    primes.push_back(p);
+    const auto count = (n - 1) / p;
+    for (std::size_t j = 1; j <= count; ++j) {
+      composite[j * p] = true;
+      const auto i = Divisor ? j : count + 1 - j;
+      if constexpr (Divisor) { a[i * p] += a[i]; b[i * p] += b[i]; }
+      else { a[i] += a[i * p]; b[i] += b[i * p]; }
+    }
+  }
+  for (std::size_t i = 1; i < n; ++i) a[i] *= b[i];
+  for (const auto p : primes) {
+    const auto count = (n - 1) / p;
+    for (std::size_t j = 1; j <= count; ++j) {
+      const auto i = Divisor ? count + 1 - j : j;
+      if constexpr (Divisor) a[i * p] -= a[i];
+      else a[i] -= a[i * p];
+    }
+  }
+}
 }  // namespace detail
 template <class T> void divisor_zeta(std::vector<T>& a) {
   detail::divisor_transform<true, false>(a);
@@ -40,19 +65,21 @@ template <class T> void multiple_mobius(std::vector<T>& a) {
 }
 template <class T>
 std::vector<T> gcd_convolution(std::vector<T> a, std::vector<T> b) {
-  assert(a.size() == b.size());
-  detail::divisor_transform<false, false, true>(a, &b);
-  for (std::size_t i = 1; i < a.size(); ++i) a[i] *= b[i];
-  multiple_mobius(a);
+  if (a.size() < 1024) {
+    detail::divisor_transform<false, false, true>(a, &b);
+    for (std::size_t i = 1; i < a.size(); ++i) a[i] *= b[i];
+    multiple_mobius(a);
+  } else detail::divisor_convolution<false>(a, b);
   if (!a.empty()) a[0] = T{};
   return a;
 }
 template <class T>
 std::vector<T> lcm_convolution(std::vector<T> a, std::vector<T> b) {
-  assert(a.size() == b.size());
-  detail::divisor_transform<true, false, true>(a, &b);
-  for (std::size_t i = 1; i < a.size(); ++i) a[i] *= b[i];
-  divisor_mobius(a);
+  if (a.size() < 1024) {
+    detail::divisor_transform<true, false, true>(a, &b);
+    for (std::size_t i = 1; i < a.size(); ++i) a[i] *= b[i];
+    divisor_mobius(a);
+  } else detail::divisor_convolution<true>(a, b);
   if (!a.empty()) a[0] = T{};
   return a;
 }
