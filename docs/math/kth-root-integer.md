@@ -25,7 +25,8 @@ B=bit_width(n)として時間O(k ceil(B/k))、k=1とk>=64ではO(1)です。追�
 ## 概要・前提 {#概要前提}
 
 - `0 <= n <= UINT64_MAX`、`1 <= k <= INT_MAX`。ACLにはない演算です。
-- 割り算で積の上限を確認するため、オーバーフローしません。
+- k=2〜8は整数Newton法で上側から答えへ収束させます。整数演算だけで厳密に補正し、計算に必要な積はuint64の範囲内です。
+- k>=9はbit幅で探索範囲を限定し、対応するcompilerでは乗算のoverflow検出、それ以外では除算による上限判定を使います。どちらもオーバーフローしません。
 
 </details>
 
@@ -62,6 +63,7 @@ assert(blueberry::kth_root_integer(1000, 3) == 10);
 ## 出典・検証 {#出典検証}
 
 - [Library Checker](https://judge.yosupo.jp/problem/kth_root_integer)。固定seed・境界・愚直比較は `tests/random/math-batch-two.cpp`。
+- 完全冪の前後・uint64の極値・大きなkと固定seedを `tests/random/kth-root-integer-boundaries.cpp` で確認します。[NyaanのCC0実装](https://github.com/NyaanNyaan/library/blob/b3981adc80a800b2584980b01821324ea6c77183/math/kth-root-integral.hpp)とも比較していますが、Nyaan版は浮動小数点を使います。
   複数実装の調査、独立実装した候補と同一環境測定は [math batch two]({{ '/docs/development/math-batch-two.html' | relative_url }}) を参照。
 
 </details>
