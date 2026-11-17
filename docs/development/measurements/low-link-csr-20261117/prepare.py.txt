@@ -1,0 +1,47 @@
+from pathlib import Path
+root = Path.cwd()
+build = root / '.build/low-link-csr-study'
+out = root / 'docs/development/measurements/low-link-csr-20261117'
+build.mkdir(parents=True, exist_ok=True)
+out.mkdir(parents=True, exist_ok=True)
+original = (root / 'blueberry/graph/low-link.hpp').read_text(encoding='utf-8')
+(out / 'baseline-original.hpp.txt').write_text(original, encoding='utf-8', newline='\n')
+old = original.replace('namespace blueberry {', 'namespace baseline {')
+(build / 'baseline.hpp').write_text(old, encoding='utf-8', newline='\n')
+src = original.replace('namespace blueberry {', 'namespace candidate {')
+first = '''    std::vector<std::vector<std::pair<int, int>>> graph(n);
+    for (int id = 0; id < m; ++id) {
+      const auto [u, v] = edges[id];
+      assert(0 <= u && u < n && 0 <= v && v < n);
+      graph[u].emplace_back(v, id);
+      graph[v].emplace_back(u, id);
+    }
+'''
+second = '''    std::vector<std::size_t> offset(static_cast<std::size_t>(n) + 1);
+    for (const auto& [u, v] : edges) {
+      assert(0 <= u && u < n && 0 <= v && v < n);
+      ++offset[u + 1]; ++offset[v + 1];
+    }
+    for (int v = 0; v < n; ++v) offset[v + 1] += offset[v];
+    std::vector<std::pair<int, int>> graph(offset.back());
+    auto next = offset;
+    for (int id = 0; id < m; ++id) {
+      auto [u, v] = edges[id];
+      graph[next[u]++] = {v, id}; graph[next[v]++] = {u, id};
+    }
+    next = offset;
+'''
+assert first in src
+src = src.replace(first, second)
+src = src.replace('    std::vector<std::size_t> next(n);\n', '')
+src = src.replace('if (next[v] < graph[v].size()) {\n          const auto [to, id] = graph[v][next[v]++];', 'if (next[v] < offset[v + 1]) {\n          const auto [to, id] = graph[next[v]++];')
+src = src.replace('        for (const auto& [to, id] : graph[v]) {\n', '        for (std::size_t i = offset[v]; i < offset[v + 1]; ++i) {\n          const auto [to, id] = graph[i];\n')
+assert 'graph[v]' not in src
+(build / 'candidate.hpp').write_text(src, encoding='utf-8', newline='\n')
+(out / 'candidate-csr.hpp.txt').write_text(src, encoding='utf-8', newline='\n')
+src2 = src.replace('namespace candidate {', 'namespace candidate_empty {')
+key = '    component_.assign(n, -1);\n'
+assert key in src2
+src2 = src2.replace(key, key + '    if (m == 0) { for (int v = 0; v < n; ++v) component_[v] = v; component_count_ = n; return; }\n')
+(build / 'candidate-empty.hpp').write_text(src2, encoding='utf-8', newline='\n')
+(out / 'candidate-empty.hpp.txt').write_text(src2, encoding='utf-8', newline='\n')
