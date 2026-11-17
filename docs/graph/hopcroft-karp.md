@@ -34,6 +34,7 @@ Lを左頂点数、Rを右頂点数、Mを入力辺数、V=L+Rとすると、構
 - 入力を変更せず、後から辺を追加する操作はありません。最適解が複数ある場合の対応・被覆の選び方は保証しません。
 - 必要なメモリを確保できることが前提です。頂点数とマッチ数はint、隣接配列の添字はsize_tで管理します。
 - CSR隣接配列とBFS・明示的な増加路スタックを使い、深い増加路でもC++の再帰スタックを消費しません。
+- 構築時、長さ1の増加路を先に貪欲に処理し、マッチ数が `min(L,R)` に達すれば探索を終了します。
 - ACLの`mf_graph`でも解けますが、残余容量グラフやsource/sinkを組み立てず、左右の対応と被覆を直接取得する専用APIです。
 
 </details>
@@ -165,5 +166,6 @@ auto [cover_left, cover_right] = matching.min_vertex_cover();
 - [Fastest調査対象396318](https://judge.yosupo.jp/submission/396318) のCSRやI/Oを分析しました。提出の名称だけで標準HKの計算量を仮定せず、層別増加路方式を採用しています。
 - 小入力では独立した部分集合DPでマッチ数を比較し、被覆のサイズと全辺の被覆も確認します。長い増加路を含むテストを `tests/random/graph-expansion.cpp` に収録しています。
 - 公開コードのコピーは行っていません。比較条件・観測は `benchmark/results/lc-expansion-graph/` を参照してください。
+- [追加の高速化と測定記録]({{ '/docs/development/measurements/hopcroft-karp-20261118/' | relative_url }})では、構築時間と公式生成入力を比較しています。
 
 </details>

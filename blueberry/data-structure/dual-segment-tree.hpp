@@ -6,12 +6,11 @@
 #include <vector>
 
 namespace blueberry {
-// Range actions / point values. composition(f,g) means f after g.
 template <class S, class F, auto mapping, auto composition, auto id>
 class DualSegmentTree {
   std::vector<S> values_;
   std::vector<F> lazy_;
-  std::vector<bool> pending_;
+  std::vector<unsigned char> pending_;
   std::size_t base_ = 1;
   int height_ = 0;
   void apply_node(std::size_t node, const F& f) {
@@ -76,4 +75,4 @@ class DualSegmentTree {
     return values_;
   }
 };
-}  // namespace blueberry
+}
