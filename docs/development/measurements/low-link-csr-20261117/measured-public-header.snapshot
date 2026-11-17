@@ -1,0 +1,112 @@
+#pragma once
+
+#include <algorithm>
+#include <cstddef>
+#include <utility>
+#include <vector>
+
+namespace blueberry {
+
+class LowLink {
+ public:
+  LowLink(int n, const std::vector<std::pair<int, int>>& edges) {
+    const int m = static_cast<int>(edges.size());
+    bridge_.assign(m, false);
+    articulation_.assign(n, false);
+    component_.assign(n, -1);
+    if (!m) { for (int v = 0; v < n; ++v) component_[v] = v; component_count_ = n; return; }
+    std::vector<std::size_t> offset(static_cast<std::size_t>(n) + 1);
+    for (auto [u, v] : edges) { ++offset[u + 1]; ++offset[v + 1]; }
+    for (int v = 0; v < n; ++v) offset[v + 1] += offset[v];
+    std::vector<std::pair<int, int>> graph(offset.back());
+    auto next = offset;
+    for (int id = 0; id < m; ++id) {
+      auto [u, v] = edges[id];
+      graph[next[u]++] = {v, id}; graph[next[v]++] = {u, id};
+    }
+    next = offset;
+    std::vector<int> order(n, -1), low(n), parent(n, -1), parent_edge(n, -1), children(n);
+    std::vector<int> stack;
+    stack.reserve(n);
+    int timer = 0;
+    for (int root = 0; root < n; ++root) {
+      if (order[root] != -1) continue;
+      order[root] = low[root] = timer++;
+      stack.push_back(root);
+      while (!stack.empty()) {
+        const int v = stack.back();
+        if (next[v] < offset[v + 1]) {
+          const auto [to, id] = graph[next[v]++];
+          if (id == parent_edge[v]) continue;
+          if (order[to] == -1) {
+            parent[to] = v;
+            parent_edge[to] = id;
+            ++children[v];
+            order[to] = low[to] = timer++;
+            stack.push_back(to);
+          } else {
+            low[v] = std::min(low[v], order[to]);
+          }
+        } else {
+          stack.pop_back();
+          const int p = parent[v];
+          if (p == -1) {
+            articulation_[v] = children[v] > 1;
+          } else {
+            low[p] = std::min(low[p], low[v]);
+            bridge_[parent_edge[v]] = low[v] > order[p];
+            if (parent[p] != -1 && low[v] >= order[p]) articulation_[p] = true;
+          }
+        }
+      }
+    }
+    for (int id = 0; id < m; ++id) if (bridge_[id]) bridges_.push_back(id);
+    for (int v = 0; v < n; ++v) if (articulation_[v]) articulation_points_.push_back(v);
+
+    for (int root = 0; root < n; ++root) {
+      if (component_[root] != -1) continue;
+      component_[root] = component_count_++;
+      stack.push_back(root);
+      while (!stack.empty()) {
+        const int v = stack.back();
+        stack.pop_back();
+        for (std::size_t i = offset[v]; i < offset[v + 1]; ++i) {
+          const auto [to, id] = graph[i];
+          if (bridge_[id] || component_[to] != -1) continue;
+          component_[to] = component_[root];
+          stack.push_back(to);
+        }
+      }
+    }
+  }
+
+  int size() const { return static_cast<int>(component_.size()); }
+
+  bool is_bridge(int edge_id) const {
+    return bridge_[edge_id];
+  }
+
+  bool is_articulation(int v) const {
+    return articulation_[v];
+  }
+
+  const std::vector<int>& bridges() const { return bridges_; }
+  const std::vector<int>& articulation_points() const { return articulation_points_; }
+
+  int component(int v) const {
+    return component_[v];
+  }
+
+  std::vector<std::vector<int>> groups() const {
+    std::vector<std::vector<int>> result(component_count_);
+    for (int v = 0; v < size(); ++v) result[component_[v]].push_back(v);
+    return result;
+  }
+
+ private:
+  int component_count_ = 0;
+  std::vector<unsigned char> bridge_, articulation_;
+  std::vector<int> bridges_, articulation_points_, component_;
+};
+
+}

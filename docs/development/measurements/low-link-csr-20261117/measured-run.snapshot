@@ -1,0 +1,37 @@
+import ctypes, hashlib, json, os, pathlib, platform, subprocess, time
+root=pathlib.Path.cwd(); src=root/'docs/development/measurements/low-link-csr-20261117'; build=root/'.build/low-link-csr-study'; build.mkdir(parents=True,exist_ok=True)
+vc=pathlib.Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk=pathlib.Path(r'C:\Program Files (x86)\Windows Kits\10'); ver='10.0.22621.0'
+clang=pathlib.Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env=os.environ.copy(); env['PATH']=str(vc/'bin/Hostx64/x64')+os.pathsep+env['PATH']; env['INCLUDE']=os.pathsep.join(map(str,[vc/'include',*(sdk/'Include'/ver/p for p in ('ucrt','shared','um'))])); env['LIB']=os.pathsep.join(map(str,[vc/'lib/x64',*(sdk/'Lib'/ver/p/'x64' for p in ('ucrt','um'))]))
+kernel=ctypes.WinDLL('kernel32',use_last_error=True); kernel.GetCurrentProcess.restype=ctypes.c_void_p; kernel.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)]; kernel.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+process=kernel.GetCurrentProcess(); old=ctypes.c_size_t(); system=ctypes.c_size_t(); assert kernel.GetProcessAffinityMask(process,ctypes.byref(old),ctypes.byref(system)); mask=old.value & -old.value; assert kernel.SetProcessAffinityMask(process,mask)
+data={'platform':platform.platform(),'processor':platform.processor(),'affinity':hex(mask),'runs':5,'warmups':1,'builds':[],'samples':[],'status':'running','hashes':{}}
+for name in ('baseline.hpp.txt','baseline-original.hpp.txt','candidate-csr.hpp.txt','candidate-empty.hpp.txt','driver.cpp','run.py'): data['hashes'][name]=hashlib.sha256((src/name).read_bytes()).hexdigest()
+data['hashes']['prepare.py']=hashlib.sha256((build/'prepare.py').read_bytes()).hexdigest()
+data['hashes']['public_header']=hashlib.sha256((root/'blueberry/graph/low-link.hpp').read_bytes()).hexdigest()
+def save(): (src/'results.json').write_text(json.dumps(data,indent=2)+'\n',encoding='utf-8')
+save()
+try:
+ for mode in ('assert','release'):
+  exe=build/(mode+'.exe'); cmd=[str(clang),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2','-Wall','-Wextra','-Wshadow','-Werror',*(['-DNDEBUG'] if mode=='release' else []),'-I'+str(build),str(src/'driver.cpp'),'-o',str(exe),'-lpsapi']
+  p=subprocess.run(cmd,env=env,cwd=build,capture_output=True,text=True,errors='replace'); data['builds'].append({'cmd':cmd,'exit':p.returncode,'stdout':p.stdout,'stderr':p.stderr}); save()
+  if p.returncode: raise RuntimeError('build failed')
+  if mode=='assert':
+   p=subprocess.run([str(exe)],env=env,cwd=build,capture_output=True,text=True,errors='replace',timeout=120); data['builds'].append({'run':mode,'exit':p.returncode,'stdout':p.stdout,'stderr':p.stderr}); save()
+   if p.returncode: raise RuntimeError('correctness failed')
+ exe=build/'release.exe'; data['hashes']['release.exe']=hashlib.sha256(exe.read_bytes()).hexdigest()
+ for shape,reps in [(0,200000),(1,100000),(2,80000),(3,20000),(4,30),(5,15),(6,15),(7,8),(8,8),(9,8)]:
+  expected=None
+  for sample in range(-1,5):
+   order=[0,1,2] if sample%2==0 else [2,1,0]
+   for which in order:
+    cmd=[str(exe),str(which),str(shape),str(reps)]; start=time.perf_counter(); p=subprocess.Popen(cmd,env=env,cwd=build,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True); child=ctypes.c_size_t(); sy=ctypes.c_size_t(); mask_ok=bool(kernel.GetProcessAffinityMask(ctypes.c_void_p(p._handle),ctypes.byref(child),ctypes.byref(sy))); stdout,stderr=p.communicate(timeout=180)
+    row={'shape':shape,'reps':reps,'sample':sample,'variant':which,'exit':p.returncode,'stdout':stdout,'stderr':stderr,'wall_seconds':time.perf_counter()-start,'child_mask':hex(child.value) if mask_ok else None};data['samples'].append(row);save()
+    if p.returncode or not mask_ok or child.value!=mask: raise RuntimeError('run or affinity failed')
+    vals=stdout.split(); measured=tuple(vals[1:4]);
+    if expected is None: expected=measured
+    if measured!=expected: raise RuntimeError('result mismatch')
+ data['status']='complete';save()
+except BaseException as exc:
+ data['status']='failed';data['error']=repr(exc);save();raise

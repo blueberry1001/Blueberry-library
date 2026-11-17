@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <cassert>
 #include <cstdlib>
 #include <iostream>
 #include <numeric>
@@ -11,7 +10,6 @@
 
 using Edges = std::vector<std::pair<int, int>>;
 
-// Independent oracle: flood the graph after deleting one vertex or edge.
 std::vector<int> components(int n, const Edges& edges, int removed_vertex,
                             int removed_edge, const std::vector<bool>& bridges = {}) {
   std::vector<std::vector<int>> graph(n);
@@ -94,8 +92,10 @@ int main(int argc, char** argv) {
   const auto seed = argc > 1 ? std::strtoull(argv[1], nullptr, 10) : 1;
   std::mt19937_64 random(seed);
   check(0, {}, seed);
+  for (int n = 1; n <= 9; ++n) check(n, {}, seed);
   check(1, {{0, 0}}, seed);
   check(4, {{0, 1}, {0, 1}, {1, 2}, {2, 2}}, seed);
+  check(7, {{5, 5}, {0, 1}, {2, 3}, {1, 0}, {3, 2}, {0, 0}, {4, 5}, {4, 5}, {5, 6}}, seed);
   check(6, {{0, 1}, {1, 2}, {2, 0}, {3, 4}}, seed);
   for (int trial = 0; trial < 350; ++trial) {
     const int n = 1 + random() % 9;
@@ -105,10 +105,27 @@ int main(int argc, char** argv) {
     check(n, edges, seed);
   }
   const int n = 200000;
+  auto require = [&](bool condition, const char* operation, int id, int expected, int actual) {
+    if (condition) return;
+    std::cerr << "seed=" << seed << " n=" << n << " operation=" << operation << " id=" << id
+              << " expected=" << expected << " actual=" << actual << '\n';
+    std::exit(1);
+  };
+  const blueberry::LowLink empty(n, {});
+  require(empty.size() == n, "empty-size", 0, n, empty.size());
+  require(empty.bridges().empty(), "empty-bridges", 0, 0, empty.bridges().size());
+  require(empty.articulation_points().empty(), "empty-articulations", 0, 0, empty.articulation_points().size());
+  const auto empty_groups = empty.groups();
+  require(static_cast<int>(empty_groups.size()) == n, "empty-group-count", 0, n, empty_groups.size());
+  for (int v = 0; v < n; ++v) {
+    require(empty.component(v) == v, "empty-component", v, v, empty.component(v));
+    require(!empty.is_articulation(v), "empty-articulation", v, 0, empty.is_articulation(v));
+    require(empty_groups[v].size() == 1 && empty_groups[v][0] == v, "empty-group", v, v, empty_groups[v].empty() ? -1 : empty_groups[v][0]);
+  }
   Edges chain;
   for (int v = 1; v < n; ++v) chain.emplace_back(v - 1, v);
   const blueberry::LowLink graph(n, chain);
-  assert(static_cast<int>(graph.bridges().size()) == n - 1);
-  assert(static_cast<int>(graph.articulation_points().size()) == n - 2);
-  assert(static_cast<int>(graph.groups().size()) == n);
+  require(static_cast<int>(graph.bridges().size()) == n - 1, "path-bridges", 0, n - 1, graph.bridges().size());
+  require(static_cast<int>(graph.articulation_points().size()) == n - 2, "path-articulations", 0, n - 2, graph.articulation_points().size());
+  require(static_cast<int>(graph.groups().size()) == n, "path-groups", 0, n, graph.groups().size());
 }
