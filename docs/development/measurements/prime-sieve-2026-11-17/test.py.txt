@@ -1,0 +1,23 @@
+import os
+from pathlib import Path
+import subprocess
+
+root = Path(__file__).resolve().parents[2]
+work = Path(__file__).resolve().parent
+vc = Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = Path(r'C:\Program Files (x86)\Windows Kits\10')
+version = '10.0.22621.0'
+compiler = Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str, [vc / 'include', *(sdk / 'Include' / version / p for p in ('ucrt', 'shared', 'um'))]))
+env['LIB'] = os.pathsep.join(map(str, [vc / 'lib/x64', *(sdk / 'Lib' / version / p / 'x64' for p in ('ucrt', 'um'))]))
+for standard in ('gnu++20', 'gnu++23'):
+    for extra in ([], ['-DNDEBUG']):
+        exe = work / ('check-' + standard + ('-release' if extra else '-assert') + '.exe')
+        cmd = [str(compiler), '--target=x86_64-pc-windows-msvc', '-fuse-ld=link', '-std=' + standard, '-O2', *extra, '-I' + str(root), str(root / 'tests/random/prime-sieve.cpp'), '-o', str(exe)]
+        print('command:', subprocess.list2cmdline(cmd), flush=True)
+        subprocess.run(cmd, env=env, check=True)
+        for seed in ('20261117', '1', '42'):
+            subprocess.run([str(exe), seed], env=env, check=True)
+            print('pass:', standard, extra, seed, flush=True)

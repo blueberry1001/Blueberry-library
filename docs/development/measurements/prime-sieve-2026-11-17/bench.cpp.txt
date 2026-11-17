@@ -1,0 +1,130 @@
+#include <algorithm>
+#include <cassert>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <random>
+#include <string>
+#include <vector>
+#include <windows.h>
+#include <psapi.h>
+#include "blueberry/math/prime-sieve.hpp"
+using namespace std;
+
+template<bool Branchless> class OddSieve {
+  int n_;
+  vector<bool> bits_;
+  vector<int> primes_;
+ public:
+  explicit OddSieve(int n): n_(n), bits_(static_cast<size_t>(n) / 2 + 1, true) {
+    assert(n >= 0);
+    bits_[0] = false;
+    if (n >= 2) primes_.push_back(2);
+    for (long long p = 3; p * p <= n; p += 2) {
+      if (bits_[p >> 1]) for (long long q = p * p; q <= n; q += p * 2) bits_[q >> 1] = false;
+    }
+    for (size_t i = 1, end = (static_cast<size_t>(n) + 1) / 2; i < end; ++i)
+      if (bits_[i]) primes_.push_back(static_cast<int>(i * 2 + 1));
+  }
+  bool is_prime(int x) const {
+    assert(0 <= x && x <= n_);
+    if constexpr (Branchless) return (x == 2) | ((x & 1) & bits_[static_cast<size_t>(x) >> 1]);
+    else return x == 2 || ((x & 1) && bits_[static_cast<size_t>(x) >> 1]);
+  }
+  const vector<int>& primes() const { return primes_; }
+  int limit() const { return n_; }
+};
+
+class FullOptimized {
+  vector<bool> bits_;
+  vector<int> primes_;
+ public:
+  explicit FullOptimized(int n) {
+    assert(n >= 0);
+    bits_.assign(static_cast<size_t>(n) + 1, true);
+    bits_[0] = false;
+    if (n >= 1) bits_[1] = false;
+    if (n >= 2) primes_.push_back(2);
+    for (long long q = 4; q <= n; q += 2) bits_[q] = false;
+    for (long long p = 3; p * p <= n; p += 2)
+      if (bits_[p]) for (long long q = p * p; q <= n; q += p * 2) bits_[q] = false;
+    for (size_t p = 3; p < bits_.size(); p += 2) if (bits_[p]) primes_.push_back(static_cast<int>(p));
+  }
+  bool is_prime(int x) const {
+    assert(0 <= x && static_cast<size_t>(x) < bits_.size());
+    return bits_[x];
+  }
+  const vector<int>& primes() const { return primes_; }
+  int limit() const { return static_cast<int>(bits_.size() - 1); }
+};
+
+#if SIEVE_VARIANT == 0 || SIEVE_VARIANT == 4
+using Sieve = blueberry::PrimeSieve;
+#elif SIEVE_VARIANT == 1
+using Sieve = OddSieve<false>;
+#elif SIEVE_VARIANT == 2
+using Sieve = OddSieve<true>;
+#else
+using Sieve = FullOptimized;
+#endif
+
+bool oracle(int x) {
+  if (x < 2) return false;
+  for (int d = 2; d <= x / d; ++d) if (x % d == 0) return false;
+  return true;
+}
+
+void check() {
+  vector<int> limits;
+  for (int i = 0; i <= 300; ++i) limits.push_back(i);
+  for (int x : {511,512,513,1023,1024,1025,4095,4096,4097,65535,65536,65537}) limits.push_back(x);
+  for (int n : limits) {
+    Sieve s(n);
+    vector<int> primes;
+    for (int x = 0; x <= n; ++x) {
+      bool want = oracle(x);
+      if (s.is_prime(x) != want) { cerr << "bad limit=" << n << " value=" << x << '\n'; exit(1); }
+      if (want) primes.push_back(x);
+    }
+    const auto& ref = s.primes();
+    if (s.limit() != n || ref != primes || &ref != &s.primes()) { cerr << "bad list limit=" << n << '\n'; exit(1); }
+  }
+  cout << "correctness ok\n";
+}
+
+int main(int argc, char** argv) {
+  string mode = argv[1];
+  if (mode == "check") { check(); return 0; }
+  int n = stoi(argv[2]), reps = stoi(argv[3]), distribution = stoi(argv[4]);
+  using Clock = chrono::steady_clock;
+  uint64_t sum = 0;
+  if (mode == "construct") {
+    double ms = 0;
+    for (int r = 0; r < reps; ++r) {
+      auto start = Clock::now();
+      Sieve s(n);
+      auto stop = Clock::now();
+      ms += chrono::duration<double, milli>(stop - start).count();
+      sum += s.primes().size();
+      for (int p : s.primes()) sum += static_cast<unsigned>(p);
+    }
+    PROCESS_MEMORY_COUNTERS pmc{};
+    GetProcessMemoryInfo(GetCurrentProcess(), &pmc, sizeof(pmc));
+    cout << ms << ' ' << sum << ' ' << pmc.PeakWorkingSetSize << '\n';
+  } else {
+    Sieve s(n);
+    vector<int> qs(2000000);
+    mt19937 rng(20261117);
+    for (int& x : qs) {
+      x = static_cast<int>(rng() % (static_cast<unsigned>(n) + 1));
+      if (distribution == 1) x &= ~1;
+      if (distribution == 2) x |= 1;
+      if (x > n) --x;
+    }
+    auto start = Clock::now();
+    for (int r = 0; r < reps; ++r) for (int x : qs) sum += s.is_prime(x);
+    auto stop = Clock::now();
+    cout << chrono::duration<double, milli>(stop - start).count() << ' ' << sum << '\n';
+  }
+}
