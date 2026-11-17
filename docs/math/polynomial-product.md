@@ -25,7 +25,7 @@ Dを非空因子の次数（末尾ゼロを含む長さ-1）の総和として�
 ## 概要・前提 {#概要前提}
 
 - p=Mint::mod()として、D+1以上の最小の2冪がp-1を割ることが必要です。長さは利用可能なメモリに収まる必要があります。
-- 末尾ゼロを削除しません。隣接ペアを反復して掛ける平衡積木でACL畳み込みを使います。
+- 末尾ゼロを削除しません。ACL畳み込みを使い、因子長の偏りや定数因子に応じて積の順序を選びます。
 - 値渡しなのでlvalueはコピー、`std::move` なら所有権を移します。返り値は独立した所有ベクトルで、既存の参照を無効化しません。計算量は償却ではありません。
 
 </details>
@@ -58,7 +58,7 @@ auto a = blueberry::polynomial_product<Mint>({{1, 2}, {3, 4}});
 ```
 {% endraw %}
 
-注意点: MintはACL static_modint、法pは素数。D+1以上の最小の2冪がp-1を割ること。値渡しなのでlvalueはコピー、std::moveなら所有権を移す。隣接ペアを反復して掛ける平衡積木でACL畳み込みを利用する。 入力範囲外は契約違反。法を超える整数としての個数は保持しない。
+注意点: MintはACL static_modint、法pは素数。D+1以上の最小の2冪がp-1を割ること。値渡しなのでlvalueはコピー、std::moveなら所有権を移す。因子長の偏りや定数因子に応じて積の順序を選び、ACL畳み込みを利用する。入力範囲外は契約違反。法を超える整数としての個数は保持しない。
 
 </details>
 
@@ -67,6 +67,7 @@ auto a = blueberry::polynomial_product<Mint>({{1, 2}, {3, 4}});
 
 ## 出典・検証 {#出典検証}
 
-- [公式問題](https://judge.yosupo.jp/problem/product_of_polynomial_sequence)、[アルゴリズム比較資料](https://raw.githubusercontent.com/NyaanNyaan/library/master/fps/fps-utility.hpp)を参照し、コードは独立に実装した。候補比較・追加資料・生ログは [開発レポート](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-math.md)。乱数seed付きの愚直比較は `tests/random/math_batch_three.cpp`。
+- [公式問題](https://judge.yosupo.jp/problem/product_of_polynomial_sequence)、[アルゴリズム比較資料](https://raw.githubusercontent.com/NyaanNyaan/library/master/fps/fps-utility.hpp)を参照し、コードは独立に実装した。候補比較・追加資料・生ログは [開発レポート](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-math.md)。乱数seed付きの愚直比較は `tests/random/math_batch_three.cpp` と `tests/random/polynomial-product.cpp`。
+- 積の順序と定数因子の扱いの比較条件・生ログは [性能測定](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/polynomial-product-skew-20261117/README.md) を参照してください。
 
 </details>
