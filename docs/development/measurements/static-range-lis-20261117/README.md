@@ -25,6 +25,28 @@ Windows 11、Intel Family 6 Model 183 Stepping 1、Unity Android NDK Clang 18.0.
 
 公開ヘッダを固定した最終再計時では、同じN=65,536・2万問い合わせ、1 warmup＋7回の構築中央値は random 268.29→212.91 ms、ascending 163.22→113.69 ms、reverse 170.35→118.86 ms、duplicate 207.04→146.11 ms。前表と異なる時刻での測定のため、数値を相互に比較しない。全生値・対象hashは [final-results.json](final-results.json)。固定した旧WaveletMatrixを両版で使い、結果hashは全試行で一致した。
 
+## main の Wavelet Matrix での追加比較
+
+PR #71 後の main の WaveletMatrix（Git blob `b9fb8b97c7a138a34b2bb0cf73a528be58e7f334`）を両版で固定し、Windows Clang・同じフラグとseedで別セッションに計測した。子プロセスがCPU mask `0x1` を継承したことも各試行で確認し、同じ入力で各版のquery結果hashは一致した。1 warmup＋7回の中央値、N=65,536、Q=20,000。working set は入力・query配列を含むプロセス全体のpeak。
+
+| 分布 | 構築 旧→新 ms | query 旧→新 ms | peak 旧→新 MiB | 全体 旧→新 ms |
+| --- | ---: | ---: | ---: | ---: |
+| random | 303.67→242.12 | 3.797→3.632 | 9.85→8.83 | 321.52→262.80 |
+| ascending | 186.44→130.19 | 0.055→0.056 | 9.36→8.55 | 200.46→147.31 |
+| reverse | 206.35→137.38 | 3.325→4.022 | 9.32→8.82 | 227.35→155.34 |
+| duplicate | 218.78→157.59 | 3.801→3.790 | 9.77→8.82 | 236.40→175.06 |
+
+reverseのquery中央値は約21%長かったが、旧3.05〜5.12ms・新3.08〜6.85msと試行範囲が重なり、各測定も数msと短い。そこでNを同じにしてQを100万へ増やし、1 warmup＋9回を交互に再測定した。query・構築・peak・プロセス全体の中央値は以下。Q=100万ではquery配列のためpeakが増え、query専用時間は生成を含まない。randomのqueryは約1.9%遅く、reverseの約21%差は再現しなかった。重複入力では計測後半に負荷または周波数の変化を含む広いばらつきがあり、一般的なquery速度差とは断定しない。構築後のメモリ配置は変わりうるため、queryコードが同じであっても全環境で差がないとは限らない。
+
+| 分布 | 構築 旧→新 ms | query 旧→新 ms | peak 旧→新 MiB | 全体 旧→新 ms |
+| --- | ---: | ---: | ---: | ---: |
+| random | 309.94→243.20 | 183.60→187.03 | 17.36→16.33 | 525.80→463.27 |
+| ascending | 197.78→136.24 | 3.322→3.335 | 16.99→16.03 | 233.41→175.00 |
+| reverse | 202.90→142.36 | 187.42→187.48 | 17.28→16.29 | 431.51→361.75 |
+| duplicate | 243.78→165.15 | 201.57→192.54 | 17.27→16.32 | 477.17→395.76 |
+
+N=16,384も含む2万queryの各7サンプルと、100万queryの各9サンプル・フラグ・checksum・CPU mask・両版のrandom test各3 seedは [results.json](current-wavelet/results.json) と [query-results.json](current-wavelet/query-results.json) に保存した。全体時間は起動・入力生成・出力を含むプロセス経過時間で、query中央値と構築中央値の単純和ではない。前節の旧Wavelet測定とは別条件であり、数値を直接比較しない。
+
 ## 正しさと再現
 
 旧版と各候補はWindows Clangのassert有効 `gnu++20 -O2` で、既存random testをseed 1、17、731で実行した。公開ヘッダの最終版はさらに `gnu++20` / `gnu++23`、assert有効 / 無効の各構成で同じ3 seedを通過した。テストには空列、全区間、昇順・降順・重複、比較可能だがデフォルト構築できない型が含まれる。各実行は愚直なLISとの比較に成功した。初回は既存testが `<string>` を明示せず `std::stoul` を使うためWindows Clangでコンパイルに失敗し、[失敗ログ](compile-initial-failure.json)を保存した。再実行時は全候補に `-include string` を与えた。[compile.json](compile.json) と [final-validation.json](final-validation.json) にコマンドと終了コードを記録する。最初の測定版は本体と同じ処理順・式で、最終版では既存の前提assert・説明コメントを削除した。正式なLibrary Checker・GCC・sanitizer・`make test` / `make verify` / `make docs` の実行は別途必要。
@@ -34,3 +56,5 @@ Windows 11、Intel Family 6 Model 183 Stepping 1、Unity Android NDK Clang 18.0.
 再現する場合、保存した `bench.cpp.txt`、`prepare.py.txt`、`run.py.txt`、`memory.cpp.txt`、`memory.py.txt` をそれぞれ末尾の `.txt` を外して `.build/lis-reserve-study/` にコピーし、リポジトリルートで `python .build/lis-reserve-study/prepare.py`、`python .build/lis-reserve-study/run.py`、`python .build/lis-reserve-study/memory.py` を順に実行する。出力は同ディレクトリ内に書かれ、既存の同名JSONを上書きする。
 
 公開ヘッダの検証と最終再計時は、上記の準備後に `final-test.py.txt` と `final-run.py.txt` も同じようにコピーし、`python .build/lis-reserve-study/final-test.py`、`python .build/lis-reserve-study/final-run.py` を実行する。前者は実行時の作業ツリーにある公開ヘッダを固定し、後者はその固定コピーと保存された旧版を比較する。別revisionでの再現には、対象ヘッダを確認してから実行する。
+
+新Wavelet比較を再現する場合は、`current-wavelet/bench.cpp.txt`、`reproduce.py.txt`、`query.py.txt` を末尾の `.txt` を外して `.build/lis-current-wavelet-study/` にコピーし、`python .build/lis-current-wavelet-study/reproduce.py`、続けて `python .build/lis-current-wavelet-study/query.py` を実行する。前者は保存した旧・新ヘッダとWaveletの固定コピーからビルドし、2万queryの計測も行う。元の測定スクリプトは `current-wavelet/run.py.txt`。SDK・コンパイラパスは環境に合わせて変更し、同名出力の上書きに注意する。
