@@ -396,6 +396,9 @@
 
 - 専用ドライバ: [verify/data-structure/static-range-mode.test.cpp](../verify/data-structure/static-range-mode.test.cpp) / [問題](https://judge.yosupo.jp/problem/static_range_mode_query)
 - 関連ローカルテスト: [tests/random/sequence-batch-four.cpp](../tests/random/sequence-batch-four.cpp)
+- 関連ローカルテスト: [tests/random/static-range-mode-adaptive.cpp](../tests/random/static-range-mode-adaptive.cpp)
+- 関連ローカルテスト: [tests/random/static-range-mode-cross.cpp](../tests/random/static-range-mode-cross.cpp)
+- 関連ローカルテスト: [tests/random/static-range-mode-generic.cpp](../tests/random/static-range-mode-generic.cpp)
 
 ## Wavelet Matrix
 
@@ -422,6 +425,7 @@
 
 - 専用ドライバ: [verify/graph/assignment.test.cpp](../verify/graph/assignment.test.cpp) / [問題](https://judge.yosupo.jp/problem/assignment)
 - 関連ローカルテスト: [tests/random/assignment-fast.cpp](../tests/random/assignment-fast.cpp)
+- 関連ローカルテスト: [tests/random/assignment-lapjv.cpp](../tests/random/assignment-lapjv.cpp)
 - 関連ローカルテスト: [tests/random/graph_batch_three.cpp](../tests/random/graph_batch_three.cpp)
 
 ## Biconnected Components
@@ -660,6 +664,7 @@
 
 - 専用ドライバ: [verify/math/gcd-convolution.test.cpp](../verify/math/gcd-convolution.test.cpp) / [問題](https://judge.yosupo.jp/problem/gcd_convolution)
 - 専用ドライバ: [verify/math/lcm-convolution.test.cpp](../verify/math/lcm-convolution.test.cpp) / [問題](https://judge.yosupo.jp/problem/lcm_convolution)
+- 関連ローカルテスト: [tests/random/divisor-convolution-fused.cpp](../tests/random/divisor-convolution-fused.cpp)
 - 関連ローカルテスト: [tests/random/math-batch-two.cpp](../tests/random/math-batch-two.cpp)
 
 ## Enumerate Quotients

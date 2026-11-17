@@ -2,40 +2,90 @@
 #include <algorithm>
 #include <cmath>
 #include <numeric>
+#include <limits>
 #include <utility>
+#include <type_traits>
 #include <vector>
 
 namespace blueberry {
-template<class T>
-std::vector<std::pair<int, int>> static_range_mode(const std::vector<T>& a, const std::vector<std::pair<int, int>>& queries) {
-  int n = static_cast<int>(a.size()), q = static_cast<int>(queries.size());
+template <class T>
+std::vector<std::pair<int, int>> static_range_mode(
+    const std::vector<T>& a, const std::vector<std::pair<int, int>>& queries) {
+  const int n = static_cast<int>(a.size()), q = static_cast<int>(queries.size());
   if (!q) return {};
-  std::vector<std::pair<int, int>> answer(q, {-1, 0});
-  if (!n) return answer;
-  bool identical = true;
-  for (int i = 1; i < q; ++i) if (queries[i] != queries[0]) { identical = false; break; }
-  if constexpr (requires { static_cast<bool>(a[0] < a[0]); static_cast<bool>(a[0] == a[0]); }) {
-    if (identical) {
-      auto [l, r] = queries[0];
-      std::vector<int> order(r - l); std::iota(order.begin(), order.end(), l);
-      std::sort(order.begin(), order.end(), [&](int x, int y) { return a[x] < a[y]; });
-      int best = -1, frequency = 0;
-      for (int i = 0, j; i < r - l; i = j) {
-        j = i + 1; while (j < r - l && a[order[i]] == a[order[j]]) ++j;
-        if (j - i > frequency) { frequency = j - i; best = order[i]; }
+  auto [only_l, only_r] = queries[0];
+  if (q >= 32 || static_cast<long long>(only_r - only_l) * 16 < n) {
+    if constexpr (requires { static_cast<bool>(a[0] < a[0]); static_cast<bool>(a[0] == a[0]); }) {
+      bool identical = true;
+      for (int i = 1; i < q; ++i) if (queries[i] != queries[0]) { identical = false; break; }
+      if (identical) {
+        std::vector<int> sorted(only_r - only_l); std::iota(sorted.begin(), sorted.end(), only_l);
+        std::sort(sorted.begin(), sorted.end(), [&](int x, int y) { return a[x] < a[y]; });
+        int best = -1, frequency = 0;
+        for (int i = 0, j; i < only_r - only_l; i = j) {
+          j = i + 1; while (j < only_r - only_l && a[sorted[i]] == a[sorted[j]]) ++j;
+          if (j - i > frequency) { frequency = j - i; best = sorted[i]; }
+        }
+        return std::vector<std::pair<int, int>>(q, {best, frequency});
       }
-      std::fill(answer.begin(), answer.end(), std::pair{best, frequency});
-      return answer;
     }
   }
-  std::vector<T> values = a;
-  std::sort(values.begin(), values.end());
-  values.erase(std::unique(values.begin(), values.end()), values.end());
-  int m = static_cast<int>(values.size());
-  std::vector<int> rank(n), representative(m);
-  for (int i = 0; i < n; ++i) {
-    rank[i] = static_cast<int>(std::lower_bound(values.begin(), values.end(), a[i]) - values.begin());
-    representative[rank[i]] = i;
+  std::vector<int> rank(n), representative;
+  int m = 0;
+  if constexpr (std::is_integral_v<T> && !std::is_same_v<T, bool>) {
+    using U = std::make_unsigned_t<T>;
+    std::vector<int> idx(n), tmp(n);
+    std::iota(idx.begin(), idx.end(), 0);
+    constexpr int digits = std::numeric_limits<U>::digits;
+    constexpr U sign = std::is_signed_v<T> ? U(U(1) << (digits - 1)) : U(0);
+    for (int shift = 0; shift < digits; shift += 8) {
+      int count[256] = {};
+      for (int i : idx) ++count[((U(a[i]) ^ sign) >> shift) & 255];
+      int offset = 0;
+      for (int& c : count) { int k = c; c = offset; offset += k; }
+      for (int i : idx) tmp[count[((U(a[i]) ^ sign) >> shift) & 255]++] = i;
+      idx.swap(tmp);
+    }
+    for (int i = 0; i < n; ++i) {
+      if (!i || a[idx[i]] != a[idx[i - 1]]) { representative.push_back(idx[i]); ++m; }
+      else representative.back() = idx[i];
+      rank[idx[i]] = m - 1;
+    }
+  } else if constexpr (!std::is_move_constructible_v<T> || !std::is_move_assignable_v<T> || !std::is_swappable_v<T>) {
+    std::vector<T> values = a;
+    std::vector<int> idx(n);
+    std::iota(idx.begin(), idx.end(), 0);
+    std::sort(idx.begin(), idx.end(), [&](int i, int j) { return values[i] < values[j]; });
+    for (int i = 0; i < n; ++i) {
+      if (!i || !(values[idx[i]] == values[idx[i - 1]])) { representative.push_back(idx[i]); ++m; }
+      else representative.back() = idx[i];
+      rank[idx[i]] = m - 1;
+    }
+  } else {
+    std::vector<T> values = a;
+    std::sort(values.begin(), values.end());
+    values.erase(std::unique(values.begin(), values.end()), values.end());
+    m = static_cast<int>(values.size());
+    representative.resize(m);
+    for (int i = 0; i < n; ++i) {
+      rank[i] = static_cast<int>(std::lower_bound(values.begin(), values.end(), a[i]) - values.begin());
+      representative[rank[i]] = i;
+    }
+  }
+  if (m <= 2 || m == n) {
+    std::vector<std::pair<int, int>> answer(q, {-1, 0});
+    if (m == 2 && m != n) {
+      std::vector<int> prefix(n + 1);
+      for (int i = 0; i < n; ++i) prefix[i + 1] = prefix[i] + (rank[i] == 0);
+      for (int i = 0; i < q; ++i) {
+        auto [l, r] = queries[i]; int x = prefix[r] - prefix[l], y = r - l - x;
+        if (x || y) answer[i] = x >= y ? std::pair{representative[0], x} : std::pair{representative[1], y};
+      }
+    } else for (int i = 0; i < q; ++i) {
+      auto [l, r] = queries[i];
+      if (l != r) answer[i] = m == 1 ? std::pair{representative[0], r - l} : std::pair{l, 1};
+    }
+    return answer;
   }
   int left_values[8], right_values[8], left_count = 0, right_count = 0;
   for (auto [l, r] : queries) {
@@ -50,6 +100,7 @@ std::vector<std::pair<int, int>> static_range_mode(const std::vector<T>& a, cons
     if (left_count > 8 && right_count > 8) break;
   }
   if (left_count <= 8 || right_count <= 8) {
+    std::vector<std::pair<int, int>> answer(q, {-1, 0});
     bool left = left_count <= right_count;
     std::vector<int> order(q), count(m); std::iota(order.begin(), order.end(), 0);
     std::sort(order.begin(), order.end(), [&](int x, int y) {
@@ -68,6 +119,7 @@ std::vector<std::pair<int, int>> static_range_mode(const std::vector<T>& a, cons
     }
     return answer;
   }
+  std::vector<std::pair<int, int>> answer(q, {-1, 0});
   int width = std::max(1, static_cast<int>(n / std::sqrt(static_cast<double>(q))));
   struct Query { int block, right, left, id; };
   std::vector<Query> order; order.reserve(q);
