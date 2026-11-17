@@ -2,7 +2,7 @@
 
 # GCD / LCM 畳み込み：2つの改善案の比較
 
-同時に進行した [PR #83](https://github.com/blueberry1001/Blueberry-library/pull/83) と、[先行調査]({{ '/docs/development/measurements/divisor-convolution-20261117/README.html' | relative_url }})の案を同一条件で比較した。PR #83 の head は `bf28f6a0928df10a4f0357a3242e89ec89b7ae7b`、対象ヘッダの Git blob は `0d5d326081d35308c0be6ba9cc8b0582b14c2041`。`pr83-original.hpp` はその原本で、`pr83-renamed.hpp` は同一バイナリで比較するため namespace だけを変更したもの。
+同時に進行した [PR #83](https://github.com/blueberry1001/Blueberry-library/pull/83) と、[先行調査]({{ '/docs/development/measurements/divisor-convolution-20261117/' | relative_url }})の案を同一条件で比較した。PR #83 の head は `bf28f6a0928df10a4f0357a3242e89ec89b7ae7b`、対象ヘッダの Git blob は `0d5d326081d35308c0be6ba9cc8b0582b14c2041`。`pr83-original.hpp` はその原本で、`pr83-renamed.hpp` は同一バイナリで比較するため namespace だけを変更したもの。
 
 PR #83 は2入力のゼータ変換を融合し、逆変換で再び篩を走査する。先行案は2入力の変換時に素数列を保存し逆変換で再利用するが、小入力では元の3変換に戻していた。組合せ案 `hybrid.hpp` は入力長1024未満で #83、1024以上で素数列の再利用を使う。一般の環 T、添字0、入力・返却値、単独の約数・倍数変換の仕様は維持する。
 
