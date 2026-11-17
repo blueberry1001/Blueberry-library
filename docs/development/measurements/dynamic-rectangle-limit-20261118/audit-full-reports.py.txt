@@ -1,0 +1,38 @@
+import collections
+import json
+import os
+import pathlib
+import subprocess
+
+root = pathlib.Path('/home/blueberry/lib/Blueberry-library')
+os.chdir(root)
+paths = [pathlib.Path('.verification/current.json'), pathlib.Path('.verification/resume-20261117/current.json')]
+reports = [json.loads(path.read_text()) for path in paths]
+revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+if any(report['revision'] != revision or not report.get('completed_at') for report in reports):
+    raise RuntimeError('revision or completed report mismatch')
+if reports[0]['environment'] != reports[1]['environment']:
+    raise RuntimeError('verification environments differ')
+rows = [row for report in reports for row in report['results'] if row['status'] == 'passed']
+if any(row['status'] not in ('passed', 'not_run') for row in reports[0]['results']):
+    raise RuntimeError('first report contains failure or ignored result')
+if not reports[1]['succeeded'] or any(row['status'] != 'passed' for row in reports[1]['results']):
+    raise RuntimeError('resumed run did not pass every target')
+expected = {p.as_posix() for p in pathlib.Path('verify').rglob('*.test.cpp')}
+actual = [row['path'] for row in rows]
+if len(actual) != len(set(actual)) or set(actual) != expected:
+    raise RuntimeError('reports do not cover exactly the current verify targets')
+case_count = 0
+for row in rows:
+    if row.get('repeat_count') != 3 or len(row.get('runs', [])) != 3 or not row.get('dataset_sha256'):
+        raise RuntimeError(f"incomplete measurements: {row['path']}")
+    for run in row['runs']:
+        cases = json.loads(pathlib.Path(run['log']).read_text())
+        if not cases or any(case.get('status') != 'AC' or case.get('exitcode') != 0 for case in cases):
+            raise RuntimeError(f"invalid AC log: {row['path']}: {run['log']}")
+        case_count += len(cases)
+compilers = sorted({row['compiler'] for row in rows})
+flags = sorted({tuple(row['flags']) for row in rows})
+if len(compilers) != 1 or len(flags) != 1:
+    raise RuntimeError('compiler or flags differ between measurements')
+print(json.dumps({'revision': revision, 'targets': len(rows), 'runs': sum(len(row['runs']) for row in rows), 'case_runs': case_count, 'statuses': [dict(collections.Counter(r['status'] for r in report['results'])) for report in reports], 'completed_at': [report['completed_at'] for report in reports], 'compiler': compilers[0], 'flags': flags[0], 'environment': reports[0]['environment']}, indent=2))

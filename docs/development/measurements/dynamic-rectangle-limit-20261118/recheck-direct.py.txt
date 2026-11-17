@@ -1,0 +1,41 @@
+from datetime import datetime, timezone
+import logging
+import os
+from pathlib import Path
+import subprocess
+import sys
+from unittest.mock import patch
+
+root = Path('/home/blueberry/lib/Blueberry-library')
+os.chdir(root)
+sys.path.insert(0, str(root))
+import onlinejudge_verify.config as config
+import onlinejudge_verify.languages.cplusplus as cpp
+import onlinejudge_verify.verify as verify
+from scripts.verify_with_metrics import Recorder, environment_info, write_report
+
+target = Path('verify/data-structure/dynamic-rectangle-sum.test.cpp')
+output = Path('.verification/recheck-dynamic-rectangle-direct-20261118')
+output.mkdir(exist_ok=False)
+revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+if revision != '179d99a39514b3321a163218273b394cdf7e1203':
+    raise RuntimeError('unexpected revision')
+report = {'schema': 1, 'generated_at': datetime.now(timezone.utc).isoformat(),
+          'revision': revision, 'baseline_revision': None, 'environment': environment_info(),
+          'results': [{'path': target.as_posix(), 'environment_index': 0, 'status': 'not_run'}],
+          'succeeded': False}
+report['environment']['tle_seconds'] = 60
+config.set_config_path(Path('.verify-helper/config.toml'))
+logging.basicConfig(level=logging.INFO)
+recorder = Recorder(report, output, 3)
+original_compile, original_exec = cpp.CPlusPlusLanguageEnvironment.compile, verify.exec_command
+try:
+    with patch.object(cpp.CPlusPlusLanguageEnvironment, 'compile',
+                      lambda env, path, **kw: recorder.compile(original_compile, env, path, **kw)), \
+         patch.object(verify, 'exec_command', lambda cmd: recorder.execute(original_exec, cmd)):
+        result = recorder.verify(verify.verify_file, target, compilers=['g++', 'clang++'], tle=60, jobs=1)
+    report['succeeded'] = bool(result) and all(row['status'] == 'passed' for row in report['results'])
+finally:
+    report['completed_at'] = datetime.now(timezone.utc).isoformat()
+    write_report(report, None, output)
+raise SystemExit(0 if report['succeeded'] else 1)
