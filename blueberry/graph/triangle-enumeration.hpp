@@ -1,28 +1,36 @@
 #pragma once
-#include <cassert>
+#include <algorithm>
 #include <cstddef>
-#include <limits>
 #include <utility>
 #include <vector>
 
 namespace blueberry {
-// A simple undirected graph is required. The callback runs once per triangle.
 template<class Callback>
 void enumerate_triangles(int n, const std::vector<std::pair<int, int>>& edges, Callback&& emit) {
-  assert(n >= 0 && edges.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
-  std::vector<int> degree(n), mark(n, -1);
-  for (auto [u, v] : edges) {
-    assert(0 <= u && u < n && 0 <= v && v < n && u != v);
-    ++degree[u]; ++degree[v];
-  }
-  std::vector<std::vector<int>> out(n);
+  if (edges.empty()) return;
+  std::vector<int> degree(n), mark(n, -1), out(edges.size());
+  for (auto [u, v] : edges) { ++degree[u]; ++degree[v]; }
+  std::vector<std::size_t> offset(static_cast<std::size_t>(n) + 1);
   for (auto [u, v] : edges) {
     if (std::pair{degree[u], u} > std::pair{degree[v], v}) std::swap(u, v);
-    out[u].push_back(v);
+    ++offset[static_cast<std::size_t>(u) + 1];
+  }
+  for (int i = 0; i < n; ++i) offset[static_cast<std::size_t>(i) + 1] += offset[i];
+  auto next = offset;
+  for (auto [u, v] : edges) {
+    if (std::pair{degree[u], u} > std::pair{degree[v], v}) std::swap(u, v);
+    out[next[u]++] = v;
   }
   for (int u = 0; u < n; ++u) {
-    for (int v : out[u]) mark[v] = u;
-    for (int v : out[u]) for (int w : out[v]) if (mark[w] == u) emit(u, v, w);
+    std::size_t begin = offset[u], end = offset[static_cast<std::size_t>(u) + 1];
+    for (std::size_t i = begin; i < end; ++i) mark[out[i]] = u;
+    for (std::size_t i = begin; i < end; ++i) {
+      int v = out[i]; std::size_t next_begin = offset[v], next_end = offset[static_cast<std::size_t>(v) + 1];
+      for (std::size_t j = next_begin; j < next_end; ++j) {
+        int w = out[j];
+        if (mark[w] == u) emit(u, v, w);
+      }
+    }
   }
 }
-}  // namespace blueberry
+}

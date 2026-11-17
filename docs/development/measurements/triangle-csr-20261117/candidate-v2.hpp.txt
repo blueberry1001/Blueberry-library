@@ -1,0 +1,32 @@
+#pragma once
+#include <algorithm>
+#include <cstddef>
+#include <utility>
+#include <vector>
+
+namespace candidate {
+template<class Callback>
+void enumerate_triangles(int n, const std::vector<std::pair<int, int>>& edges, Callback&& emit) {
+  std::vector<int> degree(n), mark(n, -1), out(edges.size());
+  for (auto [u, v] : edges) { ++degree[u]; ++degree[v]; }
+  std::vector<std::size_t> offset(static_cast<std::size_t>(n) + 1);
+  for (auto [u, v] : edges) {
+    if (std::pair{degree[u], u} > std::pair{degree[v], v}) std::swap(u, v);
+    ++offset[static_cast<std::size_t>(u) + 1];
+  }
+  for (int i = 0; i < n; ++i) offset[static_cast<std::size_t>(i) + 1] += offset[i];
+  auto next = offset;
+  for (auto [u, v] : edges) {
+    if (std::pair{degree[u], u} > std::pair{degree[v], v}) std::swap(u, v);
+    out[next[u]++] = v;
+  }
+  for (int u = 0; u < n; ++u) {
+    for (std::size_t i = offset[u]; i < offset[static_cast<std::size_t>(u) + 1]; ++i) mark[out[i]] = u;
+    for (std::size_t i = offset[u]; i < offset[static_cast<std::size_t>(u) + 1]; ++i) {
+      int v = out[i];
+      for (std::size_t j = offset[v]; j < offset[static_cast<std::size_t>(v) + 1]; ++j)
+        if (mark[out[j]] == u) emit(u, v, out[j]);
+    }
+  }
+}
+}
