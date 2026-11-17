@@ -1,0 +1,39 @@
+import ctypes, hashlib, json, os, pathlib, platform, subprocess, time
+root = pathlib.Path.cwd(); src = root/'docs/development/measurements/assignment-shortest-20261117'; build = root/'.build/assignment-shortest-20261117'; build.mkdir(parents=True, exist_ok=True)
+vc = pathlib.Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808'); sdk=pathlib.Path(r'C:\Program Files (x86)\Windows Kits\10'); version='10.0.22621.0'
+clang=pathlib.Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env=os.environ.copy(); env['PATH']=str(vc/'bin/Hostx64/x64')+os.pathsep+env['PATH']; env['INCLUDE']=os.pathsep.join(map(str,[vc/'include',*(sdk/'Include'/version/p for p in ('ucrt','shared','um'))])); env['LIB']=os.pathsep.join(map(str,[vc/'lib/x64',*(sdk/'Lib'/version/p/'x64' for p in ('ucrt','um'))]))
+header=(root/'blueberry/graph/assignment.hpp').read_text(encoding='utf-8')
+old=header.replace('namespace blueberry {','namespace old_assignment {')
+new=(src/'candidate.hpp.txt').read_text(encoding='utf-8')
+assert old!=new and 'namespace new_assignment' in new
+(src/'baseline.hpp.txt').write_text(old,encoding='utf-8',newline='\n')
+kernel=ctypes.WinDLL('kernel32',use_last_error=True); kernel.GetCurrentProcess.restype=ctypes.c_void_p; kernel.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)]; kernel.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+p=kernel.GetCurrentProcess(); old_mask=ctypes.c_size_t(); system=ctypes.c_size_t(); assert kernel.GetProcessAffinityMask(p,ctypes.byref(old_mask),ctypes.byref(system)); mask=old_mask.value & -old_mask.value; assert kernel.SetProcessAffinityMask(p,mask)
+data={'platform':platform.platform(),'processor':platform.processor(),'affinity':hex(mask),'runs':7,'warmups':2,'results':[],'builds':[],'status':'running','hashes':{}}
+for f in ('bench.cpp.txt','baseline.hpp.txt','candidate.hpp.txt','kactl-reference.hpp.txt','run.py.txt'): data['hashes'][f]=hashlib.sha256((src/f).read_bytes()).hexdigest()
+def save(): (src/'results.json').write_text(json.dumps(data,indent=2)+'\n',encoding='utf-8')
+save()
+try:
+ for mode in ('assert','release'):
+  exe=build/(mode+'.exe'); cmd=[str(clang),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2','-Wno-shadow',*(['-DNDEBUG'] if mode=='release' else []),'-x','c++',str(src/'bench.cpp.txt'),'-o',str(exe)]
+  run=subprocess.run(cmd,env=env,cwd=build,capture_output=True,text=True,errors='replace'); data['builds'].append({'cmd':cmd,'exit':run.returncode,'stdout':run.stdout,'stderr':run.stderr}); save()
+  if run.returncode: raise RuntimeError('build failed')
+  if mode=='assert':
+   run=subprocess.run([str(exe)],env=env,cwd=build,capture_output=True,text=True,errors='replace',timeout=180);data['builds'].append({'mode':mode,'exit':run.returncode,'stdout':run.stdout,'stderr':run.stderr});save()
+   if run.returncode: raise RuntimeError('test failed')
+ exe=build/'release.exe'; data['hashes']['release.exe']=hashlib.sha256(exe.read_bytes()).hexdigest()
+ shapes=[(0,400,400,4),(1,300,300,2),(2,200,200,2),(3,200,200,2),(4,150,400,2),(5,400,400,5),(0,80,800,10),(0,5,7,10000)]
+ for shape,n,m,reps in shapes:
+  expected=None
+  for rep in range(-2,7):
+   for which in ([0,1,2] if rep%2==0 else [2,1,0]):
+    cmd=[str(exe),str(which),str(shape),str(n),str(m),str(reps)]; started=time.perf_counter(); run=subprocess.Popen(cmd,env=env,cwd=build,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True); child=ctypes.c_size_t(); sy=ctypes.c_size_t(); ok=kernel.GetProcessAffinityMask(ctypes.c_void_p(run._handle),ctypes.byref(child),ctypes.byref(sy)); stdout,stderr=run.communicate(timeout=180)
+    row={'shape':shape,'n':n,'m':m,'reps':reps,'run':rep,'variant':which,'exit':run.returncode,'stdout':stdout,'stderr':stderr,'wall_seconds':time.perf_counter()-started,'child_mask':hex(child.value) if ok else None}; data['results'].append(row);save()
+    if run.returncode or not ok or child.value!=mask: raise RuntimeError('run or affinity failed')
+    value=stdout.split()[1]
+    if expected is None: expected=value
+    if expected!=value: raise RuntimeError('result mismatch')
+ data['status']='complete';save()
+except BaseException as e:
+ data['status']='failed';data['error']=repr(e);save();raise

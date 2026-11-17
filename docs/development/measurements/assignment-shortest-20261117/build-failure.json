@@ -1,0 +1,38 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "affinity": "0x1",
+  "runs": 7,
+  "warmups": 2,
+  "results": [],
+  "builds": [
+    {
+      "cmd": [
+        "C:\\Program Files\\Unity\\Hub\\Editor\\6000.5.2f1\\Editor\\Data\\PlaybackEngines\\AndroidPlayer\\NDK\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe",
+        "--target=x86_64-pc-windows-msvc",
+        "-fuse-ld=link",
+        "-std=gnu++20",
+        "-O2",
+        "-Wshadow",
+        "-Werror",
+        "-x",
+        "c++",
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\docs\\development\\measurements\\assignment-shortest-20261117\\bench.cpp.txt",
+        "-o",
+        "C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\.build\\assignment-shortest-20261117\\assert.exe"
+      ],
+      "exit": 1,
+      "stdout": "",
+      "stderr": "In file included from C:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\docs\\development\\measurements\\assignment-shortest-20261117\\bench.cpp.txt:17:\nC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\docs\\development\\measurements\\assignment-shortest-20261117/kactl-reference.hpp.txt:24:7: error: declaration shadows a local variable [-Werror,-Wshadow]\n   24 |                 rep(c,0,m) dist[c] = C[i][c], cols[c] = c, prev[c] = i;\n      |                     ^\nC:\\Users\\kubar\\Documents\\GitHub\\Blueberry-library\\docs\\development\\measurements\\assignment-shortest-20261117/kactl-reference.hpp.txt:19:39: note: previous declaration is here\n   19 |         int i = sz(C), m = i ? sz(C[0]) : 0, c, s, r;\n      |                                              ^\n1 error generated.\n"
+    }
+  ],
+  "status": "failed",
+  "hashes": {
+    "bench.cpp.txt": "10f00fee471f3ae7b97c2a5914c1ae9c497d046d2ff5d93f7850c3556e755b69",
+    "baseline.hpp.txt": "cf4cb2c2265834d5418a6d45719d34154039da261f323cec4a1672b0970977a9",
+    "candidate.hpp.txt": "c592a530a79d1b3e162a04fed1544f421cb9280741942e02cc02bc11e9bdec06",
+    "kactl-reference.hpp.txt": "492f19352ba26f9d37e9c0ad80645064390b81287b88504150331258385993f4",
+    "run.py.txt": "8fe5371e7215ed06cff69127d1dc74e15c5c2b3738151ed4c2174038b273fae0"
+  },
+  "error": "RuntimeError('build failed')"
+}

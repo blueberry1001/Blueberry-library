@@ -1,0 +1,57 @@
+#include <algorithm>
+#include <chrono>
+#include <climits>
+#include <cstdio>
+#include <cstdlib>
+#include <numeric>
+#include <random>
+#include <vector>
+#include "baseline.hpp.txt"
+#include "../../../../blueberry/graph/assignment.hpp"
+namespace new_assignment { using blueberry::assignment; }
+using namespace std;
+using ll = long long;
+using Matrix = vector<vector<ll>>;
+using vi = vector<int>;
+#define sz(x) int((x).size())
+#define rep(i,a,b) for (int i=(a);i<(b);++i)
+#include "kactl-reference.hpp.txt"
+static void test() {
+  mt19937 rng(1729);
+  for (int n = 0; n <= 7; ++n) for (int t = 0; t < 500; ++t) {
+    int m = n ? n + rng() % (9 - n) : 0;
+    Matrix a(n, vector<ll>(m));
+    for (auto& row : a) for (auto& x : row) x = int(rng() % 17) - 8;
+    auto x = old_assignment::assignment(a), y = new_assignment::assignment(a);
+    if (x.first != y.first || weightedMatching(a).first != x.first) abort();
+    vector<int> seen(m); ll got=0; for (int i=0;i<n;++i) { int j=y.second[i]; if (j<0 || j>=m || seen[j]++) abort(); got+=a[i][j]; } if (got!=y.first) abort();
+    if (n) {
+      vector<int> perm(m); iota(perm.begin(), perm.end(), 0); ll best = LLONG_MAX;
+      do { ll sum=0; for (int i=0;i<n;++i) sum+=a[i][perm[i]]; best=min(best,sum); } while (next_permutation(perm.begin(),perm.end()));
+      if (x.first != best) abort();
+    }
+  }
+  puts("correctness ok");
+}
+int main(int argc, char** argv) {
+  if (argc == 1) { test(); return 0; }
+  int which=atoi(argv[1]), shape=atoi(argv[2]), n=atoi(argv[3]), m=atoi(argv[4]), reps=atoi(argv[5]);
+  mt19937 rng(1729); Matrix a(n, vector<ll>(m));
+  for (int i=0;i<n;++i) for (int j=0;j<m;++j) {
+    if (shape==0) a[i][j]=int(rng()%2000001)-1000000;
+    if (shape==1) a[i][j]=int(rng()%7)-3;
+    if (shape==2) a[i][j]=0;
+    if (shape==3) a[i][j]=ll(i-j)*(i-j);
+    if (shape==4) a[i][j]=j;
+    if (shape==5) a[i][j]=i==j ? -1000 : 0;
+  }
+  unsigned long long hash=0;
+  auto start=chrono::steady_clock::now();
+  for(int k=0;k<reps;++k) {
+    auto [sum, match]=which == 0 ? old_assignment::assignment(a) : which == 1 ? new_assignment::assignment(a) : weightedMatching(a);
+    hash=hash*1000003+sum;
+    ll got=0; vector<int> seen(m); for(int i=0;i<n;++i) { int j=match[i]; if(j<0 || j>=m || seen[j]++) abort(); got+=a[i][j]; } if(got!=sum) abort();
+  }
+  auto finish=chrono::steady_clock::now();
+  printf("%.6f %llu\n", chrono::duration<double,milli>(finish-start).count(), hash);
+}

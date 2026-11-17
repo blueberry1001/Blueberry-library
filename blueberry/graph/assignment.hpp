@@ -1,21 +1,60 @@
 #pragma once
 #include <algorithm>
-#include <cassert>
 #include <limits>
+#include <numeric>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
 namespace blueberry {
-// Rectangular Hungarian algorithm: every row gets a distinct column.
 template <class T>
 std::pair<T, std::vector<int>> assignment(const std::vector<std::vector<T>>& cost) {
-  assert(cost.size() < static_cast<std::size_t>(std::numeric_limits<int>::max()));
   const int n = static_cast<int>(cost.size());
   if (n == 0) return {T{}, {}};
-  assert(cost[0].size() < static_cast<std::size_t>(std::numeric_limits<int>::max()));
   const int m = static_cast<int>(cost[0].size());
-  assert(n <= m);
-  for (const auto& row : cost) { assert(row.size() == cost[0].size()); (void)row; }
+  if constexpr (std::is_integral_v<T> && std::is_signed_v<T> && sizeof(T) <= sizeof(long long)) {
+    T bound = static_cast<T>(std::numeric_limits<T>::max() / (static_cast<long long>(n) + 1) / 16);
+    bool safe = n >= 64 && m <= static_cast<long long>(n) * 8 && bound > 0;
+    for (const auto& row : cost) {
+      if (!safe) break;
+      bool row_safe = true;
+      for (T x : row) row_safe &= x >= -bound && x <= bound;
+      if (!row_safe) safe = false;
+    }
+    if (safe) {
+      std::vector<int> match(n, -1), reverse(m, -1), order(m), from(m);
+      std::vector<T> distance(m), potential(m);
+      for (int root = 0; root < n; ++root) {
+        std::iota(order.begin(), order.end(), 0);
+        for (int j = 0; j < m; ++j) { distance[j] = cost[root][j]; from[j] = root; }
+        int done = 0, column;
+        T shortest;
+        while (true) {
+          int best = done;
+          T best_value = distance[order[best]] - potential[order[best]];
+          for (int k = done + 1; k < m; ++k) {
+            T value = distance[order[k]] - potential[order[k]];
+            if (value < best_value) { best = k; best_value = value; }
+          }
+          std::swap(order[done], order[best]);
+          column = order[done++];
+          shortest = best_value;
+          int active = reverse[column];
+          if (active == -1) break;
+          for (int k = done; k < m; ++k) {
+            int j = order[k];
+            T next = cost[active][j] - cost[active][column] + distance[column];
+            if (next < distance[j]) { distance[j] = next; from[j] = active; }
+          }
+        }
+        for (int k = 0; k < done; ++k) { int j = order[k]; potential[j] = distance[j] - shortest; }
+        while (column != -1) { int active = from[column], next = match[active]; match[active] = column; reverse[column] = active; column = next; }
+      }
+      T total{};
+      for (int i = 0; i < n; ++i) total += cost[i][match[i]];
+      return {total, std::move(match)};
+    }
+  }
   std::vector<T> row_potential(n + 1), col_potential(m + 1), slack(m + 1);
   std::vector<int> matched(m + 1), previous(m + 1);
   std::vector<bool> used(m + 1);
@@ -34,7 +73,6 @@ std::pair<T, std::vector<int>> assignment(const std::vector<std::vector<T>>& cos
         if (reduced < slack[j]) { slack[j] = reduced; previous[j] = col; }
         if (slack[j] < delta) { delta = slack[j]; next = j; }
       }
-      assert(next != 0);
       for (int j = 0; j <= m; ++j) {
         if (used[j]) { row_potential[matched[j]] += delta; col_potential[j] -= delta; }
         else slack[j] -= delta;
@@ -52,4 +90,4 @@ std::pair<T, std::vector<int>> assignment(const std::vector<std::vector<T>>& cos
   for (int i = 0; i < n; ++i) total += cost[i][match[i]];
   return {total, std::move(match)};
 }
-}  // namespace blueberry
+}

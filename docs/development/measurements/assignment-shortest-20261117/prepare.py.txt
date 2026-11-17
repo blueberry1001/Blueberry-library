@@ -1,0 +1,16 @@
+import pathlib
+root=pathlib.Path.cwd(); src=root/'docs/development/measurements/assignment-byte-20261117'; dest=root/'docs/development/measurements/assignment-shortest-20261117'
+driver=(src/'bench.cpp.txt').read_text(encoding='utf-8')
+driver=driver.replace('using Matrix = vector<vector<ll>>;', 'using Matrix = vector<vector<ll>>;\nusing vi = vector<int>;\n#define sz(x) int((x).size())\n#define rep(i,a,b) for (int i=(a);i<(b);++i)\n#include "kactl-reference.hpp.txt"')
+driver=driver.replace('if (x != y) abort();','if (x.first != y.first) abort();\n    vector<int> seen(m); ll got=0; for (int i=0;i<n;++i) { int j=y.second[i]; if (j<0 || j>=m || seen[j]++) abort(); got+=a[i][j]; } if (got!=y.first) abort();')
+driver=driver.replace('if (x.first != y.first) abort();','if (x.first != y.first || weightedMatching(a).first != x.first) abort();')
+driver=driver.replace('for(int v:match) hash=hash*1000003+v;','ll got=0; vector<int> seen(m); for(int i=0;i<n;++i) { int j=match[i]; if(j<0 || j>=m || seen[j]++) abort(); got+=a[i][j]; } if(got!=sum) abort();')
+driver=driver.replace('auto [sum, match]=which ? new_assignment::assignment(a) : old_assignment::assignment(a);','auto [sum, match]=which == 0 ? old_assignment::assignment(a) : which == 1 ? new_assignment::assignment(a) : weightedMatching(a);')
+(dest/'bench.cpp.txt').write_text(driver,encoding='utf-8',newline='\n')
+runner=(src/'run.py.txt').read_text(encoding='utf-8').replace('assignment-byte-20261117','assignment-shortest-20261117')
+runner=runner.replace("new=header.replace('namespace blueberry {','namespace new_assignment {').replace('std::vector<bool> used(m + 1);','std::vector<unsigned char> used(m + 1);')\nassert old!=new and 'std::vector<unsigned char> used' in new\n(src/'baseline.hpp.txt').write_text(old,encoding='utf-8',newline='\\n'); (src/'candidate.hpp.txt').write_text(new,encoding='utf-8',newline='\\n')", "new=(src/'candidate.hpp.txt').read_text(encoding='utf-8')\nassert old!=new and 'namespace new_assignment' in new\n(src/'baseline.hpp.txt').write_text(old,encoding='utf-8',newline='\\n')")
+assert "std::vector<unsigned char> used" not in runner
+runner=runner.replace("'candidate.hpp.txt','run.py.txt'", "'candidate.hpp.txt','kactl-reference.hpp.txt','run.py.txt'")
+runner=runner.replace('([0,1] if rep%2==0 else [1,0])', '([0,1,2] if rep%2==0 else [2,1,0])')
+runner=runner.replace("'-Wshadow','-Werror',", "'-Wno-shadow',")
+(dest/'run.py.txt').write_text(runner,encoding='utf-8',newline='\n')

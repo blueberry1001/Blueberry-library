@@ -1,0 +1,12 @@
+import pathlib
+root=pathlib.Path.cwd(); src=root/'docs/development/measurements/assignment-shortest-20261117'
+driver=(src/'bench.cpp.txt').read_text(encoding='utf-8').replace('#include "candidate.hpp.txt"','#include "../../../../blueberry/graph/assignment.hpp"\nnamespace new_assignment { using blueberry::assignment; }')
+(src/'final-bench.cpp.txt').write_text(driver,encoding='utf-8',newline='\n')
+runner=(src/'run.py.txt').read_text(encoding='utf-8')
+start=runner.index("header=(root/'blueberry/graph/assignment.hpp').read_text")
+end=runner.index("kernel=ctypes.WinDLL",start)
+runner=runner[:start]+"header=(root/'blueberry/graph/assignment.hpp').read_text(encoding='utf-8')\nassert 'namespace blueberry' in header\n"+runner[end:]
+runner=runner.replace("'bench.cpp.txt','baseline.hpp.txt','candidate.hpp.txt','kactl-reference.hpp.txt','run.py.txt'", "'final-bench.cpp.txt','baseline.hpp.txt','candidate-initial.hpp.txt','kactl-reference.hpp.txt','final-run.py.txt'")
+runner=runner.replace("def save(): (src/'results.json')", "data['hashes']['public_header']=hashlib.sha256((root/'blueberry/graph/assignment.hpp').read_bytes()).hexdigest()\ndef save(): (src/'final-results.json')")
+runner=runner.replace("str(src/'bench.cpp.txt')", "str(src/'final-bench.cpp.txt')")
+(src/'final-run.py.txt').write_text(runner,encoding='utf-8',newline='\n')

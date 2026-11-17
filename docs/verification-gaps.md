@@ -421,6 +421,7 @@
 [blueberry/graph/assignment.hpp](../blueberry/graph/assignment.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/graph/assignment.test.cpp](../verify/graph/assignment.test.cpp) / [問題](https://judge.yosupo.jp/problem/assignment)
+- 関連ローカルテスト: [tests/random/assignment-fast.cpp](../tests/random/assignment-fast.cpp)
 - 関連ローカルテスト: [tests/random/graph_batch_three.cpp](../tests/random/graph_batch_three.cpp)
 
 ## Biconnected Components
