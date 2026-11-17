@@ -19,14 +19,14 @@ class StaticRangeDistinct {
       using U = std::make_unsigned_t<T>;
       std::vector<int> result(a.size());
       std::map<T, int> last;
-      int i = 0;
-      for (; i < static_cast<int>(a.size()); ++i) {
-        auto [it, inserted] = last.try_emplace(a[i], -1);
-        result[i] = it->second;
-        it->second = i;
-        if (i < static_cast<int>(a.size()) / 8 && last.size() > 2048) break;
+      int pos = 0;
+      for (; pos < static_cast<int>(a.size()); ++pos) {
+        auto [it, inserted] = last.try_emplace(a[pos], -1);
+        result[pos] = it->second;
+        it->second = pos;
+        if (pos < static_cast<int>(a.size()) / 8 && last.size() > 2048) break;
       }
-      if (i == static_cast<int>(a.size())) return result;
+      if (pos == static_cast<int>(a.size())) return result;
       last.clear();
       std::vector<int> order(a.size()), next(a.size());
       std::iota(order.begin(), order.end(), 0);
