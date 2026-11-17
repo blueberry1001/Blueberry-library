@@ -6,6 +6,8 @@
 
 [Nyaan の prime_enumerate](https://nyaannyaan.github.io/library/prime/prime-enumerate.hpp.html) は 2 と 3 の倍数を除いた表から素数を列挙する。[Nachia の提出 #77249](https://judge.yosupo.jp/submission/77249) は奇数の表と素数一覧を段階的に拡張する。#77249 は 2134 ms と表示されたが、最速順位は確認できていない。提出先の [Enumerate Primes](https://judge.yosupo.jp/problem/enumerate_primes) は N ≤ 5×10^8 で一覧の一部を出力する問題であり、任意の `is_prime(x)` と一覧への参照を提供する本 API と契約が異なる。提出時の時間やメモリと以下の計測を直接比較できない。ソースは参考として読み、実装は独自に書いた。
 
+[adamant の高速提出 #336744 の解説](https://codeforces.com/blog/entry/149218) は、執筆当時の最速として 83 ms・25 MiB を報告している。210-wheel で候補を圧縮し、小さい素数には SIMD で複数のマスクを適用し、大きい素数には区間分割と周期的な差分を使う。問題の出力向けの実装であり、全値の直接添字による `is_prime(x)` と素数一覧の参照を維持する本 API と条件が異なる。現在の最速順位と、本実装との同一入力・環境での性能差は未確認である。
+
 奇数だけを `vector<bool>` に格納する候補も比較した。構築時間と判定表のメモリを減らせたが、ランダムな任意値判定で大きく遅くなったため採用していない。全値の bit 表を維持する案は構築が短縮し、判定の処理を維持できた。
 
 ## 同条件の測定
