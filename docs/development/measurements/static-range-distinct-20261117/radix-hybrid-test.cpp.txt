@@ -1,0 +1,74 @@
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <limits>
+#include <random>
+#include <set>
+#include <vector>
+#include "blueberry/data-structure/static-range-distinct.hpp"
+
+struct Item {
+  int bucket, payload;
+  friend bool operator<(const Item& a, const Item& b) { return a.bucket < b.bucket; }
+};
+
+template <class T>
+void boundaries() {
+  const T lo = std::numeric_limits<T>::lowest(), hi = std::numeric_limits<T>::max();
+  std::vector<T> a = {lo, hi, T(0), T(1), hi, lo, T(0), hi, lo};
+  blueberry::StaticRangeDistinct<T> d(a);
+  for (int l = 0; l <= static_cast<int>(a.size()); ++l)
+    for (int r = l; r <= static_cast<int>(a.size()); ++r) {
+      std::set<T> values(a.begin() + l, a.begin() + r);
+      assert(d.count(l, r) == static_cast<int>(values.size()));
+    }
+}
+
+int main() {
+  boundaries<bool>(); boundaries<std::int8_t>(); boundaries<std::uint8_t>();
+  boundaries<std::int16_t>(); boundaries<std::uint16_t>(); boundaries<int>();
+  boundaries<unsigned>(); boundaries<std::int64_t>(); boundaries<std::uint64_t>();
+  std::mt19937 rng(20261117);
+  for (int trial = 0; trial < 250; ++trial) {
+    int n = rng() % 70;
+    std::vector<Item> a(n);
+    for (int i = 0; i < n; ++i) a[i] = {int(rng() % 13) - 6, i};
+    blueberry::StaticRangeDistinct<Item> d(a);
+    assert(d.size() == n);
+    for (int l = 0; l <= n; ++l) for (int r = l; r <= n; ++r) {
+      std::set<Item> values(a.begin() + l, a.begin() + r);
+      assert(d.count(l, r) == static_cast<int>(values.size()));
+    }
+  }
+  for (int kind = 0; kind < 3; ++kind) {
+    std::vector<Item> a(10000);
+    for (int i = 0; i < static_cast<int>(a.size()); ++i)
+      a[i] = {kind == 0 ? i % 512 : kind == 1 ? i % 2048 : int(rng() % 5000), i};
+    std::shuffle(a.begin(), a.end(), rng);
+    blueberry::StaticRangeDistinct<Item> d(a);
+    for (int q = 0; q < 500; ++q) {
+      int l = rng() % (a.size() + 1), r = rng() % (a.size() + 1);
+      if (l > r) std::swap(l, r);
+      std::set<Item> values(a.begin() + l, a.begin() + r);
+      assert(d.count(l, r) == static_cast<int>(values.size()));
+    }
+    std::vector<int> b;
+    for (auto x : a) b.push_back(x.bucket);
+    blueberry::StaticRangeDistinct<int> ints(b);
+    for (int q = 0; q < 500; ++q) {
+      int l = rng() % (b.size() + 1), r = rng() % (b.size() + 1);
+      if (l > r) std::swap(l, r);
+      std::set<int> values(b.begin() + l, b.begin() + r);
+      assert(ints.count(l, r) == static_cast<int>(values.size()));
+    }
+  }
+  std::vector<std::int64_t> wide(10000);
+  for (auto& x : wide) x = rng() % 3 ? static_cast<std::int64_t>(rng()) - (1LL << 31) : std::numeric_limits<std::int64_t>::min();
+  blueberry::StaticRangeDistinct<std::int64_t> d(wide);
+  for (int q = 0; q < 500; ++q) {
+    int l = rng() % (wide.size() + 1), r = rng() % (wide.size() + 1);
+    if (l > r) std::swap(l, r);
+    std::set<std::int64_t> values(wide.begin() + l, wide.begin() + r);
+    assert(d.count(l, r) == static_cast<int>(values.size()));
+  }
+}

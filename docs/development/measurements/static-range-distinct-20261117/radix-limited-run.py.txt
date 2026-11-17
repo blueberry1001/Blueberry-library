@@ -1,0 +1,35 @@
+import ctypes, hashlib, json, platform, statistics, subprocess
+from pathlib import Path
+
+out = Path(__file__).resolve().parent
+kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+kernel.GetCurrentProcess.restype = ctypes.c_void_p
+kernel.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+kernel.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+proc = kernel.GetCurrentProcess()
+pm, sm = ctypes.c_size_t(), ctypes.c_size_t()
+assert kernel.GetProcessAffinityMask(proc, ctypes.byref(pm), ctypes.byref(sm))
+selected = pm.value & -pm.value
+assert kernel.SetProcessAffinityMask(proc, selected)
+variants = ('baseline', 'radixlimited')
+data = {'platform': platform.platform(), 'processor': platform.processor(), 'cpu_original_mask': hex(pm.value), 'cpu_selected_mask': hex(selected), 'compiler': 'Unity NDK Clang 18 / MSVC ABI', 'flags': '--target=x86_64-pc-windows-msvc -std=gnu++20 -O2 -DNDEBUG', 'seed': 20261117, 'warmups': 1, 'runs': 5, 'results': []}
+data['sha256'] = {str(p.relative_to(out)): hashlib.sha256(p.read_bytes()).hexdigest() for p in [out / 'bench2.cpp', out / 'test.cpp'] + [out / v / 'blueberry/data-structure/static-range-distinct.hpp' for v in variants] + [out / 'baseline/blueberry/data-structure/wavelet-matrix.hpp']}
+for bits in (32, 64):
+  for n in (20000, 500000):
+    for mode in ('equal', 'eight', '256', '513', '2048', '2049', '4096', 'late2049', 'half2049', 'early2049', 'window2049', 'after2049', 'ascending', 'reverse', 'boundary', 'random'):
+      samples = {v: [] for v in variants}
+      expected = None
+      for rep in range(6):
+        for variant in (variants if rep % 2 == 0 else variants[::-1]):
+          result = subprocess.run([str(out / f'{variant}-bench{bits}.exe'), str(n), mode], capture_output=True, text=True, timeout=120, check=True)
+          parts = result.stdout.split()
+          assert len(parts) == 4, result.stdout
+          build, query, checksum, mem = float(parts[0]), float(parts[1]), int(parts[2]), int(parts[3])
+          assert mem > 0
+          if expected is None: expected = checksum
+          if checksum != expected: raise RuntimeError(f'checksum mismatch {variant} {n} {mode}')
+          if rep: samples[variant].append({'build_ms': build, 'query_ms': query, 'checksum': checksum, 'peak_bytes': mem})
+      item = {'bits': bits, 'n': n, 'mode': mode, 'samples': samples, 'median_build_ms': {v: statistics.median(s['build_ms'] for s in samples[v]) for v in variants}, 'min_build_ms': {v: min(s['build_ms'] for s in samples[v]) for v in variants}, 'median_query_ms': {v: statistics.median(s['query_ms'] for s in samples[v]) for v in variants}, 'median_peak_bytes': {v: statistics.median(s['peak_bytes'] for s in samples[v]) for v in variants}}
+      data['results'].append(item)
+      (out / 'radix-limited-results.json').write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+      print(bits, n, mode, item['median_build_ms'], flush=True)

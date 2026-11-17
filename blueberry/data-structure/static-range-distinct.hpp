@@ -3,6 +3,8 @@
 #include <cassert>
 #include <limits>
 #include <map>
+#include <numeric>
+#include <type_traits>
 #include <vector>
 #include "blueberry/data-structure/wavelet-matrix.hpp"
 
@@ -13,14 +15,44 @@ class StaticRangeDistinct {
   WaveletMatrix<int> previous_;
   static std::vector<int> previous(const std::vector<T>& a) {
     assert(a.size() < static_cast<unsigned>(std::numeric_limits<int>::max()));
-    std::map<T, int> last;
-    std::vector<int> result(a.size());
-    for (int i = 0; i < static_cast<int>(a.size()); ++i) {
-      auto [it, inserted] = last.try_emplace(a[i], -1);
-      result[i] = it->second;
-      it->second = i;
+    if constexpr (std::is_integral_v<T> && !std::is_same_v<T, bool>) {
+      using U = std::make_unsigned_t<T>;
+      std::vector<int> result(a.size());
+      std::map<T, int> last;
+      int i = 0;
+      for (; i < static_cast<int>(a.size()); ++i) {
+        auto [it, inserted] = last.try_emplace(a[i], -1);
+        result[i] = it->second;
+        it->second = i;
+        if (i < static_cast<int>(a.size()) / 8 && last.size() > 2048) break;
+      }
+      if (i == static_cast<int>(a.size())) return result;
+      last.clear();
+      std::vector<int> order(a.size()), next(a.size());
+      std::iota(order.begin(), order.end(), 0);
+      constexpr int digits = std::numeric_limits<U>::digits;
+      constexpr U sign = std::is_signed_v<T> ? U(1) << (digits - 1) : U(0);
+      for (int shift = 0; shift < digits; shift += 8) {
+        int count[256] = {};
+        for (int i : order) ++count[((U(a[i]) ^ sign) >> shift) & 255];
+        int offset = 0;
+        for (int& c : count) { int n = c; c = offset; offset += n; }
+        for (int i : order) next[count[((U(a[i]) ^ sign) >> shift) & 255]++] = i;
+        order.swap(next);
+      }
+      for (int i = 0; i < static_cast<int>(order.size()); ++i)
+        result[order[i]] = i && a[order[i - 1]] == a[order[i]] ? order[i - 1] : -1;
+      return result;
+    } else {
+      std::map<T, int> last;
+      std::vector<int> result(a.size());
+      for (int i = 0; i < static_cast<int>(a.size()); ++i) {
+        auto [it, inserted] = last.try_emplace(a[i], -1);
+        result[i] = it->second;
+        it->second = i;
+      }
+      return result;
     }
-    return result;
   }
 
  public:
@@ -30,4 +62,4 @@ class StaticRangeDistinct {
   int count(int l, int r) const { return previous_.range_freq(l, r, l); }
 };
 
-}  // namespace blueberry
+}

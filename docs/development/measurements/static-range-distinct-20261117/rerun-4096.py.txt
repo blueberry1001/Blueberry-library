@@ -1,0 +1,31 @@
+import ctypes, hashlib, json, platform, statistics, subprocess
+from pathlib import Path
+root = Path(__file__).resolve().parent
+bench = Path.cwd() / '.build' / 'static-distinct-sort-study'
+kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+kernel.GetCurrentProcess.restype = ctypes.c_void_p
+kernel.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+kernel.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+pm, sm = ctypes.c_size_t(), ctypes.c_size_t()
+proc = kernel.GetCurrentProcess()
+if not kernel.GetProcessAffinityMask(proc, ctypes.byref(pm), ctypes.byref(sm)): raise OSError(ctypes.get_last_error())
+selected = pm.value & -pm.value
+if not kernel.SetProcessAffinityMask(proc, selected): raise OSError(ctypes.get_last_error())
+variants = ('baseline', 'final')
+files = ['bench2.cpp','test.cpp','baseline/blueberry/data-structure/static-range-distinct.hpp','final/blueberry/data-structure/static-range-distinct.hpp','baseline/blueberry/data-structure/wavelet-matrix.hpp'] + [f'{v}-bench{bits}.exe' for v in variants for bits in (32,64)]
+data = {'platform':platform.platform(), 'processor':platform.processor(), 'original_affinity':hex(pm.value), 'selected_affinity':hex(selected), 'compiler':'Unity NDK Clang 18 / MSVC ABI', 'flags':'--target=x86_64-pc-windows-msvc -std=gnu++20 -O2 -DNDEBUG', 'seed':20261117, 'warmups':2, 'runs':41, 'sha256':{f:hashlib.sha256((bench/f).read_bytes()).hexdigest() for f in files}, 'results':[]}
+for bits in (32,64):
+ samples = {v:[] for v in variants}; checksum = None
+ for rep in range(43):
+  for variant in (variants if rep % 2 == 0 else variants[::-1]):
+   result = subprocess.run([str(bench/f'{variant}-bench{bits}.exe'),'20000','4096'], capture_output=True, text=True, timeout=120, check=True)
+   parts = result.stdout.split()
+   if len(parts)!=4: raise ValueError(result.stdout)
+   build, query, digest, mem = float(parts[0]),float(parts[1]),int(parts[2]),int(parts[3])
+   if mem <= 0: raise ValueError('peak memory unavailable')
+   if checksum is None: checksum = digest
+   if digest != checksum: raise ValueError('checksum mismatch')
+   if rep>=2: samples[variant].append({'build_ms':build,'query_ms':query,'checksum':digest,'peak_bytes':mem})
+ data['results'].append({'bits':bits,'n':20000,'mode':'4096','samples':samples, 'median_build_ms':{v:statistics.median(x['build_ms'] for x in samples[v]) for v in variants}, 'min_build_ms':{v:min(x['build_ms'] for x in samples[v]) for v in variants}, 'max_build_ms':{v:max(x['build_ms'] for x in samples[v]) for v in variants}})
+ (root/'rerun-4096-results.json').write_text(json.dumps(data,indent=2)+'\n',encoding='utf-8')
+ print(bits, data['results'][-1]['median_build_ms'], data['results'][-1]['min_build_ms'],data['results'][-1]['max_build_ms'], flush=True)

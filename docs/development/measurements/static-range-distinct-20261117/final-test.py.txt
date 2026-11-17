@@ -1,0 +1,26 @@
+import os
+import subprocess
+import time
+from pathlib import Path
+
+here = Path(__file__).resolve().parent
+root = here.parents[1]
+vc = Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = Path(r'C:\Program Files (x86)\Windows Kits\10')
+version = '10.0.22621.0'
+compiler = Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(str(p) for p in (vc / 'include', sdk / 'Include' / version / 'ucrt', sdk / 'Include' / version / 'shared', sdk / 'Include' / version / 'um'))
+env['LIB'] = os.pathsep.join(str(p) for p in (vc / 'lib/x64', sdk / 'Lib' / version / 'ucrt/x64', sdk / 'Lib' / version / 'um/x64'))
+for std in ('gnu++20', 'gnu++23'):
+    flags = ['--target=x86_64-pc-windows-msvc', '-fuse-ld=link', '-std=' + std, '-O2', '-I' + str(root)]
+    exe = here / ('final-random-' + std + '.exe')
+    command = [str(compiler), *flags, str(root / 'tests/random/ds_batch_three.cpp'), '-o', str(exe)]
+    print('compile', std, flush=True)
+    subprocess.run(command, env=env, check=True)
+    for seed in (1, 17, 731):
+        start = time.monotonic()
+        subprocess.run([str(exe), str(seed)], check=True)
+        print(std, 'seed', seed, 'passed seconds', round(time.monotonic()-start, 3), flush=True)
+print('passed')

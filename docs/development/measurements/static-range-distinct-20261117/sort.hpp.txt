@@ -1,0 +1,38 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <limits>
+#include <map>
+#include <numeric>
+#include <vector>
+#include "blueberry/data-structure/wavelet-matrix.hpp"
+
+namespace blueberry {
+
+template <class T>
+class StaticRangeDistinct {
+  WaveletMatrix<int> previous_;
+  static std::vector<int> previous(const std::vector<T>& a) {
+    assert(a.size() < static_cast<unsigned>(std::numeric_limits<int>::max()));
+    std::vector<int> result(a.size());
+    std::vector<int> order(a.size());
+    std::iota(order.begin(), order.end(), 0);
+    std::sort(order.begin(), order.end(), [&](int x, int y) {
+      if (a[x] < a[y]) return true;
+      if (a[y] < a[x]) return false;
+      return x < y;
+    });
+    for (int i = 0; i < static_cast<int>(order.size()); ++i)
+      result[order[i]] = i && !(a[order[i - 1]] < a[order[i]]) ? order[i - 1] : -1;
+    return result;
+  }
+
+ public:
+  StaticRangeDistinct() = default;
+  explicit StaticRangeDistinct(const std::vector<T>& a) : previous_(previous(a)) {}
+  int size() const { return previous_.size(); }
+  int count(int l, int r) const { return previous_.range_freq(l, r, l); }
+};
+
+}  // namespace blueberry

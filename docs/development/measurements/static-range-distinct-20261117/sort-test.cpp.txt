@@ -1,0 +1,39 @@
+#include <algorithm>
+#include <cassert>
+#include <random>
+#include <set>
+#include <vector>
+#include "blueberry/data-structure/static-range-distinct.hpp"
+
+struct Item {
+  int bucket, payload;
+  friend bool operator<(const Item& a, const Item& b) { return a.bucket < b.bucket; }
+};
+
+int main() {
+  std::mt19937 rng(20261117);
+  for (int trial = 0; trial < 250; ++trial) {
+    int n = rng() % 70;
+    std::vector<Item> a(n);
+    for (int i = 0; i < n; ++i) a[i] = {int(rng() % 13) - 6, i};
+    blueberry::StaticRangeDistinct<Item> d(a);
+    assert(d.size() == n);
+    for (int l = 0; l <= n; ++l) for (int r = l; r <= n; ++r) {
+      std::set<Item> values(a.begin() + l, a.begin() + r);
+      assert(d.count(l, r) == static_cast<int>(values.size()));
+    }
+  }
+  for (int kind = 0; kind < 3; ++kind) {
+    std::vector<Item> a(10000);
+    for (int i = 0; i < static_cast<int>(a.size()); ++i)
+      a[i] = {kind == 0 ? i % 512 : kind == 1 ? i % 2048 : int(rng() % 5000), i};
+    std::shuffle(a.begin(), a.end(), rng);
+    blueberry::StaticRangeDistinct<Item> d(a);
+    for (int q = 0; q < 500; ++q) {
+      int l = rng() % (a.size() + 1), r = rng() % (a.size() + 1);
+      if (l > r) std::swap(l, r);
+      std::set<Item> values(a.begin() + l, a.begin() + r);
+      assert(d.count(l, r) == static_cast<int>(values.size()));
+    }
+  }
+}
