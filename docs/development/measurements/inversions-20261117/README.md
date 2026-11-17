@@ -26,8 +26,19 @@ Windows、Intel Family 6 Model 183 Stepping 1、Android NDK Clang 18.0.3、Windo
 
 mixedには約8.7%の回帰がある。Q≥Nでは幅を決める処理は従来と同じで、今回のばらつきだけから速度差を断定しない。単に `N/sqrt(Q)` とする候補は [guarded-results.json](guarded-results.json) の短区間で12.723→14.085msと回帰した。queryごとのブロック番号事前計算も [initial-results.json](initial-results.json) で安定した優位がなく採用していない。途中結果や不採用候補も削除していない。
 
+### Q≥N の追加測定
+
+上表のN=20000、Q=200000で候補の中央値が約13%遅かったため、両候補を同じWindows Clang・flagsで再コンパイルして、同じ入力を交互に再測定した。warmup各3回、測定各20回。親PythonプロセスにWindows `SetProcessAffinityMask` で許可CPUの最下位bitを設定し、各子プロセスの `GetProcessAffinityMask` が同じ `0x1` であることを確認した。CPU固定はそのCPUの専有を意味しない。
+
+| 候補 | 中央値ms | 最小〜最大ms |
+| --- | ---: | ---: |
+| 従来 | 133.196 | 129.936〜140.313 |
+| 採用候補 | 134.735 | 131.457〜145.987 |
+
+候補の中央値は約1.16%遅く、元の約13%差は再現しなかった。試行範囲が重なり、今回の結果だけでは1%程度の回帰の有無を断定できない。全試行のchecksumとCPU maskは一致した。[個々の結果・ハッシュ](affinity-rerun.json)、[再コンパイル出力](affinity-build.log)、[再実行スクリプト](affinity-rerun.py)を保持する。先の測定も上記のまま残す。
+
 ## 再現と正しさ
 
-このディレクトリのファイルを `.build/inversions-experiment/` にコピーし、保存用の `.cpp.txt` と `.hpp.txt` の末尾 `.txt` を取り除く。次に `python .build/inversions-experiment/prepare.py`、`.build/inversions-experiment/build.ps1`、`python .build/inversions-experiment/run.py` を順に実行する。Windows上のcompilerとSDKのパスは `build.ps1` に記載した環境固有の値なので適宜変更する。現在の `bench.cpp.txt` と `run.py` は最終測定用で、先行測定とは異なる。先行結果のソースハッシュは各JSONに保持する。`shortguard.hpp.txt` は測定後、namespace名を除いて現行ヘッダと一致することを確認した。
+このディレクトリのファイルを `.build/inversions-experiment/` にコピーし、保存用の `.cpp.txt` と `.hpp.txt` の末尾 `.txt` を取り除く。次に `python .build/inversions-experiment/prepare.py`、`.build/inversions-experiment/build.ps1`、`python .build/inversions-experiment/run.py` を順に実行する。追加測定は同じビルドの後に `python docs/development/measurements/inversions-20261117/affinity-rerun.py` で実行する。Windows上のcompilerとSDKのパスは `build.ps1` に記載した環境固有の値なので適宜変更する。現在の `bench.cpp.txt` と `run.py` は最終測定用で、先行測定とは異なる。先行結果のソースハッシュは各JSONに保持する。`shortguard.hpp.txt` は測定後、namespace名を除いて現行ヘッダと一致することを確認した。
 
 候補の事前検証では固定seedの小入力を全候補で愚直計算と比較した。現行ヘッダと新旧random testはWindows Clangで `gnu++20` / `gnu++23`、seed 1・2・17・20261117が成功した。初回の新testコンパイルは `<string>` 不足で失敗し、includeを追加して再実行した。GNU GCC、Library Checker、`make test` / `make verify` / `make docs` はこの個別調査では未実行。WSLはアクセス拒否だった。
