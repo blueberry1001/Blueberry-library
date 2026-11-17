@@ -1,0 +1,41 @@
+#pragma once
+#include <algorithm>
+#include <functional>
+#include <utility>
+#include <vector>
+#include <atcoder/convolution>
+
+namespace product_bench {
+template<class Mint>
+std::vector<Mint> heap(std::vector<std::vector<Mint>> factors) {
+  if (factors.empty()) return {Mint(1)};
+  for (const auto& f : factors) if (f.empty()) return {};
+  std::vector<std::size_t> ids(factors.size());
+  for (std::size_t i = 0; i < ids.size(); ++i) ids[i] = i;
+  auto cmp = [&](std::size_t a, std::size_t b) { return factors[a].size() > factors[b].size(); };
+  std::make_heap(ids.begin(), ids.end(), cmp);
+  while (ids.size() > 1) {
+    std::pop_heap(ids.begin(), ids.end(), cmp); auto a = ids.back(); ids.pop_back();
+    std::pop_heap(ids.begin(), ids.end(), cmp); auto b = ids.back(); ids.pop_back();
+    factors[a] = atcoder::convolution(std::move(factors[a]), std::move(factors[b]));
+    ids.push_back(a); std::push_heap(ids.begin(), ids.end(), cmp);
+  }
+  return std::move(factors[ids[0]]);
+}
+template<class Mint, bool UseHeap>
+std::vector<Mint> fold(std::vector<std::vector<Mint>> factors) {
+  Mint constant = 1;
+  std::vector<std::vector<Mint>> nonconstant;
+  nonconstant.reserve(factors.size());
+  for (auto& f : factors) {
+    if (f.empty()) return {};
+    if (f.size() == 1) constant *= f[0];
+    else nonconstant.push_back(std::move(f));
+  }
+  std::vector<Mint> result;
+  if constexpr (UseHeap) result = heap(std::move(nonconstant));
+  else result = blueberry::polynomial_product(std::move(nonconstant));
+  for (auto& x : result) x *= constant;
+  return result;
+}
+}

@@ -1,0 +1,3241 @@
+{
+  "environment": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "compiler": "Clang 18 MSVC ABI",
+    "flags": "-std=gnu++20 -O2 -DNDEBUG",
+    "affinity": "0x1",
+    "original_affinity": "0xffffff",
+    "warmups": 1,
+    "runs": 5,
+    "seed": 20261117
+  },
+  "source_sha256": {
+    "baseline-original.hpp.txt": "57ee8515e71e08799c763053dce91bd5b2c8699d0da4b3e03caeea47db85ffc8",
+    "public-bench.cpp": "c18e2e60da86b6682b99f6e4bfa587274042baa17729e2fb94d01d4be93a6064",
+    "public-run.py": "06dcc761b7fc66653b7309bc6c215db1e2e832c66f3d4891612457deee133304",
+    "blueberry/math/polynomial-product.hpp": "a0d5328018d10b48564402b4d3b735db474c77f42e699aa67d43155f819ce7fd"
+  },
+  "cases": [
+    {
+      "category": 0,
+      "name": "empty",
+      "count": 100000,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914934.5309572,
+          "end_unix": 1794914934.5954988,
+          "exit_code": 0,
+          "stdout": "3.0889 4672348932732462784 10256384\n",
+          "stderr": "",
+          "ms": 3.0889,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10256384
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914934.5964532,
+          "end_unix": 1794914934.663208,
+          "exit_code": 0,
+          "stdout": "3.094 4672348932732462784 10260480\n",
+          "stderr": "",
+          "ms": 3.094,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10260480
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914934.6637378,
+          "end_unix": 1794914934.7265303,
+          "exit_code": 0,
+          "stdout": "3.0155 4672348932732462784 10260480\n",
+          "stderr": "",
+          "ms": 3.0155,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10260480
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914934.7270195,
+          "end_unix": 1794914934.792832,
+          "exit_code": 0,
+          "stdout": "3.0164 4672348932732462784 10260480\n",
+          "stderr": "",
+          "ms": 3.0164,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10260480
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914934.7933269,
+          "end_unix": 1794914934.8567753,
+          "exit_code": 0,
+          "stdout": "3.0171 4672348932732462784 10256384\n",
+          "stderr": "",
+          "ms": 3.0171,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10256384
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914934.8572328,
+          "end_unix": 1794914934.920112,
+          "exit_code": 0,
+          "stdout": "3.0566 4672348932732462784 10256384\n",
+          "stderr": "",
+          "ms": 3.0566,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10256384
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914934.9205742,
+          "end_unix": 1794914934.9836066,
+          "exit_code": 0,
+          "stdout": "3.1089 4672348932732462784 10256384\n",
+          "stderr": "",
+          "ms": 3.1089,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10256384
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914934.9842503,
+          "end_unix": 1794914935.0492966,
+          "exit_code": 0,
+          "stdout": "3.2076 4672348932732462784 10256384\n",
+          "stderr": "",
+          "ms": 3.2076,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10256384
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914935.0498352,
+          "end_unix": 1794914935.1212173,
+          "exit_code": 0,
+          "stdout": "3.199 4672348932732462784 10260480\n",
+          "stderr": "",
+          "ms": 3.199,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10260480
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914935.121692,
+          "end_unix": 1794914935.1843684,
+          "exit_code": 0,
+          "stdout": "3.027 4672348932732462784 10256384\n",
+          "stderr": "",
+          "ms": 3.027,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10256384
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914935.185004,
+          "end_unix": 1794914935.24872,
+          "exit_code": 0,
+          "stdout": "3.0269 4672348932732462784 10256384\n",
+          "stderr": "",
+          "ms": 3.0269,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10256384
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914935.2492416,
+          "end_unix": 1794914935.3113675,
+          "exit_code": 0,
+          "stdout": "3.1199 4672348932732462784 10260480\n",
+          "stderr": "",
+          "ms": 3.1199,
+          "checksum": "4672348932732462784",
+          "peak_working_set": 10260480
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 3.1199,
+          "min_ms": 3.0164
+        },
+        "4": {
+          "median_ms": 3.027,
+          "min_ms": 3.0155
+        }
+      }
+    },
+    {
+      "category": 1,
+      "name": "single64",
+      "count": 8000,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914935.3122716,
+          "end_unix": 1794914935.336304,
+          "exit_code": 0,
+          "stdout": "0.192 6043055570365929938 6844416\n",
+          "stderr": "",
+          "ms": 0.192,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6844416
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914935.3368273,
+          "end_unix": 1794914935.3572197,
+          "exit_code": 0,
+          "stdout": "0.1874 6043055570365929938 6848512\n",
+          "stderr": "",
+          "ms": 0.1874,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6848512
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914935.3577127,
+          "end_unix": 1794914935.3720279,
+          "exit_code": 0,
+          "stdout": "0.2018 6043055570365929938 6844416\n",
+          "stderr": "",
+          "ms": 0.2018,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6844416
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914935.372555,
+          "end_unix": 1794914935.3872857,
+          "exit_code": 0,
+          "stdout": "0.1917 6043055570365929938 6840320\n",
+          "stderr": "",
+          "ms": 0.1917,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6840320
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914935.387857,
+          "end_unix": 1794914935.4020767,
+          "exit_code": 0,
+          "stdout": "0.195 6043055570365929938 6844416\n",
+          "stderr": "",
+          "ms": 0.195,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6844416
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914935.4025915,
+          "end_unix": 1794914935.4258056,
+          "exit_code": 0,
+          "stdout": "0.2199 6043055570365929938 6848512\n",
+          "stderr": "",
+          "ms": 0.2199,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6848512
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914935.4263346,
+          "end_unix": 1794914935.4413137,
+          "exit_code": 0,
+          "stdout": "0.1929 6043055570365929938 6844416\n",
+          "stderr": "",
+          "ms": 0.1929,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6844416
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914935.4418163,
+          "end_unix": 1794914935.4562883,
+          "exit_code": 0,
+          "stdout": "0.2027 6043055570365929938 6840320\n",
+          "stderr": "",
+          "ms": 0.2027,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6840320
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914935.4567978,
+          "end_unix": 1794914935.4713047,
+          "exit_code": 0,
+          "stdout": "0.1954 6043055570365929938 6844416\n",
+          "stderr": "",
+          "ms": 0.1954,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6844416
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914935.4718347,
+          "end_unix": 1794914935.4863262,
+          "exit_code": 0,
+          "stdout": "0.2418 6043055570365929938 6848512\n",
+          "stderr": "",
+          "ms": 0.2418,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6848512
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914935.4868422,
+          "end_unix": 1794914935.501486,
+          "exit_code": 0,
+          "stdout": "0.2477 6043055570365929938 6844416\n",
+          "stderr": "",
+          "ms": 0.2477,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6844416
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914935.5020888,
+          "end_unix": 1794914935.5265884,
+          "exit_code": 0,
+          "stdout": "0.1834 6043055570365929938 6840320\n",
+          "stderr": "",
+          "ms": 0.1834,
+          "checksum": "6043055570365929938",
+          "peak_working_set": 6840320
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 0.195,
+          "min_ms": 0.1834
+        },
+        "4": {
+          "median_ms": 0.2199,
+          "min_ms": 0.1929
+        }
+      }
+    },
+    {
+      "category": 2,
+      "name": "two8",
+      "count": 5000,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914935.5275784,
+          "end_unix": 1794914935.5409822,
+          "exit_code": 0,
+          "stdout": "0.7891 5665639210665089302 4804608\n",
+          "stderr": "",
+          "ms": 0.7891,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4804608
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914935.541497,
+          "end_unix": 1794914935.5537012,
+          "exit_code": 0,
+          "stdout": "0.8594 5665639210665089302 4808704\n",
+          "stderr": "",
+          "ms": 0.8594,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4808704
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914935.5542278,
+          "end_unix": 1794914935.565318,
+          "exit_code": 0,
+          "stdout": "0.8392 5665639210665089302 4812800\n",
+          "stderr": "",
+          "ms": 0.8392,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4812800
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914935.565935,
+          "end_unix": 1794914935.5776036,
+          "exit_code": 0,
+          "stdout": "0.8736 5665639210665089302 4808704\n",
+          "stderr": "",
+          "ms": 0.8736,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4808704
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914935.5781238,
+          "end_unix": 1794914935.589659,
+          "exit_code": 0,
+          "stdout": "0.8622 5665639210665089302 4808704\n",
+          "stderr": "",
+          "ms": 0.8622,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4808704
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914935.590183,
+          "end_unix": 1794914935.6020863,
+          "exit_code": 0,
+          "stdout": "0.8559 5665639210665089302 4808704\n",
+          "stderr": "",
+          "ms": 0.8559,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4808704
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914935.6026537,
+          "end_unix": 1794914935.6303275,
+          "exit_code": 0,
+          "stdout": "0.9363 5665639210665089302 4808704\n",
+          "stderr": "",
+          "ms": 0.9363,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4808704
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914935.6309195,
+          "end_unix": 1794914935.6430604,
+          "exit_code": 0,
+          "stdout": "0.8924 5665639210665089302 4804608\n",
+          "stderr": "",
+          "ms": 0.8924,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4804608
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914935.6436365,
+          "end_unix": 1794914935.655404,
+          "exit_code": 0,
+          "stdout": "0.8464 5665639210665089302 4808704\n",
+          "stderr": "",
+          "ms": 0.8464,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4808704
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914935.656166,
+          "end_unix": 1794914935.6671793,
+          "exit_code": 0,
+          "stdout": "0.8622 5665639210665089302 4808704\n",
+          "stderr": "",
+          "ms": 0.8622,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4808704
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914935.6677005,
+          "end_unix": 1794914935.6781495,
+          "exit_code": 0,
+          "stdout": "0.7738 5665639210665089302 4812800\n",
+          "stderr": "",
+          "ms": 0.7738,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4812800
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914935.678688,
+          "end_unix": 1794914935.6902864,
+          "exit_code": 0,
+          "stdout": "0.7998 5665639210665089302 4808704\n",
+          "stderr": "",
+          "ms": 0.7998,
+          "checksum": "5665639210665089302",
+          "peak_working_set": 4808704
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 0.8622,
+          "min_ms": 0.7998
+        },
+        "4": {
+          "median_ms": 0.8559,
+          "min_ms": 0.7738
+        }
+      }
+    },
+    {
+      "category": 3,
+      "name": "uniform_linear8192",
+      "count": 2,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914935.6912637,
+          "end_unix": 1794914935.7061825,
+          "exit_code": 0,
+          "stdout": "6.9549 14464617626245428205 4685824\n",
+          "stderr": "",
+          "ms": 6.9549,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4685824
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914935.7067382,
+          "end_unix": 1794914935.7321653,
+          "exit_code": 0,
+          "stdout": "7.2084 14464617626245428205 4689920\n",
+          "stderr": "",
+          "ms": 7.2084,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4689920
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914935.7328134,
+          "end_unix": 1794914935.7457762,
+          "exit_code": 0,
+          "stdout": "6.5012 14464617626245428205 4685824\n",
+          "stderr": "",
+          "ms": 6.5012,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4685824
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914935.7464175,
+          "end_unix": 1794914935.7591765,
+          "exit_code": 0,
+          "stdout": "6.5414 14464617626245428205 4681728\n",
+          "stderr": "",
+          "ms": 6.5414,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4681728
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914935.7597194,
+          "end_unix": 1794914935.7730746,
+          "exit_code": 0,
+          "stdout": "6.791 14464617626245428205 4685824\n",
+          "stderr": "",
+          "ms": 6.791,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4685824
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914935.7736528,
+          "end_unix": 1794914935.7867677,
+          "exit_code": 0,
+          "stdout": "6.7026 14464617626245428205 4689920\n",
+          "stderr": "",
+          "ms": 6.7026,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4689920
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914935.7873821,
+          "end_unix": 1794914935.800706,
+          "exit_code": 0,
+          "stdout": "7.013 14464617626245428205 4685824\n",
+          "stderr": "",
+          "ms": 7.013,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4685824
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914935.801257,
+          "end_unix": 1794914935.8144815,
+          "exit_code": 0,
+          "stdout": "6.4683 14464617626245428205 4685824\n",
+          "stderr": "",
+          "ms": 6.4683,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4685824
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914935.8150496,
+          "end_unix": 1794914935.8299575,
+          "exit_code": 0,
+          "stdout": "6.7827 14464617626245428205 4681728\n",
+          "stderr": "",
+          "ms": 6.7827,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4681728
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914935.8305607,
+          "end_unix": 1794914935.8443456,
+          "exit_code": 0,
+          "stdout": "6.7271 14464617626245428205 4685824\n",
+          "stderr": "",
+          "ms": 6.7271,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4685824
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914935.8450363,
+          "end_unix": 1794914935.8579745,
+          "exit_code": 0,
+          "stdout": "6.7125 14464617626245428205 4689920\n",
+          "stderr": "",
+          "ms": 6.7125,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4689920
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914935.8585505,
+          "end_unix": 1794914935.8719654,
+          "exit_code": 0,
+          "stdout": "6.5976 14464617626245428205 4677632\n",
+          "stderr": "",
+          "ms": 6.5976,
+          "checksum": "14464617626245428205",
+          "peak_working_set": 4677632
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 6.5976,
+          "min_ms": 6.4683
+        },
+        "4": {
+          "median_ms": 6.7125,
+          "min_ms": 6.5012
+        }
+      }
+    },
+    {
+      "category": 4,
+      "name": "uniform_len16_1024",
+      "count": 3,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914935.873188,
+          "end_unix": 1794914935.8900044,
+          "exit_code": 0,
+          "stdout": "9.4456 15524605864127177273 4476928\n",
+          "stderr": "",
+          "ms": 9.4456,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4476928
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914935.8905864,
+          "end_unix": 1794914935.908422,
+          "exit_code": 0,
+          "stdout": "9.589 15524605864127177273 4481024\n",
+          "stderr": "",
+          "ms": 9.589,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4481024
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914935.909089,
+          "end_unix": 1794914935.931167,
+          "exit_code": 0,
+          "stdout": "9.9053 15524605864127177273 4476928\n",
+          "stderr": "",
+          "ms": 9.9053,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4476928
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914935.931971,
+          "end_unix": 1794914935.9486854,
+          "exit_code": 0,
+          "stdout": "9.4372 15524605864127177273 4476928\n",
+          "stderr": "",
+          "ms": 9.4372,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4476928
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914935.9494681,
+          "end_unix": 1794914935.9667153,
+          "exit_code": 0,
+          "stdout": "10.5264 15524605864127177273 4472832\n",
+          "stderr": "",
+          "ms": 10.5264,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4472832
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914935.9673147,
+          "end_unix": 1794914935.983915,
+          "exit_code": 0,
+          "stdout": "9.5941 15524605864127177273 4476928\n",
+          "stderr": "",
+          "ms": 9.5941,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4476928
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914935.984498,
+          "end_unix": 1794914936.0006502,
+          "exit_code": 0,
+          "stdout": "9.7166 15524605864127177273 4481024\n",
+          "stderr": "",
+          "ms": 9.7166,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4481024
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914936.0013108,
+          "end_unix": 1794914936.016774,
+          "exit_code": 0,
+          "stdout": "9.4467 15524605864127177273 4476928\n",
+          "stderr": "",
+          "ms": 9.4467,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4476928
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914936.0174727,
+          "end_unix": 1794914936.0378544,
+          "exit_code": 0,
+          "stdout": "10.6068 15524605864127177273 4472832\n",
+          "stderr": "",
+          "ms": 10.6068,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4472832
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914936.0385392,
+          "end_unix": 1794914936.0578556,
+          "exit_code": 0,
+          "stdout": "10.2157 15524605864127177273 4481024\n",
+          "stderr": "",
+          "ms": 10.2157,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4481024
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914936.0586395,
+          "end_unix": 1794914936.075365,
+          "exit_code": 0,
+          "stdout": "10.2918 15524605864127177273 4476928\n",
+          "stderr": "",
+          "ms": 10.2918,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4476928
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914936.0760348,
+          "end_unix": 1794914936.0979636,
+          "exit_code": 0,
+          "stdout": "12.1683 15524605864127177273 4476928\n",
+          "stderr": "",
+          "ms": 12.1683,
+          "checksum": "15524605864127177273",
+          "peak_working_set": 4476928
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 10.5264,
+          "min_ms": 9.4372
+        },
+        "4": {
+          "median_ms": 9.9053,
+          "min_ms": 9.5941
+        }
+      }
+    },
+    {
+      "category": 5,
+      "name": "skew_first",
+      "count": 2,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914936.0992966,
+          "end_unix": 1794914936.154778,
+          "exit_code": 0,
+          "stdout": "43.5042 4322636756164714238 5992448\n",
+          "stderr": "",
+          "ms": 43.5042,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5992448
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914936.1557174,
+          "end_unix": 1794914936.1763084,
+          "exit_code": 0,
+          "stdout": "10.7474 4322636756164714238 5799936\n",
+          "stderr": "",
+          "ms": 10.7474,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5799936
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914936.176947,
+          "end_unix": 1794914936.2041175,
+          "exit_code": 0,
+          "stdout": "10.7522 4322636756164714238 5804032\n",
+          "stderr": "",
+          "ms": 10.7522,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914936.2052536,
+          "end_unix": 1794914936.259819,
+          "exit_code": 0,
+          "stdout": "45.2864 4322636756164714238 5988352\n",
+          "stderr": "",
+          "ms": 45.2864,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5988352
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914936.2605207,
+          "end_unix": 1794914936.3147087,
+          "exit_code": 0,
+          "stdout": "46.0721 4322636756164714238 5992448\n",
+          "stderr": "",
+          "ms": 46.0721,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5992448
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914936.3159063,
+          "end_unix": 1794914936.3354294,
+          "exit_code": 0,
+          "stdout": "10.4006 4322636756164714238 5804032\n",
+          "stderr": "",
+          "ms": 10.4006,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914936.3360608,
+          "end_unix": 1794914936.3553956,
+          "exit_code": 0,
+          "stdout": "9.4071 4322636756164714238 5804032\n",
+          "stderr": "",
+          "ms": 9.4071,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914936.3575332,
+          "end_unix": 1794914936.409022,
+          "exit_code": 0,
+          "stdout": "44.123 4322636756164714238 5992448\n",
+          "stderr": "",
+          "ms": 44.123,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5992448
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914936.4097893,
+          "end_unix": 1794914936.465131,
+          "exit_code": 0,
+          "stdout": "48.0578 4322636756164714238 5992448\n",
+          "stderr": "",
+          "ms": 48.0578,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5992448
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914936.4658074,
+          "end_unix": 1794914936.4867077,
+          "exit_code": 0,
+          "stdout": "11.6458 4322636756164714238 5804032\n",
+          "stderr": "",
+          "ms": 11.6458,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914936.4874501,
+          "end_unix": 1794914936.5083485,
+          "exit_code": 0,
+          "stdout": "11.7746 4322636756164714238 5799936\n",
+          "stderr": "",
+          "ms": 11.7746,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5799936
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914936.5095744,
+          "end_unix": 1794914936.5606172,
+          "exit_code": 0,
+          "stdout": "44.5871 4322636756164714238 5992448\n",
+          "stderr": "",
+          "ms": 44.5871,
+          "checksum": "4322636756164714238",
+          "peak_working_set": 5992448
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 45.2864,
+          "min_ms": 44.123
+        },
+        "4": {
+          "median_ms": 10.7522,
+          "min_ms": 9.4071
+        }
+      }
+    },
+    {
+      "category": 6,
+      "name": "skew_last",
+      "count": 2,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914936.5631132,
+          "end_unix": 1794914936.6380892,
+          "exit_code": 0,
+          "stdout": "54.129 15414185849811142314 5701632\n",
+          "stderr": "",
+          "ms": 54.129,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5701632
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914936.6387596,
+          "end_unix": 1794914936.6632977,
+          "exit_code": 0,
+          "stdout": "11.9129 15414185849811142314 5804032\n",
+          "stderr": "",
+          "ms": 11.9129,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914936.6639662,
+          "end_unix": 1794914936.6837747,
+          "exit_code": 0,
+          "stdout": "10.0742 15414185849811142314 5804032\n",
+          "stderr": "",
+          "ms": 10.0742,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914936.6857867,
+          "end_unix": 1794914936.7450294,
+          "exit_code": 0,
+          "stdout": "50.6307 15414185849811142314 5701632\n",
+          "stderr": "",
+          "ms": 50.6307,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5701632
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914936.7458315,
+          "end_unix": 1794914936.8018494,
+          "exit_code": 0,
+          "stdout": "49.3311 15414185849811142314 5701632\n",
+          "stderr": "",
+          "ms": 49.3311,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5701632
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914936.8025258,
+          "end_unix": 1794914936.821096,
+          "exit_code": 0,
+          "stdout": "10.067 15414185849811142314 5804032\n",
+          "stderr": "",
+          "ms": 10.067,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914936.8217778,
+          "end_unix": 1794914936.8438241,
+          "exit_code": 0,
+          "stdout": "10.7738 15414185849811142314 5804032\n",
+          "stderr": "",
+          "ms": 10.7738,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914936.8444912,
+          "end_unix": 1794914936.897968,
+          "exit_code": 0,
+          "stdout": "45.5621 15414185849811142314 5701632\n",
+          "stderr": "",
+          "ms": 45.5621,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5701632
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914936.8988068,
+          "end_unix": 1794914936.958341,
+          "exit_code": 0,
+          "stdout": "49.6551 15414185849811142314 5701632\n",
+          "stderr": "",
+          "ms": 49.6551,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5701632
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914936.9590087,
+          "end_unix": 1794914936.9807296,
+          "exit_code": 0,
+          "stdout": "12.7219 15414185849811142314 5804032\n",
+          "stderr": "",
+          "ms": 12.7219,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914936.9814172,
+          "end_unix": 1794914937.0053005,
+          "exit_code": 0,
+          "stdout": "11.8747 15414185849811142314 5804032\n",
+          "stderr": "",
+          "ms": 11.8747,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5804032
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914937.0060234,
+          "end_unix": 1794914937.0849576,
+          "exit_code": 0,
+          "stdout": "67.2062 15414185849811142314 5693440\n",
+          "stderr": "",
+          "ms": 67.2062,
+          "checksum": "15414185849811142314",
+          "peak_working_set": 5693440
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 49.6551,
+          "min_ms": 45.5621
+        },
+        "4": {
+          "median_ms": 10.7738,
+          "min_ms": 10.067
+        }
+      }
+    },
+    {
+      "category": 7,
+      "name": "many_constant_skew",
+      "count": 2,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914937.0865662,
+          "end_unix": 1794914937.1029348,
+          "exit_code": 0,
+          "stdout": "3.875 9441651905190953868 5410816\n",
+          "stderr": "",
+          "ms": 3.875,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 5410816
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914937.1036692,
+          "end_unix": 1794914937.116978,
+          "exit_code": 0,
+          "stdout": "0.6154 9441651905190953868 4976640\n",
+          "stderr": "",
+          "ms": 0.6154,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 4976640
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914937.1177223,
+          "end_unix": 1794914937.130082,
+          "exit_code": 0,
+          "stdout": "0.534 9441651905190953868 4980736\n",
+          "stderr": "",
+          "ms": 0.534,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 4980736
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914937.1313703,
+          "end_unix": 1794914937.1532226,
+          "exit_code": 0,
+          "stdout": "3.7201 9441651905190953868 5406720\n",
+          "stderr": "",
+          "ms": 3.7201,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 5406720
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914937.1542552,
+          "end_unix": 1794914937.174614,
+          "exit_code": 0,
+          "stdout": "3.5185 9441651905190953868 5406720\n",
+          "stderr": "",
+          "ms": 3.5185,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 5406720
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914937.1754665,
+          "end_unix": 1794914937.187174,
+          "exit_code": 0,
+          "stdout": "0.3908 9441651905190953868 4980736\n",
+          "stderr": "",
+          "ms": 0.3908,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 4980736
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914937.1879237,
+          "end_unix": 1794914937.197577,
+          "exit_code": 0,
+          "stdout": "0.6127 9441651905190953868 4976640\n",
+          "stderr": "",
+          "ms": 0.6127,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 4976640
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914937.1985636,
+          "end_unix": 1794914937.210058,
+          "exit_code": 0,
+          "stdout": "3.8024 9441651905190953868 5406720\n",
+          "stderr": "",
+          "ms": 3.8024,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 5406720
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914937.2108097,
+          "end_unix": 1794914937.2337813,
+          "exit_code": 0,
+          "stdout": "3.8033 9441651905190953868 5410816\n",
+          "stderr": "",
+          "ms": 3.8033,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 5410816
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914937.234678,
+          "end_unix": 1794914937.2531958,
+          "exit_code": 0,
+          "stdout": "0.589 9441651905190953868 4980736\n",
+          "stderr": "",
+          "ms": 0.589,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 4980736
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914937.2540324,
+          "end_unix": 1794914937.262393,
+          "exit_code": 0,
+          "stdout": "0.6221 9441651905190953868 4980736\n",
+          "stderr": "",
+          "ms": 0.6221,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 4980736
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914937.2633555,
+          "end_unix": 1794914937.280996,
+          "exit_code": 0,
+          "stdout": "5.6476 9441651905190953868 5406720\n",
+          "stderr": "",
+          "ms": 5.6476,
+          "checksum": "9441651905190953868",
+          "peak_working_set": 5406720
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 3.8024,
+          "min_ms": 3.5185
+        },
+        "4": {
+          "median_ms": 0.589,
+          "min_ms": 0.3908
+        }
+      }
+    },
+    {
+      "category": 8,
+      "name": "constants_only",
+      "count": 5,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914937.28245,
+          "end_unix": 1794914937.2996128,
+          "exit_code": 0,
+          "stdout": "2.8382 8462519530307334869 5582848\n",
+          "stderr": "",
+          "ms": 2.8382,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5582848
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914937.3006463,
+          "end_unix": 1794914937.31122,
+          "exit_code": 0,
+          "stdout": "0.6572 8462519530307334869 5447680\n",
+          "stderr": "",
+          "ms": 0.6572,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5447680
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914937.3119314,
+          "end_unix": 1794914937.3206103,
+          "exit_code": 0,
+          "stdout": "0.7802 8462519530307334869 5447680\n",
+          "stderr": "",
+          "ms": 0.7802,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5447680
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914937.3213675,
+          "end_unix": 1794914937.332271,
+          "exit_code": 0,
+          "stdout": "2.6272 8462519530307334869 5582848\n",
+          "stderr": "",
+          "ms": 2.6272,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5582848
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914937.333084,
+          "end_unix": 1794914937.3545089,
+          "exit_code": 0,
+          "stdout": "2.4808 8462519530307334869 5582848\n",
+          "stderr": "",
+          "ms": 2.4808,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5582848
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914937.355403,
+          "end_unix": 1794914937.3711102,
+          "exit_code": 0,
+          "stdout": "0.7194 8462519530307334869 5447680\n",
+          "stderr": "",
+          "ms": 0.7194,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5447680
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914937.3718843,
+          "end_unix": 1794914937.3833997,
+          "exit_code": 0,
+          "stdout": "0.6833 8462519530307334869 5451776\n",
+          "stderr": "",
+          "ms": 0.6833,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5451776
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914937.384177,
+          "end_unix": 1794914937.3943207,
+          "exit_code": 0,
+          "stdout": "2.1202 8462519530307334869 5578752\n",
+          "stderr": "",
+          "ms": 2.1202,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5578752
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914937.3952074,
+          "end_unix": 1794914937.4047663,
+          "exit_code": 0,
+          "stdout": "2.1697 8462519530307334869 5582848\n",
+          "stderr": "",
+          "ms": 2.1697,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5582848
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914937.4054656,
+          "end_unix": 1794914937.413395,
+          "exit_code": 0,
+          "stdout": "0.6414 8462519530307334869 5447680\n",
+          "stderr": "",
+          "ms": 0.6414,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5447680
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914937.4141138,
+          "end_unix": 1794914937.4220324,
+          "exit_code": 0,
+          "stdout": "0.5957 8462519530307334869 5451776\n",
+          "stderr": "",
+          "ms": 0.5957,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5451776
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914937.422909,
+          "end_unix": 1794914937.4326248,
+          "exit_code": 0,
+          "stdout": "2.2898 8462519530307334869 5582848\n",
+          "stderr": "",
+          "ms": 2.2898,
+          "checksum": "8462519530307334869",
+          "peak_working_set": 5582848
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 2.2898,
+          "min_ms": 2.1202
+        },
+        "4": {
+          "median_ms": 0.6833,
+          "min_ms": 0.5957
+        }
+      }
+    },
+    {
+      "category": 9,
+      "name": "small_skew",
+      "count": 1000,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914937.4340515,
+          "end_unix": 1794914937.454253,
+          "exit_code": 0,
+          "stdout": "9.3983 11003347374809935770 6307840\n",
+          "stderr": "",
+          "ms": 9.3983,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6307840
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914937.4550045,
+          "end_unix": 1794914937.4742727,
+          "exit_code": 0,
+          "stdout": "8.5606 11003347374809935770 6311936\n",
+          "stderr": "",
+          "ms": 8.5606,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6311936
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914937.4749966,
+          "end_unix": 1794914937.492846,
+          "exit_code": 0,
+          "stdout": "8.3429 11003347374809935770 6311936\n",
+          "stderr": "",
+          "ms": 8.3429,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6311936
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914937.4935799,
+          "end_unix": 1794914937.5132902,
+          "exit_code": 0,
+          "stdout": "9.5777 11003347374809935770 6307840\n",
+          "stderr": "",
+          "ms": 9.5777,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6307840
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914937.514252,
+          "end_unix": 1794914937.5401819,
+          "exit_code": 0,
+          "stdout": "10.8749 11003347374809935770 6307840\n",
+          "stderr": "",
+          "ms": 10.8749,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6307840
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914937.5409532,
+          "end_unix": 1794914937.5667298,
+          "exit_code": 0,
+          "stdout": "13.7517 11003347374809935770 6316032\n",
+          "stderr": "",
+          "ms": 13.7517,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6316032
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914937.5677235,
+          "end_unix": 1794914937.590577,
+          "exit_code": 0,
+          "stdout": "12.1227 11003347374809935770 6316032\n",
+          "stderr": "",
+          "ms": 12.1227,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6316032
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914937.5914028,
+          "end_unix": 1794914937.614793,
+          "exit_code": 0,
+          "stdout": "11.4046 11003347374809935770 6311936\n",
+          "stderr": "",
+          "ms": 11.4046,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6311936
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914937.6158314,
+          "end_unix": 1794914937.636106,
+          "exit_code": 0,
+          "stdout": "10.0475 11003347374809935770 6307840\n",
+          "stderr": "",
+          "ms": 10.0475,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6307840
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914937.636891,
+          "end_unix": 1794914937.6562243,
+          "exit_code": 0,
+          "stdout": "8.8613 11003347374809935770 6311936\n",
+          "stderr": "",
+          "ms": 8.8613,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6311936
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914937.6569943,
+          "end_unix": 1794914937.6754665,
+          "exit_code": 0,
+          "stdout": "8.9381 11003347374809935770 6316032\n",
+          "stderr": "",
+          "ms": 8.9381,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6316032
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914937.6762571,
+          "end_unix": 1794914937.6970394,
+          "exit_code": 0,
+          "stdout": "9.1697 11003347374809935770 6307840\n",
+          "stderr": "",
+          "ms": 9.1697,
+          "checksum": "11003347374809935770",
+          "peak_working_set": 6307840
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 10.0475,
+          "min_ms": 9.1697
+        },
+        "4": {
+          "median_ms": 8.9381,
+          "min_ms": 8.3429
+        }
+      }
+    },
+    {
+      "category": 10,
+      "name": "zero_constant_skew",
+      "count": 2,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914937.6989691,
+          "end_unix": 1794914937.7107027,
+          "exit_code": 0,
+          "stdout": "3.4413 9805394342312280064 5410816\n",
+          "stderr": "",
+          "ms": 3.4413,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5410816
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914937.7115011,
+          "end_unix": 1794914937.7215958,
+          "exit_code": 0,
+          "stdout": "0.5188 9805394342312280064 5238784\n",
+          "stderr": "",
+          "ms": 0.5188,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5238784
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914937.7223296,
+          "end_unix": 1794914937.7302504,
+          "exit_code": 0,
+          "stdout": "0.7916 9805394342312280064 5234688\n",
+          "stderr": "",
+          "ms": 0.7916,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5234688
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914937.7311676,
+          "end_unix": 1794914937.741172,
+          "exit_code": 0,
+          "stdout": "3.187 9805394342312280064 5410816\n",
+          "stderr": "",
+          "ms": 3.187,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5410816
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914937.7419264,
+          "end_unix": 1794914937.759079,
+          "exit_code": 0,
+          "stdout": "3.2834 9805394342312280064 5406720\n",
+          "stderr": "",
+          "ms": 3.2834,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5406720
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914937.7599118,
+          "end_unix": 1794914937.7687283,
+          "exit_code": 0,
+          "stdout": "0.4091 9805394342312280064 5234688\n",
+          "stderr": "",
+          "ms": 0.4091,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5234688
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914937.7694829,
+          "end_unix": 1794914937.7769284,
+          "exit_code": 0,
+          "stdout": "0.563 9805394342312280064 5234688\n",
+          "stderr": "",
+          "ms": 0.563,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5234688
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914937.7777474,
+          "end_unix": 1794914937.788509,
+          "exit_code": 0,
+          "stdout": "3.196 9805394342312280064 5406720\n",
+          "stderr": "",
+          "ms": 3.196,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5406720
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914937.789299,
+          "end_unix": 1794914937.7999918,
+          "exit_code": 0,
+          "stdout": "3.454 9805394342312280064 5410816\n",
+          "stderr": "",
+          "ms": 3.454,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5410816
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914937.8007646,
+          "end_unix": 1794914937.8078456,
+          "exit_code": 0,
+          "stdout": "0.762 9805394342312280064 5234688\n",
+          "stderr": "",
+          "ms": 0.762,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5234688
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914937.8086016,
+          "end_unix": 1794914937.8178334,
+          "exit_code": 0,
+          "stdout": "0.5899 9805394342312280064 5234688\n",
+          "stderr": "",
+          "ms": 0.5899,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5234688
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914937.8186007,
+          "end_unix": 1794914937.828518,
+          "exit_code": 0,
+          "stdout": "3.3156 9805394342312280064 5406720\n",
+          "stderr": "",
+          "ms": 3.3156,
+          "checksum": "9805394342312280064",
+          "peak_working_set": 5406720
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 3.2834,
+          "min_ms": 3.187
+        },
+        "4": {
+          "median_ms": 0.5899,
+          "min_ms": 0.4091
+        }
+      }
+    },
+    {
+      "category": 11,
+      "name": "mixed_constants",
+      "count": 200,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914937.8308241,
+          "end_unix": 1794914937.8611045,
+          "exit_code": 0,
+          "stdout": "12.1442 6042522643408730875 8134656\n",
+          "stderr": "",
+          "ms": 12.1442,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8134656
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914937.8620253,
+          "end_unix": 1794914937.8875623,
+          "exit_code": 0,
+          "stdout": "12.0738 6042522643408730875 8138752\n",
+          "stderr": "",
+          "ms": 12.0738,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8138752
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914937.888385,
+          "end_unix": 1794914937.9101357,
+          "exit_code": 0,
+          "stdout": "12.3997 6042522643408730875 8138752\n",
+          "stderr": "",
+          "ms": 12.3997,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8138752
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914937.910917,
+          "end_unix": 1794914937.9333758,
+          "exit_code": 0,
+          "stdout": "12.3747 6042522643408730875 8130560\n",
+          "stderr": "",
+          "ms": 12.3747,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8130560
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914937.9341612,
+          "end_unix": 1794914937.9602008,
+          "exit_code": 0,
+          "stdout": "12.1799 6042522643408730875 8130560\n",
+          "stderr": "",
+          "ms": 12.1799,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8130560
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914937.9610512,
+          "end_unix": 1794914937.9837327,
+          "exit_code": 0,
+          "stdout": "12.0824 6042522643408730875 8134656\n",
+          "stderr": "",
+          "ms": 12.0824,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8134656
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914937.9845307,
+          "end_unix": 1794914938.0063593,
+          "exit_code": 0,
+          "stdout": "12.1076 6042522643408730875 8138752\n",
+          "stderr": "",
+          "ms": 12.1076,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8138752
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914938.007173,
+          "end_unix": 1794914938.0287633,
+          "exit_code": 0,
+          "stdout": "11.871 6042522643408730875 8134656\n",
+          "stderr": "",
+          "ms": 11.871,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8134656
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914938.0304692,
+          "end_unix": 1794914938.0637722,
+          "exit_code": 0,
+          "stdout": "15.1254 6042522643408730875 8130560\n",
+          "stderr": "",
+          "ms": 15.1254,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8130560
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914938.064754,
+          "end_unix": 1794914938.0889575,
+          "exit_code": 0,
+          "stdout": "12.9306 6042522643408730875 8134656\n",
+          "stderr": "",
+          "ms": 12.9306,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8134656
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914938.089887,
+          "end_unix": 1794914938.112258,
+          "exit_code": 0,
+          "stdout": "12.474 6042522643408730875 8134656\n",
+          "stderr": "",
+          "ms": 12.474,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8134656
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914938.1131997,
+          "end_unix": 1794914938.1359603,
+          "exit_code": 0,
+          "stdout": "12.5521 6042522643408730875 8134656\n",
+          "stderr": "",
+          "ms": 12.5521,
+          "checksum": "6042522643408730875",
+          "peak_working_set": 8134656
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 12.3747,
+          "min_ms": 11.871
+        },
+        "4": {
+          "median_ms": 12.3997,
+          "min_ms": 12.0824
+        }
+      }
+    },
+    {
+      "category": 12,
+      "name": "ratio8",
+      "count": 15,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914938.137428,
+          "end_unix": 1794914938.1636348,
+          "exit_code": 0,
+          "stdout": "17.2373 17808250403720323313 4710400\n",
+          "stderr": "",
+          "ms": 17.2373,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4710400
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914938.1646476,
+          "end_unix": 1794914938.186282,
+          "exit_code": 0,
+          "stdout": "12.8926 17808250403720323313 4820992\n",
+          "stderr": "",
+          "ms": 12.8926,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4820992
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914938.187106,
+          "end_unix": 1794914938.2065315,
+          "exit_code": 0,
+          "stdout": "12.8367 17808250403720323313 4825088\n",
+          "stderr": "",
+          "ms": 12.8367,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4825088
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914938.2073152,
+          "end_unix": 1794914938.233109,
+          "exit_code": 0,
+          "stdout": "19.1187 17808250403720323313 4710400\n",
+          "stderr": "",
+          "ms": 19.1187,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4710400
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914938.2341776,
+          "end_unix": 1794914938.2607408,
+          "exit_code": 0,
+          "stdout": "17.3952 17808250403720323313 4710400\n",
+          "stderr": "",
+          "ms": 17.3952,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4710400
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914938.2615376,
+          "end_unix": 1794914938.2814891,
+          "exit_code": 0,
+          "stdout": "13.1041 17808250403720323313 4825088\n",
+          "stderr": "",
+          "ms": 13.1041,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4825088
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914938.2824051,
+          "end_unix": 1794914938.3022418,
+          "exit_code": 0,
+          "stdout": "13.0853 17808250403720323313 4825088\n",
+          "stderr": "",
+          "ms": 13.0853,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4825088
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914938.3030841,
+          "end_unix": 1794914938.3269114,
+          "exit_code": 0,
+          "stdout": "16.9799 17808250403720323313 4706304\n",
+          "stderr": "",
+          "ms": 16.9799,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4706304
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914938.3277276,
+          "end_unix": 1794914938.352307,
+          "exit_code": 0,
+          "stdout": "17.8517 17808250403720323313 4706304\n",
+          "stderr": "",
+          "ms": 17.8517,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4706304
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914938.353306,
+          "end_unix": 1794914938.3740242,
+          "exit_code": 0,
+          "stdout": "13.1142 17808250403720323313 4825088\n",
+          "stderr": "",
+          "ms": 13.1142,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4825088
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914938.3749747,
+          "end_unix": 1794914938.3946195,
+          "exit_code": 0,
+          "stdout": "13.0424 17808250403720323313 4825088\n",
+          "stderr": "",
+          "ms": 13.0424,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4825088
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914938.395474,
+          "end_unix": 1794914938.4195163,
+          "exit_code": 0,
+          "stdout": "17.2262 17808250403720323313 4710400\n",
+          "stderr": "",
+          "ms": 17.2262,
+          "checksum": "17808250403720323313",
+          "peak_working_set": 4710400
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 17.3952,
+          "min_ms": 16.9799
+        },
+        "4": {
+          "median_ms": 13.0853,
+          "min_ms": 12.8367
+        }
+      }
+    },
+    {
+      "category": 13,
+      "name": "ratio4",
+      "count": 15,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914938.4210892,
+          "end_unix": 1794914938.4363842,
+          "exit_code": 0,
+          "stdout": "7.5836 1228413865901843950 4382720\n",
+          "stderr": "",
+          "ms": 7.5836,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4382720
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914938.4372783,
+          "end_unix": 1794914938.4669647,
+          "exit_code": 0,
+          "stdout": "7.5561 1228413865901843950 4382720\n",
+          "stderr": "",
+          "ms": 7.5561,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4382720
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914938.467834,
+          "end_unix": 1794914938.482284,
+          "exit_code": 0,
+          "stdout": "7.2495 1228413865901843950 4386816\n",
+          "stderr": "",
+          "ms": 7.2495,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4386816
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914938.4832082,
+          "end_unix": 1794914938.4966547,
+          "exit_code": 0,
+          "stdout": "7.1632 1228413865901843950 4378624\n",
+          "stderr": "",
+          "ms": 7.1632,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4378624
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914938.4975688,
+          "end_unix": 1794914938.5116386,
+          "exit_code": 0,
+          "stdout": "7.4628 1228413865901843950 4382720\n",
+          "stderr": "",
+          "ms": 7.4628,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4382720
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914938.5126479,
+          "end_unix": 1794914938.5276475,
+          "exit_code": 0,
+          "stdout": "8.3418 1228413865901843950 4382720\n",
+          "stderr": "",
+          "ms": 8.3418,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4382720
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914938.528518,
+          "end_unix": 1794914938.5422637,
+          "exit_code": 0,
+          "stdout": "7.4498 1228413865901843950 4386816\n",
+          "stderr": "",
+          "ms": 7.4498,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4386816
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914938.5431564,
+          "end_unix": 1794914938.5715744,
+          "exit_code": 0,
+          "stdout": "7.1628 1228413865901843950 4382720\n",
+          "stderr": "",
+          "ms": 7.1628,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4382720
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914938.5724695,
+          "end_unix": 1794914938.5873537,
+          "exit_code": 0,
+          "stdout": "7.6142 1228413865901843950 4378624\n",
+          "stderr": "",
+          "ms": 7.6142,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4378624
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914938.5882115,
+          "end_unix": 1794914938.602203,
+          "exit_code": 0,
+          "stdout": "7.3179 1228413865901843950 4386816\n",
+          "stderr": "",
+          "ms": 7.3179,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4386816
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914938.603116,
+          "end_unix": 1794914938.617325,
+          "exit_code": 0,
+          "stdout": "7.4874 1228413865901843950 4386816\n",
+          "stderr": "",
+          "ms": 7.4874,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4386816
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914938.6182115,
+          "end_unix": 1794914938.6348708,
+          "exit_code": 0,
+          "stdout": "7.6314 1228413865901843950 4374528\n",
+          "stderr": "",
+          "ms": 7.6314,
+          "checksum": "1228413865901843950",
+          "peak_working_set": 4374528
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 7.4628,
+          "min_ms": 7.1628
+        },
+        "4": {
+          "median_ms": 7.4498,
+          "min_ms": 7.2495
+        }
+      }
+    },
+    {
+      "category": 14,
+      "name": "ratio1point5",
+      "count": 30,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914938.6365771,
+          "end_unix": 1794914938.6520786,
+          "exit_code": 0,
+          "stdout": "3.4923 9082067642678398687 4669440\n",
+          "stderr": "",
+          "ms": 3.4923,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4669440
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914938.6530166,
+          "end_unix": 1794914938.6736364,
+          "exit_code": 0,
+          "stdout": "3.4409 9082067642678398687 4673536\n",
+          "stderr": "",
+          "ms": 3.4409,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4673536
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914938.67456,
+          "end_unix": 1794914938.6851895,
+          "exit_code": 0,
+          "stdout": "3.3749 9082067642678398687 4669440\n",
+          "stderr": "",
+          "ms": 3.3749,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4669440
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914938.6861942,
+          "end_unix": 1794914938.6971424,
+          "exit_code": 0,
+          "stdout": "3.3201 9082067642678398687 4669440\n",
+          "stderr": "",
+          "ms": 3.3201,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4669440
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914938.6983654,
+          "end_unix": 1794914938.7094066,
+          "exit_code": 0,
+          "stdout": "3.766 9082067642678398687 4665344\n",
+          "stderr": "",
+          "ms": 3.766,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4665344
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914938.7103372,
+          "end_unix": 1794914938.7210147,
+          "exit_code": 0,
+          "stdout": "3.7471 9082067642678398687 4673536\n",
+          "stderr": "",
+          "ms": 3.7471,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4673536
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914938.7219064,
+          "end_unix": 1794914938.732342,
+          "exit_code": 0,
+          "stdout": "3.6566 9082067642678398687 4669440\n",
+          "stderr": "",
+          "ms": 3.6566,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4669440
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914938.7335172,
+          "end_unix": 1794914938.7444131,
+          "exit_code": 0,
+          "stdout": "3.6456 9082067642678398687 4669440\n",
+          "stderr": "",
+          "ms": 3.6456,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4669440
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914938.745602,
+          "end_unix": 1794914938.7562196,
+          "exit_code": 0,
+          "stdout": "3.3243 9082067642678398687 4669440\n",
+          "stderr": "",
+          "ms": 3.3243,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4669440
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914938.75716,
+          "end_unix": 1794914938.776294,
+          "exit_code": 0,
+          "stdout": "3.6729 9082067642678398687 4673536\n",
+          "stderr": "",
+          "ms": 3.6729,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4673536
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914938.7772646,
+          "end_unix": 1794914938.7888618,
+          "exit_code": 0,
+          "stdout": "3.7966 9082067642678398687 4669440\n",
+          "stderr": "",
+          "ms": 3.7966,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4669440
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914938.7899232,
+          "end_unix": 1794914938.804636,
+          "exit_code": 0,
+          "stdout": "3.6866 9082067642678398687 4669440\n",
+          "stderr": "",
+          "ms": 3.6866,
+          "checksum": "9082067642678398687",
+          "peak_working_set": 4669440
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 3.6456,
+          "min_ms": 3.3201
+        },
+        "4": {
+          "median_ms": 3.6729,
+          "min_ms": 3.3749
+        }
+      }
+    },
+    {
+      "category": 15,
+      "name": "four_skew",
+      "count": 5000,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914938.8066468,
+          "end_unix": 1794914938.8255732,
+          "exit_code": 0,
+          "stdout": "3.7189 18027812993740529321 8183808\n",
+          "stderr": "",
+          "ms": 3.7189,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8183808
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914938.8264644,
+          "end_unix": 1794914938.855632,
+          "exit_code": 0,
+          "stdout": "4.7382 18027812993740529321 8192000\n",
+          "stderr": "",
+          "ms": 4.7382,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8192000
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914938.8567624,
+          "end_unix": 1794914938.8775182,
+          "exit_code": 0,
+          "stdout": "4.4903 18027812993740529321 8192000\n",
+          "stderr": "",
+          "ms": 4.4903,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8192000
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914938.878416,
+          "end_unix": 1794914938.897922,
+          "exit_code": 0,
+          "stdout": "3.7071 18027812993740529321 8187904\n",
+          "stderr": "",
+          "ms": 3.7071,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8187904
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914938.8989918,
+          "end_unix": 1794914938.9218159,
+          "exit_code": 0,
+          "stdout": "4.0439 18027812993740529321 8187904\n",
+          "stderr": "",
+          "ms": 4.0439,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8187904
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914938.9228888,
+          "end_unix": 1794914938.9441211,
+          "exit_code": 0,
+          "stdout": "4.9799 18027812993740529321 8192000\n",
+          "stderr": "",
+          "ms": 4.9799,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8192000
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914938.9450665,
+          "end_unix": 1794914938.9814649,
+          "exit_code": 0,
+          "stdout": "5.448 18027812993740529321 8192000\n",
+          "stderr": "",
+          "ms": 5.448,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8192000
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914938.9824214,
+          "end_unix": 1794914939.0040386,
+          "exit_code": 0,
+          "stdout": "4.6487 18027812993740529321 8183808\n",
+          "stderr": "",
+          "ms": 4.6487,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8183808
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914939.0050628,
+          "end_unix": 1794914939.0262794,
+          "exit_code": 0,
+          "stdout": "4.1559 18027812993740529321 8187904\n",
+          "stderr": "",
+          "ms": 4.1559,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8187904
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914939.0275464,
+          "end_unix": 1794914939.0489116,
+          "exit_code": 0,
+          "stdout": "3.686 18027812993740529321 8192000\n",
+          "stderr": "",
+          "ms": 3.686,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8192000
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914939.0500143,
+          "end_unix": 1794914939.0846794,
+          "exit_code": 0,
+          "stdout": "4.3607 18027812993740529321 8187904\n",
+          "stderr": "",
+          "ms": 4.3607,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8187904
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914939.0856383,
+          "end_unix": 1794914939.108651,
+          "exit_code": 0,
+          "stdout": "5.6204 18027812993740529321 8187904\n",
+          "stderr": "",
+          "ms": 5.6204,
+          "checksum": "18027812993740529321",
+          "peak_working_set": 8187904
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 4.1559,
+          "min_ms": 3.7071
+        },
+        "4": {
+          "median_ms": 4.4903,
+          "min_ms": 3.686
+        }
+      }
+    },
+    {
+      "category": 16,
+      "name": "eight_skew",
+      "count": 4000,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914939.1107187,
+          "end_unix": 1794914939.137048,
+          "exit_code": 0,
+          "stdout": "7.79 2692104274070047233 7790592\n",
+          "stderr": "",
+          "ms": 7.79,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7790592
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914939.1381075,
+          "end_unix": 1794914939.1631594,
+          "exit_code": 0,
+          "stdout": "6.2944 2692104274070047233 7774208\n",
+          "stderr": "",
+          "ms": 6.2944,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7774208
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914939.16432,
+          "end_unix": 1794914939.1912045,
+          "exit_code": 0,
+          "stdout": "7.3464 2692104274070047233 7770112\n",
+          "stderr": "",
+          "ms": 7.3464,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7770112
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914939.192339,
+          "end_unix": 1794914939.219603,
+          "exit_code": 0,
+          "stdout": "8.769 2692104274070047233 7790592\n",
+          "stderr": "",
+          "ms": 8.769,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7790592
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914939.221507,
+          "end_unix": 1794914939.2464826,
+          "exit_code": 0,
+          "stdout": "8.8808 2692104274070047233 7786496\n",
+          "stderr": "",
+          "ms": 8.8808,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7786496
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914939.248506,
+          "end_unix": 1794914939.2698593,
+          "exit_code": 0,
+          "stdout": "5.3671 2692104274070047233 7774208\n",
+          "stderr": "",
+          "ms": 5.3671,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7774208
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914939.2711475,
+          "end_unix": 1794914939.292128,
+          "exit_code": 0,
+          "stdout": "5.8098 2692104274070047233 7770112\n",
+          "stderr": "",
+          "ms": 5.8098,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7770112
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914939.2930727,
+          "end_unix": 1794914939.3159163,
+          "exit_code": 0,
+          "stdout": "8.2349 2692104274070047233 7790592\n",
+          "stderr": "",
+          "ms": 8.2349,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7790592
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914939.3169613,
+          "end_unix": 1794914939.3389564,
+          "exit_code": 0,
+          "stdout": "6.7521 2692104274070047233 7790592\n",
+          "stderr": "",
+          "ms": 6.7521,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7790592
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914939.3417525,
+          "end_unix": 1794914939.3613694,
+          "exit_code": 0,
+          "stdout": "6.051 2692104274070047233 7770112\n",
+          "stderr": "",
+          "ms": 6.051,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7770112
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914939.3624413,
+          "end_unix": 1794914939.3887072,
+          "exit_code": 0,
+          "stdout": "5.0487 2692104274070047233 7770112\n",
+          "stderr": "",
+          "ms": 5.0487,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7770112
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914939.389806,
+          "end_unix": 1794914939.411342,
+          "exit_code": 0,
+          "stdout": "8.2343 2692104274070047233 7790592\n",
+          "stderr": "",
+          "ms": 8.2343,
+          "checksum": "2692104274070047233",
+          "peak_working_set": 7790592
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 8.2349,
+          "min_ms": 6.7521
+        },
+        "4": {
+          "median_ms": 5.8098,
+          "min_ms": 5.0487
+        }
+      }
+    },
+    {
+      "category": 17,
+      "name": "half_constant",
+      "count": 150,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914939.4131012,
+          "end_unix": 1794914939.438884,
+          "exit_code": 0,
+          "stdout": "10.1111 5612670006605060830 7081984\n",
+          "stderr": "",
+          "ms": 10.1111,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7081984
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914939.4408545,
+          "end_unix": 1794914939.4682877,
+          "exit_code": 0,
+          "stdout": "6.5158 5612670006605060830 7065600\n",
+          "stderr": "",
+          "ms": 6.5158,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7065600
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914939.4692411,
+          "end_unix": 1794914939.4960985,
+          "exit_code": 0,
+          "stdout": "7.4321 5612670006605060830 7069696\n",
+          "stderr": "",
+          "ms": 7.4321,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7069696
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914939.497154,
+          "end_unix": 1794914939.517646,
+          "exit_code": 0,
+          "stdout": "9.4591 5612670006605060830 7081984\n",
+          "stderr": "",
+          "ms": 9.4591,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7081984
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914939.5197294,
+          "end_unix": 1794914939.538881,
+          "exit_code": 0,
+          "stdout": "9.7773 5612670006605060830 7081984\n",
+          "stderr": "",
+          "ms": 9.7773,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7081984
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914939.542086,
+          "end_unix": 1794914939.5614767,
+          "exit_code": 0,
+          "stdout": "8.4383 5612670006605060830 7065600\n",
+          "stderr": "",
+          "ms": 8.4383,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7065600
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914939.5624955,
+          "end_unix": 1794914939.5907364,
+          "exit_code": 0,
+          "stdout": "8.1673 5612670006605060830 7061504\n",
+          "stderr": "",
+          "ms": 8.1673,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7061504
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914939.59174,
+          "end_unix": 1794914939.6118796,
+          "exit_code": 0,
+          "stdout": "9.9356 5612670006605060830 7077888\n",
+          "stderr": "",
+          "ms": 9.9356,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7077888
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914939.6128218,
+          "end_unix": 1794914939.6311224,
+          "exit_code": 0,
+          "stdout": "9.0772 5612670006605060830 7081984\n",
+          "stderr": "",
+          "ms": 9.0772,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7081984
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914939.632239,
+          "end_unix": 1794914939.6545439,
+          "exit_code": 0,
+          "stdout": "7.9708 5612670006605060830 7065600\n",
+          "stderr": "",
+          "ms": 7.9708,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7065600
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914939.6555533,
+          "end_unix": 1794914939.6727386,
+          "exit_code": 0,
+          "stdout": "7.5373 5612670006605060830 7065600\n",
+          "stderr": "",
+          "ms": 7.5373,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7065600
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914939.6755707,
+          "end_unix": 1794914939.6943977,
+          "exit_code": 0,
+          "stdout": "9.5437 5612670006605060830 7086080\n",
+          "stderr": "",
+          "ms": 9.5437,
+          "checksum": "5612670006605060830",
+          "peak_working_set": 7086080
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 9.5437,
+          "min_ms": 9.0772
+        },
+        "4": {
+          "median_ms": 7.9708,
+          "min_ms": 7.4321
+        }
+      }
+    },
+    {
+      "category": 18,
+      "name": "few_constants",
+      "count": 100,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914939.6964493,
+          "end_unix": 1794914939.7174876,
+          "exit_code": 0,
+          "stdout": "7.7512 8227354858143606154 5984256\n",
+          "stderr": "",
+          "ms": 7.7512,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5984256
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914939.7198324,
+          "end_unix": 1794914939.743083,
+          "exit_code": 0,
+          "stdout": "9.3423 8227354858143606154 5988352\n",
+          "stderr": "",
+          "ms": 9.3423,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5988352
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914939.744068,
+          "end_unix": 1794914939.7612402,
+          "exit_code": 0,
+          "stdout": "7.9656 8227354858143606154 5988352\n",
+          "stderr": "",
+          "ms": 7.9656,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5988352
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914939.7623098,
+          "end_unix": 1794914939.7923582,
+          "exit_code": 0,
+          "stdout": "8.3501 8227354858143606154 5984256\n",
+          "stderr": "",
+          "ms": 8.3501,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5984256
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914939.793397,
+          "end_unix": 1794914939.8121395,
+          "exit_code": 0,
+          "stdout": "8.452 8227354858143606154 5984256\n",
+          "stderr": "",
+          "ms": 8.452,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5984256
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914939.8131225,
+          "end_unix": 1794914939.8298163,
+          "exit_code": 0,
+          "stdout": "8.1526 8227354858143606154 5984256\n",
+          "stderr": "",
+          "ms": 8.1526,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5984256
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914939.8318257,
+          "end_unix": 1794914939.850777,
+          "exit_code": 0,
+          "stdout": "7.8854 8227354858143606154 5988352\n",
+          "stderr": "",
+          "ms": 7.8854,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5988352
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914939.8523297,
+          "end_unix": 1794914939.8675187,
+          "exit_code": 0,
+          "stdout": "6.8063 8227354858143606154 5984256\n",
+          "stderr": "",
+          "ms": 6.8063,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5984256
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914939.8685317,
+          "end_unix": 1794914939.8833115,
+          "exit_code": 0,
+          "stdout": "6.873 8227354858143606154 5984256\n",
+          "stderr": "",
+          "ms": 6.873,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5984256
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914939.8845077,
+          "end_unix": 1794914939.9009182,
+          "exit_code": 0,
+          "stdout": "6.8791 8227354858143606154 5984256\n",
+          "stderr": "",
+          "ms": 6.8791,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5984256
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914939.9020083,
+          "end_unix": 1794914939.9169927,
+          "exit_code": 0,
+          "stdout": "7.0468 8227354858143606154 5992448\n",
+          "stderr": "",
+          "ms": 7.0468,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5992448
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914939.918023,
+          "end_unix": 1794914939.933352,
+          "exit_code": 0,
+          "stdout": "6.8354 8227354858143606154 5984256\n",
+          "stderr": "",
+          "ms": 6.8354,
+          "checksum": "8227354858143606154",
+          "peak_working_set": 5984256
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 6.873,
+          "min_ms": 6.8063
+        },
+        "4": {
+          "median_ms": 7.8854,
+          "min_ms": 6.8791
+        }
+      }
+    },
+    {
+      "category": 19,
+      "name": "mostly_constants",
+      "count": 150,
+      "samples": [
+        {
+          "sample": 0,
+          "mode": 0,
+          "start_unix": 1794914939.9354537,
+          "end_unix": 1794914939.958227,
+          "exit_code": 0,
+          "stdout": "5.0108 1898145002387339410 7032832\n",
+          "stderr": "",
+          "ms": 5.0108,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7032832
+        },
+        {
+          "sample": 0,
+          "mode": 4,
+          "start_unix": 1794914939.959215,
+          "end_unix": 1794914939.9771404,
+          "exit_code": 0,
+          "stdout": "3.3431 1898145002387339410 7032832\n",
+          "stderr": "",
+          "ms": 3.3431,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7032832
+        },
+        {
+          "sample": 1,
+          "mode": 4,
+          "start_unix": 1794914939.9782217,
+          "end_unix": 1794914939.993408,
+          "exit_code": 0,
+          "stdout": "3.0831 1898145002387339410 7036928\n",
+          "stderr": "",
+          "ms": 3.0831,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7036928
+        },
+        {
+          "sample": 1,
+          "mode": 0,
+          "start_unix": 1794914939.9944456,
+          "end_unix": 1794914940.0091856,
+          "exit_code": 0,
+          "stdout": "5.085 1898145002387339410 7032832\n",
+          "stderr": "",
+          "ms": 5.085,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7032832
+        },
+        {
+          "sample": 2,
+          "mode": 0,
+          "start_unix": 1794914940.0102184,
+          "end_unix": 1794914940.031672,
+          "exit_code": 0,
+          "stdout": "5.1193 1898145002387339410 7036928\n",
+          "stderr": "",
+          "ms": 5.1193,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7036928
+        },
+        {
+          "sample": 2,
+          "mode": 4,
+          "start_unix": 1794914940.0328739,
+          "end_unix": 1794914940.0464368,
+          "exit_code": 0,
+          "stdout": "3.2202 1898145002387339410 7032832\n",
+          "stderr": "",
+          "ms": 3.2202,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7032832
+        },
+        {
+          "sample": 3,
+          "mode": 4,
+          "start_unix": 1794914940.0475864,
+          "end_unix": 1794914940.0602894,
+          "exit_code": 0,
+          "stdout": "3.3523 1898145002387339410 7032832\n",
+          "stderr": "",
+          "ms": 3.3523,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7032832
+        },
+        {
+          "sample": 3,
+          "mode": 0,
+          "start_unix": 1794914940.0613434,
+          "end_unix": 1794914940.0764294,
+          "exit_code": 0,
+          "stdout": "4.8908 1898145002387339410 7028736\n",
+          "stderr": "",
+          "ms": 4.8908,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7028736
+        },
+        {
+          "sample": 4,
+          "mode": 0,
+          "start_unix": 1794914940.0775588,
+          "end_unix": 1794914940.0955038,
+          "exit_code": 0,
+          "stdout": "4.9387 1898145002387339410 7028736\n",
+          "stderr": "",
+          "ms": 4.9387,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7028736
+        },
+        {
+          "sample": 4,
+          "mode": 4,
+          "start_unix": 1794914940.096761,
+          "end_unix": 1794914940.1100469,
+          "exit_code": 0,
+          "stdout": "3.4645 1898145002387339410 7036928\n",
+          "stderr": "",
+          "ms": 3.4645,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7036928
+        },
+        {
+          "sample": 5,
+          "mode": 4,
+          "start_unix": 1794914940.111123,
+          "end_unix": 1794914940.123807,
+          "exit_code": 0,
+          "stdout": "3.0969 1898145002387339410 7041024\n",
+          "stderr": "",
+          "ms": 3.0969,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7041024
+        },
+        {
+          "sample": 5,
+          "mode": 0,
+          "start_unix": 1794914940.1250637,
+          "end_unix": 1794914940.1392176,
+          "exit_code": 0,
+          "stdout": "5.16 1898145002387339410 7032832\n",
+          "stderr": "",
+          "ms": 5.16,
+          "checksum": "1898145002387339410",
+          "peak_working_set": 7032832
+        }
+      ],
+      "summaries": {
+        "0": {
+          "median_ms": 5.085,
+          "min_ms": 4.8908
+        },
+        "4": {
+          "median_ms": 3.2202,
+          "min_ms": 3.0831
+        }
+      }
+    }
+  ]
+}

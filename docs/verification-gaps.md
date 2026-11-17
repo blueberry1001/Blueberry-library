@@ -792,6 +792,7 @@
 
 - 専用ドライバ: [verify/math/polynomial-product.test.cpp](../verify/math/polynomial-product.test.cpp) / [問題](https://judge.yosupo.jp/problem/product_of_polynomial_sequence)
 - 関連ローカルテスト: [tests/random/math_batch_three.cpp](../tests/random/math_batch_three.cpp)
+- 関連ローカルテスト: [tests/random/polynomial-product.cpp](../tests/random/polynomial-product.cpp)
 
 ## Prime Sieve
 
