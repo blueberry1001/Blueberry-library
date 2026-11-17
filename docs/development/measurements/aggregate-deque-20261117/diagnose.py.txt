@@ -1,0 +1,9 @@
+import json,os,pathlib,subprocess
+here=pathlib.Path(__file__).resolve().parent; vc=pathlib.Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808');sdk=pathlib.Path(r'C:\Program Files (x86)\Windows Kits\10');version='10.0.22621.0';cl=vc/'bin/Hostx64/x64/cl.exe';clang=pathlib.Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env=os.environ.copy();env['PATH']=str(cl.parent)+os.pathsep+env.get('PATH','');env['INCLUDE']=os.pathsep.join(map(str,[vc/'include',*(sdk/'Include'/version/p for p in ('ucrt','shared','um'))]));env['LIB']=os.pathsep.join(map(str,[vc/'lib/x64',*(sdk/'Lib'/version/p/'x64' for p in ('ucrt','um'))]))
+res=[]
+for v in ('baseline','candidate'):
+ src=here/('unsupported-'+v+'.cpp');src.write_text((here/'unsupported.cpp').read_text().replace('candidate.hpp',v+'.hpp'))
+ cmd=[str(clang),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2',str(src),'-o',str(here/'unsupported.exe')];p=subprocess.run(cmd,env=env,capture_output=True,text=True,errors='replace');res.append({'variant':v,'command':cmd,'exit':p.returncode,'output':p.stdout+p.stderr})
+ print(v,p.returncode)
+(here/'unsupported-results.json').write_text(json.dumps(res,indent=2))

@@ -27,6 +27,8 @@ Nを頂点数、Mを辺数とすると、最悪時間O(N+M log(M+1))（DSU部分
 - 辺は`tuple<int,int,T>`の`(u,v,weight)`で、`u,v∈[0,N)`、N,Mはintに収まる必要があります。
 - Tは厳密な大小比較と加算ができ、選ばれた重みの途中の和が収まる型を使います。
 - 入力は変更しません。DSUを自作せず、ACLを使う薄い組合せです。
+- 辺が8192本以上で重みが32-bit値域に収まる整数の場合、値域が幅4095以下なら数え上げ、それ以外は基数ソートを使います。その他の型・値域は比較ソートを使います。いずれも同じ重みの辺の順序は保証しません。
+- 基数ソートは、辺数が頂点数の2倍以上なら端点を含む一時配列を2本確保します。入力を除く補助メモリはO(N+M)のままですが、比較ソート時より大きくなります。
 
 </details>
 
@@ -66,5 +68,6 @@ auto [cost, ids] = blueberry::minimum_spanning_forest<long long>(2, {{0,1,-3}});
 
 [Library Checker](https://judge.yosupo.jp/problem/minimum_spanning_tree) の公式ケースと固定 seed を指定できる全列挙比較で検証します。
 候補比較・一次資料・測定条件は [調査記録](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/batch-three-graph-research.md) を参照してください。
+[最速提出の調査と測定記録](https://github.com/blueberry1001/Blueberry-library/blob/main/docs/development/measurements/mst-radix-20261117/README.md) には、値域・入力形状ごとの比較と回帰を記録しています。
 
 </details>

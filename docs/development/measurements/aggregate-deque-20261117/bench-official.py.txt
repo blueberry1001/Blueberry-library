@@ -1,0 +1,19 @@
+import ctypes,hashlib,json,os,pathlib,subprocess,time
+here=pathlib.Path(__file__).resolve().parent
+vc=pathlib.Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808');sdk=pathlib.Path(r'C:\Program Files (x86)\Windows Kits\10');version='10.0.22621.0'
+cl=vc/'bin/Hostx64/x64/cl.exe';clang=pathlib.Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env=os.environ.copy();env['PATH']=str(cl.parent)+os.pathsep+env.get('PATH','');env['INCLUDE']=os.pathsep.join(map(str,[vc/'include',*(sdk/'Include'/version/p for p in ('ucrt','shared','um'))]));env['LIB']=os.pathsep.join(map(str,[vc/'lib/x64',*(sdk/'Lib'/version/p/'x64' for p in ('ucrt','um'))]))
+kernel=ctypes.WinDLL('kernel32',use_last_error=True);kernel.GetCurrentProcess.restype=ctypes.c_void_p;kernel.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t];assert kernel.SetProcessAffinityMask(kernel.GetCurrentProcess(),1<<12)
+res=[]
+for name in ['base','new']:
+ cmd=[str(clang),'--target=x86_64-pc-windows-msvc','-fuse-ld=link','-std=gnu++20','-O2','-DNDEBUG','-I'+str(here/name),'-I'+str(here),str(here/'verify.cpp'),'-o',str(here/(name+'.exe'))]
+ p=subprocess.run(cmd,env=env,capture_output=True,text=True,errors='replace');res.append({'build':name,'command':cmd,'exit':p.returncode,'output':p.stdout+p.stderr});(here/'benchmark.json').write_text(json.dumps(res,indent=2));assert p.returncode==0
+hashes=json.loads((here/'hash.json').read_text())
+for case,seed in [('large_max',0),('large_min',0),('large_triangle',0),('max_random',0),('random',1)]:
+ data=subprocess.run([str(here/(case+'.exe')),str(seed)],env=env,capture_output=True,check=True).stdout.replace(b'\r\n',b'\n'); key=f'{case}_{seed:02}'
+ assert hashlib.sha256(data).hexdigest()==hashes[key+'.in']
+ for i in range(5):
+  for name in (['base','new'] if i%2==0 else ['new','base']):
+   start=time.perf_counter();p=subprocess.run([str(here/(name+'.exe'))],env=env,input=data,capture_output=True,timeout=60);ms=(time.perf_counter()-start)*1000;digest=hashlib.sha256(p.stdout.replace(b'\r\n',b'\n')).hexdigest()
+   row={'case':key,'run':i,'variant':name,'ms':ms,'input_sha256':hashes[key+'.in'],'output_sha256':digest,'exit':p.returncode};res.append(row);(here/'benchmark.json').write_text(json.dumps(res,indent=2));assert p.returncode==0 and digest==hashes[key+'.out']
+ print(key,flush=True)
