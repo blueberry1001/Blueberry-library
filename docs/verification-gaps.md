@@ -755,6 +755,7 @@
 
 - 専用ドライバ: [verify/math/mod-sqrt.test.cpp](../verify/math/mod-sqrt.test.cpp) / [問題](https://judge.yosupo.jp/problem/sqrt_mod)
 - 関連ローカルテスト: [tests/random/math-expansion.cpp](../tests/random/math-expansion.cpp)
+- 関連ローカルテスト: [tests/random/mod-sqrt-power.cpp](../tests/random/mod-sqrt-power.cpp)
 
 ## Montmort Numbers
 

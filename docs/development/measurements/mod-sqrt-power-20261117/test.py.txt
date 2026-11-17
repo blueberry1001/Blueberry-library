@@ -1,0 +1,31 @@
+import json
+import os
+from pathlib import Path
+import subprocess
+
+root = Path.cwd()
+here = root / 'docs/development/measurements/mod-sqrt-power-20261117'
+work = root / '.build/mod-sqrt-power-20261117'
+vc = Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = Path(r'C:\Program Files (x86)\Windows Kits\10')
+version = '10.0.22621.0'
+compiler = Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str, [vc / 'include', *(sdk / 'Include' / version / p for p in ('ucrt', 'shared', 'um'))]))
+env['LIB'] = os.pathsep.join(map(str, [vc / 'lib/x64', *(sdk / 'Lib' / version / p / 'x64' for p in ('ucrt', 'um'))]))
+results = []
+for std in ('gnu++20', 'gnu++23'):
+    for release in (False, True):
+        exe = work / (std + ('-release' if release else '-debug') + '.exe')
+        cmd = [str(compiler), '--target=x86_64-pc-windows-msvc', '-fuse-ld=link', '-std=' + std, '-O2', '-Wall', '-Wextra', '-Wshadow', '-Werror', '-I', str(root), str(root/'tests/random/mod-sqrt-power.cpp'), '-o', str(exe)]
+        if release: cmd.insert(5, '-DNDEBUG')
+        build = subprocess.run(cmd, env=env, capture_output=True, text=True)
+        entry = {'command':cmd, 'build':{'exit_code':build.returncode, 'stdout':build.stdout, 'stderr':build.stderr}}
+        results.append(entry)
+        if not build.returncode:
+            run = subprocess.run([str(exe)], capture_output=True, text=True)
+            entry['run'] = {'exit_code':run.returncode, 'stdout':run.stdout, 'stderr':run.stderr}
+        (here/'test-results.json').write_text(json.dumps(results, indent=2)+'\n')
+        print(std, 'release' if release else 'debug', entry, flush=True)
+        if build.returncode or entry['run']['exit_code']: raise SystemExit(1)

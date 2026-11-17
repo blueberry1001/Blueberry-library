@@ -1,0 +1,67 @@
+import ctypes
+import hashlib
+import json
+import os
+from pathlib import Path
+import platform
+import statistics
+import subprocess
+import sys
+
+root = Path.cwd()
+here = root / 'docs/development/measurements/mod-sqrt-power-20261117'
+work = root / '.build/mod-sqrt-power-20261117'
+work.mkdir(parents=True, exist_ok=True)
+vc = Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = Path(r'C:\Program Files (x86)\Windows Kits\10')
+version = '10.0.22621.0'
+compiler = Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str, [vc / 'include', *(sdk / 'Include' / version / p for p in ('ucrt', 'shared', 'um'))]))
+env['LIB'] = os.pathsep.join(map(str, [vc / 'lib/x64', *(sdk / 'Lib' / version / p / 'x64' for p in ('ucrt', 'um'))]))
+exe = work / 'bench.exe'
+names = ['baseline-original.hpp.txt', 'baseline.hpp.txt', 'candidate.hpp.txt', 'public-bench.cpp.txt', 'public-run.py.txt']
+hashes = {n: hashlib.sha256((here/n).read_bytes()).hexdigest() for n in names}
+hashes['public-header'] = hashlib.sha256((root/'blueberry/math/mod-sqrt.hpp').read_bytes()).hexdigest()
+if '--build' in sys.argv:
+    cmd = [str(compiler), '--target=x86_64-pc-windows-msvc', '-fuse-ld=link', '-std=gnu++20', '-O2', '-DNDEBUG', '-Wall', '-Wextra', '-Wshadow', '-Werror', '-x', 'c++', str(here/'public-bench.cpp.txt'), '-lpsapi', '-o', str(exe)]
+    v = subprocess.run([str(compiler), '--version'], capture_output=True, text=True)
+    r = subprocess.run(cmd, env=env, capture_output=True, text=True)
+    data = {'compiler':v.stdout, 'command':cmd, 'source_sha256':hashes, 'exit_code':r.returncode, 'stdout':r.stdout, 'stderr':r.stderr}
+    if not r.returncode:
+        c = subprocess.run([str(exe),'check'], capture_output=True, text=True)
+        data['check'] = {'exit_code':c.returncode, 'stdout':c.stdout, 'stderr':c.stderr}
+    (here/'public-build.json').write_text(json.dumps(data,indent=2)+'\n',encoding='utf-8')
+    print(json.dumps(data,indent=2),flush=True)
+    if r.returncode or data.get('check',{}).get('exit_code') != 0: sys.exit(1)
+    sys.exit()
+kernel = ctypes.windll.kernel32
+kernel.GetCurrentProcess.restype = ctypes.c_void_p
+kernel.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+kernel.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+proc=kernel.GetCurrentProcess(); mask=ctypes.c_size_t(); system=ctypes.c_size_t()
+if not kernel.GetProcessAffinityMask(proc,ctypes.byref(mask),ctypes.byref(system)): raise OSError('GetProcessAffinityMask')
+one=mask.value & -mask.value
+if not kernel.SetProcessAffinityMask(proc,one): raise OSError('SetProcessAffinityMask')
+result={'environment':{'platform':platform.platform(),'cpu':platform.processor(),'compiler':'Clang 18 MSVC ABI','flags':'-std=gnu++20 -O2 -DNDEBUG','affinity':hex(one),'original_affinity':hex(mask.value),'count':4096,'repeat':20,'warmups':1,'runs':7,'seed':20261117},'source_sha256':hashes,'cases':[]}
+for category in range(9):
+    entry={'category':category,'samples':[]}; check=None
+    result['cases'].append(entry)
+    for sample in range(8):
+        for mode in ([0,1,2] if sample%2==0 else [2,1,0]):
+            cmd=[str(exe),str(mode),str(category),'4096','20']
+            r=subprocess.run(cmd,capture_output=True,text=True)
+            row={'sample':sample,'mode':mode,'exit_code':r.returncode,'stdout':r.stdout,'stderr':r.stderr}
+            entry['samples'].append(row)
+            (here/'public-results.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
+            if r.returncode: raise RuntimeError(f'run failed {cmd}: {r.stderr}')
+            parts=r.stdout.split()
+            if len(parts)!=3 or parts[2]=='missing': raise RuntimeError('missing timing or working set: '+r.stdout)
+            row.update({'ms':float(parts[0]),'checksum':parts[1],'peak_working_set':int(parts[2])})
+            if check is None: check=parts[1]
+            if check != parts[1]: raise RuntimeError('checksum mismatch')
+            print('category',category,'sample',sample,'mode',mode,'ms',parts[0],'checksum',parts[1],flush=True)
+    entry['summaries']={str(mode):{'median_ms':statistics.median(x['ms'] for x in entry['samples'] if x['mode']==mode and x['sample']), 'min_ms':min(x['ms'] for x in entry['samples'] if x['mode']==mode and x['sample']), 'max_ms':max(x['ms'] for x in entry['samples'] if x['mode']==mode and x['sample'])} for mode in (0,1,2)}
+    (here/'public-results.json').write_text(json.dumps(result,indent=2)+'\n',encoding='utf-8')
+    print('summary',category,entry['summaries'],flush=True)

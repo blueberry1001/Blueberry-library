@@ -27,6 +27,7 @@ documentation_of: //blueberry/math/mod-sqrt.hpp
 - `2 <= prime_mod <= INT32_MAX` かつ素数が前提です。aは任意のint64_tで、負値も `[0,p)` へ正規化します。範囲内の積はint64に収まります。
 - ACLにないTonelli–Shanks法の演算です。globalなmodint設定を変更せず、既存FPS内部の平方根処理とは独立しています。
 - 非剰余候補は順次探索するため、zを無条件に定数とはみなしません。
+- `p % 4 == 3` では根候補の平方で存在を判定します。それ以外では累乗の結果を根と剰余判定に共有します。
 
 </details>
 
@@ -59,8 +60,8 @@ if (auto root = blueberry::mod_sqrt(4, 7)) {
 ```
 {% endraw %}
 
-注意点: modulusの範囲外・合成数は前提違反です。範囲はassertで検査しますが、
-合成数判定は行いません。合成数での停止・結果を保証しません。
+注意点: modulusの範囲外・合成数は前提違反です。範囲や合成数の判定は行いません。
+合成数での停止・結果を保証しません。
 `a == INT64_MIN` も正規化可能です。optionalは値を所有するため参照の寿命制限はありません。
 
 </details>
