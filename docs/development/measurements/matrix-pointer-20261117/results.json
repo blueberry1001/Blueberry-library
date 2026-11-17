@@ -1,0 +1,265 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "parent_affinity_before": 16777215,
+  "selected_mask": 1,
+  "flags": [
+    "--target=x86_64-pc-windows-msvc",
+    "-std=gnu++20",
+    "-O2",
+    "-DNDEBUG"
+  ],
+  "compiler": "Unity Android NDK clang 18.0.3",
+  "runs": 6,
+  "warmups": 1,
+  "seed": 1729,
+  "hashes": {
+    ".build\\matrix-tune\\base\\blueberry\\math\\matrix.hpp": "006a6a2150444cd6fef206f04a808056e17b781203ba8ebcf9bbd71d2a2b5914",
+    ".build\\matrix-tune\\pointer\\blueberry\\math\\matrix.hpp": "2b95cdbb9015f2e03782bc335a43555953c8a0507d9ba27aef47c531083e9838",
+    ".build\\matrix-tune\\bench.cpp": "cb0513962f4ded84b0946c0f3675cc17fb753cb2b4a3adf8838271e1dc8cdc96",
+    ".build\\matrix-tune\\base\\bench.exe": "0d9c39bbf29d321b2e1afaa550b80caea50b77b2c2e8967fd283a6d2fff35d6c",
+    ".build\\matrix-tune\\pointer\\bench.exe": "ffd24d29d302566531eb66338ea18eecb55ffd72fa7cfb62a91624698aac31d8"
+  },
+  "rows": [
+    {
+      "n": 64,
+      "op": "det",
+      "shape": "dense",
+      "hash": 382575073,
+      "samples": {
+        "base": [
+          0.1379,
+          0.226,
+          0.1829,
+          0.1957,
+          0.2593,
+          0.1593,
+          0.1798
+        ],
+        "pointer": [
+          0.2765,
+          0.215,
+          0.1474,
+          0.2648,
+          0.1442,
+          0.2704,
+          0.1342
+        ]
+      },
+      "median_ms": {
+        "base": 0.18930000000000002,
+        "pointer": 0.1812
+      }
+    },
+    {
+      "n": 300,
+      "op": "det",
+      "shape": "dense",
+      "hash": 532007821,
+      "samples": {
+        "base": [
+          16.1157,
+          15.2562,
+          14.5744,
+          17.5954,
+          16.52,
+          15.2916,
+          19.2625
+        ],
+        "pointer": [
+          14.7928,
+          14.1363,
+          14.6658,
+          16.3066,
+          15.6848,
+          16.8534,
+          20.188
+        ]
+      },
+      "median_ms": {
+        "base": 15.9058,
+        "pointer": 15.9957
+      }
+    },
+    {
+      "n": 300,
+      "op": "rank",
+      "shape": "dense",
+      "hash": 300,
+      "samples": {
+        "base": [
+          17.5527,
+          15.8776,
+          15.7057,
+          14.9377,
+          14.776,
+          13.7115,
+          13.8967
+        ],
+        "pointer": [
+          16.1775,
+          17.84,
+          15.6441,
+          15.2741,
+          15.0173,
+          13.2,
+          14.3074
+        ]
+      },
+      "median_ms": {
+        "base": 14.85685,
+        "pointer": 15.145700000000001
+      }
+    },
+    {
+      "n": 300,
+      "op": "inv",
+      "shape": "dense",
+      "hash": 17953830311963478223,
+      "samples": {
+        "base": [
+          66.9378,
+          60.351,
+          60.8811,
+          65.2466,
+          68.0433,
+          79.4493,
+          79.401
+        ],
+        "pointer": [
+          64.7117,
+          66.2823,
+          65.9491,
+          61.0936,
+          65.3893,
+          76.5772,
+          86.4863
+        ]
+      },
+      "median_ms": {
+        "base": 66.64495,
+        "pointer": 66.1157
+      }
+    },
+    {
+      "n": 300,
+      "op": "solve",
+      "shape": "dense",
+      "hash": 9627303669481303655,
+      "samples": {
+        "base": [
+          22.2556,
+          25.9122,
+          22.4856,
+          23.5304,
+          22.5815,
+          22.9632,
+          21.4149
+        ],
+        "pointer": [
+          23.8102,
+          23.8971,
+          25.6644,
+          23.2666,
+          20.822,
+          27.519,
+          21.2467
+        ]
+      },
+      "median_ms": {
+        "base": 22.77235,
+        "pointer": 23.58185
+      }
+    },
+    {
+      "n": 300,
+      "op": "det",
+      "shape": "triangular",
+      "hash": 589175023,
+      "samples": {
+        "base": [
+          0.4657,
+          0.2455,
+          0.2275,
+          0.3444,
+          0.2628,
+          0.209,
+          0.2654
+        ],
+        "pointer": [
+          0.243,
+          0.2191,
+          0.2297,
+          0.2164,
+          0.2546,
+          0.3632,
+          0.5311
+        ]
+      },
+      "median_ms": {
+        "base": 0.25415,
+        "pointer": 0.24214999999999998
+      }
+    },
+    {
+      "n": 300,
+      "op": "det",
+      "shape": "singular",
+      "hash": 0,
+      "samples": {
+        "base": [
+          14.5551,
+          14.1917,
+          13.8464,
+          14.6727,
+          12.8762,
+          13.5892,
+          14.4307
+        ],
+        "pointer": [
+          14.4111,
+          13.661,
+          13.3779,
+          15.5882,
+          13.0569,
+          13.7506,
+          13.7782
+        ]
+      },
+      "median_ms": {
+        "base": 14.01905,
+        "pointer": 13.7058
+      }
+    },
+    {
+      "n": 300,
+      "op": "rank",
+      "shape": "singular",
+      "hash": 299,
+      "samples": {
+        "base": [
+          14.844,
+          16.3676,
+          13.7737,
+          13.9311,
+          16.172,
+          14.6733,
+          14.0332
+        ],
+        "pointer": [
+          14.5711,
+          17.1738,
+          14.2667,
+          14.4484,
+          15.0608,
+          14.8488,
+          17.1523
+        ]
+      },
+      "median_ms": {
+        "base": 14.35325,
+        "pointer": 14.9548
+      }
+    }
+  ]
+}

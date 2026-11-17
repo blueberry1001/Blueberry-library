@@ -3,7 +3,6 @@
 #include <algorithm>
 #include <cassert>
 #include <cstddef>
-#include <limits>
 #include <numeric>
 #include <vector>
 
@@ -11,8 +10,6 @@
 
 namespace blueberry {
 
-// Semi-local LIS: recursively multiply subunit Monge matrices represented
-// by their permutation diagrams. The wavelet matrix counts diagram points.
 template <class T>
 class StaticRangeLIS {
   int n_ = 0;
@@ -76,10 +73,12 @@ class StaticRangeLIS {
                                          std::vector<int>& scratch) {
     const int n = static_cast<int>(a.size());
     std::vector<int> inverse_a(n, -1), inverse_b(n, -1), x, y, rows, columns;
+    int count_a = 0, count_b = 0;
     for (int i = 0; i < n; ++i) {
-      if (a[i] >= 0) inverse_a[a[i]] = i;
-      if (b[i] >= 0) inverse_b[b[i]] = i;
+      if (a[i] >= 0) inverse_a[a[i]] = i, ++count_a;
+      if (b[i] >= 0) inverse_b[b[i]] = i, ++count_b;
     }
+    x.reserve(n); y.reserve(n); rows.reserve(count_a); columns.reserve(count_b);
     for (int i = 0; i < n; ++i) if (inverse_a[i] < 0) x.push_back(i);
     for (int i = 0; i < n; ++i) if (a[i] >= 0) {
       x.push_back(a[i]);
@@ -109,6 +108,7 @@ class StaticRangeLIS {
     std::vector<int> padded[2];
     for (int half = 0; half < 2; ++half) {
       std::vector<int> sub, positions;
+      sub.reserve(half ? n - middle : middle); positions.reserve(half ? n - middle : middle);
       for (int i = 0; i < n; ++i) if ((p[i] >= middle) == (half != 0)) {
         sub.push_back(p[i] - half * middle);
         positions.push_back(i);
@@ -125,18 +125,15 @@ class StaticRangeLIS {
  public:
   StaticRangeLIS() = default;
   explicit StaticRangeLIS(const std::vector<T>& values) {
-    assert(values.size() <= static_cast<std::size_t>(std::numeric_limits<int>::max()));
     n_ = static_cast<int>(values.size());
     std::vector<int> order(n_), rank(n_);
     std::iota(order.begin(), order.end(), 0);
     std::sort(order.begin(), order.end(), [&](int a, int b) {
       if (values[a] < values[b]) return true;
       if (values[b] < values[a]) return false;
-      return a > b;  // Equal values must never form a strictly increasing pair.
+      return a > b;
     });
     for (int i = 0; i < n_; ++i) rank[order[i]] = i;
-    // Each multiplication frame uses n + 5*ceil(n/2) ints; siblings share it.
-    // One constructor-local buffer also serves all outer recursion frames.
     std::size_t scratch_size = 0;
     for (std::size_t n = values.size(); n > 1; n = (n + 1) / 2)
       scratch_size += n + 5 * ((n + 1) / 2);
@@ -150,9 +147,8 @@ class StaticRangeLIS {
   }
   int size() const { return n_; }
   int lis(int l, int r) const {
-    assert(0 <= l && l <= r && r <= n_);
     return r - l - diagram_.range_freq(l, n_, r);
   }
 };
 
-}  // namespace blueberry
+}

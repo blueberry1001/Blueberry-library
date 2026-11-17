@@ -1,0 +1,29 @@
+import ctypes,hashlib,json,statistics,subprocess,time
+from pathlib import Path
+out=Path.cwd()/'.build/lis-reserve-study';k=ctypes.windll.kernel32;k.GetCurrentProcess.restype=ctypes.c_void_p
+k.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)]
+k.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+h=k.GetCurrentProcess();mask=ctypes.c_size_t();sysmask=ctypes.c_size_t()
+if not k.GetProcessAffinityMask(h,ctypes.byref(mask),ctypes.byref(sysmask)): raise OSError('GetProcessAffinityMask')
+selected=mask.value&-mask.value
+if not k.SetProcessAffinityMask(h,selected): raise OSError('SetProcessAffinityMask')
+rows={'status':'running','affinity_mask':hex(selected),'n':65536,'q':20000,'warmups':1,'runs':7,'samples':[],'headers':{name:hashlib.sha256((out/name/'blueberry/data-structure/static-range-lis.hpp').read_bytes()).hexdigest() for name in ('baseline','final')}}
+dest=out/'final-results.json'
+def save():dest.write_text(json.dumps(rows,indent=2)+'\n',encoding='utf8')
+try:
+ for shape in ('random','ascending','reverse','duplicate'):
+  checksum=None
+  for run in range(-1,7):
+   for name in (('baseline','final') if run%2 else ('final','baseline')):
+    start=time.perf_counter();p=subprocess.run([str(out/name/'bench.exe'),'65536','20000',shape],capture_output=True,text=True,timeout=120);wall=1000*(time.perf_counter()-start)
+    if p.returncode: raise RuntimeError(repr((name,shape,p.returncode,p.stderr)))
+    hsh,build,query=p.stdout.split()
+    if checksum is not None and hsh!=checksum: raise RuntimeError('checksum mismatch')
+    checksum=hsh;rows['samples'].append({'variant':name,'shape':shape,'run':run,'hash':hsh,'build_ms':float(build),'query_ms':float(query),'wall_ms':wall});save()
+  for name in ('baseline','final'):
+   s=[x['build_ms'] for x in rows['samples'] if x['run']>=0 and x['shape']==shape and x['variant']==name]
+   print(shape,name,statistics.median(s),flush=True)
+ rows['status']='complete';save()
+except BaseException as e:
+ rows['status']='failed';rows['error']=repr(e);save();raise
+finally:k.SetProcessAffinityMask(h,mask.value)
