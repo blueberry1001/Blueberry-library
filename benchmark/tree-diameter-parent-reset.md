@@ -1,0 +1,9 @@
+# Tree diameter parent reset experiment
+
+2026-11-17, exploratory measurement. On valid input each vertex receives its parent during each traversal, so the candidate omits resetting the whole parent vector before each pass. The production and candidate implementations return identical paths for each measured graph. This does not test unsupported malformed graphs. Source: `tree-diameter-parent-reset.cpp`; raw samples: `results/tree-diameter-parent-reset-msvc.txt`.
+
+MSVC 19.43.34809, Windows x64, Intel Core i7-14650HX, `/std:c++20 /O2 /DNDEBUG`. Graph creation is outside the timing; each sample averages five traversals, with nine alternating-order samples. Seed 123456, nonnegative int weights in [0,9]. Other agents may have run workloads concurrently; results are preliminary. Size, shape (0 path, 1 star, 2 random recursive tree), repetition, candidate flag, milliseconds per traversal, checksum are recorded in each row. I/O and graph creation are excluded; no peak memory was measured. For N=1,000,000 baseline/candidate median milliseconds are 26.398/22.688 (path), 16.189/16.471 (star), and 162.661/177.059 (random). The improvement is not consistent, so the candidate was not adopted. GCC/Clang and official tests remain unmeasured.
+
+[Library Checker submission 243281](https://judge.yosupo.jp/submission/243281) uses a single-pass leaf-stripping DP with integer XOR edge encoding and fast I/O. This requires numeric edge encoding and does not directly preserve the template's arbitrary weight type; the submission's 31 ms is not comparable with these timings. ACL has no tree-diameter API. No code was copied.
+
+Reproduce from a Visual Studio x64 developer command prompt: `cl /nologo /EHsc /std:c++20 /O2 /DNDEBUG /I. benchmark/tree-diameter-parent-reset.cpp /Fe:tree-diameter-parent-reset.exe` and run the resulting executable from the repository root. The data are generated deterministically inside the driver.
