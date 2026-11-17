@@ -1,0 +1,43 @@
+#pragma once
+#include <algorithm>
+#include <numeric>
+#include <utility>
+#include <vector>
+namespace new_assignment {
+template<class T> std::pair<T, std::vector<int>> assignment(const std::vector<std::vector<T>>& cost) {
+  int n = static_cast<int>(cost.size());
+  if (!n) return {T{}, {}};
+  int m = static_cast<int>(cost[0].size());
+  std::vector<int> match(n, -1), reverse(m, -1), order(m), from(m);
+  std::vector<T> distance(m), potential(m);
+  for (int root = 0; root < n; ++root) {
+    std::iota(order.begin(), order.end(), 0);
+    for (int j = 0; j < m; ++j) { distance[j] = cost[root][j]; from[j] = root; }
+    int done = 0, column;
+    T shortest;
+    while (true) {
+      int best = done;
+      T best_value = distance[order[best]] - potential[order[best]];
+      for (int k = done + 1; k < m; ++k) {
+        T value = distance[order[k]] - potential[order[k]];
+        if (value < best_value) { best = k; best_value = value; }
+      }
+      std::swap(order[done], order[best]);
+      column = order[done++];
+      shortest = best_value;
+      int row = reverse[column];
+      if (row == -1) break;
+      for (int k = done; k < m; ++k) {
+        int j = order[k];
+        T next = cost[row][j] - cost[row][column] + distance[column];
+        if (next < distance[j]) { distance[j] = next; from[j] = row; }
+      }
+    }
+    for (int k = 0; k < done; ++k) { int j = order[k]; potential[j] = distance[j] - shortest; }
+    while (column != -1) { int row = from[column], next = match[row]; match[row] = column; reverse[column] = row; column = next; }
+  }
+  T total{};
+  for (int i = 0; i < n; ++i) total += cost[i][match[i]];
+  return {total, std::move(match)};
+}
+}

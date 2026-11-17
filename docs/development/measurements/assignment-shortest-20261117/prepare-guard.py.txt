@@ -1,0 +1,18 @@
+import pathlib
+src=pathlib.Path.cwd()/'docs/development/measurements/assignment-shortest-20261117'
+header=(src/'header-ratio-v1.hpp.txt').read_text(encoding='utf-8').replace('namespace blueberry {','namespace previous_assignment {')
+(src/'ratio-v1-namespaced.hpp.txt').write_text(header,encoding='utf-8',newline='\n')
+driver=(src/'wide-bench.cpp.txt').read_text(encoding='utf-8')
+driver=driver.replace('namespace new_assignment { using blueberry::assignment; }','namespace new_assignment { using blueberry::assignment; }\n#include "ratio-v1-namespaced.hpp.txt"')
+driver=driver.replace('shape==6 || shape==7','shape==6 || shape==7 || shape==8')
+needle='    if (shape==7 && i==n-1 && j==m-1) a[i][j]=LLONG_MAX/(static_cast<ll>(n)+1)/16+1;'
+assert needle in driver
+driver=driver.replace(needle,needle+'\n    if (shape==8 && i==0 && j==0) a[i][j]=LLONG_MAX/(static_cast<ll>(n)+1)/16+1;')
+driver=driver.replace('which == 1 ? new_assignment::assignment(a) : weightedMatching(a)','which == 1 ? new_assignment::assignment(a) : which == 2 ? weightedMatching(a) : previous_assignment::assignment(a)')
+(src/'guard-bench.cpp.txt').write_text(driver,encoding='utf-8',newline='\n')
+runner=(src/'ratio-run.py.txt').read_text(encoding='utf-8')
+runner=runner.replace("'wide-bench.cpp.txt'", "'guard-bench.cpp.txt'").replace("'ratio-run.py.txt'", "'guard-run.py.txt'").replace("'ratio-results.json'", "'guard-results.json'")
+runner=runner.replace("'candidate-initial.hpp.txt','kactl-reference.hpp.txt'", "'candidate-initial.hpp.txt','kactl-reference.hpp.txt','header-ratio-v1.hpp.txt','ratio-v1-namespaced.hpp.txt'")
+runner=runner.replace('[(128,500),(256,250),(512,125),(513,125),(1024,60),(100000,2)] for shape in (6,7)', '[(64,1000),(128,500),(256,250),(512,125),(513,125),(1024,60),(100000,2)] for shape in (6,7,8)')
+runner=runner.replace('([0,1,2] if rep%2==0 else [2,1,0])','([0,1,2,3] if rep%2==0 else [3,2,1,0])')
+(src/'guard-run.py.txt').write_text(runner,encoding='utf-8',newline='\n')

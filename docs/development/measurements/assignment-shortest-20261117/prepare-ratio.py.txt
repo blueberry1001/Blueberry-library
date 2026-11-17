@@ -1,0 +1,7 @@
+import pathlib
+src=pathlib.Path.cwd()/'docs/development/measurements/assignment-shortest-20261117'
+runner=(src/'wide-run.py.txt').read_text(encoding='utf-8')
+runner=runner.replace("'wide-run.py.txt'", "'ratio-run.py.txt'").replace("'wide-results.json'", "'ratio-results.json'")
+start=runner.index('shapes=['); end=runner.index('\n for shape,n,m,reps in shapes:',start)
+runner=runner[:start]+"shapes=[(shape,64,m,reps) for m,reps in [(128,500),(256,250),(512,125),(513,125),(1024,60),(100000,2)] for shape in (6,7)]"+runner[end:]
+(src/'ratio-run.py.txt').write_text(runner,encoding='utf-8',newline='\n')

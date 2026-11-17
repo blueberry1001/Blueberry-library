@@ -1,0 +1,6 @@
+import pathlib
+src=pathlib.Path.cwd()/'docs/development/measurements/assignment-shortest-20261117'
+runner=(src/'final-run.py.txt').read_text(encoding='utf-8')
+runner=runner.replace("'final-run.py.txt'", "'postguard-run.py.txt'").replace("'final-results.json'", "'postguard-results.json'")
+runner=runner.replace("'candidate-initial.hpp.txt','kactl-reference.hpp.txt'", "'candidate-initial.hpp.txt','kactl-reference.hpp.txt','header-final.hpp.txt'")
+(src/'postguard-run.py.txt').write_text(runner,encoding='utf-8',newline='\n')

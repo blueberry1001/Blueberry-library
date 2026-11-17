@@ -1,0 +1,12 @@
+import pathlib
+src=pathlib.Path.cwd()/'docs/development/measurements/assignment-shortest-20261117'
+driver=(src/'final-bench.cpp.txt').read_text(encoding='utf-8')
+needle='    if (shape==5) a[i][j]=i==j ? -1000 : 0;'
+assert needle in driver
+driver=driver.replace(needle,needle+'\n    if (shape==6 || shape==7) a[i][j]=i==j ? 0 : 1;\n    if (shape==7 && i==n-1 && j==m-1) a[i][j]=LLONG_MAX/(static_cast<ll>(n)+1)/16+1;')
+(src/'wide-bench.cpp.txt').write_text(driver,encoding='utf-8',newline='\n')
+runner=(src/'final-run.py.txt').read_text(encoding='utf-8')
+runner=runner.replace("'final-bench.cpp.txt'", "'wide-bench.cpp.txt'").replace("'final-run.py.txt'", "'wide-run.py.txt'").replace("'final-results.json'", "'wide-results.json'")
+start=runner.index('shapes=['); end=runner.index('\n for shape,n,m,reps in shapes:',start)
+runner=runner[:start]+"shapes=[(6,64,100000,2),(7,64,100000,2)]"+runner[end:]
+(src/'wide-run.py.txt').write_text(runner,encoding='utf-8',newline='\n')
