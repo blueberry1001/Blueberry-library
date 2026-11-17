@@ -1,0 +1,58 @@
+#include <algorithm>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <numeric>
+#include <vector>
+#include "blueberry/math/divisor-convolution.hpp"
+using namespace std;
+struct Mint {
+  uint32_t x = 0;
+  static constexpr uint32_t mod = 998244353;
+  Mint() = default;
+  explicit Mint(uint32_t a) : x(a) {}
+  Mint& operator+=(Mint a) { x += a.x; if (x >= mod) x -= mod; return *this; }
+  Mint& operator-=(Mint a) { x += mod - a.x; if (x >= mod) x -= mod; return *this; }
+  Mint& operator*=(Mint a) { x = uint64_t(x) * a.x % mod; return *this; }
+  bool operator==(const Mint&) const = default;
+};
+template<bool Divisor, bool Inverse, bool Paired, class T>
+void transform(vector<T>& a, vector<T>* b = nullptr) {
+  size_t n = a.size(); vector<bool> composite(n);
+  for (size_t p = 2; p < n; ++p) {
+    if (composite[p]) continue;
+    size_t count = (n - 1) / p;
+    for (size_t j = 1; j <= count; ++j) {
+      composite[j * p] = true;
+      size_t i = (Divisor != Inverse) ? j : count + 1 - j;
+      if constexpr (Divisor) {
+        if constexpr (Inverse) { a[i*p] -= a[i]; if constexpr(Paired) (*b)[i*p] -= (*b)[i]; }
+        else { a[i*p] += a[i]; if constexpr(Paired) (*b)[i*p] += (*b)[i]; }
+      } else {
+        if constexpr (Inverse) { a[i] -= a[i*p]; if constexpr(Paired) (*b)[i] -= (*b)[i*p]; }
+        else { a[i] += a[i*p]; if constexpr(Paired) (*b)[i] += (*b)[i*p]; }
+      }
+    }
+  }
+}
+template<bool Divisor, class T> vector<T> conv(vector<T> a, vector<T> b) {
+  transform<Divisor,false,true>(a,&b);
+  for (size_t i=1;i<a.size();++i) a[i] *= b[i];
+  transform<Divisor,true,false>(a);
+  if (!a.empty()) a[0] = T{};
+  return a;
+}
+int main(int argc, char** argv) {
+  int which = argc > 1 ? atoi(argv[1]) : 0, n = argc > 2 ? atoi(argv[2]) : 1000, repeat = argc > 3 ? atoi(argv[3]) : 1;
+  vector<Mint> a(n),b(n); uint64_t s=1;
+  for(int i=0;i<n;++i) { s=s*6364136223846793005ULL+1; a[i]=Mint(uint32_t(s%Mint::mod)); s=s*6364136223846793005ULL+1; b[i]=Mint(uint32_t(s%Mint::mod)); }
+  if(which==2) {
+    for(int m=0;m<200;++m) { auto x=vector<Mint>(a.begin(),a.begin()+min(n,m)); auto y=vector<Mint>(b.begin(),b.begin()+min(n,m));
+      if(blueberry::gcd_convolution(x,y)!=conv<false>(x,y)||blueberry::lcm_convolution(x,y)!=conv<true>(x,y)) return 2; }
+    cout << "ok\n"; return 0;
+  }
+  uint64_t hash=0; auto start=chrono::steady_clock::now();
+  for(int k=0;k<repeat;++k) { auto v=which==0?blueberry::gcd_convolution(a,b):which==1?conv<false>(a,b):which==3?blueberry::lcm_convolution(a,b):conv<true>(a,b); for(auto z:v) hash=hash*37+z.x; }
+  cout << chrono::duration<double,milli>(chrono::steady_clock::now()-start).count() << ' ' << hash << '\n';
+}

@@ -1,0 +1,88 @@
+#define NOMINMAX
+#include <windows.h>
+#include <psapi.h>
+#include <algorithm>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <numeric>
+#include <random>
+#include <string>
+#include <vector>
+#include <atcoder/modint>
+#include "baseline.hpp.txt"
+#include "blueberry/math/divisor-convolution.hpp"
+using namespace std;
+using Mint = atcoder::modint998244353;
+struct MutableRing {
+  long long v = 0;
+  MutableRing& operator+=(MutableRing& b) { v += b.v; return *this; }
+  MutableRing& operator-=(MutableRing& b) { v -= b.v; return *this; }
+  MutableRing& operator*=(MutableRing& b) { v *= b.v; return *this; }
+};
+template<class T> uint64_t value(T x) { return static_cast<uint64_t>(x); }
+template<> uint64_t value(Mint x) { return x.val(); }
+template<class T> vector<T> conv(int op, int variant, vector<T> a, vector<T> b) {
+  if (op == 0) return variant ? blueberry::gcd_convolution(std::move(a), std::move(b)) : old_divisor::gcd_convolution(std::move(a), std::move(b));
+  return variant ? blueberry::lcm_convolution(std::move(a), std::move(b)) : old_divisor::lcm_convolution(std::move(a), std::move(b));
+}
+template<class T> void one(int op, int variant, vector<T>& a) {
+  if (op == 2) { if (variant) blueberry::multiple_zeta(a); else old_divisor::multiple_zeta(a); }
+  if (op == 3) { if (variant) blueberry::divisor_zeta(a); else old_divisor::divisor_zeta(a); }
+  if (op == 4) { if (variant) blueberry::multiple_mobius(a); else old_divisor::multiple_mobius(a); }
+  if (op == 5) { if (variant) blueberry::divisor_mobius(a); else old_divisor::divisor_mobius(a); }
+}
+void check() {
+  mt19937 rng(20261117);
+  for (int n = 0; n <= 100; ++n) for (int trial = 0; trial < 20; ++trial) {
+    vector<uint64_t> a(n), b(n), g(n), l(n); vector<Mint> c(n), d(n);
+    for (int i = 0; i < n; ++i) { a[i] = rng() % 7; b[i] = rng() % 7; c[i] = a[i]; d[i] = b[i]; }
+    for (int i = 1; i < n; ++i) for (int j = 1; j < n; ++j) {
+      g[gcd(i,j)] += a[i]*b[j]; int k = lcm(i,j); if (k < n) l[k] += a[i]*b[j];
+    }
+    for (int variant = 0; variant < 2; ++variant) {
+      if (conv(0, variant, a, b) != g || conv(1, variant, a, b) != l) abort();
+      auto same = conv(0, variant, a, a);
+      vector<uint64_t> same_expected(n);
+      for (int i = 1; i < n; ++i) for (int j = 1; j < n; ++j) same_expected[gcd(i,j)] += a[i] * a[j];
+      if (same != same_expected) abort();
+    }
+    for (int op = 0; op < 6; ++op) {
+      if (op < 2) { if (conv(op, 0, c, d) != conv(op, 1, c, d)) abort(); }
+      else { auto x=c, y=c; one(op, 0, x); one(op, 1, y); if (x != y) abort(); }
+    }
+    vector<MutableRing> x(n), y(n);
+    for (int i=0;i<n;++i) { x[i].v=static_cast<long long>(a[i]); y[i].v=static_cast<long long>(b[i]); }
+    auto mg=blueberry::gcd_convolution(x,y), ml=blueberry::lcm_convolution(x,y);
+    for(int i=0;i<n;++i) if(mg[i].v!=static_cast<long long>(g[i]) || ml[i].v!=static_cast<long long>(l[i])) abort();
+  }
+  cout << "brute and old/new comparisons passed\n";
+}
+template<class T> void bench(int variant, int op, int n, int reps) {
+  mt19937 rng(1729); vector<T> a(n), b(n);
+  for(int i=0;i<n;++i) { a[i]=rng(); b[i]=rng(); }
+  uint64_t hash=0; double ms=0;
+  for(int r=0;r<reps;++r) {
+    if(op<2) {
+      auto start=chrono::steady_clock::now(); auto out=conv(op,variant,a,b); auto end=chrono::steady_clock::now();
+      ms += chrono::duration<double,milli>(end-start).count();
+      for(auto x:out) hash=hash*37+value<T>(x);
+    } else {
+      auto out=a; auto start=chrono::steady_clock::now(); one(op,variant,out); auto end=chrono::steady_clock::now();
+      ms += chrono::duration<double,milli>(end-start).count();
+      for(auto x:out) hash=hash*37+value<T>(x);
+    }
+  }
+  PROCESS_MEMORY_COUNTERS info{}; info.cb=sizeof(info);
+  cout.precision(12); cout << ms << ' ' << hash << ' ';
+  if(GetProcessMemoryInfo(GetCurrentProcess(),&info,sizeof(info))) cout << info.PeakWorkingSetSize;
+  else cout << "unavailable";
+  cout << '\n';
+}
+int main(int argc, char** argv) {
+  if (argc == 2 && string(argv[1]) == "check") { check(); return 0; }
+  if(argc!=6) return 2;
+  int variant=atoi(argv[1]), op=atoi(argv[2]), n=atoi(argv[3]), reps=atoi(argv[4]), type=atoi(argv[5]);
+  if(type==0) bench<uint32_t>(variant,op,n,reps); else bench<Mint>(variant,op,n,reps);
+}
