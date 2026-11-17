@@ -1,0 +1,38 @@
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <random>
+#include <string>
+#include <vector>
+#define NOMINMAX
+#include <windows.h>
+#include <psapi.h>
+#pragma comment(lib, "psapi.lib")
+#include "blueberry/data-structure/binary-trie.hpp"
+
+int main(int argc, char** argv) {
+  int n = std::atoi(argv[1]);
+  std::string mode = argv[2];
+  std::mt19937 rng(19260817);
+  std::vector<std::uint32_t> values(n), query(n);
+  for (int i = 0; i < n; ++i) {
+    values[i] = rng() & ((1u << 30) - 2);
+    query[i] = mode == "missing" ? (values[i] | (1u << 30)) : mode == "deep-miss" ? (values[i] | 1u) : values[i];
+  }
+  blueberry::BinaryTrie<std::uint32_t, 32> trie;
+  for (auto x : values) { trie.insert(x); if (mode == "duplicate") trie.insert(x); }
+  auto start = std::chrono::steady_clock::now();
+  std::uint64_t sum = 0;
+  for (int i = 0; i < n; ++i) {
+    auto x = query[i];
+    sum += trie.erase(x);
+    if (mode == "churn") trie.insert(x);
+    if (mode == "mixed" && i % 4 == 0) sum += trie.xor_min(x).value_or(0);
+  }
+  auto end = std::chrono::steady_clock::now();
+  sum += trie.size();
+  PROCESS_MEMORY_COUNTERS mem{};
+  auto measured = GetProcessMemoryInfo(GetCurrentProcess(), &mem, sizeof(mem));
+  std::cout << std::chrono::duration<double, std::milli>(end - start).count() << ' ' << sum << ' ' << (measured ? mem.PeakWorkingSetSize : 0) << '\n';
+}

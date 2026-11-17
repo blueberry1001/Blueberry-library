@@ -1,0 +1,109 @@
+#include <algorithm>
+#include <chrono>
+#include <cstdint>
+#include <iostream>
+#include <numeric>
+#include <random>
+#include <string>
+#include <vector>
+#include "blueberry/math/longest-increasing-subsequence.hpp"
+using namespace std;
+
+template<int V, class T> vector<int> candidate(const vector<T>& a) {
+  int n = (int)a.size();
+  vector<int> tails, prev(n, -1), result;
+  tails.reserve(n);
+  for (int i = 0; i < n; ++i) {
+    if constexpr (V == 4 || V == 6) {
+      if (!tails.empty() && !(a[tails.front()] < a[i])) {
+        tails.front() = i;
+        continue;
+      }
+    }
+    if constexpr (V != 6 && V != 7) {
+      if (!tails.empty() && a[tails.back()] < a[i]) {
+        prev[i] = tails.back();
+        tails.push_back(i);
+        continue;
+      }
+    }
+    if constexpr (V == 2 || V == 8) {
+      if (!tails.empty() && !(a[tails.front()] < a[i])) {
+        tails.front() = i;
+        continue;
+      }
+    }
+    if constexpr (V == 5) {
+      if (tails.size() == 1) {
+        tails.front() = i;
+        continue;
+      }
+    }
+    int p;
+    if constexpr (V == 3) {
+      int begin = 0, len = (int)tails.size();
+      while (len) {
+        int half = len / 2, mid = begin + half;
+        bool less = a[tails[mid]] < a[i];
+        begin = less ? mid + 1 : begin;
+        len = less ? len - half - 1 : half;
+      }
+      p = begin;
+    } else {
+      p = (int)(lower_bound(tails.begin(), tails.end(), a[i],
+            [&](int j, const T& value) { return a[j] < value; }) - tails.begin());
+    }
+    if (p) prev[i] = tails[p - 1];
+    if (p == (int)tails.size()) tails.push_back(i);
+    else tails[p] = i;
+  }
+  if constexpr (V >= 7) {
+    result.resize(tails.size());
+    int k = (int)result.size();
+    if (!tails.empty()) for (int i = tails.back(); i != -1; i = prev[i]) result[--k] = i;
+  } else if (!tails.empty()) {
+    for (int i = tails.back(); i != -1; i = prev[i]) result.push_back(i);
+    reverse(result.begin(), result.end());
+  }
+  return result;
+}
+
+vector<int> run(int variant, const vector<int>& a) {
+  switch (variant) {
+    case 0: return blueberry::longest_increasing_subsequence(a);
+    case 1: return candidate<1>(a);
+    case 2: return candidate<2>(a);
+    case 3: return candidate<3>(a);
+    case 4: return candidate<4>(a);
+    case 5: return candidate<5>(a);
+    case 6: return candidate<6>(a);
+    case 7: return candidate<7>(a);
+    case 8: return candidate<8>(a);
+    default: return candidate<9>(a);
+  }
+}
+int main(int argc, char** argv) {
+  int variant = stoi(argv[1]), mode = stoi(argv[2]), n = stoi(argv[3]), reps = stoi(argv[4]);
+  vector<int> a(n);
+  mt19937 rng(20261117);
+  for (int i = 0; i < n; ++i) {
+    if (mode == 0) a[i] = (int)rng();
+    if (mode == 1) a[i] = i;
+    if (mode == 2) a[i] = n - i;
+    if (mode == 3) a[i] = 42;
+    if (mode == 4) a[i] = rng() % 8;
+    if (mode == 5) a[i] = i % 1000;
+    if (mode == 6) a[i] = (i % 1000 == 0 ? -i : i);
+  }
+  auto expected = run(0, a), got = run(variant, a);
+  if (expected != got) { cerr << "mismatch\n"; return 1; }
+  uint64_t checksum = 0;
+  auto start = chrono::steady_clock::now();
+  for (int r = 0; r < reps; ++r) {
+    auto result = run(variant, a);
+    checksum += result.size();
+    for (int v : result) checksum += (unsigned)v;
+  }
+  auto stop = chrono::steady_clock::now();
+  cout << chrono::duration<double, milli>(stop-start).count() << ' ' << checksum << '\n';
+}

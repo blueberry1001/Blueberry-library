@@ -1,0 +1,23 @@
+import ctypes, hashlib, json, os, pathlib, platform, statistics, subprocess, time
+root=pathlib.Path.cwd(); out=root/'.build/clique-reuse-study'; exe=out/'release.exe'; kernel=ctypes.WinDLL('kernel32',use_last_error=True)
+kernel.GetCurrentProcess.restype=ctypes.c_void_p; kernel.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)]; kernel.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+process=kernel.GetCurrentProcess(); old=ctypes.c_size_t(); system=ctypes.c_size_t(); assert kernel.GetProcessAffinityMask(process,ctypes.byref(old),ctypes.byref(system)); mask=old.value & -old.value; assert kernel.SetProcessAffinityMask(process,mask)
+data={'platform':platform.platform(),'processor':platform.processor(),'affinity':hex(mask),'runs':5,'warmups':1,'hashes':{},'samples':[],'status':'running'}
+for path in ('baseline.hpp','candidate.hpp','driver.cpp','release.exe','build.py','prepare.py'):
+ data['hashes'][path]=hashlib.sha256((out/path).read_bytes()).hexdigest()
+def save(): (out/'results.json').write_text(json.dumps(data,indent=2)+'\n',encoding='utf-8')
+save()
+try:
+ for shape,reps in [(0,30),(1,80),(2,20),(3,15),(4,20)]:
+  expected=None
+  for run in range(-1,5):
+   for which in ([0,1] if run%2==0 else [1,0]):
+    cmd=[str(exe),str(which),str(shape),str(reps)]; start=time.perf_counter(); p=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True); child=ctypes.c_size_t(); sy=ctypes.c_size_t(); mask_ok=bool(kernel.GetProcessAffinityMask(ctypes.c_void_p(p._handle),ctypes.byref(child),ctypes.byref(sy))); stdout,stderr=p.communicate(timeout=180); wall=time.perf_counter()-start
+    row={'shape':shape,'reps':reps,'run':run,'variant':which,'exit':p.returncode,'stdout':stdout,'stderr':stderr,'wall_seconds':wall,'child_mask':hex(child.value) if mask_ok else None};data['samples'].append(row);save()
+    if p.returncode or not mask_ok or child.value!=mask: raise RuntimeError('run or affinity failed')
+    vals=stdout.split(); measured=(vals[1],vals[2],vals[3],vals[4]);
+    if expected is None: expected=measured
+    if measured!=expected: raise RuntimeError('checksum mismatch')
+ data['status']='complete';save()
+except BaseException as exc:
+ data['status']='failed';data['error']=repr(exc);save();raise

@@ -1,0 +1,48 @@
+#include <algorithm>
+#include <cassert>
+#include <chrono>
+#include <cstdint>
+#include <cstdlib>
+#include <iostream>
+#include <random>
+#include <stdexcept>
+#include <vector>
+#define NOMINMAX
+#include <windows.h>
+#include <psapi.h>
+#define blueberry base
+#include "baseline.hpp"
+#undef blueberry
+#define blueberry candidate
+#include "candidate.hpp"
+#undef blueberry
+using namespace std;
+using E = vector<pair<int,int>>;
+struct Result { uint64_t h = 1469598103934665603ULL, calls = 0; void operator()(const vector<int>& c) { ++calls; h = (h ^ c.size()) * 1099511628211ULL; for(int x:c) h = (h ^ uint64_t(x+1))*1099511628211ULL; } };
+template<class Fn> auto collect(Fn f, int n, const E& edges) { vector<vector<int>> out; f(n,edges,[&](const vector<int>& c){out.push_back(c);}); return out; }
+auto old_call = [](int n,const E& e,auto&& f) {base::enumerate_cliques(n,e,f);};
+auto new_call = [](int n,const E& e,auto&& f) {candidate::enumerate_cliques(n,e,f);};
+void check(int n,const E& e) {
+ auto a=collect(old_call,n,e), b=collect(new_call,n,e); assert(a==b);
+ vector<unsigned> got; for(auto c:b) { unsigned m=0; for(int x:c) m|=1u<<x; assert(__builtin_popcount(m)==int(c.size())); got.push_back(m); }
+ sort(got.begin(),got.end()); assert(unique(got.begin(),got.end())==got.end());
+ vector<unsigned> expected; for(unsigned m=1; m<(1u<<n); ++m) { bool ok=true; for(int i=0;i<n;++i) for(int j=i+1;j<n;++j) if((m>>i&1)&&(m>>j&1)&&find(e.begin(),e.end(),pair{i,j})==e.end()) ok=false; if(ok)expected.push_back(m); }
+ assert(got==expected);
+}
+void validate() {
+ for(int n=0;n<=5;++n) { vector<pair<int,int>> all;for(int i=0;i<n;++i)for(int j=i+1;j<n;++j)all.emplace_back(i,j);for(unsigned mask=0;mask<(1u<<all.size());++mask){ E e;for(unsigned i=0;i<all.size();++i)if(mask>>i&1)e.push_back(all[i]);check(n,e); }}
+ mt19937 rng(1729);for(int n=1;n<=10;++n)for(int t=0;t<100;++t){E e;for(int i=0;i<n;++i)for(int j=i+1;j<n;++j)if(rng()%5<2)e.emplace_back(i,j);check(n,e);}
+ E outer{{0,1},{0,2},{1,2}}, inner{{0,1}}; unsigned seen=0; candidate::enumerate_cliques(3,outer,[&](const vector<int>& c){ assert(!c.empty()); vector<vector<int>> saved; candidate::enumerate_cliques(2,inner,[&](const vector<int>& x){saved.push_back(x);});assert(saved.size()==3);++seen;});assert(seen==7);
+ bool caught=false; try { candidate::enumerate_cliques(3,outer,[&](const vector<int>&){throw runtime_error("expected");}); } catch(const runtime_error&) { caught=true; } assert(caught);
+ cout<<"ok\n";
+}
+int main(int argc,char** argv) {
+ if(argc==1){validate();return 0;}
+ int which=atoi(argv[1]), shape=atoi(argv[2]), reps=atoi(argv[3]); mt19937 rng(1729); int n=0; E e;
+ if(shape==0){n=17;for(int i=0;i<n;++i)for(int j=i+1;j<n;++j)e.emplace_back(i,j);}
+ if(shape==1){n=110;for(int i=0;i<n;++i)for(int j=i+1;j<n;++j)if(rng()%4==0)e.emplace_back(i,j);}
+ if(shape==2){n=65;for(int i=0;i<n;++i)for(int j=i+1;j<n;++j)if(rng()%2==0)e.emplace_back(i,j);}
+ if(shape==3){n=20000;for(int i=0;i<n;++i){e.emplace_back(i,(i+1)%n);if(i+23<n)e.emplace_back(i,i+23);}}
+ if(shape==4){n=30000;for(int i=1;i<n;++i)e.emplace_back(0,i);}
+ Result r; auto start=chrono::steady_clock::now();for(int i=0;i<reps;++i){if(which==0)base::enumerate_cliques(n,e,[&](const auto& c){r(c);});else candidate::enumerate_cliques(n,e,[&](const auto& c){r(c);});}auto end=chrono::steady_clock::now();PROCESS_MEMORY_COUNTERS mem{};if(!GetProcessMemoryInfo(GetCurrentProcess(),&mem,sizeof(mem))) return 2;cout<<chrono::duration<double,milli>(end-start).count()<<' '<<r.h<<' '<<r.calls<<' '<<n<<' '<<e.size()<<' '<<mem.PeakWorkingSetSize<<'\n';
+}

@@ -1,0 +1,10 @@
+import pathlib
+root = pathlib.Path.cwd()
+out = root / '.build/clique-reuse-study'
+baseline = (root / 'blueberry/graph/clique-enumeration.hpp').read_text(encoding='utf-8')
+candidate = baseline.replace('  std::vector<int> clique;\n', '  std::size_t depth = 0;\n  for (const auto& list : out) depth = std::max(depth, list.size());\n  std::vector<int> clique;\n  if (depth <= 1) {\n    for (int v = 0; v < n; ++v) {\n      clique.push_back(v); emit(static_cast<const std::vector<int>&>(clique));\n      if (!out[v].empty()) { clique.push_back(out[v][0]); emit(static_cast<const std::vector<int>&>(clique)); clique.pop_back(); }\n      clique.pop_back();\n    }\n    return;\n  }\n  std::vector<std::vector<int>> scratch(depth);\n')
+candidate = candidate.replace('      std::vector<int> next;\n', '      auto& next = scratch[clique.size() - 1];\n      next.clear();\n')
+if candidate == baseline or candidate.count('scratch[clique.size() - 1]') != 1:
+    raise RuntimeError('unexpected baseline')
+(out / 'baseline.hpp').write_text(baseline, encoding='utf-8', newline='\n')
+(out / 'candidate.hpp').write_text(candidate, encoding='utf-8', newline='\n')

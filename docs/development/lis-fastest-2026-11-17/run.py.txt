@@ -1,0 +1,59 @@
+import ctypes
+import os
+from pathlib import Path
+import platform
+import statistics
+import subprocess
+import sys
+
+root = Path(__file__).resolve().parents[2]
+work = Path(__file__).resolve().parent
+vc = Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = Path(r'C:\Program Files (x86)\Windows Kits\10')
+version = '10.0.22621.0'
+compiler = Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str, [vc / 'include', *(sdk / 'Include' / version / p for p in ('ucrt', 'shared', 'um'))]))
+env['LIB'] = os.pathsep.join(map(str, [vc / 'lib/x64', *(sdk / 'Lib' / version / p / 'x64' for p in ('ucrt', 'um'))]))
+exe = work / 'bench.exe'
+cmd = [str(compiler), '--target=x86_64-pc-windows-msvc', '-fuse-ld=link', '-std=gnu++20', '-O2', '-DNDEBUG', '-I' + str(root), str(work / 'bench.cpp'), '-o', str(exe)]
+if '--build' in sys.argv:
+    print('compiler:', subprocess.check_output([str(compiler), '--version'], text=True).splitlines()[0])
+    print('command:', subprocess.list2cmdline(cmd), flush=True)
+    subprocess.run(cmd, env=env, check=True)
+    sys.exit()
+
+ctypes.windll.kernel32.GetCurrentProcess.restype = ctypes.c_void_p
+ctypes.windll.kernel32.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+ctypes.windll.kernel32.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+process = ctypes.windll.kernel32.GetCurrentProcess()
+mask, system = ctypes.c_size_t(), ctypes.c_size_t()
+if ctypes.windll.kernel32.GetProcessAffinityMask(process, ctypes.byref(mask), ctypes.byref(system)):
+    one = mask.value & -mask.value
+    print('affinity:', hex(one), 'set:', ctypes.windll.kernel32.SetProcessAffinityMask(process, ctypes.c_size_t(one)))
+else:
+    print('affinity unavailable')
+print('platform:', platform.platform(), 'processor:', platform.processor())
+print('modes: 0=random, 1=ascending, 2=descending, 3=equal, 4=alphabet8, 5=reset1000, 6=mostly ascending')
+print('variants: 0=baseline, 2=append+front, 7=direct result, 8=append+front+direct result, 9=append+direct result')
+n, reps = 200000, 6
+variants = [0, 2, 7, 8, 9]
+data = {(m,v): [] for m in range(7) for v in variants}
+checks = {}
+for sample in range(12):
+    for mode in range(7):
+        order = variants.copy()
+        if (sample + mode) % 2: order.reverse()
+        for variant in order:
+            out = subprocess.check_output([str(exe), str(variant), str(mode), str(n), str(reps)], text=True).split()
+            value, checksum = float(out[0]), out[1]
+            old = checks.setdefault(mode, checksum)
+            if old != checksum: raise RuntimeError('checksum mismatch')
+            if sample: data[mode,variant].append(value)
+            print('sample',sample,'mode',mode,'variant',variant,'ms',value,'checksum',checksum, flush=True)
+for mode in range(7):
+    base = statistics.median(data[mode,0])
+    for variant in variants:
+        values = data[mode,variant]
+        print('summary',mode,variant,'median',statistics.median(values),'min',min(values),'ratio',statistics.median(values)/base)

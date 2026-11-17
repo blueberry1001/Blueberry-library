@@ -1,0 +1,28 @@
+import ctypes, hashlib, json, os, platform, statistics, subprocess, time
+from pathlib import Path
+
+root=Path.cwd(); out=root/'.build/trie-erase-study'
+kernel=ctypes.WinDLL('kernel32',use_last_error=True)
+kernel.GetCurrentProcess.restype=ctypes.c_void_p
+kernel.GetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_size_t),ctypes.POINTER(ctypes.c_size_t)]
+kernel.SetProcessAffinityMask.argtypes=[ctypes.c_void_p,ctypes.c_size_t]
+proc=kernel.GetCurrentProcess(); pm=ctypes.c_size_t(); sm=ctypes.c_size_t()
+assert kernel.GetProcessAffinityMask(proc,ctypes.byref(pm),ctypes.byref(sm))
+selected=pm.value & -pm.value
+assert kernel.SetProcessAffinityMask(proc,selected)
+data={'platform':platform.platform(),'processor':platform.processor(),'cpu_original_mask':hex(pm.value),'cpu_selected_mask':hex(selected),'compiler':'Unity NDK Clang 18 / MSVC ABI','flags':'--target=x86_64-pc-windows-msvc -std=gnu++20 -O2 -DNDEBUG','seed':19260817,'warmups':1,'runs':7,'results':[]}
+for n in (20000,150000):
+ for mode in ('present','missing','mid-miss','deep-miss','success25','success50','success75','duplicate','churn','mixed'):
+  expected=None; samples={'baseline':[],'candidate':[]}
+  for rep in range(8):
+   for variant in (('baseline','candidate') if rep % 2 == 0 else ('candidate','baseline')):
+    exe=out/variant/'bench.exe'; start=time.perf_counter(); p=subprocess.run([str(exe),str(n),mode],capture_output=True,text=True,timeout=120); wall=time.perf_counter()-start
+    if p.returncode: raise RuntimeError(f'{variant} {n} {mode}: {p.stderr}')
+    parts=p.stdout.split(); assert len(parts)==3,p.stdout
+    value,checksum,mem=float(parts[0]),int(parts[1]),int(parts[2]); assert mem>0
+    if expected is None: expected=checksum
+    if checksum!=expected: raise RuntimeError(f'checksum mismatch {variant} {n} {mode}')
+    if rep: samples[variant].append({'ms':value,'wall_seconds':wall,'peak_bytes':mem,'checksum':checksum})
+  data['results'].append({'n':n,'mode':mode,'checksum':expected,'samples':samples,'median_ms':{k:statistics.median(x['ms'] for x in v) for k,v in samples.items()},'min_ms':{k:min(x['ms'] for x in v) for k,v in samples.items()},'median_peak_bytes':{k:statistics.median(x['peak_bytes'] for x in v) for k,v in samples.items()}})
+  (out/'results-v2.json').write_text(json.dumps(data,indent=2)+'\n',encoding='utf8')
+  print(n,mode,data['results'][-1]['median_ms'],flush=True)

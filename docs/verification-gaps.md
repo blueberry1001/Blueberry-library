@@ -451,6 +451,7 @@
 [blueberry/graph/clique-enumeration.hpp](../blueberry/graph/clique-enumeration.hpp) — **専用verifyドライバあり**
 
 - 専用ドライバ: [verify/graph/clique-enumeration.test.cpp](../verify/graph/clique-enumeration.test.cpp) / [問題](https://judge.yosupo.jp/problem/enumerate_cliques)
+- 関連ローカルテスト: [tests/random/clique-enumeration.cpp](../tests/random/clique-enumeration.cpp)
 - 関連ローカルテスト: [tests/random/graph-batch-four.cpp](../tests/random/graph-batch-four.cpp)
 
 ## Complement Components
