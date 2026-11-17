@@ -1,0 +1,20 @@
+from pathlib import Path
+root=Path.cwd();out=root/'.build/subseq-byte';header=(root/'blueberry/string/count-subsequences.hpp').read_text(encoding='utf-8');header=header.replace('#include <numeric>','#include <numeric>\n#include <limits>\n#include <type_traits>')
+needle='  const std::size_t n = sequence.size();\n'
+fast='''  using Symbol = std::remove_cvref_t<decltype(sequence[std::size_t{}])>;
+  if constexpr (std::is_integral_v<Symbol> && sizeof(Symbol) == 1 && std::numeric_limits<unsigned char>::digits == 8) {
+    if (n >= 64) {
+      std::vector<Count> previous(256, Count(0));
+      Count total(1);
+      for (std::size_t i = 0; i < n; ++i) {
+        auto symbol = static_cast<unsigned char>(sequence[i]);
+        const Count next = total + total - previous[symbol];
+        previous[symbol] = total; total = next;
+      }
+      return total - Count(1);
+    }
+  }
+'''
+original=(root/'blueberry/string/count-subsequences.hpp').read_text(encoding='utf-8')
+for name,text in [('base',original),('byte',header.replace(needle,needle+fast))]:
+ path=out/name/'blueberry/string/count-subsequences.hpp';path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text,encoding='utf-8',newline='\n')

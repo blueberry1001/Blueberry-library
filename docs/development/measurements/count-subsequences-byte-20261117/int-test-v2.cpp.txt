@@ -1,0 +1,13 @@
+#include <atcoder/modint>
+#include <cstdint>
+#include <limits>
+#include <map>
+#include <random>
+#include <string>
+#include <vector>
+#include "blueberry/string/count-subsequences.hpp"
+using Mint=atcoder::modint998244353;
+struct Count { int value; Count()=delete; Count(int n):value(n%1009){} friend Count operator+(Count a,Count b){return Count(a.value+b.value);} friend Count operator-(Count a,Count b){return Count((a.value-b.value+1009)%1009);} };
+template<class T>bool check(const std::vector<T>&a){std::map<T,Mint>p;std::map<T,int> q;Mint total=1;int count=1;for(auto x:a){Mint old=total;total=total+total-p[x];p[x]=old;int next=(2*count-q[x]+1009)%1009;q[x]=count;count=next;}return blueberry::count_subsequences<Mint>(a)==total-1&&blueberry::count_subsequences<Count>(a).value==(count+1008)%1009;}
+template<class T>bool check_type(std::mt19937_64&rng){for(int n:{0,1,63,64,65,1000,5000})for(int s=0;s<7;++s){std::vector<T>a(n);for(int i=0;i<n;++i){if(s==0)a[i]=static_cast<T>(rng());if(s==1)a[i]=std::numeric_limits<T>::min()+static_cast<T>(rng()%8);if(s==2)a[i]=std::numeric_limits<T>::max()-static_cast<T>(rng()%8);if(s==3)a[i]=(i%2)?std::numeric_limits<T>::min():std::numeric_limits<T>::max();if(s==4)a[i]=static_cast<T>(rng()%3);if(s==5)a[i]=static_cast<T>(rng()%4096);if(s==6)a[i]=static_cast<T>(i%65536);}if(!check(a))return false;}return true;}
+int main(int argc,char**argv){std::mt19937_64 rng(argc>1?std::stoull(argv[1]):1);return !(check_type<std::int16_t>(rng)&&check_type<std::uint16_t>(rng)&&check_type<std::int32_t>(rng)&&check_type<std::uint32_t>(rng)&&check_type<std::int64_t>(rng)&&check_type<std::uint64_t>(rng));}

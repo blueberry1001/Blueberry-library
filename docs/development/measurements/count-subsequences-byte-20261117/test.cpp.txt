@@ -1,0 +1,18 @@
+#include <algorithm>
+#include <array>
+#include <cstdint>
+#include <iostream>
+#include <map>
+#include <random>
+#include <string>
+#include <vector>
+#include <atcoder/modint>
+#include "blueberry/string/count-subsequences.hpp"
+using Mint=atcoder::modint998244353;
+template<class S> Mint oracle(const S& s){std::map<int,Mint> prev;Mint ans=1;for(auto v:s){Mint next=ans+ans-prev[static_cast<int>(v)];prev[static_cast<int>(v)]=ans;ans=next;}return ans-1;}
+struct Count {int v;Count()=delete;Count(int n):v(n%1009){};Count& operator=(const Count&)=default;friend Count operator+(Count a,Count b){return Count(a.v+b.v);}friend Count operator-(Count a,Count b){return Count((a.v-b.v+1009)%1009);}};
+struct Symbol {int n; bool operator<(const Symbol& b)const{return n/3<b.n/3;}};
+int main(int argc,char**argv){unsigned seed=argc>1?std::stoul(argv[1]):1;std::mt19937 rng(seed);
+ for(int n:{0,1,2,15,63,64,65,255,256,257,1000})for(int trial=0;trial<20;++trial){std::vector<signed char>a(n);std::vector<unsigned char>b(n);std::vector<int>c(n);std::vector<bool>d(n);std::vector<Symbol>e(n);for(int i=0;i<n;++i){a[i]=static_cast<signed char>(static_cast<int>(rng()%256)-128);b[i]=static_cast<unsigned char>(rng()%256);c[i]=static_cast<int>(rng()%20)-10;d[i]=rng()%2;e[i]={static_cast<int>(rng()%30)};}if(blueberry::count_subsequences<Mint>(a)!=oracle(a)||blueberry::count_subsequences<Mint>(b)!=oracle(b)||blueberry::count_subsequences<Mint>(c)!=oracle(c)||blueberry::count_subsequences<Mint>(d)!=oracle(d)){std::cerr<<"seed="<<seed<<" n="<<n<<" trial="<<trial<<'\n';return 1;}std::vector<int> f;for(auto s:e)f.push_back(s.n/3);if(blueberry::count_subsequences<Mint>(e)!=oracle(f))return 2;auto actual=blueberry::count_subsequences<Count>(a);std::map<int,int> p;int t=1;for(auto v:a){int next=(2*t-p[v]+1009)%1009;p[v]=t;t=next;}if(actual.v!=(t+1008)%1009)return 3;}
+ std::vector<signed char> full;for(int i=-128;i<128;++i)full.push_back(static_cast<signed char>(i));if(blueberry::count_subsequences<Mint>(full)!=oracle(full))return 4;
+}

@@ -1,0 +1,10 @@
+#include <array>
+#include <chrono>
+#include <cstdint>
+#include <iostream>
+#include <string>
+#include <vector>
+#include "blueberry/string/count-subsequences.hpp"
+struct Large {std::array<unsigned,1024> x; Large()=delete;Large(int n){x.fill(n%1009);}friend Large operator+(Large a,const Large& b){for(int i=0;i<1024;++i)a.x[i]=(a.x[i]+b.x[i])%1009;return a;}friend Large operator-(Large a,const Large& b){for(int i=0;i<1024;++i)a.x[i]=(a.x[i]+1009-b.x[i])%1009;return a;}};
+template<class S> void run(S a,int n,const std::string&shape){for(int i=0;i<n;++i)a[i]=shape=="equal"?0:shape=="two"?i%2:i%63;auto start=std::chrono::steady_clock::now();auto result=blueberry::count_subsequences<Large>(a);std::uint64_t hash=0;for(auto x:result.x)hash=hash*1000003+x;auto ns=std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-start).count();std::cout<<"{\"n\":"<<n<<",\"shape\":\""<<shape<<"\",\"ns\":"<<ns<<",\"hash\":"<<hash<<"}\n";}
+int main(int argc,char**argv){int n=std::stoi(argv[1]);std::string kind=argv[3];if(kind=="int")run(std::vector<int>(n),n,argv[2]);else run(std::vector<signed char>(n),n,argv[2]);}

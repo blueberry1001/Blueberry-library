@@ -1,0 +1,21 @@
+import ctypes,hashlib,json,platform,subprocess,time
+from pathlib import Path
+root=Path.cwd();out=root/'.build/subseq-byte';k=ctypes.WinDLL('kernel32',use_last_error=True);k.K32GetProcessMemoryInfo.argtypes=[ctypes.c_void_p,ctypes.c_void_p,ctypes.c_ulong];k.K32GetProcessMemoryInfo.restype=ctypes.c_int
+class Counters(ctypes.Structure):
+ _fields_=[('cb',ctypes.c_ulong),('faults',ctypes.c_ulong),('peak',ctypes.c_size_t),('working',ctypes.c_size_t),('quota_peak',ctypes.c_size_t),('quota',ctypes.c_size_t),('paged_peak',ctypes.c_size_t),('paged',ctypes.c_size_t),('pagefile',ctypes.c_size_t),('peak_pagefile',ctypes.c_size_t)]
+rows=[]
+for shape in ['equal','two','small']:
+ for kind in ['char','int']:
+  hashes=set()
+  for name in ['base','final']:
+   for r in range(3):
+    cmd=[str(out/name/'large-bench.exe'),'8192',shape,kind];p=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True);seen=[]
+    while p.poll() is None:
+     m=Counters();m.cb=ctypes.sizeof(m)
+     if k.K32GetProcessMemoryInfo(int(p._handle),ctypes.byref(m),m.cb):seen.append(m.peak)
+     time.sleep(.001)
+    stdout,stderr=p.communicate();result={'name':name,'kind':kind,'shape':shape,'status':p.returncode,'samples':len(seen),'peak_working_bytes':max(seen) if seen else None,'stdout':stdout,'stderr':stderr};rows.append(result)
+    if p.returncode or not seen:raise RuntimeError(result)
+    hashes.add(json.loads(stdout)['hash']);print(json.dumps(result),flush=True)
+  if len(hashes)!=1:raise RuntimeError((shape,kind,hashes))
+rec={'platform':platform.platform(),'case_n':8192,'count_size_bytes':4096,'runs':3,'measurement':'Windows peak process working set sampled while alive; includes all allocations and input','source_hash':hashlib.sha256((out/'large-bench.cpp').read_bytes()).hexdigest(),'rows':rows};(out/'memory.json').write_text(json.dumps(rec,indent=2)+'\n')

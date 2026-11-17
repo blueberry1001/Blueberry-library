@@ -1,0 +1,15 @@
+#include <atcoder/modint>
+#include <chrono>
+#include <cstdint>
+#include <iostream>
+#include <limits>
+#include <random>
+#include <string>
+#include <vector>
+#include "blueberry/string/count-subsequences.hpp"
+using Mint=atcoder::modint998244353;
+template<class T>void run(int n,const std::string&shape,int rounds){std::mt19937_64 rng(20261117);std::vector<T>a(n);
+ for(int i=0;i<n;++i){if(shape=="wide")a[i]=static_cast<T>(rng());else if(shape=="small")a[i]=static_cast<T>(rng()%128)-64;else if(shape=="ascending")a[i]=static_cast<T>(i%4096)-2048;else if(shape=="negative")a[i]=std::numeric_limits<T>::min()+static_cast<T>(rng()%128);else if(shape=="extreme")a[i]=(i%2)?std::numeric_limits<T>::max():std::numeric_limits<T>::min();else if(shape=="gap")a[i]=(i%2)?static_cast<T>(65535):static_cast<T>(0);else if(shape=="late"||shape=="middle"||shape=="unsampled"){int position=shape=="late"?n-1:shape=="middle"?n/2:n/2+1;a[i]=i==position?std::numeric_limits<T>::max():static_cast<T>(0);}else a[i]=42;}
+ auto start=std::chrono::steady_clock::now();std::uint64_t hash=0;for(int r=0;r<rounds;++r)hash=hash*1000003+blueberry::count_subsequences<Mint>(a).val();
+ auto ns=std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::steady_clock::now()-start).count();std::cout<<"{\"n\":"<<n<<",\"shape\":\""<<shape<<"\",\"ns\":"<<ns<<",\"hash\":"<<hash<<"}\n";}
+int main(int argc,char**argv){int n=std::stoi(argv[1]),rounds=std::stoi(argv[3]);std::string type=argv[4];if(type=="int")run<std::int32_t>(n,argv[2],rounds);else if(type=="long")run<std::int64_t>(n,argv[2],rounds);else run<std::uint64_t>(n,argv[2],rounds);}
