@@ -40,6 +40,9 @@ void check(const vector<T>& a, mt19937_64& rng, unsigned long long seed,
     if (trial % 4 == 1) x = numeric_limits<T>::max();
     if (trial % 4 == 2 && n) x = a[rng() % n];
     T y = static_cast<T>(rng() % 41 - 20);
+    if (trial % 5 == 0 && n) y = a[rng() % n];
+    if (trial % 11 == 0) y = x;
+    if (trial % 13 == 0 && x < numeric_limits<T>::max()) y = T(x + 1);
     if (y < x) swap(x, y);
     const int less = static_cast<int>(lower_bound(sorted.begin(), sorted.end(), x) - sorted.begin());
     const int freq = static_cast<int>(count(sorted.begin(), sorted.end(), x));
@@ -76,7 +79,6 @@ template <class T> void radix_boundaries(mt19937_64& rng, unsigned long long see
     else a[i] = T(rng());
   }
   check(a, rng, seed);
-  // The full 128-bit radix path starts at N=2048; keep its query sampling bounded.
   a.resize(2051);
   for (int i = 0; i < int(a.size()); ++i) a[i] = T(rng());
   a[0] = numeric_limits<T>::min(); a[1] = numeric_limits<T>::max();
@@ -118,11 +120,44 @@ int main(int argc, char** argv) {
   radix_boundaries<short>(rng, seed);
   radix_boundaries<unsigned short>(rng, seed);
   radix_boundaries<unsigned long long>(rng, seed);
-#if defined(__SIZEOF_INT128__)
+#if defined(__SIZEOF_INT128__) && !defined(_MSC_VER)
   radix_boundaries<__int128_t>(rng, seed);
   radix_boundaries<__uint128_t>(rng, seed);
 #endif
-  // Copy owns its storage and remains usable after replacing the source.
+  for (int mode = 0; mode < 6; ++mode) {
+    vector<long long> a(1100);
+    for (int i = 0; i < int(a.size()); ++i) {
+      if (mode == 0) a[i] = numeric_limits<long long>::min() + static_cast<long long>(rng() % 100);
+      if (mode == 1) a[i] = numeric_limits<long long>::max() - static_cast<long long>(rng() % 100);
+      if (mode == 2) a[i] = static_cast<long long>(rng());
+      if (mode == 3) a[i] = i / 2;
+      if (mode == 4) a[i] = i < 256 ? static_cast<long long>(rng()) : (rng() & 1 ? numeric_limits<long long>::min() : numeric_limits<long long>::max());
+      if (mode == 5) a[i] = i >= 844 ? static_cast<long long>(rng()) : (rng() & 1 ? numeric_limits<long long>::min() : numeric_limits<long long>::max());
+    }
+    check(a, rng, seed, 80, false);
+  }
+  for (long long base : {numeric_limits<long long>::min(), -1000LL, 0LL, numeric_limits<long long>::max() - 300}) {
+    for (int gap : {1, 2}) {
+      vector<long long> a(512);
+      for (int i = 0; i < int(a.size()); ++i) a[i] = base + (i % 128) * gap;
+      shuffle(a.begin(), a.end(), rng);
+      blueberry::WaveletMatrix<long long> wm(a);
+      for (int offset = 0; offset < 270; ++offset) {
+        long long x = base + offset, y = base + min(270, offset + 3);
+        int count = 0;
+        for (long long value : a) count += x <= value && value < y;
+        assert(wm.range_freq(0, int(a.size()), x, y) == count);
+      }
+      if (base != numeric_limits<long long>::min()) assert(wm.range_freq(0, int(a.size()), base - 1) == 0);
+      assert(wm.range_freq(0, int(a.size()), base + 270) == int(a.size()));
+    }
+  }
+  for (int distinct : {255, 256, 257, 4095, 4096, 4097}) {
+    vector<long long> a(8192);
+    for (int i = 0; i < int(a.size()); ++i) a[i] = -5000 + 2LL * (i % distinct);
+    shuffle(a.begin(), a.end(), rng);
+    check(a, rng, seed, 12, false);
+  }
   blueberry::WaveletMatrix<int> original(vector<int>{4, 2});
   auto copied = original;
   original = blueberry::WaveletMatrix<int>();
