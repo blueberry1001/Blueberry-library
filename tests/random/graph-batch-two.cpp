@@ -6,6 +6,7 @@
 #include <numeric>
 #include <random>
 #include <set>
+#include <stdexcept>
 #include "blueberry/graph/cycle-detection.hpp"
 #include "blueberry/graph/topological-sort.hpp"
 #include "blueberry/graph/tree-diameter.hpp"
@@ -55,6 +56,7 @@ int main(int argc, char** argv) {
     if (order) { vector<int> pos(n); for (int i = 0; i < n; ++i) pos[(*order)[i]] = i; for (auto [u, v] : edges) assert(pos[u] < pos[v]); }
     edges.clear(); vector<vector<int>> adj(n, vector<int>(n));
     for (int u = 0; u < n; ++u) for (int v = u + 1; v < n; ++v) if (rng() % 2) { edges.emplace_back(u, v); adj[u][v] = adj[v][u] = 1; }
+    shuffle(edges.begin(), edges.end(), rng); for (auto& [u, v] : edges) if (rng() % 2) swap(u, v);
     set<array<int, 3>> expected, got;
     for (int a = 0; a < n; ++a) for (int b = a + 1; b < n; ++b) for (int z = b + 1; z < n; ++z) if (adj[a][b] && adj[b][z] && adj[z][a]) expected.insert({a, b, z});
     blueberry::enumerate_triangles(n, edges, [&](int a, int b, int z) { array<int, 3> t{a,b,z}; sort(t.begin(), t.end()); assert(got.insert(t).second); });
@@ -79,4 +81,27 @@ int main(int argc, char** argv) {
   assert(blueberry::tree_diameter(vector<vector<pair<int,int>>>(1)).second == vector<int>{0});
   vector<vector<pair<int,int>>> zero{{{1,0}},{{0,0}}};
   assert(blueberry::tree_diameter(zero).first == 0);
+  vector<pair<int, int>> triangle{{0, 1}, {1, 2}, {2, 0}};
+  int count = 0;
+  blueberry::enumerate_triangles(3, triangle, [&](int, int, int) {
+    int inner = 0;
+    blueberry::enumerate_triangles(3, triangle, [&](int, int, int) { ++inner; });
+    assert(inner == 1); ++count;
+  });
+  assert(count == 1);
+  bool caught = false;
+  try { blueberry::enumerate_triangles(3, triangle, [&](int, int, int) { throw runtime_error("expected"); }); }
+  catch (const runtime_error&) { caught = true; }
+  assert(caught);
+  vector<pair<int, int>> complete{{0, 1}, {0, 2}, {0, 3}, {1, 2}, {1, 3}, {2, 3}};
+  vector<array<int, 3>> calls;
+  blueberry::enumerate_triangles(4, complete, [&](int& u, int& v, int& w) {
+    calls.push_back({u, v, w}); v = 0; w = 0;
+  });
+  assert((calls == vector<array<int, 3>>{{0, 1, 2}, {0, 0, 3}, {0, 2, 3}, {1, 2, 3}}));
+  calls.clear();
+  blueberry::enumerate_triangles(4, complete, [&](int& u, int& v, int& w) {
+    calls.push_back({u, v, w}); u = 3;
+  });
+  assert((calls == vector<array<int, 3>>{{0, 1, 2}}));
 }
