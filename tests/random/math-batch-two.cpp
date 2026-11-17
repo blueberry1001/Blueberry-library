@@ -13,6 +13,13 @@
 #include "blueberry/math/enumerate-quotients.hpp"
 #include "blueberry/math/kth-root-integer.hpp"
 
+struct MutableRing {
+  long long value = 0;
+  MutableRing& operator+=(MutableRing& x) { value += x.value; return *this; }
+  MutableRing& operator-=(MutableRing& x) { value -= x.value; return *this; }
+  MutableRing& operator*=(MutableRing& x) { value *= x.value; return *this; }
+};
+
 int main(int argc, char** argv) {
   const unsigned seed = argc > 1 ? static_cast<unsigned>(std::strtoul(argv[1], nullptr, 10)) : 20260918;
   std::cerr << "math-batch-two seed=" << seed << '\n';
@@ -66,5 +73,13 @@ int main(int argc, char** argv) {
     blueberry::divisor_mobius(x); assert(x == a);
     blueberry::multiple_zeta(x); assert(x == m);
     blueberry::multiple_mobius(x); assert(x == a);
+  }
+  for (int n : {0, 1, 2, 17, 128}) {
+    std::vector<MutableRing> a(n), b(n);
+    std::vector<long long> x(n), y(n);
+    for (int i = 0; i < n; ++i) { a[i].value = x[i] = int(rng() % 9) - 4; b[i].value = y[i] = int(rng() % 9) - 4; }
+    auto g = blueberry::gcd_convolution(a, b), l = blueberry::lcm_convolution(a, b);
+    auto expected_g = blueberry::gcd_convolution(x, y), expected_l = blueberry::lcm_convolution(x, y);
+    for (int i = 0; i < n; ++i) { assert(g[i].value == expected_g[i]); assert(l[i].value == expected_l[i]); }
   }
 }

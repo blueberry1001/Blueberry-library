@@ -1,0 +1,102 @@
+import ctypes
+import hashlib
+import json
+import os
+import pathlib
+import platform
+import statistics
+import subprocess
+
+root = pathlib.Path.cwd()
+src = root / 'docs/development/measurements/divisor-convolution-paired-20261117'
+build = root / '.build/divisor-convolution-paired-20261117'
+build.mkdir(parents=True, exist_ok=True)
+vc = pathlib.Path(r'C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Tools\MSVC\14.43.34808')
+sdk = pathlib.Path(r'C:\Program Files (x86)\Windows Kits\10')
+version = '10.0.22621.0'
+compiler = pathlib.Path(r'C:\Program Files\Unity\Hub\Editor\6000.5.2f1\Editor\Data\PlaybackEngines\AndroidPlayer\NDK\toolchains\llvm\prebuilt\windows-x86_64\bin\clang++.exe')
+env = os.environ.copy()
+env['PATH'] = str(vc / 'bin/Hostx64/x64') + os.pathsep + env['PATH']
+env['INCLUDE'] = os.pathsep.join(map(str, [vc / 'include', *(sdk / 'Include' / version / p for p in ('ucrt', 'shared', 'um'))]))
+env['LIB'] = os.pathsep.join(map(str, [vc / 'lib/x64', *(sdk / 'Lib' / version / p / 'x64' for p in ('ucrt', 'um'))]))
+baseline = subprocess.check_output(['git', 'show', 'HEAD:blueberry/math/divisor-convolution.hpp'], cwd=root)
+assert baseline.count(b'namespace blueberry {') == 1
+(src / 'baseline-original.hpp.txt').write_bytes(baseline)
+(src / 'baseline.hpp.txt').write_bytes(baseline.replace(b'namespace blueberry {', b'namespace old_divisor {'))
+candidate = (root / 'blueberry/math/divisor-convolution.hpp').read_bytes()
+(src / 'candidate.hpp.txt').write_bytes(candidate)
+kernel = ctypes.WinDLL('kernel32', use_last_error=True)
+kernel.GetCurrentProcess.restype = ctypes.c_void_p
+kernel.GetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.POINTER(ctypes.c_size_t), ctypes.POINTER(ctypes.c_size_t)]
+kernel.SetProcessAffinityMask.argtypes = [ctypes.c_void_p, ctypes.c_size_t]
+process = kernel.GetCurrentProcess()
+original_mask = ctypes.c_size_t()
+system_mask = ctypes.c_size_t()
+data = {'status':'running', 'platform':platform.platform(), 'processor':platform.processor(), 'compiler':str(compiler),
+        'hashes':{}, 'builds':[], 'checks':[], 'samples':[], 'summary':[], 'warmups':2, 'runs':7}
+def save():
+    (src / 'results.json').write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+def digest(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+for name in ('baseline-original.hpp.txt', 'baseline.hpp.txt', 'candidate.hpp.txt', 'bench.cpp.txt', 'run.py.txt'):
+    data['hashes'][name] = digest(src / name)
+save()
+try:
+    if not kernel.GetProcessAffinityMask(process, ctypes.byref(original_mask), ctypes.byref(system_mask)):
+        raise OSError('GetProcessAffinityMask failed')
+    available = [1 << i for i in range(64) if original_mask.value & (1 << i)]
+    mask = available[1] if len(available) > 1 else available[0]
+    if not kernel.SetProcessAffinityMask(process, mask): raise OSError('SetProcessAffinityMask failed')
+    data['affinity_original'] = hex(original_mask.value)
+    data['affinity_selected'] = hex(mask)
+    data['compiler_version'] = subprocess.check_output([str(compiler), '--version'], text=True).splitlines()[0]
+    save()
+    for standard in ('gnu++20', 'gnu++23'):
+        for release in (False, True):
+            exe = build / (standard + ('-release.exe' if release else '-assert.exe'))
+            cmd = [str(compiler), '--target=x86_64-pc-windows-msvc', '-fuse-ld=link', '-std='+standard,
+                   '-O2', '-Wall', '-Wextra', '-Wshadow', '-Werror', *(['-DNDEBUG'] if release else []),
+                   '-iquote', str(root), '-iquote', str(src), '-isystem', str(root / '.deps/ac-library'),
+                   '-x', 'c++', str(src / 'bench.cpp.txt'), '-lpsapi', '-o', str(exe)]
+            run = subprocess.run(cmd, env=env, cwd=root, text=True, errors='replace', capture_output=True)
+            data['builds'].append({'cmd':cmd, 'exit':run.returncode, 'stdout':run.stdout, 'stderr':run.stderr})
+            save()
+            if run.returncode: raise RuntimeError('build failed')
+            run = subprocess.run([str(exe), 'check'], env=env, cwd=root, text=True, errors='replace', capture_output=True, timeout=180)
+            data['checks'].append({'exe':str(exe), 'hash':digest(exe), 'exit':run.returncode, 'stdout':run.stdout, 'stderr':run.stderr})
+            save()
+            if run.returncode: raise RuntimeError('correctness comparison failed')
+    exe = build / 'gnu++20-release.exe'
+    cases = [(op,n,reps,kind) for op in (0,1) for n,reps in ((0,50000),(1,50000),(2,30000),(20,20000),(1000,1000),(100000,15),(1000000,2)) for kind in (0,1)]
+    cases += [(op,100000,15,kind) for op in (2,3,4,5) for kind in (0,1)]
+    for case in cases:
+        op,n,reps,kind = case
+        expected = None
+        samples = {0:[],1:[]}
+        for trial in range(-2,7):
+            for variant in ((0,1) if trial % 2 == 0 else (1,0)):
+                cmd = [str(exe), str(variant), str(op), str(n), str(reps), str(kind)]
+                child = subprocess.Popen(cmd, env=env, cwd=root, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                child_mask = ctypes.c_size_t()
+                ok = kernel.GetProcessAffinityMask(ctypes.c_void_p(child._handle), ctypes.byref(child_mask), ctypes.byref(system_mask))
+                out,err = child.communicate(timeout=180)
+                row={'op':op, 'n':n, 'reps':reps, 'type':kind, 'trial':trial, 'variant':variant,
+                     'exit':child.returncode, 'stdout':out, 'stderr':err, 'child_mask':hex(child_mask.value) if ok else None}
+                data['samples'].append(row); save()
+                if child.returncode or not ok or child_mask.value != mask: raise RuntimeError('execution or affinity failed')
+                fields=out.split()
+                if len(fields)!=3: raise RuntimeError('bad sample')
+                elapsed,checksum,peak=fields
+                if peak=='unavailable': raise RuntimeError('peak working set unavailable')
+                row.update({'ms':float(elapsed), 'checksum':checksum, 'peak_bytes':int(peak)})
+                if expected is None: expected=checksum
+                if expected!=checksum: raise RuntimeError('checksum mismatch')
+                if trial>=0: samples[variant].append(float(elapsed))
+                save()
+        data['summary'].append({'op':op,'n':n,'reps':reps,'type':kind,
+            'baseline_median':statistics.median(samples[0]),'candidate_median':statistics.median(samples[1]),
+            'baseline_min':min(samples[0]),'baseline_max':max(samples[0]),
+            'candidate_min':min(samples[1]),'candidate_max':max(samples[1])})
+        save()
+    data['status']='complete'; save()
+except BaseException as exc:
+    data['status']='failed'; data['error']=repr(exc); save(); raise
