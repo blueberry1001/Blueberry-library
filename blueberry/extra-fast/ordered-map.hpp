@@ -23,9 +23,7 @@ namespace internal {
 struct OrderedSetMarker {
   std::uint8_t unused;
 };
-} // namespace internal
-// Dynamic integer B+ tree; node search uses AVX2 when available.
-// Full 32/64-bit keys, trivial values. Mutations invalidate iterators/references.
+}
 template <class Key = std::uint32_t, class Value = std::uint64_t> class OrderedMap {
   static_assert(std::is_integral_v<Key> && (sizeof(Key) == 4 || sizeof(Key) == 8));
   static_assert(std::is_trivial_v<Value> && std::is_trivially_copy_constructible_v<Value> &&
@@ -337,6 +335,24 @@ template <class Key = std::uint32_t, class Value = std::uint64_t> class OrderedM
       for (int i = 0; i < node.n; ++i)
         visit(node.data.child[i], f);
   }
+  void erase_at(const Path &p) {
+    remove_slot(p.leaf, p.pos);
+    for (int d = p.depth - 1; d >= 0; --d) {
+      int parent = p.node[d];
+      rebalance(parent, p.child[d]);
+      pull(parent);
+    }
+    if (nodes_[root_].n == 0) {
+      int old = root_;
+      root_ = -1;
+      first_ = last_ = -1;
+      recycle(old);
+    } else if (!nodes_[root_].leaf && nodes_[root_].n == 1) {
+      int old = root_;
+      root_ = nodes_[old].data.child[0];
+      recycle(old);
+    }
+  }
 
   template <bool Const> class basic_iterator {
     using Owner = std::conditional_t<Const, const OrderedMap, OrderedMap>;
@@ -520,33 +536,19 @@ public:
     auto p = seek(key);
     if (p.leaf == -1 || p.pos == nodes_[p.leaf].n || nodes_[p.leaf].key[p.pos] != key)
       return false;
-    int id = p.leaf;
-    remove_slot(id, p.pos);
-    for (int d = p.depth - 1; d >= 0; --d) {
-      int parent = p.node[d];
-      rebalance(parent, p.child[d]);
-      pull(parent);
-      id = parent;
-    }
-    if (nodes_[root_].n == 0) {
-      int old = root_;
-      root_ = -1;
-      first_ = last_ = -1;
-      recycle(old);
-    } else if (!nodes_[root_].leaf && nodes_[root_].n == 1) {
-      int old = root_;
-      root_ = nodes_[old].data.child[0];
-      recycle(old);
-    }
+    erase_at(p);
     return true;
   }
   iterator erase(const_iterator pos) {
-    assert(pos.owner_ == this && pos.leaf_ != -1);
     const Key key = nodes_[pos.leaf_].key[pos.pos_];
+    const auto path = seek(key);
+    const bool direct = path.depth == 0 || nodes_[path.leaf].n > B / 2;
     const auto next = ++pos;
     const bool has_next = next != cend();
-    const Key next_key = has_next ? nodes_[next.leaf_].key[next.pos_] : Key{};
-    erase(key);
+    const Key next_key = has_next && !direct ? nodes_[next.leaf_].key[next.pos_] : Key{};
+    const int next_leaf = next.leaf_, next_pos = next.pos_;
+    erase_at(path);
+    if (direct) return iterator(this, next_leaf, next_leaf == path.leaf ? next_pos - 1 : next_pos);
     return has_next ? find(next_key) : end();
   }
   void clear() {
@@ -608,5 +610,5 @@ public:
     tree_.for_each([&](const Key &key, internal::OrderedSetMarker) { f(key); });
   }
 };
-} // namespace blueberry::extra_fast
+}
 #undef BLUEBERRY_ORDERED_AVX

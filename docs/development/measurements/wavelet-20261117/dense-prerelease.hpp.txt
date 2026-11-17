@@ -1,0 +1,242 @@
+#pragma once
+
+#include <algorithm>
+#include <array>
+#include <bit>
+#include <cstddef>
+#include <cstdint>
+#include <numeric>
+#include <optional>
+#include <type_traits>
+#include <vector>
+
+namespace blueberry {
+
+template <class T>
+class WaveletMatrix {
+  static_assert(std::is_integral_v<T> && !std::is_same_v<T, bool>);
+
+  struct Level {
+    std::vector<std::uint64_t> bits;
+    std::vector<int> prefix;
+    int zeros = 0;
+
+    int rank(int r) const {
+      const int block = r / 64, offset = r % 64;
+      return prefix[block] + std::popcount(bits[block] & ((std::uint64_t{1} << offset) - 1));
+    }
+  };
+
+  int n_ = 0;
+  int height_ = 0;
+  bool direct_ = false;
+  std::vector<int> dense_;
+  std::vector<T> values_;
+  std::vector<Level> levels_;
+
+  int lower(const T& x) const {
+    if (direct_ || !dense_.empty()) {
+      if (x < values_.front()) return 0;
+      using U = std::make_unsigned_t<T>;
+      U d = U(U(x) - U(values_.front()));
+      if (direct_) return d >= values_.size() ? static_cast<int>(values_.size()) : static_cast<int>(d);
+      return d >= dense_.size() ? static_cast<int>(values_.size()) : dense_[static_cast<std::size_t>(d)];
+    }
+    return static_cast<int>(std::lower_bound(values_.begin(), values_.end(), x) - values_.begin());
+  }
+
+  int count_less(int l, int r, int code, int first = 0) const {
+    if (code == static_cast<int>(values_.size())) return r - l;
+    int answer = 0;
+    for (int h = first; h < height_; ++h) {
+      const auto& level = levels_[h];
+      const int ones_l = level.rank(l), ones_r = level.rank(r);
+      if ((code >> (height_ - 1 - h)) & 1) {
+        answer += (r - l) - (ones_r - ones_l);
+        l = level.zeros + ones_l;
+        r = level.zeros + ones_r;
+      } else {
+        l -= ones_l;
+        r -= ones_r;
+      }
+    }
+    return answer;
+  }
+
+ public:
+  WaveletMatrix() = default;
+
+  explicit WaveletMatrix(const std::vector<T>& a) : values_(a) {
+    n_ = static_cast<int>(a.size());
+    if (n_ == 0) return;
+    std::vector<int> current(n_), next(n_);
+    bool encoded = false;
+    if (std::is_sorted(a.begin(), a.end())) {
+      int distinct = 0;
+      for (int i = 0; i < n_; ++i) {
+        if (distinct == 0 || values_[distinct - 1] != a[i]) values_[distinct++] = a[i];
+        current[i] = distinct - 1;
+      }
+      values_.resize(distinct);
+      encoded = true;
+    }
+    if (!encoded) {
+      std::iota(next.begin(), next.end(), 0);
+      using U = std::make_unsigned_t<T>;
+      U base = 0, remaining = 0;
+      int passes = 0;
+      if (n_ >= 64) {
+        const auto [minimum, maximum] = std::minmax_element(a.begin(), a.end());
+        base = static_cast<U>(*minimum);
+        remaining = U(static_cast<U>(*maximum) - base);
+        if constexpr (sizeof(T) <= 8) {
+          if (static_cast<std::uint64_t>(remaining) <= std::min<std::uint64_t>(1u << 20, std::uint64_t(n_) * 8)) {
+            std::vector<int> mapping(static_cast<std::size_t>(remaining) + 1, -1);
+            for (const auto& value : a) mapping[U(static_cast<U>(value) - base)] = 0;
+            int distinct = 0;
+            for (int& value : mapping) { bool present = value == 0; value = distinct; distinct += present; }
+            for (int i = 0; i < n_; ++i) { current[i] = mapping[U(static_cast<U>(a[i]) - base)]; values_[current[i]] = a[i]; }
+            values_.resize(distinct);
+            dense_.swap(mapping);
+            encoded = true;
+          }
+        }
+        for (U width = remaining; width; width = U(width / 256)) ++passes;
+        if constexpr (sizeof(T) <= 8) if (!encoded && passes > 6) {
+          int sampled = std::min(n_, 256), extreme = 0;
+          for (int i = 0; i < sampled; ++i) { const T& value = a[std::size_t(i) * std::size_t(n_) / sampled]; extreme += value == *minimum || value == *maximum; }
+          if (extreme * 2 >= sampled) passes = n_;
+        }
+      }
+      if (!encoded) {
+        if (n_ < 64 || n_ < 128LL * passes) {
+          std::sort(next.begin(), next.end(), [&](int i, int j) { return a[i] < a[j]; });
+        } else {
+          for (int shift = 0; remaining; shift += 8, remaining = U(remaining / 256)) {
+            std::array<int, 256> offsets{};
+            for (int p : next) ++offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255];
+            int offset = 0;
+            for (int& count : offsets) { const int size = count; count = offset; offset += size; }
+            for (int p : next) current[offsets[(U(static_cast<U>(a[p]) - base) >> shift) & 255]++] = p;
+            current.swap(next);
+          }
+        }
+        int distinct = 0;
+        for (int p : next) {
+          if (distinct == 0 || values_[distinct - 1] != a[p]) values_[distinct++] = a[p];
+          current[p] = distinct - 1;
+        }
+        values_.resize(distinct);
+      }
+    }
+    using DirectU = std::make_unsigned_t<T>;
+    direct_ = DirectU(DirectU(values_.back()) - DirectU(values_.front())) == DirectU(values_.size() - 1);
+    height_ = std::bit_width(static_cast<unsigned>(values_.size() - 1));
+    levels_.resize(height_);
+    for (int h = 0; h < height_; ++h) {
+      auto& level = levels_[h];
+      const int shift = height_ - 1 - h;
+      const int blocks = n_ / 64 + 1;
+      level.bits.assign(blocks, 0);
+      level.prefix.assign(blocks, 0);
+      for (int i = 0; i < n_; ++i) {
+        if ((current[i] >> shift) & 1) level.bits[i / 64] |= std::uint64_t{1} << (i % 64);
+      }
+      for (int b = 1; b < blocks; ++b) {
+        level.prefix[b] = level.prefix[b - 1] + std::popcount(level.bits[b - 1]);
+      }
+      level.zeros = n_ - level.rank(n_);
+      int zero = 0, one = level.zeros;
+      for (int code : current) {
+        next[((code >> shift) & 1) ? one++ : zero++] = code;
+      }
+      current.swap(next);
+    }
+  }
+
+  int size() const { return n_; }
+
+  T get(int p) const {
+    int code = 0;
+    for (const auto& level : levels_) {
+      const int bit = static_cast<int>((level.bits[p / 64] >> (p % 64)) & 1);
+      code = (code << 1) | bit;
+      const int ones = level.rank(p);
+      p = bit ? level.zeros + ones : p - ones;
+    }
+    return values_[code];
+  }
+
+  T kth_smallest(int l, int r, int k) const {
+    int code = 0;
+    for (const auto& level : levels_) {
+      const int ones_l = level.rank(l), ones_r = level.rank(r);
+      const int zeros = (r - l) - (ones_r - ones_l);
+      const bool bit = k >= zeros;
+      code = (code << 1) | static_cast<int>(bit);
+      if (bit) {
+        k -= zeros;
+        l = level.zeros + ones_l;
+        r = level.zeros + ones_r;
+      } else {
+        l -= ones_l;
+        r -= ones_r;
+      }
+    }
+    return values_[code];
+  }
+
+  T kth_largest(int l, int r, int k) const {
+    return kth_smallest(l, r, r - l - 1 - k);
+  }
+
+  int count(int l, int r, const T& x) const {
+    const int code = lower(x);
+    if (code == static_cast<int>(values_.size()) || values_[code] != x) return 0;
+    for (int h = 0; h < height_; ++h) {
+      const auto& level = levels_[h];
+      const int ones_l = level.rank(l), ones_r = level.rank(r);
+      if ((code >> (height_ - 1 - h)) & 1) {
+        l = level.zeros + ones_l;
+        r = level.zeros + ones_r;
+      } else {
+        l -= ones_l;
+        r -= ones_r;
+      }
+    }
+    return r - l;
+  }
+
+  int range_freq(int l, int r, const T& upper) const {
+    return count_less(l, r, lower(upper));
+  }
+
+  int range_freq(int l, int r, const T& lower_value, const T& upper) const {
+    const int lo = lower(lower_value), hi = lower(upper);
+    if (lo == hi) return 0;
+    if (hi == static_cast<int>(values_.size())) return r - l - count_less(l, r, lo);
+    int first = 0;
+    while (first < height_ && ((lo ^ hi) >> (height_ - 1 - first)) == 0) {
+      const auto& level = levels_[first];
+      const int ones_l = level.rank(l), ones_r = level.rank(r);
+      if ((lo >> (height_ - 1 - first)) & 1) { l = level.zeros + ones_l; r = level.zeros + ones_r; }
+      else { l -= ones_l; r -= ones_r; }
+      ++first;
+    }
+    return count_less(l, r, hi, first) - count_less(l, r, lo, first);
+  }
+
+  std::optional<T> prev_value(int l, int r, const T& upper) const {
+    const int k = range_freq(l, r, upper);
+    if (k == 0) return std::nullopt;
+    return kth_smallest(l, r, k - 1);
+  }
+
+  std::optional<T> next_value(int l, int r, const T& lower_value) const {
+    const int k = range_freq(l, r, lower_value);
+    if (k == r - l) return std::nullopt;
+    return kth_smallest(l, r, k);
+  }
+};
+
+}
