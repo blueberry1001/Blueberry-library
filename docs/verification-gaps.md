@@ -779,6 +779,7 @@
 
 - 専用ドライバ: [verify/math/multipoint-evaluation.test.cpp](../verify/math/multipoint-evaluation.test.cpp) / [問題](https://judge.yosupo.jp/problem/multipoint_evaluation)
 - 関連ローカルテスト: [tests/random/math-batch-four.cpp](../tests/random/math-batch-four.cpp)
+- 関連ローカルテスト: [tests/random/multipoint-low-degree.cpp](../tests/random/multipoint-low-degree.cpp)
 
 ## Partition Function
 
