@@ -1,0 +1,2060 @@
+{
+  "status": "complete",
+  "started_utc": "2026-11-18T00:01:37.792679+00:00",
+  "args": {
+    "compiler": "clang++",
+    "std": "gnu++20",
+    "n": 131072,
+    "count": 200000,
+    "seed": 20261118,
+    "runs": 5,
+    "warmups": 1,
+    "output": "clang.json"
+  },
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "processor": "x86_64",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "git_head": {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "97aa84673d34421262140d3fb8311b09219aa82b\n",
+    "stderr": ""
+  },
+  "compiler": {
+    "argv": [
+      "clang++",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n",
+    "stderr": ""
+  },
+  "time_version": {
+    "argv": [
+      "/usr/bin/time",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "time (GNU Time) UNKNOWN\nCopyright (C) 2018 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\nWritten by David Keppel, David MacKenzie, and Assaf Gordon.\n",
+    "stderr": ""
+  },
+  "source_sha256": {
+    "benchmark.cpp": "c1d08069649c92d087a2b413de37032ce771a0e3272e91e9599cac41b9262648",
+    "test.cpp": "ce263cf538d0a773141f40a8e3cea0c887085dde1a00475104ba26a052665553",
+    "run.py": "fee06b257a4a12d77d7474acda903eb37a08a39c435aa4aa0fc1e4034fcc37e4",
+    "baseline/blueberry/data-structure/persistent-array.hpp": "9de48e885a5098ef9adbb4e79753eacec005ab4061d1005f10330492468031dd",
+    "baseline/blueberry/data-structure/persistent-union-find.hpp": "c2b6bd219e49d86e7904984675bb7b8faec760bcb41929d93136677fbe8a491d",
+    "candidate/blueberry/data-structure/persistent-array.hpp": "666a708787ad6ba19523cfe3c2c60ae3be13ab1c0c54be218dab8a7354e2d10f",
+    "candidate/blueberry/data-structure/persistent-union-find.hpp": "a85f4e5e34f2145f8c75a1a187af9bb8ab036e2c0118257920281a049df67607"
+  },
+  "commands": [
+    {
+      "argv": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/baseline",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/test.cpp",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/test.cpp:62:26: warning: unqualified call to 'std::move' [-Wunqualified-std-cast-call]\n   62 |       expected.push_back(move(next));\n      |                          ^\n      |                          std::\n1 warning generated.\n"
+    },
+    {
+      "argv": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/baseline",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/benchmark.cpp",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+        "1"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=1\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+        "2"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=2\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+        "3"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=3\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=20261118\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+        "18446744073709551615"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=18446744073709551615\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/candidate",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/test.cpp",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/test.cpp:62:26: warning: unqualified call to 'std::move' [-Wunqualified-std-cast-call]\n   62 |       expected.push_back(move(next));\n      |                          ^\n      |                          std::\n1 warning generated.\n"
+    },
+    {
+      "argv": [
+        "clang++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/candidate",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/benchmark.cpp",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+        "1"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=1\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+        "2"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=2\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+        "3"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=3\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=20261118\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+        "18446744073709551615"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=18446744073709551615\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001478,\"merge_ms\":160.346,\"same_ms\":133.229,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.00113,\"merge_ms\":187.628,\"same_ms\":132.982,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001295,\"merge_ms\":157.853,\"same_ms\":139.124,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001466,\"merge_ms\":171.253,\"same_ms\":137.042,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000854,\"merge_ms\":145.615,\"same_ms\":120.849,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000465,\"merge_ms\":152.403,\"same_ms\":115.16,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000598,\"merge_ms\":141.48,\"same_ms\":122.089,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000777,\"merge_ms\":148.239,\"same_ms\":132.282,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.00123,\"merge_ms\":163.906,\"same_ms\":121.802,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000556,\"merge_ms\":154.618,\"same_ms\":120.504,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000768,\"merge_ms\":146.219,\"same_ms\":121.927,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.00065,\"merge_ms\":159.093,\"same_ms\":126.203,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000833,\"merge_ms\":114.219,\"same_ms\":42.6155,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.0009,\"merge_ms\":108.332,\"same_ms\":33.0877,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000997,\"merge_ms\":112.299,\"same_ms\":37.7978,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000974,\"merge_ms\":106.562,\"same_ms\":34.879,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000729,\"merge_ms\":123.608,\"same_ms\":41.5398,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001036,\"merge_ms\":109.82,\"same_ms\":36.425,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001041,\"merge_ms\":116.702,\"same_ms\":41.1335,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000706,\"merge_ms\":111.935,\"same_ms\":42.532,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000937,\"merge_ms\":127.711,\"same_ms\":43.8134,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.00063,\"merge_ms\":124.657,\"same_ms\":46.4458,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001294,\"merge_ms\":131.195,\"same_ms\":45.68,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001178,\"merge_ms\":139.623,\"same_ms\":51.2513,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001565,\"merge_ms\":1.78483,\"same_ms\":0.709578,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000945,\"merge_ms\":1.79741,\"same_ms\":0.634854,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.00119,\"merge_ms\":1.85668,\"same_ms\":0.677325,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001228,\"merge_ms\":1.69083,\"same_ms\":0.634445,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000715,\"merge_ms\":1.65113,\"same_ms\":0.680333,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000667,\"merge_ms\":1.59325,\"same_ms\":0.641061,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001101,\"merge_ms\":1.69911,\"same_ms\":0.667336,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000734,\"merge_ms\":1.72758,\"same_ms\":0.621897,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000686,\"merge_ms\":1.74064,\"same_ms\":0.631652,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000629,\"merge_ms\":1.55245,\"same_ms\":0.632604,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000951,\"merge_ms\":1.84097,\"same_ms\":0.670413,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000516,\"merge_ms\":1.55764,\"same_ms\":0.621518,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000979,\"merge_ms\":50.4067,\"same_ms\":241.326,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000793,\"merge_ms\":32.701,\"same_ms\":233.673,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000976,\"merge_ms\":53.996,\"same_ms\":234.561,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.00108,\"merge_ms\":34.2474,\"same_ms\":243.825,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000724,\"merge_ms\":37.2674,\"same_ms\":247.363,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000986,\"merge_ms\":64.6464,\"same_ms\":238.968,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000646,\"merge_ms\":34.2207,\"same_ms\":230.078,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000698,\"merge_ms\":56.4499,\"same_ms\":237.757,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001297,\"merge_ms\":55.2618,\"same_ms\":236.591,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001144,\"merge_ms\":34.5843,\"same_ms\":233.683,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000898,\"merge_ms\":33.2727,\"same_ms\":225.656,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001004,\"merge_ms\":85.5592,\"same_ms\":227.736,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    }
+  ],
+  "tests": [
+    {
+      "variant": "baseline",
+      "seed": 1,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+          "1"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=1\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 2,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+          "2"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=2\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 3,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+          "3"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=3\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 20261118,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+          "20261118"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=20261118\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 18446744073709551615,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/baseline-test",
+          "18446744073709551615"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=18446744073709551615\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 1,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+          "1"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=1\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 2,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+          "2"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=2\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 3,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+          "3"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=3\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 20261118,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+          "20261118"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=20261118\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 18446744073709551615,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/clang-bin/candidate-test",
+          "18446744073709551615"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=18446744073709551615\n",
+        "stderr": ""
+      }
+    }
+  ],
+  "samples": [
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.29867315599999245,
+      "peak_rss_kib": 109948,
+      "result": {
+        "construct_ms": 0.001478,
+        "merge_ms": 160.346,
+        "same_ms": 133.229,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.32596620000001053,
+      "peak_rss_kib": 113132,
+      "result": {
+        "construct_ms": 0.00113,
+        "merge_ms": 187.628,
+        "same_ms": 132.982,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.30240878800000814,
+      "peak_rss_kib": 109984,
+      "result": {
+        "construct_ms": 0.001295,
+        "merge_ms": 157.853,
+        "same_ms": 139.124,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.31367949400001294,
+      "peak_rss_kib": 109688,
+      "result": {
+        "construct_ms": 0.001466,
+        "merge_ms": 171.253,
+        "same_ms": 137.042,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.27218072200000165,
+      "peak_rss_kib": 109952,
+      "result": {
+        "construct_ms": 0.000854,
+        "merge_ms": 145.615,
+        "same_ms": 120.849,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.2726099550000072,
+      "peak_rss_kib": 111100,
+      "result": {
+        "construct_ms": 0.000465,
+        "merge_ms": 152.403,
+        "same_ms": 115.16,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.2687920580000025,
+      "peak_rss_kib": 111336,
+      "result": {
+        "construct_ms": 0.000598,
+        "merge_ms": 141.48,
+        "same_ms": 122.089,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.28554381300000387,
+      "peak_rss_kib": 111344,
+      "result": {
+        "construct_ms": 0.000777,
+        "merge_ms": 148.239,
+        "same_ms": 132.282,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.2907828350000017,
+      "peak_rss_kib": 110000,
+      "result": {
+        "construct_ms": 0.00123,
+        "merge_ms": 163.906,
+        "same_ms": 121.802,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.28041590200000144,
+      "peak_rss_kib": 112788,
+      "result": {
+        "construct_ms": 0.000556,
+        "merge_ms": 154.618,
+        "same_ms": 120.504,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.27313650499999653,
+      "peak_rss_kib": 111544,
+      "result": {
+        "construct_ms": 0.000768,
+        "merge_ms": 146.219,
+        "same_ms": 121.927,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.29185720499999945,
+      "peak_rss_kib": 113252,
+      "result": {
+        "construct_ms": 0.00065,
+        "merge_ms": 159.093,
+        "same_ms": 126.203,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.16322930799999824,
+      "peak_rss_kib": 109440,
+      "result": {
+        "construct_ms": 0.000833,
+        "merge_ms": 114.219,
+        "same_ms": 42.6155,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.14748343799999475,
+      "peak_rss_kib": 109528,
+      "result": {
+        "construct_ms": 0.0009,
+        "merge_ms": 108.332,
+        "same_ms": 33.0877,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.1561799389999976,
+      "peak_rss_kib": 110944,
+      "result": {
+        "construct_ms": 0.000997,
+        "merge_ms": 112.299,
+        "same_ms": 37.7978,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.14746314500000324,
+      "peak_rss_kib": 109780,
+      "result": {
+        "construct_ms": 0.000974,
+        "merge_ms": 106.562,
+        "same_ms": 34.879,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.17109918399999913,
+      "peak_rss_kib": 109724,
+      "result": {
+        "construct_ms": 0.000729,
+        "merge_ms": 123.608,
+        "same_ms": 41.5398,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.1526346840000059,
+      "peak_rss_kib": 111876,
+      "result": {
+        "construct_ms": 0.001036,
+        "merge_ms": 109.82,
+        "same_ms": 36.425,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.16441466099999502,
+      "peak_rss_kib": 110384,
+      "result": {
+        "construct_ms": 0.001041,
+        "merge_ms": 116.702,
+        "same_ms": 41.1335,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.16044167700000855,
+      "peak_rss_kib": 108440,
+      "result": {
+        "construct_ms": 0.000706,
+        "merge_ms": 111.935,
+        "same_ms": 42.532,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.17786655099999393,
+      "peak_rss_kib": 111696,
+      "result": {
+        "construct_ms": 0.000937,
+        "merge_ms": 127.711,
+        "same_ms": 43.8134,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.17763297000000478,
+      "peak_rss_kib": 109552,
+      "result": {
+        "construct_ms": 0.00063,
+        "merge_ms": 124.657,
+        "same_ms": 46.4458,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.18369360500000198,
+      "peak_rss_kib": 111236,
+      "result": {
+        "construct_ms": 0.001294,
+        "merge_ms": 131.195,
+        "same_ms": 45.68,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.1971584220000011,
+      "peak_rss_kib": 109796,
+      "result": {
+        "construct_ms": 0.001178,
+        "merge_ms": 139.623,
+        "same_ms": 51.2513,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.007092772999996555,
+      "peak_rss_kib": 9776,
+      "result": {
+        "construct_ms": 0.001565,
+        "merge_ms": 1.78483,
+        "same_ms": 0.709578,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.006716922999999042,
+      "peak_rss_kib": 9716,
+      "result": {
+        "construct_ms": 0.000945,
+        "merge_ms": 1.79741,
+        "same_ms": 0.634854,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.006888583999995035,
+      "peak_rss_kib": 9956,
+      "result": {
+        "construct_ms": 0.00119,
+        "merge_ms": 1.85668,
+        "same_ms": 0.677325,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.0066752639999947405,
+      "peak_rss_kib": 10308,
+      "result": {
+        "construct_ms": 0.001228,
+        "merge_ms": 1.69083,
+        "same_ms": 0.634445,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.006439064999995026,
+      "peak_rss_kib": 9796,
+      "result": {
+        "construct_ms": 0.000715,
+        "merge_ms": 1.65113,
+        "same_ms": 0.680333,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.006268656000003148,
+      "peak_rss_kib": 10080,
+      "result": {
+        "construct_ms": 0.000667,
+        "merge_ms": 1.59325,
+        "same_ms": 0.641061,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.00660875500000202,
+      "peak_rss_kib": 9968,
+      "result": {
+        "construct_ms": 0.001101,
+        "merge_ms": 1.69911,
+        "same_ms": 0.667336,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.006368502000000831,
+      "peak_rss_kib": 10244,
+      "result": {
+        "construct_ms": 0.000734,
+        "merge_ms": 1.72758,
+        "same_ms": 0.621897,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.006389470999991431,
+      "peak_rss_kib": 10692,
+      "result": {
+        "construct_ms": 0.000686,
+        "merge_ms": 1.74064,
+        "same_ms": 0.631652,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.006242789000012294,
+      "peak_rss_kib": 9712,
+      "result": {
+        "construct_ms": 0.000629,
+        "merge_ms": 1.55245,
+        "same_ms": 0.632604,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.006472145000003593,
+      "peak_rss_kib": 9592,
+      "result": {
+        "construct_ms": 0.000951,
+        "merge_ms": 1.84097,
+        "same_ms": 0.670413,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.006172766000005936,
+      "peak_rss_kib": 10632,
+      "result": {
+        "construct_ms": 0.000516,
+        "merge_ms": 1.55764,
+        "same_ms": 0.621518,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.2955110660000031,
+      "peak_rss_kib": 108800,
+      "result": {
+        "construct_ms": 0.000979,
+        "merge_ms": 50.4067,
+        "same_ms": 241.326,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.27064093399999933,
+      "peak_rss_kib": 61420,
+      "result": {
+        "construct_ms": 0.000793,
+        "merge_ms": 32.701,
+        "same_ms": 233.673,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.2930607380000083,
+      "peak_rss_kib": 111392,
+      "result": {
+        "construct_ms": 0.000976,
+        "merge_ms": 53.996,
+        "same_ms": 234.561,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.2823610939999952,
+      "peak_rss_kib": 58856,
+      "result": {
+        "construct_ms": 0.00108,
+        "merge_ms": 34.2474,
+        "same_ms": 243.825,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.28880922000000453,
+      "peak_rss_kib": 59680,
+      "result": {
+        "construct_ms": 0.000724,
+        "merge_ms": 37.2674,
+        "same_ms": 247.363,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.30797316500000704,
+      "peak_rss_kib": 110172,
+      "result": {
+        "construct_ms": 0.000986,
+        "merge_ms": 64.6464,
+        "same_ms": 238.968,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.2688052139999968,
+      "peak_rss_kib": 59804,
+      "result": {
+        "construct_ms": 0.000646,
+        "merge_ms": 34.2207,
+        "same_ms": 230.078,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.29884808599999246,
+      "peak_rss_kib": 111252,
+      "result": {
+        "construct_ms": 0.000698,
+        "merge_ms": 56.4499,
+        "same_ms": 237.757,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.29610668200000134,
+      "peak_rss_kib": 108172,
+      "result": {
+        "construct_ms": 0.001297,
+        "merge_ms": 55.2618,
+        "same_ms": 236.591,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.2728695339999945,
+      "peak_rss_kib": 60712,
+      "result": {
+        "construct_ms": 0.001144,
+        "merge_ms": 34.5843,
+        "same_ms": 233.683,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.26358516499999496,
+      "peak_rss_kib": 58652,
+      "result": {
+        "construct_ms": 0.000898,
+        "merge_ms": 33.2727,
+        "same_ms": 225.656,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.31760788500000103,
+      "peak_rss_kib": 109028,
+      "result": {
+        "construct_ms": 0.001004,
+        "merge_ms": 85.5592,
+        "same_ms": 227.736,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    }
+  ],
+  "binary_sha256": {
+    "baseline": {
+      "test": "848561491d022e9756412c40a6e6c674bd754cba610722e3618b3ffb81ce7371",
+      "benchmark": "29e02a3332c44b0283b61b03ae26f3e81b3d20b1e2f59e1b2cacc7a2bb07d636"
+    },
+    "candidate": {
+      "test": "0759fc14af21380d4e91e6b901a67bf6d03e792443cb58f2194414f1bc073e69",
+      "benchmark": "2b5dd2207573f2fc39ecb35a72cd40f8ba0ac713640bccf7b6c2b1336d788a5e"
+    }
+  },
+  "summary": {
+    "chain": {
+      "baseline": {
+        "merge_ms": {
+          "median": 154.618,
+          "min": 148.239
+        },
+        "same_ms": {
+          "median": 126.203,
+          "min": 115.16
+        },
+        "peak_rss_kib": {
+          "median": 111344,
+          "min": 109984
+        }
+      },
+      "candidate": {
+        "merge_ms": {
+          "median": 146.219,
+          "min": 141.48
+        },
+        "same_ms": {
+          "median": 121.927,
+          "min": 120.849
+        },
+        "peak_rss_kib": {
+          "median": 110000,
+          "min": 109688
+        }
+      }
+    },
+    "branch": {
+      "baseline": {
+        "merge_ms": {
+          "median": 123.608,
+          "min": 112.299
+        },
+        "same_ms": {
+          "median": 41.5398,
+          "min": 37.7978
+        },
+        "peak_rss_kib": {
+          "median": 109796,
+          "min": 109552
+        }
+      },
+      "candidate": {
+        "merge_ms": {
+          "median": 111.935,
+          "min": 106.562
+        },
+        "same_ms": {
+          "median": 42.532,
+          "min": 34.879
+        },
+        "peak_rss_kib": {
+          "median": 111236,
+          "min": 108440
+        }
+      }
+    },
+    "self": {
+      "baseline": {
+        "merge_ms": {
+          "median": 1.59325,
+          "min": 1.55245
+        },
+        "same_ms": {
+          "median": 0.634445,
+          "min": 0.621518
+        },
+        "peak_rss_kib": {
+          "median": 10080,
+          "min": 9712
+        }
+      },
+      "candidate": {
+        "merge_ms": {
+          "median": 1.74064,
+          "min": 1.65113
+        },
+        "same_ms": {
+          "median": 0.670413,
+          "min": 0.621897
+        },
+        "peak_rss_kib": {
+          "median": 9956,
+          "min": 9592
+        }
+      }
+    },
+    "deep": {
+      "baseline": {
+        "merge_ms": {
+          "median": 56.4499,
+          "min": 53.996
+        },
+        "same_ms": {
+          "median": 236.591,
+          "min": 227.736
+        },
+        "peak_rss_kib": {
+          "median": 110172,
+          "min": 108172
+        }
+      },
+      "candidate": {
+        "merge_ms": {
+          "median": 34.2474,
+          "min": 33.2727
+        },
+        "same_ms": {
+          "median": 233.683,
+          "min": 225.656
+        },
+        "peak_rss_kib": {
+          "median": 59680,
+          "min": 58652
+        }
+      }
+    }
+  },
+  "finished_utc": "2026-11-18T00:01:52.217908+00:00"
+}

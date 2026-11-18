@@ -8,7 +8,6 @@
 
 namespace blueberry {
 
-// Online full persistence via an immutable parent array, without path compression.
 class PersistentUnionFind {
   PersistentArray<int> parents_;
   std::vector<int> roots_{0}, components_;
@@ -38,8 +37,8 @@ class PersistentUnionFind {
     int state = root(version), count = components_[version];
     if (x != y) {
       if (sx < sy) { std::swap(x, y); std::swap(sx, sy); }
-      state = parents_.set(state, x, -(sx + sy));
-      state = parents_.set(state, y, x);
+      if (x < y) state = parents_.set_two(state, x, -(sx + sy), y, x);
+      else state = parents_.set_two(state, y, x, x, -(sx + sy));
       --count;
     }
     assert(roots_.size() < static_cast<std::size_t>(std::numeric_limits<int>::max()));
@@ -49,4 +48,4 @@ class PersistentUnionFind {
   }
 };
 
-}  // namespace blueberry
+}
