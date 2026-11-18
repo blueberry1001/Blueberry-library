@@ -52,14 +52,24 @@ struct ProductTree {
     return result;
   }
 };
-}  // namespace polynomial_detail
+}
 
 template <class Mint>
 std::vector<Mint> multipoint_evaluation(const std::vector<Mint>& f,
                                       const std::vector<Mint>& x) {
   if (f.empty() || x.empty()) return std::vector<Mint>(x.size());
   polynomial_detail::check_size<Mint>(f.size(), x.size());
+  if (f.size() == 1) return std::vector<Mint>(x.size(), f[0]);
+  if (f.size() <= 32 || x.size() == 1) {
+    std::vector<Mint> result(x.size());
+    for (std::size_t i = 0; i < x.size(); ++i) {
+      Mint value = 0;
+      for (auto it = f.rbegin(); it != f.rend(); ++it) value = value * x[i] + *it;
+      result[i] = value;
+    }
+    return result;
+  }
   return polynomial_detail::ProductTree<Mint>(x).evaluate(
       FormalPowerSeries<Mint>(f.begin(), f.end()), x);
 }
-}  // namespace blueberry
+}

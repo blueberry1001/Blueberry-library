@@ -1,0 +1,63 @@
+CPLUS_INCLUDE_PATH="/tmp/blueberry-multipoint-rT1Chj/.deps/ac-library" python3 scripts/verify_with_metrics.py --repeats 1 --timeout 900 verify/math/multipoint-evaluation.test.cpp
+INFO:onlinejudge_verify.config:config file loaded: .verify-helper/config.toml: {'languages': {'cpp': {'environments': [{'CXX': 'g++', 'CXXFLAGS': ['-std=gnu++20', '-O2', '-pipe', '-Wall', '-Wextra', '-Wshadow', '-D_GLIBCXX_ASSERTIONS']}]}}}
+INFO:onlinejudge_verify.verify:verify: verify/math/multipoint-evaluation.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/multipoint_evaluation
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/b7a1190ab2f8daacb7642b496d59fd41/test --silent https://judge.yosupo.jp/problem/multipoint_evaluation
+Traceback (most recent call last):
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 87, in verify_file
+    exec_command(command)
+  File "/tmp/blueberry-multipoint-rT1Chj/scripts/verify_with_metrics.py", line 371, in <lambda>
+    patch.object(verify, "exec_command", lambda cmd: recorder.execute(original_exec, cmd)), \
+                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/blueberry-multipoint-rT1Chj/scripts/verify_with_metrics.py", line 217, in execute
+    return original(command)
+           ^^^^^^^^^^^^^^^^^
+  File "/home/blueberry/.local/lib/python3.12/site-packages/onlinejudge_verify/verify.py", line 42, in exec_command
+    subprocess.check_call(command)
+  File "/usr/lib/python3.12/subprocess.py", line 408, in check_call
+    retcode = call(*popenargs, **kwargs)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 389, in call
+    with Popen(*popenargs, **kwargs) as p:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.12/subprocess.py", line 1955, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'oj'
+ERROR:onlinejudge_verify.verify:1 tests failed
+ERROR:onlinejudge_verify.verify:failed: verify/math/multipoint-evaluation.test.cpp
+::error file=verify/math/multipoint-evaluation.test.cpp::failed to verify
+# Verification timings
+
+Commit: 97aa84673d34421262140d3fb8311b09219aa82b / UTC: 2026-11-18T06:15:53.716300+00:00
+Baseline: なし（初回）
+
+単位は秒。直列実行・各ケースの solution elapsed 合計の中央値。コンパイル・DL・checkerは合計から除外。
+プロセス起動とI/Oは含みます。Yosupo提出画面の時間ではありません。共有runnerの小さな差は誤差として扱ってください。
+
+| Verify / 環境番号 | 状態 | コンパイル | 実行合計（中央値） | 最大ケース（中央値） | 基準との差 |
+| --- | --- | ---: | ---: | ---: | --- |
+| verify/math/multipoint-evaluation.test.cpp / 0 | failed | — | — | — | 未完了 / 失敗 |
+
+## Environment
+
+~~~json
+{
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "tools": {
+    "online-judge-verify-helper": "5.6.0",
+    "online-judge-tools": "11.5.1",
+    "online-judge-api-client": "10.10.1"
+  },
+  "method": "oj-elapsed-log-v1",
+  "recorder_sha256": "7f0209de9354fc42b61b3c31df5bc1bf5534c61d4fe0e57324ec016baafaaf02",
+  "jobs": 1,
+  "tle_seconds": 60
+}
+~~~
+
+make: *** [Makefile:37: verify] Error 1

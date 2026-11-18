@@ -10,6 +10,8 @@ documentation_of: //blueberry/math/multipoint-evaluation.hpp
 多項式の値を任意の点でまとめて求めます。係数は次数昇順で、Mintは素数modulusのACL `static_modint` を使います。中間計算に必要なNTT長をmodulusがサポートすることが前提です。
 
 N=f.size()、M=x.size()、K=N+M+1として、最悪時間O(K log² K)、追加メモリO(N+M log(M+1))です。
+係数が1個のときはO(M)、2〜32個のときはO(NM)時間で直接評価し、追加メモリは返り値を含めてO(M)です。
+評価点が1個の場合は係数数にかかわらずO(N)時間、O(1)メモリです。
 
 ## 操作一覧
 
@@ -48,7 +50,7 @@ int main() {
 {% endraw %}
 
 <details class="api-operation" id="evaluate" markdown="1">
-<summary><code>vector&lt;Mint&gt; multipoint_evaluation(f, x)</code> — O(K log² K)</summary>
+<summary><code>vector&lt;Mint&gt; multipoint_evaluation(f, x)</code> — 最悪 O(K log² K)</summary>
 
 返り値の `i` 番目は `f(x[i])`。点の順序を保持し、重複点も許します。
 空の係数列は零多項式、空の点列は空の結果です。末尾の零係数も許します。
@@ -64,6 +66,9 @@ assert(y[0] == mint(0));
 注意点: 入力を変更せず、返り値は独立した所有値です。参照失効はありません。
 modint内で演算するため係数の整数オーバーフローはありません。計算量は償却ではなく最悪値です。
 `polynomial_detail` は内部実装であり公開APIではありません。
+係数が1個ならO(M)、2〜32個ならO(NM)時間、返り値を含む追加メモリはO(M)です。
+評価点が1個ならO(N)時間、O(1)メモリです。
+小さい係数列に対しても、上記のmodulus・NTT長の前提は変わりません。
 
 </details>
 

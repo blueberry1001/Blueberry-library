@@ -1,0 +1,16 @@
+CPLUS_INCLUDE_PATH="/tmp/blueberry-multipoint-ewX1tN/.deps/ac-library" python3 scripts/verify_with_metrics.py --repeats 1 --timeout 900 verify/math/multipoint-evaluation.test.cpp
+fatal: not a git repository (or any of the parent directories): .git
+Traceback (most recent call last):
+  File "/tmp/blueberry-multipoint-ewX1tN/scripts/verify_with_metrics.py", line 450, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/tmp/blueberry-multipoint-ewX1tN/scripts/verify_with_metrics.py", line 409, in main
+    "revision": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', 'rev-parse', 'HEAD']' returned non-zero exit status 128.
+make: *** [Makefile:37: verify] Error 1

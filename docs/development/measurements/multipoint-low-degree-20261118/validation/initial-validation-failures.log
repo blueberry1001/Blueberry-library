@@ -1,0 +1,8 @@
+Attempt 1: setup through PowerShell-quoted bash -lc failed before creating the validation environment.
+tar: : Cannot open: No such file or directory
+tar: Error is not recoverable: exiting now
+Cause: shell argument quoting dropped the temporary path. Switched to a bash script.
+
+Attempt 2: ran setup and validation in separate WSL invocations.
+/mnt/c/Users/kubar/Documents/GitHub/Blueberry-library/.build/codex-multipoint-study/run-validation.sh: line 5: cd: /tmp/blueberry-multipoint-JA4bUT: No such file or directory
+Cause: the WSL temporary directory was absent in the next invocation. Setup and all checks are now performed in one WSL invocation. Neither attempt compiled or ran tests.
