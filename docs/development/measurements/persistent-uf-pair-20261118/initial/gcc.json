@@ -1,0 +1,2060 @@
+{
+  "status": "complete",
+  "started_utc": "2026-11-18T00:01:01.217878+00:00",
+  "args": {
+    "compiler": "g++",
+    "std": "gnu++20",
+    "n": 131072,
+    "count": 200000,
+    "seed": 20261118,
+    "runs": 5,
+    "warmups": 1,
+    "output": "gcc.json"
+  },
+  "platform": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "processor": "x86_64",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "git_head": {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "97aa84673d34421262140d3fb8311b09219aa82b\n",
+    "stderr": ""
+  },
+  "compiler": {
+    "argv": [
+      "g++",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+    "stderr": ""
+  },
+  "time_version": {
+    "argv": [
+      "/usr/bin/time",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "time (GNU Time) UNKNOWN\nCopyright (C) 2018 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\nWritten by David Keppel, David MacKenzie, and Assaf Gordon.\n",
+    "stderr": ""
+  },
+  "source_sha256": {
+    "benchmark.cpp": "c1d08069649c92d087a2b413de37032ce771a0e3272e91e9599cac41b9262648",
+    "test.cpp": "ce263cf538d0a773141f40a8e3cea0c887085dde1a00475104ba26a052665553",
+    "run.py": "fee06b257a4a12d77d7474acda903eb37a08a39c435aa4aa0fc1e4034fcc37e4",
+    "baseline/blueberry/data-structure/persistent-array.hpp": "9de48e885a5098ef9adbb4e79753eacec005ab4061d1005f10330492468031dd",
+    "baseline/blueberry/data-structure/persistent-union-find.hpp": "c2b6bd219e49d86e7904984675bb7b8faec760bcb41929d93136677fbe8a491d",
+    "candidate/blueberry/data-structure/persistent-array.hpp": "666a708787ad6ba19523cfe3c2c60ae3be13ab1c0c54be218dab8a7354e2d10f",
+    "candidate/blueberry/data-structure/persistent-union-find.hpp": "a85f4e5e34f2145f8c75a1a187af9bb8ab036e2c0118257920281a049df67607"
+  },
+  "commands": [
+    {
+      "argv": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/baseline",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/test.cpp",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/baseline",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/benchmark.cpp",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+        "1"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=1\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+        "2"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=2\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+        "3"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=3\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=20261118\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+        "18446744073709551615"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=18446744073709551615\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/candidate",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/test.cpp",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "g++",
+        "-std=gnu++20",
+        "-O2",
+        "-DNDEBUG",
+        "-I",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/candidate",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/benchmark.cpp",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark"
+      ],
+      "returncode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+        "1"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=1\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+        "2"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=2\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+        "3"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=3\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=20261118\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+        "18446744073709551615"
+      ],
+      "returncode": 0,
+      "stdout": "ok seed=18446744073709551615\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000629,\"merge_ms\":155.521,\"same_ms\":126.115,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000905,\"merge_ms\":149.694,\"same_ms\":128.947,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000678,\"merge_ms\":143.92,\"same_ms\":128.166,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000742,\"merge_ms\":152.673,\"same_ms\":122.609,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001142,\"merge_ms\":141.538,\"same_ms\":113.876,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000956,\"merge_ms\":154.917,\"same_ms\":137.617,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000788,\"merge_ms\":148.17,\"same_ms\":133.532,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000873,\"merge_ms\":159.621,\"same_ms\":122.035,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000898,\"merge_ms\":151.411,\"same_ms\":117.365,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001195,\"merge_ms\":141.024,\"same_ms\":116.332,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000743,\"merge_ms\":142.468,\"same_ms\":127.299,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "chain",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000768,\"merge_ms\":143.17,\"same_ms\":127.122,\"checksum\":20000278071,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000914,\"merge_ms\":107.92,\"same_ms\":31.7356,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000666,\"merge_ms\":101.809,\"same_ms\":30.436,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000822,\"merge_ms\":105.347,\"same_ms\":32.1107,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000881,\"merge_ms\":101.773,\"same_ms\":27.9396,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000523,\"merge_ms\":105.429,\"same_ms\":28.9391,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000745,\"merge_ms\":112.989,\"same_ms\":29.5069,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000891,\"merge_ms\":107.696,\"same_ms\":29.7348,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000606,\"merge_ms\":100.164,\"same_ms\":27.1625,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000853,\"merge_ms\":101.128,\"same_ms\":28.15,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000649,\"merge_ms\":108.69,\"same_ms\":29.9478,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000799,\"merge_ms\":100.936,\"same_ms\":29.6874,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "branch",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001041,\"merge_ms\":111.256,\"same_ms\":33.2748,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000653,\"merge_ms\":1.31032,\"same_ms\":0.162972,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001221,\"merge_ms\":1.24862,\"same_ms\":0.153799,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.0005,\"merge_ms\":1.25928,\"same_ms\":0.154057,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000857,\"merge_ms\":1.09264,\"same_ms\":0.145795,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.00087,\"merge_ms\":1.22828,\"same_ms\":0.130507,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000877,\"merge_ms\":1.14569,\"same_ms\":0.21009,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000869,\"merge_ms\":1.17413,\"same_ms\":0.164824,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000979,\"merge_ms\":1.38241,\"same_ms\":0.158935,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000996,\"merge_ms\":1.23268,\"same_ms\":0.140575,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.00114,\"merge_ms\":1.10972,\"same_ms\":0.16072,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000726,\"merge_ms\":1.17458,\"same_ms\":0.148556,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "self",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001437,\"merge_ms\":1.25784,\"same_ms\":0.162511,\"checksum\":20000100002,\"versions\":200001,\"merges\":200000}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001141,\"merge_ms\":46.6618,\"same_ms\":225.963,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001009,\"merge_ms\":30.3921,\"same_ms\":223.916,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000852,\"merge_ms\":53.8575,\"same_ms\":225.166,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001031,\"merge_ms\":28.4106,\"same_ms\":218.204,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000924,\"merge_ms\":34.5045,\"same_ms\":222.304,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.0009,\"merge_ms\":55.8767,\"same_ms\":216.754,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000635,\"merge_ms\":31.237,\"same_ms\":217.746,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001134,\"merge_ms\":49.5182,\"same_ms\":212.899,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000756,\"merge_ms\":50.8341,\"same_ms\":225.917,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000775,\"merge_ms\":30.2645,\"same_ms\":223.84,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.000585,\"merge_ms\":29.698,\"same_ms\":223.128,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/time",
+        "-f",
+        "%M",
+        "-o",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/rss.txt",
+        "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-benchmark",
+        "deep",
+        "131072",
+        "200000",
+        "20261118"
+      ],
+      "returncode": 0,
+      "stdout": "{\"construct_ms\":0.001201,\"merge_ms\":46.0894,\"same_ms\":231.073,\"checksum\":8590069056,\"versions\":131072,\"merges\":131071}\n",
+      "stderr": ""
+    }
+  ],
+  "tests": [
+    {
+      "variant": "baseline",
+      "seed": 1,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+          "1"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=1\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 2,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+          "2"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=2\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 3,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+          "3"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=3\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 20261118,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+          "20261118"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=20261118\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "baseline",
+      "seed": 18446744073709551615,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/baseline-test",
+          "18446744073709551615"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=18446744073709551615\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 1,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+          "1"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=1\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 2,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+          "2"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=2\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 3,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+          "3"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=3\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 20261118,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+          "20261118"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=20261118\n",
+        "stderr": ""
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 18446744073709551615,
+      "result": {
+        "argv": [
+          "/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-study-20261118/gcc-bin/candidate-test",
+          "18446744073709551615"
+        ],
+        "returncode": 0,
+        "stdout": "ok seed=18446744073709551615\n",
+        "stderr": ""
+      }
+    }
+  ],
+  "samples": [
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.28672807100000597,
+      "peak_rss_kib": 110204,
+      "result": {
+        "construct_ms": 0.000629,
+        "merge_ms": 155.521,
+        "same_ms": 126.115,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.28330496499999924,
+      "peak_rss_kib": 109940,
+      "result": {
+        "construct_ms": 0.000905,
+        "merge_ms": 149.694,
+        "same_ms": 128.947,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.27681592999999793,
+      "peak_rss_kib": 111824,
+      "result": {
+        "construct_ms": 0.000678,
+        "merge_ms": 143.92,
+        "same_ms": 128.166,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.2800832900000003,
+      "peak_rss_kib": 109724,
+      "result": {
+        "construct_ms": 0.000742,
+        "merge_ms": 152.673,
+        "same_ms": 122.609,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.26036751499999866,
+      "peak_rss_kib": 109676,
+      "result": {
+        "construct_ms": 0.001142,
+        "merge_ms": 141.538,
+        "same_ms": 113.876,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.297628404000001,
+      "peak_rss_kib": 111880,
+      "result": {
+        "construct_ms": 0.000956,
+        "merge_ms": 154.917,
+        "same_ms": 137.617,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.28646150499999834,
+      "peak_rss_kib": 109884,
+      "result": {
+        "construct_ms": 0.000788,
+        "merge_ms": 148.17,
+        "same_ms": 133.532,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.2864564730000012,
+      "peak_rss_kib": 110008,
+      "result": {
+        "construct_ms": 0.000873,
+        "merge_ms": 159.621,
+        "same_ms": 122.035,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.27382789899999693,
+      "peak_rss_kib": 109464,
+      "result": {
+        "construct_ms": 0.000898,
+        "merge_ms": 151.411,
+        "same_ms": 117.365,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.2621091150000012,
+      "peak_rss_kib": 109840,
+      "result": {
+        "construct_ms": 0.001195,
+        "merge_ms": 141.024,
+        "same_ms": 116.332,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "chain",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.2749586079999986,
+      "peak_rss_kib": 111280,
+      "result": {
+        "construct_ms": 0.000743,
+        "merge_ms": 142.468,
+        "same_ms": 127.299,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "chain",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.27532079200000226,
+      "peak_rss_kib": 110840,
+      "result": {
+        "construct_ms": 0.000768,
+        "merge_ms": 143.17,
+        "same_ms": 127.122,
+        "checksum": 20000278071,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.14580446100000444,
+      "peak_rss_kib": 109632,
+      "result": {
+        "construct_ms": 0.000914,
+        "merge_ms": 107.92,
+        "same_ms": 31.7356,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.13843476400000299,
+      "peak_rss_kib": 110704,
+      "result": {
+        "construct_ms": 0.000666,
+        "merge_ms": 101.809,
+        "same_ms": 30.436,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.1434456389999994,
+      "peak_rss_kib": 111216,
+      "result": {
+        "construct_ms": 0.000822,
+        "merge_ms": 105.347,
+        "same_ms": 32.1107,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.1355790340000027,
+      "peak_rss_kib": 108836,
+      "result": {
+        "construct_ms": 0.000881,
+        "merge_ms": 101.773,
+        "same_ms": 27.9396,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.14028475799999995,
+      "peak_rss_kib": 110080,
+      "result": {
+        "construct_ms": 0.000523,
+        "merge_ms": 105.429,
+        "same_ms": 28.9391,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.14864157699999936,
+      "peak_rss_kib": 111584,
+      "result": {
+        "construct_ms": 0.000745,
+        "merge_ms": 112.989,
+        "same_ms": 29.5069,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.14366120599999732,
+      "peak_rss_kib": 111112,
+      "result": {
+        "construct_ms": 0.000891,
+        "merge_ms": 107.696,
+        "same_ms": 29.7348,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.1333504990000023,
+      "peak_rss_kib": 110700,
+      "result": {
+        "construct_ms": 0.000606,
+        "merge_ms": 100.164,
+        "same_ms": 27.1625,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.1352168760000012,
+      "peak_rss_kib": 111456,
+      "result": {
+        "construct_ms": 0.000853,
+        "merge_ms": 101.128,
+        "same_ms": 28.15,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.14469905400000016,
+      "peak_rss_kib": 109392,
+      "result": {
+        "construct_ms": 0.000649,
+        "merge_ms": 108.69,
+        "same_ms": 29.9478,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "branch",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.1366449920000008,
+      "peak_rss_kib": 108352,
+      "result": {
+        "construct_ms": 0.000799,
+        "merge_ms": 100.936,
+        "same_ms": 29.6874,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "branch",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.15119768499999964,
+      "peak_rss_kib": 112200,
+      "result": {
+        "construct_ms": 0.001041,
+        "merge_ms": 111.256,
+        "same_ms": 33.2748,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.005701207000001318,
+      "peak_rss_kib": 9660,
+      "result": {
+        "construct_ms": 0.000653,
+        "merge_ms": 1.31032,
+        "same_ms": 0.162972,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.00585958899999639,
+      "peak_rss_kib": 9564,
+      "result": {
+        "construct_ms": 0.001221,
+        "merge_ms": 1.24862,
+        "same_ms": 0.153799,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.005882891000005941,
+      "peak_rss_kib": 10856,
+      "result": {
+        "construct_ms": 0.0005,
+        "merge_ms": 1.25928,
+        "same_ms": 0.154057,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.005463513000002251,
+      "peak_rss_kib": 11212,
+      "result": {
+        "construct_ms": 0.000857,
+        "merge_ms": 1.09264,
+        "same_ms": 0.145795,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.005588484000000449,
+      "peak_rss_kib": 9568,
+      "result": {
+        "construct_ms": 0.00087,
+        "merge_ms": 1.22828,
+        "same_ms": 0.130507,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.005731113999999593,
+      "peak_rss_kib": 10504,
+      "result": {
+        "construct_ms": 0.000877,
+        "merge_ms": 1.14569,
+        "same_ms": 0.21009,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.005659102999999277,
+      "peak_rss_kib": 9700,
+      "result": {
+        "construct_ms": 0.000869,
+        "merge_ms": 1.17413,
+        "same_ms": 0.164824,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.006107798999998693,
+      "peak_rss_kib": 10032,
+      "result": {
+        "construct_ms": 0.000979,
+        "merge_ms": 1.38241,
+        "same_ms": 0.158935,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.005733510999995417,
+      "peak_rss_kib": 9828,
+      "result": {
+        "construct_ms": 0.000996,
+        "merge_ms": 1.23268,
+        "same_ms": 0.140575,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.005410937000000615,
+      "peak_rss_kib": 9652,
+      "result": {
+        "construct_ms": 0.00114,
+        "merge_ms": 1.10972,
+        "same_ms": 0.16072,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "self",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.005267207000002827,
+      "peak_rss_kib": 11208,
+      "result": {
+        "construct_ms": 0.000726,
+        "merge_ms": 1.17458,
+        "same_ms": 0.148556,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "self",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.005701360999999849,
+      "peak_rss_kib": 10312,
+      "result": {
+        "construct_ms": 0.001437,
+        "merge_ms": 1.25784,
+        "same_ms": 0.162511,
+        "checksum": 20000100002,
+        "versions": 200001,
+        "merges": 200000
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.27704986699999523,
+      "peak_rss_kib": 109852,
+      "result": {
+        "construct_ms": 0.001141,
+        "merge_ms": 46.6618,
+        "same_ms": 225.963,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": -1,
+      "warmup": true,
+      "wall_s": 0.25846157200000164,
+      "peak_rss_kib": 59188,
+      "result": {
+        "construct_ms": 0.001009,
+        "merge_ms": 30.3921,
+        "same_ms": 223.916,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.2831361550000011,
+      "peak_rss_kib": 110232,
+      "result": {
+        "construct_ms": 0.000852,
+        "merge_ms": 53.8575,
+        "same_ms": 225.166,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 0,
+      "warmup": false,
+      "wall_s": 0.25125882500000074,
+      "peak_rss_kib": 59668,
+      "result": {
+        "construct_ms": 0.001031,
+        "merge_ms": 28.4106,
+        "same_ms": 218.204,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.2612960940000022,
+      "peak_rss_kib": 60792,
+      "result": {
+        "construct_ms": 0.000924,
+        "merge_ms": 34.5045,
+        "same_ms": 222.304,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 1,
+      "warmup": false,
+      "wall_s": 0.27770223099999924,
+      "peak_rss_kib": 110828,
+      "result": {
+        "construct_ms": 0.0009,
+        "merge_ms": 55.8767,
+        "same_ms": 216.754,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.2534582090000015,
+      "peak_rss_kib": 59728,
+      "result": {
+        "construct_ms": 0.000635,
+        "merge_ms": 31.237,
+        "same_ms": 217.746,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 2,
+      "warmup": false,
+      "wall_s": 0.26770306399999555,
+      "peak_rss_kib": 109872,
+      "result": {
+        "construct_ms": 0.001134,
+        "merge_ms": 49.5182,
+        "same_ms": 212.899,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.2808873090000006,
+      "peak_rss_kib": 109032,
+      "result": {
+        "construct_ms": 0.000756,
+        "merge_ms": 50.8341,
+        "same_ms": 225.917,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 3,
+      "warmup": false,
+      "wall_s": 0.25842085600000075,
+      "peak_rss_kib": 59880,
+      "result": {
+        "construct_ms": 0.000775,
+        "merge_ms": 30.2645,
+        "same_ms": 223.84,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "candidate",
+      "mode": "deep",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.2574738050000036,
+      "peak_rss_kib": 60808,
+      "result": {
+        "construct_ms": 0.000585,
+        "merge_ms": 29.698,
+        "same_ms": 223.128,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    },
+    {
+      "variant": "baseline",
+      "mode": "deep",
+      "iteration": 4,
+      "warmup": false,
+      "wall_s": 0.28168192700000105,
+      "peak_rss_kib": 111088,
+      "result": {
+        "construct_ms": 0.001201,
+        "merge_ms": 46.0894,
+        "same_ms": 231.073,
+        "checksum": 8590069056,
+        "versions": 131072,
+        "merges": 131071
+      }
+    }
+  ],
+  "binary_sha256": {
+    "baseline": {
+      "test": "cb7d11f52517be4e155dae39912b0667e5a86c386c989abe21ffa243265ce1df",
+      "benchmark": "13f7d9a954c314cf0744d99cf69ee86392337c9946d4b3349baff961c7fd7b7c"
+    },
+    "candidate": {
+      "test": "3a0f44c51490b4e11cec96e505930e75772e6a468000faa7457b72c0d3abafa1",
+      "benchmark": "70ae2766ff2b582785f227aa0ebe023200f40fa13e04b04b9c8db30d0c19d9d4"
+    }
+  },
+  "summary": {
+    "chain": {
+      "baseline": {
+        "merge_ms": {
+          "median": 143.92,
+          "min": 141.024
+        },
+        "same_ms": {
+          "median": 127.122,
+          "min": 116.332
+        },
+        "peak_rss_kib": {
+          "median": 110840,
+          "min": 109840
+        }
+      },
+      "candidate": {
+        "merge_ms": {
+          "median": 148.17,
+          "min": 141.538
+        },
+        "same_ms": {
+          "median": 122.609,
+          "min": 113.876
+        },
+        "peak_rss_kib": {
+          "median": 109724,
+          "min": 109464
+        }
+      }
+    },
+    "branch": {
+      "baseline": {
+        "merge_ms": {
+          "median": 107.696,
+          "min": 105.347
+        },
+        "same_ms": {
+          "median": 29.9478,
+          "min": 28.9391
+        },
+        "peak_rss_kib": {
+          "median": 111112,
+          "min": 109392
+        }
+      },
+      "candidate": {
+        "merge_ms": {
+          "median": 101.128,
+          "min": 100.164
+        },
+        "same_ms": {
+          "median": 28.15,
+          "min": 27.1625
+        },
+        "peak_rss_kib": {
+          "median": 110700,
+          "min": 108352
+        }
+      }
+    },
+    "self": {
+      "baseline": {
+        "merge_ms": {
+          "median": 1.14569,
+          "min": 1.09264
+        },
+        "same_ms": {
+          "median": 0.162511,
+          "min": 0.145795
+        },
+        "peak_rss_kib": {
+          "median": 10312,
+          "min": 9652
+        }
+      },
+      "candidate": {
+        "merge_ms": {
+          "median": 1.23268,
+          "min": 1.17458
+        },
+        "same_ms": {
+          "median": 0.148556,
+          "min": 0.130507
+        },
+        "peak_rss_kib": {
+          "median": 10032,
+          "min": 9568
+        }
+      }
+    },
+    "deep": {
+      "baseline": {
+        "merge_ms": {
+          "median": 50.8341,
+          "min": 46.0894
+        },
+        "same_ms": {
+          "median": 225.166,
+          "min": 212.899
+        },
+        "peak_rss_kib": {
+          "median": 110232,
+          "min": 109032
+        }
+      },
+      "candidate": {
+        "merge_ms": {
+          "median": 30.2645,
+          "min": 28.4106
+        },
+        "same_ms": {
+          "median": 222.304,
+          "min": 217.746
+        },
+        "peak_rss_kib": {
+          "median": 59880,
+          "min": 59668
+        }
+      }
+    }
+  },
+  "finished_utc": "2026-11-18T00:01:15.834389+00:00"
+}

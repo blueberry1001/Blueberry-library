@@ -6,9 +6,9 @@
 
 namespace blueberry {
 
-// Arena-owned path copying; version 0 is the initial array.
 template <class T>
 class PersistentArray {
+  friend class PersistentUnionFind;
   struct Node { int left = 0, right = 0; T value{}; };
   int n_ = 0;
   T initial_{};
@@ -33,6 +33,24 @@ class PersistentArray {
     if (p < m) copy.left = update(copy.left, l, m, p, value);
     else copy.right = update(copy.right, m, r, p, value);
     return append(copy);
+  }
+  int update_two(int node, int l, int r, int p, T pv, int q, T qv) {
+    int m = l + (r - l) / 2;
+    Node copy = nodes_[node];
+    if (q < m) copy.left = update_two(copy.left, l, m, p, pv, q, qv);
+    else if (p >= m) copy.right = update_two(copy.right, m, r, p, pv, q, qv);
+    else {
+      copy.left = update(copy.left, l, m, p, pv);
+      copy.right = update(copy.right, m, r, q, qv);
+    }
+    return append(copy);
+  }
+  int set_two(int version, int p, T pv, int q, T qv) {
+    check_version(version);
+    assert(roots_.size() < static_cast<std::size_t>(std::numeric_limits<int>::max()));
+    int node = update_two(roots_[version], 0, n_, p, pv, q, qv);
+    roots_.push_back(node);
+    return versions() - 1;
   }
   void check_version([[maybe_unused]] int version) const {
     assert(0 <= version && static_cast<std::size_t>(version) < roots_.size());
@@ -76,4 +94,4 @@ class PersistentArray {
   }
 };
 
-}  // namespace blueberry
+}

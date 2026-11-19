@@ -252,6 +252,7 @@
 - 専用ドライバ: [verify/data-structure/persistent-array.test.cpp](../verify/data-structure/persistent-array.test.cpp) / [問題](https://judge.yosupo.jp/problem/persistent_queue)
 - 間接利用: [verify/data-structure/online-persistent-unionfind.test.cpp](../verify/data-structure/online-persistent-unionfind.test.cpp) / [問題](https://judge.yosupo.jp/problem/persistent_unionfind)
 - 関連ローカルテスト: [tests/random/persistence-and-range-union.cpp](../tests/random/persistence-and-range-union.cpp)
+- 関連ローカルテスト: [tests/random/persistent-union-find-pair.cpp](../tests/random/persistent-union-find-pair.cpp)
 
 ## Persistent Binary Trie
 
@@ -281,6 +282,7 @@
 
 - 専用ドライバ: [verify/data-structure/online-persistent-unionfind.test.cpp](../verify/data-structure/online-persistent-unionfind.test.cpp) / [問題](https://judge.yosupo.jp/problem/persistent_unionfind)
 - 関連ローカルテスト: [tests/random/persistence-and-range-union.cpp](../tests/random/persistence-and-range-union.cpp)
+- 関連ローカルテスト: [tests/random/persistent-union-find-pair.cpp](../tests/random/persistent-union-find-pair.cpp)
 
 ## Potential Union Find
 

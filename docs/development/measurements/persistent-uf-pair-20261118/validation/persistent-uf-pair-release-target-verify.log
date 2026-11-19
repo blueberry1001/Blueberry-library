@@ -1,0 +1,994 @@
+CPLUS_INCLUDE_PATH="/home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.deps/ac-library" python3 scripts/verify_with_metrics.py --repeats 3 --timeout 300 verify/data-structure/online-persistent-unionfind.test.cpp verify/data-structure/persistent-array.test.cpp
+INFO:onlinejudge_verify.config:config file loaded: .verify-helper/config.toml: {'languages': {'cpp': {'environments': [{'CXX': 'g++', 'CXXFLAGS': ['-std=gnu++20', '-O2', '-pipe', '-Wall', '-Wextra', '-Wshadow', '-D_GLIBCXX_ASSERTIONS']}]}}}
+INFO:onlinejudge_verify.verify:verify: verify/data-structure/online-persistent-unionfind.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/persistent_unionfind
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test --silent https://judge.yosupo.jp/problem/persistent_unionfind
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] load cookie from: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+git version 2.43.0
+[INFO] $ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+[INFO] $ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/info.toml
+[37m15:29:45 [INFO] Start persistent_unionfind[0m
+[37m15:29:45 [INFO] generate params.h[0m
+[37m15:29:45 [INFO] Test cases are already generated[0m
+[37m15:29:45 [INFO] The checker is already compiled[0m
+[INFO] save cookie to: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+
+[INFO] sample 0
+[INFO] input: conchon_filliatre_tle_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_00.in
+[INFO] output: conchon_filliatre_tle_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_00.out
+
+[INFO] sample 1
+[INFO] input: conchon_filliatre_tle_01
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_01.in
+[INFO] output: conchon_filliatre_tle_01
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_01.out
+
+[INFO] sample 2
+[INFO] input: example_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/example_00.in
+[INFO] output: example_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/example_00.out
+
+[INFO] sample 3
+[INFO] input: hand_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/hand_00.in
+[INFO] output: hand_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/hand_00.out
+
+[INFO] sample 4
+[INFO] input: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_00.in
+[INFO] output: max_random_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_00.out
+
+[INFO] sample 5
+[INFO] input: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_01.in
+[INFO] output: max_random_01
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_01.out
+
+[INFO] sample 6
+[INFO] input: max_random_02
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_02.in
+[INFO] output: max_random_02
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_02.out
+
+[INFO] sample 7
+[INFO] input: max_random_03
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_03.in
+[INFO] output: max_random_03
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_03.out
+
+[INFO] sample 8
+[INFO] input: max_random_04
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_04.in
+[INFO] output: max_random_04
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_04.out
+
+[INFO] sample 9
+[INFO] input: random_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_00.in
+[INFO] output: random_00
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_00.out
+
+[INFO] sample 10
+[INFO] input: random_01
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_01.in
+[INFO] output: random_01
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_01.out
+
+[INFO] sample 11
+[INFO] input: random_02
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_02.in
+[INFO] output: random_02
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_02.out
+
+[INFO] sample 12
+[INFO] input: random_03
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_03.in
+[INFO] output: random_03
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_03.out
+
+[INFO] sample 13
+[INFO] input: random_04
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_04.in
+[INFO] output: random_04
+[SUCCESS] saved to: .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_04.out
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release -o .verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/a.out verify/data-structure/online-persistent-unionfind.test.cpp
+git version 2.43.0
+INFO:onlinejudge.service.library_checker:$ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/info.toml --compile-checker
+[33m15:29:46 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m15:29:46 [INFO] Start persistent_unionfind[0m
+[37m15:29:46 [INFO] generate params.h[0m
+[37m15:29:46 [INFO] Test cases are already generated[0m
+[37m15:29:46 [INFO] The checker is already compiled[0m
+::group::verify/data-structure/online-persistent-unionfind.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 14 cases found
+
+[INFO] conchon_filliatre_tle_00
+[INFO] time: 0.104387 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_00.in /tmp/tmpdaumxyz4/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_00.out
+ok 100000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] conchon_filliatre_tle_01
+[INFO] time: 0.093222 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_01.in /tmp/tmph671htko/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_01.out
+ok 100000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.003058 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/example_00.in /tmp/tmpn7nms6z6/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/example_00.out
+ok 6 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] hand_00
+[INFO] time: 0.002718 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/hand_00.in /tmp/tmp_o1b875w/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/hand_00.out
+ok 6 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.179522 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_00.in /tmp/tmprx_zlvrc/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_00.out
+ok 100371 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.176734 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_01.in /tmp/tmp4agwvj_b/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_01.out
+ok 100057 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 0.178949 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_02.in /tmp/tmpjrgzv29v/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_02.out
+ok 99787 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_03
+[INFO] time: 0.180952 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_03.in /tmp/tmpgh1h_5tw/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_03.out
+ok 99820 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_04
+[INFO] time: 0.176629 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_04.in /tmp/tmpugzfdoam/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_04.out
+ok 100264 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.129514 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_00.in /tmp/tmpsv5hh2yo/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_00.out
+ok 74666 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.125846 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_01.in /tmp/tmpiyxasslb/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_01.out
+ok 74225 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.086823 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_02.in /tmp/tmp7uzi2wjh/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_02.out
+ok 60080 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_03
+[INFO] time: 0.018768 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_03.in /tmp/tmp4d7nrvnu/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_03.out
+ok 12851 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_04
+[INFO] time: 0.047954 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_04.in /tmp/tmpg6643mcp/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_04.out
+ok 49589 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.180952 sec  (for max_random_03)
+[INFO] max memory: 56.028000 MB  (for max_random_02)
+[SUCCESS] test success: 14 cases
+::endgroup::
+::group::verify/data-structure/online-persistent-unionfind.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 14 cases found
+
+[INFO] conchon_filliatre_tle_00
+[INFO] time: 0.107355 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_00.in /tmp/tmpof02nwt_/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_00.out
+ok 100000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] conchon_filliatre_tle_01
+[INFO] time: 0.095820 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_01.in /tmp/tmpqxx0yowg/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_01.out
+ok 100000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.002787 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/example_00.in /tmp/tmpip20fyp7/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/example_00.out
+ok 6 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] hand_00
+[INFO] time: 0.002612 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/hand_00.in /tmp/tmp8u1znuz7/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/hand_00.out
+ok 6 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.166558 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_00.in /tmp/tmpwsfr1na2/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_00.out
+ok 100371 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.163487 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_01.in /tmp/tmpc7nq1b9a/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_01.out
+ok 100057 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 0.174262 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_02.in /tmp/tmpvxvfjwyn/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_02.out
+ok 99787 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_03
+[INFO] time: 0.171357 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_03.in /tmp/tmpgd846ktt/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_03.out
+ok 99820 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_04
+[INFO] time: 0.184379 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_04.in /tmp/tmp2ms25tv6/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_04.out
+ok 100264 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.141013 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_00.in /tmp/tmppt2weg07/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_00.out
+ok 74666 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.134519 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_01.in /tmp/tmprqaf2_bl/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_01.out
+ok 74225 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.111440 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_02.in /tmp/tmp64oln0vb/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_02.out
+ok 60080 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_03
+[INFO] time: 0.019970 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_03.in /tmp/tmp0eyat5yd/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_03.out
+ok 12851 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_04
+[INFO] time: 0.050695 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_04.in /tmp/tmpnvh__v8n/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_04.out
+ok 49589 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.184379 sec  (for max_random_04)
+[INFO] max memory: 56.000000 MB  (for max_random_04)
+[SUCCESS] test success: 14 cases
+::endgroup::
+::group::verify/data-structure/online-persistent-unionfind.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 14 cases found
+
+[INFO] conchon_filliatre_tle_00
+[INFO] time: 0.105718 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_00.in /tmp/tmpp7vpm9c0/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_00.out
+ok 100000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] conchon_filliatre_tle_01
+[INFO] time: 0.096873 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_01.in /tmp/tmp7s2hncfe/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/conchon_filliatre_tle_01.out
+ok 100000 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.003027 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/example_00.in /tmp/tmpx560xnwo/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/example_00.out
+ok 6 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] hand_00
+[INFO] time: 0.002700 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/hand_00.in /tmp/tmp04f0pfyq/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/hand_00.out
+ok 6 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_00
+[INFO] time: 0.174918 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_00.in /tmp/tmp6jr43wyw/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_00.out
+ok 100371 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_01
+[INFO] time: 0.176015 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_01.in /tmp/tmpnosnodvq/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_01.out
+ok 100057 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_02
+[INFO] time: 0.174318 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_02.in /tmp/tmpwvyvme6i/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_02.out
+ok 99787 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_03
+[INFO] time: 0.173005 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_03.in /tmp/tmpcy4qw927/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_03.out
+ok 99820 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] max_random_04
+[INFO] time: 0.174314 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_04.in /tmp/tmp1qa11uu7/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/max_random_04.out
+ok 100264 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.125705 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_00.in /tmp/tmpg3mgd6db/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_00.out
+ok 74666 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.142697 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_01.in /tmp/tmp6q_jiuo1/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_01.out
+ok 74225 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.090991 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_02.in /tmp/tmplb3iyf8v/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_02.out
+ok 60080 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_03
+[INFO] time: 0.020498 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_03.in /tmp/tmpuc5z2e24/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_03.out
+ok 12851 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_04
+[INFO] time: 0.051575 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_unionfind/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_04.in /tmp/tmp0y0junit/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/4f21ee35ceddb39617dd01e369f1e6bb/test/random_04.out
+ok 49589 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.176015 sec  (for max_random_01)
+[INFO] max memory: 55.908000 MB  (for max_random_00)
+[SUCCESS] test success: 14 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:verify: verify/data-structure/persistent-array.test.cpp
+INFO:onlinejudge_verify.verify:problem: https://judge.yosupo.jp/problem/persistent_queue
+INFO:onlinejudge_verify.verify:$ sleep 2
+INFO:onlinejudge_verify.verify:$ oj download --system -d .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test --silent https://judge.yosupo.jp/problem/persistent_queue
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] load cookie from: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+git version 2.43.0
+[INFO] $ git -C /home/blueberry/.cache/online-judge-tools/library-checker-problems pull
+Already up to date.
+[INFO] $ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/info.toml
+[37m15:29:55 [INFO] Start persistent_queue[0m
+[37m15:29:55 [INFO] generate params.h[0m
+[37m15:29:55 [INFO] Test cases are already generated[0m
+[37m15:29:55 [INFO] The checker is already compiled[0m
+[INFO] save cookie to: /home/blueberry/.local/share/online-judge-tools/cookie.jar
+
+[INFO] sample 0
+[INFO] input: ephemeral_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/ephemeral_00.in
+[INFO] output: ephemeral_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/ephemeral_00.out
+
+[INFO] sample 1
+[INFO] input: example_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/example_00.in
+[INFO] output: example_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/example_00.out
+
+[INFO] sample 2
+[INFO] input: half_rot_killer2_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer2_00.in
+[INFO] output: half_rot_killer2_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer2_00.out
+
+[INFO] sample 3
+[INFO] input: half_rot_killer_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer_00.in
+[INFO] output: half_rot_killer_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer_00.out
+
+[INFO] sample 4
+[INFO] input: random_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_00.in
+[INFO] output: random_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_00.out
+
+[INFO] sample 5
+[INFO] input: random_01
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_01.in
+[INFO] output: random_01
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_01.out
+
+[INFO] sample 6
+[INFO] input: random_02
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_02.in
+[INFO] output: random_02
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_02.out
+
+[INFO] sample 7
+[INFO] input: random_2_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_00.in
+[INFO] output: random_2_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_00.out
+
+[INFO] sample 8
+[INFO] input: random_2_01
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_01.in
+[INFO] output: random_2_01
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_01.out
+
+[INFO] sample 9
+[INFO] input: random_2_02
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_02.in
+[INFO] output: random_2_02
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_02.out
+
+[INFO] sample 10
+[INFO] input: random_3_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_00.in
+[INFO] output: random_3_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_00.out
+
+[INFO] sample 11
+[INFO] input: random_3_01
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_01.in
+[INFO] output: random_3_01
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_01.out
+
+[INFO] sample 12
+[INFO] input: random_3_02
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_02.in
+[INFO] output: random_3_02
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_02.out
+
+[INFO] sample 13
+[INFO] input: two_stacks_killer_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/two_stacks_killer_00.in
+[INFO] output: two_stacks_killer_00
+[SUCCESS] saved to: .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/two_stacks_killer_00.out
+INFO:onlinejudge_verify.languages.cplusplus:$ g++ -std=gnu++20 -O2 -pipe -Wall -Wextra -Wshadow -D_GLIBCXX_ASSERTIONS -I /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release -o .verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/a.out verify/data-structure/persistent-array.test.cpp
+INFO:onlinejudge.service.library_checker:$ /usr/bin/python3 /home/blueberry/.cache/online-judge-tools/library-checker-problems/generate.py /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/info.toml --compile-checker
+[33m15:29:56 [WARNING] --compile-checker is deprecated. Checker is compiled in default[0m
+[37m15:29:56 [INFO] Start persistent_queue[0m
+[37m15:29:56 [INFO] generate params.h[0m
+[37m15:29:56 [INFO] Test cases are already generated[0m
+[37m15:29:56 [INFO] The checker is already compiled[0m
+::group::verify/data-structure/persistent-array.test.cpp measurement 1/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 14 cases found
+
+[INFO] ephemeral_00
+[INFO] time: 0.104556 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/ephemeral_00.in /tmp/tmppw0czh3a/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/ephemeral_00.out
+ok 188834 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.003369 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/example_00.in /tmp/tmpdmwd1yy_/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] half_rot_killer2_00
+[INFO] time: 0.102654 sec
+[INFO] memory: 108.504000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer2_00.in /tmp/tmpyim3b12p/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer2_00.out
+ok 0 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] half_rot_killer_00
+[INFO] time: 0.108021 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer_00.in /tmp/tmpj9bzm5f0/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer_00.out
+ok 293079 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.152560 sec
+[INFO] memory: 108.824000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_00.in /tmp/tmpsskxto9p/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_00.out
+ok 169941 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.204594 sec
+[INFO] memory: 109.796000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_01.in /tmp/tmppmssc8tr/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_01.out
+ok 202711 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.016553 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_02.in /tmp/tmp2jzru6n0/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_02.out
+ok 23305 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_2_00
+[INFO] time: 0.155541 sec
+[INFO] memory: 108.908000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_00.in /tmp/tmpedmsx_g8/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_00.out
+ok 114492 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_2_01
+[INFO] time: 0.199279 sec
+[INFO] memory: 109.780000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_01.in /tmp/tmp40rho8py/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_01.out
+ok 136670 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_2_02
+[INFO] time: 0.017687 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_02.in /tmp/tmprw4a228x/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_02.out
+ok 15763 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_3_00
+[INFO] time: 0.103684 sec
+[INFO] memory: 109.292000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_00.in /tmp/tmpq2_i498m/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_00.out
+ok 116783 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_3_01
+[INFO] time: 0.131700 sec
+[INFO] memory: 109.960000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_01.in /tmp/tmps5o39zvd/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_01.out
+ok 139154 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_3_02
+[INFO] time: 0.016384 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_02.in /tmp/tmpkga7yibv/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_02.out
+ok 16086 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] two_stacks_killer_00
+[INFO] time: 0.119496 sec
+[INFO] memory: 110.884000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/two_stacks_killer_00.in /tmp/tmpy7ngy3ng/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/two_stacks_killer_00.out
+ok 166666 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.204594 sec  (for random_01)
+[INFO] max memory: 110.884000 MB  (for two_stacks_killer_00)
+[SUCCESS] test success: 14 cases
+::endgroup::
+::group::verify/data-structure/persistent-array.test.cpp measurement 2/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 14 cases found
+
+[INFO] ephemeral_00
+[INFO] time: 0.095694 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/ephemeral_00.in /tmp/tmpoyvvk8dw/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/ephemeral_00.out
+ok 188834 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.003196 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/example_00.in /tmp/tmpyeu5acs3/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] half_rot_killer2_00
+[INFO] time: 0.085601 sec
+[INFO] memory: 107.864000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer2_00.in /tmp/tmpi7ceyelo/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer2_00.out
+ok 0 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] half_rot_killer_00
+[INFO] time: 0.102670 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer_00.in /tmp/tmpjqzrr3ih/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer_00.out
+ok 293079 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.153386 sec
+[INFO] memory: 108.096000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_00.in /tmp/tmpini4akac/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_00.out
+ok 169941 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.194196 sec
+[INFO] memory: 109.740000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_01.in /tmp/tmpmac1brm0/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_01.out
+ok 202711 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.017137 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_02.in /tmp/tmpbwdqoh3s/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_02.out
+ok 23305 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_2_00
+[INFO] time: 0.169445 sec
+[INFO] memory: 108.956000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_00.in /tmp/tmpsbwd_f5u/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_00.out
+ok 114492 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_2_01
+[INFO] time: 0.195874 sec
+[INFO] memory: 109.476000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_01.in /tmp/tmpynsqz0br/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_01.out
+ok 136670 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_2_02
+[INFO] time: 0.017446 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_02.in /tmp/tmpqnoo80ub/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_02.out
+ok 15763 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_3_00
+[INFO] time: 0.105311 sec
+[INFO] memory: 108.640000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_00.in /tmp/tmpthanzyug/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_00.out
+ok 116783 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_3_01
+[INFO] time: 0.139553 sec
+[INFO] memory: 110.368000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_01.in /tmp/tmpgv1sgiat/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_01.out
+ok 139154 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_3_02
+[INFO] time: 0.016036 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_02.in /tmp/tmpnx0me54v/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_02.out
+ok 16086 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] two_stacks_killer_00
+[INFO] time: 0.120198 sec
+[INFO] memory: 109.252000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/two_stacks_killer_00.in /tmp/tmp66ql12pj/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/two_stacks_killer_00.out
+ok 166666 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.195874 sec  (for random_2_01)
+[INFO] max memory: 110.368000 MB  (for random_3_01)
+[SUCCESS] test success: 14 cases
+::endgroup::
+::group::verify/data-structure/persistent-array.test.cpp measurement 3/3
+[INFO] online-judge-tools 11.5.1 (+ online-judge-api-client 10.10.1)
+[INFO] 14 cases found
+
+[INFO] ephemeral_00
+[INFO] time: 0.093137 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/ephemeral_00.in /tmp/tmpl_v1a1bf/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/ephemeral_00.out
+ok 188834 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] example_00
+[INFO] time: 0.003573 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/example_00.in /tmp/tmp9gjit5h_/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/example_00.out
+ok 3 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] half_rot_killer2_00
+[INFO] time: 0.087954 sec
+[INFO] memory: 109.008000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer2_00.in /tmp/tmp66ql_r_7/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer2_00.out
+ok 0 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] half_rot_killer_00
+[INFO] time: 0.102883 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer_00.in /tmp/tmpb5l18ecr/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/half_rot_killer_00.out
+ok 293079 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_00
+[INFO] time: 0.165244 sec
+[INFO] memory: 109.848000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_00.in /tmp/tmpb4fx6y3i/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_00.out
+ok 169941 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_01
+[INFO] time: 0.193940 sec
+[INFO] memory: 110.552000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_01.in /tmp/tmpowpzyj2o/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_01.out
+ok 202711 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_02
+[INFO] time: 0.016919 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_02.in /tmp/tmpb73iu5nf/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_02.out
+ok 23305 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_2_00
+[INFO] time: 0.164867 sec
+[INFO] memory: 109.936000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_00.in /tmp/tmph7gp_x9n/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_00.out
+ok 114492 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_2_01
+[INFO] time: 0.224284 sec
+[INFO] memory: 109.748000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_01.in /tmp/tmpjz7bbndo/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_01.out
+ok 136670 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_2_02
+[INFO] time: 0.019362 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_02.in /tmp/tmpufez2k34/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_2_02.out
+ok 15763 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_3_00
+[INFO] time: 0.103358 sec
+[INFO] memory: 108.648000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_00.in /tmp/tmp1avkj5p9/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_00.out
+ok 116783 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_3_01
+[INFO] time: 0.142307 sec
+[INFO] memory: 110.276000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_01.in /tmp/tmp5oae0yc9/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_01.out
+ok 139154 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] random_3_02
+[INFO] time: 0.015782 sec
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_02.in /tmp/tmp9qt7tf15/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/random_3_02.out
+ok 16086 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] two_stacks_killer_00
+[INFO] time: 0.119853 sec
+[INFO] memory: 110.712000 MB
+[INFO] $ /home/blueberry/.cache/online-judge-tools/library-checker-problems/data_structure/persistent_queue/checker /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/two_stacks_killer_00.in /tmp/tmp_b86xouk/actual.out /home/blueberry/lib/Blueberry-library/.build/persistent-uf-pair-release/.verify-helper/cache/af660e28adf846ef01fcd9ad330a94df/test/two_stacks_killer_00.out
+ok 166666 tokens
+judge's output:
+(empty)
+[SUCCESS] AC
+
+[INFO] slowest: 0.224284 sec  (for random_2_01)
+[INFO] max memory: 110.712000 MB  (for two_stacks_killer_00)
+[SUCCESS] test success: 14 cases
+::endgroup::
+INFO:onlinejudge_verify.verify:all tests succeeded
+# Verification timings
+
+Commit: 97aa84673d34421262140d3fb8311b09219aa82b / UTC: 2026-11-18T06:29:41.536780+00:00
+Baseline: なし（初回）
+
+単位は秒。直列実行・各ケースの solution elapsed 合計の中央値。コンパイル・DL・checkerは合計から除外。
+プロセス起動とI/Oは含みます。Yosupo提出画面の時間ではありません。共有runnerの小さな差は誤差として扱ってください。
+
+| Verify / 環境番号 | 状態 | コンパイル | 実行合計（中央値） | 最大ケース（中央値） | 基準との差 |
+| --- | --- | ---: | ---: | ---: | --- |
+| verify/data-structure/online-persistent-unionfind.test.cpp / 0 | passed | 0.957198 s | 1.512356 s | 0.180952 s | 初回（基準なし） |
+| verify/data-structure/persistent-array.test.cpp / 0 | passed | 0.775229 s | 1.436079 s | 0.204594 s | 初回（基準なし） |
+
+## Environment
+
+~~~json
+{
+  "cpu": "Intel(R) Core(TM) i7-14650HX",
+  "os": "Linux-5.15.167.4-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "python": "3.12.3",
+  "tools": {
+    "online-judge-verify-helper": "5.6.0",
+    "online-judge-tools": "11.5.1",
+    "online-judge-api-client": "10.10.1"
+  },
+  "method": "oj-elapsed-log-v1",
+  "recorder_sha256": "7f0209de9354fc42b61b3c31df5bc1bf5534c61d4fe0e57324ec016baafaaf02",
+  "jobs": 1,
+  "tle_seconds": 60
+}
+~~~
+
