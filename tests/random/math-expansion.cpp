@@ -115,6 +115,7 @@ int main(int argc, char** argv) {
       {numeric_limits<u64>::max(), {3, 5, 17, 257, 641, 65537, 6700417}},
       {u64(1) << 63, vector<u64>(63, 2)},
       {18446744030759878681ULL, {4294967291ULL, 4294967291ULL}},
+      {18446743979220271189ULL, {4294967279ULL, 4294967291ULL}},
       {1000000016000000063ULL, {1000000007, 1000000009}}};
   for (const auto& [n, expected] : large)
     check(blueberry::factorize(n) == expected, "uint64 boundary factorization");

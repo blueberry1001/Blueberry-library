@@ -96,6 +96,9 @@ auto factors = blueberry::factorize(1'000'000'016'000'000'063ULL);
   独立に実装しました。外部ソースは転記していません。Montgomeryや2系列同時更新は採用せず、
   全uint64に対応する128bit剰余積と試行予算を使います。
 
+- rhoの更新は剰余積に定数を加えるとき、`n-c` を使った条件付き加減算で `uint64_t` 全域のoverflowを避け、2回目の128bit剰余を省きます。
+- 2026-11-17のWSL上で、大きな合成数8入力を各100回分解した旧版・新版の順で各5回実行した中央値はGCC 13.3で0.549秒から0.344秒、Clang 18.1で0.519秒から0.326秒でした（`-O3 -DNDEBUG`）。分解全体を測定し、入出力は含めません。入力依存であり、最速実装との同条件比較ではありません。再現用ソース・旧実装・生ログは `benchmark/factorize-rho*` と `benchmark/results/factorize-rho-20261117.log` に保存しています。
+
 - 公式問題: [Primality Test](https://judge.yosupo.jp/problem/primality_test)、
   [Factorize](https://judge.yosupo.jp/problem/factorize)。公式上限は $10^{18}$ なので、
   最大uint64近傍・平方・強擬素数を追加テストで補います。

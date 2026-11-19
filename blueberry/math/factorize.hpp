@@ -23,7 +23,6 @@ inline u64 pow_mod(u64 a, u64 exponent, u64 mod) {
   return result;
 }
 
-// Local SplitMix64 state: deterministic restarts without changing global RNG state.
 inline u64 next_random(u64& state) {
   u64 z = (state += 0x9e3779b97f4a7c15ULL);
   z = (z ^ (z >> 30)) * 0xbf58476d1ce4e5b9ULL;
@@ -39,8 +38,8 @@ inline u64 find_factor(u64 n) {
     const u64 c = next_random(state) % (n - 1) + 1;
     u64 y = next_random(state) % (n - 1) + 1;
     auto advance = [&](u64 x) {
-      // Reduce the product first: x*x+c can overflow even unsigned __int128.
-      return static_cast<u64>((static_cast<unsigned __int128>(mul_mod(x, x, n)) + c) % n);
+      const u64 square = mul_mod(x, x, n);
+      return square >= n - c ? square - (n - c) : square + c;
     };
     auto difference = [](u64 x, u64 z) { return x > z ? x - z : z - x; };
     u64 g = 1, x = 0, saved = 0;
@@ -60,7 +59,6 @@ inline u64 find_factor(u64 n) {
       }
     }
     if (g == n) {
-      // Recover the first nontrivial gcd hidden by a zero product modulo n.
       do {
         saved = advance(saved);
         g = std::gcd(difference(x, saved), n);
@@ -68,13 +66,11 @@ inline u64 find_factor(u64 n) {
       } while (g == 1 && used < budget);
     }
     if (g > 1 && g < n) return g;
-    // A bounded unsuccessful walk starts again with fresh c and y.
   }
 }
 
-}  // namespace factorize_detail
+}
 
-// Deterministic Miller--Rabin for the complete uint64_t range.
 inline bool is_prime(std::uint64_t n) {
   if (n < 2) return false;
   for (std::uint64_t p : {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37})
@@ -98,7 +94,6 @@ inline bool is_prime(std::uint64_t n) {
   return true;
 }
 
-// n >= 1. Returns all prime factors, with multiplicity, in ascending order.
 inline std::vector<std::uint64_t> factorize(std::uint64_t n) {
   assert(n >= 1);
   std::vector<std::uint64_t> result;
@@ -121,4 +116,4 @@ inline std::vector<std::uint64_t> factorize(std::uint64_t n) {
   return result;
 }
 
-}  // namespace blueberry
+}
