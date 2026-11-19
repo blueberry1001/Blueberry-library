@@ -8,11 +8,11 @@
 #include <tuple>
 #include <string_view>
 #include <type_traits>
+#include <utility>
 #include <vector>
 
 namespace blueberry {
 
-// Online construction. Occurrence counts are rebuilt lazily after append.
 template <class Symbol = char>
 class SuffixAutomaton {
   struct State {
@@ -64,13 +64,13 @@ class SuffixAutomaton {
     int current = static_cast<int>(states_.size());
     states_.push_back({{}, 0, n_ + 1, n_, false});
     ++n_;
-    int p = last_;
-    while (p != -1 && !states_[p].next.contains(symbol)) {
-      states_[p].next.emplace(symbol, current);
+    int p = last_, q = -1;
+    while (p != -1) {
+      auto [it, inserted] = states_[p].next.try_emplace(symbol, current);
+      if (!inserted) { q = it->second; break; }
       p = states_[p].link;
     }
     if (p != -1) {
-      int q = states_[p].next.find(symbol)->second;
       if (states_[q].length == states_[p].length + 1) {
         states_[current].link = q;
       } else {
@@ -78,7 +78,7 @@ class SuffixAutomaton {
         copied.length = states_[p].length + 1;
         copied.clone = true;
         int clone = static_cast<int>(states_.size());
-        states_.push_back(copied);
+        states_.push_back(std::move(copied));
         while (p != -1) {
           auto found = states_[p].next.find(symbol);
           if (found == states_[p].next.end() || found->second != q) break;
@@ -107,7 +107,6 @@ class SuffixAutomaton {
   std::tuple<int, int, int> longest_common_substring(std::basic_string_view<Symbol> other) const {
     return longest_common_substring<std::basic_string_view<Symbol>>(other);
   }
-  // Returns (start in original text, start in other, length).
   template <class Range> requires (std::ranges::input_range<const Range> && !std::is_array_v<Range>)
   std::tuple<int, int, int> longest_common_substring(const Range& other) const {
     int state = 0, length = 0, position = 0, best = 0, first = 0, second = 0;
@@ -130,5 +129,5 @@ class SuffixAutomaton {
   }
 };
 
-}  // namespace blueberry
+}
 

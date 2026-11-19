@@ -1,0 +1,7 @@
+--- baseline.hpp
++++ clone.hpp
+@@ -10,0 +11 @@
++#include <utility>
+@@ -81 +82 @@
+-        states_.push_back(copied);
++        states_.push_back(std::move(copied));
